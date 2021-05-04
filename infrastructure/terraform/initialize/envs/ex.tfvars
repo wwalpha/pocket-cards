@@ -1,0 +1,7 @@
+project_name        = "pocket-cards"
+slack_url           = "https://hooks.slack.com/services/xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+translation_api_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+ipa_api_key         = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+github_repo         = "pocket-cards-terraform"
+github_owner        = "wwalpha"
+github_branch       = "master"

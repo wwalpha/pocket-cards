@@ -1,0 +1,26 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "codedeploy:CreateDeployment",
+        "codedeploy:CreateDeploymentGroup",
+        "codedeploy:Get*",
+        "codedeploy:RegisterApplicationRevision",
+        "iam:CreateRole",
+        "iam:PutRolePolicy",
+        "iam:List*",
+        "iam:PassRole",
+        "iam:GetRole",
+        "iam:DeleteRole",
+        "iam:DeleteRolePolicy",
+        "iam:CreatePolicy",
+        "iam:GetRolePolicy",
+        "iam:AttachRolePolicy",
+        "lambda:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
