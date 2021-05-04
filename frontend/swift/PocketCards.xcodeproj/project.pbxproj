@@ -1,0 +1,549 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9AFDC04526413E7800FA31AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AFDC04426413E7800FA31AD /* Assets.xcassets */; };
+		9AFDC04826413E7800FA31AD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AFDC04726413E7800FA31AD /* Preview Assets.xcassets */; };
+		9AFDC05026413F0800FA31AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC04F26413F0800FA31AD /* SceneDelegate.swift */; };
+		9AFDC05626413F5600FA31AD /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC05326413F5600FA31AD /* AppState.swift */; };
+		9AFDC05726413F5600FA31AD /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC05426413F5600FA31AD /* Folder.swift */; };
+		9AFDC05826413F5600FA31AD /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC05526413F5600FA31AD /* Word.swift */; };
+		9AFDC07726413F6A00FA31AD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC05B26413F6A00FA31AD /* SettingsView.swift */; };
+		9AFDC07826413F6A00FA31AD /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC05C26413F6A00FA31AD /* SettingsInteractor.swift */; };
+		9AFDC07926413F6A00FA31AD /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC05D26413F6A00FA31AD /* SettingsPresenter.swift */; };
+		9AFDC07A26413F6A00FA31AD /* StudyHomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06026413F6A00FA31AD /* StudyHomePresenter.swift */; };
+		9AFDC07B26413F6A00FA31AD /* StudyHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06126413F6A00FA31AD /* StudyHomeRouter.swift */; };
+		9AFDC07C26413F6A00FA31AD /* StudyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06226413F6A00FA31AD /* StudyHomeView.swift */; };
+		9AFDC07D26413F6A00FA31AD /* StudyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06426413F6A00FA31AD /* StudyCardView.swift */; };
+		9AFDC07E26413F6A00FA31AD /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06626413F6A00FA31AD /* HomeTabView.swift */; };
+		9AFDC07F26413F6A00FA31AD /* FolderItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06826413F6A00FA31AD /* FolderItemView.swift */; };
+		9AFDC08026413F6A00FA31AD /* FolderListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06A26413F6A00FA31AD /* FolderListRouter.swift */; };
+		9AFDC08126413F6A00FA31AD /* FolderListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06B26413F6A00FA31AD /* FolderListPresenter.swift */; };
+		9AFDC08226413F6A00FA31AD /* FolderListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06C26413F6A00FA31AD /* FolderListView.swift */; };
+		9AFDC08326413F6A00FA31AD /* FolderListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06D26413F6A00FA31AD /* FolderListInteractor.swift */; };
+		9AFDC08426413F6A00FA31AD /* FolderRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC06E26413F6A00FA31AD /* FolderRowView.swift */; };
+		9AFDC08526413F6A00FA31AD /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC07026413F6A00FA31AD /* RootView.swift */; };
+		9AFDC08626413F6A00FA31AD /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC07226413F6A00FA31AD /* LoginView.swift */; };
+		9AFDC08726413F6A00FA31AD /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC07326413F6A00FA31AD /* LoginPresenter.swift */; };
+		9AFDC08826413F6A00FA31AD /* StudyRegistHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC07626413F6A00FA31AD /* StudyRegistHomeView.swift */; };
+		9AFDC08B26413F7200FA31AD /* FlippingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC08A26413F7200FA31AD /* FlippingView.swift */; };
+		9AFDC08D26413F7700FA31AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFDC08C26413F7700FA31AD /* AppDelegate.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9AFDC03D26413E7700FA31AD /* PocketCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AFDC04426413E7800FA31AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9AFDC04726413E7800FA31AD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9AFDC04926413E7800FA31AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9AFDC04F26413F0800FA31AD /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		9AFDC05326413F5600FA31AD /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		9AFDC05426413F5600FA31AD /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		9AFDC05526413F5600FA31AD /* Word.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		9AFDC05B26413F6A00FA31AD /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9AFDC05C26413F6A00FA31AD /* SettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		9AFDC05D26413F6A00FA31AD /* SettingsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		9AFDC06026413F6A00FA31AD /* StudyHomePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyHomePresenter.swift; sourceTree = "<group>"; };
+		9AFDC06126413F6A00FA31AD /* StudyHomeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyHomeRouter.swift; sourceTree = "<group>"; };
+		9AFDC06226413F6A00FA31AD /* StudyHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyHomeView.swift; sourceTree = "<group>"; };
+		9AFDC06426413F6A00FA31AD /* StudyCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyCardView.swift; sourceTree = "<group>"; };
+		9AFDC06626413F6A00FA31AD /* HomeTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
+		9AFDC06826413F6A00FA31AD /* FolderItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderItemView.swift; sourceTree = "<group>"; };
+		9AFDC06A26413F6A00FA31AD /* FolderListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderListRouter.swift; sourceTree = "<group>"; };
+		9AFDC06B26413F6A00FA31AD /* FolderListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderListPresenter.swift; sourceTree = "<group>"; };
+		9AFDC06C26413F6A00FA31AD /* FolderListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderListView.swift; sourceTree = "<group>"; };
+		9AFDC06D26413F6A00FA31AD /* FolderListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderListInteractor.swift; sourceTree = "<group>"; };
+		9AFDC06E26413F6A00FA31AD /* FolderRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderRowView.swift; sourceTree = "<group>"; };
+		9AFDC07026413F6A00FA31AD /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		9AFDC07226413F6A00FA31AD /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		9AFDC07326413F6A00FA31AD /* LoginPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		9AFDC07626413F6A00FA31AD /* StudyRegistHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyRegistHomeView.swift; sourceTree = "<group>"; };
+		9AFDC08A26413F7200FA31AD /* FlippingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlippingView.swift; sourceTree = "<group>"; };
+		9AFDC08C26413F7700FA31AD /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9AFDC03A26413E7700FA31AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9AFDC03426413E7700FA31AD = {
+			isa = PBXGroup;
+			children = (
+				9AFDC03F26413E7700FA31AD /* PocketCards */,
+				9AFDC03E26413E7700FA31AD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9AFDC03E26413E7700FA31AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC03D26413E7700FA31AD /* PocketCards.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9AFDC03F26413E7700FA31AD /* PocketCards */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC08C26413F7700FA31AD /* AppDelegate.swift */,
+				9AFDC04F26413F0800FA31AD /* SceneDelegate.swift */,
+				9AFDC08926413F7200FA31AD /* Components */,
+				9AFDC05926413F6A00FA31AD /* Scenes */,
+				9AFDC05226413F5600FA31AD /* Entities */,
+				9AFDC04426413E7800FA31AD /* Assets.xcassets */,
+				9AFDC04926413E7800FA31AD /* Info.plist */,
+				9AFDC04626413E7800FA31AD /* Preview Content */,
+			);
+			path = PocketCards;
+			sourceTree = "<group>";
+		};
+		9AFDC04626413E7800FA31AD /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC04726413E7800FA31AD /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9AFDC05226413F5600FA31AD /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC05326413F5600FA31AD /* AppState.swift */,
+				9AFDC05426413F5600FA31AD /* Folder.swift */,
+				9AFDC05526413F5600FA31AD /* Word.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		9AFDC05926413F6A00FA31AD /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC08E2641439100FA31AD /* Folder */,
+				9AFDC05A26413F6A00FA31AD /* Settings */,
+				9AFDC05E26413F6A00FA31AD /* Study */,
+				9AFDC06526413F6A00FA31AD /* HomeTab */,
+				9AFDC06F26413F6A00FA31AD /* Root */,
+				9AFDC07126413F6A00FA31AD /* Login */,
+				9AFDC07426413F6A00FA31AD /* StudyRegist */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		9AFDC05A26413F6A00FA31AD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC05B26413F6A00FA31AD /* SettingsView.swift */,
+				9AFDC05C26413F6A00FA31AD /* SettingsInteractor.swift */,
+				9AFDC05D26413F6A00FA31AD /* SettingsPresenter.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		9AFDC05E26413F6A00FA31AD /* Study */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC05F26413F6A00FA31AD /* Home */,
+				9AFDC06326413F6A00FA31AD /* Card */,
+			);
+			path = Study;
+			sourceTree = "<group>";
+		};
+		9AFDC05F26413F6A00FA31AD /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC06026413F6A00FA31AD /* StudyHomePresenter.swift */,
+				9AFDC06126413F6A00FA31AD /* StudyHomeRouter.swift */,
+				9AFDC06226413F6A00FA31AD /* StudyHomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		9AFDC06326413F6A00FA31AD /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC06426413F6A00FA31AD /* StudyCardView.swift */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		9AFDC06526413F6A00FA31AD /* HomeTab */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC06626413F6A00FA31AD /* HomeTabView.swift */,
+			);
+			path = HomeTab;
+			sourceTree = "<group>";
+		};
+		9AFDC06F26413F6A00FA31AD /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC07026413F6A00FA31AD /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		9AFDC07126413F6A00FA31AD /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC07226413F6A00FA31AD /* LoginView.swift */,
+				9AFDC07326413F6A00FA31AD /* LoginPresenter.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		9AFDC07426413F6A00FA31AD /* StudyRegist */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC07526413F6A00FA31AD /* Home */,
+			);
+			path = StudyRegist;
+			sourceTree = "<group>";
+		};
+		9AFDC07526413F6A00FA31AD /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC07626413F6A00FA31AD /* StudyRegistHomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		9AFDC08926413F7200FA31AD /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC06826413F6A00FA31AD /* FolderItemView.swift */,
+				9AFDC08A26413F7200FA31AD /* FlippingView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9AFDC08E2641439100FA31AD /* Folder */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC091264143A600FA31AD /* Update */,
+				9AFDC090264143A000FA31AD /* Regist */,
+				9AFDC08F2641439800FA31AD /* List */,
+			);
+			path = Folder;
+			sourceTree = "<group>";
+		};
+		9AFDC08F2641439800FA31AD /* List */ = {
+			isa = PBXGroup;
+			children = (
+				9AFDC06A26413F6A00FA31AD /* FolderListRouter.swift */,
+				9AFDC06B26413F6A00FA31AD /* FolderListPresenter.swift */,
+				9AFDC06C26413F6A00FA31AD /* FolderListView.swift */,
+				9AFDC06D26413F6A00FA31AD /* FolderListInteractor.swift */,
+				9AFDC06E26413F6A00FA31AD /* FolderRowView.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		9AFDC090264143A000FA31AD /* Regist */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Regist;
+			sourceTree = "<group>";
+		};
+		9AFDC091264143A600FA31AD /* Update */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Update;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9AFDC03C26413E7700FA31AD /* PocketCards */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AFDC04C26413E7800FA31AD /* Build configuration list for PBXNativeTarget "PocketCards" */;
+			buildPhases = (
+				9AFDC03926413E7700FA31AD /* Sources */,
+				9AFDC03A26413E7700FA31AD /* Frameworks */,
+				9AFDC03B26413E7700FA31AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PocketCards;
+			productName = PocketCards;
+			productReference = 9AFDC03D26413E7700FA31AD /* PocketCards.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9AFDC03526413E7700FA31AD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					9AFDC03C26413E7700FA31AD = {
+						CreatedOnToolsVersion = 12.5;
+					};
+				};
+			};
+			buildConfigurationList = 9AFDC03826413E7700FA31AD /* Build configuration list for PBXProject "PocketCards" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9AFDC03426413E7700FA31AD;
+			productRefGroup = 9AFDC03E26413E7700FA31AD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9AFDC03C26413E7700FA31AD /* PocketCards */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9AFDC03B26413E7700FA31AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AFDC04826413E7800FA31AD /* Preview Assets.xcassets in Resources */,
+				9AFDC04526413E7800FA31AD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9AFDC03926413E7700FA31AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AFDC07726413F6A00FA31AD /* SettingsView.swift in Sources */,
+				9AFDC07B26413F6A00FA31AD /* StudyHomeRouter.swift in Sources */,
+				9AFDC08726413F6A00FA31AD /* LoginPresenter.swift in Sources */,
+				9AFDC08326413F6A00FA31AD /* FolderListInteractor.swift in Sources */,
+				9AFDC05726413F5600FA31AD /* Folder.swift in Sources */,
+				9AFDC07F26413F6A00FA31AD /* FolderItemView.swift in Sources */,
+				9AFDC08826413F6A00FA31AD /* StudyRegistHomeView.swift in Sources */,
+				9AFDC08D26413F7700FA31AD /* AppDelegate.swift in Sources */,
+				9AFDC07A26413F6A00FA31AD /* StudyHomePresenter.swift in Sources */,
+				9AFDC08626413F6A00FA31AD /* LoginView.swift in Sources */,
+				9AFDC05026413F0800FA31AD /* SceneDelegate.swift in Sources */,
+				9AFDC07926413F6A00FA31AD /* SettingsPresenter.swift in Sources */,
+				9AFDC08126413F6A00FA31AD /* FolderListPresenter.swift in Sources */,
+				9AFDC08526413F6A00FA31AD /* RootView.swift in Sources */,
+				9AFDC05626413F5600FA31AD /* AppState.swift in Sources */,
+				9AFDC08026413F6A00FA31AD /* FolderListRouter.swift in Sources */,
+				9AFDC08426413F6A00FA31AD /* FolderRowView.swift in Sources */,
+				9AFDC08226413F6A00FA31AD /* FolderListView.swift in Sources */,
+				9AFDC08B26413F7200FA31AD /* FlippingView.swift in Sources */,
+				9AFDC05826413F5600FA31AD /* Word.swift in Sources */,
+				9AFDC07826413F6A00FA31AD /* SettingsInteractor.swift in Sources */,
+				9AFDC07E26413F6A00FA31AD /* HomeTabView.swift in Sources */,
+				9AFDC07C26413F6A00FA31AD /* StudyHomeView.swift in Sources */,
+				9AFDC07D26413F6A00FA31AD /* StudyCardView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9AFDC04A26413E7800FA31AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9AFDC04B26413E7800FA31AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9AFDC04D26413E7800FA31AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PocketCards/Preview Content\"";
+				DEVELOPMENT_TEAM = 2JDRC7FU6F;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = PocketCards/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alpha.app.PocketCards;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9AFDC04E26413E7800FA31AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PocketCards/Preview Content\"";
+				DEVELOPMENT_TEAM = 2JDRC7FU6F;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = PocketCards/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alpha.app.PocketCards;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9AFDC03826413E7700FA31AD /* Build configuration list for PBXProject "PocketCards" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AFDC04A26413E7800FA31AD /* Debug */,
+				9AFDC04B26413E7800FA31AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9AFDC04C26413E7800FA31AD /* Build configuration list for PBXNativeTarget "PocketCards" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AFDC04D26413E7800FA31AD /* Debug */,
+				9AFDC04E26413E7800FA31AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9AFDC03526413E7700FA31AD /* Project object */;
+}
