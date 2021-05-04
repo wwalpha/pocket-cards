@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  S002:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../../../build/S0_S002/
+      Handler: index.handler
+      Runtime: nodejs10.x
+      Environment:
+        Variables:
+          TABLE_USERS: PocketCards_Users
+          FUNCTION_NAME: PocketCards-S003
+          FUNCTION_QUALIFIER: dev
+          TZ: Asia/Tokyo

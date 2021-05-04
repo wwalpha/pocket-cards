@@ -1,0 +1,10 @@
+/**/node_modules
+/build
+/dist
+/**/yarn.lock
+/.nyc_output
+.terraform
+/.vscode
+.env.credentials
+/coverage
+
