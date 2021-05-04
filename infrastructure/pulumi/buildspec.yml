@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      # pulumi
+      - curl -fsSL https://get.pulumi.com/ | sh
+      - export PATH=$PATH:$HOME/.pulumi/bin
+      # yarn
+      - npm i -g yarn
+      - yarn install
+  pre_build:
+    commands:
+      - cd $CODEBUILD_SRC_DIR/stacks/initial
+      - ln -s ../../typings typings
+      - cd $CODEBUILD_SRC_DIR/stacks/architecture
+      - ln -s ../../typings typings
+  build:
+    commands:
+      - ls -l $CODEBUILD_SRC_DIR/stacks/initial
+      - pwd
+      - cd $CODEBUILD_SRC_DIR
+      - pulumi up -e -y -p 100 --skip-preview -C ./stacks/initial -s $ENVIRONMENT-initial --config-file ../configs/$ENVIRONMENT/initial.yaml
+      - pulumi up -e -y -p 100 --skip-preview -C ./stacks/architecture -s $ENVIRONMENT-architecture

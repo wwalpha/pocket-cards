@@ -1,0 +1,23 @@
+config:
+  aws:region: ap-northeast-1
+  pulumi:template: aws-typescript
+  pocket-cards:GITHUB_WEBHOOK_SECRET:
+    secure: AAABAF9s9UwXV+DYDF9/sbHwiLea+TGKbcZaQtw4qdBDyFuobTzuKAAXnj2KSVzUl28cuzVJIKTg6FA5/s0V2gHoMqNvjN7w
+  pocket-cards:GOOGLE_APP_CLIENT_ID:
+    secure: AAABADlDz7owM5z/0kyEt1uT3GXNV3YT6lmlhlvp6xbAKHKdJ4VItUkcL+gxn/93bQhITKH4XY9XG+7UFfL24maIV9bcmsVjjesM88C9z4BghUp9aio8u4D7FbMvXigyXewo87V29Q==
+  pocket-cards:GOOGLE_APP_SECRET:
+    secure: AAABANaoIhveY5pXDFi49vAOb9g+BIyez5kw8mSDhmFDIGKurnonsOTLVOn3xEB3GGJlV0n/4ZE=
+  pocket-cards:IPA_API_KEY:
+    secure: AAABAOCym/mMDiMR5BlxAjk03g5Mi5CSAjQOrWvqDVv+ZUwlZOaXeANqB21jnLqLGGV8O/6iebh+DZnH56cHqPMjQf/ARDNE
+  pocket-cards:IPA_URL:
+    secure: AAABABP/OGFY1Fu9c/GETBAhRKGmG8qZPVPlgE+qTnPwF2wsZgptMl8Nd+Ro3ygQke7qGWnWLrF94F3rc9R5o8afyr0eRtI5nyL7oO0Ma1EVdb6TABtO37nq2yEfMw==
+  pocket-cards:PULUMI_ACCESS_TOKEN:
+    secure: AAABAMG2f6JJJkXgzl0+h43guwPgT2+tpqX+YzTOK5BV41x97agopeSLa0EFfkT2pueBNy00aqp0lg+bb5RMzB89xgPQPP6pXT044Q==
+  pocket-cards:TRANSLATION_API_KEY:
+    secure: AAABAAV75joJmVMPptIvtyXdSYyv4Yi2brhY9IyUEXNyofAZdOBhQMAXeCN3dNcoXXgQJX6U6PahjZCIK9C1tAwxXPKKyhs=
+  pocket-cards:TRANSLATION_URL:
+    secure: AAABAAQzzyb1fZrDmb0et7bEhL5+kui0gvUIFZ2eySK/t63MA2xlV+lAnyxPkBJ3jLB/Hky3AmNjHHG9lwDRg13aP94PP6t+m3+fcuyjwaGxbelqq6ZEfg==
+  pocket-cards:VISION_API_KEY:
+    secure: AAABADUYFu6J+e4BU7sMyoBab0S9YQRKIAv20d2ayDiVMQ4oe0edoYRvoNErmXA78saGXJmOw9qTvB7GcK3uaAi0610VRjE=
+  pocket-cards:VISION_URL:
+    secure: AAABAHYVbdTVzpHTZGt/16rd8bHL/i9Yo7jvmE2mHUcTf2h6Vp7S5bVNStn5vobR1QUkCiQqB5UJwUWln3xnKwOBRNyjZ+fC
