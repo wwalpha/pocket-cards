@@ -1,4 +1,5 @@
 {
+  "version": "1.0.0",
   "scripts": {
     "dev": "ts-node -r dotenv/config configs/server.ts",
     "prod": "ts-node -r dotenv/config configs/server.ts dotenv_config_path=./configs/env/prod",
