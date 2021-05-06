@@ -4,3 +4,4 @@ yarn.lock
 /initialize/build
 /initialize/dist
 /.vscode
+.terraform.lock.hcl
