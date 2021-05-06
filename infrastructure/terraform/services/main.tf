@@ -2,7 +2,7 @@
 # AWS Provider
 # ----------------------------------------------------------------------------------------------
 provider "aws" {
-  region = "ap-northeast-1"
+  region = var.region
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -17,25 +17,28 @@ provider "aws" {
 # Terraform Settings
 # ----------------------------------------------------------------------------------------------
 terraform {
-  backend "s3" {
-    bucket = "terraform-workspaces-0506"
-    region = "ap-northeast-1"
-    key    = "pocket-cards/services.tfstate"
-  }
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "wwalpha"
 
-  required_version = ">= 0.15"
+    workspaces {
+      prefix = "pocket-cards-services-"
+    }
+  }
 }
 
 # ----------------------------------------------------------------------------------------------
 # Remote state - Setup
 # ----------------------------------------------------------------------------------------------
 data "terraform_remote_state" "setup" {
-  backend   = "s3"
+  backend   = "remote"
   workspace = terraform.workspace
 
   config = {
-    bucket = "terraform-workspaces-0506"
-    region = "ap-northeast-1"
-    key    = "pocket-cards/setup.tfstate"
+    organization = "wwalpha"
+
+    workspaces = {
+      prefix = "pocket-cards-setup-"
+    }
   }
 }

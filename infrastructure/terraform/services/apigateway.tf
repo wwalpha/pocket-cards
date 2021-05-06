@@ -35,6 +35,7 @@ resource "aws_apigatewayv2_stage" "this" {
 # API Gateway Domain Name
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_domain_name" "this" {
+  depends_on  = [aws_acm_certificate_validation.api]
   domain_name = aws_acm_certificate.api.domain_name
 
   domain_name_configuration {
