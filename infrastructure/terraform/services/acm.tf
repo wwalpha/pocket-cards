@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------------------------------
 resource "aws_acm_certificate" "web" {
   provider          = aws.global
-  domain_name       = "cards.${data.aws_route53_zone.this.name}"
+  domain_name       = "cards.${local.domain_name}"
   validation_method = "DNS"
 
   lifecycle {
@@ -45,7 +45,7 @@ resource "aws_acm_certificate_validation" "web" {
 # AWS Certificate Manager - API
 # -----------------------------------------------------------------------------------------------------
 resource "aws_acm_certificate" "api" {
-  domain_name       = "api.${data.aws_route53_zone.this.name}"
+  domain_name       = "api.${local.domain_name}"
   validation_method = "DNS"
 
   lifecycle {
@@ -79,5 +79,3 @@ resource "aws_acm_certificate_validation" "api" {
   certificate_arn         = aws_acm_certificate.api.arn
   validation_record_fqdns = [for record in aws_route53_record.api_validation : record.fqdn]
 }
-
-

@@ -7,6 +7,53 @@ resource "aws_apigatewayv2_api" "this" {
 }
 
 # ---------------------------------------------------------------------------------------------
+# API Gateway Stage
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_stage" "this" {
+  api_id      = aws_apigatewayv2_api.this.id
+  name        = "$default"
+  auto_deploy = true
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api.arn
+    format = jsonencode(
+      {
+        httpMethod     = "$context.httpMethod"
+        ip             = "$context.identity.sourceIp"
+        protocol       = "$context.protocol"
+        requestId      = "$context.requestId"
+        requestTime    = "$context.requestTime"
+        responseLength = "$context.responseLength"
+        routeKey       = "$context.routeKey"
+        status         = "$context.status"
+      }
+    )
+  }
+}
+
+# ---------------------------------------------------------------------------------------------
+# API Gateway Domain Name
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_domain_name" "this" {
+  domain_name = aws_acm_certificate.api.domain_name
+
+  domain_name_configuration {
+    certificate_arn = aws_acm_certificate.api.arn
+    endpoint_type   = "REGIONAL"
+    security_policy = "TLS_1_2"
+  }
+}
+
+# ---------------------------------------------------------------------------------------------
+# API Gateway Domain API Mapping
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_api_mapping" "this" {
+  api_id      = aws_apigatewayv2_api.this.id
+  domain_name = aws_apigatewayv2_domain_name.this.id
+  stage       = aws_apigatewayv2_stage.this.id
+}
+
+# ---------------------------------------------------------------------------------------------
 # API Gateway VPC Link
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_vpc_link" "this" {
@@ -16,7 +63,7 @@ resource "aws_apigatewayv2_vpc_link" "this" {
 }
 
 # ---------------------------------------------------------------------------------------------
-# API Gateway
+# API Gateway Integration - VPC_LINK
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_integration" "this" {
   api_id             = aws_apigatewayv2_api.this.id
@@ -24,43 +71,20 @@ resource "aws_apigatewayv2_integration" "this" {
   connection_id      = aws_apigatewayv2_vpc_link.this.id
   integration_method = "ANY"
   integration_type   = "HTTP_PROXY"
-  integration_uri    = aws_service_discovery_service.this.arn
+  integration_uri    = aws_lb_listener.this.arn
+  # integration_uri    = aws_service_discovery_service.this.arn
 }
 
-# resource "aws_apigatewayv2_integration" "this" {
-#   api_id           = aws_apigatewayv2_api.example.id
-#   credentials_arn  = aws_iam_role.example.arn
-#   description      = "Example with a load balancer"
-#   integration_type = "HTTP_PROXY"
-#   integration_uri  = aws_lb_listener.example.arn
+# ---------------------------------------------------------------------------------------------
+# API Gateway Route
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_route" "this" {
+  api_id    = aws_apigatewayv2_api.this.id
+  route_key = "ANY /{proxy+}"
 
-#   integration_method = "ANY"
-#   connection_type    = "VPC_LINK"
-#   connection_id      = aws_apigatewayv2_vpc_link.example.id
+  target = "integrations/${aws_apigatewayv2_integration.this.id}"
+}
 
-#   tls_config {
-#     server_name_to_verify = "example.com"
-#   }
-
-#   request_parameters = {
-#     "append:header.authforintegration" = "$context.authorizer.authorizerResponse"
-#     "overwrite:path"                   = "staticValueForIntegration"
-#   }
-
-#   response_parameters {
-#     status_code = 403
-#     mappings = {
-#       "append:header.auth" = "$context.authorizer.authorizerResponse"
-#     }
-#   }
-
-#   response_parameters {
-#     status_code = 200
-#     mappings = {
-#       "overwrite:statuscode" = "204"
-#     }
-#   }
-# }
 
 
 # # ---------------------------------------------------------------------------------------------

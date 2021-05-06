@@ -76,6 +76,7 @@ resource "aws_ecs_service" "this" {
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 100
   health_check_grace_period_seconds  = 0
+  wait_for_steady_state              = false
 
   capacity_provider_strategy {
     base              = 0
@@ -96,6 +97,12 @@ resource "aws_ecs_service" "this" {
     assign_public_ip = true
     subnets          = module.vpc.public_subnets
     security_groups  = [aws_security_group.ecs_default_sg.id]
+  }
+
+  load_balancer {
+    container_name   = "pocket-cards-backend"
+    container_port   = 80
+    target_group_arn = aws_lb_target_group.this.arn
   }
 
   scheduling_strategy = "REPLICA"

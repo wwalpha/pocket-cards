@@ -13,6 +13,7 @@ locals {
   # Project Informations
   # ----------------------------------------------------------------------------------------------
   domain_prefix   = local.is_dev ? "dev." : ""
+  domain_name     = data.aws_route53_zone.this.name
   project_name    = local.remote_setup.project_name
   project_name_uc = local.remote_setup.project_name_uc
 
