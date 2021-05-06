@@ -17,12 +17,12 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # Dynamodb Tables
   # ----------------------------------------------------------------------------------------------
-  dyanmodb_random_id       = random_id.dynamodb.hex
-  dynamodb_name_users      = "${local.project_name_uc}_Users${local.dyanmodb_random_id}"
-  dynamodb_name_groupwords = "${local.project_name_uc}_GroupWords${local.dyanmodb_random_id}"
-  dynamodb_name_userGroups = "${local.project_name_uc}_UserGroups${local.dyanmodb_random_id}"
-  dynamodb_name_words      = "${local.project_name_uc}_Words${local.dyanmodb_random_id}"
-  dynamodb_name_history    = "${local.project_name_uc}_History${local.dyanmodb_random_id}"
+  dyanmodb_random_id        = random_id.dynamodb.hex
+  dynamodb_name_users       = "${local.project_name_uc}_Users${local.dyanmodb_random_id}"
+  dynamodb_name_words       = "${local.project_name_uc}_Words${local.dyanmodb_random_id}"
+  dynamodb_name_groups      = "${local.project_name_uc}_Groups${local.dyanmodb_random_id}"
+  dynamodb_name_word_master = "${local.project_name_uc}_WordMaster${local.dyanmodb_random_id}"
+  dynamodb_name_history     = "${local.project_name_uc}_History${local.dyanmodb_random_id}"
 }
 
 data "aws_region" "this" {}
