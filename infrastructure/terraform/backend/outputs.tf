@@ -25,3 +25,22 @@ output "codedeploy_app_backend_name" {
 output "sns_topic_notify_arn" {
   value = aws_sns_topic.notify.arn
 }
+
+output "cognito_user_pool_name" {
+  value = "${module.cognito.user_pool_name}"
+}
+output "cognito_user_pool_id" {
+  value = "${module.cognito.user_pool_id}"
+}
+output "cognito_user_pool_arn" {
+  value = "${module.cognito.user_pool_arn}"
+}
+output "cognito_user_pool_endpoint" {
+  value = "${module.cognito.user_pool_endpoint}"
+}
+output "cognito_user_pool_web_client_id" {
+  value = "${module.cognito.user_pool_client_id}"
+}
+output "cognito_identity_pool_id" {
+  value = "${module.cognito.identity_pool_id}"
+}
