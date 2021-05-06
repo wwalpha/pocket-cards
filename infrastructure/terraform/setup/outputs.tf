@@ -66,5 +66,6 @@ output "route53_dns_name_servers" {
 # Domain Name
 # ----------------------------------------------------------------------------------------------
 output "domain_name" {
-  value = "${local.domain_prefix}${var.domain_name}"
+  sensitive = true
+  value     = "${local.domain_prefix}${var.domain_name}"
 }
