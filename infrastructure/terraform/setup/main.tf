@@ -1,31 +1,33 @@
 # -----------------------------------------------
 # AWS Provider
 # -----------------------------------------------
-provider "aws" {}
+provider "aws" {
+  region = "ap-northeast-1"
+}
 
 # -----------------------------------------------
 # Terraform Settings
 # -----------------------------------------------
 terraform {
   backend "s3" {
-    bucket = "terraform-workspaces"
+    bucket = "terraform-workspaces-0506"
     region = "ap-northeast-1"
-    key    = "pocket-cards/unmutable.tfstate"
+    key    = "pocket-cards/setup.tfstate"
   }
 
-  required_version = ">= 0.12"
+  required_version = ">= 0.15"
 }
 
 # -----------------------------------------------
 # Remote state - Initialize
 # -----------------------------------------------
-data "terraform_remote_state" "initialize" {
-  backend   = "s3"
-  workspace = "${terraform.workspace}"
+# data "terraform_remote_state" "initialize" {
+#   backend   = "s3"
+#   workspace = "${terraform.workspace}"
 
-  config = {
-    bucket = "terraform-workspaces"
-    region = "ap-northeast-1"
-    key    = "pocket-cards/initialize.tfstate"
-  }
-}
+#   config = {
+#     bucket = "terraform-workspaces"
+#     region = "ap-northeast-1"
+#     key    = "pocket-cards/initialize.tfstate"
+#   }
+# }

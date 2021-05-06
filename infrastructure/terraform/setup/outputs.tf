@@ -41,36 +41,4 @@ output "dynamodb_tables" {
   ]
 }
 
-# -----------------------------------------------
-# Source Configs
-# -----------------------------------------------
-output "github_organization" {
-  value = "${var.github_organization}"
-}
-output "github_repo_frontend" {
-  value = "${var.github_repo_frontend}"
-}
-output "github_repo_backend" {
-  value = "${var.github_repo_backend}"
-}
-output "github_repo_automation" {
-  value = "${var.github_repo_automation}"
-}
-output "cognito_user_pool_name" {
-  value = "${module.cognito.user_pool_name}"
-}
-output "cognito_user_pool_id" {
-  value = "${module.cognito.user_pool_id}"
-}
-output "cognito_user_pool_arn" {
-  value = "${module.cognito.user_pool_arn}"
-}
-output "cognito_user_pool_endpoint" {
-  value = "${module.cognito.user_pool_endpoint}"
-}
-output "cognito_user_pool_web_client_id" {
-  value = "${module.cognito.user_pool_client_id}"
-}
-output "cognito_identity_pool_id" {
-  value = "${module.cognito.identity_pool_id}"
-}
+
