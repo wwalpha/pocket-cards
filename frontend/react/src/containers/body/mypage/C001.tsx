@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles, Grid, Card, CardContent, Typography } from '@material-ui/core';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
-import { State } from '@models';
+import { State } from '@domains';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -30,13 +30,13 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const c000 = (state: State) => state.get('c000');
+const userState = (state: State) => state.user;
 
 export default () => {
   const classes = useStyles();
   const actions = bindActionCreators(MyPageActions, useDispatch());
   const { remainingTest, remainingReview, daily, dailyNew, dailyReview, weekly, monthly, isLoading } = useSelector(
-    c000
+    userState
   );
 
   React.useMemo(() => {

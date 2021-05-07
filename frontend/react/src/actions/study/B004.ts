@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 import { ActionTypes, Consts } from '@constants';
 import { C004Request, C006Response, C007Response } from 'typings/api';
 import { APIClass, Payload, ErrorPayload } from 'typings/types';
-import { State } from '@models';
+import { State } from '@domains';
 import * as StartNew from '@actions/study/B001';
 import * as StartTest from '@actions/study/B007';
 
@@ -14,8 +14,8 @@ export const failure: B004FailureAction = createAction(ActionTypes.B0_04_FAILURE
 
 /** テスト回答(YES/NO) */
 const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, store, api) => {
-  const { mode, current, words } = store().get('b000');
-  const { groupId } = store().get('app');
+  const { mode, current, rows } = store().word;
+  const { groupId } = store().app;
 
   // Request start
   dispatch(request());
@@ -45,7 +45,7 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, st
     dispatch(success(yes));
 
     // 一定数以上の場合、再取得しない
-    if (words.length > 5) {
+    if (rows.length > 5) {
       return;
     }
 

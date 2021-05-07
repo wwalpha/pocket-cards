@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { makeStyles, Theme, createStyles, Box, Typography, Card, CardContent } from '@material-ui/core';
-import { State } from '@models';
+import { State } from '@domains';
 import { Actions } from '@actions/word';
 import { Button } from '@components/buttons';
 
@@ -21,14 +21,14 @@ interface B003Params {
   word: string;
 }
 
-const app = (state: State) => state.get('app');
-const e000 = (state: State) => state.get('e000');
+const appState = (state: State) => state.app;
+const groupState = (state: State) => state.group;
 
 export default () => {
   const classes = useStyles();
   const { word } = useParams<B003Params>();
-  const { groupId } = useSelector(app);
-  const { isLoading, wordDetail } = useSelector(e000);
+  const { groupId } = useSelector(appState);
+  const { isLoading, wordDetail } = useSelector(groupState);
 
   const actions = bindActionCreators(Actions, useDispatch());
 

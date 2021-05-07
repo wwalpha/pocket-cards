@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'connected-react-router/immutable';
+import { push } from 'connected-react-router';
 import {
   makeStyles,
   Theme,
@@ -19,9 +19,10 @@ import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import DoneIcon from '@material-ui/icons/Done';
 import * as StudyActions from '@actions/study';
 import { Actions } from '@actions/app';
-import { State, WordInfo } from '@models';
+import { State, Word } from '@domains';
 import { Consts, Paths } from '@constants';
 import Loading from '@components/Loading';
+import { WordItem } from 'typings/api';
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
@@ -79,7 +80,7 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   })
 );
 
-const getB000 = (state: State) => state.get('b000');
+const wordState = (state: State) => state.word;
 
 const audioRef = React.createRef<HTMLAudioElement>();
 const zhRef = React.createRef<HTMLInputElement>();
@@ -90,7 +91,7 @@ export default () => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(StudyActions, dispatch);
   const appActions = bindActionCreators(Actions, dispatch);
-  const { current: word, mode, isLoading } = useSelector(getB000);
+  const { current: word, mode, isLoading } = useSelector(wordState);
   const [showText, setShowText] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
 
@@ -106,7 +107,7 @@ export default () => {
     setTimeout(() => play(), 100);
   };
 
-  const getButtons = (mode?: string, word?: WordInfo) => {
+  const getButtons = (mode?: string, word?: WordItem) => {
     const buttons = [];
 
     // 単語あり

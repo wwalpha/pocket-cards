@@ -21,7 +21,7 @@ import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 
 import { Button, IOSSwitch } from '@components/buttons';
-import { State } from '@models';
+import { State } from '@domains';
 import { Actions } from '@actions/app';
 import { Consts } from '@constants';
 
@@ -54,11 +54,11 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   })
 );
 
-const app = (state: State) => state.get('app');
+const appState = (state: State) => state.app;
 
 export default () => {
   const classes = useStyles();
-  const { isLoading, status, displayCtrl } = useSelector(app);
+  const { isLoading, status, displayCtrl } = useSelector(appState);
   const actions = bindActionCreators(Actions, useDispatch());
   const [removeWord, setRemoveWord] = useState(displayCtrl[Consts.ShowTypes.REMOVE_WORD] ? true : false);
 

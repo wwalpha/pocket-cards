@@ -6,7 +6,7 @@ import Button from '@components/buttons/Button';
 import { Actions } from '@actions/group';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { State } from '@models';
+import { State } from '@domains';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -19,18 +19,20 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
+//@ts-ignore
 const schema = yup.object().shape<GroupRegistForm>({
   name: yup.string().required(),
 });
 
-const e000 = (state: State) => state.get('e000');
+const groupState = (state: State) => state.group;
 
 export default () => {
   // const classes = useStyles();
   const actions = bindActionCreators(Actions, useDispatch());
-  const { isLoading } = useSelector(e000);
+  const { isLoading } = useSelector(groupState);
   const { handleSubmit, register } = useForm<GroupRegistForm>({
     mode: 'onChange',
+    //@ts-ignore
     validationSchema: schema,
   });
 

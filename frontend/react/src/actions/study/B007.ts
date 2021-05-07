@@ -1,10 +1,10 @@
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
-import { push } from 'connected-react-router/immutable';
+import { push } from 'connected-react-router';
 import { Consts, Paths, ActionTypes } from '@constants';
 import { C007Response, WordItem } from 'typings/api';
 import { Payload, ErrorPayload, APIClass } from 'typings/types';
-import { WordInfo, State } from '@models';
+import { State } from '@domains';
 
 /** 単語テスト */
 export const request: B007RequestAction = createAction(ActionTypes.B0_07_REQUEST);
@@ -24,7 +24,7 @@ const startTest: StartTestAction = () => async (dispatch, store, api) => {
   dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
 
   try {
-    const { groupId } = store().get('app');
+    const { groupId } = store().app;
     const res = await api.get<C007Response>(Consts.C007_URL(groupId));
 
     // データ保存
@@ -36,10 +36,10 @@ const startTest: StartTestAction = () => async (dispatch, store, api) => {
 
 export interface B007Payload {
   mode: string;
-  words: WordInfo[];
+  words: WordItem[];
 }
 export type B007RequestAction = ActionFunction0<Action<Payload>>;
-export type B007SuccessAction = ActionFunction1<WordInfo[], Action<B007Payload>>;
+export type B007SuccessAction = ActionFunction1<WordItem[], Action<B007Payload>>;
 export type B007FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type StartTestPayload = Payload | B007Payload | ErrorPayload;

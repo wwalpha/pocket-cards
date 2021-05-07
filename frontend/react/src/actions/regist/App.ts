@@ -1,7 +1,7 @@
 import { Consts, Paths } from '@constants';
 import { D001Request, D001Response, C001Request } from 'typings/api';
 import isEmpty from 'lodash/isEmpty';
-import { push } from 'connected-react-router/immutable';
+import { push } from 'connected-react-router';
 import {
   UploadImageAction,
   UploadImage,
@@ -13,6 +13,7 @@ import {
   Clear,
 } from './Actions';
 import { Actions } from '@actions/word';
+import { User } from '@domains';
 
 /** 画像アップロード */
 export const uploadImage: UploadImageAction = (image: string) => async (dispatch, _, api) => {
@@ -56,7 +57,7 @@ export const removeWord: RemoveWordAction = (word: string) => (dispatch) => {
 
 /** 単語登録 */
 export const registWords: RegistWordsAction = (words: string[]) => async (dispatch, store, api) => {
-  const { groupId } = store().get('app');
+  const { groupId } = store().app;
 
   try {
     // 画像アップロード開始イベント

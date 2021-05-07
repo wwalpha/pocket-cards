@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { push } from 'connected-react-router/immutable';
+import { push } from 'connected-react-router';
 import {
   makeStyles,
   Theme,
@@ -19,7 +19,7 @@ import Button from '@components/buttons/Button';
 import { Actions as AppActions } from '@actions/app';
 import { Actions as GroupActions } from '@actions/group';
 import { Paths } from '@constants';
-import { State } from '@models';
+import { State } from '@domains';
 
 const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing }: Theme) =>
   createStyles({
@@ -41,7 +41,7 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing
   })
 );
 
-const e000 = (state: State) => state.get('e000');
+const e000 = (state: State) => state.group;
 
 export default () => {
   const classes = useStyles();

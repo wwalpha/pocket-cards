@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { routerMiddleware } from 'connected-react-router/immutable';
+import { routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createBrowserHistory } from 'history';
 import logger from 'redux-logger';
@@ -17,8 +17,8 @@ const store = createStore(
   )
 );
 
-if (module.hot) {
-  module.hot.accept('../reducers', () => store.replaceReducer(require('../reducers').default));
-}
+// if (module.hot) {
+//   module.hot.accept('../reducers', () => store.replaceReducer(require('../reducers').default));
+// }
 
 export default store;

@@ -9,7 +9,7 @@ import { Actions as WrdActions } from '@actions/word';
 import Button from '@components/buttons/Button';
 import { WordList } from '@components/functions';
 import { Paths, Consts } from '@constants';
-import { State } from '@models';
+import { State } from '@domains';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -23,8 +23,8 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const e000 = (state: State) => state.get('e000');
-const app = (state: State) => state.get('app');
+const e000 = (state: State) => state.group;
+const app = (state: State) => state.app;
 
 export default () => {
   const classes = useStyles();

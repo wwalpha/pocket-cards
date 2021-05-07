@@ -1,7 +1,7 @@
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
 import { ActionTypes, Consts } from '@constants';
-import { State } from '@models';
+import { State } from '@domains';
 import { A002Response } from 'typings/api';
 import { ErrorPayload, APIClass } from 'typings/types';
 

@@ -2,7 +2,7 @@ import { createAction, Action, ActionFunction1, ActionFunction0, ActionFunction2
 import { ActionTypes } from '@constants';
 import { ErrorPayload, APIClass } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
-import { State } from '@models';
+import { State } from '@domains';
 import { CognitoUser } from '@aws-amplify/auth';
 
 export const request = (actionType: string): ActionFunction0<Action<any>> => createAction(actionType);

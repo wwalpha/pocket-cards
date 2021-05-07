@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Button } from '@components/buttons';
 import { Actions } from '@actions/group';
-import { State } from '@models';
+import { State } from '@domains';
 
-const e000 = (state: State) => state.get('e000');
-const app = (state: State) => state.get('app');
+const e000 = (state: State) => state.group;
+const app = (state: State) => state.app;
 
 export default () => {
   const actions = bindActionCreators(Actions, useDispatch());

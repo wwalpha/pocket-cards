@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { Auth } from '@aws-amplify/auth';
 import { API } from '@aws-amplify/api';
 import { MuiThemeProvider } from '@material-ui/core';
-import { ConnectedRouter } from 'connected-react-router/immutable';
+import { ConnectedRouter } from 'connected-react-router';
 import { Consts } from '@constants';
 import store, { history } from './store';
 import Router from './Router';

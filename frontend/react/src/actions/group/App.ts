@@ -89,7 +89,7 @@ export const del: GroupDeleteAction = () => async (dispatch, store, api) => {
 
   try {
     // 選択中のGroupId
-    const groupId = store().get('app').get('groupId');
+    const { groupId } = store().app;
 
     // グループ削除API
     await api.del(Consts.B005_URL(groupId));

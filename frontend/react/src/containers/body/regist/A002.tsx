@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List, Divider, Theme, Box, makeStyles, createStyles } from '@material-ui/core';
-import { State } from '@models';
+import { State } from '@domains';
 import { Actions } from '@actions/regist';
 import { Button } from '@components/buttons';
 import { WordEdit } from '@components/functions';
@@ -31,7 +31,7 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   })
 );
 
-const a000 = (state: State) => state.get('a000');
+const a000 = (state: State) => state.word;
 
 const a002: FunctionComponent<any> = () => {
   const classes = useStyles();

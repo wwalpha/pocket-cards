@@ -5,10 +5,10 @@ import { immerable, produce } from 'immer';
 import { E001Response } from 'typings/api';
 import { GroupInfo, GroupWordsItem } from 'typings/types';
 
-export default class AppState {
+export default class Group {
   [immerable] = true;
 
-  groups: GroupInfo[] = [];
+  rows: GroupInfo[] = [];
   words: GroupWordsItem[] = [];
   isLoading: boolean = false;
   wordDetail?: E001Response = undefined;
@@ -18,21 +18,21 @@ export default class AppState {
    */
   addGroupList({ groups }: E001Payload) {
     return produce(this, (draft) => {
-      draft.groups = groups;
+      draft.rows = groups;
     });
   }
 
   /** グループ新規登録 */
   addGroup(payload: E002Payload) {
     return produce(this, (draft) => {
-      draft.groups.push(payload);
+      draft.rows.push(payload);
     });
   }
 
   /** グループ削除 */
   delGroup(payload: E004Payload) {
     return produce(this, (draft) => {
-      draft.groups = this.groups.filter((item) => item.id !== payload.groupId);
+      draft.rows = this.rows.filter((item) => item.id !== payload.groupId);
       draft.words = this.words.filter((item) => item.groupId !== payload.groupId);
     });
   }

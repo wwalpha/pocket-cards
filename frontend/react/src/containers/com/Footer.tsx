@@ -8,7 +8,7 @@ import PersonIcon from '@material-ui/icons/PersonOutlineOutlined';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import { Actions } from '@actions/app';
-import { State } from '@models';
+import { State } from '@domains';
 import { Paths, Consts } from '@constants';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
@@ -32,7 +32,7 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const getApp = (state: State) => state.get('app');
+const appState = (state: State) => state.app;
 
 export default () => {
   // styles
@@ -40,7 +40,7 @@ export default () => {
   // actions
   const actions = bindActionCreators(Actions, useDispatch());
   // reducer
-  const { tabIndex, status } = useSelector(getApp);
+  const { tabIndex, status } = useSelector(appState);
   // location
   const { pathname } = useLocation();
 

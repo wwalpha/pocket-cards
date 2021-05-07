@@ -19,7 +19,7 @@ import {
   createStyles,
 } from '@material-ui/core';
 import { Actions } from '@actions/app';
-import { State } from '@models';
+import { State } from '@domains';
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
@@ -51,7 +51,7 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   })
 );
 
-const app = (state: State) => state.get('app');
+const app = (state: State) => state.app;
 
 const SignIn = () => {
   const classes = useStyles();

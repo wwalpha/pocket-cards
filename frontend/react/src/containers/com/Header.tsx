@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { push } from 'connected-react-router/immutable';
+import { push } from 'connected-react-router';
 import {
   makeStyles,
   Theme,
@@ -27,7 +27,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import ReplayIcon from '@material-ui/icons/Replay';
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
 
-import { State } from '@models';
+import { State } from '@domains';
 import { Actions as GroupActions } from '@actions/group';
 import { Paths, Consts } from '@constants';
 import Loading from '@components/Loading';
@@ -60,9 +60,9 @@ const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common }
 
 const audioRef = React.createRef<HTMLAudioElement>();
 
-const app = (state: State) => state.get('app');
-const b000 = (state: State) => state.get('b000');
-const e000 = (state: State) => state.get('e000');
+const appState = (state: State) => state.app;
+const wordState = (state: State) => state.word;
+const groupState = (state: State) => state.group;
 
 export default () => {
   const classes = useStyles();
@@ -70,9 +70,9 @@ export default () => {
   const grpActions = bindActionCreators(GroupActions, dispatch);
   const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { groupId } = useSelector(app);
-  const { current: word } = useSelector(b000);
-  const { groups } = useSelector(e000);
+  const { groupId } = useSelector(appState);
+  const { current: word } = useSelector(wordState);
+  const { groups } = useSelector(groupState);
 
   const isMenuOpen = Boolean(anchorEl);
 

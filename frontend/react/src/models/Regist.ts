@@ -21,7 +21,7 @@ export default class A000 extends Record<A000Props>({
    * 登録しない単語を削除する
    */
   removeWord(word: string) {
-    const result = this.get('words').filter(item => item !== word);
+    const result = this.get('words').filter((item) => item !== word);
 
     return this.set('words', result);
   }

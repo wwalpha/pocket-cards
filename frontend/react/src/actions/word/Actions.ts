@@ -2,7 +2,7 @@ import { createAction, Action, ActionFunction0, ActionFunction1, ActionFunction2
 import { ThunkAction } from 'redux-thunk';
 import { CallHistoryMethodAction } from 'connected-react-router';
 import { ActionTypes } from '@constants';
-import { State } from '@models';
+import { State } from '@domains';
 import { ErrorPayload, APIClass } from 'typings/types';
 import { C002Response, E001Response } from 'typings/api';
 

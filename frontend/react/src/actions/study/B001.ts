@@ -1,9 +1,9 @@
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
-import { push } from 'connected-react-router/immutable';
+import { push } from 'connected-react-router';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { C006Response, WordItem } from 'typings/api';
-import { WordInfo, State } from '@models';
+import { State } from '@domains';
 import { ErrorPayload, APIClass, Payload } from 'typings/types';
 
 /** 新規単語学習 */
@@ -16,7 +16,7 @@ export const failure: B001FailureAction = createAction(ActionTypes.B0_01_FAILURE
 
 /** 新規単語学習 */
 const startNew: StartNewAction = () => async (dispatch, store, api) => {
-  const { groupId } = store().get('app');
+  const { groupId } = store().app;
 
   // 既存単語クリア
   dispatch(request());
@@ -36,7 +36,7 @@ const startNew: StartNewAction = () => async (dispatch, store, api) => {
 
 export interface B001Payload {
   mode: string;
-  words: WordInfo[];
+  words: WordItem[];
 }
 export type B001RequestAction = ActionFunction0<Action<Payload>>;
 export type B001SuccessAction = ActionFunction1<WordItem[], Action<B001Payload>>;

@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
-import { State } from '@models';
-import { Animation, ValueScale } from '@devexpress/dx-react-chart';
-import { ArgumentAxis, Chart, ValueAxis, BarSeries } from '@devexpress/dx-react-chart-material-ui';
+import { State } from '@domains';
+// import { Animation, ValueScale } from '@devexpress/dx-react-chart';
+// import { ArgumentAxis, Chart, ValueAxis, BarSeries } from '@devexpress/dx-react-chart-material-ui';
 
 // const useStyles = makeStyles(({ spacing }: Theme) =>
 //   createStyles({
@@ -30,10 +30,10 @@ import { ArgumentAxis, Chart, ValueAxis, BarSeries } from '@devexpress/dx-react-
 //   }),
 // );
 /** 単語カメラ画面 */
-const c000 = (state: State) => state.get('c000');
+const userState = (state: State) => state.user;
 
 const C002: React.FunctionComponent<any> = () => {
-  const { daily, weekly, monthly, isLoading } = useSelector(c000);
+  const { daily, weekly, monthly, isLoading } = useSelector(userState);
   const actions = bindActionCreators(MyPageActions, useDispatch());
 
   // Loading中
@@ -47,13 +47,14 @@ const C002: React.FunctionComponent<any> = () => {
   ];
 
   return (
-    <Chart data={data} height={400}>
-      <ArgumentAxis />
-      <ValueAxis showLabels={false} />
-      <ValueScale />
-      <BarSeries valueField="words" argumentField="year" color="red" barWidth={0.2} />
-      <Animation />
-    </Chart>
+    <div>1111</div>
+    // <Chart data={data} height={400}>
+    //   <ArgumentAxis />
+    //   <ValueAxis showLabels={false} />
+    //   <ValueScale />
+    //   <BarSeries valueField="words" argumentField="year" color="red" barWidth={0.2} />
+    //   <Animation />
+    // </Chart>
   );
 };
 

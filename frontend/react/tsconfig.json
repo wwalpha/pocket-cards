@@ -45,9 +45,6 @@
       "@domains": [
         "./src/domains/index"
       ],
-      "@models": [
-        "./src/models/index"
-      ],
       "@actions/*": [
         "./src/actions/*"
       ],
