@@ -103,10 +103,8 @@ resource "aws_ecs_service" "this" {
   }
 
   network_configuration {
-    # assign_public_ip = true
-    # subnets          = module.vpc.public_subnets
-    assign_public_ip = false
-    subnets          = module.vpc.private_subnets
+    assign_public_ip = var.is_simple
+    subnets          = var.is_simple ? module.vpc.public_subnets : module.vpc.private_subnets
     security_groups  = [aws_security_group.ecs_default_sg.id]
   }
 

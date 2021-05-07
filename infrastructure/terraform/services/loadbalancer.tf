@@ -3,9 +3,9 @@
 # ----------------------------------------------------------------------------------------------
 resource "aws_lb" "this" {
   name               = "${local.project_name}-alb"
-  internal           = true
+  internal           = !var.is_simple
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb.id]
+  security_groups    = [var.is_simple ? aws_security_group.alb_simple[0].id : aws_security_group.alb_normal[0].id]
   subnets            = module.vpc.public_subnets
 }
 

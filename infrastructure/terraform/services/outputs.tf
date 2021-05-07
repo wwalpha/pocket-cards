@@ -28,5 +28,5 @@ output "api_url" {
 }
 
 output "test" {
-  value = aws_apigatewayv2_integration.this
+  value = module.vpc
 }

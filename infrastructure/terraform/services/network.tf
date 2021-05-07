@@ -14,8 +14,8 @@ module "vpc" {
   # private_subnets = ["10.0.1.0/24"]
   # public_subnets  = ["10.0.3.0/24"]
 
-  enable_nat_gateway     = true
-  single_nat_gateway     = true
+  enable_nat_gateway     = !var.is_simple
+  single_nat_gateway     = !var.is_simple
   one_nat_gateway_per_az = false
   enable_dns_hostnames   = true
   enable_dns_support     = true
@@ -46,12 +46,14 @@ resource "aws_security_group" "private_link" {
   tags = {
     Name = "allow_private"
   }
+
+  count = local.normal
 }
 
 # ----------------------------------------------------------------------------------------------
 # AWS Security Group
 # ----------------------------------------------------------------------------------------------
-resource "aws_security_group" "alb" {
+resource "aws_security_group" "alb_normal" {
   name        = "allow_alb"
   description = "allow_alb"
   vpc_id      = module.vpc.vpc_id
@@ -60,7 +62,7 @@ resource "aws_security_group" "alb" {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
-    security_groups = [aws_security_group.private_link.id]
+    security_groups = [aws_security_group.private_link[0].id]
   }
 
   egress {
@@ -73,8 +75,38 @@ resource "aws_security_group" "alb" {
   tags = {
     Name = "allow_alb"
   }
+
+  count = local.normal
 }
 
+# ----------------------------------------------------------------------------------------------
+# AWS Security Group
+# ----------------------------------------------------------------------------------------------
+resource "aws_security_group" "alb_simple" {
+  name        = "allow_alb"
+  description = "allow_alb"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_alb"
+  }
+
+  count = local.simple
+}
 
 # ----------------------------------------------------------------------------------------------
 # AWS Security Group - ECS

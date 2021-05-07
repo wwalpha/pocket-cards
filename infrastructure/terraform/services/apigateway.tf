@@ -59,34 +59,63 @@ resource "aws_apigatewayv2_api_mapping" "this" {
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_vpc_link" "this" {
   name               = "${local.project_name}-link"
-  security_group_ids = [aws_security_group.private_link.id]
+  security_group_ids = [aws_security_group.private_link[0].id]
   subnet_ids         = module.vpc.public_subnets
+
+  count = local.normal
 }
 
 # ---------------------------------------------------------------------------------------------
 # API Gateway Integration - VPC_LINK
 # ---------------------------------------------------------------------------------------------
-resource "aws_apigatewayv2_integration" "this" {
+resource "aws_apigatewayv2_integration" "link" {
   api_id             = aws_apigatewayv2_api.this.id
   connection_type    = "VPC_LINK"
-  connection_id      = aws_apigatewayv2_vpc_link.this.id
+  connection_id      = aws_apigatewayv2_vpc_link.this[0].id
   integration_method = "ANY"
   integration_type   = "HTTP_PROXY"
   integration_uri    = aws_lb_listener.this.arn
   # integration_uri    = aws_service_discovery_service.this.arn
+
+  count = local.normal
 }
 
 # ---------------------------------------------------------------------------------------------
 # API Gateway Route
 # ---------------------------------------------------------------------------------------------
-resource "aws_apigatewayv2_route" "this" {
+resource "aws_apigatewayv2_route" "link" {
   api_id    = aws_apigatewayv2_api.this.id
   route_key = "ANY /{proxy+}"
 
-  target = "integrations/${aws_apigatewayv2_integration.this.id}"
+  target = "integrations/${aws_apigatewayv2_integration.link[0].id}"
+
+  count = local.normal
 }
 
+# ---------------------------------------------------------------------------------------------
+# API Gateway Integration - HTTP URI
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_integration" "http" {
+  api_id             = aws_apigatewayv2_api.this.id
+  connection_type    = "INTERNET"
+  integration_method = "ANY"
+  integration_type   = "HTTP_PROXY"
+  integration_uri    = "http://backend.${local.domain_name}/{proxy}"
 
+  count = local.simple
+}
+
+# ---------------------------------------------------------------------------------------------
+# API Gateway Route
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_route" "http" {
+  api_id    = aws_apigatewayv2_api.this.id
+  route_key = "ANY /{proxy+}"
+
+  target = "integrations/${aws_apigatewayv2_integration.http[0].id}"
+
+  count = local.simple
+}
 
 # # ---------------------------------------------------------------------------------------------
 # # Amazon API REST API
