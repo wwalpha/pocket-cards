@@ -84,7 +84,9 @@
   },
   "include": [
     "src/**/*",
-    "src/index.tsx"
+  ],
+  "exclude": [
+    "node_modules"
   ],
   "files": [
     "./typings/types.d.ts",
