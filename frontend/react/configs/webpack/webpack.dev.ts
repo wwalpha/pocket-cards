@@ -1,25 +1,28 @@
 import { HotModuleReplacementPlugin, LoaderOptionsPlugin, Configuration } from 'webpack';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.base';
-import Dotenv from 'dotenv-webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import * as path from 'path';
+
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const dev: Configuration = {
   mode: 'development',
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
   entry: ['webpack-hot-middleware/client'],
-  resolve: {
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
-  },
   plugins: [
     // new BundleAnalyzerPlugin(),
-    new Dotenv(),
-    new HotModuleReplacementPlugin(),
-    new LoaderOptionsPlugin({
-      debug: true,
+    new HtmlWebpackPlugin({
+      title: 'Chat',
+      filename: 'index.html',
+      template: path.join(__dirname, '../app.ejs'),
+      minify: false,
+      hash: true,
+      inject: 'body',
     }),
+    new HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
   ],
 };
 

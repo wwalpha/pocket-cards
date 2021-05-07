@@ -1,7 +1,8 @@
 import { LoaderOptionsPlugin, Configuration, EnvironmentPlugin } from 'webpack';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
 import merge from 'webpack-merge';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as path from 'path';
 import baseConfig from './webpack.base';
 
 const prod: Configuration = {
@@ -18,10 +19,17 @@ const prod: Configuration = {
       'AUTH_SIGN_IN_URL',
       'AUTH_SIGN_OUT_URL',
     ]),
+    new HtmlWebpackPlugin({
+      title: 'Chat',
+      filename: 'index.html',
+      template: path.join(__dirname, '../app.ejs'),
+      minify: false,
+      hash: true,
+      inject: 'body',
+    }),
     new LoaderOptionsPlugin({
       debug: false,
     }),
-    new CleanWebpackPlugin(),
     // new CompressionPlugin({
     //   test: /\.js$/,
     //   filename: '[path].gz[query]',

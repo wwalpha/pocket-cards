@@ -1,13 +1,14 @@
 import * as path from 'path';
-import { Configuration, NoEmitOnErrorsPlugin, LoaderOptionsPlugin, EnvironmentPlugin } from 'webpack';
-import HappyPack from 'happypack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { Configuration, LoaderOptionsPlugin } from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
+
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 const configs: Configuration = {
   target: 'web',
-  entry: ['./index'],
+  entry: ['./src/index.tsx'],
   output: {
     filename: '[name].bundle.js',
     chunkFilename: '[name].chunk.js',
@@ -22,66 +23,42 @@ const configs: Configuration = {
   module: {
     rules: [
       {
-        test: /\.(tsx|ts)$/,
+        test: /\.(tsx|ts)?$/,
         exclude: /node_modules/,
         use: [
           {
             loader: 'babel-loader',
-            options: {
-              cacheDirectory: true,
-              plugins: ['react-hot-loader/babel', '@babel/plugin-proposal-optional-chaining'],
-            },
+            options: { plugins: ['react-refresh/babel'] },
           },
           {
             loader: 'ts-loader',
             options: {
               transpileOnly: true,
-              happyPackMode: true,
             },
           },
         ],
       },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
-      },
-      {
-        test: /\.svg$/,
-        use: ['@svgr/webpack', 'file-loader'],
-      },
     ],
   },
   plugins: [
-    new HappyPack({
-      loaders: ['babel-loader', 'ts-loader'],
-      threads: 10,
+    new WebpackManifestPlugin({
+      writeToFileEmit: true,
     }),
-    new NoEmitOnErrorsPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'Chat',
-      filename: 'index.html',
-      template: path.join(__dirname, '../app.ejs'),
-      minify: false,
-      hash: true,
-      inject: 'body',
-    }),
+    new Dotenv(),
     new LoaderOptionsPlugin({
       debug: false,
     }),
-    new CopyWebpackPlugin([
-      {
-        from: 'public',
-        to: '.',
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'public',
+          to: '.',
+        },
+      ],
+    }),
   ],
   optimization: {
     splitChunks: {
-      name: true,
       cacheGroups: {
         commons: {
           chunks: 'initial',
