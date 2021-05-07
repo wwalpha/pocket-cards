@@ -5,7 +5,11 @@
     "moduleResolution": "node",
     "module": "CommonJS" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
     "importHelpers": true,
-    // "lib": [],                             /* Specify library files to be included in the compilation. */
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ], /* Specify library files to be included in the compilation. */
     "allowJs": true /* Allow javascript files to be compiled. */,
     "jsx": "react" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
     // "declaration": true,                   /* Generates corresponding '.d.ts' file. */
@@ -38,6 +42,9 @@
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "baseUrl": "./" /* Base directory to resolve non-absolute module names. */,
     "paths": {
+      "@domains": [
+        "./src/domains/index"
+      ],
       "@models": [
         "./src/models/index"
       ],
@@ -80,12 +87,13 @@
   },
   "include": [
     "src/**/*",
-    "index.tsx"
+    "src/index.tsx"
   ],
   "files": [
     "./typings/types.d.ts",
     "./typings/external.d.ts",
     "./typings/api.d.ts",
-    "./typings/redux-thunk.d.ts"
+    "./typings/redux-thunk.d.ts",
+    "./typings/domain.d.ts"
   ],
 }
