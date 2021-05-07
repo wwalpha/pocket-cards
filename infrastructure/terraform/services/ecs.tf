@@ -68,6 +68,15 @@ resource "aws_ecs_task_definition" "this" {
 # ECS Service - Backend Service
 # ----------------------------------------------------------------------------------------------
 resource "aws_ecs_service" "this" {
+  # depends_on = [
+  #   aws_vpc_endpoint_route_table_association.private_1,
+  #   aws_vpc_endpoint_route_table_association.private_2,
+  #   aws_vpc_endpoint_subnet_association.ecr_dkr1,
+  #   aws_vpc_endpoint_subnet_association.ecr_dkr2,
+  #   aws_vpc_endpoint_subnet_association.ecr_api1,
+  #   aws_vpc_endpoint_subnet_association.ecr_api2,
+  # ]
+
   name                               = "backend"
   cluster                            = aws_ecs_cluster.this.id
   desired_count                      = 1
@@ -94,8 +103,10 @@ resource "aws_ecs_service" "this" {
   }
 
   network_configuration {
-    assign_public_ip = true
-    subnets          = module.vpc.public_subnets
+    # assign_public_ip = true
+    # subnets          = module.vpc.public_subnets
+    assign_public_ip = false
+    subnets          = module.vpc.private_subnets
     security_groups  = [aws_security_group.ecs_default_sg.id]
   }
 
