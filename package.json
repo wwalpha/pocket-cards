@@ -1,0 +1,11 @@
+{
+  "name": "pocket-cards",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/wwalpha/pocket-cards.git",
+  "author": "wwalpha <wwalpha@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "terraform": "act push --secret-file .secrets -P ubuntu-18.04=wwalpha/act-ubuntu:18.04"
+  }
+}
