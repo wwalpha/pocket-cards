@@ -1,0 +1,69 @@
+name: Terraform Build
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - infrastructure/terraform/**
+      - .github/workflows/terraform_build.yml
+
+env:
+  AWS_DEFAULT_REGION: ap-northeast-1
+  TF_WORKSPACE: dev
+  TF_VAR_region: ap-northeast-1
+
+jobs:
+  Update:
+    runs-on: ubuntu-18.04
+    environment:
+      name: dev
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TF_VAR_translation_api_key: ${{ secrets.TRANSLATION_API_KEY }}
+      TF_VAR_ipa_api_key: ${{ secrets.IPA_API_KEY }}
+      TF_VAR_dns_name_servers:  ${{ secrets.DNS_NAME_SERVERS }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Install the latest version of Terraform CLI 
+      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          # terraform_version: 0.13.0
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      # Setup init
+      - name: Terraform Init
+        working-directory: infrastructure/terraform/setup
+        run: terraform init
+
+      # Setup plan
+      - name: Terraform Plan
+        working-directory: infrastructure/terraform/setup
+        run: terraform plan -out=setup
+
+      # Setup apply
+      - name: Terraform Apply
+        working-directory: infrastructure/terraform/setup
+        run: terraform apply "setup"
+
+      # Service init
+      - name: Terraform Init
+        working-directory: infrastructure/terraform/services
+        run: terraform init
+
+      # Service plan
+      - name: Terraform Plan
+        working-directory: infrastructure/terraform/services
+        run: terraform plan -out=services
+
+      # Service apply
+      - name: Terraform Apply
+        working-directory: infrastructure/terraform/services
+        run: terraform apply "services"
