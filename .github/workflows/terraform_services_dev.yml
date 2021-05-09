@@ -1,4 +1,4 @@
-name: Terraform Build
+name: Terraform Services Build
 
 on:
   push:
