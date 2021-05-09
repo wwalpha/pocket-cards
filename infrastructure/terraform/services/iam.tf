@@ -82,3 +82,78 @@ resource "aws_iam_role_policy_attachment" "ecs_task_exec_ssm" {
   role       = aws_iam_role.ecs_task_exec.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
 }
+
+# ----------------------------------------------------------------------------------------------
+# Cognito Authenticated Role
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "authenticated" {
+  name = "${local.project_name_uc}_CognitoAuthenticatedRole"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "cognito-identity.amazonaws.com"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.this.id}"
+        },
+        "ForAnyValue:StringLike": {
+          "cognito-identity.amazonaws.com:amr": "authenticated"
+        }
+      }
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "authenticated" {
+  name = "${local.project_name_uc}_CognitoAuthenticatedPolicy"
+  role = aws_iam_role.authenticated.id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "mobileanalytics:PutEvents",
+        "cognito-sync:*",
+        "cognito-identity:*"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+EOF
+}
+
+# resource "aws_cognito_identity_pool_roles_attachment" "main" {
+#   identity_pool_id = aws_cognito_identity_pool.this.id
+
+#   role_mapping {
+#     identity_provider         = "graph.facebook.com"
+#     ambiguous_role_resolution = "AuthenticatedRole"
+#     type                      = "Rules"
+
+#     mapping_rule {
+#       claim      = "isAdmin"
+#       match_type = "Equals"
+#       role_arn   = aws_iam_role.authenticated.arn
+#       value      = "paid"
+#     }
+#   }
+
+#   roles = {
+#     "authenticated" = aws_iam_role.authenticated.arn
+#   }
+# }

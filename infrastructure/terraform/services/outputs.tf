@@ -27,6 +27,23 @@ output "api_url" {
   value = "https://api.${local.domain_name}"
 }
 
-output "test" {
-  value = module.vpc
+# ----------------------------------------------------------------------------------------------
+# Cognito User Pool ID
+# ----------------------------------------------------------------------------------------------
+output "cognito_user_pool_id" {
+  value = aws_cognito_user_pool.this.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# Cognito User Pool Client ID
+# ----------------------------------------------------------------------------------------------
+output "cognito_user_pool_client_id" {
+  value = aws_cognito_user_pool_client.this.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# Cognito Identity Pool ID
+# ----------------------------------------------------------------------------------------------
+output "cognito_identity_pool_id" {
+  value = aws_cognito_identity_pool.this.id
 }

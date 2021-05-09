@@ -94,3 +94,17 @@ data "aws_ecs_task_definition" "this" {
   depends_on      = [aws_ecs_task_definition.this]
   task_definition = aws_ecs_task_definition.this.family
 }
+
+# ----------------------------------------------------------------------------------------------
+# SSM - Identity Provider ID
+# ----------------------------------------------------------------------------------------------
+data "aws_ssm_parameter" "identity_provider_id" {
+  name = data.terraform_remote_state.setup.identity_provider_id
+}
+
+# ----------------------------------------------------------------------------------------------
+# SSM - Identity Provider Secret
+# ----------------------------------------------------------------------------------------------
+data "aws_ssm_parameter" "identity_provider_secret" {
+  name = data.terraform_remote_state.setup.identity_provider_secret
+}
