@@ -99,12 +99,12 @@ data "aws_ecs_task_definition" "this" {
 # SSM - Identity Provider ID
 # ----------------------------------------------------------------------------------------------
 data "aws_ssm_parameter" "identity_provider_id" {
-  name = data.terraform_remote_state.setup.identity_provider_id
+  name = local.remote_setup.ssm_key_identity_provider_id
 }
 
 # ----------------------------------------------------------------------------------------------
 # SSM - Identity Provider Secret
 # ----------------------------------------------------------------------------------------------
 data "aws_ssm_parameter" "identity_provider_secret" {
-  name = data.terraform_remote_state.setup.identity_provider_secret
+  name = local.remote_setup.ssm_key_identity_provider_secret
 }
