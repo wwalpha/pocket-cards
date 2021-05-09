@@ -35,6 +35,11 @@ jobs:
           # terraform_version: 0.13.0
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+      # Initialize
+      - name: Initialize
+        working-directory: infrastructure/terraform/setup
+        run: mv local.auto.tfvars temp
+
       # Setup init
       - name: Terraform Init
         working-directory: infrastructure/terraform/setup
