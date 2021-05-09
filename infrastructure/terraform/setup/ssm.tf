@@ -17,3 +17,23 @@ resource "aws_ssm_parameter" "ipa_api_key" {
   value     = var.ipa_api_key
   overwrite = true
 }
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Identity Provider ID
+# ----------------------------------------------------------------------------------------------
+resource "aws_ssm_parameter" "identity_provider_id" {
+  name      = "/${var.project_name}/identity_provider_id"
+  type      = "SecureString"
+  value     = var.identity_provider_id
+  overwrite = true
+}
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Identity Provider Secret
+# ----------------------------------------------------------------------------------------------
+resource "aws_ssm_parameter" "identity_provider_secret" {
+  name      = "/${var.project_name}/identity_provider_secret"
+  type      = "SecureString"
+  value     = var.identity_provider_secret
+  overwrite = true
+}

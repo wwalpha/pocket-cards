@@ -69,3 +69,17 @@ output "domain_name" {
   sensitive = true
   value     = "${local.domain_prefix}${var.domain_name}"
 }
+
+# ----------------------------------------------------------------------------------------------
+# SSM Key - Identity Provider ID
+# ----------------------------------------------------------------------------------------------
+output "ssm_key_identity_provider_id" {
+  value = "/${var.project_name}/identity_provider_id"
+}
+
+# ----------------------------------------------------------------------------------------------
+# SSM Key - Identity Provider Secret
+# ----------------------------------------------------------------------------------------------
+output "ssm_key_identity_provider_secret" {
+  value = "/${var.project_name}/identity_provider_secret"
+}
