@@ -12,12 +12,13 @@ const auth: React.FunctionComponent<any> = (props) => {
   const actions = bindActionCreators(Actions, useDispatch());
 
   React.useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        setUser(user);
-        actions.loggedIn(user);
-      })
-      .finally(() => setLoading(false));
+    // console.log(111111111111111111);
+    // Auth.currentAuthenticatedUser()
+    //   .then((user) => {
+    //     setUser(user);
+    //     actions.loggedIn(user);
+    //   })
+    //   .finally(() => setLoading(false));
   }, []);
 
   if (isLoading) return <div />;

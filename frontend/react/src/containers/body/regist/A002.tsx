@@ -35,12 +35,12 @@ const a000 = (state: State) => state.word;
 
 const a002: FunctionComponent<any> = () => {
   const classes = useStyles();
-  const { isLoading, words } = useSelector(a000);
+  const { isLoading, rows } = useSelector(a000);
   const actions = bindActionCreators(Actions, useDispatch());
 
   /** 単語登録 */
   const handleRegist = () => {
-    actions.registWords(words);
+    // actions.registWords(rows);
   };
 
   /** 単語削除 */
@@ -49,7 +49,7 @@ const a002: FunctionComponent<any> = () => {
   };
 
   // 単語データなし
-  if (!isLoading && words.length === 0) {
+  if (!isLoading && rows.length === 0) {
     console.log('Do no have any more words');
     return <div />;
   }
@@ -57,7 +57,7 @@ const a002: FunctionComponent<any> = () => {
   return (
     <Box margin="8px 16px">
       <List className={classes.list}>
-        {words.map((value, idx) => (
+        {rows.map((value, idx) => (
           <React.Fragment key={idx}>
             <WordEdit key={idx} word={value} onDelete={handleRemove} />
             <Divider key={`${value}1`} />
