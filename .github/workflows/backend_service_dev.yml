@@ -24,11 +24,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
+      # source checkout
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          token: f4155f10d470ef4a5aaf800c63cf9e0fb9d74161
-          path: wwalpha/pocket-cards
 
       # Install Python
       - name: Setup Python 3.7 for awscli
