@@ -52,6 +52,7 @@ resource "aws_ecs_task_definition" "this" {
       aws_region      = local.region
       container_name  = local.task_def_family
       container_image = "${aws_ecr_repository.this.repository_url}:latest"
+      container_port  = 8080
       # app_mesh_node     = split(":", aws_appmesh_virtual_node.token.arn)[5]
       # dynamodb_tables   = aws_ssm_parameter.tables.arn
       # service_endpoints = aws_ssm_parameter.endpoints.arn
@@ -110,17 +111,17 @@ resource "aws_ecs_service" "this" {
 
   load_balancer {
     container_name   = "pocket-cards-backend"
-    container_port   = 80
+    container_port   = 8080
     target_group_arn = aws_lb_target_group.this.arn
   }
 
   scheduling_strategy = "REPLICA"
 
-  service_registries {
-    registry_arn   = aws_service_discovery_service.this.arn
-    container_port = 0
-    port           = 0
-  }
+  # service_registries {
+  #   registry_arn   = aws_service_discovery_service.this.arn
+  #   container_port = 0
+  #   port           = 0
+  # }
 
   provisioner "local-exec" {
     when    = destroy

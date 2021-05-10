@@ -13,8 +13,8 @@ resource "aws_lb" "this" {
 # Application Load Balancer Target Group
 # ----------------------------------------------------------------------------------------------
 resource "aws_lb_target_group" "this" {
-  name                               = "${local.project_name}-tg"
-  port                               = 80
+  name_prefix                        = "bckend"
+  port                               = 8080
   protocol                           = "HTTP"
   target_type                        = "ip"
   vpc_id                             = module.vpc.vpc_id

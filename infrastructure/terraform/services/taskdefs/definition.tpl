@@ -5,7 +5,7 @@
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 80,
+        "containerPort": ${container_port},
         "protocol": "tcp"
       }
     ],
