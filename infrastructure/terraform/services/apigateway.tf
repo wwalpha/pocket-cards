@@ -7,6 +7,21 @@ resource "aws_apigatewayv2_api" "this" {
 }
 
 # ---------------------------------------------------------------------------------------------
+# API Gateway Authorizer
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_authorizer" "this" {
+  api_id           = aws_apigatewayv2_api.this.id
+  authorizer_type  = "JWT"
+  identity_sources = ["$request.header.Authorization"]
+  name             = "Cognito"
+
+  jwt_configuration {
+    audience = ["audience"]
+    issuer   = "https://${aws_cognito_user_pool.this.endpoint}"
+  }
+}
+
+# ---------------------------------------------------------------------------------------------
 # API Gateway Stage
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_stage" "this" {

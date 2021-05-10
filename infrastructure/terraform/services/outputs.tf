@@ -1,17 +1,9 @@
-# # output "cloudfront_ditribution_id" {
-# #   value = "${aws_cloudfront_distribution.this.id}"
-# # }
-
-# output "web_domain_name" {
-#   value     = aws_acm_certificate.web
-#   sensitive = true
-# }
-
-# output "ecs_service" {
-#   value = aws_ecs_service.this
-# }
-
-
+# ----------------------------------------------------------------------------------------------
+# CloudFront Distribution ID
+# ----------------------------------------------------------------------------------------------
+output "cloudfront_ditribution_id" {
+  value = aws_cloudfront_distribution.this.id
+}
 
 # ----------------------------------------------------------------------------------------------
 # ALB URL
@@ -61,3 +53,31 @@ output "ecs_cluster_arn" {
 output "ecs_service_arn" {
   value = aws_ecs_service.this.id
 }
+
+# ----------------------------------------------------------------------------------------------
+# API Gateway ID
+# ----------------------------------------------------------------------------------------------
+output "api_gateway_id" {
+  value = aws_apigatewayv2_api.this.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# API Gateway Execution ARN
+# ----------------------------------------------------------------------------------------------
+output "api_gateway_execution_arn" {
+  value = aws_apigatewayv2_api.this.execution_arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# API Gateway Authorizer ID
+# ----------------------------------------------------------------------------------------------
+output "api_gateway_authorizer_id" {
+  value = aws_apigatewayv2_authorizer.this.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service ARN
+# ----------------------------------------------------------------------------------------------
+# output "test" {
+#   value = aws_apigatewayv2_authorizer.this
+# }
