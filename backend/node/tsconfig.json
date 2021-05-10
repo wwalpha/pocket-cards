@@ -5,7 +5,7 @@
     "module": "commonjs" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
     "lib": ["ES2017", "DOM"],
     "sourceMap": true,
-    "outDir": "build",
+    "outDir": "dist",
     // "strict": true /* Enable all strict type-checking options. */,
     "noImplicitAny": false,
     "resolveJsonModule": true,

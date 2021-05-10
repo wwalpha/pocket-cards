@@ -22,15 +22,31 @@ terraform {
 # ----------------------------------------------------------------------------------------------
 # Remote state - Setup
 # ----------------------------------------------------------------------------------------------
-# data "terraform_remote_state" "setup" {
-#   backend   = "remote"
-#   workspace = terraform.workspace
+data "terraform_remote_state" "setup" {
+  backend   = "remote"
+  workspace = terraform.workspace
 
-#   config = {
-#     organization = "wwalpha"
+  config = {
+    organization = "wwalpha"
 
-#     workspaces = {
-#       prefix = "pocket-cards-setup-"
-#     }
-#   }
-# }
+    workspaces = {
+      prefix = "pocket-cards-setup-"
+    }
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Remote state - Services
+# ----------------------------------------------------------------------------------------------
+data "terraform_remote_state" "services" {
+  backend   = "remote"
+  workspace = terraform.workspace
+
+  config = {
+    organization = "wwalpha"
+
+    workspaces = {
+      prefix = "pocket-cards-services-"
+    }
+  }
+}
