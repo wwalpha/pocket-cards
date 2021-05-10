@@ -2,3 +2,5 @@ node_modules
 .DS_Store
 *.auto.tfvars
 .secrets
+.terraform
+.terraform.lock.hcl
