@@ -19,8 +19,8 @@ resource "aws_lambda_function" "cognito" {
 
 data "archive_file" "cognito" {
   type        = "zip"
-  source_dir  = "../dist/lambda/cognito"
-  output_path = "../dist/lambda/cognito.zip"
+  source_dir  = "../dist/cognito"
+  output_path = "../dist/cognito.zip"
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -45,8 +45,8 @@ resource "aws_lambda_function" "ecs_task_start" {
 
 data "archive_file" "ecs_task_start" {
   type        = "zip"
-  source_dir  = "../dist/lambda/start"
-  output_path = "../dist/lambda/start.zip"
+  source_dir  = "../dist/start"
+  output_path = "../dist/start.zip"
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -81,8 +81,8 @@ resource "aws_lambda_function" "ecs_task_stop" {
 
 data "archive_file" "ecs_task_stop" {
   type        = "zip"
-  source_dir  = "../dist/lambda/stop"
-  output_path = "../dist/lambda/stop.zip"
+  source_dir  = "../dist/stop"
+  output_path = "../dist/stop.zip"
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -116,8 +116,8 @@ resource "aws_lambda_function" "ecs_task_status" {
 
 data "archive_file" "ecs_task_status" {
   type        = "zip"
-  source_dir  = "../dist/lambda/status"
-  output_path = "../dist/lambda/status.zip"
+  source_dir  = "../dist/status"
+  output_path = "../dist/status.zip"
 }
 
 # ---------------------------------------------------------------------------------------------
