@@ -1,21 +1,10 @@
 import { DynamoDB } from 'aws-sdk';
-import { CognitoUserPoolTriggerEvent } from 'aws-lambda';
+import { PostAuthenticationTriggerEvent } from 'aws-lambda';
 import { TUsers } from 'typings/tables';
 
 const db = new DynamoDB.DocumentClient();
 
-export default async (e: CognitoUserPoolTriggerEvent) => {
-  if (e.triggerSource === 'PostAuthentication_Authentication') {
-    // 行動履歴取得
-    await createUser(e);
-
-    return e;
-  }
-
-  return e;
-};
-
-const createUser = async (e: CognitoUserPoolTriggerEvent) => {
+export default async (e: PostAuthenticationTriggerEvent) => {
   const item: TUsers = {
     id: e.userName,
     email: e.request.userAttributes['email'],

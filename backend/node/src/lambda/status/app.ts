@@ -31,41 +31,45 @@ export default async () => {
 
   const task = details.tasks[0];
 
-  if (task.lastStatus !== 'RUNNING') {
-    return {
-      status: task.lastStatus,
-    };
-  }
-
-  // find eni infomation
-  const enis = task.attachments.map((item) => {
-    const f = item.details.find((i) => i.name === 'networkInterfaceId');
-
-    return f.value;
-  });
-
-  // get eni details
-  const eniDetails = await ec2
-    .describeNetworkInterfaces({
-      NetworkInterfaceIds: enis,
-    })
-    .promise();
-
-  // get public ip
-  const publicIp = eniDetails.NetworkInterfaces[0].Association.PublicIp;
-
-  const api = new ApiGatewayV2();
-
-  // update integration target ip
-  await api
-    .updateIntegration({
-      ApiId: API_ID,
-      IntegrationId: INTEGRATION_ID,
-      IntegrationUri: `http://${publicIp}/{proxy}`,
-    })
-    .promise();
-
   return {
     status: task.lastStatus,
   };
+
+  // if (task.lastStatus !== 'RUNNING') {
+  //   return {
+  //     status: task.lastStatus,
+  //   };
+  // }
+
+  // // find eni infomation
+  // const enis = task.attachments.map((item) => {
+  //   const f = item.details.find((i) => i.name === 'networkInterfaceId');
+
+  //   return f.value;
+  // });
+
+  // // get eni details
+  // const eniDetails = await ec2
+  //   .describeNetworkInterfaces({
+  //     NetworkInterfaceIds: enis,
+  //   })
+  //   .promise();
+
+  // // get public ip
+  // const publicIp = eniDetails.NetworkInterfaces[0].Association.PublicIp;
+
+  // const api = new ApiGatewayV2();
+
+  // // update integration target ip
+  // await api
+  //   .updateIntegration({
+  //     ApiId: API_ID,
+  //     IntegrationId: INTEGRATION_ID,
+  //     IntegrationUri: `http://${publicIp}/{proxy}`,
+  //   })
+  //   .promise();
+
+  // return {
+  //   status: task.lastStatus,
+  // };
 };
