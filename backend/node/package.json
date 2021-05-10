@@ -10,7 +10,7 @@
     "dev": "nodemon ./src/ecs/app.ts",
     "prebuild": "rm -rf dist",
     "build": "tsc -p configs/tsconfig.ecs.json && tsc-alias -p configs/tsconfig.ecs.json",
-    "build:lambda": "tsc --build configs/tsconfig_lambda.json",
+    "build:lambda": "tsc --build configs/tsconfig.lambda.json",
     "docker:build": "docker build -t pocket-cards/backend .",
     "docker:buildtest": "cd docker && yarn build",
     "docker:up": "docker-compose -f \"test/docker-compose.yml\" up -d --build",
