@@ -1,7 +1,7 @@
 import { ECS } from 'aws-sdk';
 
 const CLUSTER_ARN = process.env.CLUSTER_ARN;
-const SERVICE_NAME = process.env.SERVICE_NAME;
+const SERVICE_ARN = process.env.SERVICE_ARN;
 
 export default async () => {
   const ecs = new ECS();
@@ -10,7 +10,7 @@ export default async () => {
   await ecs
     .updateService({
       cluster: CLUSTER_ARN,
-      service: SERVICE_NAME,
+      service: SERVICE_ARN,
       desiredCount: 1,
     })
     .promise();
