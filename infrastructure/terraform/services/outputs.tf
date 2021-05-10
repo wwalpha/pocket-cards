@@ -47,3 +47,17 @@ output "cognito_user_pool_client_id" {
 output "cognito_identity_pool_id" {
   value = aws_cognito_identity_pool.this.id
 }
+
+# ----------------------------------------------------------------------------------------------
+# ECS Cluster ARN
+# ----------------------------------------------------------------------------------------------
+output "ecs_cluster_arn" {
+  value = aws_ecs_cluster.this.arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service ARN
+# ----------------------------------------------------------------------------------------------
+output "ecs_service_arn" {
+  value = aws_ecs_service.this.id
+}
