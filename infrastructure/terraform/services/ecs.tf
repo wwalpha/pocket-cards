@@ -79,7 +79,7 @@ resource "aws_ecs_service" "this" {
 
   name                               = "backend"
   cluster                            = aws_ecs_cluster.this.id
-  desired_count                      = 1
+  desired_count                      = 0
   platform_version                   = "1.4.0"
   task_definition                    = "arn:aws:ecs:${local.region}:${local.account_id}:task-definition/${aws_ecs_task_definition.this.family}:${local.task_def_rev}"
   deployment_maximum_percent         = 200
