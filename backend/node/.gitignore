@@ -1,10 +1,8 @@
-/**/node_modules
-/build
-/dist
-/**/yarn.lock
-/.nyc_output
+node_modules
+dist
+yarn.lock
+.nyc_output
 .terraform
-/.vscode
 .env.credentials
-/coverage
+coverage
 

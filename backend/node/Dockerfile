@@ -1,16 +1,29 @@
-# Source Docker Image
-FROM node:12.16.2-alpine
-
-ENV EXPOSE_PORT=80
-
-# Output Port
-EXPOSE ${EXPOSE_PORT}
+# Build Stage
+FROM node:14-alpine as build
 
 # source folder
-WORKDIR /usr/local/src
+WORKDIR /app
 
-# 既存データ
-COPY build/ecs/* .
+COPY . .
+
+RUN apk add -f git && \
+  yarn install && \
+  yarn build
+
+# Release Stage
+FROM node:14-alpine
+WORKDIR /app
+
+COPY --from=build /app/dist .
+COPY package.json .
+
+RUN apk add -f git && \
+  yarn install --production --no-lockfile
+
+# ENV EXPOSE_PORT=80
+
+# # Output Port
+# EXPOSE ${EXPOSE_PORT}
 
 # Entry Point
-ENTRYPOINT ["node", "app"]
+ENTRYPOINT ["node", "app.js"]
