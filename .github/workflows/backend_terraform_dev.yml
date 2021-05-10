@@ -34,6 +34,7 @@ jobs:
           node-version: 14.x
 
       - name: install and build
+        working-directory: backend/node/terraform
         run: |
           yarn install
           yarn build:lambda
