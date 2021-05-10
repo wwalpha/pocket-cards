@@ -6,6 +6,6 @@
   "author": "wwalpha <wwalpha@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "terraform": "act push --secret-file .secrets -P ubuntu-18.04=wwalpha/act-ubuntu:18.04"
+    "actions": "act push --secret-file .secrets --platform ubuntu-18.04=wwalpha/act-ubuntu:18.04 -W ./.github/test/"
   }
 }
