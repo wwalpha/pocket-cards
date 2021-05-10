@@ -1,0 +1,51 @@
+name: Backend Terraform Setup
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - backend/node/terraform/**
+      - .github/workflows/backend_terraform_dev.yml
+
+env:
+  AWS_DEFAULT_REGION: ap-northeast-1
+  TF_WORKSPACE: dev
+  TF_VAR_region: ap-northeast-1
+
+jobs:
+  Update:
+    runs-on: ubuntu-18.04
+    environment:
+      name: dev
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Install the latest version of Terraform CLI 
+      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          # terraform_version: 0.13.0
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      # Setup init
+      - name: Terraform Init
+        working-directory: backend/node/terraform
+        run: terraform init
+
+      # Setup plan
+      - name: Terraform Plan
+        working-directory: backend/node/terraform
+        run: terraform plan -out=backend
+
+      # Setup apply
+      - name: Terraform Apply
+        working-directory: backend/node/terraform
+        run: terraform apply "backend"
