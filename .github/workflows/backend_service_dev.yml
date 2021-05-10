@@ -47,6 +47,11 @@ jobs:
       - name: update ecs task definition
         run: aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
 
+      # Install AWS CLI
+      - name: Show Environments
+        run: |
+          cat $ECS_TAKS_DEFINITION_FILE
+
       # ECR Login
       - name: Login to Amazon ECR
         id: login-ecr
