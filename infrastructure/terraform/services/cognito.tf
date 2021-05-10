@@ -117,9 +117,9 @@ resource "aws_cognito_user_pool_client" "this" {
   name = "${aws_cognito_user_pool.this.name}Client"
 
   user_pool_id    = aws_cognito_user_pool.this.id
-  generate_secret = true
+  generate_secret = false
 
-  allowed_oauth_flows                  = ["code", "implicit"]
+  allowed_oauth_flows                  = ["code"]
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_scopes = [
     "aws.cognito.signin.user.admin",
@@ -128,9 +128,9 @@ resource "aws_cognito_user_pool_client" "this" {
     "phone",
     "profile"
   ]
-  callback_urls                = ["http://localhost:3000/callback"]
+  callback_urls                = ["http://localhost:3000/login"]
   logout_urls                  = ["http://localhost:3000/logout"]
-  supported_identity_providers = ["COGNITO"]
+  supported_identity_providers = [aws_cognito_identity_provider.google.provider_name]
   explicit_auth_flows = [
     "ALLOW_CUSTOM_AUTH",
     "ALLOW_REFRESH_TOKEN_AUTH",
@@ -161,9 +161,15 @@ resource "aws_cognito_identity_provider" "google" {
   provider_type = "Google"
 
   provider_details = {
-    authorize_scopes = "email profile openid"
-    client_id        = data.aws_ssm_parameter.identity_provider_id.value
-    client_secret    = data.aws_ssm_parameter.identity_provider_secret.value
+    authorize_scopes              = "email profile openid"
+    client_id                     = data.aws_ssm_parameter.identity_provider_id.value
+    client_secret                 = data.aws_ssm_parameter.identity_provider_secret.value
+    attributes_url                = "https://people.googleapis.com/v1/people/me?personFields="
+    attributes_url_add_attributes = "true"
+    authorize_url                 = "https://accounts.google.com/o/oauth2/v2/auth"
+    oidc_issuer                   = "https://accounts.google.com"
+    token_request_method          = "POST"
+    token_url                     = "https://www.googleapis.com/oauth2/v4/token"
   }
 
   attribute_mapping = {

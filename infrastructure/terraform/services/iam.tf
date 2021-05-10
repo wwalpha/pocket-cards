@@ -113,6 +113,9 @@ resource "aws_iam_role" "authenticated" {
 EOF
 }
 
+# ----------------------------------------------------------------------------------------------
+# Cognito Authenticated Role Policy
+# ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy" "authenticated" {
   name = "${local.project_name_uc}_CognitoAuthenticatedPolicy"
   role = aws_iam_role.authenticated.id
@@ -137,23 +140,26 @@ resource "aws_iam_role_policy" "authenticated" {
 EOF
 }
 
-# resource "aws_cognito_identity_pool_roles_attachment" "main" {
-#   identity_pool_id = aws_cognito_identity_pool.this.id
+# ----------------------------------------------------------------------------------------------
+# Cognito Authenticated Role Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_cognito_identity_pool_roles_attachment" "authenticated" {
+  identity_pool_id = aws_cognito_identity_pool.this.id
 
-#   role_mapping {
-#     identity_provider         = "graph.facebook.com"
-#     ambiguous_role_resolution = "AuthenticatedRole"
-#     type                      = "Rules"
+  # role_mapping {
+  #   identity_provider         = "graph.facebook.com"
+  #   ambiguous_role_resolution = "AuthenticatedRole"
+  #   type                      = "Rules"
 
-#     mapping_rule {
-#       claim      = "isAdmin"
-#       match_type = "Equals"
-#       role_arn   = aws_iam_role.authenticated.arn
-#       value      = "paid"
-#     }
-#   }
+  #   mapping_rule {
+  #     claim      = "isAdmin"
+  #     match_type = "Equals"
+  #     role_arn   = aws_iam_role.authenticated.arn
+  #     value      = "paid"
+  #   }
+  # }
 
-#   roles = {
-#     "authenticated" = aws_iam_role.authenticated.arn
-#   }
-# }
+  roles = {
+    "authenticated" = aws_iam_role.authenticated.arn
+  }
+}
