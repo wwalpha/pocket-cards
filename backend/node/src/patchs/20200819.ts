@@ -1,20 +1,20 @@
 import { DBHelper } from '../ecs/utils';
 import { Words } from '../ecs/queries';
 import { Environment } from '../ecs/consts';
-import { TWords, TWordMaster } from 'typings/tables';
+import { API, Table } from 'typings';
 
 const start = async () => {
   const master = (
     await DBHelper().scan({
       TableName: Environment.TABLE_WORD_MASTER,
     })
-  ).Items as TWordMaster[];
+  ).Items as Table.TWordMaster[];
 
   const words = (
     await DBHelper().scan({
       TableName: Environment.TABLE_WORDS,
     })
-  ).Items as TWords[];
+  ).Items as Table.TWords[];
 
   const tasks = words
     .map(
@@ -22,7 +22,7 @@ const start = async () => {
         ({
           ...item,
           vocabulary: master.find((m) => m.id === item.id)?.vocJpn,
-        } as TWords)
+        } as Table.TWords)
     )
     .map((item) => DBHelper().put(Words.put(item)));
 

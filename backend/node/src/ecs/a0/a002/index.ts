@@ -1,14 +1,13 @@
 import { Request } from 'express';
 import moment from 'moment';
-import { A002Response } from 'typings/api';
-import { TGroups, THistories } from 'typings/tables';
+import { API, Table } from 'typings';
 import { DBHelper, DateUtils, Commons } from '@utils';
 import { Histories, Groups, Words } from '@queries';
 
 // 環境変数
 const TIMESTAMP_ENDFIX = '000000000';
 
-export default async (req: Request): Promise<A002Response> => {
+export default async (req: Request): Promise<API.A002Response> => {
   if (!req.params) {
     return EmptyResponse();
   }
@@ -23,7 +22,7 @@ export default async (req: Request): Promise<A002Response> => {
 
   const results = await DBHelper().query(Histories.query.byUserId(userId, `${day3}`));
 
-  const items = (results.Items as unknown) as THistories[];
+  const items = (results.Items as unknown) as Table.THistories[];
 
   // 検索結果なし
   if (results.Count === 0 || !items) {
@@ -65,7 +64,7 @@ const queryRemaining = async (userId: string) => {
 
   // グループごと検索する
   for (let idx = 0; idx < userInfo.Items.length; idx = idx + 1) {
-    const groupId = (userInfo.Items[idx] as TGroups).id;
+    const groupId = (userInfo.Items[idx] as Table.TGroups).id;
 
     // 件数検索
     let result = await DBHelper().query(Words.query.queryByDate(groupId, DateUtils.getNow()));
@@ -92,7 +91,7 @@ const queryRemaining = async (userId: string) => {
   };
 };
 
-const EmptyResponse = (): A002Response => ({
+const EmptyResponse = (): API.A002Response => ({
   remaining: {
     review: 0,
     test: 0,

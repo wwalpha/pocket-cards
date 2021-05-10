@@ -1,11 +1,10 @@
 import { Request } from 'express';
 import { DBHelper } from '@utils';
 import { WordMaster } from '@queries';
-import { E002Params, E002Response, E002Request } from 'typings/api';
 import { getPronounce, saveWithMP3, getTranslate } from './lib';
-import { TWordMaster } from 'typings/tables';
+import { API, Table } from 'typings';
 
-export default async (req: Request<E002Params, any, E002Request, any>): Promise<E002Response> => {
+export default async (req: Request<API.E002Params, any, API.E002Request, any>): Promise<API.E002Response> => {
   const word = req.params.word;
   const input = req.body;
 
@@ -25,9 +24,14 @@ export default async (req: Request<E002Params, any, E002Request, any>): Promise<
 
 const addNew = async (word: string) => {
   // 新規単語追加
-  const results = await Promise.all([getPronounce(word), saveWithMP3(word), getTranslate(word, 'zh'), getTranslate(word, 'ja')]);
+  const results = await Promise.all([
+    getPronounce(word),
+    saveWithMP3(word),
+    getTranslate(word, 'zh'),
+    getTranslate(word, 'ja'),
+  ]);
 
-  const item: TWordMaster = {
+  const item: Table.TWordMaster = {
     id: word,
     pronounce: results[0]['pronounce'],
     mp3: results[1],
@@ -39,7 +43,7 @@ const addNew = async (word: string) => {
   await DBHelper().put(WordMaster.put(item));
 };
 
-const update = async (word: string, input: E002Request) => {
+const update = async (word: string, input: API.E002Request) => {
   // 単語詳細情報を取得する
   await DBHelper().put(
     WordMaster.put({

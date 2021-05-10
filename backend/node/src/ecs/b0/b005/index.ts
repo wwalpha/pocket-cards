@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { DBHelper, Logger, Commons } from '@utils';
 import { Groups } from '@queries';
-import { B005Params } from 'typings/api';
+import { API } from 'typings';
 
 /**
  * グループ情報変更
@@ -9,7 +9,7 @@ import { B005Params } from 'typings/api';
  */
 export default async (req: Request): Promise<void> => {
   const userId = Commons.getUserId(req);
-  const groupId = ((req.params as unknown) as B005Params).groupId;
+  const groupId = ((req.params as unknown) as API.B005Params).groupId;
 
   // データ更新
   await DBHelper().delete(

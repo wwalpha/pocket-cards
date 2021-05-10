@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { Logger } from '@utils';
-import { Callback } from 'typings/api';
+import { API } from 'typings';
 
-export default async (req: Request, res: Response, callback: Callback) => {
+export default async (req: Request, res: Response, callback: API.Callback) => {
   // イベントログ;
   try {
     // 認証

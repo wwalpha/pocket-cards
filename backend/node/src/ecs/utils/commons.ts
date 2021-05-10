@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { ssm } from './clientUtils';
 
 // Sleep
-export const sleep = (timeout: number) => new Promise((resolve) => setTimeout(() => resolve(), timeout));
+export const sleep = (timeout: number) => new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
 
 /**
  * Header情報からUserIdを取得する(Cognito Authorization IdToken)

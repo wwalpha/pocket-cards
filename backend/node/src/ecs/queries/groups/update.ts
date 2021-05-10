@@ -1,13 +1,13 @@
 import { Environment } from '@consts';
 import { DynamoDB } from 'aws-sdk';
-import { GroupsKey } from 'typings/tables';
+import { Table } from 'typings';
 
 export const addCount = (id: string, userId: string, count: number): DynamoDB.DocumentClient.UpdateItemInput => ({
   TableName: Environment.TABLE_GROUPS,
   Key: {
     id,
     userId,
-  } as GroupsKey,
+  } as Table.GroupsKey,
   UpdateExpression: 'set #count = #count + :nums',
   ExpressionAttributeNames: {
     '#count': 'count',
@@ -22,7 +22,7 @@ export const minusCount = (id: string, userId: string, count: number): DynamoDB.
   Key: {
     id,
     userId,
-  } as GroupsKey,
+  } as Table.GroupsKey,
   UpdateExpression: 'set #count = #count - :nums',
   ExpressionAttributeNames: {
     '#count': 'count',

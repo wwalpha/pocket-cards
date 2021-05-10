@@ -1,6 +1,6 @@
 import { DynamoDB } from 'aws-sdk';
 import { Environment } from '@consts';
-import { TWordMaster } from 'typings/tables';
+import { API, Table } from 'typings';
 
 /** データ取得 */
 export const get = (id: string) =>
@@ -12,7 +12,7 @@ export const get = (id: string) =>
   } as DynamoDB.DocumentClient.GetItemInput);
 
 /** データ登録 */
-export const put = (item: TWordMaster) =>
+export const put = (item: Table.TWordMaster) =>
   ({
     TableName: Environment.TABLE_WORD_MASTER,
     Item: item,

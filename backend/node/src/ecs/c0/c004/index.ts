@@ -1,10 +1,10 @@
 import { Request } from 'express';
-import { C004Params, C004Response, C004Request } from 'typings/api';
+import { API } from 'typings';
 import { Commons } from '@utils';
 import study from './study';
 import update from './update';
 
-export default async (req: Request<C004Params, any, C004Request, any>): Promise<C004Response> => {
+export default async (req: Request<API.C004Params, any, API.C004Request, any>): Promise<API.C004Response> => {
   const input = req.body;
   const userId = Commons.getUserId(req);
 

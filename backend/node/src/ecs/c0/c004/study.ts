@@ -1,10 +1,9 @@
 import moment from 'moment';
-import { C004Request, C004Response, C004Params } from 'typings/api';
 import { DateUtils, DBHelper } from '@utils';
 import { Words, Histories } from '@queries';
-import { TWords } from 'typings/tables';
+import { API, Table } from 'typings';
 
-export default async (params: C004Params, input: C004Request, userId: string): Promise<C004Response> => {
+export default async (params: API.C004Params, input: API.C004Request, userId: string): Promise<API.C004Response> => {
   const { groupId, word } = params;
 
   // 正解の場合
@@ -37,7 +36,7 @@ export default async (params: C004Params, input: C004Request, userId: string): P
           word: word,
           group: groupId,
           times: times,
-          lastTime: (result.Item as TWords)?.lastTime,
+          lastTime: (result.Item as Table.TWords)?.lastTime,
         }),
       },
     ],

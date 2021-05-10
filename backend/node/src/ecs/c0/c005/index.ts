@@ -1,10 +1,10 @@
 import { Request } from 'express';
-import { C005Response, C005Params } from 'typings/api';
 import { DBHelper } from '@utils';
 import { Groups, Words } from '@queries';
 import { getUserId } from '@src/utils/commons';
+import { API } from 'typings';
 
-export default async (req: Request<C005Params, any, any, any>): Promise<C005Response> => {
+export default async (req: Request<API.C005Params, any, any, any>): Promise<API.C005Response> => {
   const params = req.params;
   const userId = getUserId(req);
 

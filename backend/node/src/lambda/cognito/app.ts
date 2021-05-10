@@ -1,11 +1,11 @@
 import { DynamoDB } from 'aws-sdk';
 import { PostAuthenticationTriggerEvent } from 'aws-lambda';
-import { TUsers } from 'typings/tables';
+import { Table } from 'typings';
 
 const db = new DynamoDB.DocumentClient();
 
 export default async (e: PostAuthenticationTriggerEvent) => {
-  const item: TUsers = {
+  const item: Table.TUsers = {
     id: e.userName,
     email: e.request.userAttributes['email'],
     name: e.request.userAttributes['name'],
@@ -26,7 +26,7 @@ export default async (e: PostAuthenticationTriggerEvent) => {
 };
 
 /** データ更新 */
-const put = (item: TUsers) =>
+const put = (item: Table.TUsers) =>
   ({
     TableName: process.env.TABLE_USERS as string,
     Item: item,

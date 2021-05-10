@@ -6,7 +6,7 @@ import AWS from 'aws-sdk';
 import AWSMock from 'aws-sdk-mock';
 import { DBHelper, Commons } from '@utils';
 import { Groups } from '@queries';
-import { B001Response } from 'typings/api';
+import { API } from 'typings';
 import { HEADER_AUTH } from '../../Commons';
 
 chai.use(chaiHttp);
@@ -47,7 +47,7 @@ describe('B001', () => {
     // response status
     chai.expect(res.status).to.be.eq(200);
 
-    const ret = res.body as B001Response;
+    const ret = res.body as API.B001Response;
 
     const userId = Commons.getUserInfo(HEADER_AUTH);
     const result = await DBHelper().get(Groups.get({ id: ret.groupId, userId: userId }));

@@ -1,10 +1,9 @@
 import { Request } from 'express';
 import { DBHelper, Logger, Commons } from '@utils';
 import { Groups } from '@queries';
-import { B002Response } from 'typings/api';
-import { TGroups } from 'typings/tables';
+import { API, Table } from 'typings';
 
-export default async (req: Request): Promise<B002Response> => {
+export default async (req: Request): Promise<API.B002Response> => {
   const userId = Commons.getUserId(req);
 
   // 検索結果
@@ -24,6 +23,6 @@ export default async (req: Request): Promise<B002Response> => {
 
   return {
     count: items.length,
-    groups: items as TGroups[],
+    groups: items as Table.TGroups[],
   };
 };

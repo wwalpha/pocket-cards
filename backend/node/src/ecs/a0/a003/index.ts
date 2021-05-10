@@ -1,7 +1,7 @@
 import { DynamoDB } from 'aws-sdk';
 import moment from 'moment';
 import { Request } from 'express';
-import { TUsers, TGroups, TWords } from 'typings/tables';
+import { Table } from 'typings';
 import { DateUtils, DBHelper, Commons, Logger } from '@utils';
 import { Users, Words } from '@queries';
 import { Environment } from '@consts';
@@ -18,7 +18,7 @@ export default async (req: Request): Promise<void> => {
   // ユーザ情報が存在しない
   if (!userInfo.Item) return;
 
-  const { studyQuery, id } = userInfo.Item as TUsers;
+  const { studyQuery, id } = userInfo.Item as Table.TUsers;
 
   // すでに当日の場合、そのまま終了する
   if (studyQuery === DateUtils.getNow()) {
@@ -33,7 +33,7 @@ export default async (req: Request): Promise<void> => {
   let maxDate = '00000000';
 
   for (let idx in userGroupsInfo.Items) {
-    const { id } = userGroupsInfo.Items[idx] as TGroups;
+    const { id } = userGroupsInfo.Items[idx] as Table.TGroups;
 
     // 最後の学習日を取得する
     const groupInfo = await DBHelper().query(Words.query.lastStudyDate(id));
@@ -43,7 +43,7 @@ export default async (req: Request): Promise<void> => {
       continue;
     }
 
-    const { lastTime } = groupInfo.Items[0] as TWords;
+    const { lastTime } = groupInfo.Items[0] as Table.TWords;
 
     // 最大日付を計算する
     if (lastTime) {
@@ -68,7 +68,7 @@ export default async (req: Request): Promise<void> => {
     await updateTable(100);
 
     for (let idx in userGroupsInfo.Items) {
-      const { id } = userGroupsInfo.Items[idx] as TGroups;
+      const { id } = userGroupsInfo.Items[idx] as Table.TGroups;
 
       // 学習履歴ある単語を全部取得する
       const groupInfo = await DBHelper().query(Words.query.lastStudyDate(id));
@@ -88,7 +88,7 @@ export default async (req: Request): Promise<void> => {
         Logger.info(`対象件数: ${items.length}`);
 
         const tasks = newItems.map((item) => {
-          const { id: word, nextTime } = item as TWords;
+          const { id: word, nextTime } = item as Table.TWords;
 
           // 新時間
           const newTime = moment(nextTime).add(diff, 'days').format('YYYYMMDD');

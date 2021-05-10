@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { DBHelper, Logger, Commons } from '@utils';
-import { B004Params, B004Request } from 'typings/api';
+import { API } from 'typings';
 import { Groups } from '@queries';
 
 /**
@@ -9,8 +9,8 @@ import { Groups } from '@queries';
  */
 export default async (req: Request): Promise<void> => {
   const userId = Commons.getUserId(req);
-  const groupId = ((req.params as unknown) as B004Params).groupId;
-  const item = req.body as B004Request;
+  const groupId = ((req.params as unknown) as API.B004Params).groupId;
+  const item = req.body as API.B004Request;
 
   // データ更新
   await DBHelper().put(

@@ -2,11 +2,10 @@ import { Request } from 'express';
 import { DBHelper, Logger } from '@utils';
 import { Environment } from '@consts';
 import { Words, WordMaster } from '@queries';
-import { TWords, TWordMaster } from 'typings/tables';
-import { C008Response, WordItem, C008Params } from 'typings/api';
+import { API, Table } from 'typings';
 
-export default async (req: Request): Promise<C008Response> => {
-  const params = (req.params as unknown) as C008Params;
+export default async (req: Request): Promise<API.C008Response> => {
+  const params = (req.params as unknown) as API.C008Params;
   const groupId = params.groupId;
 
   const queryResult = await DBHelper().query(Words.query.review(groupId));
@@ -16,7 +15,7 @@ export default async (req: Request): Promise<C008Response> => {
     return EmptyResponse();
   }
 
-  const items = queryResult.Items as TWords[];
+  const items = queryResult.Items as Table.TWords[];
   // 時間順で上位N件を対象とします
   const targets = getRandom(items, Environment.WORDS_LIMIT);
   // 単語明細情報の取得
@@ -28,17 +27,17 @@ export default async (req: Request): Promise<C008Response> => {
   };
 };
 
-const EmptyResponse = (): C008Response => ({
+const EmptyResponse = (): API.C008Response => ({
   count: 0,
   words: [],
 });
 
-const getRandom = (items: TWords[], maxItems: number): TWords[] => {
+const getRandom = (items: Table.TWords[], maxItems: number): Table.TWords[] => {
   if (maxItems >= items.length) {
     return items;
   }
 
-  const results: TWords[] = [];
+  const results: Table.TWords[] = [];
 
   while (results.length != maxItems) {
     const min = 0;
@@ -53,22 +52,22 @@ const getRandom = (items: TWords[], maxItems: number): TWords[] => {
 };
 
 /** 単語明細情報の取得 */
-const getDetails = async (words: TWords[]) => {
+const getDetails = async (words: Table.TWords[]) => {
   const tasks = words.map((item) => DBHelper().get(WordMaster.get(item.id)));
   const details = (await Promise.all(tasks)).filter((item) => item);
 
   Logger.info('検索結果', details);
 
   // 返却結果
-  const rets: WordItem[] = [];
+  const rets: API.WordItem[] = [];
 
   words.forEach((t) => {
-    const finded = details.find((w) => (w.Item as TWordMaster).id === t.id);
+    const finded = details.find((w) => (w.Item as Table.TWordMaster).id === t.id);
 
     // 明細情報存在しないデータを除外する
     if (!finded) return;
 
-    const item = finded.Item as TWordMaster;
+    const item = finded.Item as Table.TWordMaster;
 
     rets.push({
       word: item.id,
@@ -77,7 +76,7 @@ const getDetails = async (words: TWords[]) => {
       vocChn: item.vocChn,
       vocJpn: item.vocJpn,
       times: t.times,
-    } as WordItem);
+    } as API.WordItem);
   });
 
   return rets;

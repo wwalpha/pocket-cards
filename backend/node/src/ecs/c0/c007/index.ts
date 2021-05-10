@@ -3,10 +3,9 @@ import orderBy from 'lodash/orderBy';
 import { Environment } from '@consts';
 import { DBHelper, Logger, DateUtils } from '@utils';
 import { Words, WordMaster } from '@queries';
-import { TWordMaster, TWords } from 'typings/tables';
-import { C007Response, WordItem, C007Params } from 'typings/api';
+import { API, Table } from 'typings';
 
-export default async (req: Request<C007Params, any, any, any>): Promise<C007Response> => {
+export default async (req: Request<API.C007Params, any, any, any>): Promise<API.C007Response> => {
   const groupId = req.params.groupId;
 
   // テスト単語一覧を取得する
@@ -17,7 +16,7 @@ export default async (req: Request<C007Params, any, any, any>): Promise<C007Resp
     return EmptyResponse();
   }
 
-  const items = queryResult.Items as TWords[];
+  const items = queryResult.Items as Table.TWords[];
   // 時間順
   const sorted = orderBy(items, 'lastTime');
   // 時間順で上位N件を対象とします
@@ -31,13 +30,13 @@ export default async (req: Request<C007Params, any, any, any>): Promise<C007Resp
   };
 };
 
-const EmptyResponse = (): C007Response => ({
+const EmptyResponse = (): API.C007Response => ({
   count: 0,
   words: [],
 });
 
 /** 単語明細情報の取得 */
-const getDetails = async (words: TWords[]) => {
+const getDetails = async (words: Table.TWords[]) => {
   // 単語明細情報を取得する
   const tasks = words.map((item) => DBHelper().get(WordMaster.get(item.id)));
   const details = (await Promise.all(tasks)).filter((item) => item);
@@ -45,15 +44,15 @@ const getDetails = async (words: TWords[]) => {
   Logger.info('検索結果', details);
 
   // 返却結果
-  const rets: WordItem[] = [];
+  const rets: API.WordItem[] = [];
 
   words.forEach((t) => {
-    const finded = details.find((w) => (w.Item as TWordMaster).id === t.id);
+    const finded = details.find((w) => (w.Item as Table.TWordMaster).id === t.id);
 
     // 明細情報存在しないデータを除外する
     if (!finded) return;
 
-    const item = finded.Item as TWordMaster;
+    const item = finded.Item as Table.TWordMaster;
 
     rets.push({
       word: item.id,
@@ -62,7 +61,7 @@ const getDetails = async (words: TWords[]) => {
       vocChn: item.vocChn,
       vocJpn: item.vocJpn,
       times: t.times,
-    } as WordItem);
+    } as API.WordItem);
   });
 
   return rets;

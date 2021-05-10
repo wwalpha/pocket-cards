@@ -1,4 +1,3 @@
-import * as XRay from 'aws-xray-sdk';
 import * as AWSSDK from 'aws-sdk';
 import { DynamoDB, Polly, S3, Translate, SSM, Lambda } from 'aws-sdk';
 
@@ -13,7 +12,9 @@ let ssmClient: SSM;
 let lambdaClient: Lambda;
 
 /** Dynamodb Client初期化 */
-export const dynamoDB = (options?: DynamoDB.DocumentClient.DocumentClientOptions & DynamoDB.Types.ClientConfiguration): DynamoDB.DocumentClient => {
+export const dynamoDB = (
+  options?: DynamoDB.DocumentClient.DocumentClientOptions & DynamoDB.Types.ClientConfiguration
+): DynamoDB.DocumentClient => {
   // 初期化済
   if (dynamoDBClient) return dynamoDBClient;
 

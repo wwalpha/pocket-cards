@@ -1,10 +1,10 @@
 import { AWSError } from 'aws-sdk';
 import { DBHelper, DateUtils } from '@utils';
 import { Groups, Words } from '@queries';
-import { TWordMaster } from 'typings/tables';
+import { API, Table } from 'typings';
 
 /** Wordsのデータ登録 */
-export default async (userId: string, groupId: string, words: string[], master: TWordMaster[]) => {
+export default async (userId: string, groupId: string, words: string[], master: Table.TWordMaster[]) => {
   // 単語は全部小文字で処理する
   const tasks = words.map((id) => {
     const record = master.find((item) => item.id === id);

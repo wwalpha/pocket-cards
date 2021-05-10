@@ -5,7 +5,7 @@ import server from '@app';
 import AWS from 'aws-sdk';
 import AWSMock from 'aws-sdk-mock';
 import { HEADER_AUTH } from '@test/Commons';
-import { E002Request } from 'typings/api';
+import { API } from 'typings';
 
 chai.use(chaiHttp);
 chai.use(chaiExclude);
@@ -19,24 +19,32 @@ describe('E002', () => {
   });
 
   it.skip('Case001', async () => {
-    AWSMock.mock('DynamoDB.DocumentClient', 'get', (params: AWS.DynamoDB.DocumentClient.GetItemInput, callback: any) => {
-      chai.expect(params.Key).to.be.deep.eq({ id: 'AAA' });
+    AWSMock.mock(
+      'DynamoDB.DocumentClient',
+      'get',
+      (params: AWS.DynamoDB.DocumentClient.GetItemInput, callback: any) => {
+        chai.expect(params.Key).to.be.deep.eq({ id: 'AAA' });
 
-      const ret: AWS.DynamoDB.DocumentClient.GetItemOutput = {
-        Item: require('./datas/db001.json'),
-      };
+        const ret: AWS.DynamoDB.DocumentClient.GetItemOutput = {
+          Item: require('./datas/db001.json'),
+        };
 
-      callback(null, ret);
-    });
+        callback(null, ret);
+      }
+    );
 
-    AWSMock.mock('DynamoDB.DocumentClient', 'put', (params: AWS.DynamoDB.DocumentClient.PutItemInput, callback: any) => {
-      // chai.expect(params).to.be.deep.eq(require('./datas/params001.json'));
-      console.log(params);
+    AWSMock.mock(
+      'DynamoDB.DocumentClient',
+      'put',
+      (params: AWS.DynamoDB.DocumentClient.PutItemInput, callback: any) => {
+        // chai.expect(params).to.be.deep.eq(require('./datas/params001.json'));
+        console.log(params);
 
-      const ret: AWS.DynamoDB.DocumentClient.PutItemOutput = {};
+        const ret: AWS.DynamoDB.DocumentClient.PutItemOutput = {};
 
-      callback(null, ret);
-    });
+        callback(null, ret);
+      }
+    );
 
     // URL
     const URL = '/words/AAA';
@@ -51,28 +59,36 @@ describe('E002', () => {
         pronounce: 'Pronounce_1',
         vocJpn: 'WORD_JA_1',
         vocChn: 'WORD_ZH_1',
-      } as E002Request);
+      } as API.E002Request);
 
     // response status
     chai.expect(res.status).to.be.eq(200);
   });
 
   it('Case002', async () => {
-    AWSMock.mock('DynamoDB.DocumentClient', 'get', (params: AWS.DynamoDB.DocumentClient.GetItemInput, callback: any) => {
-      chai.expect(params.Key).to.be.deep.eq({ id: 'Text' });
+    AWSMock.mock(
+      'DynamoDB.DocumentClient',
+      'get',
+      (params: AWS.DynamoDB.DocumentClient.GetItemInput, callback: any) => {
+        chai.expect(params.Key).to.be.deep.eq({ id: 'Text' });
 
-      const ret: AWS.DynamoDB.DocumentClient.GetItemOutput = {
-        Item: undefined,
-      };
+        const ret: AWS.DynamoDB.DocumentClient.GetItemOutput = {
+          Item: undefined,
+        };
 
-      callback(null, ret);
-    });
+        callback(null, ret);
+      }
+    );
 
-    AWSMock.mock('DynamoDB.DocumentClient', 'put', (params: AWS.DynamoDB.DocumentClient.PutItemInput, callback: any) => {
-      chai.expect(params).excludingEvery('mp3').to.be.deep.eq(require('./datas/002_params_put.json'));
+    AWSMock.mock(
+      'DynamoDB.DocumentClient',
+      'put',
+      (params: AWS.DynamoDB.DocumentClient.PutItemInput, callback: any) => {
+        chai.expect(params).excludingEvery('mp3').to.be.deep.eq(require('./datas/002_params_put.json'));
 
-      callback(null, 'success');
-    });
+        callback(null, 'success');
+      }
+    );
 
     // URL
     const URL = '/words/Text';

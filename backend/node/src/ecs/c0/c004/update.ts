@@ -1,10 +1,9 @@
 import { DynamoDB } from 'aws-sdk';
-import { C004Request, C004Response, C004Params } from 'typings/api';
 import { DBHelper } from '@utils';
 import { Words } from '@queries';
-import { TWords } from 'typings/tables';
+import { API, Table } from 'typings';
 
-export default async (params: C004Params, input: C004Request): Promise<C004Response> => {
+export default async (params: API.C004Params, input: API.C004Request): Promise<API.C004Response> => {
   const { groupId, word } = params;
 
   // 単語が同じ
@@ -42,7 +41,7 @@ export default async (params: C004Params, input: C004Request): Promise<C004Respo
     // 新単語追加
     itemList.push({
       Put: Words.put({
-        ...(oldItem.Item as TWords),
+        ...(oldItem.Item as Table.TWords),
         id: input.newWord,
       }),
     });

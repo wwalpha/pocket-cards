@@ -4,14 +4,16 @@ import * as short from 'short-uuid';
 import { DBHelper, ClientUtils, DateUtils, Logger } from '@utils';
 import { WordMaster } from '@queries';
 import { Environment } from '@consts';
-import { TWordMaster } from 'typings/tables';
+import { API, Table } from 'typings';
 
 const pronounceKey = Environment.IPA_API_KEY;
 const translateKey = Environment.TRANSLATION_API_KEY;
 
 export default async (words: string[]) => {
   // 単語登録用の情報を収集する
-  const tasks = words.map((item) => Promise.all([getPronounce(item), saveWithMP3(item), getTranslate(item, 'zh'), getTranslate(item, 'ja')]));
+  const tasks = words.map((item) =>
+    Promise.all([getPronounce(item), saveWithMP3(item), getTranslate(item, 'zh'), getTranslate(item, 'ja')])
+  );
 
   const result = await Promise.all(tasks);
 
@@ -26,7 +28,7 @@ export default async (words: string[]) => {
         mp3: item[1],
         vocChn: item[2],
         vocJpn: item[3],
-      } as TWordMaster)
+      } as Table.TWordMaster)
   );
 
   // 単語登録タスク作成
