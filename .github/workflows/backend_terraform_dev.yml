@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - backend/node/terraform/**
+      - backend/node/src/lambda/**
       - .github/workflows/backend_terraform_dev.yml
 
 env:
