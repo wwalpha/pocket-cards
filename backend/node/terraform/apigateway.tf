@@ -64,7 +64,7 @@ resource "aws_apigatewayv2_integration" "ecs_task_status" {
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_route" "ecs_task_status" {
   api_id             = local.api_gateway_id
-  route_key          = "POST /admin/status"
+  route_key          = "GET /admin/status"
   target             = "integrations/${aws_apigatewayv2_integration.ecs_task_status.id}"
   authorizer_id      = local.api_gateway_authorizer_id
   authorization_type = "JWT"
