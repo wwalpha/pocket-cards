@@ -1,12 +1,10 @@
 import { History } from 'history';
-import { AnswerAction } from './B004';
-import { StartReviewAction } from './B006';
-import { StartTestAction } from './B007';
+import { APP } from 'typings';
 
-export { default as startNew, B001Payload } from './B001';
-export { default as answer, B004Payload } from './B004';
-export { default as startReview, B006Payload } from './B006';
-export { default as startTest, B007Payload } from './B007';
+export { default as startNew } from './startNew';
+export { default as startReview } from './startReview';
+export { default as startTest } from './startTest';
+export { default as answer } from './answer';
 
 // ------------------------------------------------------------
 // TypeScript Definetion
@@ -17,9 +15,9 @@ export interface Actions {
   /** 新規単語学習 */
   startNew: (history: History<any>) => void;
   /** テスト回答(YES/NO) */
-  answer: (word: string, yes: boolean) => AnswerAction;
+  answer: (word: string, yes: boolean) => APP.AnswerAction;
   /** 単語復習 */
-  startReview: (history: History<any>) => StartReviewAction;
+  startReview: (history: History<any>) => APP.StartReviewAction;
   /** 単語テスト（全部）*/
-  startTest: (history: History<any>) => StartTestAction;
+  startTest: (history: History<any>) => APP.StartTestAction;
 }
