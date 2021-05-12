@@ -2,14 +2,14 @@ import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 import { defaultFailure, defaultRequest } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
-import { API, APP } from 'typings';
+import { API, Actions } from 'typings';
 
-export const success = createAction<APP.E006Payload, API.E001Response>(ActionTypes.E0_06_SUCCESS, (res) => ({
+export const success = createAction<Actions.E006Payload, API.E001Response>(ActionTypes.E0_06_SUCCESS, (res) => ({
   res,
 }));
 
 /** 単語詳細 */
-const detail: APP.WordDetailAction = (word: string) => async (dispatch, _, api) => {
+const detail: Actions.WordDetailAction = (word: string) => async (dispatch, _, api) => {
   dispatch(defaultRequest());
 
   try {

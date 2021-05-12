@@ -2,10 +2,10 @@ import { createAction } from 'redux-actions';
 import { push } from 'connected-react-router';
 import { Consts, Paths, ActionTypes } from '@constants';
 import { defaultFailure, defaultRequest } from '@actions';
-import { APP, API } from 'typings';
+import { Actions, API } from 'typings';
 
 /** 単語復習 */
-export const success = createAction<APP.B006Payload, API.WordItem[]>(
+export const success = createAction<Actions.B006Payload, API.WordItem[]>(
   ActionTypes.B0_06_SUCCESS,
   (data: API.WordItem[]) => ({
     mode: Consts.MODES.Review,
@@ -14,7 +14,7 @@ export const success = createAction<APP.B006Payload, API.WordItem[]>(
 );
 
 /** 単語復習 */
-const startReview: APP.StartReviewAction = () => async (dispatch, store, api) => {
+const startReview: Actions.StartReviewAction = () => async (dispatch, store, api) => {
   // 既存単語クリア
   dispatch(defaultRequest());
 

@@ -2,9 +2,9 @@ import { defaultFailure, defaultRequest } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
-import { API, APP } from 'typings';
+import { API, Actions } from 'typings';
 
-export const success = createAction<APP.E008Payload, string, string>(
+export const success = createAction<Actions.E008Payload, string, string>(
   ActionTypes.E0_08_SUCCESS,
   (groupId: string, word: string) => ({
     groupId,
@@ -13,7 +13,7 @@ export const success = createAction<APP.E008Payload, string, string>(
 );
 
 /** 単語削除 */
-const del: APP.WordDeleteAction = (groupId: string, word: string) => async (dispatch, _, api) => {
+const del: Actions.WordDeleteAction = (groupId: string, word: string) => async (dispatch, _, api) => {
   // 単語削除開始イベント
   dispatch(defaultRequest());
 

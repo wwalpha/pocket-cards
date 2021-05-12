@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import { push } from 'connected-react-router';
 import { defaultFailure, defaultRequest } from '@actions';
 import { Consts, Paths, ActionTypes } from '@constants';
-import { API, APP } from 'typings';
+import { API, Actions } from 'typings';
 
 /** 単語テスト */
 export const success = createAction(ActionTypes.B0_07_SUCCESS, (data: API.WordItem[]) => ({
@@ -11,7 +11,7 @@ export const success = createAction(ActionTypes.B0_07_SUCCESS, (data: API.WordIt
 }));
 
 /** 単語テスト */
-const startTest: APP.StartTestAction = () => async (dispatch, store, api) => {
+const startTest: Actions.StartTestAction = () => async (dispatch, store, api) => {
   // 既存単語クリア
   dispatch(defaultRequest());
 

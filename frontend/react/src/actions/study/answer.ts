@@ -3,12 +3,12 @@ import { defaultFailure, defaultRequest } from '@actions';
 import { ActionTypes, Consts } from '@constants';
 import * as StartNew from './startNew';
 import * as StartTest from './startTest';
-import { API, APP } from 'typings';
+import { API, Actions } from 'typings';
 
 const success = createAction(ActionTypes.B0_04_SUCCESS, (yes: boolean) => ({ yes }));
 
 /** テスト回答(YES/NO) */
-const answer: APP.AnswerAction = (word: string, yes: boolean) => async (dispatch, store, api) => {
+const answer: Actions.AnswerAction = (word: string, yes: boolean) => async (dispatch, store, api) => {
   const { mode, current, rows } = store().word;
   const { groupId } = store().app;
 

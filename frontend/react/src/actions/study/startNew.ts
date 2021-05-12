@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import { push } from 'connected-react-router';
 import { defaultRequest, defaultFailure } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
-import { APP, API } from 'typings';
+import { Actions, API } from 'typings';
 
 export const success = createAction(ActionTypes.B0_01_SUCCESS, (data: API.WordItem[]) => ({
   mode: Consts.MODES.New,
@@ -10,7 +10,7 @@ export const success = createAction(ActionTypes.B0_01_SUCCESS, (data: API.WordIt
 }));
 
 /** 新規単語学習 */
-const startNew: APP.StartNewAction = () => async (dispatch, store, api) => {
+const startNew: Actions.StartNewAction = () => async (dispatch, store, api) => {
   const { groupId } = store().app;
 
   // 既存単語クリア
