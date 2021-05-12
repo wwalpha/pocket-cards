@@ -11,7 +11,6 @@ const prod: Configuration = {
     new EnvironmentPlugin([
       'AWS_REGION',
       'API_URL',
-      'API_SERVER_URL',
       'IDENTITY_POOL_ID',
       'USER_POOL_ID',
       'USER_POOL_WEB_CLIENT_ID',
