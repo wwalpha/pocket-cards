@@ -1,7 +1,5 @@
 import { ThunkActionDispatch } from 'typings/redux-thunk';
-import { list } from './App';
-export * as Actions from './App';
-export { E005Payload } from './Actions';
+import { default as list } from './list';
 
 // ------------------------------
 // TypeScript Definetion
