@@ -22,6 +22,12 @@ resource "aws_apigatewayv2_route" "ecs_task_start" {
   authorization_type = "JWT"
 }
 
+resource "aws_apigatewayv2_route" "ecs_task_start_options" {
+  api_id    = local.api_gateway_id
+  route_key = "OPTIONS /admin/start"
+  target    = "integrations/${aws_apigatewayv2_integration.ecs_task_start.id}"
+}
+
 # ---------------------------------------------------------------------------------------------
 # API Gateway Integration (Lambda) - ECS Task Stop
 # ---------------------------------------------------------------------------------------------
@@ -44,6 +50,12 @@ resource "aws_apigatewayv2_route" "ecs_task_stop" {
   target             = "integrations/${aws_apigatewayv2_integration.ecs_task_stop.id}"
   authorizer_id      = local.api_gateway_authorizer_id
   authorization_type = "JWT"
+}
+
+resource "aws_apigatewayv2_route" "ecs_task_stop_options" {
+  api_id    = local.api_gateway_id
+  route_key = "OPTIONS /admin/stop"
+  target    = "integrations/${aws_apigatewayv2_integration.ecs_task_stop.id}"
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -70,3 +82,8 @@ resource "aws_apigatewayv2_route" "ecs_task_status" {
   authorization_type = "JWT"
 }
 
+resource "aws_apigatewayv2_route" "ecs_task_status_options" {
+  api_id    = local.api_gateway_id
+  route_key = "OPTIONS /admin/status"
+  target    = "integrations/${aws_apigatewayv2_integration.ecs_task_status.id}"
+}
