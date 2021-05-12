@@ -11,7 +11,7 @@ export default class User {
   dailyReview: number = 0;
   weekly: number = 0;
   monthly: number = 0;
-  isLoading: boolean = false;
+  // isLoading: boolean = false;
 
   /**
    * 学習履歴取得
@@ -30,15 +30,15 @@ export default class User {
   }
 
   /** 取込中 */
-  startLoading() {
-    return produce(this, (draft) => {
-      draft.isLoading = true;
-    });
-  }
+  // startLoading() {
+  //   return produce(this, (draft) => {
+  //     draft.isLoading = true;
+  //   });
+  // }
 
-  endLoading() {
-    return produce(this, (draft) => {
-      draft.isLoading = false;
-    });
-  }
+  // endLoading() {
+  //   return produce(this, (draft) => {
+  //     draft.isLoading = false;
+  //   });
+  // }
 }

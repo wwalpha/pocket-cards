@@ -9,7 +9,7 @@ export default class Word {
 
   current?: WordItem = undefined;
   mode?: string = undefined;
-  isLoading: boolean = false;
+  // isLoading: boolean = false;
   rows: WordItem[] = [];
   history: WordItem[] = [];
   index: number = 0;
@@ -82,17 +82,17 @@ export default class Word {
   }
 
   /** 取込中 */
-  startLoading() {
-    return produce(this, (draft) => {
-      draft.isLoading = true;
-    });
-  }
+  // startLoading() {
+  //   return produce(this, (draft) => {
+  //     draft.isLoading = true;
+  //   });
+  // }
 
-  endLoading() {
-    return produce(this, (draft) => {
-      draft.isLoading = false;
-    });
-  }
+  // endLoading() {
+  //   return produce(this, (draft) => {
+  //     draft.isLoading = false;
+  //   });
+  // }
 
   /**
    * 登録しない単語を削除する

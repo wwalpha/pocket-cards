@@ -1,6 +1,17 @@
 import { GroupInfo } from './types';
 import { Request } from 'express';
 
+export interface APIClass {
+  get<T = any>(path: string, headers?: any, name?: string): Promise<T>;
+  put<T = any>(path: string, body?: any, name?: string): Promise<T>;
+  post<T = any>(path: string, body?: any, name?: string): Promise<T>;
+  del<T = any>(path: string, body?: any, name?: string): Promise<T>;
+}
+
+export type GET_ACTION<T = any> = (path: string, headers?: any, name?: string) => Promise<T>;
+export type PUT_ACTION<T = any> = (path: string, body?: any, name?: string) => Promise<T>;
+export type POST_ACTION<T = any> = (path: string, body?: any, name?: string) => Promise<T>;
+
 // ------------------------------
 // Common
 // ------------------------------

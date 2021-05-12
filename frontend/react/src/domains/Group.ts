@@ -1,36 +1,31 @@
-import { E001Payload, E002Payload, E004Payload } from '@actions/group';
-import { E005Payload } from '@actions/word';
-import { E006Payload, E008Payload } from '@actions/word/Actions';
 import { immerable, produce } from 'immer';
-import { E001Response } from 'typings/api';
-import { GroupInfo, GroupWordsItem } from 'typings/types';
+import { API, Actions, APP } from 'typings';
 
 export default class Group {
   [immerable] = true;
 
-  rows: GroupInfo[] = [];
-  words: GroupWordsItem[] = [];
-  isLoading: boolean = false;
-  wordDetail?: E001Response = undefined;
+  rows: APP.GroupInfo[] = [];
+  words: APP.GroupWordsItem[] = [];
+  wordDetail?: API.E001Response = undefined;
 
   /**
    * グループ一覧追加
    */
-  addGroupList({ groups }: E001Payload) {
+  addGroupList({ groups }: Actions.E001Payload) {
     return produce(this, (draft) => {
       draft.rows = groups;
     });
   }
 
   /** グループ新規登録 */
-  addGroup(payload: E002Payload) {
+  addGroup(payload: Actions.E002Payload) {
     return produce(this, (draft) => {
       draft.rows.push(payload);
     });
   }
 
   /** グループ削除 */
-  delGroup(payload: E004Payload) {
+  delGroup(payload: Actions.E004Payload) {
     return produce(this, (draft) => {
       draft.rows = this.rows.filter((item) => item.id !== payload.groupId);
       draft.words = this.words.filter((item) => item.groupId !== payload.groupId);
@@ -38,7 +33,7 @@ export default class Group {
   }
 
   /** 単語一覧追加 */
-  addWordList(payload: E005Payload) {
+  addWordList(payload: Actions.E005Payload) {
     return produce(this, (draft) => {
       const item = this.words.find((item) => item.groupId === payload.groupId);
 
@@ -58,7 +53,7 @@ export default class Group {
   }
 
   /** 単語詳細情報取得 */
-  setWordDetail({ res }: E006Payload) {
+  setWordDetail({ res }: Actions.E006Payload) {
     return produce(this, (draft) => {
       draft.wordDetail = res;
     });
@@ -72,7 +67,7 @@ export default class Group {
   }
 
   /** 単語削除 */
-  delWord(payload: E008Payload) {
+  delWord(payload: Actions.E008Payload) {
     return produce(this, (draft) => {
       const group = this.words.find((item) => item.groupId === payload.groupId);
 
@@ -85,16 +80,16 @@ export default class Group {
     });
   }
 
-  /** 取込中 */
-  startLoading() {
-    return produce(this, (draft) => {
-      draft.isLoading = true;
-    });
-  }
+  // /** 取込中 */
+  // startLoading() {
+  //   return produce(this, (draft) => {
+  //     draft.isLoading = true;
+  //   });
+  // }
 
-  endLoading() {
-    return produce(this, (draft) => {
-      draft.isLoading = false;
-    });
-  }
+  // endLoading() {
+  //   return produce(this, (draft) => {
+  //     draft.isLoading = false;
+  //   });
+  // }
 }

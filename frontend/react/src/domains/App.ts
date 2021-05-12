@@ -1,7 +1,7 @@
-import { App10Payload } from '@actions/app';
 import { CognitoUser } from '@aws-amplify/auth';
 import { Consts, Paths } from '@constants';
 import { immerable, produce } from 'immer';
+import { Actions } from 'typings';
 
 export default class AppState {
   [immerable] = true;
@@ -42,7 +42,7 @@ export default class AppState {
     });
   }
 
-  setShow({ type, value }: App10Payload) {
+  setShow({ type, value }: Actions.App10Payload) {
     return produce(this, (draft) => {
       draft.displayCtrl[type] = value;
     });

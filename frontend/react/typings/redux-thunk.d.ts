@@ -1,3 +1,4 @@
+import { CallHistoryMethodAction } from 'connected-react-router';
 import { Action, ActionCreatorsMapObject, AnyAction, Dispatch, Middleware } from 'redux';
 
 /**
@@ -57,15 +58,12 @@ export type ThunkActionDispatch<TActionCreator extends (...args: any[]) => Thunk
  * @template TExtraThunkArg An optional extra argument to pass to a thunk's
  * inner function. (Only used if you call `thunk.withExtraArgument()`)
  */
-export type ThunkMiddleware<
-  TState = {},
-  TBasicAction extends Action = AnyAction,
-  TExtraThunkArg = undefined
-> = Middleware<
-  ThunkDispatch<TState, TExtraThunkArg, TBasicAction>,
-  TState,
-  ThunkDispatch<TState, TExtraThunkArg, TBasicAction>
->;
+export type ThunkMiddleware<TState = {}, TBasicAction extends Action = AnyAction, TExtraThunkArg = undefined> =
+  Middleware<
+    ThunkDispatch<TState, TExtraThunkArg, TBasicAction>,
+    TState,
+    ThunkDispatch<TState, TExtraThunkArg, TBasicAction>
+  >;
 
 declare const thunk: ThunkMiddleware & {
   withExtraArgument<TExtraThunkArg, TState = {}, TBasicAction extends Action<any> = AnyAction>(
