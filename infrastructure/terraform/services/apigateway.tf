@@ -4,6 +4,14 @@
 resource "aws_apigatewayv2_api" "this" {
   name          = "${local.project_name}-api"
   protocol_type = "HTTP"
+
+  cors_configuration {
+    allow_origins = [
+      local.is_dev ? "*" : "https://${aws_acm_certificate.web.domain_name}"
+    ]
+    allow_headers = ["*"]
+    allow_methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+  }
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -16,7 +24,7 @@ resource "aws_apigatewayv2_authorizer" "this" {
   name             = "Cognito"
 
   jwt_configuration {
-    audience = ["audience"]
+    audience = [aws_cognito_user_pool_client.this.id]
     issuer   = "https://${aws_cognito_user_pool.this.endpoint}"
   }
 }
