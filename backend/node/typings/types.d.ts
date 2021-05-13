@@ -21,3 +21,19 @@ export interface VisionRequest {
 }
 
 export type VisionResponse = string[];
+
+export interface ENVIRONMENTS {
+  DYNAMODB_TABLES: {
+    USERS: string;
+    GROUPS: string;
+    WORDS: string;
+    HISTORY: string;
+    WORD_MASTER: string;
+  };
+  S3_BUCKETS: {
+    AUDIOS: string;
+    IMAGES: string;
+  };
+  WORDS_LIMIT: string;
+  PATH_PATTERN: string;
+}
