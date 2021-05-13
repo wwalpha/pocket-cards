@@ -18,6 +18,8 @@ locals {
   domain_name     = data.aws_route53_zone.this.name
   project_name    = local.remote_setup.project_name
   project_name_uc = local.remote_setup.project_name_uc
+  dynamodb_tables = local.remote_setup.dynamodb_tables
+  s3_buckets      = local.remote_setup.s3_buckets
 
   # ----------------------------------------------------------------------------------------------
   # ECS

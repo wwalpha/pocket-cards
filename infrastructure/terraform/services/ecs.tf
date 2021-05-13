@@ -53,6 +53,7 @@ resource "aws_ecs_task_definition" "this" {
       container_name  = local.task_def_family
       container_image = "${aws_ecr_repository.this.repository_url}:latest"
       container_port  = 8080
+      env_vars        = aws_ssm_parameter.environments.arn
       # app_mesh_node     = split(":", aws_appmesh_virtual_node.token.arn)[5]
       # dynamodb_tables   = aws_ssm_parameter.tables.arn
       # service_endpoints = aws_ssm_parameter.endpoints.arn

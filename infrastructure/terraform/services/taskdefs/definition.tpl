@@ -3,6 +3,12 @@
     "name": "${container_name}",
     "image": "${container_image}",
     "essential": true,
+    "secrets": [
+      {
+        "name": "ENV_VARS",
+        "valueFrom": "${env_vars}"
+      }
+    ],
     "portMappings": [
       {
         "containerPort": ${container_port},
