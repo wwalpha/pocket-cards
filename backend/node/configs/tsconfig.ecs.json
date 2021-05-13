@@ -3,8 +3,8 @@
   "compilerOptions": {
     "sourceMap": false
   },
-  "exclude": ["../test"],
+  "exclude": ["./test"],
   "include": [
-    "../src/ecs/**/*.ts"
+    "./src/ecs/**/*.ts"
   ]
 }

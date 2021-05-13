@@ -8,6 +8,7 @@ COPY . .
 
 RUN apk add -f git && \
   yarn install && \
+  mv configs/tsconfig.ecs.json . && \
   yarn build
 
 # Release Stage

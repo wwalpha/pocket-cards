@@ -1,6 +1,7 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import morgan from 'morgan';
 import cors from 'cors';
-import BodyParser from 'body-parser';
+import { json, urlencoded } from 'body-parser';
 import { B001, B002, B003, B004, B005 } from '@src/b0';
 import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/c0';
 import { D001 } from '@src/d0';
@@ -10,18 +11,12 @@ import entry from './entry';
 
 const app = express();
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  console.info(`${req.method} ${req.originalUrl}`);
-  // console.info('Headers', JSON.stringify(req.headers));
-  // console.info('Body', JSON.stringify(req.body));
-
-  next();
-});
-
-app.use(BodyParser.json({ limit: '50mb' }));
-app.use(BodyParser.urlencoded({ extended: true }));
+app.use(json({ limit: '50mb' }));
+app.use(urlencoded({ extended: true }));
+app.use(morgan('combined'));
 app.use(cors());
 
+app.options('*', (_, res) => res.sendStatus(200));
 // health check
 app.get('/', (_, res) => res.send('v3.1.0'));
 // グループ新規
