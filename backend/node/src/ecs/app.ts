@@ -55,6 +55,7 @@ app.put('/words/:word', express.json(), (req, res) => entry(req, res, E002));
 app.listen(process.env.EXPOSE_PORT || 8080, () => {
   console.log('Started...');
   console.log('Port: ', process.env.EXPOSE_PORT || 8080);
+  console.log(process.env);
 });
 
 // console.log(process.env);
