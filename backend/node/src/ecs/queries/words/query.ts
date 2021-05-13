@@ -67,7 +67,7 @@ export const listByGroup = (groupId: string): DynamoDB.DocumentClient.QueryInput
     ':groupId': groupId,
   },
   ScanIndexForward: false,
-  IndexName: 'gsi1',
+  IndexName: 'gsiIdx1',
 });
 
 /**
@@ -89,7 +89,7 @@ export const review = (groupId: string): DynamoDB.DocumentClient.QueryInput => (
     ':groupId': groupId,
     ':times': 1,
   },
-  IndexName: 'gsi1',
+  IndexName: 'gsiIdx1',
   ScanIndexForward: false,
 });
 
@@ -112,7 +112,7 @@ export const test = (groupId: string, nextTime: string): DynamoDB.DocumentClient
     ':nextTime': nextTime,
     ':times': 0,
   },
-  IndexName: 'gsi1',
+  IndexName: 'gsiIdx1',
   ScanIndexForward: false,
 });
 
@@ -136,6 +136,6 @@ export const news = (groupId: string, nextTime: string): DynamoDB.DocumentClient
     ':times': 0,
     ':nextTime': nextTime,
   },
-  IndexName: 'gsi1',
+  IndexName: 'gsiIdx1',
   ScanIndexForward: false,
 });

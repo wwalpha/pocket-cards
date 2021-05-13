@@ -12,7 +12,7 @@ export const byUserId = (userId: string, projection?: string): DynamoDB.Document
   ExpressionAttributeValues: {
     ':userId': userId,
   },
-  IndexName: 'gsi1',
+  IndexName: 'gsiIdx1',
 });
 
 /**
