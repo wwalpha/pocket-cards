@@ -6,8 +6,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN apk add -f git && \
-  yarn install && \
+RUN yarn install && \
   mv configs/tsconfig.ecs.json . && \
   yarn build
 
@@ -18,13 +17,7 @@ WORKDIR /app
 COPY --from=build /app/dist .
 COPY package.json .
 
-RUN apk add -f git && \
-  yarn install --production --no-lockfile
-
-# ENV EXPOSE_PORT=80
-
-# # Output Port
-# EXPOSE ${EXPOSE_PORT}
+RUN yarn install --production --no-lockfile
 
 # Entry Point
 ENTRYPOINT ["node", "app.js"]

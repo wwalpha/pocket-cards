@@ -72,7 +72,7 @@ const saveWithMP3 = async (word: string): Promise<string> => {
   const key: string = `${Environment.PATH_PATTERN}/${prefix}/${filename}`;
 
   const putRequest: S3.Types.PutObjectRequest = {
-    Bucket: Environment.MP3_BUCKET,
+    Bucket: Environment.AUDIOS_BUCKET,
     Key: key,
     Body: response.AudioStream,
   };

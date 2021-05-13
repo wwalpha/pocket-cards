@@ -52,11 +52,11 @@
     }
   },
   "dependencies": {
+    "@alphax/dynamodb": "^1.0.2",
     "aws-sdk": "^2.903.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "dynamodb-helper": "https://github.com/wwalpha/dynamodb-helper.git",
     "express": "^4.17.1",
     "lodash": "^4.17.19",
     "log4js": "^6.3.0",

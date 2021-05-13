@@ -5,6 +5,7 @@ export const AWS_DEFAULT_REGION = process.env.AWS_DEFAULT_REGION as string;
 /** all environment variables */
 export const ENVS = JSON.parse(process.env.ENV_VARS as string) as ENVIRONMENTS;
 /** tables */
+export const TABLE_USERS = ENVS.DYNAMODB_TABLES.USERS;
 export const TABLE_GROUPS = ENVS.DYNAMODB_TABLES.GROUPS;
 export const TABLE_WORDS = ENVS.DYNAMODB_TABLES.WORDS;
 export const TABLE_WORD_MASTER = ENVS.DYNAMODB_TABLES.WORD_MASTER;

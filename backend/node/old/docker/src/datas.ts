@@ -1,4 +1,4 @@
-import { Helper } from 'dynamodb-helper';
+import { DynamodbHelper } from '@alphax/dynamodb';
 import * as path from 'path';
 
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
@@ -7,7 +7,7 @@ require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 const AWS_ENDPOINT = process.env.AWS_ENDPOINT;
 const DEFAULT_REGION = process.env.DEFAULT_REGION;
 
-const helper = new Helper({
+const helper = new DynamodbHelper({
   options: {
     endpoint: AWS_ENDPOINT,
     region: DEFAULT_REGION,

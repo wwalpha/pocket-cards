@@ -1,4 +1,4 @@
-import { DynamodbHelper } from 'dynamodb-helper';
+import { DynamodbHelper } from '@alphax/dynamodb';
 
 let helper: DynamodbHelper;
 
