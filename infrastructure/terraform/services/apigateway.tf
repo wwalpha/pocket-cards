@@ -59,7 +59,7 @@ resource "aws_apigatewayv2_stage" "this" {
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_domain_name" "this" {
   depends_on  = [aws_acm_certificate_validation.api]
-  domain_name = aws_acm_certificate.api.domain_name
+  domain_name = "api.${local.domain_name}"
 
   domain_name_configuration {
     certificate_arn = aws_acm_certificate.api.arn
@@ -73,7 +73,7 @@ resource "aws_apigatewayv2_domain_name" "this" {
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_api_mapping" "this" {
   api_id      = aws_apigatewayv2_api.this.id
-  domain_name = aws_apigatewayv2_domain_name.this.id
+  domain_name = "api.${local.domain_name}"
   stage       = aws_apigatewayv2_stage.this.id
 }
 
@@ -123,7 +123,7 @@ resource "aws_apigatewayv2_integration" "http" {
   connection_type    = "INTERNET"
   integration_method = "ANY"
   integration_type   = "HTTP_PROXY"
-  integration_uri    = "http://backend.${local.domain_name}/{proxy}"
+  integration_uri    = "${aws_lb_listener.this.protocol}://backend.${local.domain_name}/{proxy}"
 
   count = local.simple
 }

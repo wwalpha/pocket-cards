@@ -45,7 +45,7 @@ resource "aws_acm_certificate_validation" "web" {
 # AWS Certificate Manager - API
 # -----------------------------------------------------------------------------------------------------
 resource "aws_acm_certificate" "api" {
-  domain_name       = "api.${local.domain_name}"
+  domain_name       = "*.${local.domain_name}"
   validation_method = "DNS"
 
   lifecycle {
