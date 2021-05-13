@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import { push } from 'connected-react-router';
-import { defaultRequest, defaultFailure } from '@actions';
+import { startLoading, defaultFailure } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { Actions, API } from 'typings';
 
@@ -14,7 +14,7 @@ const startNew: Actions.StartNewAction = () => async (dispatch, store, api) => {
   const { groupId } = store().app;
 
   // 既存単語クリア
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   // 画面遷移
   dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));

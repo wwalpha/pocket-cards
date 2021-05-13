@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { makeStyles, Theme, createStyles, Box, Typography, Card, CardContent } from '@material-ui/core';
-import { State } from '@domains';
-import { Actions } from '@actions/word';
 import { Button } from '@components/buttons';
+import * as Actions from '@actions/word';
+import { Domain } from 'typings';
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
@@ -21,38 +21,37 @@ interface B003Params {
   word: string;
 }
 
-const appState = (state: State) => state.app;
-const groupState = (state: State) => state.group;
+const appState = (state: Domain.State) => state.app;
+const groupState = (state: Domain.State) => state.group;
 
 export default () => {
   const classes = useStyles();
   const { word } = useParams<B003Params>();
-  const { groupId } = useSelector(appState);
-  const { isLoading, wordDetail } = useSelector(groupState);
+  const { groupId, isLoading } = useSelector(appState);
 
   const actions = bindActionCreators(Actions, useDispatch());
 
   const handleOnDelete = () => {
-    actions.del(groupId, word);
+    actions.delet(groupId, word);
   };
 
   return (
     <Box>
       <Card className={classes.root}>
         <CardContent>
-          <Typography variant="h4" component="h2">
+          {/* <Typography variant="h4" component="h2">
             {wordDetail?.id}
           </Typography>
           <Typography variant="h5" color="textSecondary">
             /{wordDetail?.pronounce}/
-          </Typography>
+          </Typography> */}
 
-          <Typography variant="h5" component="p">
+          {/* <Typography variant="h5" component="p">
             <br />
             {wordDetail?.vocChn}
             <br />
             {wordDetail?.vocJpn}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </Card>
       <Box margin={2} display="flex" justifyContent="center">

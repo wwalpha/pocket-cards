@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
-import { defaultRequest, defaultFailure } from '@actions';
+import { startLoading, defaultFailure } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { APP, Actions, API } from 'typings';
 
@@ -12,7 +12,7 @@ export const registWords: Actions.RegistWordsAction = (words: string[]) => async
 
   try {
     // 画像アップロード開始イベント
-    dispatch(defaultRequest());
+    dispatch(startLoading());
 
     await api.post(Consts.C001_URL(groupId), {
       words,

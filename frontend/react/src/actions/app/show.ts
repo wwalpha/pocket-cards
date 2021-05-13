@@ -1,5 +1,4 @@
 import { createAction } from 'redux-actions';
-import { defaultRequest, defaultFailure } from '@actions';
 import { ActionTypes } from '@constants';
 import { Actions } from 'typings';
 
@@ -13,11 +12,5 @@ const success = createAction(
 
 /** 画面表示制御 */
 export const show: Actions.ShowAction = (type: number, value: boolean) => async (dispatch) => {
-  dispatch(defaultRequest());
-
-  try {
-    dispatch(success(type, value));
-  } catch (err) {
-    dispatch(defaultFailure(err));
-  }
+  dispatch(success(type, value));
 };

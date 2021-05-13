@@ -5,6 +5,13 @@ import { Actions } from 'typings';
 
 const reducer = handleActions<AppState, any>(
   {
+    /** Set Loading Start */
+    [ActionTypes.COM_01_SUCCESS]: (store: AppState) => store.startLoading(),
+    /** Set Loading End */
+    [ActionTypes.COM_02_SUCCESS]: (store: AppState) => store.endLoading(),
+    /** Set Loading End */
+    [ActionTypes.COM_01_FAILURE]: (store: AppState) => store.endLoading(),
+
     /** タブ変更 */
     [ActionTypes.APP_01_SUCCESS]: (store: AppState, { payload: { index } }: Action<Actions.TabChangePayload>) =>
       store.tabChange(index),

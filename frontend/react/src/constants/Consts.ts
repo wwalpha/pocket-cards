@@ -1,15 +1,11 @@
-import defaultTo from 'lodash/defaultTo';
-
 // API DOMAIN
 export const API_URL = process.env.API_URL as string;
-export const API_SERVER_URL = defaultTo(process.env.API_SERVER_URL, process.env.API_URL);
 export const API_NAME = 'api';
-export const API_SERVER_NAME = 'server';
 
 // サーバー
-export const SERVER_START_URL = () => '/start';
-export const SERVER_STOP_URL = () => '/stop';
-export const SERVER_STATUS_URL = () => '/status';
+export const SERVER_START_URL = () => '/admin/start';
+export const SERVER_STOP_URL = () => '/admin/stop';
+export const SERVER_STATUS_URL = () => '/admin/status';
 
 export const A002_URL = () => '/history';
 

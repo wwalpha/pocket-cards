@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import isEmpty from 'lodash/isEmpty';
 import { push } from 'connected-react-router';
-import { defaultFailure, defaultRequest } from '@actions';
+import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { API, Actions } from 'typings';
 
@@ -10,7 +10,7 @@ const success = createAction(ActionTypes.A0_01_SUCCESS, (data: API.D001Response)
 /** 画像アップロード */
 export const uploadImage: Actions.UploadImageAction = (image: string) => async (dispatch, _, api) => {
   // 画像アップロード開始イベント
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   // データチェック
   if (isEmpty(image) || image.split(';').length <= 1) {

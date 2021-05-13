@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { defaultFailure, defaultRequest } from '@actions';
+import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
 import * as StartNew from './startNew';
 import * as StartTest from './startTest';
@@ -13,7 +13,7 @@ const answer: Actions.AnswerAction = (word: string, yes: boolean) => async (disp
   const { groupId } = store().app;
 
   // Request start
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   // 復習モードの場合、サーバ更新しない
   if (mode === Consts.MODES.Review) {

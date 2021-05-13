@@ -18,8 +18,8 @@ import {
   makeStyles,
   createStyles,
 } from '@material-ui/core';
-import { Actions } from '@actions/app';
-import { State } from '@domains';
+import * as Actions from '@actions/app';
+import { Domain } from 'typings';
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
@@ -51,7 +51,7 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   })
 );
 
-const app = (state: State) => state.app;
+const app = (state: Domain.State) => state.app;
 
 const SignIn = () => {
   const classes = useStyles();

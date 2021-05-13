@@ -4,20 +4,21 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Button } from '@components/buttons';
-import { Actions } from '@actions/group';
-import { State } from '@domains';
+import * as Actions from '@actions/group';
+import { Domain } from 'typings';
 
-const e000 = (state: State) => state.group;
-const app = (state: State) => state.app;
+const groupState = (state: Domain.State) => state.group;
+const appState = (state: Domain.State) => state.app;
 
 export default () => {
   const actions = bindActionCreators(Actions, useDispatch());
-  const { groups, isLoading } = useSelector(e000);
-  const { groupId } = useSelector(app);
+  const { rows: groups } = useSelector(groupState);
+  const { groupId, isLoading } = useSelector(appState);
 
   // 選択中のGroup情報取得
   const groupInfo = groups.find((item) => item.id === groupId);
 
+  console.log(111, groupInfo);
   // 初期値設定
   const { handleSubmit, register } = useForm<GroupEditForm>({
     mode: 'onChange',

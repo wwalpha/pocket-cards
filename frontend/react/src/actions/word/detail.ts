@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
-import { defaultFailure, defaultRequest } from '@actions';
+import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { API, Actions } from 'typings';
 
@@ -10,7 +10,7 @@ export const success = createAction<Actions.E006Payload, API.E001Response>(Actio
 
 /** 単語詳細 */
 const detail: Actions.WordDetailAction = (word: string) => async (dispatch, _, api) => {
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   try {
     // 単語詳細画面へ遷移する

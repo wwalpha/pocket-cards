@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useState } from 'react';
-import { Actions } from '@actions/regist';
+import * as Actions from '@actions/regist';
 import Button from '@components/buttons/Button';
 import WebCamera from '@components/WebCamera';
 import { Grid, Theme, makeStyles, createStyles, Box } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from '@domains';
+import { Domain } from 'typings';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -18,11 +18,11 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const a000 = (state: State) => state.word;
+const app = (state: Domain.State) => state.app;
 
 const a001: FunctionComponent<any> = () => {
   const classes = useStyles();
-  const { isLoading } = useSelector(a000);
+  const { isLoading } = useSelector(app);
   const [onAir, setOnAir] = useState(false);
   const actions = bindActionCreators(Actions, useDispatch());
 

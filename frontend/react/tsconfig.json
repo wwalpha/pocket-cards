@@ -45,6 +45,9 @@
       "@domains": [
         "./src/domains/index"
       ],
+      "@actions": [
+        "./src/actions/index"
+      ],
       "@actions/*": [
         "./src/actions/*"
       ],
@@ -90,10 +93,6 @@
     "node_modules"
   ],
   "files": [
-    "./typings/types.d.ts",
-    "./typings/external.d.ts",
-    "./typings/api.d.ts",
-    "./typings/redux-thunk.d.ts",
-    "./typings/domain.d.ts"
+    "./typings/index.d.ts",
   ],
 }

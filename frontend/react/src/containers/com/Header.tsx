@@ -26,11 +26,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import ReplayIcon from '@material-ui/icons/Replay';
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
-
-import { State } from '@domains';
-import { Actions as GroupActions } from '@actions/group';
 import { Paths, Consts } from '@constants';
 import Loading from '@components/Loading';
+import * as Actions from '@actions/group';
+import { Domain } from 'typings';
 
 const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common } }: Theme) =>
   createStyles({
@@ -60,19 +59,19 @@ const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common }
 
 const audioRef = React.createRef<HTMLAudioElement>();
 
-const appState = (state: State) => state.app;
-const wordState = (state: State) => state.word;
-const groupState = (state: State) => state.group;
+const appState = (state: Domain.State) => state.app;
+const wordState = (state: Domain.State) => state.word;
+const groupState = (state: Domain.State) => state.group;
 
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const grpActions = bindActionCreators(GroupActions, dispatch);
+  const grpActions = bindActionCreators(Actions, dispatch);
   const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { groupId } = useSelector(appState);
   const { current: word } = useSelector(wordState);
-  const { groups } = useSelector(groupState);
+  const { rows: groups } = useSelector(groupState);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -92,7 +91,7 @@ export default () => {
     // close dialog
     handleMenuClose();
     // delete group
-    grpActions.del();
+    grpActions.delete();
   };
 
   const handleOnGroupEdit = () => {

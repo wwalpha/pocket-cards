@@ -7,8 +7,8 @@ import CameraIcon from '@material-ui/icons/Camera';
 import PersonIcon from '@material-ui/icons/PersonOutlineOutlined';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
-import { Actions } from '@actions/app';
-import { State } from '@domains';
+import * as Actions from '@actions/app';
+import { Domain } from 'typings';
 import { Paths, Consts } from '@constants';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
@@ -32,7 +32,7 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const appState = (state: State) => state.app;
+const appState = (state: Domain.State) => state.app;
 
 export default () => {
   // styles

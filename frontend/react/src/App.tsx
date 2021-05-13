@@ -34,7 +34,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-export default () => {
+const App = () => {
   const classes = useStyles();
 
   return (
@@ -54,3 +54,5 @@ export default () => {
     </Box>
   );
 };
+
+export default App;

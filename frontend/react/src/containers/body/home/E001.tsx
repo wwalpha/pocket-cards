@@ -16,10 +16,10 @@ import {
 } from '@material-ui/core';
 import FolderIcon from '@material-ui/icons/Folder';
 import Button from '@components/buttons/Button';
-import { Actions as AppActions } from '@actions/app';
-import { Actions as GroupActions } from '@actions/group';
+import * as AppActions from '@actions/app';
+import * as GroupActions from '@actions/group';
 import { Paths } from '@constants';
-import { State } from '@domains';
+import { Domain } from 'typings';
 
 const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing }: Theme) =>
   createStyles({
@@ -41,14 +41,14 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing
   })
 );
 
-const e000 = (state: State) => state.group;
+const group = (state: Domain.State) => state.group;
 
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const actions = bindActionCreators(GroupActions, dispatch);
   const appActions = bindActionCreators(AppActions, dispatch);
-  const { groups } = useSelector(e000);
+  const { rows } = useSelector(group);
 
   // Folder click
   const handleOnClick = (groupId: string) => {
@@ -60,7 +60,7 @@ export default () => {
   };
 
   // フォルダなしの場合
-  if (groups.length === 0) {
+  if (rows.length === 0) {
     return (
       <Box margin={2} ml={4} mr={4} display="flex" justifyContent="center">
         <Button
@@ -79,7 +79,7 @@ export default () => {
 
   return (
     <List>
-      {groups.map((item, idx) => (
+      {rows.map((item, idx) => (
         <ListItem
           key={idx}
           button

@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List, Divider, Theme, Box, makeStyles, createStyles } from '@material-ui/core';
-import { State } from '@domains';
-import { Actions } from '@actions/regist';
+import { Domain } from 'typings';
+import * as Actions from '@actions/regist';
 import { Button } from '@components/buttons';
 import { WordEdit } from '@components/functions';
 import { Consts } from '@constants';
@@ -31,11 +31,13 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   })
 );
 
-const a000 = (state: State) => state.word;
+const wordState = (state: Domain.State) => state.word;
+const appState = (state: Domain.State) => state.app;
 
 const a002: FunctionComponent<any> = () => {
   const classes = useStyles();
-  const { isLoading, rows } = useSelector(a000);
+  const { rows } = useSelector(wordState);
+  const { isLoading } = useSelector(appState);
   const actions = bindActionCreators(Actions, useDispatch());
 
   /** 単語登録 */
@@ -59,7 +61,7 @@ const a002: FunctionComponent<any> = () => {
       <List className={classes.list}>
         {rows.map((value, idx) => (
           <React.Fragment key={idx}>
-            <WordEdit key={idx} word={value} onDelete={handleRemove} />
+            {/* <WordEdit key={idx} word={value} onDelete={handleRemove} /> */}
             <Divider key={`${value}1`} />
           </React.Fragment>
         ))}

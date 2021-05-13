@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import { push } from 'connected-react-router';
 import { Consts, Paths, ActionTypes } from '@constants';
-import { defaultFailure, defaultRequest } from '@actions';
+import { defaultFailure, startLoading } from '@actions';
 import { Actions, API } from 'typings';
 
 /** 単語復習 */
@@ -16,7 +16,7 @@ export const success = createAction<Actions.B006Payload, API.WordItem[]>(
 /** 単語復習 */
 const startReview: Actions.StartReviewAction = () => async (dispatch, store, api) => {
   // 既存単語クリア
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   // 画面遷移
   dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));

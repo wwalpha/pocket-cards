@@ -6,3 +6,4 @@ export { logout } from './logout';
 export { tabChange } from './tabChange';
 export { groupSelect } from './groupSelect';
 export { show } from './show';
+export { loading } from './loading';

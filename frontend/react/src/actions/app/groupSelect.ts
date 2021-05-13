@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { defaultRequest, defaultFailure } from '@actions';
+import { startLoading, defaultFailure } from '@actions';
 import { ActionTypes } from '@constants';
 import { Actions } from 'typings';
 
@@ -12,8 +12,6 @@ const success = createAction(
 
 /** グループ選択 */
 export const groupSelect: Actions.GroupSelectAction = (groupId: string) => async (dispatch, _, api) => {
-  dispatch(defaultRequest());
-
   try {
     dispatch(success(groupId));
   } catch (err) {

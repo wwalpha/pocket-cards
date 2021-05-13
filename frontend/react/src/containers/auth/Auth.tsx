@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import Auth from '@aws-amplify/auth';
 import { Paths } from '@constants';
-import { Actions } from '@actions/app';
+import * as Actions from '@actions/app';
 
 const auth: React.FunctionComponent<any> = (props) => {
   const [user, setUser] = React.useState();
@@ -12,14 +12,24 @@ const auth: React.FunctionComponent<any> = (props) => {
   const actions = bindActionCreators(Actions, useDispatch());
 
   React.useEffect(() => {
-    // console.log(111111111111111111);
-    // Auth.currentAuthenticatedUser()
-    //   .then((user) => {
-    //     setUser(user);
-    //     actions.loggedIn(user);
-    //   })
-    //   .finally(() => setLoading(false));
+    if (user) return;
+
+    checkUser();
   }, []);
+
+  const checkUser = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+
+      setUser(user);
+
+      actions.loggedIn(user);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (isLoading) return <div />;
 

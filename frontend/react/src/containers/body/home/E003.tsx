@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles, TextField, Box } from '@material-ui/core';
 import Button from '@components/buttons/Button';
-import { Actions } from '@actions/group';
+import * as Actions from '@actions/group';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { State } from '@domains';
+import { Domain } from 'typings';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -19,21 +19,50 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-//@ts-ignore
-const schema = yup.object().shape<GroupRegistForm>({
+const useYupValidationResolver = (schema: yup.AnyObjectSchema) =>
+  React.useCallback(
+    async (data) => {
+      try {
+        const values = await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        return {
+          values,
+          errors: {},
+        };
+      } catch (errors) {
+        return {
+          values: {},
+          errors: errors.inner.reduce(
+            (allErrors: any, currentError: any) => ({
+              ...allErrors,
+              [currentError.path]: {
+                type: currentError.type ?? 'validation',
+                message: currentError.message,
+              },
+            }),
+            {}
+          ),
+        };
+      }
+    },
+    [schema]
+  );
+
+const schema = yup.object({
   name: yup.string().required(),
 });
 
-const groupState = (state: State) => state.group;
+const appState = (state: Domain.State) => state.app;
 
 export default () => {
   // const classes = useStyles();
   const actions = bindActionCreators(Actions, useDispatch());
-  const { isLoading } = useSelector(groupState);
-  const { handleSubmit, register } = useForm<GroupRegistForm>({
+  const { isLoading } = useSelector(appState);
+  // const resolver = useYupValidationResolver(schema);
+  const { handleSubmit, register } = useForm({
     mode: 'onChange',
-    //@ts-ignore
-    validationSchema: schema,
   });
 
   const onSubmit = handleSubmit((datas) => {
@@ -50,9 +79,8 @@ export default () => {
           fullWidth
           id="name"
           label="Group Name"
-          name="name"
           autoFocus
-          inputRef={register}
+          {...register('name')}
         />
         <TextField
           variant="outlined"
@@ -60,8 +88,7 @@ export default () => {
           fullWidth
           id="description"
           label="Group Description"
-          name="description"
-          inputRef={register}
+          {...register('description')}
         />
         <Box mt={2}>
           <Button size="large" fullWidth variant="contained" color="secondary" type="submit" isLoading={isLoading}>

@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
-import { defaultFailure, defaultRequest } from '@actions';
+import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { Actions, API, APP } from 'typings';
 import { list } from './list';
@@ -10,7 +10,7 @@ const success = createAction(ActionTypes.E0_03_SUCCESS);
 /** グループ編集 */
 export const edit: Actions.GroupEditAction = (info: APP.GroupInfo) => async (dispatch, store, api) => {
   // 開始イベント
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   try {
     // グループ編集API

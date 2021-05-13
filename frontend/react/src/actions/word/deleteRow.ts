@@ -1,4 +1,4 @@
-import { defaultFailure, defaultRequest } from '@actions';
+import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
 import { createAction } from 'redux-actions';
 import { API, Actions } from 'typings';
@@ -14,7 +14,7 @@ export const success = createAction<Actions.E008Payload, string, string>(
 /** 単語削除 */
 const deleteRow: Actions.WordDeleteAction = (groupId: string, word: string) => async (dispatch, _, api) => {
   // 単語削除開始イベント
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   try {
     // データ保存

@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import { CognitoUser } from '@aws-amplify/auth';
-import { defaultRequest, defaultFailure } from '@actions';
+import { startLoading, defaultFailure, endLoading } from '@actions';
 import { ActionTypes } from '@constants';
 import { Actions } from 'typings';
 import { status } from './status';
@@ -9,7 +9,7 @@ const success = createAction(ActionTypes.APP_04_SUCCESS, (user: CognitoUser): Ac
 
 /** ログイン状態変更 */
 export const loggedIn: Actions.LoggedInAction = (user) => async (dispatch) => {
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   try {
     // 画面初期化
@@ -18,5 +18,7 @@ export const loggedIn: Actions.LoggedInAction = (user) => async (dispatch) => {
     dispatch(success(user));
   } catch (err) {
     dispatch(defaultFailure(err));
+  } finally {
+    dispatch(endLoading());
   }
 };

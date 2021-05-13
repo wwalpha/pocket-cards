@@ -59,6 +59,12 @@ export type ClearAction = ReduxAction0<any>;
 // ######################################################################
 // APP Actions
 // ######################################################################
+/** Start/End Loading */
+export interface LoadingPayload {
+  isLoading: boolean;
+}
+
+export type LoadingAction = ReduxAction1<boolean, LoadingPayload>;
 
 /** Tab Change */
 export interface TabChangePayload {
@@ -122,7 +128,7 @@ export type GroupListAction = ReduxAction0<E001Payload>;
 
 /** Group Regist */
 export type E002Payload = Common.GroupInfo;
-export type GroupRegistAction = ReduxAction2<string, string, E002Payload>;
+export type GroupRegistAction = ReduxAction2<string, string | undefined, E002Payload>;
 
 /** Group Edit */
 export type E003Payload = void;

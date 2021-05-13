@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import { push } from 'connected-react-router';
-import { defaultFailure, defaultRequest } from '@actions';
+import { defaultFailure, startLoading } from '@actions';
 import { Consts, Paths, ActionTypes } from '@constants';
 import { API, Actions } from 'typings';
 
@@ -13,7 +13,7 @@ export const success = createAction(ActionTypes.B0_07_SUCCESS, (data: API.WordIt
 /** 単語テスト */
 const startTest: Actions.StartTestAction = () => async (dispatch, store, api) => {
   // 既存単語クリア
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   // 画面遷移
   dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));

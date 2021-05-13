@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { defaultRequest, defaultFailure } from '@actions';
+import { startLoading, defaultFailure, endLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
 import { Actions } from 'typings';
 
@@ -12,7 +12,7 @@ const success = createAction(
 
 /** サーバー停止 */
 export const stop: Actions.ServerStopAction = () => async (dispatch, _, api) => {
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   try {
     // サーバ停止
@@ -21,5 +21,7 @@ export const stop: Actions.ServerStopAction = () => async (dispatch, _, api) => 
     dispatch(success(res.status));
   } catch (err) {
     dispatch(defaultFailure(err));
+  } finally {
+    dispatch(endLoading());
   }
 };

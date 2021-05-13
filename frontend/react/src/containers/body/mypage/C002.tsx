@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
-import { State } from '@domains';
+import { Domain } from 'typings';
 // import { Animation, ValueScale } from '@devexpress/dx-react-chart';
 // import { ArgumentAxis, Chart, ValueAxis, BarSeries } from '@devexpress/dx-react-chart-material-ui';
 
@@ -30,10 +30,12 @@ import { State } from '@domains';
 //   }),
 // );
 /** 単語カメラ画面 */
-const userState = (state: State) => state.user;
+const userState = (state: Domain.State) => state.user;
+const appState = (state: Domain.State) => state.app;
 
 const C002: React.FunctionComponent<any> = () => {
-  const { daily, weekly, monthly, isLoading } = useSelector(userState);
+  const { isLoading } = useSelector(appState);
+  const { daily, weekly, monthly } = useSelector(userState);
   const actions = bindActionCreators(MyPageActions, useDispatch());
 
   // Loading中

@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { defaultRequest, defaultFailure } from '@actions';
+import { startLoading, defaultFailure } from '@actions';
 import { ActionTypes } from '@constants';
 import { Actions } from 'typings';
 
@@ -8,7 +8,7 @@ const success = createAction(ActionTypes.A0_02_SUCCESS, (word: string) => ({ wor
 /** 指定単語削除 */
 export const removeWord: Actions.RemoveWordAction = (word: string) => (dispatch) => {
   // 画像アップロード開始イベント
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   try {
     dispatch(success(word));

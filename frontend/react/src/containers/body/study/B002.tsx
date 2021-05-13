@@ -18,11 +18,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import DoneIcon from '@material-ui/icons/Done';
 import * as StudyActions from '@actions/study';
-import { Actions } from '@actions/app';
-import { State, Word } from '@domains';
+import * as Actions from '@actions/app';
 import { Consts, Paths } from '@constants';
 import Loading from '@components/Loading';
-import { WordItem } from 'typings/api';
+import { Domain, API } from 'typings';
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
@@ -80,7 +79,8 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   })
 );
 
-const wordState = (state: State) => state.word;
+const wordState = (state: Domain.State) => state.word;
+const appState = (state: Domain.State) => state.app;
 
 const audioRef = React.createRef<HTMLAudioElement>();
 const zhRef = React.createRef<HTMLInputElement>();
@@ -91,82 +91,83 @@ export default () => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(StudyActions, dispatch);
   const appActions = bindActionCreators(Actions, dispatch);
-  const { current: word, mode, isLoading } = useSelector(wordState);
+  const { current: word, mode } = useSelector(wordState);
+  const { isLoading } = useSelector(appState);
   const [showText, setShowText] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
 
   const handleTouchStart = () => setShowText(true);
 
   /** 新規単語学習 */
-  const handleNext = () => actions.startReview();
+  // const handleNext = () => actions.startReview();
 
-  const handleAnswer = (word: string, yes: boolean) => {
-    actions.answer(word, yes);
-    setShowText(false);
+  // const handleAnswer = (word: string, yes: boolean) => {
+  //   actions.answer(word, yes);
+  //   setShowText(false);
 
-    setTimeout(() => play(), 100);
-  };
+  //   setTimeout(() => play(), 100);
+  // };
 
-  const getButtons = (mode?: string, word?: WordItem) => {
-    const buttons = [];
+  // const getButtons = (mode?: string, word?: WordItem) => {
+  //   const buttons = [];
 
-    // 単語あり
-    if (word) {
-      buttons.push(
-        <Fab
-          key={2}
-          className={classes.button}
-          size="large"
-          color="primary"
-          disableFocusRipple
-          disableTouchRipple
-          disableRipple
-          onTouchStart={handleTouchStart}
-          onClick={() => {
-            handleAnswer(word.word, true);
-          }}>
-          知ってる
-        </Fab>
-      );
-      buttons.push(
-        <Fab
-          key={1}
-          className={classes.button}
-          size="large"
-          color="secondary"
-          disableFocusRipple
-          disableTouchRipple
-          disableRipple
-          onTouchStart={handleTouchStart}
-          onClick={() => {
-            handleAnswer(word.word, false);
-          }}>
-          知らない
-        </Fab>
-      );
-      return buttons;
-    }
+  //   // 単語あり
+  //   if (word) {
+  //     buttons.push(
+  //       <Fab
+  //         key={2}
+  //         className={classes.button}
+  //         size="large"
+  //         color="primary"
+  //         disableFocusRipple
+  //         disableTouchRipple
+  //         disableRipple
+  //         onTouchStart={handleTouchStart}
+  //         onClick={() => {
+  //           handleAnswer(word.word, true);
+  //         }}>
+  //         知ってる
+  //       </Fab>
+  //     );
+  //     buttons.push(
+  //       <Fab
+  //         key={1}
+  //         className={classes.button}
+  //         size="large"
+  //         color="secondary"
+  //         disableFocusRipple
+  //         disableTouchRipple
+  //         disableRipple
+  //         onTouchStart={handleTouchStart}
+  //         onClick={() => {
+  //           handleAnswer(word.word, false);
+  //         }}>
+  //         知らない
+  //       </Fab>
+  //     );
+  //     return buttons;
+  //   }
 
-    // 単語なし
-    if (mode === Consts.MODES.Review) {
-      console.log(handleNext);
-      buttons.push(
-        <Fab
-          key={3}
-          className={classes.button}
-          size="large"
-          color="secondary"
-          disableFocusRipple
-          disableTouchRipple
-          disableRipple
-          onClick={handleNext}>
-          Retry
-        </Fab>
-      );
-    }
+  //   // 単語なし
+  //   if (mode === Consts.MODES.Review) {
+  //     console.log(handleNext);
+  //     buttons.push(
+  //       <Fab
+  //         key={3}
+  //         className={classes.button}
+  //         size="large"
+  //         color="secondary"
+  //         disableFocusRipple
+  //         disableTouchRipple
+  //         disableRipple
+  //         onClick={handleNext}>
+  //         Retry
+  //       </Fab>
+  //     );
+  //   }
 
-    return buttons;
-  };
+  //   return buttons;
+  // };
 
   /** 音声再生 */
   const play = () => {
@@ -198,7 +199,7 @@ export default () => {
         if (!word) {
           return (
             <Grid container justify="center" alignItems="center" className={classes.bottom}>
-              <Grid item>{getButtons(mode, word)}</Grid>
+              {/* <Grid item>{getButtons(mode, word)}</Grid> */}
             </Grid>
           );
         }
@@ -261,7 +262,7 @@ export default () => {
               </Card>
             </Grid>
             <Grid container justify="center" alignItems="center" className={classes.bottom}>
-              <Grid item>{getButtons(mode, word)}</Grid>
+              {/* <Grid item>{getButtons(mode, word)}</Grid> */}
             </Grid>
           </React.Fragment>
         );

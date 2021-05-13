@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
-import { defaultFailure, defaultRequest } from '@actions';
+import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { Actions } from 'typings';
 
@@ -9,7 +9,7 @@ const success = createAction(ActionTypes.E0_04_SUCCESS, (groupId: string) => ({ 
 /** グループ削除 */
 export const del: Actions.GroupDeleteAction = () => async (dispatch, store, api) => {
   // グループリスト開始イベント
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   try {
     // 選択中のGroupId

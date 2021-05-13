@@ -1,4 +1,4 @@
-import { defaultFailure, defaultRequest } from '@actions';
+import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
@@ -15,7 +15,7 @@ export const success = createAction<Actions.E008Payload, string, string>(
 /** 単語削除 */
 const del: Actions.WordDeleteAction = (groupId: string, word: string) => async (dispatch, _, api) => {
   // 単語削除開始イベント
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   try {
     await api.del<API.C005Response>(Consts.C005_URL(groupId, word));

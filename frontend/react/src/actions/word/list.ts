@@ -1,4 +1,4 @@
-import { defaultFailure, defaultRequest } from '@actions';
+import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
 import { createAction } from 'redux-actions';
 import { API, Actions } from 'typings';
@@ -14,7 +14,7 @@ export const success = createAction(
 /** グループリスト */
 const list: Actions.WordListAction = (groupId: string) => async (dispatch, _, api) => {
   // グループリスト開始イベント
-  dispatch(defaultRequest());
+  dispatch(startLoading());
 
   try {
     const res = await api.get<API.C002Response>(Consts.C002_URL(groupId));
