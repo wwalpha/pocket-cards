@@ -27,6 +27,13 @@ output "bucket_name_audios" {
 output "bucket_name_logging" {
   value = aws_s3_bucket.logging.id
 }
+
+output "s3_buckets" {
+  value = {
+    AUDIOS = aws_s3_bucket.audios.id
+    IMAGES = aws_s3_bucket.images.id
+  }
+}
 # ----------------------------------------------------------------------------------------------
 # DynamoDB
 # ----------------------------------------------------------------------------------------------
@@ -46,13 +53,13 @@ output "dynamodb_name_history" {
   value = aws_dynamodb_table.history.name
 }
 output "dynamodb_tables" {
-  value = [
-    "${aws_dynamodb_table.users.name}",
-    "${aws_dynamodb_table.groups.name}",
-    "${aws_dynamodb_table.words.name}",
-    "${aws_dynamodb_table.word_master.name}",
-    "${aws_dynamodb_table.history.name}"
-  ]
+  value = {
+    USERS       = aws_dynamodb_table.users.name
+    GROUPS      = aws_dynamodb_table.groups.name
+    WORDS       = aws_dynamodb_table.words.name
+    WORD_MASTER = aws_dynamodb_table.word_master.name
+    HISTORY     = aws_dynamodb_table.history.name
+  }
 }
 
 # ----------------------------------------------------------------------------------------------
