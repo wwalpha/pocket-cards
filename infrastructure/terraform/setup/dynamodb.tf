@@ -118,10 +118,10 @@ resource "aws_dynamodb_table" "word_master" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Dynamodb Table - History
+# Dynamodb Table - Histories
 # ----------------------------------------------------------------------------------------------
-resource "aws_dynamodb_table" "history" {
-  name           = local.dynamodb_name_history
+resource "aws_dynamodb_table" "histories" {
+  name           = local.dynamodb_name_histories
   billing_mode   = "PROVISIONED"
   read_capacity  = 1
   write_capacity = 1

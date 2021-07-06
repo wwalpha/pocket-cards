@@ -1,11 +1,4 @@
 # ----------------------------------------------------------------------------------------------
-# Bucket Random Id
-# ----------------------------------------------------------------------------------------------
-resource "random_id" "bucket" {
-  byte_length = 2
-}
-
-# ----------------------------------------------------------------------------------------------
 # Amazon S3 (画像保存用)
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_bucket" "images" {
@@ -44,4 +37,22 @@ resource "aws_s3_bucket" "frontend" {
 resource "aws_s3_bucket" "logging" {
   bucket = local.bucket_name_logging
   acl    = "private"
+}
+
+# ----------------------------------------------------------------------------------------------
+# DEMO SITE
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_bucket_object" "this" {
+  for_each     = fileset("website/", "**/*.*")
+  bucket       = aws_s3_bucket.frontend.id
+  key          = each.value
+  source       = "website/${each.value}"
+  etag         = filemd5("website/${each.value}")
+  content_type = lookup(local.mime_types, split(".", each.value)[length(split(".", each.value)) - 1])
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
 }
