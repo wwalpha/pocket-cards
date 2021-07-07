@@ -1,14 +1,10 @@
 # ----------------------------------------------------------------------------------------------
-# SSM Parameter Store - Environment variables
+# SSM Parameter Store - Backend repository url
 # ----------------------------------------------------------------------------------------------
-resource "aws_ssm_parameter" "environments" {
-  name = "/${local.project_name}/environments"
-  type = "String"
-  value = jsonencode({
-    DYNAMODB_TABLES = local.dynamodb_tables
-    S3_BUCKETS      = local.s3_buckets
-    WORDS_LIMIT     = 10
-  })
+resource "aws_ssm_parameter" "backend_repo_url" {
+  name      = "/${local.project_name}/repository_url/backend"
+  type      = "String"
+  value     = "${aws_ecr_repository.this.repository_url}:latest"
   overwrite = true
 
   lifecycle {

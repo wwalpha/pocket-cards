@@ -4,22 +4,19 @@ locals {
   # ----------------------------------------------------------------------------------------------
   environment  = terraform.workspace
   is_dev       = local.environment == "dev"
+  is_dev_count = local.is_dev ? 1 : 0
   remote_setup = data.terraform_remote_state.setup.outputs
   account_id   = data.aws_caller_identity.this.account_id
   region       = data.aws_region.this.name
   region_us    = "us-east-1"
-  simple       = var.is_simple ? 1 : 0
-  normal       = !var.is_simple ? 1 : 0
+  vpc_id       = local.is_dev ? var.vpc_id : module.vpc[0].vpc_id
+  subnets      = local.is_dev ? var.subnets : module.vpc[0].public_subnets
 
   # ----------------------------------------------------------------------------------------------
   # Project Informations
   # ----------------------------------------------------------------------------------------------
-  domain_prefix   = local.is_dev ? "dev." : ""
-  domain_name     = data.aws_route53_zone.this.name
   project_name    = local.remote_setup.project_name
   project_name_uc = local.remote_setup.project_name_uc
-  dynamodb_tables = local.remote_setup.dynamodb_tables
-  s3_buckets      = local.remote_setup.s3_buckets
 
   # ----------------------------------------------------------------------------------------------
   # ECS
@@ -28,11 +25,17 @@ locals {
   task_def_rev    = max(aws_ecs_task_definition.this.revision, data.aws_ecs_task_definition.this.revision)
 
   # ----------------------------------------------------------------------------------------------
+  # SSM
+  # ----------------------------------------------------------------------------------------------
+  ssm_google_client_id     = local.remote_setup.ssm_google_client_id
+  ssm_google_client_secret = local.remote_setup.ssm_google_client_secret
+  ssm_api_key_ipa          = local.remote_setup.ssm_api_key_ipa
+  ssm_api_key_translation  = local.remote_setup.ssm_api_key_translation
+
+  # ----------------------------------------------------------------------------------------------
   # API Gateway
   # ----------------------------------------------------------------------------------------------
   api_domain_name = aws_acm_certificate.api.domain_name
-  # api_execution_arn = local.remote_bked.api_execution_arn
-  # rest_api_id       = local.remote_bked.api_id
 
   # -----------------------------------------------
   # CloudFront
@@ -56,8 +59,13 @@ locals {
   # S3 Bucket
   # ----------------------------------------------------------------------------------------------
   bucket_name_frontend = local.remote_setup.bucket_name_frontend
-  bucket_name_audios   = local.remote_setup.bucket_name_audios
-  bucket_name_logging  = local.remote_setup.bucket_name_logging
+  bucket_name_archive  = local.remote_setup.bucket_name_archive
+
+  # ----------------------------------------------------------------------------------------------
+  # Route53
+  # ----------------------------------------------------------------------------------------------
+  route53_zone_name = local.remote_setup.route53_zone_name
+  domain_name       = local.remote_setup.route53_zone_name
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -71,22 +79,17 @@ data "aws_region" "this" {}
 data "aws_caller_identity" "this" {}
 
 # ----------------------------------------------------------------------------------------------
-# AWS Route53
-# ----------------------------------------------------------------------------------------------
-data "aws_route53_zone" "this" {
-  name = local.remote_setup.domain_name
-}
-# ----------------------------------------------------------------------------------------------
 # Amazon S3 Bucket - Frontend
 # ----------------------------------------------------------------------------------------------
 data "aws_s3_bucket" "frontend" {
   bucket = local.bucket_name_frontend
 }
+
 # ----------------------------------------------------------------------------------------------
-# Amazon S3 Bucket - Audios
+# Amazon S3 Bucket - Archive
 # ----------------------------------------------------------------------------------------------
-data "aws_s3_bucket" "audios" {
-  bucket = local.bucket_name_audios
+data "aws_s3_bucket" "archive" {
+  bucket = local.bucket_name_archive
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -98,15 +101,34 @@ data "aws_ecs_task_definition" "this" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# SSM - Identity Provider ID
+# SSM - Google Client ID
 # ----------------------------------------------------------------------------------------------
-data "aws_ssm_parameter" "identity_provider_id" {
-  name = local.remote_setup.ssm_key_identity_provider_id
+data "aws_ssm_parameter" "google_client_id" {
+  name            = local.remote_setup.ssm_google_client_id
+  with_decryption = true
 }
 
 # ----------------------------------------------------------------------------------------------
-# SSM - Identity Provider Secret
+# SSM - Google Client Secret
 # ----------------------------------------------------------------------------------------------
-data "aws_ssm_parameter" "identity_provider_secret" {
-  name = local.remote_setup.ssm_key_identity_provider_secret
+data "aws_ssm_parameter" "google_client_secret" {
+  name            = local.remote_setup.ssm_google_client_secret
+  with_decryption = true
 }
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Backend repository url
+# ----------------------------------------------------------------------------------------------
+data "aws_ssm_parameter" "backend_repo_url" {
+  depends_on = [aws_ssm_parameter.backend_repo_url]
+  name       = aws_ssm_parameter.backend_repo_url.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Route53 Zone
+# ----------------------------------------------------------------------------------------------
+data "aws_route53_zone" "this" {
+  name = local.route53_zone_name
+}
+
+

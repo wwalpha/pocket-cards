@@ -2,7 +2,7 @@
 # ECR
 # ----------------------------------------------------------------------------------------------
 resource "aws_ecr_repository" "this" {
-  name                 = "pocket-cards/backend"
+  name                 = "${local.project_name}/backend"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {

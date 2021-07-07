@@ -2,5 +2,5 @@
 # AWS Route53
 # -----------------------------------------------------------------------------------------------------
 resource "aws_route53_zone" "this" {
-  name = "${local.domain_prefix}${var.domain_name}"
+  name = "${var.project_name}.${var.domain_name}"
 }

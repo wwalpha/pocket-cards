@@ -6,13 +6,6 @@ output "cloudfront_ditribution_id" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# ALB URL
-# ----------------------------------------------------------------------------------------------
-output "alb_url" {
-  value = "https://backend.${local.domain_name}"
-}
-
-# ----------------------------------------------------------------------------------------------
 # API Gateway URL
 # ----------------------------------------------------------------------------------------------
 output "api_url" {
@@ -23,35 +16,31 @@ output "api_url" {
 # Cognito User Pool ID
 # ----------------------------------------------------------------------------------------------
 output "cognito_user_pool_id" {
-  value = aws_cognito_user_pool.this.id
+  sensitive = true
+  value     = aws_cognito_user_pool.this.id
 }
 
 # ----------------------------------------------------------------------------------------------
 # Cognito User Pool Client ID
 # ----------------------------------------------------------------------------------------------
 output "cognito_user_pool_client_id" {
-  value = aws_cognito_user_pool_client.this.id
+  sensitive = true
+  value     = aws_cognito_user_pool_client.this.id
 }
 
 # ----------------------------------------------------------------------------------------------
 # Cognito Identity Pool ID
 # ----------------------------------------------------------------------------------------------
 output "cognito_identity_pool_id" {
-  value = aws_cognito_identity_pool.this.id
+  sensitive = true
+  value     = aws_cognito_identity_pool.this.id
 }
 
 # ----------------------------------------------------------------------------------------------
-# ECS Cluster ARN
+# ECS Cluster Name
 # ----------------------------------------------------------------------------------------------
-output "ecs_cluster_arn" {
-  value = aws_ecs_cluster.this.arn
-}
-
-# ----------------------------------------------------------------------------------------------
-# ECS Service ARN
-# ----------------------------------------------------------------------------------------------
-output "ecs_service_arn" {
-  value = aws_ecs_service.this.id
+output "ecs_cluster_name" {
+  value = aws_ecs_cluster.this.name
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -74,10 +63,3 @@ output "api_gateway_execution_arn" {
 output "api_gateway_authorizer_id" {
   value = aws_apigatewayv2_authorizer.this.id
 }
-
-# ----------------------------------------------------------------------------------------------
-# ECS Service ARN
-# ----------------------------------------------------------------------------------------------
-# output "test" {
-#   value = aws_apigatewayv2_authorizer.this
-# }

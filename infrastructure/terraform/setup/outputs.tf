@@ -18,14 +18,8 @@ output "project_name_uc" {
 output "bucket_name_frontend" {
   value = aws_s3_bucket.frontend.id
 }
-output "bucket_name_images" {
-  value = aws_s3_bucket.images.id
-}
-output "bucket_name_audios" {
-  value = aws_s3_bucket.audios.id
-}
-output "bucket_name_logging" {
-  value = aws_s3_bucket.logging.id
+output "bucket_name_archive" {
+  value = aws_s3_bucket.archive.id
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -51,13 +45,42 @@ output "dynamodb_name_histories" {
 # Route53 DNS Servers
 # ----------------------------------------------------------------------------------------------
 output "dns_name_servers" {
-  value = aws_route53_zone.this.name_servers
+  sensitive = true
+  value     = aws_route53_zone.this.name_servers
 }
 
 # ----------------------------------------------------------------------------------------------
 # Domain Name
 # ----------------------------------------------------------------------------------------------
-output "domain_name" {
+output "route53_zone_name" {
   sensitive = true
-  value     = "${local.domain_prefix}${var.domain_name}"
+  value     = aws_route53_zone.this.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# Google Client ID
+# ----------------------------------------------------------------------------------------------
+output "ssm_google_client_id" {
+  value = "/${var.project_name}/google_client_id"
+}
+
+# ----------------------------------------------------------------------------------------------
+# Google Client Secret
+# ----------------------------------------------------------------------------------------------
+output "ssm_google_client_secret" {
+  value = "/${var.project_name}/google_client_secret"
+}
+
+# ----------------------------------------------------------------------------------------------
+# IPA API Key
+# ----------------------------------------------------------------------------------------------
+output "ssm_api_key_ipa" {
+  value = "/${var.project_name}/api_key_ipa"
+}
+
+# ----------------------------------------------------------------------------------------------
+# Translation API Key
+# ----------------------------------------------------------------------------------------------
+output "ssm_api_key_translation" {
+  value = "/${var.project_name}/api_key_translation"
 }

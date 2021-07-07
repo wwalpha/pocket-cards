@@ -2,7 +2,7 @@
 # ECS Cluster
 # ----------------------------------------------------------------------------------------------
 resource "aws_ecs_cluster" "this" {
-  name = "pocket-cards-cluster"
+  name = "${local.project_name}-cluster"
 
   capacity_providers = ["FARGATE", "FARGATE_SPOT"]
 
@@ -14,7 +14,7 @@ resource "aws_ecs_cluster" "this" {
 
   setting {
     name  = "containerInsights"
-    value = "enabled"
+    value = "disabled"
   }
 }
 
@@ -53,10 +53,7 @@ resource "aws_ecs_task_definition" "this" {
       container_name  = local.task_def_family
       container_image = "${aws_ecr_repository.this.repository_url}:latest"
       container_port  = 8080
-      env_vars        = aws_ssm_parameter.environments.arn
-      # app_mesh_node     = split(":", aws_appmesh_virtual_node.token.arn)[5]
-      # dynamodb_tables   = aws_ssm_parameter.tables.arn
-      # service_endpoints = aws_ssm_parameter.endpoints.arn
+      env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_bucket_object.backend.key}"
     }
   )
 
@@ -70,24 +67,17 @@ resource "aws_ecs_task_definition" "this" {
 # ECS Service - Backend Service
 # ----------------------------------------------------------------------------------------------
 resource "aws_ecs_service" "this" {
-  # depends_on = [
-  #   aws_vpc_endpoint_route_table_association.private_1,
-  #   aws_vpc_endpoint_route_table_association.private_2,
-  #   aws_vpc_endpoint_subnet_association.ecr_dkr1,
-  #   aws_vpc_endpoint_subnet_association.ecr_dkr2,
-  #   aws_vpc_endpoint_subnet_association.ecr_api1,
-  #   aws_vpc_endpoint_subnet_association.ecr_api2,
-  # ]
-
   name                               = "backend"
   cluster                            = aws_ecs_cluster.this.id
   desired_count                      = 0
-  platform_version                   = "1.4.0"
+  platform_version                   = "LATEST"
   task_definition                    = "arn:aws:ecs:${local.region}:${local.account_id}:task-definition/${aws_ecs_task_definition.this.family}:${local.task_def_rev}"
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 100
   health_check_grace_period_seconds  = 0
   wait_for_steady_state              = false
+  scheduling_strategy                = "REPLICA"
+  enable_ecs_managed_tags            = true
 
   capacity_provider_strategy {
     base              = 0
@@ -105,27 +95,18 @@ resource "aws_ecs_service" "this" {
   }
 
   network_configuration {
-    assign_public_ip = var.is_simple
-    subnets          = var.is_simple ? module.vpc.public_subnets : module.vpc.private_subnets
+    assign_public_ip = true
+    subnets          = local.subnets
     security_groups  = [aws_security_group.ecs_default_sg.id]
   }
 
-  load_balancer {
-    container_name   = "pocket-cards-backend"
-    container_port   = 8080
-    target_group_arn = aws_lb_target_group.this.arn
+  service_registries {
+    registry_arn = aws_service_discovery_service.this.arn
+    port         = 8080
   }
-
-  scheduling_strategy = "REPLICA"
-
-  # service_registries {
-  #   registry_arn   = aws_service_discovery_service.this.arn
-  #   container_port = 0
-  #   port           = 0
-  # }
 
   provisioner "local-exec" {
     when    = destroy
-    command = "sh ${path.module}/scripts/servicediscovery-drain.sh ${split("/", self.service_registries[0].registry_arn)[1]}"
+    command = "sh ${path.module}/scripts/servicediscovery-drain.sh ${length(self.service_registries) != 0 ? split("/", self.service_registries[0].registry_arn)[1] : ""}"
   }
 }

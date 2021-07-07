@@ -26,7 +26,7 @@ resource "aws_dynamodb_table" "users" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "groups" {
   name           = local.dynamodb_name_groups
-  billing_mode   = "PROVISIONED"
+  billing_mode   = "PAY_PER_REQUEST"
   read_capacity  = 1
   write_capacity = 1
   hash_key       = "id"
@@ -56,7 +56,7 @@ resource "aws_dynamodb_table" "groups" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "words" {
   name           = local.dynamodb_name_words
-  billing_mode   = "PROVISIONED"
+  billing_mode   = "PAY_PER_REQUEST"
   read_capacity  = 1
   write_capacity = 1
   hash_key       = "id"
@@ -106,7 +106,7 @@ resource "aws_dynamodb_table" "words" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "word_master" {
   name           = local.dynamodb_name_word_master
-  billing_mode   = "PROVISIONED"
+  billing_mode   = "PAY_PER_REQUEST"
   read_capacity  = 3
   write_capacity = 1
   hash_key       = "id"
@@ -122,7 +122,7 @@ resource "aws_dynamodb_table" "word_master" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "histories" {
   name           = local.dynamodb_name_histories
-  billing_mode   = "PROVISIONED"
+  billing_mode   = "PAY_PER_REQUEST"
   read_capacity  = 1
   write_capacity = 1
   hash_key       = "user"

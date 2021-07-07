@@ -10,15 +10,12 @@ module "vpc" {
   azs             = ["ap-northeast-1a", "ap-northeast-1c"]
   private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
   public_subnets  = ["10.0.3.0/24", "10.0.4.0/24"]
-  # azs             = ["ap-northeast-1a"]
-  # private_subnets = ["10.0.1.0/24"]
-  # public_subnets  = ["10.0.3.0/24"]
 
-  enable_nat_gateway     = !var.is_simple
-  single_nat_gateway     = !var.is_simple
-  one_nat_gateway_per_az = false
-  enable_dns_hostnames   = true
-  enable_dns_support     = true
+  enable_nat_gateway   = false
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  count = local.is_dev_count
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -27,7 +24,7 @@ module "vpc" {
 resource "aws_security_group" "private_link" {
   name        = "allow_private"
   description = "allow_private"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = local.vpc_id
 
   ingress {
     from_port   = 80
@@ -46,66 +43,6 @@ resource "aws_security_group" "private_link" {
   tags = {
     Name = "allow_private"
   }
-
-  count = local.normal
-}
-
-# ----------------------------------------------------------------------------------------------
-# AWS Security Group
-# ----------------------------------------------------------------------------------------------
-resource "aws_security_group" "alb_normal" {
-  name        = "allow_alb"
-  description = "allow_alb"
-  vpc_id      = module.vpc.vpc_id
-
-  ingress {
-    from_port       = 443
-    to_port         = 443
-    protocol        = "tcp"
-    security_groups = [aws_security_group.private_link[0].id]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "allow_alb"
-  }
-
-  count = local.normal
-}
-
-# ----------------------------------------------------------------------------------------------
-# AWS Security Group
-# ----------------------------------------------------------------------------------------------
-resource "aws_security_group" "alb_simple" {
-  name        = "allow_alb"
-  description = "allow_alb"
-  vpc_id      = module.vpc.vpc_id
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "allow_alb"
-  }
-
-  count = local.simple
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -114,7 +51,7 @@ resource "aws_security_group" "alb_simple" {
 resource "aws_security_group" "ecs_default_sg" {
   name        = "allow_http"
   description = "allow_http"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = local.vpc_id
 
   ingress {
     from_port   = 8080
@@ -148,44 +85,3 @@ resource "aws_security_group" "ecs_default_sg" {
     Name = "allow_http"
   }
 }
-
-# ----------------------------------------------------------------------------------------------
-# AWS Security Group - Endpoint
-# ----------------------------------------------------------------------------------------------
-# resource "aws_security_group" "endpoint" {
-#   name        = "allow_ecr"
-#   description = "allow_ecr"
-#   vpc_id      = module.vpc.vpc_id
-
-#   ingress {
-#     from_port   = 443
-#     to_port     = 443
-#     protocol    = "tcp"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   ingress {
-#     from_port   = 53
-#     to_port     = 53
-#     protocol    = "tcp"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   ingress {
-#     from_port   = 53
-#     to_port     = 53
-#     protocol    = "udp"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   egress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   tags = {
-#     Name = "allow_ecr"
-#   }
-# }
