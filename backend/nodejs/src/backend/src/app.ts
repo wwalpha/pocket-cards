@@ -7,7 +7,7 @@ import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/c0';
 import { D001 } from '@src/d0';
 import { E001, E002 } from '@src/e0';
 import entry from './entry';
-import { APIs } from 'typings';
+import { Logger } from '@utils';
 
 const app = express();
 
@@ -24,11 +24,11 @@ app.put('/groups', express.json(), (req, res) => entry(req, res, B001));
 // グループ一覧
 app.get('/groups', express.json(), (req, res) => entry(req, res, B002));
 // グループ一覧
-app.get('/groups/:groupId', express.json(), (req, res) => entry(req, res, B003));
+app.get('/groups/:groupId', express.json(), (req, res) => entry(req, res, B003 as any));
 // グループ更新
-app.put('/groups/:groupId', express.json(), (req, res) => entry(req, res, B004));
+app.put('/groups/:groupId', express.json(), (req, res) => entry(req, res, B004 as any));
 // グループ削除
-app.delete('/groups/:groupId', express.json(), (req, res) => entry(req, res, B005));
+app.delete('/groups/:groupId', express.json(), (req, res) => entry(req, res, B005 as any));
 // 単語一括登録
 app.post('/groups/:groupId/words', express.json(), (req, res) => entry(req, res, C001 as any));
 // 単語一括取得
@@ -53,19 +53,8 @@ app.get('/words/:word', express.json(), (req, res) => entry(req, res, E001 as an
 app.put('/words/:word', express.json(), (req, res) => entry(req, res, E002 as any));
 
 app.listen(process.env.EXPOSE_PORT || 8080, () => {
-  console.log('Started...');
-  console.log('Port: ', process.env.EXPOSE_PORT || 8080);
-  console.log(process.env);
+  Logger.info('Started...');
+  Logger.info('Port: ', process.env.EXPOSE_PORT || 8080);
 });
-
-// console.log(process.env);
-
-// (async () => {
-//   const ngrok = require('ngrok');
-
-//   const url = await ngrok.connect(8080);
-
-//   console.log(url);
-// })();
 
 export default app;

@@ -1,4 +1,6 @@
 import { Request } from 'express';
+import { decode } from 'jsonwebtoken';
+import { Logger } from '@utils';
 import { ssm } from './clientUtils';
 
 // Sleep
@@ -21,15 +23,13 @@ export const getUserId = (req: Request<any, any, any, any>, authKey: string = 'a
   return getUserInfo(value);
 };
 
-export const getUserInfo = (base64: string) => {
+export const getUserInfo = (token: string) => {
   try {
-    const jwtToken = base64.split('.');
-    const userInfo = JSON.parse(Buffer.from(jwtToken[1], 'base64').toString());
+    const jwt = decode(token, { complete: true });
 
-    console.log(userInfo);
-    return userInfo['cognito:username'];
+    return jwt?.payload['cognito:username'];
   } catch (err) {
-    // Logger.info(err);
+    Logger.error(err);
     return null;
   }
 };

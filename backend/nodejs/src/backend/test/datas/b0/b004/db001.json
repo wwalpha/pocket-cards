@@ -1,6 +1,8 @@
-{
-  "name": "GroupName102",
-  "description": "Group Description 102",
-  "id": "B004",
-  "userId": "B004"
-}
+[
+  {
+    "name": "GroupName102",
+    "description": "Group Description 102",
+    "id": "B004",
+    "userId": "B004"
+  }
+]

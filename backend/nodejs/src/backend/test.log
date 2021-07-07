@@ -1,0 +1,1332 @@
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"B002"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"B002"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"Items":[],"Count":0,"ScannedCount":0},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"Items":[],"Count":0,"ScannedCount":0},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"B003"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B003","userId":null}},"level":"info","message":"dynamodb get item input"}
+{"0":"Invalid attribute value type","1":{"message":"Invalid attribute value type","code":"ValidationException","time":"2021-07-07T12:45:59.622Z","requestId":"ce45c794-be42-4f23-a08e-799c5c3031c6","statusCode":400,"retryable":false,"retryDelay":0.8669222232912},"level":"error","message":"dynamodb get item error."}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"B004","userId":null,"name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"B002"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"B002"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"Items":[],"Count":0,"ScannedCount":0},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"Items":[],"Count":0,"ScannedCount":0},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"B003"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B003","userId":null}},"level":"info","message":"dynamodb get item input"}
+{"0":"Invalid attribute value type","1":{"message":"Invalid attribute value type","code":"ValidationException","time":"2021-07-07T12:46:36.514Z","requestId":"ce902e18-8c6b-413c-b3c1-39e64e54aca8","statusCode":400,"retryable":false,"retryDelay":37.0252578442478},"level":"error","message":"dynamodb get item error."}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"B004","userId":null,"name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"B002"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"B002"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"Items":[],"Count":0,"ScannedCount":0},"level":"info"}
+{"message":{"count":0,"groups":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"Items":[],"Count":0,"ScannedCount":0},"level":"info"}
+{"message":{"count":0,"groups":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"B003"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B003","userId":null}},"level":"info","message":"dynamodb get item input"}
+{"0":"Invalid attribute value type","1":{"message":"Invalid attribute value type","code":"ValidationException","time":"2021-07-07T12:47:29.980Z","requestId":"9dd8e61d-2260-4175-b79a-51e09a8bbb53","statusCode":400,"retryable":false,"retryDelay":45.493499264745466},"level":"error","message":"dynamodb get item error."}
+{"message":"Invalid attribute value type","code":"ValidationException","time":"2021-07-07T12:47:29.980Z","requestId":"9dd8e61d-2260-4175-b79a-51e09a8bbb53","statusCode":400,"retryable":false,"retryDelay":45.493499264745466,"level":"error"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"B004","userId":null,"name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"message":"Invalid attribute value type","code":"ValidationException","time":"2021-07-07T12:47:30.127Z","requestId":"3fddb455-13bc-47df-b9ea-b4e8054658dd","statusCode":400,"retryable":false,"retryDelay":8.366274227848624,"level":"error"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"vKU3Pi6uNxL2sNVCEQimox","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"vKU3Pi6uNxL2sNVCEQimox"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"vKU3Pi6uNxL2sNVCEQimox","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"vKU3Pi6uNxL2sNVCEQimox","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"vKU3Pi6uNxL2sNVCEQimox","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"vKU3Pi6uNxL2sNVCEQimox","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"mx3h7dMTwoLkXr6JNNqHNP","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"mx3h7dMTwoLkXr6JNNqHNP"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"mx3h7dMTwoLkXr6JNNqHNP","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"mx3h7dMTwoLkXr6JNNqHNP","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"mx3h7dMTwoLkXr6JNNqHNP","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"mx3h7dMTwoLkXr6JNNqHNP","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"mx3h7dMTwoLkXr6JNNqHNP","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"89TAuX9MuTF5GS6bQViks2"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"89TAuX9MuTF5GS6bQViks2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"mx3h7dMTwoLkXr6JNNqHNP","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"mx3h7dMTwoLkXr6JNNqHNP","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"aP7hc22RSbdf2CzK8oF2FS","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"aP7hc22RSbdf2CzK8oF2FS"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"aP7hc22RSbdf2CzK8oF2FS","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"aP7hc22RSbdf2CzK8oF2FS","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"aP7hc22RSbdf2CzK8oF2FS","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"aP7hc22RSbdf2CzK8oF2FS","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"gwvpVKjVM6mNSN5d2wShzp","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"gwvpVKjVM6mNSN5d2wShzp"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"gwvpVKjVM6mNSN5d2wShzp","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"gwvpVKjVM6mNSN5d2wShzp","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"gwvpVKjVM6mNSN5d2wShzp","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"gwvpVKjVM6mNSN5d2wShzp","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"pN3n6Vpf33A6BZ1CvwYPhQ","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"pN3n6Vpf33A6BZ1CvwYPhQ"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"pN3n6Vpf33A6BZ1CvwYPhQ","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"pN3n6Vpf33A6BZ1CvwYPhQ","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"pN3n6Vpf33A6BZ1CvwYPhQ","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"pN3n6Vpf33A6BZ1CvwYPhQ","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"kA9Xc5tMduMCqXHsRZEL7X","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"kA9Xc5tMduMCqXHsRZEL7X"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"kA9Xc5tMduMCqXHsRZEL7X","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"kA9Xc5tMduMCqXHsRZEL7X","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"kA9Xc5tMduMCqXHsRZEL7X","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"kA9Xc5tMduMCqXHsRZEL7X","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"kwSrzkK2hZZGfiG3ibwuig","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"kwSrzkK2hZZGfiG3ibwuig"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"kwSrzkK2hZZGfiG3ibwuig","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"kwSrzkK2hZZGfiG3ibwuig","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"kwSrzkK2hZZGfiG3ibwuig","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"kwSrzkK2hZZGfiG3ibwuig","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"f847eTeoBoBWgtTeVCXpYU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"f847eTeoBoBWgtTeVCXpYU"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"f847eTeoBoBWgtTeVCXpYU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"f847eTeoBoBWgtTeVCXpYU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"f847eTeoBoBWgtTeVCXpYU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"f847eTeoBoBWgtTeVCXpYU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"B002"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"B002"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"Items":[],"Count":0,"ScannedCount":0},"level":"info"}
+{"message":{"count":0,"groups":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"B002"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"B002"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"Items":[],"Count":0,"ScannedCount":0},"level":"info"}
+{"message":{"count":0,"groups":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"B002"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"B002"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"groups":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"B002"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"B002"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"message":"ExpressionAttributeValues must not be empty","code":"ValidationException","time":"2021-07-07T13:14:36.313Z","requestId":"e113d1b3-bcb8-41ec-87a5-1da78a74be97","statusCode":400,"retryable":false,"retryDelay":12.806662697234328,"level":"error"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"B002"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"B002"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"groups":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"groups":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"groups":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"3DTYgjpkHxvyJTAqApw2fY","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"3DTYgjpkHxvyJTAqApw2fY"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"3DTYgjpkHxvyJTAqApw2fY","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"3DTYgjpkHxvyJTAqApw2fY","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"3DTYgjpkHxvyJTAqApw2fY","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"3DTYgjpkHxvyJTAqApw2fY","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"groups":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"groups":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"B003"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"B004","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"nMxk7nCmo9viqcMGR7z5P6","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"nMxk7nCmo9viqcMGR7z5P6"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"nMxk7nCmo9viqcMGR7z5P6","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"nMxk7nCmo9viqcMGR7z5P6","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"nMxk7nCmo9viqcMGR7z5P6","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"nMxk7nCmo9viqcMGR7z5P6","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"groups":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"groups":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"B003"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"5UNXxKnYhwD427mEyLn619","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"5UNXxKnYhwD427mEyLn619"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"5UNXxKnYhwD427mEyLn619","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"5UNXxKnYhwD427mEyLn619","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"5UNXxKnYhwD427mEyLn619","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"5UNXxKnYhwD427mEyLn619","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"groups":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"groups":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"B003"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"B003"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"nWsxwrdwTeGkuJU7S1Jaup","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"nWsxwrdwTeGkuJU7S1Jaup"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"nWsxwrdwTeGkuJU7S1Jaup","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"nWsxwrdwTeGkuJU7S1Jaup","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"nWsxwrdwTeGkuJU7S1Jaup","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"nWsxwrdwTeGkuJU7S1Jaup","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"groups":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"groups":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"m2RpQV6J55R7V4jXTNVwHC","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"m2RpQV6J55R7V4jXTNVwHC"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"m2RpQV6J55R7V4jXTNVwHC","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"m2RpQV6J55R7V4jXTNVwHC","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"m2RpQV6J55R7V4jXTNVwHC","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"m2RpQV6J55R7V4jXTNVwHC","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"items":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":{},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"gxg85ZxEirDUWUj8eugRiB","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"gxg85ZxEirDUWUj8eugRiB"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"gxg85ZxEirDUWUj8eugRiB","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"gxg85ZxEirDUWUj8eugRiB","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"gxg85ZxEirDUWUj8eugRiB","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"gxg85ZxEirDUWUj8eugRiB","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"items":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":{},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"3gRiH4weEYdQKpE83tskrF","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"3gRiH4weEYdQKpE83tskrF"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"3gRiH4weEYdQKpE83tskrF","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"3gRiH4weEYdQKpE83tskrF","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"3gRiH4weEYdQKpE83tskrF","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"3gRiH4weEYdQKpE83tskrF","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"items":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"message":{"item":{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"},{"name":"GroupName102","description":"Group Description 102","id":"84d95083-9ee8-4187-b6e7-8123558ef2c1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"bHVkxEQz8AT2BQnWwoSzo1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"bHVkxEQz8AT2BQnWwoSzo1"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"bHVkxEQz8AT2BQnWwoSzo1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"bHVkxEQz8AT2BQnWwoSzo1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"bHVkxEQz8AT2BQnWwoSzo1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"bHVkxEQz8AT2BQnWwoSzo1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"items":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"message":{"item":{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"B004","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"f1ThWrj9qhVdoM99en5CEU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"f1ThWrj9qhVdoM99en5CEU"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"f1ThWrj9qhVdoM99en5CEU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"f1ThWrj9qhVdoM99en5CEU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"f1ThWrj9qhVdoM99en5CEU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"f1ThWrj9qhVdoM99en5CEU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"items":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"message":{"item":{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb delete start..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb delete item input"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb delete success..."}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"message":"Started...","level":"info"}
+{"level":"info","message":"Port: "}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"jNUMYoFoumexrnEmsvhnAU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"b001","description":"Description b001"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"message":{"groupId":"jNUMYoFoumexrnEmsvhnAU"},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"jNUMYoFoumexrnEmsvhnAU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"b001","description":"Description b001","id":"jNUMYoFoumexrnEmsvhnAU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"jNUMYoFoumexrnEmsvhnAU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"b001","description":"Description b001","id":"jNUMYoFoumexrnEmsvhnAU","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B002-1","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"description":"Group Description 002","id":"B002-2","name":"GroupName002","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=2","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"1":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":2,"items":[{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName002","description":"Group Description 002","id":"B002-2","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName001","description":"Group Description 001","id":"B002-1","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TableName":"PocketCards_Groups","KeyConditionExpression":"#userId = :userId","ExpressionAttributeNames":{"#userId":"userId"},"ExpressionAttributeValues":{":userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},"IndexName":"gsiIdx1"},"level":"info","message":"dynamodb query input"}
+{"0":"Count=0","level":"info","message":"dynamodb query success."}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"1":[],"level":"debug","message":"dynamodb query items."}
+{"message":{"count":0,"items":[]},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"description":"Group Description 001","id":"B003","name":"GroupName001","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"debug","message":"dynamodb item: "}
+{"message":{"item":{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName001","description":"Group Description 001","id":"B003","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}],"Count":1,"ScannedCount":1},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TableName":"PocketCards_Groups","Item":{"id":"B004","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1","name":"GroupName102","description":"Group Description 102"}},"level":"info","message":"dynamodb put item input"}
+{"message":"dynamodb put item success.","level":"info"}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B004","userId":"B004"}},"level":"info","message":"dynamodb get item input"}
+{"message":"dynamodb get item success.","level":"info"}
+{"0":{"Item":{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}},"level":"debug","message":"dynamodb item: "}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"},{"name":"GroupName102","description":"Group Description 102","id":"B004","userId":"B004"}],"Count":2,"ScannedCount":2},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 2","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert start..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups","Records":[{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}]},"level":"debug","message":"dynamodb bulk insert records"}
+{"message":"Queue1, in flight items: 1","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb bulk insert finished..."}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb delete start..."}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb delete item input"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb delete success..."}
+{"level":"info"}
+{"0":{"TableName":"PocketCards_Groups","Key":{"id":"B005","userId":"84d95083-9ee8-4187-b6e7-8123558ef2c1"}},"level":"info","message":"dynamodb get item input"}
+{"0":{"TableName":"PocketCards_Groups"},"level":"info","message":"dynamodb scan input"}
+{"message":"dynamodb scan success. LastEvaluatedKey: undefined","level":"info"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"Items":[],"Count":0,"ScannedCount":0},"level":"debug","message":"dynamodb scan results"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate start..."}
+{"message":"Queue1, in flight items: 0","level":"debug"}
+{"0":{"TABLE_NAME":"PocketCards_Groups"},"level":"info","message":"dynamodb truncate finished..."}

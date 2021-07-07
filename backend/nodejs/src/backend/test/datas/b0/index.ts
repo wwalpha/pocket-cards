@@ -1,5 +1,5 @@
 export { default as B001Req } from './b001/req001.json';
-export { default as B001Res } from './b001/req001.json';
+export { default as B001Res } from './b001/res001.json';
 
 export { default as B002DB } from './b002/db001.json';
 export { default as B002Res01 } from './b002/res001.json';

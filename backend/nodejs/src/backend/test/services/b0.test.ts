@@ -16,7 +16,7 @@ describe('b0', () => {
   });
 
   test('b001', async () => {
-    const res = await request(server).post('/groups').set('authorization', HEADER_AUTH).send(B0.B001Req);
+    const res = await request(server).put('/groups').set('authorization', HEADER_AUTH).send(B0.B001Req);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -25,7 +25,7 @@ describe('b0', () => {
     const userId = Commons.getUserInfo(HEADER_AUTH);
     const result = await DBHelper().get(Groups.get({ id: groupId, userId: userId }));
 
-    expect(result).toEqual(B0.B001Res);
+    expect(result?.Item).toMatchObject(B0.B001Res);
   });
 
   test('b002: get list success', async () => {
@@ -50,9 +50,9 @@ describe('b0', () => {
 
   test('b003', async () => {
     // initialize table
-    await client.bulk(TABLE_NAME_GROUPS, [B0.B003DB]);
+    await client.bulk(TABLE_NAME_GROUPS, B0.B003DB);
 
-    const res = await request(server).get('/groups/B003').set('authorization', 'B003');
+    const res = await request(server).get('/groups/B003').set('authorization', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -62,10 +62,10 @@ describe('b0', () => {
 
   test('b004', async () => {
     // initialize table
-    await client.bulk(TABLE_NAME_GROUPS, [B0.B004DB01]);
+    await client.bulk(TABLE_NAME_GROUPS, B0.B004DB01);
 
     // api call
-    const res = await request(server).put('/groups/B004').set('authorization', 'B004').send(B0.B004Req01);
+    const res = await request(server).put('/groups/B004').set('authorization', HEADER_AUTH).send(B0.B004Req01);
 
     // database
     const result = await DBHelper().get(Groups.get({ id: 'B004', userId: 'B004' }));
@@ -77,10 +77,10 @@ describe('b0', () => {
 
   test('b005', async () => {
     // initialize table
-    await client.bulk(TABLE_NAME_GROUPS, [B0.B005DB01]);
+    await client.bulk(TABLE_NAME_GROUPS, B0.B005DB01);
 
     // api call
-    const res = await request(server).put('/groups/B005').set('authorization', HEADER_AUTH).send(B0.B004Req01);
+    const res = await request(server).delete('/groups/B005').set('authorization', HEADER_AUTH).send(B0.B004Req01);
 
     // database
     const userId = Commons.getUserInfo(HEADER_AUTH);

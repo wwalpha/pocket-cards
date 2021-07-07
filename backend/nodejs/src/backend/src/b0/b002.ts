@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { DBHelper, Logger, Commons } from '@utils';
+import { DBHelper, Commons } from '@utils';
 import { Groups } from '@queries';
 import { APIs, Tables } from 'typings';
 
@@ -8,21 +8,18 @@ export default async (req: Request<any, any, APIs.B002Request, any>): Promise<AP
 
   // 検索結果
   const results = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
-
-  Logger.info(results);
-
   const items = results.Items;
 
   // ０件
-  if (!items || items.length === 0) {
+  if (items.length === 0) {
     return {
       count: 0,
-      groups: [],
+      items: [],
     };
   }
 
   return {
     count: items.length,
-    groups: items,
+    items,
   };
 };

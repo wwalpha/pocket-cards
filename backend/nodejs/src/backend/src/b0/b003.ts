@@ -15,7 +15,7 @@ export default async (req: Request<APIs.B003Params, any, APIs.B001Request, any>)
   // 検索
   const results = await DBHelper().get<Tables.TGroups>(Groups.get({ id: groupId, userId }));
 
-  Logger.info(results);
-
-  return results?.Item;
+  return {
+    item: results?.Item,
+  };
 };
