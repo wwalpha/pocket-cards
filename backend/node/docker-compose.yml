@@ -1,7 +1,0 @@
-version: '3'
-services:
-  localstack:
-    image: pocket-cards/backend
-    container_name: backend
-    ports:
-      - '8080:8080'

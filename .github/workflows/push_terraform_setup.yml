@@ -1,12 +1,17 @@
-name: Terraform Setup Build
+name: PUSH_T) Setup Build
 
 on:
   push:
-    branches:
-      - master
     paths:
       - infrastructure/terraform/setup/**
-      - .github/workflows/terraform_setup_dev.yml
+      - infrastructure/terraform/services/**
+      - backend/nodejs/terraform/**
+      - .github/workflows/push_terraform_setup.yml
+      - .github/workflows/push_terraform_services.yml
+      - .github/workflows/push_terraform_backend.yml
+    branches-ignore:
+      - releases/**
+  workflow_dispatch:
 
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
