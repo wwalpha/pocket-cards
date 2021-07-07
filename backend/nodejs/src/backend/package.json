@@ -1,0 +1,60 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "test": "jest --forceExit --passWithNoTests",
+    "test:local": "jest test/services/ec2.test.ts --forceExit --passWithNoTests",
+    "debug": "ts-node -r tsconfig-paths/register -r dotenv/config test/debug.ts",
+    "release": "ts-node -r dotenv/config test/release.ts"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.78",
+    "@types/cors": "^2.8.11",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^26.0.24",
+    "@types/lodash": "^4.14.169",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^15.3.0",
+    "@types/supertest": "^2.0.11",
+    "dotenv": "^9.0.2",
+    "jest": "^27.0.6",
+    "supertest": "^6.1.3",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.0.0",
+    "tsc-alias": "^1.3.7",
+    "tsconfig-paths": "^3.10.1",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@alphax/dynamodb": "^1.1.2",
+    "aws-sdk": "^2.907.0",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "morgan": "^1.10.0",
+    "short-uuid": "^4.2.0",
+    "winston": "^3.3.3"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src/**/*.ts"
+    ],
+    "delay": 3,
+    "ignore": [
+      "node_modules/*"
+    ],
+    "execMap": {
+      "ts": "ts-node -r tsconfig-paths/register -r dotenv/config"
+    },
+    "events": {
+      "crash": "sh -c 'lsof -i :${PORT:-8080} -t | xargs kill'"
+    }
+  }
+}
