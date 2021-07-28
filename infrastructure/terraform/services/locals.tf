@@ -4,7 +4,7 @@ locals {
   # ----------------------------------------------------------------------------------------------
   environment  = terraform.workspace
   is_dev       = local.environment == "dev"
-  is_dev_count = local.is_dev ? 1 : 0
+  is_dev_count = local.is_dev ? 0 : 1
   remote_setup = data.terraform_remote_state.setup.outputs
   account_id   = data.aws_caller_identity.this.account_id
   region       = data.aws_region.this.name
