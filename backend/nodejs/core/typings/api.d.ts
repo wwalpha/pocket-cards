@@ -67,7 +67,7 @@ export namespace APIs {
 
   interface B002Response {
     count: number;
-    groups: TGroups[];
+    items: Tables.TGroups[];
   }
 
   // ------------------------------------------------------------
@@ -79,7 +79,9 @@ export namespace APIs {
 
   interface B003Request {}
 
-  type B003Response = TGroups;
+  interface B003Response {
+    item?: Tables.TGroups;
+  }
 
   // ------------------------------------------------------------
   // B004
@@ -125,7 +127,10 @@ export namespace APIs {
     vocabulary?: string;
   }
 
-  type C002Response = C002ResItem[];
+  interface C002Response {
+    count: number;
+    items: C002ResItem[];
+  }
 
   // ------------------------------------------------------------
   // C003
@@ -135,7 +140,9 @@ export namespace APIs {
     word: string;
   }
 
-  type C003Response = TWords;
+  interface C003Response {
+    item?: TWords;
+  }
 
   // ------------------------------------------------------------
   // C004
