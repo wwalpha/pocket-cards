@@ -23,7 +23,6 @@ export default async (req: Request<APIs.C006Params, any, any, any>): Promise<API
   const sorted = orderBy(items, 'lastTime');
   // 時間順で上位N件を対象とします
   const targets = sorted.length > Environment.WORDS_LIMIT ? sorted.slice(0, Environment.WORDS_LIMIT) : sorted;
-
   // 単語明細情報の取得
   const results = await getDetails(targets);
 

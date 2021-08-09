@@ -34,3 +34,9 @@ export { default as C006DB01_WORD_MASTER } from './c006/001_db_word_master.json'
 
 export { default as C006Res01 } from './c006/001_res.json';
 export { default as C006Res02 } from './c006/002_res.json';
+
+export { default as C007DB01_WORD } from './c007/001_db_word.json';
+export { default as C007DB01_WORD_MASTER } from './c007/001_db_word_master.json';
+
+export { default as C007Res01 } from './c007/001_res.json';
+export { default as C007Res02 } from './c007/002_res.json';

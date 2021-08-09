@@ -184,61 +184,24 @@ describe('C0', () => {
     expect(res.body).toEqual(C0.C006Res02);
   });
 
-  //     const URL = '/groups/C006/new';
-  //     const res = await chai.request(server).get(URL).set('authorization', HEADER_AUTH).send();
+  test('C007:テストあり', async () => {
+    await client.bulk(Environment.TABLE_NAME_WORDS, C0.C007DB01_WORD);
+    await client.bulk(Environment.TABLE_NAME_WORD_MASTER, C0.C007DB01_WORD_MASTER);
 
-  //     chai.expect(res.status).to.be.eq(200);
-  //     chai.expect(res.body).to.be.deep.equals(require('./datas/res001.json'));
+    const apiPath = '/groups/C007/test';
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
-  // test('b002: empty list', async () => {
-  //   const res = await request(server).get('/groups').set('authorization', HEADER_AUTH);
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(C0.C007Res01);
+  });
 
-  //   // status code
-  //   expect(res.statusCode).toBe(200);
-  //   // found 2 records
-  //   expect(res.body).toEqual(B0.B002Res02);
-  // });
+  test('C007:テストなし', async () => {
+    const apiPath = '/groups/C007/test';
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
-  // test('b003', async () => {
-  //   // initialize table
-  //   await client.bulk(TABLE_NAME_GROUPS, B0.B003DB);
-
-  //   const res = await request(server).get('/groups/B003').set('authorization', HEADER_AUTH);
-
-  //   // status code
-  //   expect(res.statusCode).toBe(200);
-  //   // found 2 records
-  //   expect(res.body).toEqual(B0.B003Res01);
-  // });
-
-  // test('b004', async () => {
-  //   // initialize table
-  //   await client.bulk(TABLE_NAME_GROUPS, B0.B004DB01);
-
-  //   // api call
-  //   const res = await request(server).put('/groups/B004').set('authorization', HEADER_AUTH).send(B0.B004Req01);
-
-  //   // database
-  //   const result = await DBHelper().get(Groups.get({ id: 'B004', userId: 'B004' }));
-  //   // status code
-  //   expect(res.statusCode).toBe(200);
-  //   // found 2 records
-  //   expect(result?.Item).toEqual(B0.B004Res01);
-  // });
-
-  // test('b005', async () => {
-  //   // initialize table
-  //   await client.bulk(TABLE_NAME_GROUPS, B0.B005DB01);
-
-  //   // api call
-  //   const res = await request(server).delete('/groups/B005').set('authorization', HEADER_AUTH).send(B0.B004Req01);
-
-  //   // database
-  //   const userId = Commons.getUserInfo(HEADER_AUTH);
-  //   const result = await DBHelper().get(Groups.get({ id: 'B005', userId: userId }));
-  //   // status code
-  //   expect(res.statusCode).toBe(200);
-  //   // database
-  //   expect(result?.Item).toBeUndefined();
-  // });
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(C0.C007Res02);
+  });
 });

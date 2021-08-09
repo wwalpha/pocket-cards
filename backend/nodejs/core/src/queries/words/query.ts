@@ -99,7 +99,7 @@ export const review = (groupId: string): DynamoDB.DocumentClient.QueryInput => (
  */
 export const test = (groupId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
-  ProjectionExpression: 'id, nextTime, times',
+  ProjectionExpression: 'id, lastTime, nextTime, times',
   KeyConditionExpression: '#groupId = :groupId and #nextTime <= :nextTime',
   FilterExpression: '#times <> :times',
   ExpressionAttributeNames: {

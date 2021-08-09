@@ -7,7 +7,7 @@
       "pronounce": "Pronounce_1",
       "vocChn": "WORD_ZH_1",
       "vocJpn": "WORD_JA_1",
-      "times": 0
+      "times": 1
     },
     {
       "word": "WORD-2",
@@ -15,7 +15,7 @@
       "pronounce": "Pronounce_2",
       "vocChn": "WORD_ZH_2",
       "vocJpn": "WORD_JA_2",
-      "times": 0
+      "times": 1
     },
     {
       "word": "WORD-3",
@@ -23,7 +23,7 @@
       "pronounce": "Pronounce_3",
       "vocChn": "WORD_ZH_3",
       "vocJpn": "WORD_JA_3",
-      "times": 0
+      "times": 1
     },
     {
       "word": "WORD-4",
@@ -31,7 +31,7 @@
       "pronounce": "Pronounce_4",
       "vocChn": "WORD_ZH_4",
       "vocJpn": "WORD_JA_4",
-      "times": 0
+      "times": 1
     },
     {
       "word": "WORD-5",
@@ -39,7 +39,7 @@
       "pronounce": "Pronounce_5",
       "vocChn": "WORD_ZH_5",
       "vocJpn": "WORD_JA_5",
-      "times": 0
+      "times": 1
     },
     {
       "word": "WORD-6",
@@ -47,7 +47,7 @@
       "pronounce": "Pronounce_6",
       "vocChn": "WORD_ZH_6",
       "vocJpn": "WORD_JA_6",
-      "times": 0
+      "times": 1
     },
     {
       "word": "WORD-7",
@@ -55,7 +55,7 @@
       "pronounce": "Pronounce_7",
       "vocChn": "WORD_ZH_7",
       "vocJpn": "WORD_JA_7",
-      "times": 0
+      "times": 1
     },
     {
       "word": "WORD-8",
@@ -63,7 +63,7 @@
       "pronounce": "Pronounce_8",
       "vocChn": "WORD_ZH_8",
       "vocJpn": "WORD_JA_8",
-      "times": 0
+      "times": 1
     },
     {
       "word": "WORD-9",
@@ -71,7 +71,7 @@
       "pronounce": "Pronounce_9",
       "vocChn": "WORD_ZH_9",
       "vocJpn": "WORD_JA_9",
-      "times": 0
+      "times": 1
     },
     {
       "word": "WORD-10",
@@ -79,7 +79,7 @@
       "pronounce": "Pronounce_10",
       "vocChn": "WORD_ZH_10",
       "vocJpn": "WORD_JA_10",
-      "times": 0
+      "times": 1
     }
   ]
 }
