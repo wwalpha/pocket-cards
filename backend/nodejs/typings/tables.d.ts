@@ -59,6 +59,8 @@ export namespace Tables {
     name?: string;
     // 説明
     description?: string;
+    // 単語数
+    count: number;
   }
 
   interface HistoriesKey {

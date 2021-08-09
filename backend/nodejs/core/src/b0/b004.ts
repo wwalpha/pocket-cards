@@ -18,6 +18,7 @@ export default async (req: Request<APIs.B004Params, void, APIs.B004Request, any>
       id: groupId,
       userId,
       name: item.name,
+      count: 0,
       description: item.description,
     })
   );
