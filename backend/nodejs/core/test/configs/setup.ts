@@ -1,7 +1,7 @@
 require('dotenv').config({ path: '.env.test' });
 
 import { DynamodbHelper } from '@alphax/dynamodb';
-import AWS from 'aws-sdk';
+import AWS, { S3 } from 'aws-sdk';
 
 AWS.config.update({
   region: process.env.AWS_REGION,
@@ -19,10 +19,12 @@ const setup = async () => {
   console.log('jest setup start...');
 
   const helper = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
+  const s3Client = new S3();
+  const dbClient = helper.getClient();
 
   await Promise.all([
-    helper
-      .getClient()
+    s3Client.createBucket({ Bucket: process.env.BUCKET_NAME_FRONTEND as string }).promise(),
+    dbClient
       .createTable({
         TableName: TABLE_NAME_USERS,
         BillingMode: 'PROVISIONED',
@@ -31,8 +33,7 @@ const setup = async () => {
         AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
       })
       .promise(),
-    helper
-      .getClient()
+    dbClient
       .createTable({
         TableName: TABLE_NAME_GROUPS,
         BillingMode: 'PROVISIONED',
@@ -58,8 +59,7 @@ const setup = async () => {
         ],
       })
       .promise(),
-    helper
-      .getClient()
+    dbClient
       .createTable({
         TableName: TABLE_NAME_WORDS,
         BillingMode: 'PROVISIONED',
@@ -86,8 +86,7 @@ const setup = async () => {
         ],
       })
       .promise(),
-    helper
-      .getClient()
+    dbClient
       .createTable({
         TableName: TABLE_NAME_WORD_MASTER,
         BillingMode: 'PROVISIONED',
@@ -96,8 +95,7 @@ const setup = async () => {
         AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
       })
       .promise(),
-    helper
-      .getClient()
+    dbClient
       .createTable({
         TableName: TABLE_NAME_HISTORIES,
         BillingMode: 'PROVISIONED',

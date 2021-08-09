@@ -1,54 +1,55 @@
-import { Groups, Histories, Words } from '@queries';
-import { Commons, DateUtils, DBHelper } from '@utils';
-import server from '@src/app';
-import request from 'supertest';
-import * as C0 from '../datas/c0';
-import { APIs } from 'typings';
-import { HEADER_AUTH } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
-import { TABLE_NAME_HISTORIES } from '@src/consts/Environment';
+import axios, { AxiosStatic } from 'axios';
+import request from 'supertest';
+import { Groups, Words } from '@queries';
+import { Environment } from '@consts';
+import { DateUtils } from '@utils';
+import server from '@src/app';
+import * as C0 from '../datas/c0';
+import { HEADER_AUTH } from '@test/Commons';
+
+jest.mock('axios');
+const api = axios as jest.Mocked<AxiosStatic>;
 
 const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
-const TABLE_NAME_WORDS = process.env.TABLE_NAME_WORDS as string;
-const TABLE_NAME_WORD_MASTER = process.env.TABLE_NAME_WORD_MASTER as string;
 
-describe('c0', () => {
+describe('C0', () => {
   afterEach(async () => {
-    await client.truncateAll(TABLE_NAME_WORDS);
-    await client.truncateAll(TABLE_NAME_WORD_MASTER);
-    await client.truncateAll(TABLE_NAME_HISTORIES);
+    await client.truncateAll(Environment.TABLE_NAME_WORDS);
+    await client.truncateAll(Environment.TABLE_NAME_WORD_MASTER);
+    await client.truncateAll(Environment.TABLE_NAME_HISTORIES);
+    await client.truncateAll(Environment.TABLE_NAME_GROUPS);
   });
 
-  test.skip('c001', async () => {
-    const res = await request(server).post('/groups/group001/words').set('authorization', HEADER_AUTH).send(C0.C001Req);
+  test.skip('C001:単語新規追加(複数)', async () => {
+    // const user: User.GetUserResponse = require('./expect/Decode.json');
+    // api.get.mockResolvedValueOnce({ status: 200, data: user });
+
+    const res = await request(server)
+      .post('/groups/group001/words')
+      .set('authorization', HEADER_AUTH)
+      .send(C0.C001Req01);
 
     // status code
     expect(res.statusCode).toBe(200);
 
     console.log(res.body);
-    // const { groupId } = res.body as APIs.B001Response;
-    // const userId = Commons.getUserInfo(HEADER_AUTH);
-    // const result = await DBHelper().get(Groups.get({ id: groupId, userId: userId }));
-
-    // expect(result?.Item).toMatchObject(B0.B001Res);
   });
 
-  test.skip('c001', async () => {
-    const res = await request(server).post('/groups/group001/words').set('authorization', HEADER_AUTH).send(C0.C002Req);
+  test.skip('C001:単語新規追加(1つ)', async () => {
+    const res = await request(server)
+      .post('/groups/group001/words')
+      .set('authorization', HEADER_AUTH)
+      .send(C0.C001Req02);
 
     // status code
     expect(res.statusCode).toBe(200);
 
     console.log(res.body);
-    // const { groupId } = res.body as APIs.B001Response;
-    // const userId = Commons.getUserInfo(HEADER_AUTH);
-    // const result = await DBHelper().get(Groups.get({ id: groupId, userId: userId }));
-
-    // expect(result?.Item).toMatchObject(B0.B001Res);
   });
 
-  test('C002_1', async () => {
-    await client.bulk(TABLE_NAME_WORDS, C0.C002DB01);
+  test('C002:グループ単語一覧_データあり', async () => {
+    await client.bulk(Environment.TABLE_NAME_WORDS, C0.C002DB01);
 
     const res = await request(server).get('/groups/C002/words').set('authorization', HEADER_AUTH);
 
@@ -58,7 +59,7 @@ describe('c0', () => {
     expect(res.body).toEqual(C0.C002Res01);
   });
 
-  test('C002:02', async () => {
+  test('C002:グループ単語一覧_データなし', async () => {
     const res = await request(server).get('/groups/C003/words').set('authorization', HEADER_AUTH);
 
     // status code
@@ -67,8 +68,8 @@ describe('c0', () => {
     expect(res.body).toEqual(C0.C002Res02);
   });
 
-  test('C003', async () => {
-    await client.bulk(TABLE_NAME_WORDS, C0.C003DB01);
+  test('C003:単語詳細取得', async () => {
+    await client.bulk(Environment.TABLE_NAME_WORDS, C0.C003DB01);
 
     const res = await request(server).get('/groups/C003/words/C003-1').set('authorization', HEADER_AUTH).expect(200);
 
@@ -76,8 +77,8 @@ describe('c0', () => {
     expect(res.body).toEqual(C0.C003Res01);
   });
 
-  test('C004:001:Study success', async () => {
-    await client.bulk(TABLE_NAME_WORDS, C0.C004DB01);
+  test('C004_001:学習成功', async () => {
+    await client.bulk(Environment.TABLE_NAME_WORDS, C0.C004DB01);
 
     await request(server)
       .put('/groups/C004/words/WORD-4')
@@ -86,7 +87,7 @@ describe('c0', () => {
       .expect(200);
 
     const wordItem = (await client.get(Words.get({ id: 'WORD-4', groupId: 'C004' })))?.Item;
-    const historyItem = await (await client.scan({ TableName: TABLE_NAME_HISTORIES })).Items[0];
+    const historyItem = await (await client.scan({ TableName: Environment.TABLE_NAME_HISTORIES })).Items[0];
 
     const expectWord = C0.C004Res01_Word;
     // @ts-ignore
@@ -99,8 +100,8 @@ describe('c0', () => {
     expect(historyItem).toMatchObject(C0.C004Res01_History);
   });
 
-  test('C004:002:Study failed', async () => {
-    await client.bulk(TABLE_NAME_WORDS, C0.C004DB02);
+  test('C004_002:学習失敗', async () => {
+    await client.bulk(Environment.TABLE_NAME_WORDS, C0.C004DB02);
 
     await request(server)
       .put('/groups/C004/words/WORD-4')
@@ -109,7 +110,7 @@ describe('c0', () => {
       .expect(200);
 
     const wordItem = (await client.get(Words.get({ id: 'WORD-4', groupId: 'C004' })))?.Item;
-    const historyItem = (await client.scan({ TableName: TABLE_NAME_HISTORIES })).Items[0];
+    const historyItem = (await client.scan({ TableName: Environment.TABLE_NAME_HISTORIES })).Items[0];
 
     const expectWord = C0.C004Res02_Word;
     // @ts-ignore
@@ -121,8 +122,8 @@ describe('c0', () => {
     expect(historyItem).toMatchObject(C0.C004Res02_History);
   });
 
-  test.only('C004:003:New word', async () => {
-    await client.bulk(TABLE_NAME_WORDS, C0.C004DB02);
+  test('C004_003:単語情報更新_既存単語あり', async () => {
+    await client.bulk(Environment.TABLE_NAME_WORDS, C0.C004DB03);
 
     const res = await request(server)
       .put('/groups/C004/words/WORD4')
@@ -131,11 +132,11 @@ describe('c0', () => {
 
     // status code
     expect(res.statusCode).toBe(200);
-    // found 2 records
-    expect(res.body).toEqual(C0.C003Res01);
   });
 
-  test('c004:04', async () => {
+  test('C004_004:単語情報更新_単語更新', async () => {
+    await client.bulk(Environment.TABLE_NAME_WORDS, C0.C004DB04);
+
     const res = await request(server)
       .put('/groups/C004/words/WORD4')
       .set('authorization', HEADER_AUTH)
@@ -143,9 +144,51 @@ describe('c0', () => {
 
     // status code
     expect(res.statusCode).toBe(200);
-    // found 2 records
-    expect(res.body).toEqual(C0.C003Res01);
   });
+
+  test('C005:グループ単語削除', async () => {
+    await client.bulk(Environment.TABLE_NAME_GROUPS, C0.C005DB01_Group);
+    await client.bulk(Environment.TABLE_NAME_WORDS, C0.C005DB01_Word);
+
+    const apiPath = '/groups/C005/words/C005-1';
+    const res = await request(server).delete(apiPath).set('authorization', HEADER_AUTH);
+
+    // status code
+    expect(res.statusCode).toBe(200);
+    // found 2 records
+    const group = await client.get(Groups.get({ id: 'C005', userId: '84d95083-9ee8-4187-b6e7-8123558ef2c1' }));
+    const word = await client.get(Words.get({ id: 'C005-1', groupId: 'C005' }));
+
+    expect(group).toEqual(C0.C005Except);
+    expect(word).toBeUndefined;
+  });
+
+  test('C006:新規学習あり', async () => {
+    await client.bulk(Environment.TABLE_NAME_WORDS, C0.C006DB01_WORD);
+    await client.bulk(Environment.TABLE_NAME_WORD_MASTER, C0.C006DB01_WORD_MASTER);
+
+    const apiPath = '/groups/C006/new';
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(C0.C006Res01);
+  });
+
+  test('C006:新規学習なし', async () => {
+    const apiPath = '/groups/C006/new';
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(C0.C006Res02);
+  });
+
+  //     const URL = '/groups/C006/new';
+  //     const res = await chai.request(server).get(URL).set('authorization', HEADER_AUTH).send();
+
+  //     chai.expect(res.status).to.be.eq(200);
+  //     chai.expect(res.body).to.be.deep.equals(require('./datas/res001.json'));
 
   // test('b002: empty list', async () => {
   //   const res = await request(server).get('/groups').set('authorization', HEADER_AUTH);
