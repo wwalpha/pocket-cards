@@ -1,5 +1,4 @@
 import { Polly, S3 } from 'aws-sdk';
-import axios from 'axios';
 import { Request } from 'express';
 import * as short from 'short-uuid';
 import { API, ClientUtils, DateUtils, DBHelper, Logger } from '@utils';
@@ -8,6 +7,7 @@ import { getUserId } from '@src/utils/commons';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 
+/** グループ単語新規追加 */
 export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>): Promise<void> => {
   const input = req.body;
   const groupId = req.params.groupId;

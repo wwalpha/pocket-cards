@@ -3,6 +3,7 @@ import { DBHelper } from '@utils';
 import { Words } from '@queries';
 import { APIs, Tables } from 'typings';
 
+/** グループ単語一覧 */
 export default async (req: Request<APIs.C002Params, any, any, any>): Promise<APIs.C002Response> => {
   const groupId = req.params.groupId;
 
