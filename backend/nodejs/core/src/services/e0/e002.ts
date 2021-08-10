@@ -1,7 +1,6 @@
 import { Request } from 'express';
-import { DBHelper } from '@utils';
+import { DBHelper, API, Commons } from '@utils';
 import { WordMaster } from '@queries';
-import { getPronounce, saveWithMP3, getTranslate } from './lib';
 import { APIs, Tables } from 'typings';
 
 export default async (req: Request<APIs.E002Params, any, APIs.E002Request, any>): Promise<APIs.E002Response> => {
@@ -25,10 +24,10 @@ export default async (req: Request<APIs.E002Params, any, APIs.E002Request, any>)
 const addNew = async (word: string) => {
   // 新規単語追加
   const results = await Promise.all([
-    getPronounce(word),
-    saveWithMP3(word),
-    getTranslate(word, 'zh'),
-    getTranslate(word, 'ja'),
+    API.getPronounce(word),
+    Commons.saveWithMP3(word),
+    API.getTranslate(word, 'zh'),
+    API.getTranslate(word, 'ja'),
   ]);
 
   const item: Tables.TWordMaster = {

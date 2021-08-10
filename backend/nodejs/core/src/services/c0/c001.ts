@@ -1,7 +1,5 @@
-import { Polly, S3 } from 'aws-sdk';
 import { Request } from 'express';
-import * as short from 'short-uuid';
-import { API, ClientUtils, DateUtils, DBHelper, Logger } from '@utils';
+import { API, Commons, DateUtils, DBHelper, Logger } from '@utils';
 import { WordMaster, Groups } from '@queries';
 import { getUserId } from '@src/utils/commons';
 import { Environment } from '@consts';
@@ -66,7 +64,12 @@ const registWords = async (userId: string, groupId: string, words: string[], mas
 const registDictionary = async (words: string[]) => {
   // 単語登録用の情報を収集する
   const tasks = words.map((item) =>
-    Promise.all([API.getPronounce(item), saveWithMP3(item), API.getTranslate(item, 'zh'), API.getTranslate(item, 'ja')])
+    Promise.all([
+      API.getPronounce(item),
+      Commons.saveWithMP3(item),
+      API.getTranslate(item, 'zh'),
+      API.getTranslate(item, 'ja'),
+    ])
   );
 
   const result = await Promise.all(tasks);
@@ -88,37 +91,4 @@ const registDictionary = async (words: string[]) => {
   Logger.info('単語辞書の登録は完了しました.');
 
   return wordInfos;
-};
-
-/** 単語のMP3を生成し、S3に保存する */
-const saveWithMP3 = async (word: string): Promise<string> => {
-  const client = ClientUtils.polly();
-
-  const request: Polly.SynthesizeSpeechInput = {
-    Text: word,
-    TextType: 'text',
-    VoiceId: 'Joanna',
-    OutputFormat: 'mp3',
-    LanguageCode: 'en-US',
-  };
-
-  const response = await client.synthesizeSpeech(request).promise();
-
-  // ファイル名
-  const filename: string = `${short.generate()}.mp3`;
-  const prefix: string = DateUtils.getNow();
-  const key: string = `audios/${prefix}/${filename}`;
-
-  const putRequest: S3.Types.PutObjectRequest = {
-    Bucket: Environment.BUCKET_NAME_FRONTEND,
-    Key: key,
-    Body: response.AudioStream,
-  };
-
-  const s3Client = ClientUtils.s3();
-
-  // S3に保存する
-  await s3Client.putObject(putRequest).promise();
-
-  return key;
 };

@@ -2,12 +2,11 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
-import { B001, B002, B003, B004, B005 } from '@src/b0';
-import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/c0';
-import { D001 } from '@src/d0';
-import { E001, E002 } from '@src/e0';
+import { B001, B002, B003, B004, B005 } from '@src/services/b0';
+import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/services/c0';
+import { D001 } from '@src/services/d0';
+import { E001, E002 } from '@src/services/e0';
 import entry from './entry';
-import { Logger } from '@utils';
 
 const app = express();
 
@@ -51,10 +50,5 @@ app.post('/image2text', express.json(), (req, res) => entry(req, res, D001));
 app.get('/words/:word', express.json(), (req, res) => entry(req, res, E001 as any));
 // 単語詳細情報取得
 app.put('/words/:word', express.json(), (req, res) => entry(req, res, E002 as any));
-
-app.listen(process.env.EXPOSE_PORT || 8080, () => {
-  Logger.info('Started...');
-  Logger.info('Port: ', process.env.EXPOSE_PORT || 8080);
-});
 
 export default app;
