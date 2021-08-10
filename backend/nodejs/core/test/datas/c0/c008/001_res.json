@@ -2,35 +2,11 @@
   "count": 10,
   "words": [
     {
-      "word": "WORD-4",
-      "mp3": "URL_MP3_4",
-      "pronounce": "Pronounce_4",
-      "vocChn": "WORD_ZH_4",
-      "vocJpn": "WORD_JA_4",
-      "times": 1
-    },
-    {
-      "word": "WORD-6",
-      "mp3": "URL_MP3_6",
-      "pronounce": "Pronounce_6",
-      "vocChn": "WORD_ZH_6",
-      "vocJpn": "WORD_JA_6",
-      "times": 1
-    },
-    {
       "word": "WORD-7",
       "mp3": "URL_MP3_7",
       "pronounce": "Pronounce_7",
       "vocChn": "WORD_ZH_7",
       "vocJpn": "WORD_JA_7",
-      "times": 1
-    },
-    {
-      "word": "WORD-3",
-      "mp3": "URL_MP3_3",
-      "pronounce": "Pronounce_3",
-      "vocChn": "WORD_ZH_3",
-      "vocJpn": "WORD_JA_3",
       "times": 1
     },
     {
@@ -42,11 +18,11 @@
       "times": 1
     },
     {
-      "word": "WORD-8",
-      "mp3": "URL_MP3_8",
-      "pronounce": "Pronounce_8",
-      "vocChn": "WORD_ZH_8",
-      "vocJpn": "WORD_JA_8",
+      "word": "WORD-6",
+      "mp3": "URL_MP3_6",
+      "pronounce": "Pronounce_6",
+      "vocChn": "WORD_ZH_6",
+      "vocJpn": "WORD_JA_6",
       "times": 1
     },
     {
@@ -58,11 +34,35 @@
       "times": 1
     },
     {
-      "word": "WORD-11",
-      "mp3": "URL_MP3_11",
-      "pronounce": "Pronounce_11",
-      "vocChn": "WORD_ZH_11",
-      "vocJpn": "WORD_JA_11",
+      "word": "WORD-4",
+      "mp3": "URL_MP3_4",
+      "pronounce": "Pronounce_4",
+      "vocChn": "WORD_ZH_4",
+      "vocJpn": "WORD_JA_4",
+      "times": 1
+    },
+    {
+      "word": "WORD-3",
+      "mp3": "URL_MP3_3",
+      "pronounce": "Pronounce_3",
+      "vocChn": "WORD_ZH_3",
+      "vocJpn": "WORD_JA_3",
+      "times": 1
+    },
+    {
+      "word": "WORD-8",
+      "mp3": "URL_MP3_8",
+      "pronounce": "Pronounce_8",
+      "vocChn": "WORD_ZH_8",
+      "vocJpn": "WORD_JA_8",
+      "times": 1
+    },
+    {
+      "word": "WORD-1",
+      "mp3": "URL_MP3_1",
+      "pronounce": "Pronounce_1",
+      "vocChn": "WORD_ZH_1",
+      "vocJpn": "WORD_JA_1",
       "times": 1
     },
     {

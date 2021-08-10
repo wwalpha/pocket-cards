@@ -204,4 +204,31 @@ describe('C0', () => {
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(C0.C007Res02);
   });
+
+  test('C008:レビューあり', async () => {
+    const dataRows = C0.C008DB01_WORD.map((item) => {
+      item.nextTime = DateUtils.getNow();
+      return item;
+    });
+
+    await client.bulk(Environment.TABLE_NAME_WORDS, dataRows);
+    await client.bulk(Environment.TABLE_NAME_WORD_MASTER, C0.C008DB01_WORD_MASTER);
+
+    const apiPath = '/groups/C008/review';
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(res.body.count).toEqual(C0.C008Res01.count);
+    expect(res.body.words).toIncludeSameMembers(C0.C008Res01.words);
+  });
+
+  test('C008:レビューなし', async () => {
+    const apiPath = '/groups/C008/review';
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual(C0.C008Res02);
+  });
 });
