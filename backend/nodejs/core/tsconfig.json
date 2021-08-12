@@ -52,7 +52,7 @@
       "@utils": ["./src/utils/index"],
       "@queries": ["./src/queries/index"],
       "@src/*": ["./src/*"],
-      "@app": ["./src/app.ts"],
+      "@app": ["src/server.ts"],
       "@test/*": ["./test/*"]
     },
     // "paths": {},                                 /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */

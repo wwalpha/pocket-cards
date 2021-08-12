@@ -1,6 +1,6 @@
 import { Groups } from '@queries';
 import { Commons, DBHelper } from '@utils';
-import server from '@src/app';
+import server from '@src/server';
 import request from 'supertest';
 import * as B0 from '../datas/b0';
 import { APIs } from 'typings';

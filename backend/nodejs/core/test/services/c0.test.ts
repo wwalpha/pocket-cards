@@ -4,7 +4,7 @@ import request from 'supertest';
 import { Groups, Words } from '@queries';
 import { Environment } from '@consts';
 import { DateUtils } from '@utils';
-import server from '@src/app';
+import server from '@src/server';
 import * as C0 from '../datas/c0';
 import { HEADER_AUTH } from '@test/Commons';
 
@@ -51,7 +51,8 @@ describe('C0', () => {
   test('C002:グループ単語一覧_データあり', async () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C002DB01);
 
-    const res = await request(server).get('/groups/C002/words').set('authorization', HEADER_AUTH);
+    const apiPath = '/groups/C002/words';
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -60,7 +61,8 @@ describe('C0', () => {
   });
 
   test('C002:グループ単語一覧_データなし', async () => {
-    const res = await request(server).get('/groups/C003/words').set('authorization', HEADER_AUTH);
+    const apiPath = '/groups/C003/words';
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -71,7 +73,8 @@ describe('C0', () => {
   test('C003:単語詳細取得', async () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C003DB01);
 
-    const res = await request(server).get('/groups/C003/words/C003-1').set('authorization', HEADER_AUTH).expect(200);
+    const apiPath = '/groups/C003/words/C003-1';
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH).expect(200);
 
     // response
     expect(res.body).toEqual(C0.C003Res01);

@@ -49,18 +49,6 @@
 //     // URL
 //     const URL = '/words/AAA';
 //     // request
-//     const res = await chai
-//       .request(server)
-//       .put(URL)
-//       .set('authorization', HEADER_AUTH)
-//       .send({
-//         id: 'AAA',
-//         mp3: 'URL_MP3_1',
-//         pronounce: 'Pronounce_1',
-//         vocJpn: 'WORD_JA_1',
-//         vocChn: 'WORD_ZH_1',
-//       } as APIs.E002Request);
-
 //     // response status
 //     chai.expect(res.status).to.be.eq(200);
 //   });
