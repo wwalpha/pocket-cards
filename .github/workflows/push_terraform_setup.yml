@@ -18,16 +18,16 @@ env:
   WORKING_DIR: infrastructure/terraform/setup
   TF_WORKSPACE: dev
   TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
-  TF_VAR_translation_api_key: ${{ secrets.TRANSLATION_API_KEY }}
-  TF_VAR_ipa_api_key: ${{ secrets.IPA_API_KEY }}
+  TF_VAR_api_key_translation: ${{ secrets.TRANSLATION_API_KEY }}
+  TF_VAR_api_key_ipa: ${{ secrets.IPA_API_KEY }}
   TF_VAR_identity_provider_id:  ${{ secrets.IDENTITY_PROVIDER_ID }}
   TF_VAR_identity_provider_secret:  ${{ secrets.IDENTITY_PROVIDER_SECRET }}
 
 jobs:
   Update:
     runs-on: ubuntu-18.04
-    environment:
-      name: dev
+    # environment:
+    #   name: dev
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}
@@ -43,6 +43,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.4
+          cli_config_credentials_hostname: app.terraform.io
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       # AWS Credentials
@@ -55,7 +56,6 @@ jobs:
 
       - name: Terraform
         run: |
-          rm -rf local.auto.tfvars
           terraform init
           terraform plan -out=setup
           terraform apply "setup"
