@@ -1,4 +1,3 @@
-region               = "ap-northeast-1"
 domain_name          = "onecloudlabo.com"
 google_client_id     = "XXXXXXXXXXXXXXXXXX"
 google_client_secret = "XXXXXXXXXXXXXXXXXX"
