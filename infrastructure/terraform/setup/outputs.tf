@@ -60,15 +60,15 @@ output "route53_zone_name" {
 # ----------------------------------------------------------------------------------------------
 # Google Client ID
 # ----------------------------------------------------------------------------------------------
-output "ssm_google_client_id" {
-  value = "/${var.project_name}/google_client_id"
+output "ssm_identity_provider_id" {
+  value = "/${var.project_name}/identity_provider_id"
 }
 
 # ----------------------------------------------------------------------------------------------
 # Google Client Secret
 # ----------------------------------------------------------------------------------------------
-output "ssm_google_client_secret" {
-  value = "/${var.project_name}/google_client_secret"
+output "ssm_identity_provider_secret" {
+  value = "/${var.project_name}/identity_provider_secret"
 }
 
 # ----------------------------------------------------------------------------------------------

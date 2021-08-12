@@ -27,10 +27,10 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # SSM
   # ----------------------------------------------------------------------------------------------
-  ssm_google_client_id     = local.remote_setup.ssm_google_client_id
-  ssm_google_client_secret = local.remote_setup.ssm_google_client_secret
-  ssm_api_key_ipa          = local.remote_setup.ssm_api_key_ipa
-  ssm_api_key_translation  = local.remote_setup.ssm_api_key_translation
+  ssm_identity_provider_id     = local.remote_setup.ssm_identity_provider_id
+  ssm_identity_provider_secret = local.remote_setup.ssm_identity_provider_secret
+  ssm_api_key_ipa              = local.remote_setup.ssm_api_key_ipa
+  ssm_api_key_translation      = local.remote_setup.ssm_api_key_translation
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -103,16 +103,16 @@ data "aws_ecs_task_definition" "this" {
 # ----------------------------------------------------------------------------------------------
 # SSM - Google Client ID
 # ----------------------------------------------------------------------------------------------
-data "aws_ssm_parameter" "google_client_id" {
-  name            = local.remote_setup.ssm_google_client_id
+data "aws_ssm_parameter" "identity_provider_id" {
+  name            = local.remote_setup.ssm_identity_provider_id
   with_decryption = true
 }
 
 # ----------------------------------------------------------------------------------------------
 # SSM - Google Client Secret
 # ----------------------------------------------------------------------------------------------
-data "aws_ssm_parameter" "google_client_secret" {
-  name            = local.remote_setup.ssm_google_client_secret
+data "aws_ssm_parameter" "identity_provider_secret" {
+  name            = local.remote_setup.ssm_identity_provider_secret
   with_decryption = true
 }
 

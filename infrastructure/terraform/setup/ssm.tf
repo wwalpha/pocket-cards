@@ -21,19 +21,19 @@ resource "aws_ssm_parameter" "api_key_ipa" {
 # ----------------------------------------------------------------------------------------------
 # SSM Parameter Store - Google Client ID
 # ----------------------------------------------------------------------------------------------
-resource "aws_ssm_parameter" "google_client_id" {
-  name      = "/${var.project_name}/google_client_id"
+resource "aws_ssm_parameter" "identity_provider_id" {
+  name      = "/${var.project_name}/identity_provider_id"
   type      = "SecureString"
-  value     = var.google_client_id
+  value     = var.identity_provider_id
   overwrite = true
 }
 
 # ----------------------------------------------------------------------------------------------
 # SSM Parameter Store - Google Client Secret
 # ----------------------------------------------------------------------------------------------
-resource "aws_ssm_parameter" "google_client_secret" {
-  name      = "/${var.project_name}/google_client_secret"
+resource "aws_ssm_parameter" "identity_provider_secret" {
+  name      = "/${var.project_name}/identity_provider_secret"
   type      = "SecureString"
-  value     = var.google_client_secret
+  value     = var.identity_provider_secret
   overwrite = true
 }
