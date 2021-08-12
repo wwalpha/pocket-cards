@@ -1,26 +1,31 @@
 name: PUSH_T) Service Build
 
 on:
-  push:
+  workflow_run:
+    workflows:
+      - PUSH_T) Setup Build
     branches:
       - master
-    paths:
-      - infrastructure/terraform/services/**
-      - .github/workflows/terraform_services_dev.yml
+    types:
+      - completed
+  workflow_dispatch:
 
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
+  WORKING_DIR: infrastructure/terraform/services
   TF_WORKSPACE: dev
-  TF_VAR_region: ap-northeast-1
+  TF_VAR_vpc_id: vpc-08f77b07c34029b7a
+  TF_VAR_subnets: '["subnet-0d950c1a77269f980","subnet-08b591d227107ffc5"]'
 
 jobs:
   Update:
     runs-on: ubuntu-18.04
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: dev
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR }}
 
     steps:
       # source checkout
@@ -32,20 +37,20 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          # terraform_version: 0.13.0
+          terraform_version: 1.0.4
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
       # Service init
-      - name: Terraform Init
-        working-directory: infrastructure/terraform/services
-        run: terraform init
-
-      # Service plan
-      - name: Terraform Plan
-        working-directory: infrastructure/terraform/services
-        run: terraform plan -out=services
-
-      # Service apply
-      - name: Terraform Apply
-        working-directory: infrastructure/terraform/services
-        run: terraform apply "services"
+      - name: Terraform Services
+        run: |
+          terraform init
+          terraform plan -out=services
+          terraform apply "services"

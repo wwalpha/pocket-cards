@@ -104,7 +104,7 @@ data "aws_ecs_task_definition" "this" {
 # SSM - Google Client ID
 # ----------------------------------------------------------------------------------------------
 data "aws_ssm_parameter" "identity_provider_id" {
-  name            = local.remote_setup.ssm_identity_provider_id
+  name            = local.ssm_identity_provider_id
   with_decryption = true
 }
 
@@ -112,7 +112,7 @@ data "aws_ssm_parameter" "identity_provider_id" {
 # SSM - Google Client Secret
 # ----------------------------------------------------------------------------------------------
 data "aws_ssm_parameter" "identity_provider_secret" {
-  name            = local.remote_setup.ssm_identity_provider_secret
+  name            = local.ssm_identity_provider_secret
   with_decryption = true
 }
 

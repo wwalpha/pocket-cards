@@ -44,8 +44,6 @@ resource "aws_dynamodb_table" "groups" {
     name               = "gsiIdx1"
     hash_key           = "userId"
     range_key          = "id"
-    write_capacity     = 1
-    read_capacity      = 1
     projection_type    = "INCLUDE"
     non_key_attributes = ["userId"]
   }
@@ -81,8 +79,6 @@ resource "aws_dynamodb_table" "words" {
     name            = "gsiIdx1"
     hash_key        = "groupId"
     range_key       = "nextTime"
-    write_capacity  = 1
-    read_capacity   = 1
     projection_type = "ALL"
   }
 
