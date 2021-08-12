@@ -5,7 +5,7 @@ on:
     paths:
       - infrastructure/terraform/setup/**
       - infrastructure/terraform/services/**
-      - backend/nodejs/terraform/**
+      - backend/terraform/**
       - .github/workflows/push_terraform_setup.yml
       - .github/workflows/push_terraform_services.yml
       - .github/workflows/push_terraform_backend.yml
@@ -15,17 +15,22 @@ on:
 
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
+  WORKING_DIR: infrastructure/terraform/setup
   TF_WORKSPACE: dev
-  TF_VAR_region: ap-northeast-1
+  TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
+  TF_VAR_translation_api_key: ${{ secrets.TRANSLATION_API_KEY }}
+  TF_VAR_ipa_api_key: ${{ secrets.IPA_API_KEY }}
+  TF_VAR_identity_provider_id:  ${{ secrets.IDENTITY_PROVIDER_ID }}
+  TF_VAR_identity_provider_secret:  ${{ secrets.IDENTITY_PROVIDER_SECRET }}
 
 jobs:
   Update:
     runs-on: ubuntu-18.04
     environment:
       name: dev
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR }}
 
     steps:
       # source checkout
@@ -37,31 +42,20 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          # terraform_version: 0.13.0
+          terraform_version: 1.0.4
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      # Initialize
-      - name: Initialize
-        working-directory: infrastructure/terraform/setup
-        run: mv local.auto.tfvars temp
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
-      # Setup init
-      - name: Terraform Init
-        working-directory: infrastructure/terraform/setup
-        run: terraform init
-
-      # Setup plan
-      - name: Terraform Plan
-        working-directory: infrastructure/terraform/setup
-        run: terraform plan -out=setup
-        env:
-          TF_VAR_translation_api_key: ${{ secrets.TRANSLATION_API_KEY }}
-          TF_VAR_ipa_api_key: ${{ secrets.IPA_API_KEY }}
-          TF_VAR_dns_name_servers:  ${{ secrets.DNS_NAME_SERVERS }}
-          TF_VAR_identity_provider_id:  ${{ secrets.IDENTITY_PROVIDER_ID }}
-          TF_VAR_identity_provider_secret:  ${{ secrets.IDENTITY_PROVIDER_SECRET }}
-
-      # Setup apply
-      - name: Terraform Apply
-        working-directory: infrastructure/terraform/setup
-        run: terraform apply "setup"
+      - name: Terraform
+        run: |
+          rm -rf local.auto.tfvars
+          terraform init
+          terraform plan -out=setup
+          terraform apply "setup"
