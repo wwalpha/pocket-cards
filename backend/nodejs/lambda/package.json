@@ -1,0 +1,12 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build:cognito": "cd cognito && yarn install && yarn build",
+    "build:start": "cd start && yarn install && yarn build",
+    "build:stop": "cd stop && yarn install && yarn build",
+    "build:status": "cd status && yarn install && yarn build"
+  }
+}

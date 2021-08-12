@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@alphax/dynamodb": "^1.1.2",
-    "aws-sdk": "^2.940.0"
+    "aws-sdk": "^2.966.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.78",
