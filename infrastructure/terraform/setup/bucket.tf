@@ -42,37 +42,3 @@ resource "aws_s3_bucket_object" "this" {
     ]
   }
 }
-
-# ----------------------------------------------------------------------------------------------
-# Lambda Dummy Module
-# ----------------------------------------------------------------------------------------------
-resource "aws_s3_bucket_object" "lambda_dummy" {
-  bucket       = aws_s3_bucket.archive.bucket
-  key          = "lambda/${data.archive_file.lambda_dummy.output_base64sha256}"
-  source       = data.archive_file.lambda_dummy.output_path
-  content_type = "application/zip"
-
-  lifecycle {
-    ignore_changes = [
-      key
-    ]
-  }
-}
-
-data "archive_file" "lambda_dummy" {
-  type        = "zip"
-  output_path = "./dummy.zip"
-
-  source {
-    filename = "index.js"
-    content  = <<EOT
-exports.handler = async (event) => {
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify('Hello from Lambda!'),
-    };
-    return response;
-};
-EOT
-  }
-}

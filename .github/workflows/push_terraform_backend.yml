@@ -1,6 +1,10 @@
 name: PUSH_T) Backend Build
 
 on:
+  push:
+    paths:
+      - backend/nodejs/lambda/**
+      - backend/nodejs/typings/**
   workflow_run:
     workflows:
       - PUSH_T) Service Build
@@ -13,12 +17,13 @@ on:
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
   WORKING_DIR: backend/terraform
+  WORKING_DIR_LAMBDA: backend/nodejs/lambda
   TF_WORKSPACE: dev
 
 jobs:
   build:
     runs-on: ubuntu-18.04
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: dev
     defaults:
@@ -29,6 +34,20 @@ jobs:
       # source checkout
       - name: Checkout
         uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # Install and Build
+      - name: Build
+        working-directory: ${{ env.WORKING_DIR_LAMBDA }}
+        run: |
+          yarn build:cognito
+          yarn build:start
+          yarn build:status
+          yarn build:stop
 
       # AWS Credentials
       - name: Configure AWS credentials
