@@ -84,3 +84,17 @@ output "ssm_api_key_ipa" {
 output "ssm_api_key_translation" {
   value = "/${var.project_name}/api_key_translation"
 }
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module s3 bucket
+# ----------------------------------------------------------------------------------------------
+output "lambda_s3_bucket" {
+  value = aws_s3_bucket.archive.bucket
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module s3 key
+# ----------------------------------------------------------------------------------------------
+output "lambda_s3_key" {
+  value = aws_s3_bucket_object.lambda_dummy.id
+}

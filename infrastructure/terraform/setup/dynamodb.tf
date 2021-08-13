@@ -10,11 +10,9 @@ resource "random_id" "dynamodb" {
 # Dynamodb Table - Users
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "users" {
-  name           = local.dynamodb_name_users
-  billing_mode   = "PAY_PER_REQUEST"
-  read_capacity  = 1
-  write_capacity = 1
-  hash_key       = "id"
+  name         = local.dynamodb_name_users
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
   attribute {
     name = "id"
     type = "S"
@@ -25,12 +23,10 @@ resource "aws_dynamodb_table" "users" {
 # Dynamodb Table - Groups
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "groups" {
-  name           = local.dynamodb_name_groups
-  billing_mode   = "PAY_PER_REQUEST"
-  read_capacity  = 1
-  write_capacity = 1
-  hash_key       = "id"
-  range_key      = "userId"
+  name         = local.dynamodb_name_groups
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+  range_key    = "userId"
   attribute {
     name = "id"
     type = "S"
@@ -53,12 +49,10 @@ resource "aws_dynamodb_table" "groups" {
 # Dynamodb Table - Words
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "words" {
-  name           = local.dynamodb_name_words
-  billing_mode   = "PAY_PER_REQUEST"
-  read_capacity  = 1
-  write_capacity = 1
-  hash_key       = "id"
-  range_key      = "groupId"
+  name         = local.dynamodb_name_words
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+  range_key    = "groupId"
 
   attribute {
     name = "id"
@@ -101,11 +95,9 @@ resource "aws_dynamodb_table" "words" {
 # Dynamodb Table - Word Master
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "word_master" {
-  name           = local.dynamodb_name_word_master
-  billing_mode   = "PAY_PER_REQUEST"
-  read_capacity  = 3
-  write_capacity = 1
-  hash_key       = "id"
+  name         = local.dynamodb_name_word_master
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
 
   attribute {
     name = "id"
@@ -117,12 +109,10 @@ resource "aws_dynamodb_table" "word_master" {
 # Dynamodb Table - Histories
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "histories" {
-  name           = local.dynamodb_name_histories
-  billing_mode   = "PAY_PER_REQUEST"
-  read_capacity  = 1
-  write_capacity = 1
-  hash_key       = "user"
-  range_key      = "timestamp"
+  name         = local.dynamodb_name_histories
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "user"
+  range_key    = "timestamp"
   attribute {
     name = "user"
     type = "S"
