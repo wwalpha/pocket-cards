@@ -19,6 +19,7 @@ env:
   WORKING_DIR: backend/terraform
   WORKING_DIR_LAMBDA: backend/nodejs/lambda
   TF_WORKSPACE: dev
+  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
 
 jobs:
   build:
@@ -63,7 +64,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.4
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
 
       # Backend init
       - name: Terraform Backend
