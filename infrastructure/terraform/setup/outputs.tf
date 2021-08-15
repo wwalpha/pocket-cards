@@ -60,27 +60,55 @@ output "route53_zone_name" {
 # ----------------------------------------------------------------------------------------------
 # Google Client ID
 # ----------------------------------------------------------------------------------------------
-output "ssm_identity_provider_id" {
-  value = "/${var.project_name}/identity_provider_id"
+output "ssm_google_client_id" {
+  value = aws_ssm_parameter.google_client_id.name
 }
 
 # ----------------------------------------------------------------------------------------------
 # Google Client Secret
 # ----------------------------------------------------------------------------------------------
-output "ssm_identity_provider_secret" {
-  value = "/${var.project_name}/identity_provider_secret"
+output "ssm_google_client_secret" {
+  value = aws_ssm_parameter.google_client_secret.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# IPA API URL
+# ----------------------------------------------------------------------------------------------
+output "ssm_ipa_api_url" {
+  value = aws_ssm_parameter.ipa_api_url.name
 }
 
 # ----------------------------------------------------------------------------------------------
 # IPA API Key
 # ----------------------------------------------------------------------------------------------
-output "ssm_api_key_ipa" {
-  value = "/${var.project_name}/api_key_ipa"
+output "ssm_ipa_api_key" {
+  value = aws_ssm_parameter.ipa_api_key.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# Translation API URL
+# ----------------------------------------------------------------------------------------------
+output "ssm_translation_api_url" {
+  value = aws_ssm_parameter.translation_api_url.name
 }
 
 # ----------------------------------------------------------------------------------------------
 # Translation API Key
 # ----------------------------------------------------------------------------------------------
-output "ssm_api_key_translation" {
-  value = "/${var.project_name}/api_key_translation"
+output "ssm_translation_api_key" {
+  value = aws_ssm_parameter.translation_api_key.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# Vision API URL
+# ----------------------------------------------------------------------------------------------
+output "ssm_vision_api_url" {
+  value = aws_ssm_parameter.vision_api_url.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# Vision API Key
+# ----------------------------------------------------------------------------------------------
+output "ssm_vision_api_key" {
+  value = aws_ssm_parameter.vision_api_key.name
 }
