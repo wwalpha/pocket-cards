@@ -14,23 +14,17 @@ import theme from './Theme';
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
   identityPoolId: process.env.IDENTITY_POOL_ID,
-
   // REQUIRED - Amazon Cognito Region
   region: process.env.AWS_REGION,
-
   // OPTIONAL - Amazon Cognito Federated Identity Pool Region
   // Required only if it's different from Amazon Cognito Region
   identityPoolRegion: process.env.AWS_REGION,
-
   // OPTIONAL - Amazon Cognito User Pool ID
   userPoolId: process.env.USER_POOL_ID,
-
   // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
   userPoolWebClientId: process.env.USER_POOL_WEB_CLIENT_ID,
-
   // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
   mandatorySignIn: false,
-
   // OPTIONAL - Hosted UI configuration
   oauth: {
     domain: process.env.AUTH_DOMAIN,
