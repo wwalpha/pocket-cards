@@ -20,6 +20,12 @@ env:
   TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
   TF_VAR_google_client_id:  ${{ secrets.GOOGLE_CLIENT_ID }}
   TF_VAR_google_client_secret:  ${{ secrets.GOOGLE_CLIENT_SECRET }}
+  TF_VAR_translation_api_url:  ${{ secrets.TRANSLATION_API_URL }}
+  TF_VAR_translation_api_key:  ${{ secrets.TRANSLATION_API_KEY }}
+  TF_VAR_ipa_api_url:  ${{ secrets.IPA_API_URL }}
+  TF_VAR_ipa_api_key:  ${{ secrets.IPA_API_KEY }}
+  TF_VAR_vision_api_url:  ${{ secrets.VISION_API_URL }}
+  TF_VAR_vision_api_key:  ${{ secrets.VISION_API_KEY }}
 
 jobs:
   Update:
@@ -28,8 +34,6 @@ jobs:
       name: dev
     env:
       TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
-      TF_VAR_api_key_translation: ${{ secrets.TRANSLATION_API_KEY }}
-      TF_VAR_api_key_ipa: ${{ secrets.IPA_API_KEY }}
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR }}
