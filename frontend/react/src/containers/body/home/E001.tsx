@@ -19,7 +19,7 @@ import Button from '@components/buttons/Button';
 import * as AppActions from '@actions/app';
 import * as GroupActions from '@actions/group';
 import { Paths } from '@constants';
-import { Domain } from 'typings';
+import { Domains } from 'typings';
 
 const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing }: Theme) =>
   createStyles({
@@ -41,7 +41,7 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing
   })
 );
 
-const group = (state: Domain.State) => state.group;
+const group = (state: Domains.State) => state.group;
 
 export default () => {
   const classes = useStyles();

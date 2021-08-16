@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles, Grid, Card, CardContent, Typography } from '@material-ui/core';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
-import { Domain } from 'typings';
+import { Domains } from 'typings';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -30,8 +30,8 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const userState = (state: Domain.State) => state.user;
-const appState = (state: Domain.State) => state.app;
+const userState = (state: Domains.State) => state.user;
+const appState = (state: Domains.State) => state.app;
 
 export default () => {
   const classes = useStyles();

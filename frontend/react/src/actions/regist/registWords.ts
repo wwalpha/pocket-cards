@@ -2,7 +2,7 @@ import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 import { startLoading, defaultFailure } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
-import { APP, Actions, API } from 'typings';
+import { App, Actions, APIs } from 'typings';
 
 const success = createAction(ActionTypes.A0_03_SUCCESS);
 
@@ -16,7 +16,7 @@ export const registWords: Actions.RegistWordsAction = (words: string[]) => async
 
     await api.post(Consts.C001_URL(groupId), {
       words,
-    } as API.C001Request);
+    } as APIs.C001Request);
 
     // 単語リスト再取得する
     // TODO: !!!!

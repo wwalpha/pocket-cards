@@ -2,8 +2,7 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Box, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { Paths, Consts } from '@constants';
-import { Header, Footer } from '@containers/com';
-import { RegistMain, StudyMain, MyPageMain, Settings, Home } from '@containers/body';
+import { Header, Footer, RegistMain, StudyMain, MyPageMain, Settings, Home } from '@containers';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({

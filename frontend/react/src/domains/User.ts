@@ -1,5 +1,5 @@
 import produce, { immerable } from 'immer';
-import { A002Response } from 'typings/api';
+import { APIs } from 'typings';
 
 export default class User {
   [immerable] = true;
@@ -16,7 +16,7 @@ export default class User {
   /**
    * 学習履歴取得
    */
-  setHistory(info: A002Response) {
+  setHistory(info: APIs.A002Response) {
     return produce(this, (draft) => {
       // モード変わった、或いは、既存データ存在しない
       draft.remainingReview = info.remaining.review;

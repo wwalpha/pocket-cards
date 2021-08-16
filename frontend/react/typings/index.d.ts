@@ -1,6 +1,10 @@
-import * as Actions from './actions';
-import * as API from './api';
-import * as APP from './app';
-import * as Domain from './domain';
+export * from './domains';
+export * from './types';
 
-export { API, Domain, Actions, APP };
+import * as Actions from './actions';
+import * as App from './app';
+
+export { Actions, App };
+
+// backend
+export * from '../../../backend/nodejs/typings/index';

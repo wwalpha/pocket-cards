@@ -3,9 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import { push } from 'connected-react-router';
 import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
-import { API, Actions } from 'typings';
+import { APIs, Actions } from 'typings';
 
-const success = createAction(ActionTypes.A0_01_SUCCESS, (data: API.D001Response) => ({ data }));
+const success = createAction(ActionTypes.A0_01_SUCCESS, (data: APIs.D001Response) => ({ data }));
 
 /** 画像アップロード */
 export const uploadImage: Actions.UploadImageAction = (image: string) => async (dispatch, _, api) => {
@@ -21,10 +21,10 @@ export const uploadImage: Actions.UploadImageAction = (image: string) => async (
   const imageSrc = image.replace(/^.*,/, '');
 
   try {
-    const res = await api.post<API.D001Response>(Consts.D001_URL(), {
+    const res = await api.post<APIs.D001Response>(Consts.D001_URL(), {
       language: 'en',
       content: imageSrc,
-    } as API.D001Request);
+    } as APIs.D001Request);
     Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistList];
 
     // データ保存

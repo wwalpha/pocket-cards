@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import { makeStyles, Theme, createStyles, Box, Typography, Card, CardContent } from '@material-ui/core';
 import { Button } from '@components/buttons';
 import * as Actions from '@actions/word';
-import { Domain } from 'typings';
+import { Domains } from 'typings';
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
@@ -21,8 +21,8 @@ interface B003Params {
   word: string;
 }
 
-const appState = (state: Domain.State) => state.app;
-const groupState = (state: Domain.State) => state.group;
+const appState = (state: Domains.State) => state.app;
+const groupState = (state: Domains.State) => state.group;
 
 export default () => {
   const classes = useStyles();

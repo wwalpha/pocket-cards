@@ -2,22 +2,22 @@ import { Consts } from '@constants';
 import produce, { immerable } from 'immer';
 import concat from 'lodash/concat';
 import differenceBy from 'lodash/differenceBy';
-import { D001Response, WordItem } from 'typings/api';
+import { APIs } from 'typings';
 
 export default class Word {
   [immerable] = true;
 
-  current?: WordItem = undefined;
+  current?: APIs.WordItem = undefined;
   mode?: string = undefined;
   // isLoading: boolean = false;
-  rows: WordItem[] = [];
-  history: WordItem[] = [];
+  rows: APIs.WordItem[] = [];
+  history: APIs.WordItem[] = [];
   index: number = 0;
 
   /**
    * 単語情報を登録する
    */
-  setWords(mode: string, words: WordItem[]) {
+  setWords(mode: string, words: APIs.WordItem[]) {
     return produce(this, (draft) => {
       // 差分を抽出する
       const differ = differenceBy(words, this.history, 'word');

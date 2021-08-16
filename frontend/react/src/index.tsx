@@ -5,11 +5,11 @@ import { Auth } from '@aws-amplify/auth';
 import { API } from '@aws-amplify/api';
 import { MuiThemeProvider } from '@material-ui/core';
 import { ConnectedRouter } from 'connected-react-router';
+import { Authenticator } from '@containers';
 import { Consts } from '@constants';
 import store, { history } from './store';
-import Router from './Router';
-import { register } from './serviceWorker';
 import theme from './Theme';
+import App from './App';
 
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -52,7 +52,9 @@ const provider = (
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
       <ConnectedRouter history={history}>
-        <Router />
+        <Authenticator>
+          <App />
+        </Authenticator>
       </ConnectedRouter>
     </MuiThemeProvider>
   </Provider>

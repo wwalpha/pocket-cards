@@ -21,7 +21,7 @@ import * as StudyActions from '@actions/study';
 import * as Actions from '@actions/app';
 import { Consts, Paths } from '@constants';
 import Loading from '@components/Loading';
-import { Domain, API } from 'typings';
+import { Domains, APIs } from 'typings';
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
@@ -79,8 +79,8 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   })
 );
 
-const wordState = (state: Domain.State) => state.word;
-const appState = (state: Domain.State) => state.app;
+const wordState = (state: Domains.State) => state.word;
+const appState = (state: Domains.State) => state.app;
 
 const audioRef = React.createRef<HTMLAudioElement>();
 const zhRef = React.createRef<HTMLInputElement>();

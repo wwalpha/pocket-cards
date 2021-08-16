@@ -1,11 +1,11 @@
 import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
 import { createAction } from 'redux-actions';
-import { API, Actions } from 'typings';
+import { APIs, Actions } from 'typings';
 
 export const success = createAction(
   ActionTypes.E0_05_SUCCESS,
-  (groupId: string, data: API.C002Response): Actions.E005Payload => ({
+  (groupId: string, data: APIs.C002Response): Actions.E005Payload => ({
     groupId,
     words: data,
   })
@@ -17,7 +17,7 @@ const list: Actions.WordListAction = (groupId: string) => async (dispatch, _, ap
   dispatch(startLoading());
 
   try {
-    const res = await api.get<API.C002Response>(Consts.C002_URL(groupId));
+    const res = await api.get<APIs.C002Response>(Consts.C002_URL(groupId));
 
     // データ保存
     dispatch(success(groupId, res));

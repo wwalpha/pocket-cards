@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import App from './App';
 import SignIn from './containers/auth/SignIn';
 import Login from './containers/auth/Login';
-import Auth from './containers/auth/Auth';
+import Auth from './containers/auth/Authenticator';
 import { Paths } from '@constants';
 
 class Router extends React.Component<any, any> {

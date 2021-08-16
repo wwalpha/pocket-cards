@@ -1,44 +1,9 @@
-import { Action, ActionFunction0, ActionFunction1, ActionFunction2 } from 'redux-actions';
-import { CallHistoryMethodAction } from 'connected-react-router';
-import { ThunkAction } from 'redux-thunk';
-import { APIClass } from './api';
-import { State } from './domain';
+import { CognitoUser } from '@aws-amplify/auth';
+import { APIs, ReduxAction0, ReduxAction2, ReduxAction3, ReduxAction1, App } from '.';
 
-// ######################################################################
-// Commons
-// ######################################################################
-export type ThunkActions<S = any, R> = ThunkAction<
-  R,
-  State,
-  APIClass,
-  Action<S | ErrorPayload> | CallHistoryMethodAction
->;
-
-export type ReduxAction0<S = any, R = void> = ActionFunction0<ThunkActions<S, R>>;
-
-export type ReduxAction1<P, S = any, R = void> = ActionFunction1<P, ThunkActions<S, R>>;
-
-export type ReduxAction2<P1, P2, S = any, R = void> = ActionFunction2<P1, P2, ThunkActions<S, R>>;
-
-/** Actions */
-export type RequestAction = ActionFunction0<Action<any>>;
-export type FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
-
-export interface SuccessAction2<T, P> {
-  type: T;
-  payload: P;
-}
-
-export interface ErrorPayload {
-  error: Error;
-}
-
-// ######################################################################
-// A01 Actions
-// ######################################################################
 /** 画像アップロード */
 export interface A001Payload {
-  data: API.D001Response;
+  data: APIs.D001Response;
 }
 
 export type UploadImageAction = ReduxAction1<string, A001Payload>;
@@ -123,16 +88,16 @@ export type ShowAction = ReduxAction2<number, boolean, App10Payload>;
 // ######################################################################
 
 /** Group List */
-export type E001Payload = API.B002Response;
+export type E001Payload = APIs.B002Response;
 export type GroupListAction = ReduxAction0<E001Payload>;
 
 /** Group Regist */
-export type E002Payload = Common.GroupInfo;
+export type E002Payload = App.GroupInfo;
 export type GroupRegistAction = ReduxAction2<string, string | undefined, E002Payload>;
 
 /** Group Edit */
 export type E003Payload = void;
-export type GroupEditAction = ReduxAction1<Common.GroupInfo, E003Payload>;
+export type GroupEditAction = ReduxAction1<App.GroupInfo, E003Payload>;
 
 /** Group Delete */
 export type E004Payload = {
@@ -148,14 +113,14 @@ export type GroupDeleteAction = ReduxAction0<E004Payload>;
 /** Word List */
 export type E005Payload = {
   groupId: string;
-  words: API.C002Response;
+  words: APIs.C002Response;
 };
 
 export type WordListAction = ReduxAction1<string, E005Payload, Promise<void>>;
 
 /** Word Details */
 export type E006Payload = {
-  res: API.E001Response;
+  res: APIs.E001Response;
 };
 
 export type WordDetailAction = ReduxAction1<string, E006Payload, Promise<void>>;
@@ -183,13 +148,13 @@ export type AnswerAction = ReduxAction2<string, boolean, B004Payload, Promise<vo
 
 export interface B006Payload {
   mode: string;
-  words: WordItem[];
+  words: APIs.WordItem[];
 }
 export type StartReviewAction = ReduxAction0<B006Payload, Promise<void>>;
 
 export interface B007Payload {
   mode: string;
-  words: WordItem[];
+  words: APIs.WordItem[];
 }
 
 export type StartTestAction = ReduxAction0<B007Payload>;

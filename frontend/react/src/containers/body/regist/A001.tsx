@@ -5,7 +5,7 @@ import WebCamera from '@components/WebCamera';
 import { Grid, Theme, makeStyles, createStyles, Box } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { Domain } from 'typings';
+import { Domains } from 'typings';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -18,7 +18,7 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const app = (state: Domain.State) => state.app;
+const app = (state: Domains.State) => state.app;
 
 const a001: FunctionComponent<any> = () => {
   const classes = useStyles();

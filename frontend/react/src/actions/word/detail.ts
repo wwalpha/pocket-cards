@@ -2,9 +2,9 @@ import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
-import { API, Actions } from 'typings';
+import { APIs, Actions } from 'typings';
 
-export const success = createAction<Actions.E006Payload, API.E001Response>(ActionTypes.E0_06_SUCCESS, (res) => ({
+export const success = createAction<Actions.E006Payload, APIs.E001Response>(ActionTypes.E0_06_SUCCESS, (res) => ({
   res,
 }));
 

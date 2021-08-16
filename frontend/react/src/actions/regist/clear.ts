@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import { startLoading, defaultFailure } from '@actions';
 import { ActionTypes } from '@constants';
-import { APP, Actions } from 'typings';
+import { Actions } from 'typings';
 
 const success = createAction(ActionTypes.A0_04_SUCCESS);
 

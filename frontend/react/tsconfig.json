@@ -43,6 +43,7 @@
       "@actions/*": ["./src/actions/*"],
       "@constants": ["./src/constants/index"],
       "@containers/*": ["./src/containers/*"],
+      "@containers": ["./src/containers/index"],
       "@utils/*": ["./src/utils/*"],
       "@components/*": ["./src/components/*"]
     },

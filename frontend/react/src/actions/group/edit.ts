@@ -2,13 +2,13 @@ import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
-import { Actions, API, APP } from 'typings';
+import { Actions, APIs, App } from 'typings';
 import { list } from './list';
 
 const success = createAction(ActionTypes.E0_03_SUCCESS);
 
 /** グループ編集 */
-export const edit: Actions.GroupEditAction = (info: APP.GroupInfo) => async (dispatch, store, api) => {
+export const edit: Actions.GroupEditAction = (info: App.GroupInfo) => async (dispatch, store, api) => {
   // 開始イベント
   dispatch(startLoading());
 
@@ -17,7 +17,7 @@ export const edit: Actions.GroupEditAction = (info: APP.GroupInfo) => async (dis
     await api.put(Consts.B004_URL(info.id), {
       name: info.name,
       description: info.description,
-    } as API.B004Request);
+    } as APIs.B004Request);
 
     // グループ再取得
     dispatch(list());

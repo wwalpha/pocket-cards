@@ -3,7 +3,7 @@ import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
 import * as StartNew from './startNew';
 import * as StartTest from './startTest';
-import { API, Actions } from 'typings';
+import { APIs, Actions, APIClass } from 'typings';
 
 const success = createAction(ActionTypes.B0_04_SUCCESS, (yes: boolean) => ({ yes }));
 
@@ -49,7 +49,7 @@ const answer: Actions.AnswerAction = (word: string, yes: boolean) => async (disp
 
     // 新規の場合
     if (mode === Consts.MODES.New) {
-      const res = await api.get<API.C006Response>(Consts.C006_URL(groupId));
+      const res = await api.get<APIs.C006Response>(Consts.C006_URL(groupId));
 
       // 新規単語の追加
       // TODO:!!!
@@ -57,7 +57,7 @@ const answer: Actions.AnswerAction = (word: string, yes: boolean) => async (disp
       dispatch(StartNew.success(res.words));
     } else {
       // テストの場合
-      const res = await api.get<API.C007Response>(Consts.C007_URL(groupId));
+      const res = await api.get<APIs.C007Response>(Consts.C007_URL(groupId));
 
       // TODO:!!!
       //@ts-ignore
@@ -71,12 +71,12 @@ const answer: Actions.AnswerAction = (word: string, yes: boolean) => async (disp
 
 const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
 
-const updateStatus = async (api: API.APIClass, groupId: string, word: string, yes: boolean, times: number) => {
+const updateStatus = async (api: APIClass, groupId: string, word: string, yes: boolean, times: number) => {
   await api.put(Consts.C004_URL(groupId, word), {
     type: '1',
     correct: yes,
     times,
-  } as API.C004Request);
+  } as APIs.C004Request);
 };
 
 export default answer;

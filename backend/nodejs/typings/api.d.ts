@@ -1,4 +1,4 @@
-import { Tables } from './index';
+import { Tables } from '../core/typings/index';
 import { Request } from 'express';
 
 // ------------------------------------------------------------

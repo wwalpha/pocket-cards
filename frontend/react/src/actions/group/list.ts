@@ -1,9 +1,9 @@
 import { createAction } from 'redux-actions';
 import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
-import { Actions, API } from 'typings';
+import { Actions, APIs } from 'typings';
 
-const success = createAction(ActionTypes.E0_01_SUCCESS, (data: API.B002Response) => ({
+const success = createAction(ActionTypes.E0_01_SUCCESS, (data: APIs.B002Response) => ({
   ...data,
 }));
 
@@ -13,7 +13,7 @@ export const list: Actions.GroupListAction = () => async (dispatch, _, api) => {
   dispatch(startLoading());
 
   try {
-    const res = await api.get<API.B002Response>(Consts.B002_URL());
+    const res = await api.get<APIs.B002Response>(Consts.B002_URL());
     // データ保存
     dispatch(success(res));
 

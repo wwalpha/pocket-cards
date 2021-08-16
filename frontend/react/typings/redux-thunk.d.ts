@@ -1,5 +1,4 @@
-import { CallHistoryMethodAction } from 'connected-react-router';
-import { Action, ActionCreatorsMapObject, AnyAction, Dispatch, Middleware } from 'redux';
+import { Action, AnyAction, Middleware } from 'redux';
 
 /**
  * The dispatch method as modified by React-Thunk; overloaded so that you can

@@ -3,13 +3,11 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
-import * as StudyActions from '@actions/study';
-import * as AppActions from '@actions/app';
-import Actions from '@actions';
 import Button from '@components/buttons/Button';
 import { WordList } from '@components/functions';
+import { AppActions, StudyActions, WordActions } from '@actions';
 import { Paths, Consts } from '@constants';
-import { Domain } from 'typings';
+import { Domains } from 'typings';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -23,14 +21,14 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const groupState = (state: Domain.State) => state.group;
-const appState = (state: Domain.State) => state.app;
+const groupState = (state: Domains.State) => state.group;
+const appState = (state: Domains.State) => state.app;
 
 export default () => {
   const classes = useStyles();
   const actions = bindActionCreators(StudyActions, useDispatch());
   const appActions = bindActionCreators(AppActions, useDispatch());
-  const wrdActions = bindActionCreators(Actions.Word, useDispatch());
+  const wrdActions = bindActionCreators(WordActions, useDispatch());
   const { rows: groups } = useSelector(groupState);
   const { groupId, displayCtrl } = useSelector(appState);
 

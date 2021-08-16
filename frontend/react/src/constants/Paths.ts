@@ -1,4 +1,4 @@
-import { APP } from 'typings';
+import { App } from 'typings';
 
 export const ROUTE_PATH_INDEX = {
   Root: 0,
@@ -38,7 +38,7 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.StudyFinish]: '/study/finish',
 };
 
-export const ROUTE_INFO: APP.PathInfo = {
+export const ROUTE_INFO: App.PathInfo = {
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Root]]: {
     showBack: false,
     showFooter: true,

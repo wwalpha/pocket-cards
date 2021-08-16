@@ -6,7 +6,7 @@ import Button from '@components/buttons/Button';
 import * as Actions from '@actions/group';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { Domain } from 'typings';
+import { Domains } from 'typings';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -54,7 +54,7 @@ const schema = yup.object({
   name: yup.string().required(),
 });
 
-const appState = (state: Domain.State) => state.app;
+const appState = (state: Domains.State) => state.app;
 
 export default () => {
   // const classes = useStyles();

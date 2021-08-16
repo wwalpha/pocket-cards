@@ -29,7 +29,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
 import { Paths, Consts } from '@constants';
 import Loading from '@components/Loading';
 import * as Actions from '@actions/group';
-import { Domain } from 'typings';
+import { Domains } from 'typings';
 
 const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common } }: Theme) =>
   createStyles({
@@ -59,9 +59,9 @@ const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common }
 
 const audioRef = React.createRef<HTMLAudioElement>();
 
-const appState = (state: Domain.State) => state.app;
-const wordState = (state: Domain.State) => state.word;
-const groupState = (state: Domain.State) => state.group;
+const appState = (state: Domains.State) => state.app;
+const wordState = (state: Domains.State) => state.word;
+const groupState = (state: Domains.State) => state.group;
 
 export default () => {
   const classes = useStyles();

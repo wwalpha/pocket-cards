@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Button } from '@components/buttons';
 import * as Actions from '@actions/group';
-import { Domain } from 'typings';
+import { Domains } from 'typings';
 
-const groupState = (state: Domain.State) => state.group;
-const appState = (state: Domain.State) => state.app;
+const groupState = (state: Domains.State) => state.group;
+const appState = (state: Domains.State) => state.app;
 
 export default () => {
   const actions = bindActionCreators(Actions, useDispatch());

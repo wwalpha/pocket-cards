@@ -2,7 +2,7 @@ import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
-import { API, Actions } from 'typings';
+import { APIs, Actions } from 'typings';
 
 export const success = createAction<Actions.E008Payload, string, string>(
   ActionTypes.E0_08_SUCCESS,
@@ -18,7 +18,7 @@ const del: Actions.WordDeleteAction = (groupId: string, word: string) => async (
   dispatch(startLoading());
 
   try {
-    await api.del<API.C005Response>(Consts.C005_URL(groupId, word));
+    await api.del<APIs.C005Response>(Consts.C005_URL(groupId, word));
 
     // データ保存
     dispatch(success(groupId, word));

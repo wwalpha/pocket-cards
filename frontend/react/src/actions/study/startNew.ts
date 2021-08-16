@@ -2,9 +2,9 @@ import { createAction } from 'redux-actions';
 import { push } from 'connected-react-router';
 import { startLoading, defaultFailure } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
-import { Actions, API } from 'typings';
+import { Actions, APIs } from 'typings';
 
-export const success = createAction(ActionTypes.B0_01_SUCCESS, (data: API.WordItem[]) => ({
+export const success = createAction(ActionTypes.B0_01_SUCCESS, (data: APIs.WordItem[]) => ({
   mode: Consts.MODES.New,
   words: data,
 }));
@@ -20,7 +20,7 @@ const startNew: Actions.StartNewAction = () => async (dispatch, store, api) => {
   dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
 
   try {
-    const res = await api.get<API.C006Response>(Consts.C006_URL(groupId));
+    const res = await api.get<APIs.C006Response>(Consts.C006_URL(groupId));
 
     // データ保存
     dispatch(success(res.words));

@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { Consts } from '@constants';
-import { C002ResItem } from 'typings/api';
+import { APIs } from 'typings';
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
@@ -93,7 +93,7 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
 };
 
 interface WordListProps {
-  list: C002ResItem[];
+  list: APIs.C002ResItem[];
   onDetail?: (word: string) => void;
   onDelete?: (word: string) => void;
   showDelete?: boolean;

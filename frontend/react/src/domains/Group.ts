@@ -1,19 +1,19 @@
 import { immerable, produce } from 'immer';
-import { API, Actions, APP } from 'typings';
+import { APIs, Actions, Tables, App } from 'typings';
 
 export default class Group {
   [immerable] = true;
 
-  rows: APP.GroupInfo[] = [];
-  words: APP.GroupWordsItem[] = [];
-  wordDetail?: API.E001Response = undefined;
+  rows: Tables.TGroups[] = [];
+  words: App.GroupWordsItem[] = [];
+  wordDetail?: APIs.E001Response = undefined;
 
   /**
    * グループ一覧追加
    */
-  addGroupList({ groups }: Actions.E001Payload) {
+  addGroupList({ items }: Actions.E001Payload) {
     return produce(this, (draft) => {
-      draft.rows = groups;
+      draft.rows = items;
     });
   }
 
@@ -72,6 +72,7 @@ export default class Group {
       const group = this.words.find((item) => item.groupId === payload.groupId);
 
       if (group) {
+        //@ts-ignore
         const words = group?.words.filter((item) => item.word !== payload.word);
         group.words = words;
       }

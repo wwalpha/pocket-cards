@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
-import { Domain } from 'typings';
+import { Domains } from 'typings';
 // import { Animation, ValueScale } from '@devexpress/dx-react-chart';
 // import { ArgumentAxis, Chart, ValueAxis, BarSeries } from '@devexpress/dx-react-chart-material-ui';
 
@@ -30,8 +30,8 @@ import { Domain } from 'typings';
 //   }),
 // );
 /** 単語カメラ画面 */
-const userState = (state: Domain.State) => state.user;
-const appState = (state: Domain.State) => state.app;
+const userState = (state: Domains.State) => state.user;
+const appState = (state: Domains.State) => state.app;
 
 const C002: React.FunctionComponent<any> = () => {
   const { isLoading } = useSelector(appState);

@@ -2,10 +2,10 @@ import { createAction } from 'redux-actions';
 import { push } from 'connected-react-router';
 import { defaultFailure, startLoading } from '@actions';
 import { Consts, Paths, ActionTypes } from '@constants';
-import { API, Actions } from 'typings';
+import { APIs, Actions } from 'typings';
 
 /** 単語テスト */
-export const success = createAction(ActionTypes.B0_07_SUCCESS, (data: API.WordItem[]) => ({
+export const success = createAction(ActionTypes.B0_07_SUCCESS, (data: APIs.WordItem[]) => ({
   mode: Consts.MODES.AllTest,
   words: data,
 }));
@@ -20,7 +20,7 @@ const startTest: Actions.StartTestAction = () => async (dispatch, store, api) =>
 
   try {
     const { groupId } = store().app;
-    const res = await api.get<API.C007Response>(Consts.C007_URL(groupId));
+    const res = await api.get<APIs.C007Response>(Consts.C007_URL(groupId));
 
     // データ保存
     dispatch(success(res.words));

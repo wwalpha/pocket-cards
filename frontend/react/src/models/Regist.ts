@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { D001Request, D001Response } from 'typings/api';
+import { APIs } from 'typings';
 
 export interface A000Props {
   words: string[];
@@ -36,7 +36,7 @@ export default class A000 extends Record<A000Props>({
   /**
    * 単語内部保存
    */
-  setWords(payload: D001Response) {
+  setWords(payload: APIs.D001Response) {
     return this.set('words', payload.words);
   }
 

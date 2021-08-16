@@ -7,7 +7,6 @@ const login: React.FunctionComponent<any> = (props) => {
   const [isLoading, setLoading] = React.useState(true);
 
   const authListener = ({ payload: { event, data } }: any) => {
-    console.log(event, data);
     setLoading(false);
   };
 
