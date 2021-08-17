@@ -15,6 +15,17 @@ resource "aws_s3_bucket" "archive" {
       days = 7
     }
   }
+
+  lifecycle_rule {
+    enabled = true
+
+    prefix = "frontend/"
+
+    // 90日後削除
+    expiration {
+      days = 90
+    }
+  }
 }
 
 # ----------------------------------------------------------------------------------------------
