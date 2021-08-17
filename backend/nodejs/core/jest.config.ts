@@ -15,6 +15,7 @@ const config: Config.InitialOptions = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   setupFiles: ['./test/configs/setupMock.ts'],
+  setupFilesAfterEnv: ['jest-extended'],
 };
 
 export default config;
