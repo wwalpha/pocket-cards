@@ -2,13 +2,14 @@ import { LoaderOptionsPlugin, Configuration, EnvironmentPlugin } from 'webpack';
 import CompressionPlugin from 'compression-webpack-plugin';
 import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
 import * as path from 'path';
 import baseConfig from './webpack.base';
 
 const prod: Configuration = {
   mode: 'production',
   plugins: [
-    new EnvironmentPlugin(['API_URL', 'AUTH_SIGN_IN_URL', 'AUTH_SIGN_OUT_URL']),
+    new Dotenv({ path: 'frontend.env' }),
     new HtmlWebpackPlugin({
       title: 'Chat',
       filename: 'index.html',
