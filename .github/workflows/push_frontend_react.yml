@@ -65,7 +65,7 @@ jobs:
       # Install and Build
       - name: Build
         env:
-          BUCKET_NAME_ARCHIVE: ${{ step.terraform.outputs.bucket_name_archive }}
+          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
         run: |
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
           yarn install --production=false
@@ -75,7 +75,7 @@ jobs:
       - name: Upload files
         env:
           FILE_NAME: ${{ github.sha }}
-          BUCKET_NAME_ARCHIVE: ${{ step.terraform.outputs.bucket_name_archive }}
+          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
         run: |
           zip -jr $FILE_NAME.zip dist
           aws s3 cp $FILE_NAME.zip s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip
@@ -84,6 +84,6 @@ jobs:
       # Deploy frontend
       - name: Deploy
         env:
-          BUCKET_NAME_FRONTEND: ${{ step.terraform.outputs.bucket_name_frontend }}
+          BUCKET_NAME_FRONTEND: ${{ steps.terraform.outputs.bucket_name_frontend }}
         run: |
           aws s3 cp dist s3://$BUCKET_NAME_FRONTEND/ --recursive
