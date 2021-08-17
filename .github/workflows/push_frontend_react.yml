@@ -64,12 +64,12 @@ jobs:
 
       # Install and Build
       - name: Build
+        env:
+          BUCKET_NAME_ARCHIVE: ${{ step.terraform.outputs.bucket_name_archive }}
         run: |
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
           yarn install --production=false
           yarn build
-        with:
-          BUCKET_NAME_ARCHIVE: ${{ step.terraform.outputs.bucket_name_archive }}
 
       # Upload dist files
       - name: Upload files
