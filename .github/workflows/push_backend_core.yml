@@ -39,6 +39,7 @@ jobs:
       # Install and Build
       - name: Build
         run: |
+          tsc -v
           yarn install
           yarn build
 
