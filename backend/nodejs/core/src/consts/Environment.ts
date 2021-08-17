@@ -14,9 +14,9 @@ export const WORDS_LIMIT = process.env.WORDS_LIMIT ? Number(process.env.WORDS_LI
 
 export const BUCKET_NAME_FRONTEND = process.env.BUCKET_NAME_FRONTEND as string;
 
-export const IPA_URL = process.env.IPA_URL as string;
+export const IPA_API_URL = process.env.IPA_API_URL as string;
 export const IPA_API_KEY = process.env.IPA_API_KEY as string;
-export const TRANSLATION_URL = process.env.TRANSLATION_URL as string;
+export const TRANSLATION_API_URL = process.env.TRANSLATION_API_URL as string;
 export const TRANSLATION_API_KEY = process.env.TRANSLATION_API_KEY as string;
-export const VISION_URL = process.env.VISION_URL as string;
+export const VISION_API_URL = process.env.VISION_API_URL as string;
 export const VISION_API_KEY = process.env.VISION_API_KEY as string;

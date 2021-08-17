@@ -1,4 +1,5 @@
 import { CognitoUser } from '@aws-amplify/auth';
+import { APIs } from '.';
 
 export namespace Domains {
   interface State {
@@ -36,10 +37,10 @@ export namespace Domains {
   }
 
   interface Word {
-    current?: WordItem;
+    current?: APIs.WordItem;
     mode?: string;
-    rows: WordItem[];
-    history: WordItem[];
+    rows: APIs.WordItem[];
+    history: APIs.WordItem[];
     index: number;
   }
 }

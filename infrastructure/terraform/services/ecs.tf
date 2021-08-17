@@ -95,7 +95,7 @@ resource "aws_ecs_service" "this" {
   }
 
   network_configuration {
-    assign_public_ip = true
+    assign_public_ip = !local.is_dev
     subnets          = local.subnets
     security_groups  = [aws_security_group.ecs_default_sg.id]
   }

@@ -3,7 +3,7 @@ import Axios, { AxiosResponse } from 'axios';
 import { Environment } from '@consts';
 import { APIs, VisionRequest, VisionResponse } from 'typings';
 
-const visionUrl = Environment.VISION_URL;
+const visionUrl = Environment.VISION_API_URL;
 const visionApiKey = Environment.VISION_API_KEY;
 
 export default async (req: Request<any, any, APIs.D001Request, any>): Promise<APIs.D001Response> => {

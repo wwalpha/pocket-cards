@@ -60,15 +60,17 @@ output "route53_zone_name" {
 # ----------------------------------------------------------------------------------------------
 # Google Client ID
 # ----------------------------------------------------------------------------------------------
-output "ssm_google_client_id" {
-  value = aws_ssm_parameter.google_client_id.name
+output "google_client_id" {
+  sensitive = true
+  value     = var.google_client_id
 }
 
 # ----------------------------------------------------------------------------------------------
 # Google Client Secret
 # ----------------------------------------------------------------------------------------------
-output "ssm_google_client_secret" {
-  value = aws_ssm_parameter.google_client_secret.name
+output "google_client_secret" {
+  sensitive = true
+  value     = var.google_client_secret
 }
 
 # ----------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 # API Gateway Integration (Lambda) - ECS Task Start
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_integration" "ecs_task_start" {
-  api_id                 = local.api_gateway_id
+  api_id                 = local.api_gateway_id_admin
   integration_type       = "AWS_PROXY"
   connection_type        = "INTERNET"
   integration_method     = "POST"
@@ -15,16 +15,16 @@ resource "aws_apigatewayv2_integration" "ecs_task_start" {
 # API Gateway Route (Lambda) - ECS Task Start
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_route" "ecs_task_start" {
-  api_id             = local.api_gateway_id
-  route_key          = "POST /admin/start"
+  api_id             = local.api_gateway_id_admin
+  route_key          = "POST /start"
   target             = "integrations/${aws_apigatewayv2_integration.ecs_task_start.id}"
-  authorizer_id      = local.api_gateway_authorizer_id
+  authorizer_id      = local.api_gateway_authorizer_id_admin
   authorization_type = "JWT"
 }
 
 resource "aws_apigatewayv2_route" "ecs_task_start_options" {
-  api_id    = local.api_gateway_id
-  route_key = "OPTIONS /admin/start"
+  api_id    = local.api_gateway_id_admin
+  route_key = "OPTIONS /start"
   target    = "integrations/${aws_apigatewayv2_integration.ecs_task_start.id}"
 }
 
@@ -32,7 +32,7 @@ resource "aws_apigatewayv2_route" "ecs_task_start_options" {
 # API Gateway Integration (Lambda) - ECS Task Stop
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_integration" "ecs_task_stop" {
-  api_id                 = local.api_gateway_id
+  api_id                 = local.api_gateway_id_admin
   integration_type       = "AWS_PROXY"
   connection_type        = "INTERNET"
   integration_method     = "POST"
@@ -45,16 +45,16 @@ resource "aws_apigatewayv2_integration" "ecs_task_stop" {
 # API Gateway Route (Lambda) - ECS Task Stop
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_route" "ecs_task_stop" {
-  api_id             = local.api_gateway_id
-  route_key          = "POST /admin/stop"
+  api_id             = local.api_gateway_id_admin
+  route_key          = "POST /stop"
   target             = "integrations/${aws_apigatewayv2_integration.ecs_task_stop.id}"
-  authorizer_id      = local.api_gateway_authorizer_id
+  authorizer_id      = local.api_gateway_authorizer_id_admin
   authorization_type = "JWT"
 }
 
 resource "aws_apigatewayv2_route" "ecs_task_stop_options" {
-  api_id    = local.api_gateway_id
-  route_key = "OPTIONS /admin/stop"
+  api_id    = local.api_gateway_id_admin
+  route_key = "OPTIONS /stop"
   target    = "integrations/${aws_apigatewayv2_integration.ecs_task_stop.id}"
 }
 
@@ -62,7 +62,7 @@ resource "aws_apigatewayv2_route" "ecs_task_stop_options" {
 # API Gateway Integration (Lambda) - ECS Task Status
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_integration" "ecs_task_status" {
-  api_id                 = local.api_gateway_id
+  api_id                 = local.api_gateway_id_admin
   integration_type       = "AWS_PROXY"
   connection_type        = "INTERNET"
   integration_method     = "POST"
@@ -75,15 +75,15 @@ resource "aws_apigatewayv2_integration" "ecs_task_status" {
 # API Gateway Route (Lambda) - ECS Task Status
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_route" "ecs_task_status" {
-  api_id             = local.api_gateway_id
-  route_key          = "GET /admin/status"
+  api_id             = local.api_gateway_id_admin
+  route_key          = "GET /status"
   target             = "integrations/${aws_apigatewayv2_integration.ecs_task_status.id}"
-  authorizer_id      = local.api_gateway_authorizer_id
+  authorizer_id      = local.api_gateway_authorizer_id_admin
   authorization_type = "JWT"
 }
 
 resource "aws_apigatewayv2_route" "ecs_task_status_options" {
-  api_id    = local.api_gateway_id
-  route_key = "OPTIONS /admin/status"
+  api_id    = local.api_gateway_id_admin
+  route_key = "OPTIONS /status"
   target    = "integrations/${aws_apigatewayv2_integration.ecs_task_status.id}"
 }

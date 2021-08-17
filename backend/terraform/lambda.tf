@@ -57,7 +57,7 @@ resource "aws_lambda_permission" "ecs_task_start" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.ecs_task_start.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${local.api_gateway_execution_arn}/*/*/admin/start"
+  source_arn    = "${data.aws_apigatewayv2_api.admin.execution_arn}/*/*/start"
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ resource "aws_lambda_permission" "ecs_task_stop" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.ecs_task_stop.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${local.api_gateway_execution_arn}/*/*/admin/stop"
+  source_arn    = "${data.aws_apigatewayv2_api.admin.execution_arn}/*/*/stop"
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -128,5 +128,5 @@ resource "aws_lambda_permission" "ecs_task_status" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.ecs_task_status.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${local.api_gateway_execution_arn}/*/*/admin/status"
+  source_arn    = "${data.aws_apigatewayv2_api.admin.execution_arn}/*/*/status"
 }

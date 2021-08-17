@@ -108,6 +108,12 @@ resource "aws_cognito_user_pool" "this" {
   #   email_subject_by_link = var.verify_email_subject_by_link
   #   sms_message           = var.verify_sms_message
   # }
+
+  lifecycle {
+    ignore_changes = [
+      estimated_number_of_users
+    ]
+  }
 }
 
 # -------------------------------------------------------
@@ -162,8 +168,8 @@ resource "aws_cognito_identity_provider" "google" {
 
   provider_details = {
     authorize_scopes              = "email profile openid"
-    client_id                     = data.aws_ssm_parameter.google_client_id.value
-    client_secret                 = data.aws_ssm_parameter.google_client_secret.value
+    client_id                     = local.google_client_id
+    client_secret                 = local.google_client_secret
     attributes_url                = "https://people.googleapis.com/v1/people/me?personFields="
     attributes_url_add_attributes = "true"
     authorize_url                 = "https://accounts.google.com/o/oauth2/v2/auth"

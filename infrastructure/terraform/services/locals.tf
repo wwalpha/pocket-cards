@@ -15,22 +15,16 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # Project Informations
   # ----------------------------------------------------------------------------------------------
-  project_name    = local.remote_setup.project_name
-  project_name_uc = local.remote_setup.project_name_uc
+  project_name         = local.remote_setup.project_name
+  project_name_uc      = local.remote_setup.project_name_uc
+  google_client_id     = local.remote_setup.google_client_id
+  google_client_secret = local.remote_setup.google_client_secret
 
   # ----------------------------------------------------------------------------------------------
   # ECS
   # ----------------------------------------------------------------------------------------------
   task_def_family = "pocket-cards-backend"
   task_def_rev    = max(aws_ecs_task_definition.this.revision, data.aws_ecs_task_definition.this.revision)
-
-  # ----------------------------------------------------------------------------------------------
-  # SSM
-  # ----------------------------------------------------------------------------------------------
-  ssm_google_client_id     = local.remote_setup.ssm_google_client_id
-  ssm_google_client_secret = local.remote_setup.ssm_google_client_secret
-  ssm_ipa_api_key          = local.remote_setup.ssm_ipa_api_key
-  ssm_translation_api_key  = local.remote_setup.ssm_translation_api_key
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -98,22 +92,6 @@ data "aws_s3_bucket" "archive" {
 data "aws_ecs_task_definition" "this" {
   depends_on      = [aws_ecs_task_definition.this]
   task_definition = aws_ecs_task_definition.this.family
-}
-
-# ----------------------------------------------------------------------------------------------
-# SSM - Google Client ID
-# ----------------------------------------------------------------------------------------------
-data "aws_ssm_parameter" "google_client_id" {
-  name            = local.ssm_google_client_id
-  with_decryption = true
-}
-
-# ----------------------------------------------------------------------------------------------
-# SSM - Google Client Secret
-# ----------------------------------------------------------------------------------------------
-data "aws_ssm_parameter" "google_client_secret" {
-  name            = local.ssm_google_client_secret
-  with_decryption = true
 }
 
 # ----------------------------------------------------------------------------------------------

@@ -57,23 +57,3 @@ resource "aws_ssm_parameter" "vision_api_key" {
   value     = var.vision_api_key
   overwrite = true
 }
-
-# ----------------------------------------------------------------------------------------------
-# SSM Parameter Store - Google Client ID
-# ----------------------------------------------------------------------------------------------
-resource "aws_ssm_parameter" "google_client_id" {
-  name      = "/${var.project_name}/google_client_id"
-  type      = "SecureString"
-  value     = var.google_client_id
-  overwrite = true
-}
-
-# ----------------------------------------------------------------------------------------------
-# SSM Parameter Store - Google Client Secret
-# ----------------------------------------------------------------------------------------------
-resource "aws_ssm_parameter" "google_client_secret" {
-  name      = "/${var.project_name}/google_client_secret"
-  type      = "SecureString"
-  value     = var.google_client_secret
-  overwrite = true
-}
