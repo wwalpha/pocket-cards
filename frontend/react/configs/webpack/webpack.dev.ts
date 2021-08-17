@@ -1,9 +1,10 @@
 import { HotModuleReplacementPlugin, LoaderOptionsPlugin, Configuration } from 'webpack';
-import merge from 'webpack-merge';
-import baseConfig from './webpack.base';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import * as path from 'path';
+import Dotenv from 'dotenv-webpack';
+import merge from 'webpack-merge';
+import baseConfig from './webpack.base';
 
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
@@ -12,6 +13,7 @@ const dev: Configuration = {
   devtool: 'inline-source-map',
   entry: ['webpack-hot-middleware/client'],
   plugins: [
+    new Dotenv(),
     // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       title: 'Chat',

@@ -2,7 +2,6 @@ import * as path from 'path';
 import { Configuration, LoaderOptionsPlugin } from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
-import Dotenv from 'dotenv-webpack';
 
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
@@ -28,7 +27,9 @@ const configs: Configuration = {
         use: [
           {
             loader: 'babel-loader',
-            options: { plugins: ['react-refresh/babel'] },
+            options: {
+              plugins: [!process.env.NODE_ENV && require.resolve('react-refresh/babel')].filter(Boolean),
+            },
           },
           {
             loader: 'ts-loader',
@@ -44,7 +45,6 @@ const configs: Configuration = {
     new WebpackManifestPlugin({
       writeToFileEmit: true,
     }),
-    new Dotenv(),
     new LoaderOptionsPlugin({
       debug: false,
     }),

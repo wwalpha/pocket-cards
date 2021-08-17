@@ -43,6 +43,7 @@ jobs:
         with:
           terraform_version: 1.0.4
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
 
       # AWS Credentials
       - name: Configure AWS credentials
@@ -59,15 +60,10 @@ jobs:
           cd configs/terraform
           terraform init
           terraform apply -auto-approve=true
-          terraform output -raw bucket_name_archive
           BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
           BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
-          echo "1111"
-          echo $BUCKET_NAME_ARCHIVE
-          echo $BUCKET_NAME_FRONTEND
-          echo "2222"
-          echo "::set-output name=bucket_name_archive::$(echo $BUCKET_NAME_ARCHIVE)"
-          echo "::set-output name=bucket_name_frontend::$(echo $BUCKET_NAME_FRONTEND)"
+          echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
+          echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
 
       # Install and Build
       - name: Build
