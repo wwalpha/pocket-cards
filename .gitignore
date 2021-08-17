@@ -4,3 +4,8 @@ node_modules
 .secrets
 .terraform
 .terraform.lock.hcl
+dist
+yarn.lock
+.nyc_output
+.env.credentials
+coverage
