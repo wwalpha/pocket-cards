@@ -16,7 +16,7 @@ env:
   TF_WORKSPACE: dev
   TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
   TF_VAR_vpc_id: vpc-08f77b07c34029b7a
-  TF_VAR_subnets: '["subnet-0d950c1a77269f980","subnet-08b591d227107ffc5"]'
+  TF_VAR_subnets: '["subnet-003cfdcdbaf257d95","subnet-0221940ce594a9f84"]'
 
 jobs:
   Update:

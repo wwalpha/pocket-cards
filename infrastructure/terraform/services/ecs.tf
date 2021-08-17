@@ -109,4 +109,10 @@ resource "aws_ecs_service" "this" {
     when    = destroy
     command = "sh ${path.module}/scripts/servicediscovery-drain.sh ${length(self.service_registries) != 0 ? split("/", self.service_registries[0].registry_arn)[1] : ""}"
   }
+
+  lifecycle {
+    ignore_changes = [
+      desired_count
+    ]
+  }
 }

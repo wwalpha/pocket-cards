@@ -49,14 +49,6 @@ resource "aws_iam_role_policy_attachment" "ecs_task_dynamodb" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS ECS Task Role Policy - S3 ReadOnly Access
-# ----------------------------------------------------------------------------------------------
-resource "aws_iam_role_policy_attachment" "ecs_task_s3_readonly" {
-  role       = aws_iam_role.ecs_task.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
-}
-
-# ----------------------------------------------------------------------------------------------
 # AWS ECS Task Role Policy - App Mesh Envoy Access
 # ----------------------------------------------------------------------------------------------
 # resource "aws_iam_role_policy_attachment" "ecs_task_envoy" {
@@ -97,6 +89,34 @@ resource "aws_iam_role_policy_attachment" "ecs_task_exec_cloudwatch" {
 resource "aws_iam_role_policy_attachment" "ecs_task_exec_ssm" {
   role       = aws_iam_role.ecs_task_exec.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy" "ecs_task_exec" {
+  name = "s3_policy"
+  role = aws_iam_role.ecs_task_exec.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "s3:GetObject",
+        ]
+        Effect   = "Allow"
+        Resource = "${data.aws_s3_bucket.archive.arn}/*"
+      },
+      {
+        Action = [
+          "s3:GetBucketLocation",
+        ]
+        Effect   = "Allow"
+        Resource = "${data.aws_s3_bucket.archive.arn}"
+      }
+    ]
+  })
 }
 
 # ----------------------------------------------------------------------------------------------

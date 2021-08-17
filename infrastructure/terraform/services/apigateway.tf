@@ -164,83 +164,40 @@ resource "aws_apigatewayv2_authorizer" "admin" {
 # ---------------------------------------------------------------------------------------------
 # API Gateway Route - Backend
 # ---------------------------------------------------------------------------------------------
-resource "aws_apigatewayv2_route" "backend" {
+resource "aws_apigatewayv2_route" "backend_get" {
   api_id             = aws_apigatewayv2_api.this.id
-  route_key          = "ANY /{proxy+}"
+  route_key          = "GET /{proxy+}"
   target             = "integrations/${aws_apigatewayv2_integration.link.id}"
   authorizer_id      = aws_apigatewayv2_authorizer.this.id
   authorization_type = "JWT"
 }
 
-# resource "aws_apigatewayv2_route" "link" {
-#   api_id    = aws_apigatewayv2_api.this.id
-#   route_key = "ANY /{proxy+}"
+resource "aws_apigatewayv2_route" "backend_post" {
+  api_id             = aws_apigatewayv2_api.this.id
+  route_key          = "POST /{proxy+}"
+  target             = "integrations/${aws_apigatewayv2_integration.link.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.this.id
+  authorization_type = "JWT"
+}
 
-#   target = "integrations/${aws_apigatewayv2_integration.link[0].id}"
+resource "aws_apigatewayv2_route" "backend_put" {
+  api_id             = aws_apigatewayv2_api.this.id
+  route_key          = "PUT /{proxy+}"
+  target             = "integrations/${aws_apigatewayv2_integration.link.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.this.id
+  authorization_type = "JWT"
+}
 
-#   count = local.normal
-# }
+resource "aws_apigatewayv2_route" "backend_delete" {
+  api_id             = aws_apigatewayv2_api.this.id
+  route_key          = "DELETE /{proxy+}"
+  target             = "integrations/${aws_apigatewayv2_integration.link.id}"
+  authorizer_id      = aws_apigatewayv2_authorizer.this.id
+  authorization_type = "JWT"
+}
 
-# ---------------------------------------------------------------------------------------------
-# API Gateway Integration - HTTP URI
-# ---------------------------------------------------------------------------------------------
-# resource "aws_apigatewayv2_integration" "http" {
-#   api_id             = aws_apigatewayv2_api.this.id
-#   connection_type    = "INTERNET"
-#   integration_method = "ANY"
-#   integration_type   = "HTTP_PROXY"
-#   integration_uri    = "${aws_lb_listener.this.protocol}://backend.${local.domain_name}/{proxy}"
-
-#   count = local.simple
-# }
-
-# ---------------------------------------------------------------------------------------------
-# API Gateway Route
-# ---------------------------------------------------------------------------------------------
-# resource "aws_apigatewayv2_route" "http_post" {
-#   api_id             = aws_apigatewayv2_api.this.id
-#   route_key          = "POST /{proxy+}"
-#   target             = "integrations/${aws_apigatewayv2_integration.http[0].id}"
-#   authorizer_id      = aws_apigatewayv2_authorizer.this.id
-#   authorization_type = "JWT"
-
-#   count = local.simple
-# }
-
-# resource "aws_apigatewayv2_route" "http_get" {
-#   api_id             = aws_apigatewayv2_api.this.id
-#   route_key          = "GET /{proxy+}"
-#   target             = "integrations/${aws_apigatewayv2_integration.http[0].id}"
-#   authorizer_id      = aws_apigatewayv2_authorizer.this.id
-#   authorization_type = "JWT"
-
-#   count = local.simple
-# }
-
-# resource "aws_apigatewayv2_route" "http_put" {
-#   api_id             = aws_apigatewayv2_api.this.id
-#   route_key          = "PUT /{proxy+}"
-#   target             = "integrations/${aws_apigatewayv2_integration.http[0].id}"
-#   authorizer_id      = aws_apigatewayv2_authorizer.this.id
-#   authorization_type = "JWT"
-
-#   count = local.simple
-# }
-
-# resource "aws_apigatewayv2_route" "http_delete" {
-#   api_id             = aws_apigatewayv2_api.this.id
-#   route_key          = "DELETE /{proxy+}"
-#   target             = "integrations/${aws_apigatewayv2_integration.http[0].id}"
-#   authorizer_id      = aws_apigatewayv2_authorizer.this.id
-#   authorization_type = "JWT"
-
-#   count = local.simple
-# }
-
-# resource "aws_apigatewayv2_route" "http_options" {
-#   api_id    = aws_apigatewayv2_api.this.id
-#   route_key = "OPTIONS /{proxy+}"
-#   target    = "integrations/${aws_apigatewayv2_integration.http[0].id}"
-
-#   count = local.simple
-# }
+resource "aws_apigatewayv2_route" "backend_options" {
+  api_id    = aws_apigatewayv2_api.this.id
+  route_key = "OPTIONS /{proxy+}"
+  target    = "integrations/${aws_apigatewayv2_integration.link.id}"
+}
