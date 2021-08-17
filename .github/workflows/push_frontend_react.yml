@@ -59,15 +59,24 @@ jobs:
           cd configs/terraform
           terraform init
           terraform apply -auto-approve=true
-          echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
-          echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
+          terraform output -raw bucket_name_archive
+          BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
+          BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
+          echo "1111"
+          echo $BUCKET_NAME_ARCHIVE
+          echo $BUCKET_NAME_FRONTEND
+          echo "2222"
+          echo "::set-output name=bucket_name_archive::$(echo $BUCKET_NAME_ARCHIVE)"
+          echo "::set-output name=bucket_name_frontend::$(echo $BUCKET_NAME_FRONTEND)"
 
       # Install and Build
       - name: Build
         env:
           BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
         run: |
+          printenv
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
+          cat frontend.env
           yarn install --production=false
           yarn build
 
