@@ -1,23 +1,13 @@
-# Build Stage
-FROM node:14-alpine as build
-
-# source folder
-WORKDIR /app
-
-COPY . .
-
-RUN yarn install && \
-  mv configs/tsconfig.ecs.json . && \
-  yarn build
-
 # Release Stage
 FROM node:14-alpine
 WORKDIR /app
 
-COPY --from=build /app/dist .
+COPY dist .
 COPY package.json .
 
 RUN yarn install --production --no-lockfile
 
+EXPOSE 8080
+
 # Entry Point
-ENTRYPOINT ["node", "app.js"]
+ENTRYPOINT ["yarn", "start"]
