@@ -23,7 +23,7 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # ECS
   # ----------------------------------------------------------------------------------------------
-  task_def_family = "pocket-cards-backend"
+  task_def_family = "${local.project_name}-backend"
   task_def_rev    = max(aws_ecs_task_definition.this.revision, data.aws_ecs_task_definition.this.revision)
 
   # ----------------------------------------------------------------------------------------------
