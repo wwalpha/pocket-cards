@@ -3,7 +3,7 @@
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_bucket_object" "resource" {
   bucket  = local.bucket_name_archive
-  key     = "resource.env"
+  key     = "envs/backend.env"
   content = <<EOT
 AWS_DEFAULT_REGION=ap-northeast-1
 IPA_API_URL=${data.aws_ssm_parameter.ipa_api_url.value}

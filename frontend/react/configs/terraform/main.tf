@@ -48,7 +48,25 @@ data "terraform_remote_state" "services" {
 
 locals {
   remote_setup    = data.terraform_remote_state.setup.outputs
-  remote_services = data.terraform_remote_state.remote_services.outputs
+  remote_services = data.terraform_remote_state.services.outputs
+}
+
+# ----------------------------------------------------------------------------------------------
+# Environment file
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_bucket_object" "frontend" {
+  bucket  = local.remote_setup.bucket_name_archive
+  key     = "envs/frontend.env"
+  content = <<EOT
+AWS_REGION=ap-northeast-1
+IDENTITY_POOL_ID=${local.remote_services.cognito_identity_pool_id}
+USER_POOL_ID=${local.remote_services.cognito_user_pool_id}
+USER_POOL_WEB_CLIENT_ID=${local.remote_services.cognito_user_pool_client_id}
+AUTH_DOMAIN=${local.remote_services.cognito_user_pool_domain}
+AUTH_SIGN_IN_URL=https://${local.remote_setup.route53_zone_name}/login
+AUTH_SIGN_OUT_URL=https://${local.remote_setup.route53_zone_name}/logout
+API_URL=https://api.${local.remote_setup.route53_zone_name}
+EOT
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -60,16 +78,4 @@ output "bucket_name_archive" {
 
 output "bucket_name_frontend" {
   value = local.remote_setup.bucket_name_frontend
-}
-
-output "cognito_user_pool_id" {
-  value = local.remote_setup.cognito_user_pool_id
-}
-
-output "cognito_user_pool_client_id" {
-  value = local.remote_setup.cognito_user_pool_client_id
-}
-
-output "cognito_identity_pool_id" {
-  value = local.remote_setup.cognito_identity_pool_id
 }
