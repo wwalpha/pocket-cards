@@ -15,7 +15,7 @@ describe('e0', () => {
   });
 
   test.skip('E001:単語詳細情報取得', async () => {
-    const apiPath = '/words/AAA';
+    const apiPath = '/v1/words/AAA';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
@@ -24,7 +24,7 @@ describe('e0', () => {
   });
 
   test.skip('E002:単語詳細情報更新', async () => {
-    const apiPath = '/words/AAA';
+    const apiPath = '/v1/words/AAA';
     const res = await request(server).put(apiPath).set('authorization', HEADER_AUTH).send(E0.E002Req01);
 
     // status code

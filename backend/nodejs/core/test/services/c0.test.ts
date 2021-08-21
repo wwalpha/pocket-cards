@@ -26,7 +26,7 @@ describe('C0', () => {
     // api.get.mockResolvedValueOnce({ status: 200, data: user });
 
     const res = await request(server)
-      .post('/groups/group001/words')
+      .post('/v1/groups/group001/words')
       .set('authorization', HEADER_AUTH)
       .send(C0.C001Req01);
 
@@ -38,7 +38,7 @@ describe('C0', () => {
 
   test.skip('C001:単語新規追加(1つ)', async () => {
     const res = await request(server)
-      .post('/groups/group001/words')
+      .post('/v1/groups/group001/words')
       .set('authorization', HEADER_AUTH)
       .send(C0.C001Req02);
 
@@ -51,7 +51,7 @@ describe('C0', () => {
   test('C002:グループ単語一覧_データあり', async () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C002DB01);
 
-    const apiPath = '/groups/C002/words';
+    const apiPath = '/v1/groups/C002/words';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
@@ -61,7 +61,7 @@ describe('C0', () => {
   });
 
   test('C002:グループ単語一覧_データなし', async () => {
-    const apiPath = '/groups/C003/words';
+    const apiPath = '/v1/groups/C003/words';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
@@ -73,7 +73,7 @@ describe('C0', () => {
   test('C003:単語詳細取得', async () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C003DB01);
 
-    const apiPath = '/groups/C003/words/C003-1';
+    const apiPath = '/v1/groups/C003/words/C003-1';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH).expect(200);
 
     // response
@@ -84,7 +84,7 @@ describe('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C004DB01);
 
     await request(server)
-      .put('/groups/C004/words/WORD-4')
+      .put('/v1/groups/C004/words/WORD-4')
       .set('authorization', HEADER_AUTH)
       .send(C0.C004Req01)
       .expect(200);
@@ -107,7 +107,7 @@ describe('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C004DB02);
 
     await request(server)
-      .put('/groups/C004/words/WORD-4')
+      .put('/v1/groups/C004/words/WORD-4')
       .set('authorization', HEADER_AUTH)
       .send(C0.C004Req02)
       .expect(200);
@@ -129,7 +129,7 @@ describe('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C004DB03);
 
     const res = await request(server)
-      .put('/groups/C004/words/WORD4')
+      .put('/v1/groups/C004/words/WORD4')
       .set('authorization', HEADER_AUTH)
       .send(C0.C004Req03);
 
@@ -141,7 +141,7 @@ describe('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C004DB04);
 
     const res = await request(server)
-      .put('/groups/C004/words/WORD4')
+      .put('/v1/groups/C004/words/WORD4')
       .set('authorization', HEADER_AUTH)
       .send(C0.C004Req04);
 
@@ -153,7 +153,7 @@ describe('C0', () => {
     await client.bulk(Environment.TABLE_NAME_GROUPS, C0.C005DB01_Group);
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C005DB01_Word);
 
-    const apiPath = '/groups/C005/words/C005-1';
+    const apiPath = '/v1/groups/C005/words/C005-1';
     const res = await request(server).delete(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
@@ -170,7 +170,7 @@ describe('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C006DB01_WORD);
     await client.bulk(Environment.TABLE_NAME_WORD_MASTER, C0.C006DB01_WORD_MASTER);
 
-    const apiPath = '/groups/C006/new';
+    const apiPath = '/v1/groups/C006/new';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
@@ -179,7 +179,7 @@ describe('C0', () => {
   });
 
   test('C006:新規学習なし', async () => {
-    const apiPath = '/groups/C006/new';
+    const apiPath = '/v1/groups/C006/new';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
@@ -191,7 +191,7 @@ describe('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C007DB01_WORD);
     await client.bulk(Environment.TABLE_NAME_WORD_MASTER, C0.C007DB01_WORD_MASTER);
 
-    const apiPath = '/groups/C007/test';
+    const apiPath = '/v1/groups/C007/test';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
@@ -200,7 +200,7 @@ describe('C0', () => {
   });
 
   test('C007:テストなし', async () => {
-    const apiPath = '/groups/C007/test';
+    const apiPath = '/v1/groups/C007/test';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
@@ -217,7 +217,7 @@ describe('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, dataRows);
     await client.bulk(Environment.TABLE_NAME_WORD_MASTER, C0.C008DB01_WORD_MASTER);
 
-    const apiPath = '/groups/C008/review';
+    const apiPath = '/v1/groups/C008/review';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
@@ -227,7 +227,7 @@ describe('C0', () => {
   });
 
   test('C008:レビューなし', async () => {
-    const apiPath = '/groups/C008/review';
+    const apiPath = '/v1/groups/C008/review';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
 
     // status code
