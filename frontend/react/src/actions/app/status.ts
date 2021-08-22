@@ -5,7 +5,7 @@ import { Actions } from 'typings';
 import { list } from '../group';
 
 const success = createAction(
-  ActionTypes.APP_08_SUCCESS,
+  ActionTypes.APP_SUCCESS_SERVER_STATUS,
   (status: string): Actions.ServerStatusPayload => ({
     status,
   })

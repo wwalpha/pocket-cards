@@ -2,11 +2,11 @@ import React, { FunctionComponent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List, Divider, Theme, Box, makeStyles, createStyles } from '@material-ui/core';
-import { Domains } from 'typings';
-import * as Actions from '@actions/regist';
+import { RegistActions } from '@actions';
 import { Button } from '@components/buttons';
 import { WordEdit } from '@components/functions';
 import { Consts } from '@constants';
+import { Domains } from 'typings';
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
@@ -31,18 +31,18 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   })
 );
 
-const wordState = (state: Domains.State) => state.word;
+const groupState = (state: Domains.State) => state.group;
 const appState = (state: Domains.State) => state.app;
 
 const a002: FunctionComponent<any> = () => {
   const classes = useStyles();
-  const { rows } = useSelector(wordState);
+  const { regists } = useSelector(groupState);
   const { isLoading } = useSelector(appState);
-  const actions = bindActionCreators(Actions, useDispatch());
+  const actions = bindActionCreators(RegistActions, useDispatch());
 
   /** 単語登録 */
   const handleRegist = () => {
-    // actions.registWords(rows);
+    actions.registWords(regists);
   };
 
   /** 単語削除 */
@@ -51,7 +51,7 @@ const a002: FunctionComponent<any> = () => {
   };
 
   // 単語データなし
-  if (!isLoading && rows.length === 0) {
+  if (!isLoading && regists.length === 0) {
     console.log('Do no have any more words');
     return <div />;
   }
@@ -59,9 +59,9 @@ const a002: FunctionComponent<any> = () => {
   return (
     <Box margin="8px 16px">
       <List className={classes.list}>
-        {rows.map((value, idx) => (
+        {regists.map((value, idx) => (
           <React.Fragment key={idx}>
-            {/* <WordEdit key={idx} word={value} onDelete={handleRemove} /> */}
+            <WordEdit key={idx} word={value} onDelete={handleRemove} />
             <Divider key={`${value}1`} />
           </React.Fragment>
         ))}

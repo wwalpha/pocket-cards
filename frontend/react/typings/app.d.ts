@@ -6,12 +6,16 @@ export interface GroupInfo {
   description?: string;
 }
 
-export interface GroupWordsItem {
-  groupId: string;
-  words: APIs.C002Response;
+/** group datarow item */
+interface GroupItem {
+  word: string;
+  vocabulary?: string;
 }
 
-export type PathInfo = { [key: string]: ScreenInfo };
+/** group words list */
+export type GroupWords = Record<string, GroupItem[]>;
+
+export type PathInfo = Record<string, ScreenInfo>;
 
 export interface ScreenInfo {
   showFooter: boolean;

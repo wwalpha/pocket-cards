@@ -57,6 +57,29 @@ resource "aws_iam_role_policy_attachment" "ecs_task_dynamodb" {
 # }
 
 # ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy" "ecs_task" {
+  name = "inline_policy"
+  role = aws_iam_role.ecs_task.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "polly:SynthesizeSpeech",
+          "s3:PutObject",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+
+# ----------------------------------------------------------------------------------------------
 # AWS ECS Task Execution Role
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role" "ecs_task_exec" {

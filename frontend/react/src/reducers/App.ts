@@ -18,23 +18,23 @@ const reducer = handleActions<AppState, any>(
 
     /** ユーザ情報設定 */
     [ActionTypes.APP_04_SUCCESS]: (store: AppState, { payload }: Action<Actions.LoggedInPayload>) =>
-      store.loggedIn(payload.user),
+      store.signIn(payload.user),
 
     /** ログアウト */
-    [ActionTypes.APP_05_SUCCESS]: (store: AppState) => store.logout(),
+    [ActionTypes.APP_05_SUCCESS]: (store: AppState) => store.signOut(),
 
     /** サーバ関連 */
-    [ActionTypes.APP_06_SUCCESS]: (store: AppState, { payload }: Action<Actions.ServerStartPayload>) =>
+    [ActionTypes.APP_SUCCESS_SERVER_START]: (store: AppState, { payload }: Action<Actions.ServerStartPayload>) =>
       store.updateStatus(payload.status),
 
-    [ActionTypes.APP_07_SUCCESS]: (store: AppState, { payload }: Action<Actions.ServerStopPayload>) =>
+    [ActionTypes.APP_SUCCESS_SERVER_STOP]: (store: AppState, { payload }: Action<Actions.ServerStopPayload>) =>
       store.updateStatus(payload.status),
 
-    [ActionTypes.APP_08_SUCCESS]: (store: AppState, { payload }: Action<Actions.ServerStatusPayload>) =>
+    [ActionTypes.APP_SUCCESS_SERVER_STATUS]: (store: AppState, { payload }: Action<Actions.ServerStatusPayload>) =>
       store.updateStatus(payload.status),
 
     /** グループ選択 */
-    [ActionTypes.APP_09_SUCCESS]: (store: AppState, { payload }: Action<Actions.App09Payload>) =>
+    [ActionTypes.APP_SUCCESS_GROUP_SELECT]: (store: AppState, { payload }: Action<Actions.GroupSelectPayload>) =>
       store.setGroupId(payload.groupId),
 
     /** 画面表示制御 */

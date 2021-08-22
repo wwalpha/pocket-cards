@@ -1,5 +1,5 @@
 import { CognitoUser } from '@aws-amplify/auth';
-import { APIs, Tables } from '.';
+import { APIs, Tables, App } from '.';
 
 export namespace Domains {
   interface State {
@@ -27,7 +27,7 @@ export namespace Domains {
     /** user's all group infomations */
     groups: Tables.TGroups[];
     /** Group word list */
-    dataRows: Tables.TWords[];
+    groupWords: App.GroupWords;
     /** Group word list */
     regists: string[];
   }

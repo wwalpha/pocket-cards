@@ -1,96 +1,62 @@
 import { immerable, produce } from 'immer';
-import { APIs, Actions, Tables, App } from 'typings';
+import { Actions, App, Tables } from 'typings';
 
 export default class Group {
   [immerable] = true;
 
-  rows: Tables.TGroups[] = [];
-  words: App.GroupWordsItem[] = [];
-  wordDetail?: APIs.E001Response = undefined;
+  /** user's all group infomations */
+  groups: Tables.TGroups[] = [];
+  /** Group word list */
+  groupWords: App.GroupWords = {};
+  /** Group word list */
+  regists: string[] = [];
 
-  /**
-   * グループ一覧追加
-   */
-  addGroupList({ items }: Actions.E001Payload) {
+  /** グループの新規登録 */
+  addGroup(payload: Actions.GroupRegistPayload) {
     return produce(this, (draft) => {
-      draft.rows = items;
+      draft.groups.push(payload);
     });
   }
 
-  /** グループ新規登録 */
-  addGroup(payload: Actions.E002Payload) {
+  /** グループ一覧を設定 */
+  setGroupList({ items }: Actions.GroupListPayload) {
     return produce(this, (draft) => {
-      draft.rows.push(payload);
+      draft.groups = items;
     });
   }
 
-  /** グループ削除 */
-  delGroup(payload: Actions.E004Payload) {
+  /** グループの削除 */
+  delGroup(payload: Actions.GroupDeletePayload) {
     return produce(this, (draft) => {
-      draft.rows = this.rows.filter((item) => item.id !== payload.groupId);
-      draft.words = this.words.filter((item) => item.groupId !== payload.groupId);
+      draft.groups = this.groups.filter((item) => item.id !== payload.groupId);
     });
   }
 
-  /** 単語一覧追加 */
-  addWordList(payload: Actions.E005Payload) {
+  /** グループ単語の追加 */
+  setGroupWords({ groupId, datas }: Actions.GroupWordsPayload) {
     return produce(this, (draft) => {
-      const item = this.words.find((item) => item.groupId === payload.groupId);
-
-      // 存在する
-      if (item) {
-        item.words = payload.words;
-      } else {
-        // 存在しない
-        this.words.push({
-          groupId: payload.groupId,
-          words: payload.words,
-        });
-      }
-
-      draft.words = this.words;
+      draft.groupWords[groupId] = datas.items;
     });
   }
 
-  /** 単語詳細情報取得 */
-  setWordDetail({ res }: Actions.E006Payload) {
+  /** 単語登録のリスト設定する */
+  setRegists(payload: Actions.UploadImagePayload) {
     return produce(this, (draft) => {
-      draft.wordDetail = res;
+      draft.regists = payload.data.words;
     });
   }
 
-  /** 単語詳細情報クリア */
-  clearWordDetail() {
+  /** 単語登録一覧をクリアする */
+  clearRegists() {
     return produce(this, (draft) => {
-      draft.wordDetail = undefined;
+      draft.regists = [];
     });
   }
 
-  /** 単語削除 */
-  delWord(payload: Actions.E008Payload) {
+  /** 単語登録一覧をクリアする */
+  removeRegist(payload: Actions.RegistRemovePayload) {
     return produce(this, (draft) => {
-      const group = this.words.find((item) => item.groupId === payload.groupId);
-
-      if (group) {
-        //@ts-ignore
-        const words = group?.words.filter((item) => item.word !== payload.word);
-        group.words = words;
-      }
-
-      draft.words = this.words;
+      draft.regists = draft.regists.filter((item) => item !== payload.word);
     });
   }
-
-  // /** 取込中 */
-  // startLoading() {
-  //   return produce(this, (draft) => {
-  //     draft.isLoading = true;
-  //   });
-  // }
-
-  // endLoading() {
-  //   return produce(this, (draft) => {
-  //     draft.isLoading = false;
-  //   });
-  // }
 }

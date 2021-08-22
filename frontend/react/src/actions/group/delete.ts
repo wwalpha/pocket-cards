@@ -4,9 +4,12 @@ import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { Actions } from 'typings';
 
-const success = createAction<Actions.B005Payload, string>(ActionTypes.GROUP_SUCCESS_DELETE, (groupId: string) => ({
-  groupId,
-}));
+const success = createAction<Actions.GroupDeletePayload, string>(
+  ActionTypes.GROUP_SUCCESS_DELETE,
+  (groupId: string) => ({
+    groupId,
+  })
+);
 
 /** グループ削除 */
 export const del: Actions.GroupDeleteAction = () => async (dispatch, store, api) => {

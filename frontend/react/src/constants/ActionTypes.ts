@@ -19,16 +19,16 @@ export const APP_04_SUCCESS = 'APP_04_SUCCESS';
 export const APP_05_SUCCESS = 'APP_05_SUCCESS';
 
 /** Start Server */
-export const APP_06_SUCCESS = 'APP_06_SUCCESS';
+export const APP_SUCCESS_SERVER_START = 'APP_SUCCESS_SERVER_START';
 
 /** Stop Server */
-export const APP_07_SUCCESS = 'APP_07_SUCCESS';
+export const APP_SUCCESS_SERVER_STOP = 'APP_SUCCESS_SERVER_STOP';
 
 /** Status Server */
-export const APP_08_SUCCESS = 'APP_08_SUCCESS';
+export const APP_SUCCESS_SERVER_STATUS = 'APP_SUCCESS_SERVER_STATUS';
 
 /** Group Select */
-export const APP_09_SUCCESS = 'APP_09_SUCCESS';
+export const APP_SUCCESS_GROUP_SELECT = 'APP_SUCCESS_GROUP_SELECT';
 
 /** Display Control */
 export const APP_10_REQUEST = 'APP_10_REQUEST';
@@ -76,6 +76,8 @@ export const GROUP_SUCCESS_LIST = 'GROUP_SUCCESS_LIST';
 export const GROUP_SUCCESS_EDIT = 'GROUP_SUCCESS_EDIT';
 /** グループ削除 */
 export const GROUP_SUCCESS_DELETE = 'GROUP_SUCCESS_DELETE';
+/** グループ単語一覧 */
+export const GROUP_SUCCESS_WORDS = 'GROUP_SUCCESS_WORDS';
 
 /** 単語リスト追加 */
 export const WORDS_SUCCESS_LIST = 'E0_05_SUCCESS';

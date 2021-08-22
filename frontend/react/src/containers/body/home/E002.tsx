@@ -2,7 +2,7 @@ import * as React from 'react';
 import { TextField, Box } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { Button } from '@components/buttons';
 import * as Actions from '@actions/group';
 import { Domains } from 'typings';
@@ -12,26 +12,23 @@ const appState = (state: Domains.State) => state.app;
 
 export default () => {
   const actions = bindActionCreators(Actions, useDispatch());
-  const { rows: groups } = useSelector(groupState);
+  const { groups } = useSelector(groupState);
   const { groupId, isLoading } = useSelector(appState);
 
   // 選択中のGroup情報取得
   const groupInfo = groups.find((item) => item.id === groupId);
 
-  console.log(111, groupInfo);
-  // 初期値設定
-  const { handleSubmit, register } = useForm<GroupEditForm>({
-    mode: 'onChange',
-    defaultValues: {
-      name: groupInfo?.name,
-      description: groupInfo?.description,
-    },
-  });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{
+    name: string;
+    description: string;
+  }>();
 
   // 編集
   const onSubmit = handleSubmit((datas) => {
-    console.log(datas);
-
     actions.edit({
       id: groupId,
       name: datas.name,
@@ -42,23 +39,37 @@ export default () => {
   return (
     <form onSubmit={onSubmit}>
       <Box margin={2}>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id="name"
-          label="Group Name"
+        <Controller
           name="name"
-          inputRef={register}
+          control={control}
+          defaultValue={groupInfo?.name}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="Group Name"
+              value={value}
+              onChange={onChange}
+            />
+          )}
         />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id="description"
-          label="Group Description"
+        <Controller
           name="description"
-          inputRef={register}
+          control={control}
+          defaultValue={groupInfo?.description ? groupInfo.description : ''}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="Group Description"
+              value={value}
+              onChange={onChange}
+            />
+          )}
         />
         <Box mt={2}>
           <Button size="large" fullWidth variant="contained" color="secondary" type="submit" isLoading={isLoading}>

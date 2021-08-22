@@ -27,19 +27,16 @@ const appState = (state: Domains.State) => state.app;
 export default () => {
   const classes = useStyles();
   const actions = bindActionCreators(StudyActions, useDispatch());
-  const appActions = bindActionCreators(AppActions, useDispatch());
   const wrdActions = bindActionCreators(WordActions, useDispatch());
-  const { rows: groups } = useSelector(groupState);
+  const { groupWords } = useSelector(groupState);
   const { groupId, displayCtrl } = useSelector(appState);
 
-  const groupWords = undefined; // words.filter((item) => item.groupId === groupId);
-
   // 学習
-  // const handleNew = () => actions.startNew();
-  // // 復習
-  // const handleReview = () => actions.startReview();
-  // // テスト
-  // const handleTest = () => actions.startTest();
+  const handleNew = () => actions.startNew();
+  // 復習
+  const handleReview = () => actions.startReview();
+  // テスト
+  const handleTest = () => actions.startTest();
 
   // 詳細
   const handleDetail = (word: string) => wrdActions.detail(word);
@@ -59,31 +56,33 @@ export default () => {
             to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
             新規登録
           </Button>
-          {/* <Button variant="contained" color="primary" className={classes.button} onClick={handleTest}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={handleTest}>
             テスト
-          </Button> */}
+          </Button>
         </Box>
         <Box display="flex" justifyContent="center">
-          {/* <Button variant="contained" color="primary" className={classes.button} onClick={handleNew}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={handleNew}>
             学習
           </Button>
           <Button variant="contained" color="primary" className={classes.button} onClick={handleReview}>
             復習
-          </Button> */}
+          </Button>
         </Box>
       </Box>
-      {/* {(() => {
-        if (groupWords.length === 0) return;
+      {(() => {
+        const dataRows = groupWords[groupId];
+
+        if (!dataRows || dataRows.length === 0) return;
 
         return (
           <WordList
-            list={groupWords[0].words}
+            list={dataRows}
             onDetail={handleDetail}
             onDelete={handleDelete}
             showDelete={displayCtrl[Consts.ShowTypes.REMOVE_WORD]}
           />
         );
-      })()} */}
+      })()}
     </React.Fragment>
   );
 };

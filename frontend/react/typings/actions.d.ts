@@ -69,11 +69,11 @@ export interface ServerStatusPayload {
 export type ServerStatusAction = ReduxAction0<ServerStatusPayload>;
 
 /** グループ選択 */
-export interface App09Payload {
+export interface GroupSelectPayload {
   groupId: string;
 }
 
-export type GroupSelectAction = ReduxAction1<string, App09Payload>;
+export type GroupSelectAction = ReduxAction1<string, GroupSelectPayload>;
 
 /** 表示フラグ制御 */
 export interface App10Payload {
@@ -88,22 +88,29 @@ export type ShowAction = ReduxAction2<number, boolean, App10Payload>;
 // ######################################################################
 
 /** Group Regist */
-export type B001Payload = Tables.TGroups;
-export type GroupRegistAction = ReduxAction2<string, string | undefined, B001Payload>;
+export type GroupRegistPayload = Tables.TGroups;
+export type GroupRegistAction = ReduxAction2<string, string | undefined, GroupRegistPayload>;
 
 /** Group List */
-export type B002Payload = APIs.B002Response;
-export type GroupListAction = ReduxAction0<B002Payload>;
+export type GroupListPayload = APIs.B002Response;
+export type GroupListAction = ReduxAction0<GroupListPayload>;
 
 /** Group Delete */
-export type B005Payload = {
+export type GroupDeletePayload = {
   groupId: string;
 };
-export type GroupDeleteAction = ReduxAction0<B005Payload>;
+export type GroupDeleteAction = ReduxAction0<GroupDeletePayload>;
 
 /** Group Edit */
-export type B004Payload = void;
-export type GroupEditAction = ReduxAction1<App.GroupInfo, B004Payload>;
+export type GroupEditPayload = void;
+export type GroupEditAction = ReduxAction1<App.GroupInfo, GroupEditPayload>;
+
+/** Group Words */
+export type GroupWordsPayload = {
+  groupId: string;
+  datas: APIs.C002Response;
+};
+export type GroupWordsAction = ReduxAction1<string, GroupWordsPayload>;
 
 // ######################################################################
 // Word Actions
@@ -137,13 +144,15 @@ export interface B001Payload {
   words: WordItem[];
 }
 
-export type StartNewAction = ReduxAction0<B001Payload>;
+export type StartNewAction = ReduxAction0<GroupRegistPayload>;
 
 export interface B004Payload {
   yes: boolean;
 }
 
-export type AnswerAction = ReduxAction2<string, boolean, B004Payload, Promise<void>> | ReduxAction0<B001Payload>;
+export type AnswerAction =
+  | ReduxAction2<string, boolean, GroupEditPayload, Promise<void>>
+  | ReduxAction0<GroupRegistPayload>;
 
 export interface B006Payload {
   mode: string;

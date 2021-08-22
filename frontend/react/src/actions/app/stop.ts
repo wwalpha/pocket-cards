@@ -4,7 +4,7 @@ import { ActionTypes, Consts } from '@constants';
 import { Actions } from 'typings';
 
 const success = createAction(
-  ActionTypes.APP_07_SUCCESS,
+  ActionTypes.APP_SUCCESS_SERVER_STOP,
   (status: string): Actions.ServerStopPayload => ({
     status,
   })

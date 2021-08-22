@@ -5,29 +5,35 @@ import { Actions } from 'typings';
 
 const reducer = handleActions<Group, any>(
   {
-    /** グループ一覧 */
-    [ActionTypes.E0_01_SUCCESS]: (store: Group, { payload }: Action<Actions.E001Payload>) =>
-      store.addGroupList(payload),
-
     /** グループ新規追加 */
-    [ActionTypes.E0_02_SUCCESS]: (store: Group, { payload }: Action<Actions.E002Payload>) => store.addGroup(payload),
+    [ActionTypes.GROUP_SUCCESS_REGIST]: (store: Group, { payload }: Action<Actions.GroupRegistPayload>) =>
+      store.addGroup(payload),
 
-    /** グループ編集 */
-    // [ActionTypes.E0_03_SUCCESS]: (store: Group) => store.endLoading(),
+    /** グループ一覧 */
+    [ActionTypes.GROUP_SUCCESS_LIST]: (store: Group, { payload }: Action<Actions.GroupListPayload>) =>
+      store.setGroupList(payload),
 
     /** グループ削除 */
-    [ActionTypes.E0_04_SUCCESS]: (store: Group, { payload }: Action<Actions.E004Payload>) => store.delGroup(payload),
+    [ActionTypes.GROUP_SUCCESS_DELETE]: (store: Group, { payload }: Action<Actions.GroupDeletePayload>) =>
+      store.delGroup(payload),
 
-    /** 単語リスト追加 */
-    [ActionTypes.E0_05_SUCCESS]: (store: Group, { payload }: Action<Actions.E005Payload>) => store.addWordList(payload),
+    /** グループ単語 */
+    [ActionTypes.GROUP_SUCCESS_WORDS]: (store: Group, { payload }: Action<Actions.GroupWordsPayload>) =>
+      store.setGroupWords(payload),
 
-    /** 単語詳細取得 */
-    [ActionTypes.E0_06_REQUEST]: (store: Group) => store.clearWordDetail(),
-    [ActionTypes.E0_06_SUCCESS]: (store: Group, { payload }: Action<Actions.E006Payload>) =>
-      store.setWordDetail(payload),
+    /** 画像アップロード */
+    [ActionTypes.REGIST_SUCCESS_IMAGE2TEXT]: (store: Group, { payload }: Action<Actions.UploadImagePayload>) =>
+      store.setRegists(payload),
 
-    /** 単語削除 */
-    [ActionTypes.E0_08_SUCCESS]: (store: Group, { payload }: Action<Actions.E008Payload>) => store.delWord(payload),
+    /** 単語登録正常終了 */
+    [ActionTypes.REGIST_SUCCESS_REGIST]: (store: Group) => store.clearRegists(),
+
+    /** 単語登録一覧をクリア */
+    [ActionTypes.REGIST_SUCCESS_CLEAR]: (store: Group) => store.clearRegists(),
+
+    /** 単語登録一覧をクリア */
+    [ActionTypes.REGIST_SUCCESS_REMOVE]: (store: Group, { payload }: Action<Actions.RegistRemovePayload>) =>
+      store.removeRegist(payload),
   },
   new Group()
 );
