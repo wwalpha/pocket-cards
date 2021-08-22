@@ -139,30 +139,19 @@ export type E008Payload = {
 
 export type WordDeleteAction = ReduxAction2<string, string, E008Payload, Promise<void>>;
 
-export interface B001Payload {
+export interface StudyPayload {
   mode: string;
-  words: WordItem[];
+  datas: APIs.C006Response;
 }
 
-export type StartNewAction = ReduxAction0<GroupRegistPayload>;
+export type StudyNewAction = ReduxAction0<StudyPayload>;
 
-export interface B004Payload {
+export type StudyReviewAction = ReduxAction0<StudyPayload, Promise<void>>;
+
+export type StudyTestAction = ReduxAction0<StudyPayload>;
+
+export interface StudyAnswerPayload {
   yes: boolean;
 }
 
-export type AnswerAction =
-  | ReduxAction2<string, boolean, GroupEditPayload, Promise<void>>
-  | ReduxAction0<GroupRegistPayload>;
-
-export interface B006Payload {
-  mode: string;
-  words: APIs.WordItem[];
-}
-export type StartReviewAction = ReduxAction0<B006Payload, Promise<void>>;
-
-export interface B007Payload {
-  mode: string;
-  words: APIs.WordItem[];
-}
-
-export type StartTestAction = ReduxAction0<B007Payload>;
+export type StudyAnswerAction = ReduxAction2<string, boolean, StudyAnswerPayload, Promise<void>>;

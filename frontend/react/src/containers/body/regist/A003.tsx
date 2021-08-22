@@ -8,7 +8,7 @@ const a003: FunctionComponent = () => {
     <Grid
       container
       alignItems="center"
-      justify="center"
+      justifyContent="center"
       // className={classes.root}
     >
       <Button

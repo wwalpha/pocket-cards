@@ -60,7 +60,7 @@ const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common }
 const audioRef = React.createRef<HTMLAudioElement>();
 
 const appState = (state: Domains.State) => state.app;
-const wordState = (state: Domains.State) => state.word;
+const studyState = (state: Domains.State) => state.study;
 const groupState = (state: Domains.State) => state.group;
 
 export default () => {
@@ -70,8 +70,8 @@ export default () => {
   const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { groupId } = useSelector(appState);
-  const { current: word } = useSelector(wordState);
   const { groups } = useSelector(groupState);
+  const { current } = useSelector(studyState);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -164,8 +164,8 @@ export default () => {
                 </IconButton>,
               ];
 
-              if (word) {
-                draw.push(<audio ref={audioRef} src={`/${word.mp3}`} />);
+              if (current) {
+                draw.push(<audio ref={audioRef} src={`/${current.mp3}`} />);
               }
 
               return draw;

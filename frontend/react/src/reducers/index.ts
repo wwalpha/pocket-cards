@@ -2,8 +2,7 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import { History } from 'history';
 import App from './App';
-// import A000 from './A000';
-import Word from './Word';
+import Study from './Study';
 import User from './User';
 import Group from './Group';
 
@@ -11,7 +10,7 @@ export default (history: History<any>) =>
   combineReducers({
     router: connectRouter(history),
     app: App,
-    word: Word,
+    study: Study,
     user: User,
     group: Group,
   });

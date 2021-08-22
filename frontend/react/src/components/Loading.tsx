@@ -10,7 +10,7 @@ class Loading extends React.Component<LoadingProps, any, any> {
       <Grid
         container
         alignItems="center"
-        justify="center"
+        justifyContent="center"
         classes={{
           container: classes.root,
         }}

@@ -35,12 +35,6 @@ export const APP_10_REQUEST = 'APP_10_REQUEST';
 export const APP_10_SUCCESS = 'APP_10_SUCCESS';
 export const APP_10_FAILURE = 'APP_10_FAILURE';
 
-/** 単語登録 */
-// export const A000_UPLOAD_IMAGE = 'A000_UPLOAD_IMAGE';
-// export const A000_REMOVE_WORD = 'A000_REMOVE_WORD';
-// export const A000_REGIST_WORDS = 'A000_REGIST_WORDS';
-// export const A000_REGIST_SUCCESS = 'A000_REGIST_SUCCESS';
-
 /** 画像アップロード */
 export const REGIST_SUCCESS_IMAGE2TEXT = 'REGIST_SUCCESS_IMAGE2TEXT';
 /** 登録用単語の削除 */
@@ -51,19 +45,13 @@ export const REGIST_SUCCESS_REGIST = 'REGIST_SUCCESS_REGIST';
 export const REGIST_SUCCESS_CLEAR = 'REGIST_SUCCESS_CLEAR';
 
 /** 新規単語 */
-export const B0_01_REQUEST = 'B0_01_REQUEST';
-export const B0_01_SUCCESS = 'B0_01_SUCCESS';
-
-/** テスト回答(YES/NO) */
-export const B0_04_SUCCESS = 'B0_04_SUCCESS';
-
+export const STUDY_START_NEW = 'STUDY_START_NEW';
 /** 単語復習開始 */
-export const B0_06_REQUEST = 'B0_06_REQUEST';
-export const B0_06_SUCCESS = 'B0_06_SUCCESS';
-
+export const STUDY_START_REVIEW = 'STUDY_START_REVIEW';
 /** 単語テスト（全部） */
-export const B0_07_REQUEST = 'B0_07_REQUEST';
-export const B0_07_SUCCESS = 'B0_07_SUCCESS';
+export const STUDY_START_TEST = 'STUDY_START_TEST';
+/** テスト回答(YES/NO) */
+export const STUDY_ANSWER = 'STUDY_ANSWER';
 
 /** 学習履歴取得 */
 export const C0_01_SUCCESS = 'C0_01_SUCCESS';

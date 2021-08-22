@@ -1,15 +1,17 @@
 import { createAction } from 'redux-actions';
 import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
-import * as StartNew from './startNew';
-import * as StartTest from './startTest';
+import * as StartNew from './new';
+import * as StartTest from './test';
 import { APIs, Actions, APIClass } from 'typings';
 
-const success = createAction(ActionTypes.B0_04_SUCCESS, (yes: boolean) => ({ yes }));
+const success = createAction<Actions.StudyAnswerPayload, boolean>(ActionTypes.STUDY_ANSWER, (yes: boolean) => ({
+  yes,
+}));
 
 /** テスト回答(YES/NO) */
-const answer: Actions.AnswerAction = (word: string, yes: boolean) => async (dispatch, store, api) => {
-  const { mode, current, rows } = store().word;
+const answer: Actions.StudyAnswerAction = (word: string, yes: boolean) => async (dispatch, store, api) => {
+  const { mode, current, rows } = store().study;
   const { groupId } = store().app;
 
   // Request start

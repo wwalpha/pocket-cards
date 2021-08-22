@@ -2,25 +2,24 @@ import { Consts } from '@constants';
 import produce, { immerable } from 'immer';
 import concat from 'lodash/concat';
 import differenceBy from 'lodash/differenceBy';
-import { APIs } from 'typings';
+import { Actions, App } from 'typings';
 
 export default class Word {
   [immerable] = true;
 
-  current?: APIs.WordItem = undefined;
+  current?: App.WordItem = undefined;
   mode?: string = undefined;
-  // isLoading: boolean = false;
-  rows: APIs.WordItem[] = [];
-  history: APIs.WordItem[] = [];
+  rows: App.WordItem[] = [];
+  history: App.WordItem[] = [];
   index: number = 0;
 
   /**
    * 単語情報を登録する
    */
-  setWords(mode: string, words: APIs.WordItem[]) {
+  setWords({ mode, datas }: Actions.StudyPayload) {
     return produce(this, (draft) => {
       // 差分を抽出する
-      const differ = differenceBy(words, this.history, 'word');
+      const differ = differenceBy(datas.words, this.history, 'word');
       // 足りない単語数を計算する
       const diffNum = Consts.PAGE_MAX_WORDS - this.rows.length;
       // 追加する単語
@@ -81,19 +80,6 @@ export default class Word {
     });
   }
 
-  /** 取込中 */
-  // startLoading() {
-  //   return produce(this, (draft) => {
-  //     draft.isLoading = true;
-  //   });
-  // }
-
-  // endLoading() {
-  //   return produce(this, (draft) => {
-  //     draft.isLoading = false;
-  //   });
-  // }
-
   /**
    * 登録しない単語を削除する
    */
@@ -105,18 +91,4 @@ export default class Word {
       draft.rows = result;
     });
   }
-
-  // /**
-  //  * 臨時単語リストをクリアする
-  //  */
-  // clear() {
-  //   return this.set('words', []);
-  // }
-
-  /**
-   * 単語内部保存
-   */
-  // setWords(payload: D001Response) {
-  //   return this.set('words', payload.words);
-  // }
 }

@@ -48,8 +48,8 @@ export default () => {
   }
 
   return (
-    <Grid container justify="center" className={classes.root}>
-      <Grid container justify="center" className={classes.item}>
+    <Grid container justifyContent="center" className={classes.root}>
+      <Grid container justifyContent="center" className={classes.item}>
         <Card className={classes.card}>
           <CardContent>
             <Typography className={classes.title} color="textSecondary">
@@ -93,7 +93,7 @@ export default () => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid container justify="center" className={classes.item}>
+      <Grid container justifyContent="center" className={classes.item}>
         <Card className={classes.card}>
           <CardContent>
             <Typography className={classes.title} color="textSecondary">
@@ -137,7 +137,7 @@ export default () => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid container justify="center" className={classes.item}>
+      <Grid container justifyContent="center" className={classes.item}>
         <Card className={classes.card}>
           <CardContent>
             <Typography className={classes.title} color="textSecondary">
@@ -181,7 +181,7 @@ export default () => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid container justify="center" className={classes.item}>
+      <Grid container justifyContent="center" className={classes.item}>
         <Card className={classes.card}>
           <CardContent>
             <Typography className={classes.title} color="textSecondary">

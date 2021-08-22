@@ -56,7 +56,7 @@ export default class Group {
   /** 単語登録一覧をクリアする */
   removeRegist(payload: Actions.RegistRemovePayload) {
     return produce(this, (draft) => {
-      draft.regists = draft.regists.filter((item) => item !== payload.word);
+      draft.regists = this.regists.filter((item) => item !== payload.word);
     });
   }
 }

@@ -6,7 +6,7 @@ export namespace Domains {
     // App共通設定
     app: App;
     group: Group;
-    word: Word;
+    study: Study;
     user: User;
   }
 
@@ -42,11 +42,11 @@ export namespace Domains {
     monthly: number;
   }
 
-  interface Word {
-    current?: APIs.WordItem;
+  interface Study {
+    current?: App.WordItem;
     mode?: string;
-    rows: APIs.WordItem[];
-    history: APIs.WordItem[];
+    rows: App.WordItem[];
+    history: App.WordItem[];
     index: number;
   }
 }

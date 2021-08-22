@@ -56,7 +56,6 @@ const app = (state: Domains.State) => state.app;
 const SignIn = () => {
   const classes = useStyles();
   const actions = bindActionCreators(Actions, useDispatch());
-  const { user } = useSelector(app);
   const [values, setValues] = useState({
     username: '',
     passwd: '',

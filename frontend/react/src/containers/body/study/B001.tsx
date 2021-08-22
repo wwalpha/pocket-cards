@@ -32,11 +32,11 @@ export default () => {
   const { groupId, displayCtrl } = useSelector(appState);
 
   // 学習
-  const handleNew = () => actions.startNew();
+  const handleNew = () => actions.new();
   // 復習
-  const handleReview = () => actions.startReview();
+  const handleReview = () => actions.review();
   // テスト
-  const handleTest = () => actions.startTest();
+  const handleTest = () => actions.test();
 
   // 詳細
   const handleDetail = (word: string) => wrdActions.detail(word);

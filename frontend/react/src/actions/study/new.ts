@@ -1,16 +1,19 @@
 import { createAction } from 'redux-actions';
 import { push } from 'connected-react-router';
-import { startLoading, defaultFailure } from '@actions';
+import { startLoading, defaultFailure, endLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { Actions, APIs } from 'typings';
 
-export const success = createAction(ActionTypes.B0_01_SUCCESS, (data: APIs.WordItem[]) => ({
-  mode: Consts.MODES.New,
-  words: data,
-}));
+export const success = createAction<Actions.StudyPayload, APIs.C006Response>(
+  ActionTypes.STUDY_START_NEW,
+  (datas: APIs.C006Response) => ({
+    mode: Consts.MODES.New,
+    datas,
+  })
+);
 
 /** 新規単語学習 */
-const startNew: Actions.StartNewAction = () => async (dispatch, store, api) => {
+const startNew: Actions.StudyNewAction = () => async (dispatch, store, api) => {
   const { groupId } = store().app;
 
   // 既存単語クリア
@@ -23,9 +26,11 @@ const startNew: Actions.StartNewAction = () => async (dispatch, store, api) => {
     const res = await api.get<APIs.C006Response>(Consts.C006_URL(groupId));
 
     // データ保存
-    dispatch(success(res.words));
+    dispatch(success(res));
   } catch (err) {
     dispatch(defaultFailure(err));
+  } finally {
+    dispatch(endLoading());
   }
 };
 
