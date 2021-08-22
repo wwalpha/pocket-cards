@@ -4,7 +4,9 @@ import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { Actions } from 'typings';
 
-const success = createAction(ActionTypes.E0_04_SUCCESS, (groupId: string) => ({ groupId }));
+const success = createAction<Actions.B005Payload, string>(ActionTypes.B005_SUCCESS_GROUP_DELETE, (groupId: string) => ({
+  groupId,
+}));
 
 /** グループ削除 */
 export const del: Actions.GroupDeleteAction = () => async (dispatch, store, api) => {
@@ -21,9 +23,8 @@ export const del: Actions.GroupDeleteAction = () => async (dispatch, store, api)
     // 正常終了
     dispatch(success(groupId));
 
-    const t = push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]);
     // グループリスト画面に遷移する
-    dispatch(t);
+    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
   } catch (err) {
     dispatch(defaultFailure(err));
   }

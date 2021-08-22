@@ -5,11 +5,10 @@ import { Auth } from '@aws-amplify/auth';
 import { API } from '@aws-amplify/api';
 import { MuiThemeProvider } from '@material-ui/core';
 import { ConnectedRouter } from 'connected-react-router';
-import { Authenticator } from '@containers';
+import Authenticator from './containers/auth/Authenticator';
 import { Consts } from '@constants';
 import store, { history } from './store';
 import theme from './Theme';
-import App from './App';
 
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -49,12 +48,10 @@ API.configure({
 });
 
 const provider = (
-  <Provider store={store}>
+  <Provider store={store()}>
     <MuiThemeProvider theme={theme}>
       <ConnectedRouter history={history}>
-        <Authenticator>
-          <App />
-        </Authenticator>
+        <Authenticator />
       </ConnectedRouter>
     </MuiThemeProvider>
   </Provider>
@@ -62,28 +59,30 @@ const provider = (
 
 const root = document.getElementById('root');
 
-const start = async () => {
-  // const result = await Auth.signUp({
-  //   username: 'wwalpha@gmail.com',
-  //   password: 'Session10+',
-  //   attributes: {
-  //     email: 'wwalpha@gmail.com',
-  //   },
-  // });
+render(provider, root);
 
-  // const result = await Auth.confirmSignUp('wwalpha@gmail.com', '867708');
+// const start = async () => {
+//   // const result = await Auth.signUp({
+//   //   username: 'wwalpha@gmail.com',
+//   //   password: 'Session10+',
+//   //   attributes: {
+//   //     email: 'wwalpha@gmail.com',
+//   //   },
+//   // });
 
-  // const res = await API.get(API_NAME, '/', {});
+//   // const result = await Auth.confirmSignUp('wwalpha@gmail.com', '867708');
 
-  // console.log(res);
-  // if (res && res.version !== VERSION) {
-  //   window.location.reload(true);
-  //   return;
-  // }
+//   // const res = await API.get(API_NAME, '/', {});
 
-  render(provider, root);
+//   // console.log(res);
+//   // if (res && res.version !== VERSION) {
+//   //   window.location.reload(true);
+//   //   return;
+//   // }
 
-  // register();
-};
+//   render(provider, root);
 
-start();
+//   // register();
+// };
+
+// start();

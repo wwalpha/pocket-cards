@@ -1,10 +1,10 @@
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
-import { defaultFailure, startLoading } from '@actions';
+import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
-import { Actions, APIs, App } from 'typings';
+import { Actions, APIs, Tables } from 'typings';
 
-const success = createAction(ActionTypes.E0_02_SUCCESS, (info: App.GroupInfo) => info);
+const success = createAction(ActionTypes.B001_SUCCESS_GROUP_REGIST, (info: Tables.TGroups) => info);
 
 /** グループ登録 */
 export const regist: Actions.GroupRegistAction = (name: string, description?: string) => async (dispatch, _, api) => {
@@ -23,11 +23,14 @@ export const regist: Actions.GroupRegistAction = (name: string, description?: st
         id: res.groupId,
         name: name,
         description: description,
+        count: 0,
       })
     );
 
     dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
   } catch (err) {
     dispatch(defaultFailure(err));
+  } finally {
+    dispatch(endLoading());
   }
 };

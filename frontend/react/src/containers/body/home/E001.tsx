@@ -48,7 +48,7 @@ export default () => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(GroupActions, dispatch);
   const appActions = bindActionCreators(AppActions, dispatch);
-  const { rows } = useSelector(group);
+  const { groups } = useSelector(group);
 
   // Folder click
   const handleOnClick = (groupId: string) => {
@@ -60,7 +60,7 @@ export default () => {
   };
 
   // フォルダなしの場合
-  if (rows.length === 0) {
+  if (groups.length === 0) {
     return (
       <Box margin={2} ml={4} mr={4} display="flex" justifyContent="center">
         <Button
@@ -79,7 +79,7 @@ export default () => {
 
   return (
     <List>
-      {rows.map((item, idx) => (
+      {groups.map((item, idx) => (
         <ListItem
           key={idx}
           button

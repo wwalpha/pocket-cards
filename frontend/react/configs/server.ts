@@ -34,11 +34,3 @@ app.use('*', (req, res, next) => {
 });
 
 app.listen(3000, () => console.log('App listening on port 3000!'));
-
-// (async () => {
-//   const ngrok = require('ngrok');
-
-//   const url = await ngrok.connect(3000);
-
-//   console.log(url);
-// })();
