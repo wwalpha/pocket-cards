@@ -18,5 +18,6 @@ TABLE_NAME_WORDS=${local.dynamodb_name_words}
 TABLE_NAME_WORD_MASTER=${local.dynamodb_name_word_master}
 TABLE_NAME_HISTORIES=${local.dynamodb_name_histories}
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
+PATH_PATTERN=audio
 EOT
 }
