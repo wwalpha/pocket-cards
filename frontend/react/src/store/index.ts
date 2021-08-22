@@ -1,24 +1,11 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { routerMiddleware } from 'connected-react-router';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { createBrowserHistory } from 'history';
-import logger from 'redux-logger';
-import rootReducer from '../reducers';
-import * as API from '@utils/API';
+const store = () => {
+  if (process.env.NODE_ENV !== 'production') {
+    return require('./dev').default;
+  }
 
-export const history = createBrowserHistory();
-
-const store = createStore(
-  rootReducer(history),
-  composeWithDevTools(
-    applyMiddleware(routerMiddleware(history), thunk.withExtraArgument(API), logger)
-    // other store enhancers if any
-  )
-);
-
-// if (module.hot) {
-//   module.hot.accept('../reducers', () => store.replaceReducer(require('../reducers').default));
-// }
+  return require('./prod').default;
+};
 
 export default store;
+
+export const history = process.env.NODE_ENV !== 'production' ? require('./dev').history : require('./prod').history;

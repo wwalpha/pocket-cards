@@ -1,5 +1,5 @@
 import { CognitoUser } from '@aws-amplify/auth';
-import { APIs } from '.';
+import { APIs, Tables } from '.';
 
 export namespace Domains {
   interface State {
@@ -12,18 +12,24 @@ export namespace Domains {
 
   interface App {
     tabIndex: number;
+    // loading
     isLoading: boolean;
-    user: CognitoUser | undefined;
+    // User info
+    userInfo: CognitoUser | undefined;
+    // selected group id
     groupId: string;
+    // server status
     status: string;
-    displayCtrl: { [key: number]: boolean };
+    displayCtrl: Record<number, boolean>;
   }
 
   interface Group {
-    rows: GroupInfo[];
-    // words: GroupWordsItem[];
-    // isLoading: boolean;
-    // wordDetail?: E001Response;
+    /** user's all group infomations */
+    groups: Tables.TGroups[];
+    /** Group word list */
+    dataRows: Tables.TWords[];
+    /** Group word list */
+    regists: string[];
   }
 
   interface User {

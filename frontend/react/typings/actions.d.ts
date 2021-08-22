@@ -1,25 +1,25 @@
 import { CognitoUser } from '@aws-amplify/auth';
-import { APIs, ReduxAction0, ReduxAction2, ReduxAction3, ReduxAction1, App } from '.';
+import { APIs, ReduxAction0, ReduxAction2, ReduxAction3, ReduxAction1, App, Tables } from '.';
 
 /** 画像アップロード */
-export interface A001Payload {
+export interface UploadImagePayload {
   data: APIs.D001Response;
 }
 
-export type UploadImageAction = ReduxAction1<string, A001Payload>;
+export type UploadImageAction = ReduxAction1<string, UploadImagePayload>;
 
 /** 指定単語削除 */
-export interface A002Payload {
+export interface RegistRemovePayload {
   word: string;
 }
 
-export type RemoveWordAction = ReduxAction1<string, A002Payload>;
+export type RemoveWordAction = ReduxAction1<string, RegistRemovePayload>;
 
 /** 単語登録 */
-export type RegistWordsAction = ReduxAction1<string[], any, Promise<void>>;
+export type RegistWordsAction = ReduxAction1<string[], void, Promise<void>>;
 
 /** 単語クリア */
-export type ClearAction = ReduxAction0<any>;
+export type ClearAction = ReduxAction0<void>;
 
 // ######################################################################
 // APP Actions
@@ -87,24 +87,23 @@ export type ShowAction = ReduxAction2<number, boolean, App10Payload>;
 // Group Actions
 // ######################################################################
 
-/** Group List */
-export type E001Payload = APIs.B002Response;
-export type GroupListAction = ReduxAction0<E001Payload>;
-
 /** Group Regist */
-export type E002Payload = App.GroupInfo;
-export type GroupRegistAction = ReduxAction2<string, string | undefined, E002Payload>;
+export type B001Payload = Tables.TGroups;
+export type GroupRegistAction = ReduxAction2<string, string | undefined, B001Payload>;
 
-/** Group Edit */
-export type E003Payload = void;
-export type GroupEditAction = ReduxAction1<App.GroupInfo, E003Payload>;
+/** Group List */
+export type B002Payload = APIs.B002Response;
+export type GroupListAction = ReduxAction0<B002Payload>;
 
 /** Group Delete */
-export type E004Payload = {
+export type B005Payload = {
   groupId: string;
 };
+export type GroupDeleteAction = ReduxAction0<B005Payload>;
 
-export type GroupDeleteAction = ReduxAction0<E004Payload>;
+/** Group Edit */
+export type B004Payload = void;
+export type GroupEditAction = ReduxAction1<App.GroupInfo, B004Payload>;
 
 // ######################################################################
 // Word Actions
