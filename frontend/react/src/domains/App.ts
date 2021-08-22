@@ -10,35 +10,52 @@ export default class AppState {
   // loading
   isLoading: boolean = false;
   // User info
-  user: CognitoUser | undefined;
+  userInfo: CognitoUser | undefined;
   // selected group id
   groupId: string = '';
   // server status
   status: string = Consts.SERVER_STATUS.STOPPED;
   // グループ一覧画面の削除ボタン表示フラグ
-  displayCtrl: { [key: number]: boolean } = {};
+  displayCtrl: Record<number, boolean> = {};
 
+  /**
+   * Set active tab index
+   * @param index tab index
+   */
   tabChange(index: number) {
     return produce(this, (draft) => {
       draft.tabIndex = index;
     });
   }
 
+  /**
+   * Set active group id
+   *
+   * @param groupId group id
+   */
   setGroupId(groupId: string) {
     return produce(this, (draft) => {
       draft.groupId = groupId;
     });
   }
 
-  loggedIn(user: CognitoUser) {
+  /**
+   * Sign in
+   *
+   * @param user Cognito user informations
+   */
+  signIn(user: CognitoUser) {
     return produce(this, (draft) => {
-      draft.user = user;
+      draft.userInfo = user;
     });
   }
 
-  logout() {
+  /**
+   * Sign out
+   */
+  signOut() {
     return produce(this, (draft) => {
-      draft.user = undefined;
+      draft.userInfo = undefined;
     });
   }
 
@@ -48,19 +65,29 @@ export default class AppState {
     });
   }
 
-  /** 取込中 */
+  /**
+   * Start loading
+   */
   startLoading() {
     return produce(this, (draft) => {
       draft.isLoading = true;
     });
   }
 
+  /**
+   * Stop loading
+   */
   endLoading() {
     return produce(this, (draft) => {
       draft.isLoading = false;
     });
   }
 
+  /**
+   * Update ECS service status
+   *
+   * @param status ECS service status
+   */
   updateStatus(status: string) {
     return produce(this, (draft) => {
       draft.status = status;

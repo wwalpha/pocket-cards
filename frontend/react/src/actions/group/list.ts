@@ -3,7 +3,7 @@ import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
 import { Actions, APIs } from 'typings';
 
-const success = createAction(ActionTypes.B002_SUCCESS_GROUP_LIST, (data: APIs.B002Response) => ({
+const success = createAction(ActionTypes.GROUP_SUCCESS_LIST, (data: APIs.B002Response) => ({
   ...data,
 }));
 

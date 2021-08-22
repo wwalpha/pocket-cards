@@ -4,7 +4,7 @@ import { defaultFailure, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { Actions } from 'typings';
 
-const success = createAction<Actions.B005Payload, string>(ActionTypes.B005_SUCCESS_GROUP_DELETE, (groupId: string) => ({
+const success = createAction<Actions.B005Payload, string>(ActionTypes.GROUP_SUCCESS_DELETE, (groupId: string) => ({
   groupId,
 }));
 

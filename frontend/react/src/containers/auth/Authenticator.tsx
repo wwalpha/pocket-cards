@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import Auth from '@aws-amplify/auth';
-import { Paths } from '@constants';
 import * as Actions from '@actions/app';
 import SignIn from './SignIn';
+import App from '../../App';
 
-const Authenticator: React.FunctionComponent = ({ children }) => {
+const Authenticator: React.FunctionComponent = () => {
   const [isLogin, setLogin] = React.useState(false);
   const [isLoading, setLoading] = React.useState(true);
   const actions = bindActionCreators(Actions, useDispatch());
@@ -39,7 +38,7 @@ const Authenticator: React.FunctionComponent = ({ children }) => {
   // login status
   if (!isLogin) return <SignIn />;
 
-  return <React.Fragment>{children}</React.Fragment>;
+  return <App />;
 };
 
 export default Authenticator;

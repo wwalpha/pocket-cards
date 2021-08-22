@@ -1,11 +1,14 @@
 import { createAction } from 'redux-actions';
 import isEmpty from 'lodash/isEmpty';
 import { push } from 'connected-react-router';
-import { defaultFailure, startLoading } from '@actions';
+import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { APIs, Actions } from 'typings';
 
-const success = createAction(ActionTypes.A0_01_SUCCESS, (data: APIs.D001Response) => ({ data }));
+const success = createAction<Actions.UploadImagePayload, APIs.D001Response>(
+  ActionTypes.REGIST_SUCCESS_IMAGE2TEXT,
+  (data: APIs.D001Response) => ({ data })
+);
 
 /** 画像アップロード */
 export const uploadImage: Actions.UploadImageAction = (image: string) => async (dispatch, _, api) => {
@@ -25,7 +28,6 @@ export const uploadImage: Actions.UploadImageAction = (image: string) => async (
       language: 'en',
       content: imageSrc,
     } as APIs.D001Request);
-    Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistList];
 
     // データ保存
     dispatch(success(res));
@@ -33,5 +35,7 @@ export const uploadImage: Actions.UploadImageAction = (image: string) => async (
     dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistList]));
   } catch (err) {
     dispatch(defaultFailure(err));
+  } finally {
+    dispatch(endLoading());
   }
 };

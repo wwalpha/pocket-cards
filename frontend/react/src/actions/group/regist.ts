@@ -4,7 +4,7 @@ import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { Actions, APIs, Tables } from 'typings';
 
-const success = createAction(ActionTypes.B001_SUCCESS_GROUP_REGIST, (info: Tables.TGroups) => info);
+const success = createAction(ActionTypes.GROUP_SUCCESS_REGIST, (info: Tables.TGroups) => info);
 
 /** グループ登録 */
 export const regist: Actions.GroupRegistAction = (name: string, description?: string) => async (dispatch, _, api) => {

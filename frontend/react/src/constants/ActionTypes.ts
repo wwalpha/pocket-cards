@@ -42,16 +42,13 @@ export const APP_10_FAILURE = 'APP_10_FAILURE';
 // export const A000_REGIST_SUCCESS = 'A000_REGIST_SUCCESS';
 
 /** 画像アップロード */
-export const A0_01_SUCCESS = 'A0_01_SUCCESS';
-
-/** 単語削除 */
-export const A0_02_SUCCESS = 'A0_02_SUCCESS';
-
-/** 単語登録 */
-export const A0_03_SUCCESS = 'A0_03_SUCCESS';
-
+export const REGIST_SUCCESS_IMAGE2TEXT = 'REGIST_SUCCESS_IMAGE2TEXT';
+/** 登録用単語の削除 */
+export const REGIST_SUCCESS_REMOVE = 'REGIST_SUCCESS_REMOVE';
+/** 単語一括登録 */
+export const REGIST_SUCCESS_REGIST = 'REGIST_SUCCESS_REGIST';
 /** 単語クリア */
-export const A0_04_SUCCESS = 'A0_04_SUCCESS';
+export const REGIST_SUCCESS_CLEAR = 'REGIST_SUCCESS_CLEAR';
 
 /** 新規単語 */
 export const B0_01_REQUEST = 'B0_01_REQUEST';
@@ -71,20 +68,17 @@ export const B0_07_SUCCESS = 'B0_07_SUCCESS';
 /** 学習履歴取得 */
 export const C0_01_SUCCESS = 'C0_01_SUCCESS';
 
-/** グループ一覧 */
-export const E0_01_SUCCESS = 'E0_01_SUCCESS';
-
 /** グループ新規追加 */
-export const E0_02_SUCCESS = 'E0_02_SUCCESS';
-
+export const GROUP_SUCCESS_REGIST = 'GROUP_SUCCESS_REGIST';
+/** グループ一覧 */
+export const GROUP_SUCCESS_LIST = 'GROUP_SUCCESS_LIST';
 /** グループ編集 */
-export const E0_03_SUCCESS = 'E0_03_SUCCESS';
-
+export const GROUP_SUCCESS_EDIT = 'GROUP_SUCCESS_EDIT';
 /** グループ削除 */
-export const E0_04_SUCCESS = 'E0_04_SUCCESS';
+export const GROUP_SUCCESS_DELETE = 'GROUP_SUCCESS_DELETE';
 
 /** 単語リスト追加 */
-export const E0_05_SUCCESS = 'E0_05_SUCCESS';
+export const WORDS_SUCCESS_LIST = 'E0_05_SUCCESS';
 
 /** 単語編集 */
 export const E0_06_REQUEST = 'E0_06_REQUEST';

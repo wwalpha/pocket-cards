@@ -71,7 +71,7 @@ export default () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { groupId } = useSelector(appState);
   const { current: word } = useSelector(wordState);
-  const { rows: groups } = useSelector(groupState);
+  const { groups } = useSelector(groupState);
 
   const isMenuOpen = Boolean(anchorEl);
 
