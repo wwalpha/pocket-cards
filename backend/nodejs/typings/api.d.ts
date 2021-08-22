@@ -141,7 +141,7 @@ export namespace APIs {
   }
 
   interface C003Response {
-    item?: TWords;
+    item?: Tables.TWords;
   }
 
   // ------------------------------------------------------------

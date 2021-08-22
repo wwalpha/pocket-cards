@@ -5,10 +5,11 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon src/index.ts",
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "test": "jest --forceExit --passWithNoTests",
     "test:local": "jest test/services/e0.test.ts --forceExit --passWithNoTests",
-    "debug": "ts-node -r tsconfig-paths/register -r dotenv/config test/debug.ts"
+    "debug": "ts-node -r tsconfig-paths/register -r dotenv/config src/index.ts"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.78",
@@ -41,6 +42,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.12",
     "short-uuid": "^4.2.0",
     "winston": "^3.3.3"
   },

@@ -37,11 +37,10 @@ resource "aws_dynamodb_table" "groups" {
   }
 
   global_secondary_index {
-    name               = "gsiIdx1"
-    hash_key           = "userId"
-    range_key          = "id"
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["userId"]
+    name            = "gsiIdx1"
+    hash_key        = "userId"
+    range_key       = "id"
+    projection_type = "ALL"
   }
 }
 

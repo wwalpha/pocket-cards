@@ -2,9 +2,8 @@ import { DynamoDB } from 'aws-sdk';
 import { Environment } from '@consts';
 
 /** グループ一覧を取得する */
-export const byUserId = (userId: string, projection?: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byUserId = (userId: string, projection: string = 'ALL'): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_GROUPS,
-  // ProjectionExpression: projection,
   KeyConditionExpression: '#userId = :userId',
   ExpressionAttributeNames: {
     '#userId': 'userId',
