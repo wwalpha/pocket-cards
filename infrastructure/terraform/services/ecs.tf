@@ -67,6 +67,8 @@ resource "aws_ecs_task_definition" "this" {
 # ECS Service - Backend Service
 # ----------------------------------------------------------------------------------------------
 resource "aws_ecs_service" "this" {
+  depends_on = [aws_ecs_cluster.this]
+
   name                               = "backend"
   cluster                            = aws_ecs_cluster.this.id
   desired_count                      = 0

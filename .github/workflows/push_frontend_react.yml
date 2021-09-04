@@ -70,9 +70,7 @@ jobs:
         env:
           BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
         run: |
-          printenv
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
-          cat frontend.env
           yarn install --production=false
           yarn build
 

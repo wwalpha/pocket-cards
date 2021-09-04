@@ -15,9 +15,9 @@ export default async (e: PostAuthenticationTriggerEvent) => {
   // ユーザ登録
   try {
     await client.put(put(item)).promise();
-  } catch (e) {
+  } catch (err) {
     // 条件チェックエラーの場合、無視する
-    if (e.code === 'ConditionalCheckFailedException') {
+    if ((err as any).code === 'ConditionalCheckFailedException') {
       return;
     }
 

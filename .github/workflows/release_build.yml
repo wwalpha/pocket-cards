@@ -1,0 +1,269 @@
+name: RELEASE_B) Production Build
+
+on:
+  release:
+    types:
+      - prereleased
+      - edited
+
+env:
+  AWS_DEFAULT_REGION: us-east-1
+  WORKING_DIR_TERRAFORM: infrastructure/terraform
+  WORKING_DIR_BACKEND: backend
+  WORKING_DIR_FRONTEND: frontend/react
+  TF_WORKSPACE: prod
+  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+  TF_VAR_translation_api_url:  ${{ secrets.TRANSLATION_API_URL }}
+  TF_VAR_translation_api_key:  ${{ secrets.TRANSLATION_API_KEY }}
+  TF_VAR_ipa_api_url:  ${{ secrets.IPA_API_URL }}
+  TF_VAR_ipa_api_key:  ${{ secrets.IPA_API_KEY }}
+  TF_VAR_vision_api_url:  ${{ secrets.VISION_API_URL }}
+  TF_VAR_vision_api_key:  ${{ secrets.VISION_API_KEY }}
+  ECS_CLUSTER_NAME: pkc-cluster
+  ECS_SERVICE_NAME: backend
+  ECS_TAKS_DEFINITION: pkc-backend
+  ECS_TAKS_DEFINITION_FILE: task_definition.json
+  ECR_REPOSITORY: pkc/backend
+  SSM_PARAMETER_NAME_ECR: /pkc/repository_url
+  SSM_PARAMETER_NAME_FRONTEND: /pkc/frontend
+
+jobs:
+  Terraform:
+    runs-on: ubuntu-18.04
+    environment:
+      name: prod
+    env:
+      TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
+      TF_VAR_google_client_id:  ${{ secrets.GOOGLE_CLIENT_ID }}
+      TF_VAR_google_client_secret:  ${{ secrets.GOOGLE_CLIENT_SECRET }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Install the latest version of Terraform CLI 
+      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.4
+          cli_config_credentials_hostname: app.terraform.io
+          cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
+
+      # Terraform Setup
+      - name: Terraform Setup
+        working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/setup
+        run: |
+          rm -rf local.auto.tfvars
+          terraform init
+          terraform plan
+
+      # Terraform Service
+      - name: Terraform Service
+        working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/services
+        run: |
+          terraform init
+          terraform plan
+
+  # Backend
+  Backend:
+    runs-on: ubuntu-18.04
+    environment:
+      name: prod
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/core
+
+    steps:
+      # Source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # Install, Build
+      - name: Build
+        run: |
+          yarn install
+          yarn build
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Unit Test
+      - name: Unit Test
+        run: |
+          docker-compose up -d --build
+          sleep 10
+          yarn test
+          docker-compose down
+
+      # Get latest task definition
+      - name: Update ecs task definition
+        id: filepath
+        run: |
+          aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
+          echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
+
+      # ECR Login
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # docker build and push
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REPOSITORY .
+          docker tag $ECR_REPOSITORY $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+      # Update Repository URL
+      - name: Update ecs repository url
+        run: |
+          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/$ECS_SERVICE_NAME --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
+
+  # Lambda
+  Lambda:
+    runs-on: ubuntu-18.04
+    concurrency: Lambda
+    environment:
+      name: prod
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
+
+    steps:
+      # Source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # Install and Build
+      - name: Build
+        run: |
+          yarn build:cognito
+          yarn build:start
+          yarn build:status
+          yarn build:stop
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Install the latest version of Terraform CLI 
+      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.4
+          cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
+
+      # Backend init
+      - name: Terraform Backend
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/terraform
+        run: |
+          terraform init
+          terraform plan
+          terraform apply -auto-approve=true
+
+  # Frontend
+  Frontend:
+    runs-on: ubuntu-18.04
+    concurrency: frontend
+    environment:
+      name: prod
+    env:
+      BUCKET_NAME_ARCHIVE: ${{ secrets.BUCKET_NAME_ARCHIVE }}
+      BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
+      NODE_ENV: production
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR_FRONTEND }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # Install the latest version of Terraform CLI 
+      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.4
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Get terraform outputs
+      - name: Get terraform outputs
+        id: terraform
+        run: |
+          cd configs/terraform
+          terraform init
+          terraform apply -auto-approve=true
+          BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
+          BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
+          echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
+          echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
+
+      # Install and Build
+      - name: Build
+        env:
+          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
+        run: |
+          aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
+          yarn install --production=false
+          yarn build
+
+      # Upload dist files
+      - name: Upload files
+        env:
+          FILE_NAME: ${{ github.sha }}
+          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
+        run: |
+          zip -jr $FILE_NAME.zip dist
+          aws s3 cp $FILE_NAME.zip s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip
+          aws ssm put-parameter --name $SSM_PARAMETER_NAME_FRONTEND --type "String" --value s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip --overwrite
