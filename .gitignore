@@ -1,7 +1,7 @@
 node_modules
 .DS_Store
 *.auto.tfvars
-.secrets
+.secrets*
 .terraform
 .terraform.lock.hcl
 dist
