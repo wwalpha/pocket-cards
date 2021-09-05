@@ -5,6 +5,8 @@ on:
     paths:
       - backend/nodejs/lambda/**
       - backend/nodejs/typings/**
+    branches-ignore:
+      - releases/**
   workflow_run:
     workflows:
       - PUSH_T) Service Build

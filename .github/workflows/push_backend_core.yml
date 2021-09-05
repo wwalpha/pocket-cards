@@ -6,6 +6,8 @@ on:
       - backend/nodejs/core/**
       - backend/nodejs/typings/**
       - .github/workflows/push_backend_core.yml
+    branches-ignore:
+      - releases/**
 
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
