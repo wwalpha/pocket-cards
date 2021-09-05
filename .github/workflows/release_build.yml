@@ -261,6 +261,6 @@ jobs:
           FILE_NAME: ${{ github.sha }}
           BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
         run: |
-          zip -jr $FILE_NAME.zip dist
+          cd dist && zip -r ../$FILE_NAME.zip .
           aws s3 cp $FILE_NAME.zip s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip
           aws ssm put-parameter --name $SSM_PARAMETER_NAME_FRONTEND --type "String" --value s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip --overwrite
