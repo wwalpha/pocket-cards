@@ -1,10 +1,9 @@
-name: RELEASE_B) Production Build
+name: RELEASE_D) Production Deploy
 
 on:
   release:
     types:
-      - prereleased
-      - edited
+      - released
 
 env:
   AWS_DEFAULT_REGION: us-east-1
@@ -23,8 +22,7 @@ env:
   ECS_SERVICE_NAME: backend
   ECS_TAKS_DEFINITION: pkc-backend
   ECS_TAKS_DEFINITION_FILE: task_definition.json
-  ECR_REPOSITORY: pkc/backend
-  SSM_PARAMETER_NAME_ECR: /pkc/repository_url
+  SSM_PARAMETER_NAME_BACKEND: /pkc/repository_url/backend
   SSM_PARAMETER_NAME_FRONTEND: /pkc/frontend
 
 jobs:
@@ -65,40 +63,24 @@ jobs:
         run: |
           rm -rf local.auto.tfvars
           terraform init
-          terraform plan
+          terraform apply -auto-approve
 
       # Terraform Service
       - name: Terraform Service
         working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/services
         run: |
           terraform init
-          terraform plan
+          terraform apply -auto-approve
 
   # Backend
   Backend:
     runs-on: ubuntu-18.04
+    needs:
+      - Terraform
     environment:
       name: prod
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/core
 
     steps:
-      # Source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # Install, Build
-      - name: Build
-        run: |
-          yarn install
-          yarn build
-
       # AWS Credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -107,47 +89,39 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
-      # Unit Test
-      - name: Unit Test
-        run: |
-          docker-compose up -d --build
-          sleep 10
-          yarn test
-          docker-compose down
-
-      # Get latest task definition
-      - name: Update ecs task definition
-        id: filepath
+      # Get ECS informations
+      - name: Get ECS informations
+        id: ecs
         run: |
           aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
+          image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_BACKEND --with-decryption | jq -r .Parameter.Value)
           echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
+          echo "::set-output name=image::$image"
 
-      # ECR Login
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+      # update task definition
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: render-web-container
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.ecs.outputs.definition }}
+          container-name: ${{ env.ECS_TAKS_DEFINITION }}
+          image: ${{ steps.ecs.outputs.image }}
 
-      # docker build and push
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REPOSITORY .
-          docker tag $ECR_REPOSITORY $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.render-web-container.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_NAME }}
+          cluster: ${{ env.ECS_CLUSTER_NAME }}
+          wait-for-service-stability: true
+          force-new-deployment: true
 
-      # Update Repository URL
-      - name: Update ecs repository url
-        run: |
-          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/$ECS_SERVICE_NAME --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
-
-  # Lambda
+  # [Lambda]
   Lambda:
     runs-on: ubuntu-18.04
-    concurrency: Lambda
+    needs:
+      - Terraform
+    concurrency: lambda
     environment:
       name: prod
     defaults:
@@ -193,29 +167,31 @@ jobs:
         working-directory: ${{ env.WORKING_DIR_BACKEND }}/terraform
         run: |
           terraform init
-          terraform plan
+          terraform apply -auto-approve=true
 
-  # Frontend
+  # [Frontend]
   Frontend:
     runs-on: ubuntu-18.04
-    concurrency: frontend
+    needs:
+      - Terraform
     environment:
       name: prod
-    env:
-      NODE_ENV: production
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR_FRONTEND }}
 
     steps:
-      # source checkout
+      # Source checkout
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Setup Node.js
-      - uses: actions/setup-node@v2
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          node-version: 14.x
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
       # Install the latest version of Terraform CLI 
       # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
@@ -226,14 +202,6 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
           terraform_wrapper: false
 
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
       # Get terraform outputs
       - name: Get terraform outputs
         id: terraform
@@ -241,26 +209,16 @@ jobs:
           cd configs/terraform
           terraform init
           terraform apply -auto-approve=true
-          BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
           BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
-          echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
           echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
 
-      # Install and Build
-      - name: Build
-        env:
-          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
-        run: |
-          aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
-          yarn install --production=false
-          yarn build
-
-      # Upload dist files
-      - name: Upload files
+      # Deploy frontend
+      - name: Deploy
         env:
           FILE_NAME: ${{ github.sha }}
-          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
+          BUCKET_NAME_FRONTEND: ${{ steps.terraform.outputs.bucket_name_frontend }}
         run: |
-          zip -jr $FILE_NAME.zip dist
-          aws s3 cp $FILE_NAME.zip s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip
-          aws ssm put-parameter --name $SSM_PARAMETER_NAME_FRONTEND --type "String" --value s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip --overwrite
+          filepath=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_FRONTEND --with-decryption | jq -r .Parameter.Value)
+          aws s3 cp $filepath dist.zip
+          unzip dist.zip -d ./dist/
+          aws s3 cp dist s3://$BUCKET_NAME_FRONTEND/ --recursive --region $AWS_DEFAULT_REGION
