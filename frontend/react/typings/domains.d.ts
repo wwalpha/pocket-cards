@@ -20,7 +20,10 @@ export namespace Domains {
     groupId: string;
     // server status
     status: string;
+    // display control
     displayCtrl: Record<number, boolean>;
+    // word detail
+    details?: App.WordDetail;
   }
 
   interface Group {

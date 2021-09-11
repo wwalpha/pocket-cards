@@ -1,7 +1,7 @@
 import { CognitoUser } from '@aws-amplify/auth';
 import { Consts, Paths } from '@constants';
 import { immerable, produce } from 'immer';
-import { Actions } from 'typings';
+import { Actions, App } from 'typings';
 
 export default class AppState {
   [immerable] = true;
@@ -17,6 +17,8 @@ export default class AppState {
   status: string = Consts.SERVER_STATUS.STOPPED;
   // グループ一覧画面の削除ボタン表示フラグ
   displayCtrl: Record<number, boolean> = {};
+  /** word detail */
+  details?: App.WordDetail = undefined;
 
   /**
    * Set active tab index
@@ -25,6 +27,7 @@ export default class AppState {
   tabChange(index: number) {
     return produce(this, (draft) => {
       draft.tabIndex = index;
+      console.log(222222);
     });
   }
 
@@ -36,6 +39,18 @@ export default class AppState {
   setGroupId(groupId: string) {
     return produce(this, (draft) => {
       draft.groupId = groupId;
+    });
+  }
+
+  /**
+   * 単語詳細情報を設定する
+   *
+   * @param details details
+   * @returns
+   */
+  setWordDetail(details: App.WordDetail) {
+    return produce(this, (draft) => {
+      draft.details = details;
     });
   }
 

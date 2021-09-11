@@ -4,8 +4,8 @@ import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 import { APIs, Actions } from 'typings';
 
-export const success = createAction<Actions.E008Payload, string, string>(
-  ActionTypes.E0_08_SUCCESS,
+export const success = createAction<Actions.WordDeletePayload, string, string>(
+  ActionTypes.GROUP_SUCCESS_REMOVE_WORD,
   (groupId: string, word: string) => ({
     groupId,
     word,
@@ -18,12 +18,13 @@ const del: Actions.WordDeleteAction = (groupId: string, word: string) => async (
   dispatch(startLoading());
 
   try {
-    await api.del<APIs.C005Response>(Consts.C005_URL(groupId, word));
+    // 画面遷移
+    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
+
+    api.del<APIs.C005Response>(Consts.C005_URL(groupId, word));
 
     // データ保存
     dispatch(success(groupId, word));
-    // 画面遷移
-    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
   } catch (err) {
     dispatch(defaultFailure(err));
   }

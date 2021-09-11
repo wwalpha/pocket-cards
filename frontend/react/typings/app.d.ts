@@ -30,6 +30,19 @@ export interface WordItem {
   times: number;
 }
 
+export interface WordDetail {
+  // 単語
+  id: string;
+  // 発音記号
+  pronounce?: string;
+  // 語彙（中国語）
+  vocChn?: string;
+  // 語彙（日本語）
+  vocJpn?: string;
+  // 音声ファイル
+  mp3?: string;
+}
+
 /** URL path informations */
 export type PathInfo = Record<string, ScreenInfo>;
 

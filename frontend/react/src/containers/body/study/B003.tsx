@@ -22,12 +22,11 @@ interface B003Params {
 }
 
 const appState = (state: Domains.State) => state.app;
-const groupState = (state: Domains.State) => state.group;
 
 export default () => {
   const classes = useStyles();
   const { word } = useParams<B003Params>();
-  const { groupId, isLoading } = useSelector(appState);
+  const { groupId, isLoading, details } = useSelector(appState);
 
   const actions = bindActionCreators(Actions, useDispatch());
 
@@ -39,19 +38,19 @@ export default () => {
     <Box>
       <Card className={classes.root}>
         <CardContent>
-          {/* <Typography variant="h4" component="h2">
-            {wordDetail?.id}
+          <Typography variant="h4" component="h2">
+            {details?.id}
           </Typography>
           <Typography variant="h5" color="textSecondary">
-            /{wordDetail?.pronounce}/
-          </Typography> */}
+            /{details?.pronounce}/
+          </Typography>
 
-          {/* <Typography variant="h5" component="p">
+          <Typography variant="h5" component="p">
             <br />
-            {wordDetail?.vocChn}
+            {details?.vocChn}
             <br />
-            {wordDetail?.vocJpn}
-          </Typography> */}
+            {details?.vocJpn}
+          </Typography>
         </CardContent>
       </Card>
       <Box margin={2} display="flex" justifyContent="center">

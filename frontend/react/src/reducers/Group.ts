@@ -21,6 +21,10 @@ const reducer = handleActions<Group, any>(
     [ActionTypes.GROUP_SUCCESS_WORDS]: (store: Group, { payload }: Action<Actions.GroupWordsPayload>) =>
       store.setGroupWords(payload),
 
+    /** グループ単語の削除 */
+    [ActionTypes.GROUP_SUCCESS_REMOVE_WORD]: (store: Group, { payload }: Action<Actions.WordDeletePayload>) =>
+      store.removeWordInGroup(payload.groupId, payload.word),
+
     /** 画像アップロード */
     [ActionTypes.REGIST_SUCCESS_IMAGE2TEXT]: (store: Group, { payload }: Action<Actions.ImageUploadPayload>) =>
       store.setRegists(payload.data.words),

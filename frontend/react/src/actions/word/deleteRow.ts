@@ -3,9 +3,9 @@ import { ActionTypes, Consts } from '@constants';
 import { createAction } from 'redux-actions';
 import { APIs, Actions } from 'typings';
 
-export const success = createAction<Actions.E008Payload, string, string>(
-  ActionTypes.E0_08_SUCCESS,
-  (groupId: string, word: string) => ({
+export const success = createAction<Actions.WordDeletePayload, string, string>(
+  ActionTypes.WORDS_SUCCESS_DELETE,
+  (groupId, word) => ({
     groupId,
     word,
   })

@@ -39,10 +39,19 @@ export default class Group {
     });
   }
 
-  /** 単語登録のリスト設定する */
-  setRegists(payload: Actions.UploadImagePayload) {
+  /** グループ単語の削除 */
+  removeWordInGroup(groupId: string, word: string) {
     return produce(this, (draft) => {
-      draft.regists = payload.data.words;
+      const newItems = this.groupWords[groupId].filter((item) => item.word !== word);
+
+      draft.groupWords[groupId] = newItems;
+    });
+  }
+
+  /** 単語登録のリスト設定する */
+  setRegists(words: string[]) {
+    return produce(this, (draft) => {
+      draft.regists = words;
     });
   }
 

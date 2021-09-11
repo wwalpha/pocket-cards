@@ -1,4 +1,5 @@
 import { CognitoUser } from '@aws-amplify/auth';
+import { Group } from '@domains';
 import { APIs, ReduxAction0, ReduxAction2, ReduxAction3, ReduxAction1, App, Tables } from '.';
 
 /** 画像アップロード */
@@ -132,19 +133,18 @@ export type E005Payload = {
 export type WordListAction = ReduxAction1<string, E005Payload, Promise<void>>;
 
 /** Word Details */
-export type E006Payload = {
-  res: APIs.E001Response;
+export type WordDetailPayload = {
+  datas: App.WordDetail;
 };
 
-export type WordDetailAction = ReduxAction1<string, E006Payload, Promise<void>>;
+export type WordDetailAction = ReduxAction1<string, WordDetailPayload, Promise<void>>;
 
-/** Word Delete */
-export type E008Payload = {
+export type WordDeletePayload = {
   groupId: string;
   word: string;
 };
 
-export type WordDeleteAction = ReduxAction2<string, string, E008Payload, Promise<void>>;
+export type WordDeleteAction = ReduxAction2<string, string, WordDeletePayload, Promise<void>>;
 
 export interface StudyPayload {
   mode: string;

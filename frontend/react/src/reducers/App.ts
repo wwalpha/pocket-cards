@@ -23,6 +23,10 @@ const reducer = handleActions<AppState, any>(
     /** ログアウト */
     [ActionTypes.APP_05_SUCCESS]: (store: AppState) => store.signOut(),
 
+    /** 単語詳細 */
+    [ActionTypes.WORDS_SUCCESS_DETAILS]: (store: AppState, { payload }: Action<Actions.WordDetailPayload>) =>
+      store.setWordDetail(payload.datas),
+
     /** サーバ関連 */
     [ActionTypes.APP_SUCCESS_SERVER_START]: (store: AppState, { payload }: Action<Actions.ServerStartPayload>) =>
       store.updateStatus(payload.status),

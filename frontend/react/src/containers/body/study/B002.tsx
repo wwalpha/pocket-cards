@@ -102,6 +102,7 @@ export default () => {
 
   const handleAnswer = (word: string, yes: boolean) => {
     actions.answer(word, yes);
+
     setShowText(false);
 
     setTimeout(() => play(), 100);

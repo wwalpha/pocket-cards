@@ -68,16 +68,14 @@ export const GROUP_SUCCESS_EDIT = 'GROUP_SUCCESS_EDIT';
 export const GROUP_SUCCESS_DELETE = 'GROUP_SUCCESS_DELETE';
 /** グループ単語一覧 */
 export const GROUP_SUCCESS_WORDS = 'GROUP_SUCCESS_WORDS';
+/** グループの単語削除 */
+export const GROUP_SUCCESS_REMOVE_WORD = 'GROUP_SUCCESS_REMOVE_WORD';
 
 /** 単語リスト追加 */
-export const WORDS_SUCCESS_LIST = 'E0_05_SUCCESS';
-
-/** 単語編集 */
-export const E0_06_REQUEST = 'E0_06_REQUEST';
-export const E0_06_SUCCESS = 'E0_07_SUCCESS';
-
+export const WORDS_SUCCESS_LIST = 'WORDS_SUCCESS_LIST';
+/** 単語詳細情報 */
+export const WORDS_SUCCESS_DETAILS = 'WORDS_SUCCESS_DETAILS';
 /** 単語追加 */
 export const E0_07_SUCCESS = 'E0_07_SUCCESS';
-
 /** 単語削除 */
-export const E0_08_SUCCESS = 'E0_08_SUCCESS';
+export const WORDS_SUCCESS_DELETE = 'WORDS_SUCCESS_DELETE';

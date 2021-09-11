@@ -2,11 +2,14 @@ import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
-import { APIs, Actions } from 'typings';
+import { APIs, Actions, App } from 'typings';
 
-export const success = createAction<Actions.E006Payload, APIs.E001Response>(ActionTypes.E0_06_SUCCESS, (res) => ({
-  res,
-}));
+export const success = createAction<Actions.WordDetailPayload, App.WordDetail>(
+  ActionTypes.WORDS_SUCCESS_DETAILS,
+  (detail) => ({
+    datas: detail,
+  })
+);
 
 /** 単語詳細 */
 const detail: Actions.WordDetailAction = (word: string) => async (dispatch, _, api) => {
@@ -21,7 +24,15 @@ const detail: Actions.WordDetailAction = (word: string) => async (dispatch, _, a
     // 単語詳細情報を取得する
     const res = await api.get<APIs.E001Response>(Consts.E001_URL(word));
 
-    dispatch(success(res));
+    dispatch(
+      success({
+        id: res.item?.id as string,
+        mp3: res.item?.mp3,
+        pronounce: res.item?.pronounce,
+        vocChn: res.item?.vocChn,
+        vocJpn: res.item?.vocJpn,
+      })
+    );
   } catch (err) {
     dispatch(defaultFailure(err));
   } finally {
