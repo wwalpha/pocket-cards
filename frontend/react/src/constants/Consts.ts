@@ -37,7 +37,7 @@ export const D002_URL = () => `${API_VERSION}/image2line`;
 export const E001_URL = (word: string) => `${API_VERSION}/words/${word}`;
 export const E002_URL = (word: string) => `${API_VERSION}/words/${word}`;
 
-export const VERSION = 'Ver0.6.2';
+export const VERSION = `Ver${process.env.VERSION}`;
 
 export const MODES = {
   New: '1',
