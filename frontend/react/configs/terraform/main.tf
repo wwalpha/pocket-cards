@@ -63,8 +63,8 @@ IDENTITY_POOL_ID=${local.remote_services.cognito_identity_pool_id}
 USER_POOL_ID=${local.remote_services.cognito_user_pool_id}
 USER_POOL_WEB_CLIENT_ID=${local.remote_services.cognito_user_pool_client_id}
 AUTH_DOMAIN=${local.remote_services.cognito_user_pool_domain}
-AUTH_SIGN_IN_URL=https://www.${local.remote_setup.route53_zone_name}/login
-AUTH_SIGN_OUT_URL=https://www.${local.remote_setup.route53_zone_name}/logout
+AUTH_SIGN_IN_URL=${local.remote_services.cognito_callback_url}
+AUTH_SIGN_OUT_URL=${local.remote_services.cognito_logout_url}
 API_URL=https://api.${local.remote_setup.route53_zone_name}
 EOT
 }

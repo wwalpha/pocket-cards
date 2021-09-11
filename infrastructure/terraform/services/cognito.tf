@@ -134,8 +134,12 @@ resource "aws_cognito_user_pool_client" "this" {
     "phone",
     "profile"
   ]
-  callback_urls                = ["http://localhost:3000/login"]
-  logout_urls                  = ["http://localhost:3000/logout"]
+  callback_urls = [
+    "https://www.${local.domain_name}/settings"
+  ]
+  logout_urls = [
+    "https://www.${local.domain_name}/logout"
+  ]
   supported_identity_providers = [aws_cognito_identity_provider.google.provider_name]
   explicit_auth_flows = [
     "ALLOW_CUSTOM_AUTH",
