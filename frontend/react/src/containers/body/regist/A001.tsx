@@ -34,19 +34,51 @@ const a001: FunctionComponent<any> = () => {
   /** カメラ起動 */
   const handleCamera = (image: string) => actions.uploadImage(image);
   /** ファイルアップロードイベント */
-  const handleUpload = () => {
+  const handleImageUpload = () => {
     // カメラ停止
     afterStopCamera();
 
-    const element = document.getElementById('upload') as HTMLInputElement;
+    const element = document.getElementById('uploadImage') as HTMLInputElement;
 
     if (!element) return;
 
     element.click();
   };
 
-  /** ファイルアップロード */
+  /** ファイルアップロードイベント */
+  const handleFileUpload = () => {
+    // カメラ停止
+    afterStopCamera();
+
+    const element = document.getElementById('uploadFile') as HTMLInputElement;
+
+    if (!element) return;
+
+    element.click();
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+
+    // ファイル選択なしか、クリアした
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    const fr = new FileReader();
+
+    fr.onload = (env: ProgressEvent) => {
+      if (!env.target) return;
+
+      const texts: string = (env.target as any).result;
+
+      actions.uploadFile(texts);
+    };
+
+    fr.readAsDataURL(files[0]);
+  };
+  /** ファイルアップロード */
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
 
     // ファイル選択なしか、クリアした
@@ -67,19 +99,31 @@ const a001: FunctionComponent<any> = () => {
     fr.readAsDataURL(files[0]);
   };
 
-  const isShow = !onAir;
-
   return (
     <Box display="flex" flexDirection="column" margin="8px 16px">
-      <input type="file" id="upload" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
-      {/* <Button variant="contained" color="primary" className={classes.button} onClick={handleTest} size="large">
-        Test
-      </Button> */}
+      <input type="file" id="uploadImage" accept="image/*" style={{ display: 'none' }} onChange={handleImageChange} />
+      <input type="file" id="uploadFile" accept="*/*" style={{ display: 'none' }} onChange={handleFileChange} />
+
       <Button variant="contained" color="primary" fullWidth onClick={startCamera} size="large" isLoading={isLoading}>
         Take Photo
       </Button>
-      <Button variant="contained" color="primary" fullWidth onClick={handleUpload} size="large" isLoading={isLoading}>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        onClick={handleImageUpload}
+        size="large"
+        isLoading={isLoading}>
         Upload Photo
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        onClick={handleFileUpload}
+        size="large"
+        isLoading={isLoading}>
+        Upload File
       </Button>
       <Box margin={1}>
         <WebCamera onAir={onAir} takePhoto={handleCamera} afterStopCamera={afterStopCamera} />

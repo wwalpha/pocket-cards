@@ -159,13 +159,13 @@ export default () => {
 
             if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]) {
               const draw = [
-                <IconButton className={classes.replyButton} onClick={handleReply}>
+                <IconButton key="replyIcon" className={classes.replyButton} onClick={handleReply}>
                   <ReplayIcon className={classes.icon} />
                 </IconButton>,
               ];
 
               if (current) {
-                draw.push(<audio ref={audioRef} src={`/${current.mp3}`} />);
+                draw.push(<audio key="replyAudio" ref={audioRef} src={`/${current.mp3}`} />);
               }
 
               return draw;

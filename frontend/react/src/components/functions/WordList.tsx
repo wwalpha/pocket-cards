@@ -31,7 +31,7 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
     itemTextRoot: {
       margin: '0px',
       '& .MuiTypography-subtitle1': {
-        fontSize: '1.5rem',
+        fontSize: '1rem',
         lineHeight: '1.5',
       },
     },

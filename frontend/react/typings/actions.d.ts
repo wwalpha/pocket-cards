@@ -2,11 +2,18 @@ import { CognitoUser } from '@aws-amplify/auth';
 import { APIs, ReduxAction0, ReduxAction2, ReduxAction3, ReduxAction1, App, Tables } from '.';
 
 /** 画像アップロード */
-export interface UploadImagePayload {
+export interface ImageUploadPayload {
   data: APIs.D001Response;
 }
 
-export type UploadImageAction = ReduxAction1<string, UploadImagePayload>;
+export type ImageUploadAction = ReduxAction1<string, ImageUploadPayload>;
+
+/** ファイルアップロード */
+export interface FileUploadPayload {
+  words: string[];
+}
+
+export type FileUploadAction = ReduxAction1<string, FileUploadPayload>;
 
 /** 指定単語削除 */
 export interface RegistRemovePayload {
@@ -154,4 +161,4 @@ export interface StudyAnswerPayload {
   yes: boolean;
 }
 
-export type StudyAnswerAction = ReduxAction2<string, boolean, StudyAnswerPayload, Promise<void>>;
+export type StudyAnswerAction = ReduxAction2<string, boolean, StudyAnswerPayload | StudyPayload, Promise<void>>;

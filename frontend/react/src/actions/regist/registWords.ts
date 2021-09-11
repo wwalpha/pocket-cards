@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
-import { startLoading, defaultFailure } from '@actions';
+import { startLoading, defaultFailure, endLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { Actions, APIs } from 'typings';
 
@@ -14,9 +14,14 @@ export const registWords: Actions.RegistWordsAction = (words: string[]) => async
     // 単語登録イベント開始
     dispatch(startLoading());
 
-    await api.post(Consts.C001_URL(groupId), {
-      words,
-    } as APIs.C001Request);
+    for (; words.length > 0; ) {
+      const unit = words.length > 100 ? 100 : words.length;
+      const items = words.splice(0, unit);
+
+      await api.post(Consts.C001_URL(groupId), {
+        words: items,
+      } as APIs.C001Request);
+    }
 
     // データ保存
     dispatch(success());
@@ -25,5 +30,7 @@ export const registWords: Actions.RegistWordsAction = (words: string[]) => async
   } finally {
     // 画面遷移
     dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistFinish]));
+
+    dispatch(endLoading());
   }
 };

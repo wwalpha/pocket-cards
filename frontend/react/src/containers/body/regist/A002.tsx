@@ -42,7 +42,7 @@ const a002: FunctionComponent<any> = () => {
 
   /** 単語登録 */
   const handleRegist = () => {
-    actions.registWords(regists);
+    actions.registWords([...regists]);
   };
 
   /** 単語削除 */

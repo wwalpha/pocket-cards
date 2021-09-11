@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
-import { defaultFailure, startLoading } from '@actions';
+import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { APIs, Actions } from 'typings';
 
@@ -19,9 +19,13 @@ const detail: Actions.WordDetailAction = (word: string) => async (dispatch, _, a
     dispatch(push(`${prefix}${word}`));
 
     // 単語詳細情報を取得する
-    api.get(Consts.E001_URL(word)).then((res) => dispatch(success(res)));
+    const res = await api.get<APIs.E001Response>(Consts.E001_URL(word));
+
+    dispatch(success(res));
   } catch (err) {
     dispatch(defaultFailure(err));
+  } finally {
+    dispatch(endLoading());
   }
 };
 

@@ -60,14 +60,15 @@ export default class Word {
 
     return produce(this, (draft) => {
       // 該当単語を削除する
-      this.rows.splice(this.index, 1);
+      const newRows = [...this.rows];
+      newRows.splice(this.index, 1);
 
       // Indexが配列の限界を超えた場合、最初から始まる
-      const newIdx = this.index >= this.rows.length ? 0 : this.index;
+      const newIdx = this.index >= newRows.length ? 0 : this.index;
 
-      draft.rows = this.rows;
+      draft.rows = newRows;
       draft.index = newIdx;
-      draft.current = this.rows[newIdx];
+      draft.current = newRows[newIdx];
     });
   }
 

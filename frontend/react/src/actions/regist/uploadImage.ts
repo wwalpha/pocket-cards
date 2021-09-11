@@ -5,13 +5,13 @@ import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { APIs, Actions } from 'typings';
 
-const success = createAction<Actions.UploadImagePayload, APIs.D001Response>(
+const success = createAction<Actions.ImageUploadPayload, APIs.D001Response>(
   ActionTypes.REGIST_SUCCESS_IMAGE2TEXT,
   (data: APIs.D001Response) => ({ data })
 );
 
 /** 画像アップロード */
-export const uploadImage: Actions.UploadImageAction = (image: string) => async (dispatch, _, api) => {
+export const uploadImage: Actions.ImageUploadAction = (image: string) => async (dispatch, _, api) => {
   // 画像アップロード開始イベント
   dispatch(startLoading());
 

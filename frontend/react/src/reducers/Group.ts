@@ -22,8 +22,12 @@ const reducer = handleActions<Group, any>(
       store.setGroupWords(payload),
 
     /** 画像アップロード */
-    [ActionTypes.REGIST_SUCCESS_IMAGE2TEXT]: (store: Group, { payload }: Action<Actions.UploadImagePayload>) =>
-      store.setRegists(payload),
+    [ActionTypes.REGIST_SUCCESS_IMAGE2TEXT]: (store: Group, { payload }: Action<Actions.ImageUploadPayload>) =>
+      store.setRegists(payload.data.words),
+
+    /** 画像アップロード */
+    [ActionTypes.REGIST_SUCCESS_FILEUPLOAD]: (store: Group, { payload }: Action<Actions.FileUploadPayload>) =>
+      store.setRegists(payload.words),
 
     /** 単語登録正常終了 */
     [ActionTypes.REGIST_SUCCESS_REGIST]: (store: Group) => store.clearRegists(),

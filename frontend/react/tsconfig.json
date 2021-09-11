@@ -67,7 +67,8 @@
       {
         "transform": "typescript-transform-paths"
       }
-    ]
+    ],
+    "useUnknownInCatchVariables": false
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"],

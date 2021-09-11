@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { defaultFailure, startLoading } from '@actions';
+import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
 import * as StartNew from './new';
 import * as StartTest from './test';
@@ -17,22 +17,22 @@ const answer: Actions.StudyAnswerAction = (word: string, yes: boolean) => async 
   // Request start
   dispatch(startLoading());
 
-  // 復習モードの場合、サーバ更新しない
-  if (mode === Consts.MODES.Review) {
-    dispatch(success(yes));
-    return;
-  }
-
-  // 新規学習モードの場合、不正解の場合、更新しない
-  if (mode === Consts.MODES.New && !yes) {
-    dispatch(success(yes));
-    return;
-  }
-
-  // データなしの場合、処理しない
-  if (!current) return;
-
   try {
+    // 復習モードの場合、サーバ更新しない
+    if (mode === Consts.MODES.Review) {
+      dispatch(success(yes));
+      return;
+    }
+
+    // 新規学習モードの場合、不正解の場合、更新しない
+    if (mode === Consts.MODES.New && !yes) {
+      dispatch(success(yes));
+      return;
+    }
+
+    // データなしの場合、処理しない
+    if (!current) return;
+
     // 正解の場合、現在の回数、不正解の場合は0に戻ります
     const times = yes ? current.times : 0;
 
@@ -42,7 +42,7 @@ const answer: Actions.StudyAnswerAction = (word: string, yes: boolean) => async 
     dispatch(success(yes));
 
     // 一定数以上の場合、再取得しない
-    if (rows.length > 5) {
+    if (rows.length > 3) {
       return;
     }
 
@@ -54,20 +54,27 @@ const answer: Actions.StudyAnswerAction = (word: string, yes: boolean) => async 
       const res = await api.get<APIs.C006Response>(Consts.C006_URL(groupId));
 
       // 新規単語の追加
-      // TODO:!!!
-      //@ts-ignore
-      dispatch(StartNew.success(res.words));
+      dispatch(
+        StartNew.success({
+          count: res.count,
+          words: res.words,
+        })
+      );
     } else {
       // テストの場合
       const res = await api.get<APIs.C007Response>(Consts.C007_URL(groupId));
 
-      // TODO:!!!
-      //@ts-ignore
-      dispatch(StartTest.success(res.words));
+      dispatch(
+        StartTest.success({
+          count: res.count,
+          words: res.words,
+        })
+      );
     }
   } catch (error) {
     dispatch(defaultFailure(error));
-    // dispatch(StartNew.failure(error));
+  } finally {
+    dispatch(endLoading());
   }
 };
 

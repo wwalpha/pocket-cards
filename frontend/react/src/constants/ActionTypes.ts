@@ -37,6 +37,8 @@ export const APP_10_FAILURE = 'APP_10_FAILURE';
 
 /** 画像アップロード */
 export const REGIST_SUCCESS_IMAGE2TEXT = 'REGIST_SUCCESS_IMAGE2TEXT';
+/** ファイルアップロード */
+export const REGIST_SUCCESS_FILEUPLOAD = 'REGIST_SUCCESS_FILEUPLOAD';
 /** 登録用単語の削除 */
 export const REGIST_SUCCESS_REMOVE = 'REGIST_SUCCESS_REMOVE';
 /** 単語一括登録 */
