@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
-import { defaultFailure, startLoading } from '@actions';
+import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { Actions } from 'typings';
 
@@ -30,5 +30,7 @@ export const del: Actions.GroupDeleteAction = () => async (dispatch, store, api)
     dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
   } catch (err) {
     dispatch(defaultFailure(err));
+  } finally {
+    dispatch(endLoading());
   }
 };

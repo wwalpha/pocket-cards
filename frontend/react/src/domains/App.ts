@@ -27,7 +27,6 @@ export default class AppState {
   tabChange(index: number) {
     return produce(this, (draft) => {
       draft.tabIndex = index;
-      console.log(222222);
     });
   }
 

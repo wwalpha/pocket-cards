@@ -1,4 +1,4 @@
-import { defaultFailure, startLoading } from '@actions';
+import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts } from '@constants';
 import { createAction } from 'redux-actions';
 import { APIs, Actions } from 'typings';
@@ -23,6 +23,8 @@ const deleteRow: Actions.WordDeleteAction = (groupId: string, word: string) => a
     await api.del<APIs.C005Response>(Consts.C005_URL(groupId, word));
   } catch (err) {
     dispatch(defaultFailure(err));
+  } finally {
+    dispatch(endLoading());
   }
 };
 

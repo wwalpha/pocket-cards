@@ -1,4 +1,4 @@
-import { defaultFailure, startLoading } from '@actions';
+import { defaultFailure, endLoading, startLoading } from '@actions';
 import { ActionTypes, Consts, Paths } from '@constants';
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
@@ -27,6 +27,8 @@ const del: Actions.WordDeleteAction = (groupId: string, word: string) => async (
     dispatch(success(groupId, word));
   } catch (err) {
     dispatch(defaultFailure(err));
+  } finally {
+    dispatch(endLoading());
   }
 };
 

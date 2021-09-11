@@ -1,5 +1,4 @@
 import { createAction } from 'redux-actions';
-import { startLoading, defaultFailure } from '@actions';
 import { ActionTypes } from '@constants';
 import { Actions } from 'typings';
 
