@@ -11,11 +11,6 @@ resource "aws_ecs_cluster" "this" {
     capacity_provider = "FARGATE_SPOT"
     weight            = 1
   }
-
-  setting {
-    name  = "containerInsights"
-    value = "disabled"
-  }
 }
 
 # ----------------------------------------------------------------------------------------------

@@ -48,14 +48,14 @@ output "cognito_user_pool_domain" {
 # Cognito Callback URL
 # ----------------------------------------------------------------------------------------------
 output "cognito_callback_url" {
-  value = aws_cognito_user_pool_client.this.callback_urls[0]
+  value = one(aws_cognito_user_pool_client.this.callback_urls)
 }
 
 # ----------------------------------------------------------------------------------------------
 # Cognito Logout URL
 # ----------------------------------------------------------------------------------------------
 output "cognito_logout_url" {
-  value = aws_cognito_user_pool_client.this.logout_urls[0]
+  value = one(aws_cognito_user_pool_client.this.logout_urls)
 }
 
 # ----------------------------------------------------------------------------------------------
