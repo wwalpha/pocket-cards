@@ -1,5 +1,4 @@
-import { LoaderOptionsPlugin, Configuration, EnvironmentPlugin } from 'webpack';
-import CompressionPlugin from 'compression-webpack-plugin';
+import { LoaderOptionsPlugin, Configuration } from 'webpack';
 import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import Dotenv from 'dotenv-webpack';
@@ -21,14 +20,6 @@ const prod: Configuration = {
     new LoaderOptionsPlugin({
       debug: false,
     }),
-    // new CompressionPlugin({
-    //   test: /\.js$/,
-    //   filename: '[path].gz[query]',
-    //   // Build failed: required python
-    //   // algorithm: (source, compressionOptions, callback) => {
-    //   //   return zopfli.gzip(Buffer.from(source), compressionOptions, callback);
-    //   // }
-    // }),
   ],
 };
 
