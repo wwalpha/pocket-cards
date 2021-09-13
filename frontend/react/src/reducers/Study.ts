@@ -1,26 +1,95 @@
-import { Study } from '@domains';
-import { handleActions, Action } from 'redux-actions';
-import { ActionTypes } from '@constants';
-import { Actions } from 'typings';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { concat, differenceBy } from 'lodash';
+import { Consts } from '@constants';
+import { API } from '@utils';
+import { APIs, Domains, Payloads, RootState } from 'typings';
 
-const reducer = handleActions<Study, any>(
-  {
-    /** 新規学習 */
-    [ActionTypes.STUDY_START_NEW]: (store: Study, { payload }: Action<Actions.StudyPayload>) => store.setWords(payload),
-    /** 単語復習 */
-    [ActionTypes.STUDY_START_REVIEW]: (store: Study, { payload }: Action<Actions.StudyPayload>) =>
-      store.setWords(payload),
-    /** 単語テスト */
-    [ActionTypes.STUDY_START_TEST]: (store: Study, { payload }: Action<Actions.StudyPayload>) =>
-      store.setWords(payload),
-    /** テスト回答(YES/NO) */
-    [ActionTypes.STUDY_ANSWER]: (store: Study, { payload: { yes } }: Action<Actions.StudyAnswerPayload>) =>
-      store.answer(yes),
+const studyState: Domains.StudyState = {
+  current: undefined,
+  mode: undefined,
+  rows: [],
+  history: [],
+  index: 0,
+};
 
-    /** 次の単語 */
-    // [ActionTypes.STUDY_NEXT]: (store: Study) => store.next(),
-  },
-  new Study()
+export const STUDY_START = createAsyncThunk<Payloads.StudyCase, string>(
+  'study/STUDY_START',
+  async (mode, { getState }) => {
+    const { activeGroup } = (getState() as RootState).group;
+
+    // default study case: new
+    let url = Consts.C006_URL(activeGroup);
+
+    // study case: test
+    if (mode === Consts.MODES.AllTest) {
+      url = Consts.C007_URL(activeGroup);
+    }
+    // study case: review
+    if (mode === Consts.MODES.Review) {
+      url = Consts.C008_URL(activeGroup);
+    }
+
+    const res = await API.get<APIs.C006Response>(url);
+
+    return {
+      mode: mode,
+      items: res.words,
+    };
+  }
 );
 
-export default reducer;
+const slice = createSlice({
+  name: 'study',
+  initialState: studyState,
+  reducers: {
+    // 単語登録正常終了
+    STUDY_ANSWER: (state, { payload }: PayloadAction<boolean>) => {
+      if (!payload && state.mode !== Consts.MODES.AllTest) {
+        const newIdx = state.index + 1 === state.rows.length ? 0 : state.index + 1;
+
+        // １件のみ場合、計算しない
+        if (state.rows.length === 1) {
+          return;
+        }
+
+        // 単語ループ表示する
+        state.current = state.rows[newIdx];
+        state.index = newIdx;
+
+        return;
+      }
+
+      // 該当単語を削除する
+      const newRows = [...state.rows];
+      newRows.splice(state.index, 1);
+
+      // Indexが配列の限界を超えた場合、最初から始まる
+      const newIdx = state.index >= newRows.length ? 0 : state.index;
+
+      state.rows = newRows;
+      state.index = newIdx;
+      state.current = newRows[newIdx];
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(STUDY_START.fulfilled, (state, { payload: { mode, items } }) => {
+      // 差分を抽出する
+      const differ = differenceBy(items, state.history, 'word');
+      // 足りない単語数を計算する
+      const diffNum = Consts.PAGE_MAX_WORDS - state.rows.length;
+      // 追加する単語
+      const added = differ.splice(0, diffNum);
+      // 既存配列と合併する
+      const newArray = concat(state.rows, added);
+
+      // モード変わった、或いは、既存データ存在しない
+      state.rows = newArray;
+      state.history = concat(state.history, added);
+      state.current = state.current ? state.current : newArray[0];
+      state.index = state.index;
+      state.mode = mode;
+    });
+  },
+});
+
+export default slice;

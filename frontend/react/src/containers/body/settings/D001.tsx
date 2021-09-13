@@ -19,10 +19,9 @@ import {
 import { green, red } from '@material-ui/core/colors';
 import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
-
 import { Button, IOSSwitch } from '@components/buttons';
-import { Domains } from 'typings';
-import * as Actions from '@actions/app';
+import { RootState } from 'typings';
+import { AppActions, UserActions } from '@actions';
 import { Consts } from '@constants';
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) =>
@@ -54,12 +53,13 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   })
 );
 
-const appState = (state: Domains.State) => state.app;
+const appState = (state: RootState) => state.app;
 
 export default () => {
   const classes = useStyles();
   const { isLoading, status, displayCtrl } = useSelector(appState);
-  const actions = bindActionCreators(Actions, useDispatch());
+  const actions = bindActionCreators(AppActions, useDispatch());
+  const usrActions = bindActionCreators(UserActions, useDispatch());
   const [removeWord, setRemoveWord] = useState(displayCtrl[Consts.ShowTypes.REMOVE_WORD] ? true : false);
 
   // server start
@@ -73,14 +73,14 @@ export default () => {
   const handleLogout = async () => {
     await Auth.signOut();
 
-    actions.logout();
+    usrActions.logout();
   };
 
   const handleRemoveWordChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     // component status update
     setRemoveWord(checked);
     //
-    actions.show(Consts.ShowTypes.REMOVE_WORD, checked);
+    // actions.show(Consts.ShowTypes.REMOVE_WORD, checked);
   };
 
   return (

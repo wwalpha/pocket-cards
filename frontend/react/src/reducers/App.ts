@@ -1,53 +1,53 @@
-import { handleActions, Action } from 'redux-actions';
-import { AppState } from '@domains';
-import { ActionTypes } from '@constants';
-import { Actions } from 'typings';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Domains } from 'typings';
+import { Consts } from '@constants';
 
-const reducer = handleActions<AppState, any>(
-  {
-    /** Set Loading Start */
-    [ActionTypes.COM_01_SUCCESS]: (store: AppState) => store.startLoading(),
-    /** Set Loading End */
-    [ActionTypes.COM_02_SUCCESS]: (store: AppState) => store.endLoading(),
-    /** Set Loading End */
-    [ActionTypes.COM_01_FAILURE]: (store: AppState) => store.endLoading(),
+const appState: Domains.AppState = {
+  tabIndex: 11,
+  isLoading: false,
+  status: Consts.SERVER_STATUS.STOPPED,
+  displayCtrl: {},
+};
 
-    /** タブ変更 */
-    [ActionTypes.APP_01_SUCCESS]: (store: AppState, { payload: { index } }: Action<Actions.TabChangePayload>) =>
-      store.tabChange(index),
+const slice = createSlice({
+  name: 'app',
+  initialState: appState,
+  reducers: {
+    // start loading
+    APP_START_LOADING: (state) => {
+      state.isLoading = true;
+    },
 
-    /** ユーザ情報設定 */
-    [ActionTypes.APP_04_SUCCESS]: (store: AppState, { payload }: Action<Actions.LoggedInPayload>) =>
-      store.signIn(payload.user),
+    // end loading
+    APP_END_LOADING: (state) => {
+      state.isLoading = false;
+    },
 
-    /** ログアウト */
-    [ActionTypes.APP_05_SUCCESS]: (store: AppState) => store.signOut(),
+    // end loading
+    APP_COM_01_FAILURE: (state, action: PayloadAction<Error>) => {
+      state.isLoading = false;
+    },
 
-    /** 単語詳細 */
-    [ActionTypes.WORDS_SUCCESS_DETAILS]: (store: AppState, { payload }: Action<Actions.WordDetailPayload>) =>
-      store.setWordDetail(payload.datas),
+    // タブ変更
+    APP_TAB_INDEX: (state, { payload }: PayloadAction<number>) => {
+      state.tabIndex = payload;
+    },
 
-    /** サーバ関連 */
-    [ActionTypes.APP_SUCCESS_SERVER_START]: (store: AppState, { payload }: Action<Actions.ServerStartPayload>) =>
-      store.updateStatus(payload.status),
+    // サーバステータス更新
+    SERVER_STATUS: (state, { payload }: PayloadAction<string>) => {
+      state.status = payload;
+    },
 
-    [ActionTypes.APP_SUCCESS_SERVER_STOP]: (store: AppState, { payload }: Action<Actions.ServerStopPayload>) =>
-      store.updateStatus(payload.status),
-
-    [ActionTypes.APP_SUCCESS_SERVER_STATUS]: (store: AppState, { payload }: Action<Actions.ServerStatusPayload>) =>
-      store.updateStatus(payload.status),
-
-    /** グループ選択 */
-    [ActionTypes.APP_SUCCESS_GROUP_SELECT]: (store: AppState, { payload }: Action<Actions.GroupSelectPayload>) =>
-      store.setGroupId(payload.groupId),
+    // グループ選択
+    // GROUP_SELECT: (state, { payload }: PayloadAction<string>) => {
+    //   state.groupId = payload;
+    // },
 
     /** 画面表示制御 */
-    [ActionTypes.APP_10_REQUEST]: (store: AppState) => store,
-    [ActionTypes.APP_10_SUCCESS]: (store: AppState, { payload }: Action<Actions.App10Payload>) =>
-      store.setShow(payload),
-    [ActionTypes.APP_10_FAILURE]: (store: AppState) => store,
+    // DISPLAY_CONTROL: (state, { payload: { type, value } }: PayloadAction<Actions.ShowPayload>) => {
+    //   state.displayCtrl[type] = value;
+    // },
   },
-  new AppState()
-);
+});
 
-export default reducer;
+export default slice;

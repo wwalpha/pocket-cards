@@ -27,11 +27,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import ReplayIcon from '@material-ui/icons/Replay';
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
 import { Paths, Consts } from '@constants';
-import Loading from '@components/Loading';
-import * as Actions from '@actions/group';
-import { Domains } from 'typings';
+import { GroupActions } from '@actions';
+import { RootState } from 'typings';
 
-const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common } }: Theme) =>
+const useStyles = makeStyles(({ spacing, palette: { primary, common } }: Theme) =>
   createStyles({
     app: {
       boxShadow: 'none',
@@ -59,18 +58,16 @@ const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common }
 
 const audioRef = React.createRef<HTMLAudioElement>();
 
-const appState = (state: Domains.State) => state.app;
-const studyState = (state: Domains.State) => state.study;
-const groupState = (state: Domains.State) => state.group;
+const studyState = (state: RootState) => state.study;
+const groupState = (state: RootState) => state.group;
 
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const grpActions = bindActionCreators(Actions, dispatch);
+  const actions = bindActionCreators(GroupActions, dispatch);
   const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { groupId } = useSelector(appState);
-  const { groups } = useSelector(groupState);
+  const { groups, activeGroup } = useSelector(groupState);
   const { current } = useSelector(studyState);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -91,7 +88,7 @@ export default () => {
     // close dialog
     handleMenuClose();
     // delete group
-    grpActions.delete();
+    actions.del();
   };
 
   const handleOnGroupEdit = () => {
@@ -107,7 +104,11 @@ export default () => {
   const handleMenuClose = () => setAnchorEl(null);
 
   /** 音声再生 */
-  const handleReply = () => audioRef.current?.play();
+  const handleReply = () => {
+    if (!window.location.hostname.startsWith('localhost')) {
+      audioRef.current?.play();
+    }
+  };
   // 表示中画面情報
   const screen = Paths.ROUTE_INFO[pathname];
 
@@ -125,7 +126,7 @@ export default () => {
           <Typography variant="h5" color="inherit" className={classes.title}>
             {(() => {
               if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
-                const groupInfo = groups.find((item) => item.id === groupId);
+                const groupInfo = groups.find((item) => item.id === activeGroup);
 
                 return groupInfo?.name;
               }

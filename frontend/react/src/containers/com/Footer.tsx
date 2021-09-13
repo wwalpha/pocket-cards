@@ -3,12 +3,10 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, makeStyles, Theme, createStyles } from '@material-ui/core';
-import CameraIcon from '@material-ui/icons/Camera';
-import PersonIcon from '@material-ui/icons/PersonOutlineOutlined';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
-import * as Actions from '@actions/app';
-import { Domains } from 'typings';
+import { AppActions } from '@actions';
+import { RootState } from 'typings';
 import { Paths, Consts } from '@constants';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
@@ -32,20 +30,20 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const appState = (state: Domains.State) => state.app;
+const appState = (state: RootState) => state.app;
 
 export default () => {
   // styles
   const classes = useStyles();
   // actions
-  const actions = bindActionCreators(Actions, useDispatch());
+  const actions = bindActionCreators(AppActions, useDispatch());
   // reducer
   const { tabIndex, status } = useSelector(appState);
   // location
   const { pathname } = useLocation();
 
   // Bottom menu clicked
-  const handleChange = (_: any, value: any) => actions.tabChange(Number(value));
+  const handleChange = (_: any, value: any) => actions.activeTab(Number(value));
 
   // 表示中画面情報
   const screen = Paths.ROUTE_INFO[pathname];

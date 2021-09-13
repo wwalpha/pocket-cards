@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Hub } from '@aws-amplify/core';
 import { Auth, CognitoUser, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -18,8 +16,8 @@ import {
   makeStyles,
   createStyles,
 } from '@material-ui/core';
-import * as Actions from '@actions/app';
-import { Domains } from 'typings';
+import { UserActions } from '@actions';
+import { RootState } from 'typings';
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
@@ -51,11 +49,10 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   })
 );
 
-const app = (state: Domains.State) => state.app;
+const app = (state: RootState) => state.app;
 
 const SignIn = () => {
   const classes = useStyles();
-  const actions = bindActionCreators(Actions, useDispatch());
   const [values, setValues] = useState({
     username: '',
     passwd: '',
@@ -66,7 +63,8 @@ const SignIn = () => {
       case 'signIn':
         break;
       case 'signOut':
-        actions.logout();
+        UserActions.logout();
+        break;
       default:
     }
   };
@@ -88,11 +86,11 @@ const SignIn = () => {
         password: values.passwd,
       })) as CognitoUser;
 
-      actions.loggedIn(user);
+      UserActions.loggedIn(user);
     } catch (err) {
       console.log(err);
 
-      actions.logout;
+      UserActions.logout();
     }
   };
 

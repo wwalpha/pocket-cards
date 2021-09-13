@@ -12,15 +12,14 @@ import {
   Typography,
   TextField,
 } from '@material-ui/core';
-import ReplayIcon from '@material-ui/icons/Replay';
-import EditIcon from '@material-ui/icons/Edit';
-import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import DoneIcon from '@material-ui/icons/Done';
-import * as StudyActions from '@actions/study';
-import * as Actions from '@actions/app';
+// import ReplayIcon from '@material-ui/icons/Replay';
+// import EditIcon from '@material-ui/icons/Edit';
+// import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+// import DoneIcon from '@material-ui/icons/Done';
+import { StudyActions } from '@actions';
 import { Consts } from '@constants';
 import Loading from '@components/Loading';
-import { Domains, App } from 'typings';
+import { RootState, Group } from 'typings';
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
@@ -78,8 +77,8 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   })
 );
 
-const studyState = (state: Domains.State) => state.study;
-const appState = (state: Domains.State) => state.app;
+const studyState = (state: RootState) => state.study;
+const appState = (state: RootState) => state.app;
 
 const audioRef = React.createRef<HTMLAudioElement>();
 const zhRef = React.createRef<HTMLInputElement>();
@@ -89,7 +88,6 @@ export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const actions = bindActionCreators(StudyActions, dispatch);
-  const appActions = bindActionCreators(Actions, dispatch);
   const { current: word, mode } = useSelector(studyState);
   const { isLoading } = useSelector(appState);
   const [showText, setShowText] = React.useState(false);
@@ -98,7 +96,7 @@ export default () => {
   const handleTouchStart = () => setShowText(true);
 
   /** 新規単語学習 */
-  const handleNext = () => actions.review();
+  const handleNext = () => actions.startReview();
 
   const handleAnswer = (word: string, yes: boolean) => {
     actions.answer(word, yes);
@@ -108,7 +106,7 @@ export default () => {
     setTimeout(() => play(), 100);
   };
 
-  const getButtons = (mode?: string, word?: App.WordItem) => {
+  const getButtons = (mode?: string, word?: Group.WordItem) => {
     const buttons = [];
 
     // 単語あり
@@ -172,7 +170,9 @@ export default () => {
   const play = () => {
     const audio = audioRef.current;
 
-    audio && audio.play();
+    if (!window.location.hostname.startsWith('localhost')) {
+      audio && audio.play();
+    }
   };
 
   return (

@@ -1,49 +1,91 @@
-import { handleActions, Action } from 'redux-actions';
-import { Group } from '@domains';
-import { ActionTypes } from '@constants';
-import { Actions } from 'typings';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Consts } from '@constants';
+import { API } from '@utils';
+import { APIs, Domains, Payloads, RootState, Tables } from 'typings';
 
-const reducer = handleActions<Group, any>(
-  {
-    /** グループ新規追加 */
-    [ActionTypes.GROUP_SUCCESS_REGIST]: (store: Group, { payload }: Action<Actions.GroupRegistPayload>) =>
-      store.addGroup(payload),
+export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST', async () => {
+  const res = await API.get<APIs.B002Response>(Consts.B002_URL());
 
-    /** グループ一覧 */
-    [ActionTypes.GROUP_SUCCESS_LIST]: (store: Group, { payload }: Action<Actions.GroupListPayload>) =>
-      store.setGroupList(payload),
+  return res.items;
+});
 
-    /** グループ削除 */
-    [ActionTypes.GROUP_SUCCESS_DELETE]: (store: Group, { payload }: Action<Actions.GroupDeletePayload>) =>
-      store.delGroup(payload),
+export const GROUP_DELETE = createAsyncThunk<void, void>('group/GROUP_DELETE', async (_, { getState }) => {
+  console.log((getState() as RootState).group);
+  const { activeGroup } = (getState() as RootState).group;
 
-    /** グループ単語 */
-    [ActionTypes.GROUP_SUCCESS_WORDS]: (store: Group, { payload }: Action<Actions.GroupWordsPayload>) =>
-      store.setGroupWords(payload),
+  await API.del(Consts.B005_URL(activeGroup));
+});
 
-    /** グループ単語の削除 */
-    [ActionTypes.GROUP_SUCCESS_REMOVE_WORD]: (store: Group, { payload }: Action<Actions.WordDeletePayload>) =>
-      store.removeWordInGroup(payload.groupId, payload.word),
+export const GROUP_WORD_LIST = createAsyncThunk<Payloads.GroupWordList, string>(
+  'group/GROUP_WORD_LIST',
+  async (groupId) => {
+    const res = await API.get<APIs.C002Response>(Consts.C002_URL(groupId));
 
-    /** 画像アップロード */
-    [ActionTypes.REGIST_SUCCESS_IMAGE2TEXT]: (store: Group, { payload }: Action<Actions.ImageUploadPayload>) =>
-      store.setRegists(payload.data.words),
-
-    /** 画像アップロード */
-    [ActionTypes.REGIST_SUCCESS_FILEUPLOAD]: (store: Group, { payload }: Action<Actions.FileUploadPayload>) =>
-      store.setRegists(payload.words),
-
-    /** 単語登録正常終了 */
-    [ActionTypes.REGIST_SUCCESS_REGIST]: (store: Group) => store.clearRegists(),
-
-    /** 単語登録一覧をクリア */
-    [ActionTypes.REGIST_SUCCESS_CLEAR]: (store: Group) => store.clearRegists(),
-
-    /** 単語登録一覧をクリア */
-    [ActionTypes.REGIST_SUCCESS_REMOVE]: (store: Group, { payload }: Action<Actions.RegistRemovePayload>) =>
-      store.removeRegist(payload),
-  },
-  new Group()
+    return {
+      id: groupId,
+      items: res.items,
+    };
+  }
 );
 
-export default reducer;
+const grpState: Domains.GroupState = {
+  activeGroup: '',
+  groupWords: {},
+  groups: [],
+  regists: [],
+};
+
+const slice = createSlice({
+  name: 'group',
+  initialState: grpState,
+  reducers: {
+    // グループを選択
+    GROUP_ACTIVE: (state, { payload }: PayloadAction<string>) => {
+      state.activeGroup = payload;
+    },
+
+    // グループ登録
+    GROUP_REGIST: (state, { payload }: PayloadAction<Tables.TGroups>) => {
+      state.groups.push(payload);
+    },
+
+    // グループ単語の削除
+    GROUP_WORD_REMOVE: (state, { payload: { id, word } }: PayloadAction<Payloads.RemoveWordInGroup>) => {
+      const newItems = state.groupWords[id].filter((item) => item.word !== word);
+
+      state.groupWords[id] = newItems;
+    },
+
+    // 登録単語一覧を保管
+    GROUP_REGIST_SAVE: (state, { payload }: PayloadAction<string[]>) => {
+      state.regists = payload;
+    },
+
+    // 単語登録一覧をクリア
+    GROUP_REGIST_CLEAR: (state) => {
+      state.regists = [];
+    },
+
+    // 単語登録一覧をクリア
+    GROUP_REGIST_REMOVE: (state, { payload }: PayloadAction<string>) => {
+      state.regists = state.regists.filter((item) => item !== payload);
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      // get group list
+      .addCase(GROUP_LIST.fulfilled, (state, { payload }) => {
+        state.groups = payload;
+      })
+      // delete group id
+      .addCase(GROUP_DELETE.fulfilled, (state) => {
+        state.groups = state.groups.filter((item) => item.id !== state.activeGroup);
+      })
+      // add words in group
+      .addCase(GROUP_WORD_LIST.fulfilled, (state, { payload }) => {
+        state.groupWords[payload.id] = payload.items;
+      });
+  },
+});
+
+export default slice;

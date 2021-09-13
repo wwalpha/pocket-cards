@@ -2,14 +2,14 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Auth from '@aws-amplify/auth';
-import * as Actions from '@actions/app';
+import { UserActions } from '@actions';
 import SignIn from './SignIn';
 import App from '../../App';
 
 const Authenticator: React.FunctionComponent = () => {
   const [isLogin, setLogin] = React.useState(false);
   const [isLoading, setLoading] = React.useState(true);
-  const actions = bindActionCreators(Actions, useDispatch());
+  const actions = bindActionCreators(UserActions, useDispatch());
 
   React.useEffect(() => {
     if (isLogin) return;

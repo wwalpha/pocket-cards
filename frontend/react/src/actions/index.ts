@@ -1,18 +1,34 @@
-import { createAction } from 'redux-actions';
-import { ActionTypes } from '@constants';
-import { FailureAction, RequestAction } from 'typings';
+import { Actions } from '@reducers';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-/** Common Request Actions */
-export const request = (actionType: string): RequestAction => createAction(actionType);
-/** Common Failure Actions */
-export const failure = (actionType: string): FailureAction => createAction(actionType, (error: Error) => ({ error }));
+export const startLoading = Actions.APP_START_LOADING;
+export const endLoading = Actions.APP_END_LOADING;
+export const defaultFailure = Actions.APP_COM_01_FAILURE;
 
-/** default request action */
-export const startLoading = request(ActionTypes.COM_01_SUCCESS);
-export const endLoading = request(ActionTypes.COM_02_SUCCESS);
+export const withLoading = createAsyncThunk('app/Loading', async (func: Function, { dispatch, getState }) => {
+  const state = getState();
 
-/** default failure action */
-export const defaultFailure = failure(ActionTypes.COM_01_FAILURE);
+  dispatch(startLoading());
+
+  try {
+    await func(state);
+  } catch (err) {
+    dispatch(defaultFailure(err));
+  } finally {
+    dispatch(endLoading());
+  }
+});
+// export const withLoading = async (dispatch: AppDispatch, func: Function) => {
+//   dispatch(startLoading());
+
+//   try {
+//     await func();
+//   } catch (err) {
+//     dispatch(defaultFailure(err));
+//   } finally {
+//     dispatch(endLoading());
+//   }
+// };
 
 export * as AppActions from './app';
 export * as GroupActions from './group';
@@ -20,3 +36,4 @@ export * as MypageActions from './mypage';
 export * as RegistActions from './regist';
 export * as StudyActions from './study';
 export * as WordActions from './word';
+export * as UserActions from './user';

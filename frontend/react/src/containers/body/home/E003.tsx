@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles, TextField, Box } from '@material-ui/core';
 import Button from '@components/buttons/Button';
-import * as Actions from '@actions/group';
+import { GroupActions } from '@actions';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { Domains } from 'typings';
+import { RootState } from 'typings';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -54,11 +54,11 @@ const schema = yup.object({
   name: yup.string().required(),
 });
 
-const appState = (state: Domains.State) => state.app;
+const appState = (state: RootState) => state.app;
 
 export default () => {
   // const classes = useStyles();
-  const actions = bindActionCreators(Actions, useDispatch());
+  const actions = bindActionCreators(GroupActions, useDispatch());
   const { isLoading } = useSelector(appState);
   // const resolver = useYupValidationResolver(schema);
   const { handleSubmit, register } = useForm({
@@ -66,7 +66,11 @@ export default () => {
   });
 
   const onSubmit = handleSubmit((datas) => {
-    actions.regist(datas.name, datas.description);
+    actions.regist({
+      id: '',
+      name: datas.name,
+      description: datas.description,
+    });
   });
 
   return (
@@ -99,8 +103,3 @@ export default () => {
     </form>
   );
 };
-
-interface GroupRegistForm {
-  name: string;
-  description?: string;
-}

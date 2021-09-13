@@ -1,14 +1,14 @@
 import React, { FunctionComponent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List, Divider, Theme, Box, makeStyles, createStyles } from '@material-ui/core';
 import { RegistActions } from '@actions';
 import { Button } from '@components/buttons';
 import { WordEdit } from '@components/functions';
 import { Consts } from '@constants';
-import { Domains } from 'typings';
+import { RootState } from 'typings';
 
-const useStyles = makeStyles(({ palette, spacing }: Theme) =>
+const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
     list: {
       margin: spacing(0),
@@ -31,8 +31,8 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   })
 );
 
-const groupState = (state: Domains.State) => state.group;
-const appState = (state: Domains.State) => state.app;
+const groupState = (state: RootState) => state.group;
+const appState = (state: RootState) => state.app;
 
 const a002: FunctionComponent<any> = () => {
   const classes = useStyles();

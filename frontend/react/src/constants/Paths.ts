@@ -1,6 +1,6 @@
 import { App } from 'typings';
 
-export const ROUTE_PATH_INDEX = {
+export const ROUTE_PATH_INDEX: Record<string, number> = {
   Root: 0,
   SignIn: 1,
   Login: 2,

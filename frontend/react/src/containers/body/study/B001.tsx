@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 import Button from '@components/buttons/Button';
 import { WordList } from '@components/functions';
-import { AppActions, StudyActions, WordActions } from '@actions';
+import { StudyActions, WordActions } from '@actions';
 import { Paths, Consts } from '@constants';
-import { Domains } from 'typings';
+import { RootState } from 'typings';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -21,27 +21,27 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const groupState = (state: Domains.State) => state.group;
-const appState = (state: Domains.State) => state.app;
+const groupState = (state: RootState) => state.group;
+const appState = (state: RootState) => state.app;
 
 export default () => {
   const classes = useStyles();
   const actions = bindActionCreators(StudyActions, useDispatch());
   const wrdActions = bindActionCreators(WordActions, useDispatch());
-  const { groupWords } = useSelector(groupState);
-  const { groupId, displayCtrl } = useSelector(appState);
+  const { activeGroup, groupWords } = useSelector(groupState);
+  const { displayCtrl } = useSelector(appState);
 
   // 学習
-  const handleNew = () => actions.new();
+  const handleNew = () => actions.startNew();
   // 復習
-  const handleReview = () => actions.review();
+  const handleReview = () => actions.startReview();
   // テスト
-  const handleTest = () => actions.test();
+  const handleTest = () => actions.startTest();
 
   // 詳細
   const handleDetail = (word: string) => wrdActions.detail(word);
   // 削除
-  const handleDelete = (word: string) => wrdActions.deleteRow(groupId, word);
+  const handleDelete = (word: string) => wrdActions.deleteRow(activeGroup, word);
 
   return (
     <React.Fragment>
@@ -70,7 +70,7 @@ export default () => {
         </Box>
       </Box>
       {(() => {
-        const dataRows = groupWords[groupId];
+        const dataRows = groupWords[activeGroup];
 
         if (!dataRows || dataRows.length === 0) return;
 

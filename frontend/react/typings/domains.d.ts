@@ -1,41 +1,29 @@
 import { CognitoUser } from '@aws-amplify/auth';
-import { APIs, Tables, App } from '.';
+import { APIs, Tables, App, Group } from '.';
 
 export namespace Domains {
-  interface State {
-    // App共通設定
-    app: App;
-    group: Group;
-    study: Study;
-    user: User;
-  }
-
-  interface App {
+  interface AppState {
     tabIndex: number;
     // loading
     isLoading: boolean;
-    // User info
-    userInfo: CognitoUser | undefined;
-    // selected group id
-    groupId: string;
     // server status
     status: string;
     // display control
     displayCtrl: Record<number, boolean>;
-    // word detail
-    details?: App.WordDetail;
   }
 
-  interface Group {
+  interface GroupState {
+    activeGroup: string;
     /** user's all group infomations */
     groups: Tables.TGroups[];
     /** Group word list */
-    groupWords: App.GroupWords;
+    groupWords: Group.GroupWords;
     /** Group word list */
     regists: string[];
   }
 
-  interface User {
+  interface UserState {
+    details?: User.Details;
     remainingTest: number;
     remainingReview: number;
     daily: number;
@@ -45,11 +33,11 @@ export namespace Domains {
     monthly: number;
   }
 
-  interface Study {
-    current?: App.WordItem;
+  interface StudyState {
+    current?: Group.WordItem;
     mode?: string;
-    rows: App.WordItem[];
-    history: App.WordItem[];
+    rows: Group.WordItem[];
+    history: Group.WordItem[];
     index: number;
   }
 }

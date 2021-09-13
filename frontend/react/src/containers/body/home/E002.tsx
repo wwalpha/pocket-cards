@@ -1,22 +1,22 @@
 import * as React from 'react';
-import { TextField, Box } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
+import { TextField, Box } from '@material-ui/core';
 import { Controller, useForm } from 'react-hook-form';
 import { Button } from '@components/buttons';
-import * as Actions from '@actions/group';
-import { Domains } from 'typings';
+import { GroupActions } from '@actions';
+import { RootState } from 'typings';
 
-const groupState = (state: Domains.State) => state.group;
-const appState = (state: Domains.State) => state.app;
+const groupState = (state: RootState) => state.group;
+const appState = (state: RootState) => state.app;
 
 export default () => {
-  const actions = bindActionCreators(Actions, useDispatch());
-  const { groups } = useSelector(groupState);
-  const { groupId, isLoading } = useSelector(appState);
+  const actions = bindActionCreators(GroupActions, useDispatch());
+  const { groups, activeGroup } = useSelector(groupState);
+  const { isLoading } = useSelector(appState);
 
   // 選択中のGroup情報取得
-  const groupInfo = groups.find((item) => item.id === groupId);
+  const groupInfo = groups.find((item) => item.id === activeGroup);
 
   const {
     control,
@@ -30,7 +30,7 @@ export default () => {
   // 編集
   const onSubmit = handleSubmit((datas) => {
     actions.edit({
-      id: groupId,
+      id: activeGroup,
       name: datas.name,
       description: datas.description,
     });

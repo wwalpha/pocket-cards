@@ -1,21 +1,23 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
 import { routerMiddleware } from 'connected-react-router';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { createHashHistory } from 'history';
 import logger from 'redux-logger';
 import reducers from '../reducers';
-import * as API from '@utils/API';
 
 export const history = createHashHistory();
 
-const store = createStore(
-  reducers(history),
-  composeWithDevTools(
-    applyMiddleware(routerMiddleware(history), thunk.withExtraArgument(API), logger)
-    // other store enhancers if any
-  )
-);
+// const rootReducer = (state: any, action: any) => {
+//   if (action.type === ActionTypes.RESET_STATE) {
+//     state = undefined;
+//   }
+
+//   return reducers(state, action);
+// };
+
+const store = configureStore({
+  reducer: reducers(history),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(routerMiddleware(history)).concat(logger),
+});
 
 if (module.hot) {
   module.hot.accept('../reducers', () => store.replaceReducer(reducers(history)));

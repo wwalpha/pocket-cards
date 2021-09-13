@@ -1,16 +1,41 @@
-import { User } from '@domains';
-import { handleActions, Action } from 'redux-actions';
-import { ActionTypes } from '@constants';
-// import { C001Payload } from '@actions/mypage';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Domains, User } from 'typings';
 
-const reducer = handleActions<User, any>(
-  {
-    /** 学習履歴取得 */
-    // [ActionTypes.C0_01_REQUEST]: (store: User) => store.startLoading(),
-    // [ActionTypes.C0_01_SUCCESS]: (store: User, { payload }: Action<C001Payload>) => store.setHistory(payload.data),
-    // [ActionTypes.C0_01_FAILURE]: (store: User) => store.endLoading(),
+const userState: Domains.UserState = {
+  details: undefined,
+  remainingTest: 0,
+  remainingReview: 0,
+  daily: 0,
+  dailyNew: 0,
+  dailyReview: 0,
+  weekly: 0,
+  monthly: 0,
+};
+
+const slice = createSlice({
+  name: 'user',
+  initialState: userState,
+  reducers: {
+    // Sign in
+    USER_SIGN_IN: (state, { payload }: PayloadAction<User.Details>) => {
+      state.details = payload;
+    },
+
+    // Sign out
+    USER_SIGN_OUT: (state) => {
+      state.details = undefined;
+    },
+
+    USER_HISTORY: (state) => {
+      // draft.remainingReview = info.remaining.review;
+      // draft.remainingTest = info.remaining.test;
+      // draft.daily = info.daily.total;
+      // draft.dailyNew = info.daily.new;
+      // draft.dailyReview = info.daily.review;
+      // draft.weekly = info.weekly;
+      // draft.monthly = info.monthly;
+    },
   },
-  new User()
-);
+});
 
-export default reducer;
+export default slice;

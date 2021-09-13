@@ -16,10 +16,9 @@ import {
 } from '@material-ui/core';
 import FolderIcon from '@material-ui/icons/Folder';
 import Button from '@components/buttons/Button';
-import * as AppActions from '@actions/app';
-import * as GroupActions from '@actions/group';
+import { GroupActions } from '@actions';
 import { Paths } from '@constants';
-import { Domains } from 'typings';
+import { RootState } from 'typings';
 
 const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing }: Theme) =>
   createStyles({
@@ -41,19 +40,18 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing
   })
 );
 
-const group = (state: Domains.State) => state.group;
+const group = (state: RootState) => state.group;
 
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const actions = bindActionCreators(GroupActions, dispatch);
-  const appActions = bindActionCreators(AppActions, dispatch);
   const { groups } = useSelector(group);
 
   // Folder click
   const handleOnClick = (groupId: string) => {
     // 選択値を保存する
-    appActions.groupSelect(groupId);
+    actions.activeGroup(groupId);
 
     // 画面遷移
     dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));

@@ -35,7 +35,7 @@
 //   })
 // );
 
-// const appState = (state: Domains.State) => state.app;
+// const appState = (state: RootState) => state.app;
 
 // const NewPassword = () => {
 //   const classes = useStyles();

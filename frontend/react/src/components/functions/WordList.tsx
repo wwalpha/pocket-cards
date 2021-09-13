@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Fragment, useState, UIEventHandler } from 'react';
+import React, { FunctionComponent, Fragment, useState } from 'react';
 import {
   ListItem,
   makeStyles,

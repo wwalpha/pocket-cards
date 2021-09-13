@@ -1,4 +1,4 @@
-// import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
+// import { createAction, ActionFunction0, ActionFunction1, Action } from '@reduxjs/toolkit';
 // import { ThunkAction } from 'redux-thunk';
 // import { ActionTypes, Consts } from '@constants';
 // import { Actions, API } from 'typings';

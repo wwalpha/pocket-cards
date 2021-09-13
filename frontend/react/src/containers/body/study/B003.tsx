@@ -5,9 +5,9 @@ import { useParams } from 'react-router';
 import { makeStyles, Theme, createStyles, Box, Typography, Card, CardContent } from '@material-ui/core';
 import { Button } from '@components/buttons';
 import * as Actions from '@actions/word';
-import { Domains } from 'typings';
+import { RootState } from 'typings';
 
-const useStyles = makeStyles(({ spacing, palette }: Theme) =>
+const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
     container: {
       height: '100%',
@@ -21,17 +21,20 @@ interface B003Params {
   word: string;
 }
 
-const appState = (state: Domains.State) => state.app;
+const appState = (state: RootState) => state.app;
+const grpState = (state: RootState) => state.group;
 
 export default () => {
   const classes = useStyles();
   const { word } = useParams<B003Params>();
-  const { groupId, isLoading, details } = useSelector(appState);
+  const { isLoading } = useSelector(appState);
+  const { activeGroup } = useSelector(grpState);
 
   const actions = bindActionCreators(Actions, useDispatch());
 
   const handleOnDelete = () => {
-    actions.delet(groupId, word);
+    // TODO
+    // actions.delet(activeGroup, word);
   };
 
   return (
