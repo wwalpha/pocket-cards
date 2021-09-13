@@ -3,6 +3,8 @@ import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { Auth } from '@aws-amplify/auth';
 import { API } from '@aws-amplify/api';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 import { MuiThemeProvider } from '@material-ui/core';
 import { ConnectedRouter } from 'connected-react-router';
 import Authenticator from './containers/auth/Authenticator';
@@ -47,13 +49,17 @@ API.configure({
   ],
 });
 
+let persistor = persistStore(store);
+
 const provider = (
   <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
-      <ConnectedRouter history={history}>
-        <Authenticator />
-      </ConnectedRouter>
-    </MuiThemeProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <MuiThemeProvider theme={theme}>
+        <ConnectedRouter history={history}>
+          <Authenticator />
+        </ConnectedRouter>
+      </MuiThemeProvider>
+    </PersistGate>
   </Provider>
 );
 
