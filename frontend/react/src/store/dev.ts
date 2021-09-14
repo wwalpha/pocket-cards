@@ -3,7 +3,7 @@ import { routerMiddleware } from 'connected-react-router';
 import { createHashHistory } from 'history';
 import logger from 'redux-logger';
 import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import storage from 'redux-persist/lib/storage/session';
 import reducers from '../reducers';
 
 export const history = createHashHistory();
@@ -17,7 +17,7 @@ export const history = createHashHistory();
 // };
 const persistedReducer = persistReducer(
   {
-    key: 'root',
+    key: 'pkc_dev',
     version: 1,
     storage,
   },
