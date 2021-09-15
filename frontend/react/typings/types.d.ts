@@ -14,6 +14,8 @@ export namespace Payloads {
     items: Group.WordDetails[];
   };
 
+  type GroupWordDetails = Group.WordDetails;
+
   type RemoveWordInGroup = {
     id: string;
     word: string;
@@ -40,8 +42,12 @@ export namespace Group {
   type GroupWords = Record<string, WordDetails[]>;
 
   interface WordDetails {
-    word: string;
+    id: string;
+    pronounce?: string;
     vocabulary?: string;
+    mp3?: string;
+    vocChn?: string;
+    vocJpn?: string;
   }
 
   interface WordItem {

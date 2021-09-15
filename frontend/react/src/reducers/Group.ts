@@ -23,7 +23,10 @@ export const GROUP_WORD_LIST = createAsyncThunk<Payloads.GroupWordList, string>(
 
     return {
       id: groupId,
-      items: res.items,
+      items: res.items.map((item) => ({
+        id: item.word,
+        vocabulary: item.vocabulary,
+      })),
     };
   }
 );
@@ -33,6 +36,7 @@ const grpState: Domains.GroupState = {
   groupWords: {},
   groups: [],
   regists: [],
+  current: undefined,
 };
 
 const slice = createSlice({
@@ -51,9 +55,14 @@ const slice = createSlice({
 
     // グループ単語の削除
     GROUP_WORD_REMOVE: (state, { payload: { id, word } }: PayloadAction<Payloads.RemoveWordInGroup>) => {
-      const newItems = state.groupWords[id].filter((item) => item.word !== word);
+      const newItems = state.groupWords[id].filter((item) => item.id !== word);
 
       state.groupWords[id] = newItems;
+    },
+
+    // グループ単語の詳細
+    GROUP_WORD_DETAILS: (state, { payload }: PayloadAction<Payloads.GroupWordDetails>) => {
+      state.current = payload;
     },
 
     // 登録単語一覧を保管

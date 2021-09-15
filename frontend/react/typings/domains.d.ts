@@ -20,6 +20,8 @@ export namespace Domains {
     groupWords: Group.GroupWords;
     /** Group word list */
     regists: string[];
+    /** word detail */
+    current?: Group.WordDetails;
   }
 
   interface UserState {

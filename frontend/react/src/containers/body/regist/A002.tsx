@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List, Divider, Theme, Box, makeStyles, createStyles } from '@material-ui/core';
 import { RegistActions } from '@actions';

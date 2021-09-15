@@ -28,31 +28,32 @@ export default () => {
   const classes = useStyles();
   const { word } = useParams<B003Params>();
   const { isLoading } = useSelector(appState);
-  const { activeGroup } = useSelector(grpState);
+  const { activeGroup, current } = useSelector(grpState);
 
   const actions = bindActionCreators(Actions, useDispatch());
 
   const handleOnDelete = () => {
-    // TODO
-    // actions.delet(activeGroup, word);
+    actions.del(activeGroup, word);
   };
+
+  const handleOnUpdate = () => {};
 
   return (
     <Box>
       <Card className={classes.root}>
         <CardContent>
           <Typography variant="h4" component="h2">
-            {details?.id}
+            {current?.id}
           </Typography>
           <Typography variant="h5" color="textSecondary">
-            /{details?.pronounce}/
+            /{current?.pronounce}/
           </Typography>
 
           <Typography variant="h5" component="p">
             <br />
-            {details?.vocChn}
+            {current?.vocChn}
             <br />
-            {details?.vocJpn}
+            {current?.vocJpn}
           </Typography>
         </CardContent>
       </Card>
@@ -74,7 +75,7 @@ export default () => {
           color="primary"
           type="button"
           isLoading={isLoading}
-          onClick={handleOnDelete}>
+          onClick={handleOnUpdate}>
           UPDATE
         </Button>
       </Box>

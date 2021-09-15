@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { Consts } from '@constants';
-import { APIs } from 'typings';
+import { Group } from 'typings';
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
@@ -66,14 +66,14 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
                 <Button
                   className={classes.avatarBtn}
                   onClick={() => {
-                    handleOnClick(item.word);
+                    handleOnClick(item.id);
                   }}>
                   詳細
                 </Button>
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary={item.word}
+              primary={item.id}
               primaryTypographyProps={{
                 variant: 'subtitle1',
               }}
@@ -88,7 +88,7 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
                 <IconButton
                   color="secondary"
                   onClick={() => {
-                    handleOnDelete(item.word);
+                    handleOnDelete(item.id);
                   }}>
                   <DeleteIcon fontSize="large" />
                 </IconButton>
@@ -102,7 +102,7 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
 };
 
 interface WordListProps {
-  list: APIs.C002ResItem[];
+  list: Group.WordDetails[];
   onDetail?: (word: string) => void;
   onDelete?: (word: string) => void;
   showDelete?: boolean;

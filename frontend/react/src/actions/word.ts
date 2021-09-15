@@ -27,32 +27,41 @@ export const deleteRow = (groupId: string, word: string) => (dispatch: AppDispat
   dispatch(
     withLoading(async () => {
       // データ保存
-      dispatch(Actions.GROUP_DELETE());
+      dispatch(
+        Actions.GROUP_WORD_REMOVE({
+          id: groupId,
+          word: word,
+        })
+      );
     })
   );
 
 /** 単語詳細 */
 export const detail = (word: string) => (dispatch: AppDispatch) =>
-  withLoading(async () => {
-    // 単語詳細画面へ遷移する
-    const prefix = Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyEdit].split(':')[0];
+  dispatch(
+    withLoading(async () => {
+      // 単語詳細画面へ遷移する
+      const prefix = Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyEdit].split(':')[0];
 
-    dispatch(push(`${prefix}${word}`));
+      dispatch(push(`${prefix}${word}`));
 
-    // 単語詳細情報を取得する
-    const res = await API.get<APIs.E001Response>(Consts.E001_URL(word));
+      // 単語詳細情報を取得する
+      const res = await API.get<APIs.E001Response>(Consts.E001_URL(word));
 
-    // TODO
-    // Hooks.dispatch()(
-    //   GroupActions.({
-    //     id: res.item?.id as string,
-    //     mp3: res.item?.mp3,
-    //     pronounce: res.item?.pronounce,
-    //     vocChn: res.item?.vocChn,
-    //     vocJpn: res.item?.vocJpn,
-    //   })
-    // );
-  });
+      if (!res.item) throw new Error(`Cannot found word, ${word}`);
+
+      dispatch(
+        Actions.GROUP_WORD_DETAILS({
+          id: res.item?.id,
+          mp3: res.item.mp3,
+          pronounce: res.item.pronounce,
+          vocabulary: res.item.vocJpn,
+          vocChn: res.item.vocChn,
+          vocJpn: res.item.vocJpn,
+        })
+      );
+    })
+  );
 
 /** Get words list in group */
 export const list = () => (dispatch: AppDispatch) =>
