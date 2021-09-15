@@ -1,6 +1,11 @@
 provider "aws" {}
 
 # ----------------------------------------------------------------------------------------------
+# Region
+# ----------------------------------------------------------------------------------------------
+data "aws_region" "this" {}
+
+# ----------------------------------------------------------------------------------------------
 # Terraform Settings
 # ----------------------------------------------------------------------------------------------
 terraform {
@@ -49,6 +54,8 @@ data "terraform_remote_state" "services" {
 locals {
   remote_setup    = data.terraform_remote_state.setup.outputs
   remote_services = data.terraform_remote_state.services.outputs
+
+  region = data.aws_region.this.name
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -58,7 +65,7 @@ resource "aws_s3_bucket_object" "frontend" {
   bucket  = local.remote_setup.bucket_name_archive
   key     = "envs/frontend.env"
   content = <<EOT
-AWS_REGION=ap-northeast-1
+AWS_REGION=${local.region}
 IDENTITY_POOL_ID=${local.remote_services.cognito_identity_pool_id}
 USER_POOL_ID=${local.remote_services.cognito_user_pool_id}
 USER_POOL_WEB_CLIENT_ID=${local.remote_services.cognito_user_pool_client_id}
