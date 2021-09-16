@@ -135,7 +135,7 @@ resource "aws_cognito_user_pool_client" "this" {
     "profile"
   ]
   callback_urls = [
-    "https://www.${local.domain_name}/settings"
+    "https://www.${local.domain_name}/"
   ]
   logout_urls = [
     "https://www.${local.domain_name}/logout"

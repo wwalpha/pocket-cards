@@ -4,6 +4,7 @@ import { WordMaster, Groups } from '@queries';
 import { getUserId } from '@src/utils/commons';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
+import { defaultTo } from 'lodash';
 
 /** グループ単語新規追加 */
 export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>): Promise<void> => {
@@ -32,21 +33,23 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
 /** Wordsのデータ登録 */
 const registWords = async (userId: string, groupId: string, words: string[], master: Tables.TWordMaster[]) => {
   // 単語は全部小文字で処理する
-  const records = words.map<Tables.TWords>((id) => {
-    const record = master.find((item) => item.id === id);
+  const records = words
+    .map<Tables.TWords | undefined>((id) => {
+      const record = master.find((item) => item.id === id);
 
-    if (!record) {
-      throw new Error('Word Not Found');
-    }
+      if (!record) {
+        return undefined;
+      }
 
-    return {
-      id: id,
-      groupId: groupId,
-      nextTime: DateUtils.getNow(),
-      times: 0,
-      vocabulary: record.vocJpn,
-    };
-  });
+      return {
+        id: id,
+        groupId: groupId,
+        nextTime: DateUtils.getNow(),
+        times: 0,
+        vocabulary: record.vocJpn,
+      };
+    })
+    .filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
 
   // 一括登録
   await DBHelper().bulk(Environment.TABLE_NAME_WORDS, records);
@@ -77,8 +80,8 @@ const registDictionary = async (words: string[]) => {
   Logger.info('単語情報を収集しました.');
 
   // 単語登録情報
-  const wordInfos = result.map<Tables.TWordMaster>((item) => ({
-    id: item[0].word,
+  const wordInfos = result.map<Tables.TWordMaster>((item, index) => ({
+    id: defaultTo(item[0].word, words[index]),
     pronounce: item[0].pronounce,
     mp3: item[1],
     vocChn: item[2],

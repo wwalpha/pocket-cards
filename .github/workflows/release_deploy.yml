@@ -210,15 +210,21 @@ jobs:
           terraform init
           terraform apply -auto-approve=true
           BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
+          echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
           echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
+
+      # Install and Build
+      - name: Build
+        env:
+          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
+        run: |
+          aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
+          yarn install --production=false
+          yarn build
 
       # Deploy frontend
       - name: Deploy
         env:
-          FILE_NAME: ${{ github.sha }}
           BUCKET_NAME_FRONTEND: ${{ steps.terraform.outputs.bucket_name_frontend }}
         run: |
-          filepath=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_FRONTEND --with-decryption | jq -r .Parameter.Value)
-          aws s3 cp $filepath dist.zip
-          unzip dist.zip -d ./dist/
           aws s3 cp dist s3://$BUCKET_NAME_FRONTEND/ --recursive --region $AWS_DEFAULT_REGION
