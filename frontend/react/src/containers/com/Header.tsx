@@ -41,6 +41,7 @@ const useStyles = makeStyles(({ spacing, palette: { primary, common } }: Theme) 
     toolbar: { minHeight: spacing(8) },
     title: { flexGrow: 1, fontWeight: 600, textAlign: 'center', letterSpacing: '2px' },
     icon: { color: common.white, fontSize: spacing(4) },
+    addButton: { position: 'absolute', right: spacing(1) },
     edgeButton: { margin: spacing(0) },
     replyButton: { padding: spacing(0.5) },
     menuItem: {
@@ -144,7 +145,7 @@ export default () => {
           {(() => {
             if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]) {
               return (
-                <IconButton color="inherit" aria-label="Add" edge="end" onClick={handleOnClickAdd}>
+                <IconButton className={classes.addButton} color="inherit" aria-label="Add" onClick={handleOnClickAdd}>
                   <AddIcon fontSize="large" />
                 </IconButton>
               );
