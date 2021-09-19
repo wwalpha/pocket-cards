@@ -190,11 +190,6 @@ export default () => {
         </Grid>
       </Grid> */}
       {(() => {
-        // Loading中
-        if (isLoading) {
-          return <Loading className={classes.loading} />;
-        }
-
         if (!word) {
           return (
             <Grid container justifyContent="center" alignItems="center" className={classes.bottom}>
@@ -223,7 +218,7 @@ export default () => {
                     {word.word}
                   </Typography>
                   <Typography variant="h6" align="center">
-                    {word.pronounce ? `[${word.pronounce}]` : undefined}
+                    {word.pronounce ? `/${word.pronounce}/` : undefined}
                   </Typography>
                   {(() => {
                     return edit ? (
