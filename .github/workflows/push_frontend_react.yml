@@ -62,9 +62,9 @@ jobs:
           terraform apply -auto-approve=true
           BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
           BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
-          echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
-          echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
-          echo "::set-output name=source_tag::${GITHUB_REF#refs/tags/}"
+          echo ::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)
+          echo ::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)
+          echo ::set-output name=source_tag::${GITHUB_REF#refs/tags/}
 
       # Install and Build
       - name: Build
