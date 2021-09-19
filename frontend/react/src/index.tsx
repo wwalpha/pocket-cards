@@ -3,12 +3,13 @@ import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { Auth } from '@aws-amplify/auth';
 import { API } from '@aws-amplify/api';
+import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { MuiThemeProvider } from '@material-ui/core';
 import { ConnectedRouter } from 'connected-react-router';
 import Authenticator from './containers/auth/Authenticator';
 import { Consts } from '@constants';
-import store from './store';
+import store, { history } from './store';
 import theme from './Theme';
 
 Auth.configure({
@@ -48,11 +49,13 @@ API.configure({
   ],
 });
 
+const persistor = persistStore(store);
+
 const provider = (
-  <Provider store={store.store}>
-    <PersistGate loading={null} persistor={store.persistor}>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
       <MuiThemeProvider theme={theme}>
-        <ConnectedRouter history={store.history}>
+        <ConnectedRouter history={history}>
           <Authenticator />
         </ConnectedRouter>
       </MuiThemeProvider>
@@ -66,8 +69,8 @@ render(provider, root);
 
 // const start = async () => {
 //   // const result = await Auth.signUp({
-//   //   username: 'wwalphaxx@gmail.com',
-//   //   password: 'seSSion99x',
+//   //   username: 'wwalpha@gmail.com',
+//   //   password: 'Session10+',
 //   //   attributes: {
 //   //     email: 'wwalpha@gmail.com',
 //   //   },
