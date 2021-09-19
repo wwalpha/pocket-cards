@@ -73,6 +73,7 @@ jobs:
           VERSION: ${{ steps.terraform.outputs.source_tag }}
         run: |
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
+          printenv
           echo VERSION=$VERSION >> frontend.env
           yarn install --production=false
           yarn build
