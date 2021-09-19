@@ -7,4 +7,6 @@ const store = (() => {
 
 export default store;
 
-export { AppDispatch, RootState } from './dev';
+export { AppDispatch, RootState } from './prod';
+
+export const history = process.env.NODE_ENV !== 'production' ? require('./dev').history : require('./prod').history;
