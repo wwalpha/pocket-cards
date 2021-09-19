@@ -67,7 +67,7 @@ const slice = createSlice({
 
     // 登録単語一覧を保管
     GROUP_REGIST_SAVE: (state, { payload }: PayloadAction<string[]>) => {
-      state.regists = payload;
+      state.regists = payload.filter((item) => item.trim().length > 0);
     },
 
     // 単語登録一覧をクリア
