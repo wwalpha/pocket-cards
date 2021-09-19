@@ -2,11 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import { routerMiddleware } from 'connected-react-router';
 import { createHashHistory } from 'history';
 import logger from 'redux-logger';
-import { persistReducer } from 'redux-persist';
+import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
 import reducers from '../reducers';
 
-export const history = createHashHistory();
+const history = createHashHistory();
 
 // const rootReducer = (state: any, action: any) => {
 //   if (action.type === ActionTypes.RESET_STATE) {
@@ -33,4 +33,6 @@ if (module.hot) {
   module.hot.accept('../reducers', () => store.replaceReducer(persistedReducer));
 }
 
-export default store;
+const persistor = persistStore(store);
+
+export default { store, history, persistor };

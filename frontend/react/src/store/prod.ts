@@ -3,10 +3,10 @@ import { createBrowserHistory } from 'history';
 import logger from 'redux-logger';
 import reducers from '../reducers';
 import { configureStore } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
+import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
 
-export const history = createBrowserHistory();
+const history = createBrowserHistory();
 
 const persistedReducer = persistReducer(
   {
@@ -22,4 +22,6 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(routerMiddleware(history)).concat(logger),
 });
 
-export default store;
+const persistor = persistStore(store);
+
+export default { store, persistor, history };

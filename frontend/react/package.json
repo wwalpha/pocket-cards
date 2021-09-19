@@ -3,7 +3,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node -r dotenv/config configs/server.ts",
-    "prod": "ts-node -r dotenv/config configs/server.ts dotenv_config_path=./configs/env/prod",
+    "prod": "ts-node -r dotenv/config configs/server.ts dotenv_config_path=./frontend.env",
     "build": "webpack --config configs/webpack/webpack.prod.ts",
     "build:dev": "webpack --config configs/webpack/webpack.dev.ts",
     "valid": "tsc --noEmit"
