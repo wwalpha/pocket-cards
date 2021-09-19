@@ -1,11 +1,8 @@
-import dev from './dev';
-import prod from './prod';
-
 const store = (() => {
   if (process.env.NODE_ENV !== 'production') {
-    return dev;
+    return require('./dev');
   }
-  return prod;
+  return require('./prod');
 })();
 
 export default store;
