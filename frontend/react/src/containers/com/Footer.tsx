@@ -9,7 +9,7 @@ import { AppActions } from '@actions';
 import { RootState } from 'typings';
 import { Paths, Consts } from '@constants';
 
-const useStyles = makeStyles(({ spacing }: Theme) =>
+const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
     root: {
       bottom: '0',
@@ -22,6 +22,9 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
     action: {
       paddingTop: '8px !important',
       minWidth: 'inherit',
+      '& .Mui-selected': {
+        color: palette.secondary.light,
+      },
     },
     icon: {
       // color: 'white',
