@@ -121,3 +121,23 @@ resource "aws_dynamodb_table" "histories" {
     type = "S"
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Word Ignore
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "word_ignore" {
+  name         = local.dynamodb_name_word_ignore
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+  range_key    = "word"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  attribute {
+    name = "word"
+    type = "S"
+  }
+}
