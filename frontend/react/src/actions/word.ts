@@ -3,7 +3,7 @@ import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
 import { push } from 'connected-react-router';
-import { APIs, AppDispatch } from 'typings';
+import { APIs, AppDispatch, Group, RootState } from 'typings';
 
 /** 単語削除 */
 export const del = (groupId: string, word: string) => (dispatch: AppDispatch) =>
@@ -42,24 +42,10 @@ export const detail = (word: string) => (dispatch: AppDispatch) =>
     withLoading(async () => {
       // 単語詳細画面へ遷移する
       const prefix = Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyEdit].split(':')[0];
-
+      // dispatch screen
       dispatch(push(`${prefix}${word}`));
-
-      // 単語詳細情報を取得する
-      const res = await API.get<APIs.E001Response>(Consts.E001_URL(word));
-
-      if (!res.item) throw new Error(`Cannot found word, ${word}`);
-
-      dispatch(
-        Actions.GROUP_WORD_DETAILS({
-          id: res.item?.id,
-          mp3: res.item.mp3,
-          pronounce: res.item.pronounce,
-          vocabulary: res.item.vocJpn,
-          vocChn: res.item.vocChn,
-          vocJpn: res.item.vocJpn,
-        })
-      );
+      // get word detail
+      dispatch(Actions.GROUP_WORD_DETAILS(word));
     })
   );
 
@@ -69,5 +55,39 @@ export const list = () => (dispatch: AppDispatch) =>
     withLoading(async () => {
       // データ保存
       dispatch(Actions.GROUP_LIST());
+    })
+  );
+
+export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async (state: RootState) => {
+      const { activeGroup } = state.group;
+
+      const res = await API.put<APIs.E002Response>(Consts.E002_URL(id), {
+        id: infos.id,
+        pronounce: infos.pronounce,
+        vocChn: infos.vocChn,
+        vocJpn: infos.vocJpn,
+      } as APIs.E002Request);
+
+      // 単語変更された
+      if (id !== infos.id) {
+        // remove old word from group
+        await API.del<APIs.C005Response>(Consts.C005_URL(activeGroup, id));
+        // add new word to group
+        await API.post<APIs.C001Request, APIs.C001Response>(Consts.C001_URL(activeGroup), {
+          words: [infos.id],
+        });
+
+        dispatch(
+          Actions.GROUP_WORD_UPDATE({
+            old: id,
+            new: infos.id,
+            details: res,
+          })
+        );
+      }
+
+      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
     })
   );

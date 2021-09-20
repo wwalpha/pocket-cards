@@ -1,35 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Consts } from '@constants';
-import { API } from '@utils';
-import { APIs, Domains, Payloads, RootState, Tables } from 'typings';
-
-export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST', async () => {
-  const res = await API.get<APIs.B002Response>(Consts.B002_URL());
-
-  return res.items;
-});
-
-export const GROUP_DELETE = createAsyncThunk<void, void>('group/GROUP_DELETE', async (_, { getState }) => {
-  console.log((getState() as RootState).group);
-  const { activeGroup } = (getState() as RootState).group;
-
-  await API.del(Consts.B005_URL(activeGroup));
-});
-
-export const GROUP_WORD_LIST = createAsyncThunk<Payloads.GroupWordList, string>(
-  'group/GROUP_WORD_LIST',
-  async (groupId) => {
-    const res = await API.get<APIs.C002Response>(Consts.C002_URL(groupId));
-
-    return {
-      id: groupId,
-      items: res.items.map((item) => ({
-        id: item.word,
-        vocabulary: item.vocabulary,
-      })),
-    };
-  }
-);
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Domains, Payloads, Tables } from 'typings';
+import { GROUP_DELETE, GROUP_LIST, GROUP_WORD_DETAILS, GROUP_WORD_LIST, GROUP_WORD_REPLACE } from './groupActions';
 
 const grpState: Domains.GroupState = {
   activeGroup: '',
@@ -65,6 +36,17 @@ const slice = createSlice({
       state.current = payload;
     },
 
+    // グループ単語の詳細
+    GROUP_WORD_UPDATE: (state, { payload }: PayloadAction<Payloads.GroupWordUpdate>) => {
+      const items = state.groupWords[state.activeGroup];
+
+      // remove old word and add new word
+      const oldIndex = items.findIndex((item) => item.id === payload.old);
+      items[oldIndex] = payload.details;
+
+      state.groupWords[state.activeGroup] = items;
+    },
+
     // 登録単語一覧を保管
     GROUP_REGIST_SAVE: (state, { payload }: PayloadAction<string[]>) => {
       state.regists = payload.filter((item) => item.trim().length > 0);
@@ -93,6 +75,12 @@ const slice = createSlice({
       // add words in group
       .addCase(GROUP_WORD_LIST.fulfilled, (state, { payload }) => {
         state.groupWords[payload.id] = payload.items;
+      })
+      .addCase(GROUP_WORD_DETAILS.pending, (state) => {
+        state.current = undefined;
+      })
+      .addCase(GROUP_WORD_DETAILS.fulfilled, (state, { payload }) => {
+        state.current = payload;
       });
   },
 });

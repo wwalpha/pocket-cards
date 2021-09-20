@@ -16,6 +16,12 @@ export namespace Payloads {
 
   type GroupWordDetails = Group.WordDetails;
 
+  type GroupWordUpdate = {
+    old: string;
+    new: string;
+    details: Group.WordDetails;
+  };
+
   type RemoveWordInGroup = {
     id: string;
     word: string;

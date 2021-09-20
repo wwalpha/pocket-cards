@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import { History } from 'history';
-import App from './App';
-import Study, { STUDY_START } from './Study';
-import Group, { GROUP_LIST, GROUP_DELETE, GROUP_WORD_LIST } from './Group';
-import User from './User';
+import App from './app';
+import Study, { STUDY_START } from './study';
+import Group from './group';
+import User from './user';
+import { GROUP_LIST, GROUP_DELETE, GROUP_WORD_LIST, GROUP_WORD_DETAILS } from './groupActions';
 
 export default (history: History<any>) =>
   combineReducers({
@@ -23,5 +24,6 @@ export const Actions = {
   GROUP_LIST,
   GROUP_DELETE,
   GROUP_WORD_LIST,
+  GROUP_WORD_DETAILS,
   STUDY_START,
 };
