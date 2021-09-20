@@ -3,12 +3,10 @@ import { Environment } from '@consts';
 import { Tables } from 'typings';
 
 /** データ取得 */
-export const get = (id: string) =>
+export const get = (key: Tables.WordIgnoreKey) =>
   ({
     TableName: Environment.TABLE_NAME_WORD_IGNORE,
-    Key: {
-      id,
-    },
+    Key: key,
   } as DynamoDB.DocumentClient.GetItemInput);
 
 /** データ登録 */

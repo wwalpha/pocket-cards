@@ -13,6 +13,7 @@ const TABLE_NAME_USERS = process.env.TABLE_NAME_USERS as string;
 const TABLE_NAME_GROUPS = process.env.TABLE_NAME_GROUPS as string;
 const TABLE_NAME_WORDS = process.env.TABLE_NAME_WORDS as string;
 const TABLE_NAME_WORD_MASTER = process.env.TABLE_NAME_WORD_MASTER as string;
+const TABLE_NAME_WORD_IGNORE = process.env.TABLE_NAME_WORD_IGNORE as string;
 const TABLE_NAME_HISTORIES = process.env.TABLE_NAME_HISTORIES as string;
 
 const setup = async () => {
@@ -93,6 +94,21 @@ const setup = async () => {
         ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
         KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
         AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
+      })
+      .promise(),
+    dbClient
+      .createTable({
+        TableName: TABLE_NAME_WORD_IGNORE,
+        BillingMode: 'PROVISIONED',
+        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        KeySchema: [
+          { AttributeName: 'id', KeyType: 'HASH' },
+          { AttributeName: 'word', KeyType: 'RANGE' },
+        ],
+        AttributeDefinitions: [
+          { AttributeName: 'id', AttributeType: 'S' },
+          { AttributeName: 'word', AttributeType: 'S' },
+        ],
       })
       .promise(),
     dbClient

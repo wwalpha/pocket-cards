@@ -33,12 +33,11 @@ export namespace Tables {
   export interface WordIgnoreKey {
     // ユーザID
     id: string;
-  }
-
-  export interface TWordIgnore extends WordIgnoreKey {
     // 単語
     word: string;
   }
+
+  export interface TWordIgnore extends WordIgnoreKey {}
 
   interface TUsers {
     // ユーザID
