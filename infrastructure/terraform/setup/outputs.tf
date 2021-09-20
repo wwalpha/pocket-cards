@@ -37,6 +37,9 @@ output "dynamodb_name_words" {
 output "dynamodb_name_word_master" {
   value = aws_dynamodb_table.word_master.name
 }
+output "dynamodb_name_word_ignore" {
+  value = aws_dynamodb_table.word_ignore.name
+}
 output "dynamodb_name_histories" {
   value = aws_dynamodb_table.histories.name
 }
