@@ -10,7 +10,7 @@ export const history = createBrowserHistory();
 const persistedReducer = persistReducer(
   {
     key: 'pkc',
-    version: 1,
+    version: 2,
     storage,
   },
   reducers(history)

@@ -18,7 +18,7 @@ export const history = createHashHistory();
 const persistedReducer = persistReducer(
   {
     key: 'pkc_dev',
-    version: 1,
+    version: 2,
     storage,
   },
   reducers(history)
