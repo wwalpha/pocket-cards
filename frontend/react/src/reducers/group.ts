@@ -89,6 +89,7 @@ const slice = createSlice({
       // add words in group
       .addCase(GROUP_WORD_LIST.fulfilled, (state, { payload }) => {
         state.groupWords[payload.id] = payload.items;
+        state.activeGroupList = payload.items;
       })
       .addCase(GROUP_WORD_DETAILS.pending, (state) => {
         state.current = undefined;
