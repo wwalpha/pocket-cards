@@ -1,7 +1,6 @@
-import * as Groups from './groups';
-import * as Histories from './history';
-import * as Words from './words';
-import * as WordMaster from './wordMaster';
-import * as Users from './users';
-
-export { Groups, Histories, Words, WordMaster, Users };
+export * as Groups from './groups';
+export * as Histories from './history';
+export * as Words from './words';
+export * as WordMaster from './wordMaster';
+export * as WordIgnore from './wordIgnore';
+export * as Users from './users';

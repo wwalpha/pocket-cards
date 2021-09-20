@@ -30,6 +30,16 @@ export namespace Tables {
     mp3?: string;
   }
 
+  export interface WordIgnoreKey {
+    // ユーザID
+    id: string;
+  }
+
+  export interface TWordIgnore extends WordIgnoreKey {
+    // 単語
+    word: string;
+  }
+
   interface TUsers {
     // ユーザID
     id: string;

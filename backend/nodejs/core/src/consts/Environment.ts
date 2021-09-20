@@ -6,6 +6,7 @@ export const TABLE_NAME_USERS = process.env.TABLE_NAME_USERS as string;
 export const TABLE_NAME_GROUPS = process.env.TABLE_NAME_GROUPS as string;
 export const TABLE_NAME_WORDS = process.env.TABLE_NAME_WORDS as string;
 export const TABLE_NAME_WORD_MASTER = process.env.TABLE_NAME_WORD_MASTER as string;
+export const TABLE_NAME_WORD_IGNORE = process.env.TABLE_NAME_WORD_IGNORE as string;
 export const TABLE_NAME_HISTORIES = process.env.TABLE_NAME_HISTORIES as string;
 
 export const PATH_PATTERN = process.env.PATH_PATTERN as string;

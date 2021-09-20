@@ -238,4 +238,13 @@ export namespace APIs {
   interface E002Request extends Tables.TWordMaster {}
 
   type E002Response = Tables.TWordMaster;
+
+  // ------------------------------------------------------------
+  // E003
+  // ------------------------------------------------------------
+  interface D003Request {
+    word: string;
+  }
+
+  type D003Response = void;
 }

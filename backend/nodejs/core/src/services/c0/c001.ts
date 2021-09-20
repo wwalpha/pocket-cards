@@ -1,7 +1,6 @@
 import { Request } from 'express';
 import { API, Commons, DateUtils, DBHelper, Logger } from '@utils';
 import { WordMaster, Groups } from '@queries';
-import { getUserId } from '@src/utils/commons';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 import { defaultTo } from 'lodash';
@@ -11,7 +10,7 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
   const input = req.body;
   const groupId = req.params.groupId;
   const words = input.words.map((item) => item.toLowerCase());
-  const userId = getUserId(req);
+  const userId = Commons.getUserId(req);
 
   // 既存単語マスタを検索する
   const tasks = words.map((item) => DBHelper().get<Tables.TWordMaster>(WordMaster.get(item)));
