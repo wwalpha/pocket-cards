@@ -66,10 +66,10 @@ export const uploadImage = (image: string) => (dispatch: AppDispatch) =>
 
       const imageSrc = image.replace(/^.*,/, '');
 
-      const res = await API.post<APIs.D001Response>(Consts.D001_URL(), {
+      const res = await API.post<APIs.D001Request, APIs.D001Response>(Consts.D001_URL(), {
         language: 'en',
         content: imageSrc,
-      } as APIs.D001Request);
+      });
 
       // データ保存
       dispatch(Actions.GROUP_REGIST_SAVE(res.words));

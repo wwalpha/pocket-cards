@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles, Theme, createStyles, Grid, Card, CardContent, Typography } from '@material-ui/core';
+import { makeStyles, createStyles } from '@mui/styles';
+import { Theme, Grid, Card, CardContent, Typography } from '@mui/material';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
 import { RootState } from 'typings';

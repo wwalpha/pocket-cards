@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Box, makeStyles, Theme, createStyles } from '@material-ui/core';
+import { makeStyles, createStyles } from '@mui/styles';
+import { Box, Theme } from '@mui/material';
 import { Paths, Consts } from '@constants';
 import { Header, Footer, RegistMain, StudyMain, MyPageMain, Settings, Home } from '@containers';
 

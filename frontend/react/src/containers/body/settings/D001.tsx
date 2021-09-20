@@ -2,10 +2,9 @@ import React, { Fragment, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import Auth from '@aws-amplify/auth';
+import { makeStyles, createStyles } from '@mui/styles';
 import {
-  makeStyles,
   Theme,
-  createStyles,
   Box,
   IconButton,
   Typography,
@@ -15,10 +14,10 @@ import {
   ListItemText,
   Avatar,
   ListItemSecondaryAction,
-} from '@material-ui/core';
-import { green, red } from '@material-ui/core/colors';
-import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
-import DeleteIcon from '@material-ui/icons/DeleteOutline';
+} from '@mui/material';
+import { green, red } from '@mui/material/colors';
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import { Button, IOSSwitch } from '@components/buttons';
 import { RootState } from 'typings';
 import { AppActions, UserActions } from '@actions';

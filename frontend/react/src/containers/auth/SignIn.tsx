@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Hub } from '@aws-amplify/core';
 import { Auth, CognitoUser, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { makeStyles, createStyles } from '@mui/styles';
 import {
   Container,
   CssBaseline,
@@ -13,9 +14,7 @@ import {
   Button,
   Grid,
   Theme,
-  makeStyles,
-  createStyles,
-} from '@material-ui/core';
+} from '@mui/material';
 import { UserActions } from '@actions';
 import { RootState } from 'typings';
 

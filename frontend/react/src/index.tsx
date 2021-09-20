@@ -5,7 +5,7 @@ import { Auth } from '@aws-amplify/auth';
 import { API } from '@aws-amplify/api';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import { MuiThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material/styles';
 import { ConnectedRouter } from 'connected-react-router';
 import Authenticator from './containers/auth/Authenticator';
 import { Consts } from '@constants';
@@ -54,11 +54,11 @@ const persistor = persistStore(store);
 const provider = (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <MuiThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <ConnectedRouter history={history}>
           <Authenticator />
         </ConnectedRouter>
-      </MuiThemeProvider>
+      </ThemeProvider>
     </PersistGate>
   </Provider>
 );

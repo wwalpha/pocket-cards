@@ -1,9 +1,8 @@
 import React, { FunctionComponent, Fragment, useState } from 'react';
+import { makeStyles, createStyles } from '@mui/styles';
 import {
   ListItem,
-  makeStyles,
   Theme,
-  createStyles,
   List,
   ListItemText,
   ListItemAvatar,
@@ -11,8 +10,8 @@ import {
   Avatar,
   Button,
   IconButton,
-} from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/DeleteOutline';
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import { Consts } from '@constants';
 import { Group } from 'typings';
 

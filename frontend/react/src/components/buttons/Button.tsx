@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Button, ButtonProps, CircularProgress, makeStyles, Theme, createStyles, Box } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
+import { makeStyles, createStyles } from '@mui/styles';
+import { Button, ButtonProps, CircularProgress, Theme, Box } from '@mui/material';
+import { green } from '@mui/material/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

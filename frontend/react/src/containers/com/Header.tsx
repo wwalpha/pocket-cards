@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { push } from 'connected-react-router';
+import { makeStyles, createStyles } from '@mui/styles';
 import {
-  makeStyles,
   Theme,
-  createStyles,
   AppBar,
   Toolbar,
   IconButton,
@@ -16,21 +15,22 @@ import {
   ListItemText,
   ListItemIcon,
   Button,
-} from '@material-ui/core';
-// import MenuIcon from '@material-ui/icons/Menu';
-// import ExitToApp from '@material-ui/icons/ExitToApp';
-// import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
-import AddIcon from '@material-ui/icons/Add';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import ReplayIcon from '@material-ui/icons/Replay';
-import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
+} from '@mui/material';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import ExitToApp from '@mui/icons-material/ExitToApp';
+// import AddCircleOutline from '@mui/icons-material/AddCircleOutline';
+import AddIcon from '@mui/icons-material/Add';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import ReplayIcon from '@mui/icons-material/Replay';
+import ArrowBackIcon from '@mui/icons-material/ArrowBackIos';
+import SearchIcon from '@mui/icons-material/Search';
 import { Paths, Consts } from '@constants';
 import { GroupActions } from '@actions';
 import { RootState } from 'typings';
 
-const useStyles = makeStyles(({ spacing, palette: { primary, common } }: Theme) =>
+const useStyles = makeStyles<Theme>(({ spacing, palette: { primary, common } }) =>
   createStyles({
     app: {
       boxShadow: 'none',
@@ -152,11 +152,14 @@ export default () => {
             }
 
             if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
-              return (
+              return [
+                <IconButton aria-label="search" edge="end" color="inherit" onClick={handleMenuOpen}>
+                  <MoreIcon fontSize="large" />
+                </IconButton>,
                 <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={handleMenuOpen}>
                   <MoreIcon fontSize="large" />
-                </IconButton>
-              );
+                </IconButton>,
+              ];
             }
 
             if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]) {
@@ -178,7 +181,6 @@ export default () => {
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        getContentAnchorEl={null}
         keepMounted
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={isMenuOpen}

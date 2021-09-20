@@ -3,18 +3,9 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Avatar,
-  Box,
-} from '@material-ui/core';
-import FolderIcon from '@material-ui/icons/Folder';
+import { makeStyles, createStyles } from '@mui/styles';
+import { Theme, List, ListItem, ListItemAvatar, ListItemText, Avatar, Box } from '@mui/material';
+import FolderIcon from '@mui/icons-material/Folder';
 import Button from '@components/buttons/Button';
 import { GroupActions } from '@actions';
 import { Paths } from '@constants';

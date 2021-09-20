@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Box } from '@material-ui/core';
+import { TextField, Box } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { Button } from '@components/buttons';
 import { GroupActions } from '@actions';

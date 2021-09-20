@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { Switch, Theme, createStyles, SwitchProps, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles } from '@mui/styles';
+import { Switch, Theme, SwitchProps } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

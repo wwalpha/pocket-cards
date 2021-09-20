@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState, Fragment } from 'react';
-import { ListItem, makeStyles, Theme, createStyles, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles, createStyles } from '@mui/styles';
+import { ListItem, Theme, ListItemText, ListItemSecondaryAction } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { TextField } from '@components/inputs';
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Grid, Paper, CircularProgress, Theme, withStyles, StandardProps } from '@material-ui/core';
+import { withStyles } from '@mui/styles';
+import { Grid, Paper, CircularProgress, Theme, StandardProps } from '@mui/material';
 
 class Loading extends React.Component<LoadingProps, any, any> {
   render() {

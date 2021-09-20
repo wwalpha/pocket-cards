@@ -1,4 +1,5 @@
-import { Theme, TextField, withStyles } from '@material-ui/core';
+import { withStyles } from '@mui/styles';
+import { Theme, TextField } from '@mui/material';
 
 export default withStyles(({ palette }: Theme) => ({
   root: {

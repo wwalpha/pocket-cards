@@ -1,21 +1,12 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  Fab,
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  TextField,
-} from '@material-ui/core';
-// import ReplayIcon from '@material-ui/icons/Replay';
-// import EditIcon from '@material-ui/icons/Edit';
-// import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-// import DoneIcon from '@material-ui/icons/Done';
+import { makeStyles, createStyles } from '@mui/styles';
+import { Theme, Fab, Grid, Card, CardContent, Typography, TextField } from '@mui/material';
+// import ReplayIcon from '@mui/icons-material/Replay';
+// import EditIcon from '@mui/icons-material/Edit';
+// import ArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+// import DoneIcon from '@mui/icons-material/Done';
 import { StudyActions } from '@actions';
 import { Consts } from '@constants';
 import Loading from '@components/Loading';
