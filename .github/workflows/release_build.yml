@@ -66,6 +66,7 @@ jobs:
           rm -rf local.auto.tfvars
           terraform init
           terraform plan
+          terraform apply -auto-approve
 
       # Terraform Service
       - name: Terraform Service
@@ -73,6 +74,7 @@ jobs:
         run: |
           terraform init
           terraform plan
+          terraform apply -auto-approve
 
   # Backend
   Backend:
