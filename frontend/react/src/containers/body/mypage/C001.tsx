@@ -1,41 +1,15 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles, createStyles } from '@mui/styles';
-import { Theme, Grid, Card, CardContent, Typography } from '@mui/material';
+import { Grid, Card, CardContent, Typography } from '@mui/material';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
 import { RootState } from 'typings';
-
-const useStyles = makeStyles(({ spacing }: Theme) =>
-  createStyles({
-    root: {
-      padding: `${spacing(2)}px 0px`,
-    },
-    item: {
-      padding: `${spacing()}px 0px`,
-    },
-    content: {
-      padding: `${spacing()}px ${spacing(2)}px`,
-    },
-    number: {
-      fontSize: '2rem',
-      textAlign: 'center',
-    },
-    card: {
-      width: '180px',
-      height: '120px',
-      margin: spacing(),
-    },
-    title: {},
-  })
-);
 
 const userState = (state: RootState) => state.user;
 const appState = (state: RootState) => state.app;
 
 export default () => {
-  const classes = useStyles();
   const actions = bindActionCreators(MyPageActions, useDispatch());
   const { remainingTest, remainingReview, daily, dailyNew, dailyReview, weekly, monthly } = useSelector(userState);
   const { isLoading } = useSelector(appState);
@@ -49,157 +23,134 @@ export default () => {
   }
 
   return (
-    <Grid container justifyContent="center" className={classes.root}>
-      <Grid container justifyContent="center" className={classes.item}>
-        <Card className={classes.card}>
+    <Grid container justifyContent="center" sx={{ py: 2 }}>
+      <Grid container justifyContent="center" sx={{ py: 1 }}>
+        <Card
+          sx={{
+            width: ({ spacing }) => spacing(22.5),
+            height: ({ spacing }) => spacing(15),
+            m: 1,
+          }}>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              今日の残単語数
-            </Typography>
+            <Typography color="textSecondary">今日の残単語数</Typography>
           </CardContent>
-          <CardContent className={classes.content}>
+          <CardContent sx={{ py: 1, px: 2 }}>
             <Grid container alignItems="center">
               <Grid item xs>
-                <Typography className={classes.number} color="textPrimary">
+                <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
                   {remainingTest}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Typography className={classes.title} color="textSecondary">
-                  単語
-                </Typography>
+                <Typography color="textSecondary">単語</Typography>
               </Grid>
             </Grid>
           </CardContent>
         </Card>
-        <Card className={classes.card}>
+        <Card sx={{ width: ({ spacing }) => spacing(22.5), height: ({ spacing }) => spacing(15), m: 1 }}>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              今日の残復習単語数
-            </Typography>
+            <Typography color="textSecondary">今日の残復習単語数</Typography>
           </CardContent>
-          <CardContent className={classes.content}>
+          <CardContent sx={{ py: 1, px: 2 }}>
             <Grid container alignItems="center">
               <Grid item xs>
-                <Typography className={classes.number} color="textPrimary">
+                <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
                   {remainingReview}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Typography className={classes.title} color="textSecondary">
-                  単語
-                </Typography>
+                <Typography color="textSecondary">単語</Typography>
               </Grid>
             </Grid>
           </CardContent>
         </Card>
       </Grid>
-      <Grid container justifyContent="center" className={classes.item}>
-        <Card className={classes.card}>
+      <Grid container justifyContent="center" sx={{ py: 1 }}>
+        <Card sx={{ width: ({ spacing }) => spacing(22.5), height: ({ spacing }) => spacing(15), m: 1 }}>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              今日の新規単語数
-            </Typography>
+            <Typography color="textSecondary">今日の新規単語数</Typography>
           </CardContent>
-          <CardContent className={classes.content}>
+          <CardContent sx={{ py: 1, px: 2 }}>
             <Grid container alignItems="center">
               <Grid item xs>
-                <Typography className={classes.number} color="textPrimary">
+                <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
                   {dailyNew}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Typography className={classes.title} color="textSecondary">
-                  単語
-                </Typography>
+                <Typography color="textSecondary">単語</Typography>
               </Grid>
             </Grid>
           </CardContent>
         </Card>
-        <Card className={classes.card}>
+        <Card sx={{ width: ({ spacing }) => spacing(22.5), height: ({ spacing }) => spacing(15), m: 1 }}>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              今日の復習単語数
-            </Typography>
+            <Typography color="textSecondary">今日の復習単語数</Typography>
           </CardContent>
-          <CardContent className={classes.content}>
+          <CardContent sx={{ py: 1, px: 2 }}>
             <Grid container alignItems="center">
               <Grid item xs>
-                <Typography className={classes.number} color="textPrimary">
+                <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
                   {dailyReview}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Typography className={classes.title} color="textSecondary">
-                  単語
-                </Typography>
+                <Typography color="textSecondary">単語</Typography>
               </Grid>
             </Grid>
           </CardContent>
         </Card>
       </Grid>
-      <Grid container justifyContent="center" className={classes.item}>
-        <Card className={classes.card}>
+      <Grid container justifyContent="center" sx={{ py: 1 }}>
+        <Card sx={{ width: ({ spacing }) => spacing(22.5), height: ({ spacing }) => spacing(15), m: 1 }}>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              今日の学習単語数
-            </Typography>
+            <Typography color="textSecondary">今日の学習単語数</Typography>
           </CardContent>
-          <CardContent className={classes.content}>
+          <CardContent sx={{ py: 1, px: 2 }}>
             <Grid container alignItems="center">
               <Grid item xs>
-                <Typography className={classes.number} color="textPrimary">
+                <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
                   {daily}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Typography className={classes.title} color="textSecondary">
-                  単語
-                </Typography>
+                <Typography color="textSecondary">単語</Typography>
               </Grid>
             </Grid>
           </CardContent>
         </Card>
-        <Card className={classes.card}>
+        <Card sx={{ width: ({ spacing }) => spacing(22.5), height: ({ spacing }) => spacing(15), m: 1 }}>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              直近７日の単語数
-            </Typography>
+            <Typography color="textSecondary">直近７日の単語数</Typography>
           </CardContent>
-          <CardContent className={classes.content}>
+          <CardContent sx={{ py: 1, px: 2 }}>
             <Grid container alignItems="center">
               <Grid item xs>
-                <Typography className={classes.number} color="textPrimary">
+                <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
                   {weekly}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Typography className={classes.title} color="textSecondary">
-                  単語
-                </Typography>
+                <Typography color="textSecondary">単語</Typography>
               </Grid>
             </Grid>
           </CardContent>
         </Card>
       </Grid>
-      <Grid container justifyContent="center" className={classes.item}>
-        <Card className={classes.card}>
+      <Grid container justifyContent="center" sx={{ py: 1 }}>
+        <Card sx={{ width: ({ spacing }) => spacing(22.5), height: ({ spacing }) => spacing(15), m: 1 }}>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              直近３０日の単語数
-            </Typography>
+            <Typography color="textSecondary">直近３０日の単語数</Typography>
           </CardContent>
-          <CardContent className={classes.content}>
+          <CardContent sx={{ py: 1, px: 2 }}>
             <Grid container alignItems="center">
               <Grid item xs>
-                <Typography className={classes.number} color="textPrimary">
+                <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
                   {monthly}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Typography className={classes.title} color="textSecondary">
-                  単語
-                </Typography>
+                <Typography color="textSecondary">単語</Typography>
               </Grid>
             </Grid>
           </CardContent>

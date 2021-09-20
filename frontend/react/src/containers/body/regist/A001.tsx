@@ -2,27 +2,14 @@ import React, { FunctionComponent, useState } from 'react';
 import * as Actions from '@actions/regist';
 import Button from '@components/buttons/Button';
 import WebCamera from '@components/WebCamera';
-import { makeStyles, createStyles } from '@mui/styles';
 import { Theme, Box } from '@mui/material';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'typings';
 
-const useStyles = makeStyles(({ spacing }: Theme) =>
-  createStyles({
-    root: {
-      padding: `${spacing(2)}px 0px`,
-    },
-    item: {
-      padding: `${spacing()}px 0px`,
-    },
-  })
-);
-
 const app = (state: RootState) => state.app;
 
 const a001: FunctionComponent<any> = () => {
-  const classes = useStyles();
   const { isLoading } = useSelector(app);
   const [onAir, setOnAir] = useState(false);
   const actions = bindActionCreators(Actions, useDispatch());

@@ -1,8 +1,6 @@
 import React, { FunctionComponent, Fragment, useState } from 'react';
-import { makeStyles, createStyles } from '@mui/styles';
 import {
   ListItem,
-  Theme,
   List,
   ListItemText,
   ListItemAvatar,
@@ -15,35 +13,8 @@ import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import { Consts } from '@constants';
 import { Group } from 'typings';
 
-const useStyles = makeStyles(({ palette, spacing }: Theme) =>
-  createStyles({
-    root: {
-      paddingTop: spacing(1),
-      paddingBottom: spacing(0),
-      height: `calc(100vh - ${Consts.HEADER_HEIGHT + Consts.FOOT_HEIGHT + 152}px)`,
-      overflowY: 'auto',
-      '&::-webkit-scrollbar': {
-        display: 'none',
-      },
-    },
-    itemIcon: { justifyContent: 'center' },
-    itemTextRoot: {
-      margin: '0px',
-      '& .MuiTypography-subtitle1': {
-        fontSize: '1rem',
-        lineHeight: '1.5',
-      },
-    },
-    item: { backgroundColor: palette.grey[100], paddingTop: spacing(0.5), paddingBottom: spacing(0.5) },
-    avatar: { backgroundColor: palette.primary.light },
-    avatarBtn: { color: palette.common.white, fontSize: '0.75rem' },
-  })
-);
-
 const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, onDelete }) => {
-  const classes = useStyles();
   const [index, setIndex] = useState(10);
-
   const handleOnClick = (word: string) => onDetail?.(word);
   const handleOnDelete = (word: string) => onDelete?.(word);
 
@@ -56,14 +27,24 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
   };
 
   return (
-    <List className={classes.root} onScroll={handleOnScroll}>
+    <List
+      sx={{
+        pt: 1,
+        pb: 0,
+        height: `calc(100vh - ${Consts.HEADER_HEIGHT + Consts.FOOT_HEIGHT + 152}px)`,
+        overflowY: 'auto',
+        '::-webkit-scrollbar': {
+          display: 'none',
+        },
+      }}
+      onScroll={handleOnScroll}>
       {list.slice(0, index).map((item, idx) => (
         <Fragment key={idx}>
-          <ListItem className={classes.item} divider>
+          <ListItem sx={{ bgcolor: 'grey.100', pt: 0.5, pb: 0.5 }} divider>
             <ListItemAvatar>
-              <Avatar className={classes.avatar}>
+              <Avatar sx={{ bgcolor: 'primary.light' }}>
                 <Button
-                  className={classes.avatarBtn}
+                  sx={{ color: 'common.white', fontSize: '0.75rem' }}
                   onClick={() => {
                     handleOnClick(item.id);
                   }}>
@@ -80,7 +61,7 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
               secondaryTypographyProps={{
                 variant: 'body2',
               }}
-              className={classes.itemTextRoot}
+              sx={{ m: 0 }}
             />
             {showDelete ? (
               <ListItemSecondaryAction>

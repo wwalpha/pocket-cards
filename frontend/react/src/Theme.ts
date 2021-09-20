@@ -1,6 +1,6 @@
-import { Theme, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
-const theme: Theme = createTheme({
+const theme = createTheme({
   palette: {
     primary: {
       dark: '#0027B2',
@@ -16,15 +16,29 @@ const theme: Theme = createTheme({
       main: '#ED684A',
     },
     // primary: {
-    //   dark: '#003c8f',
-    //   main: '#1565c0',
-    //   light: '#5e92f3',
+    //   dark: '#0027B2',
+    //   main: '#005BCC',
+    //   light: '#0099E5',
     // },
     // secondary: {
-    //   dark: orange.A700,
-    //   main: orange.A400,
-    //   light: orange.A200,
+    //   dark: '#00AB8B',
+    //   main: '#00AB8B',
+    //   light: '#ED684A',
     // },
+    // error: {
+    //   main: '#ED684A',
+    // },
+
+    //   // primary: {
+    //   //   dark: '#003c8f',
+    //   //   main: '#1565c0',
+    //   //   light: '#5e92f3',
+    //   // },
+    //   // secondary: {
+    //   //   dark: orange.A700,
+    //   //   main: orange.A400,
+    //   //   light: orange.A200,
+    //   // },
   },
 });
 

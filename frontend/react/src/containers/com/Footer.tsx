@@ -2,43 +2,16 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { makeStyles, createStyles } from '@mui/styles';
-import { BottomNavigation, BottomNavigationAction, Theme } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Paper, Theme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/HomeOutlined';
 import SettingsIcon from '@mui/icons-material/SettingsOutlined';
+import { Paths, Consts } from '@constants';
 import { AppActions } from '@actions';
 import { RootState } from 'typings';
-import { Paths, Consts } from '@constants';
-
-const useStyles = makeStyles(({ spacing, palette }: Theme) =>
-  createStyles({
-    root: {
-      bottom: '0',
-      width: '100%',
-      height: spacing(9),
-      // backgroundColor: primary.light,
-      alignItems: 'flex-start',
-      position: 'fixed',
-    },
-    action: {
-      paddingTop: '8px !important',
-      minWidth: 'inherit',
-      '& .Mui-selected': {
-        color: palette.secondary.light,
-      },
-    },
-    icon: {
-      // color: 'white',
-      fontSize: '3rem',
-    },
-  })
-);
 
 const appState = (state: RootState) => state.app;
 
 export default () => {
-  // styles
-  const classes = useStyles();
   // actions
   const actions = bindActionCreators(AppActions, useDispatch());
   // reducer
@@ -56,17 +29,18 @@ export default () => {
   if (screen && !screen.showFooter) return null;
 
   return (
-    <BottomNavigation value={tabIndex} onChange={handleChange} className={classes.root}>
-      <BottomNavigationAction
-        className={classes.action}
-        value={Paths.ROUTE_PATH_INDEX.Groups}
-        icon={<HomeIcon className={classes.icon} />}
-        disabled={status !== Consts.SERVER_STATUS.RUNNING}
-        component={React.forwardRef((props: any, ref: any) => (
-          <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]} {...props} />
-        ))}
-      />
-      {/* <BottomNavigationAction
+    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+      <BottomNavigation showLabels={false} value={tabIndex} onChange={handleChange}>
+        <BottomNavigationAction
+          sx={{ pt: 1 }}
+          value={Paths.ROUTE_PATH_INDEX.Groups}
+          icon={<HomeIcon sx={{ fontSize: '2.5rem' }} />}
+          disabled={status !== Consts.SERVER_STATUS.RUNNING}
+          component={React.forwardRef((props: any, ref: any) => (
+            <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]} {...props} />
+          ))}
+        />
+        {/* <BottomNavigationAction
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.MyPage}
         icon={<PersonIcon className={classes.icon} />}
@@ -74,7 +48,7 @@ export default () => {
           <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.MyPage]} {...props} />
         ))}
       /> */}
-      {/* <BottomNavigationAction
+        {/* <BottomNavigationAction
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.Regist}
         icon={<CameraIcon className={classes.icon} />}
@@ -84,14 +58,15 @@ export default () => {
           <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]} {...props} />
         ))}
       /> */}
-      <BottomNavigationAction
-        className={classes.action}
-        value={Paths.ROUTE_PATH_INDEX.Settings}
-        icon={<SettingsIcon className={classes.icon} />}
-        component={React.forwardRef((props: any, ref: any) => (
-          <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Settings]} {...props} />
-        ))}
-      />
-    </BottomNavigation>
+        <BottomNavigationAction
+          sx={{ pt: 1 }}
+          value={Paths.ROUTE_PATH_INDEX.Settings}
+          icon={<SettingsIcon sx={{ fontSize: '2.5rem' }} />}
+          component={React.forwardRef((props: any, ref: any) => (
+            <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Settings]} {...props} />
+          ))}
+        />
+      </BottomNavigation>
+    </Paper>
   );
 };

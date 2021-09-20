@@ -1,34 +1,9 @@
 import React, { FunctionComponent, useState, Fragment } from 'react';
-import { makeStyles, createStyles } from '@mui/styles';
-import { ListItem, Theme, ListItemText, ListItemSecondaryAction } from '@mui/material';
+import { ListItem, ListItemText, ListItemSecondaryAction } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TextField } from '@components/inputs';
 
-const useStyles = makeStyles(({ palette, spacing }: Theme) =>
-  createStyles({
-    listItem: {
-      paddingLeft: spacing(0.5),
-      paddingRight: spacing(1),
-    },
-    itemIcon: { justifyContent: 'center' },
-    itemTextRoot: {
-      padding: '0px 16px 0px 8px',
-      fontSize: '1.5rem',
-    },
-    action: {
-      top: '0px',
-      right: '0px',
-      position: 'inherit',
-      transform: 'none',
-      display: 'flex',
-      alignItems: 'center',
-    },
-    icon: { color: palette.secondary.light },
-  })
-);
-
 const edit: FunctionComponent<WordEditProps> = ({ word, onDelete }) => {
-  const classes = useStyles();
   const [isEdit, setEdit] = useState(false);
 
   const handleOnDelete = () => onDelete(word);
@@ -36,7 +11,7 @@ const edit: FunctionComponent<WordEditProps> = ({ word, onDelete }) => {
   const handleEdit = () => setEdit(true);
 
   return (
-    <ListItem dense className={classes.listItem}>
+    <ListItem dense sx={{ pl: 0.5, pr: 1 }}>
       {isEdit && <TextField value={word} fullWidth />}
       {!isEdit && (
         <Fragment>
@@ -45,10 +20,18 @@ const edit: FunctionComponent<WordEditProps> = ({ word, onDelete }) => {
             primaryTypographyProps={{
               variant: 'h5',
             }}
-            className={classes.itemTextRoot}
+            sx={{ p: 0, pt: 2, pb: 1, fontSize: '1.5rem' }}
           />
-          <ListItemSecondaryAction className={classes.action}>
-            <DeleteIcon fontSize="large" className={classes.icon} onClick={handleOnDelete} />
+          <ListItemSecondaryAction
+            sx={{
+              top: ({ spacing }) => spacing(0),
+              right: ({ spacing }) => spacing(0),
+              position: 'inherit',
+              transform: 'none',
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+            <DeleteIcon fontSize="large" sx={{ color: 'secondary.light' }} onClick={handleOnDelete} />
           </ListItemSecondaryAction>
         </Fragment>
       )}

@@ -7,28 +7,6 @@ import { RootState } from 'typings';
 // import { Animation, ValueScale } from '@devexpress/dx-react-chart';
 // import { ArgumentAxis, Chart, ValueAxis, BarSeries } from '@devexpress/dx-react-chart-material-ui';
 
-// const useStyles = makeStyles(({ spacing }: Theme) =>
-//   createStyles({
-//     root: {
-//       padding: `${spacing(2)}px 0px`,
-//     },
-//     item: {
-//       padding: `${spacing()}px 0px`,
-//     },
-//     content: {
-//       padding: `${spacing()}px ${spacing(2)}px`,
-//     },
-//     number: {
-//       fontSize: '2rem',
-//       textAlign: 'center',
-//     },
-//     card: {
-//       width: '170px',
-//       height: '120px',
-//       margin: spacing(),
-//     },
-//   }),
-// );
 /** 単語カメラ画面 */
 const userState = (state: RootState) => state.user;
 const appState = (state: RootState) => state.app;

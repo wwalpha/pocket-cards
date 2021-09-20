@@ -3,22 +3,10 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { makeStyles, createStyles } from '@mui/styles';
-import { Theme, Box, TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { Button } from '@components/buttons';
 import { WordActions } from '@actions';
 import { RootState } from 'typings';
-
-const useStyles = makeStyles(({ spacing, palette }: Theme) =>
-  createStyles({
-    container: {
-      height: '100%',
-      position: 'relative',
-    },
-    deleteBtn: { backgroundColor: palette.error.main, color: palette.common.white },
-    root: { margin: spacing(2), textAlign: 'center' },
-  })
-);
 
 interface B003Params {
   word: string;
@@ -28,7 +16,6 @@ const appState = (state: RootState) => state.app;
 const grpState = (state: RootState) => state.group;
 
 export default () => {
-  const classes = useStyles();
   const { word } = useParams<B003Params>();
   const { isLoading } = useSelector(appState);
   const { activeGroup, current } = useSelector(grpState);
@@ -76,7 +63,7 @@ export default () => {
         <Box mt={2}>
           <Button
             size="large"
-            className={classes.deleteBtn}
+            sx={{ bgcolor: 'error.main', color: 'common.white' }}
             fullWidth
             variant="contained"
             type="button"

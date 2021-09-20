@@ -2,9 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import Auth from '@aws-amplify/auth';
-import { makeStyles, createStyles } from '@mui/styles';
 import {
-  Theme,
   Box,
   IconButton,
   Typography,
@@ -23,39 +21,9 @@ import { RootState } from 'typings';
 import { AppActions, UserActions } from '@actions';
 import { Consts } from '@constants';
 
-const useStyles = makeStyles(({ spacing, palette }: Theme) =>
-  createStyles({
-    button: {
-      margin: spacing(),
-      letterSpacing: spacing(0.25),
-      fontSize: '1.25rem',
-      fontWeight: 600,
-    },
-    startBtn: {
-      width: spacing(15),
-      margin: spacing(),
-      backgroundColor: green[600],
-      '&:hover': {
-        backgroundColor: green[800],
-      },
-    },
-    stopBtn: {
-      width: spacing(15),
-      margin: spacing(),
-      backgroundColor: red[700],
-      '&:hover': {
-        backgroundColor: red[900],
-      },
-    },
-    avatar: { backgroundColor: palette.primary.main },
-    settings: { backgroundColor: palette.grey[100] },
-  })
-);
-
 const appState = (state: RootState) => state.app;
 
 export default () => {
-  const classes = useStyles();
   const { isLoading, status, displayCtrl } = useSelector(appState);
   const actions = bindActionCreators(AppActions, useDispatch());
   const usrActions = bindActionCreators(UserActions, useDispatch());
@@ -97,7 +65,7 @@ export default () => {
           <Button
             variant="contained"
             color="primary"
-            className={classes.startBtn}
+            sx={{ width: 120, m: 1, bgcolor: green[600] }}
             size="large"
             onClick={handleStart}
             isLoading={isLoading}>
@@ -106,7 +74,7 @@ export default () => {
           <Button
             variant="contained"
             color="primary"
-            className={classes.stopBtn}
+            sx={{ width: 120, m: 1, bgcolor: red[700] }}
             size="large"
             onClick={handleStop}
             isLoading={isLoading}>
@@ -117,7 +85,7 @@ export default () => {
           <Button
             variant="contained"
             color="primary"
-            className={classes.stopBtn}
+            sx={{ width: 120, m: 1, bgcolor: red[700] }}
             size="large"
             onClick={handleLogout}
             isLoading={isLoading}>
@@ -126,10 +94,10 @@ export default () => {
         </Box>
       </Box>
       <Box>
-        <List className={classes.settings}>
+        <List sx={{ bgcolor: 'grey.100' }}>
           <ListItem divider>
             <ListItemAvatar>
-              <Avatar className={classes.avatar}>
+              <Avatar sx={{ bgcolor: 'primary.main' }}>
                 <DeleteIcon />
               </Avatar>
             </ListItemAvatar>

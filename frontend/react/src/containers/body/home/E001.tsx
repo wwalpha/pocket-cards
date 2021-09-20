@@ -3,38 +3,16 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
-import { makeStyles, createStyles } from '@mui/styles';
-import { Theme, List, ListItem, ListItemAvatar, ListItemText, Avatar, Box } from '@mui/material';
+import { List, ListItem, ListItemAvatar, ListItemText, Avatar, Box } from '@mui/material';
 import FolderIcon from '@mui/icons-material/Folder';
 import Button from '@components/buttons/Button';
 import { GroupActions } from '@actions';
 import { Paths } from '@constants';
 import { RootState } from 'typings';
 
-const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing }: Theme) =>
-  createStyles({
-    list: {
-      width: 'auto',
-      margin: spacing(2),
-      backgroundColor: common.white,
-      borderRadius: 8,
-      '&:hover': {
-        backgroundColor: 'rgba(94, 146, 243, 0.5)',
-      },
-    },
-    text: { fontSize: '1.5rem' },
-    avatar: { backgroundColor: secondary.main },
-    icon: { color: secondary.light },
-    button: {
-      fontSize: '1.5rem',
-    },
-  })
-);
-
 const group = (state: RootState) => state.group;
 
 export default () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const actions = bindActionCreators(GroupActions, dispatch);
   const { groups } = useSelector(group);
@@ -56,7 +34,7 @@ export default () => {
           variant="contained"
           color="primary"
           size="large"
-          className={classes.button}
+          sx={{ fontSize: '1.5rem' }}
           // @ts-ignore
           component={Link}
           to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]}>
@@ -76,20 +54,17 @@ export default () => {
           onClick={() => {
             handleOnClick(item.id);
           }}
-          className={classes.list}>
+          sx={{ width: 'auto', m: 2, bgcolor: 'common.white', borderRadius: 1 }}>
           <ListItemAvatar>
-            <Avatar
-              classes={{
-                colorDefault: classes.avatar,
-              }}>
+            <Avatar sx={{ bgcolor: 'secondary.main' }}>
               <FolderIcon />
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            classes={{
-              primary: classes.text,
-            }}
             primary={item.name}
+            primaryTypographyProps={{
+              sx: { fontSize: '1.5rem' },
+            }}
             secondary={item.description}
           />
         </ListItem>

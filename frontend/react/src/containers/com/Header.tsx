@@ -3,18 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { push } from 'connected-react-router';
-import { makeStyles, createStyles } from '@mui/styles';
+import { styled, alpha } from '@mui/material/styles';
 import {
-  Theme,
   AppBar,
-  Toolbar,
+  Button,
   IconButton,
-  Typography,
-  Menu,
-  MenuItem,
+  InputBase,
   ListItemText,
   ListItemIcon,
-  Button,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
 } from '@mui/material';
 // import MenuIcon from '@mui/icons-material/Menu';
 // import ExitToApp from '@mui/icons-material/ExitToApp';
@@ -30,40 +30,46 @@ import { Paths, Consts } from '@constants';
 import { GroupActions } from '@actions';
 import { RootState } from 'typings';
 
-const useStyles = makeStyles<Theme>(({ spacing, palette: { primary, common } }) =>
-  createStyles({
-    app: {
-      boxShadow: 'none',
-      height: spacing(8),
-      backgroundColor: primary.dark,
-      userSelect: 'none',
-    },
-    toolbar: { minHeight: spacing(8) },
-    title: { flexGrow: 1, fontWeight: 600, textAlign: 'center', letterSpacing: '2px' },
-    icon: { color: common.white, fontSize: spacing(4) },
-    addButton: { position: 'absolute', right: spacing(1) },
-    edgeButton: { margin: spacing(0) },
-    replyButton: { padding: spacing(0.5) },
-    menuItem: {
-      '&:hover': {
-        backgroundColor: primary.light,
-        '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-          color: common.white,
-        },
-      },
-    },
-    backButton: { padding: spacing(0.5) },
-    listItemIcon: { minWidth: spacing(4) },
-  })
-);
-
 const audioRef = React.createRef<HTMLAudioElement>();
 
 const studyState = (state: RootState) => state.study;
 const groupState = (state: RootState) => state.group;
 
+const Search = styled('div')(({ theme: { shape, palette, spacing } }) => ({
+  position: 'relative',
+  borderRadius: shape.borderRadius,
+  backgroundColor: alpha(palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(palette.common.white, 0.25),
+  },
+  marginRight: spacing(2),
+  marginLeft: 0,
+  width: '100%',
+}));
+
+const SearchIconWrapper = styled('div')(({ theme: { spacing } }) => ({
+  padding: spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+}));
+
 export default () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const actions = bindActionCreators(GroupActions, dispatch);
   const { pathname } = useLocation();
@@ -115,21 +121,36 @@ export default () => {
 
   return (
     <React.Fragment>
-      <AppBar position="static" className={classes.app}>
-        <Toolbar className={classes.toolbar}>
+      <AppBar
+        position="static"
+        sx={{
+          boxShadow: 'none',
+          height: ({ spacing }) => spacing(8),
+          bgcolor: 'primary.dark',
+          userSelect: 'none',
+        }}>
+        <Toolbar sx={{ minHeight: ({ spacing }) => spacing(8) }}>
           {(() => {
             return pathname.split('/').length <= 2 ? null : (
-              <IconButton className={classes.backButton} onClick={handleOnClickLeft}>
-                <ArrowBackIcon className={classes.icon} />
+              <IconButton sx={{ p: 0.5 }} onClick={handleOnClickLeft}>
+                <ArrowBackIcon sx={{ color: 'common.white', fontSize: ({ spacing }) => spacing(4) }} />
               </IconButton>
             );
           })()}
-          <Typography variant="h5" color="inherit" className={classes.title}>
+          <Typography
+            variant="h5"
+            color="inherit"
+            sx={{ flexGrow: 1, fontWeight: 600, textAlign: 'center', letterSpacing: ({ spacing }) => spacing(0.25) }}>
             {(() => {
               if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
-                const groupInfo = groups.find((item) => item.id === activeGroup);
-
-                return groupInfo?.name;
+                return (
+                  <Search>
+                    <SearchIconWrapper>
+                      <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
+                  </Search>
+                );
               }
 
               return screen?.title;
@@ -145,7 +166,11 @@ export default () => {
           {(() => {
             if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]) {
               return (
-                <IconButton className={classes.addButton} color="inherit" aria-label="Add" onClick={handleOnClickAdd}>
+                <IconButton
+                  sx={{ position: 'absolute', right: ({ spacing }) => spacing(1) }}
+                  color="inherit"
+                  aria-label="Add"
+                  onClick={handleOnClickAdd}>
                   <AddIcon fontSize="large" />
                 </IconButton>
               );
@@ -153,9 +178,6 @@ export default () => {
 
             if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
               return [
-                <IconButton aria-label="search" edge="end" color="inherit" onClick={handleMenuOpen}>
-                  <MoreIcon fontSize="large" />
-                </IconButton>,
                 <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={handleMenuOpen}>
                   <MoreIcon fontSize="large" />
                 </IconButton>,
@@ -164,8 +186,8 @@ export default () => {
 
             if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]) {
               const draw = [
-                <IconButton key="replyIcon" className={classes.replyButton} onClick={handleReply}>
-                  <ReplayIcon className={classes.icon} />
+                <IconButton key="replyIcon" sx={{ p: 0.5 }} onClick={handleReply}>
+                  <ReplayIcon sx={{ color: 'common.white', fontSize: ({ spacing }) => spacing(4) }} />
                 </IconButton>,
               ];
 
@@ -185,14 +207,32 @@ export default () => {
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={isMenuOpen}
         onClose={handleMenuClose}>
-        <MenuItem className={classes.menuItem} onClick={handleOnGroupDelete}>
-          <ListItemIcon className={classes.listItemIcon}>
+        <MenuItem
+          sx={{
+            '&:hover': {
+              bgcolor: 'primary.light',
+              '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                color: 'common.white',
+              },
+            },
+          }}
+          onClick={handleOnGroupDelete}>
+          <ListItemIcon sx={{ minWidth: ({ spacing }) => spacing(4) }}>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="フォルダ削除" />
         </MenuItem>
-        <MenuItem className={classes.menuItem} onClick={handleOnGroupEdit}>
-          <ListItemIcon className={classes.listItemIcon}>
+        <MenuItem
+          sx={{
+            '&:hover': {
+              bgcolor: 'primary.light',
+              '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                color: 'common.white',
+              },
+            },
+          }}
+          onClick={handleOnGroupEdit}>
+          <ListItemIcon sx={{ minWidth: ({ spacing }) => spacing(4) }}>
             <EditIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="フォルダ編集" />

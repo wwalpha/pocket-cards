@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles, createStyles } from '@mui/styles';
-import { Theme, Fab, Grid, Card, CardContent, Typography, TextField } from '@mui/material';
+import { Fab, Grid, Card, CardContent, Typography, TextField } from '@mui/material';
 // import ReplayIcon from '@mui/icons-material/Replay';
 // import EditIcon from '@mui/icons-material/Edit';
 // import ArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -12,62 +11,6 @@ import { Consts } from '@constants';
 import Loading from '@components/Loading';
 import { RootState, Group } from 'typings';
 
-const useStyles = makeStyles(({ spacing, palette }: Theme) =>
-  createStyles({
-    container: {
-      height: '100%',
-      position: 'relative',
-    },
-    loading: {
-      height: 'calc(100vh - 64px)',
-      marginTop: '64px',
-    },
-    header: { padding: `${spacing()}px ${spacing(2)}px` },
-    content: { textAlign: 'center', paddingTop: spacing(6) },
-    top: {
-      width: '100%',
-      height: '380px',
-      padding: spacing(),
-      paddingTop: spacing(2),
-    },
-    menubar: {
-      height: spacing(8),
-      padding: `0px ${spacing(2)}px`,
-      backgroundColor: palette.primary.main,
-    },
-    iconButton: {
-      padding: spacing(0.5),
-      '&:hover': {
-        cursor: 'pointer',
-      },
-    },
-    icon: {
-      fontSize: spacing(5),
-      color: 'white',
-    },
-    bottom: {
-      marginBottom: spacing(2),
-      flexGrow: 1,
-    },
-    button: {
-      width: spacing(12),
-      height: spacing(12),
-      margin: `0px ${spacing(3)}px`,
-      color: palette.common.white,
-    },
-    card: {
-      width: '90%',
-      height: '100%',
-      borderRadius: 4,
-      userSelect: 'none',
-    },
-    paper: {
-      boxShadow: 'none',
-      backgroundColor: 'transparent',
-    },
-  })
-);
-
 const studyState = (state: RootState) => state.study;
 const appState = (state: RootState) => state.app;
 
@@ -76,7 +19,6 @@ const zhRef = React.createRef<HTMLInputElement>();
 const jaRef = React.createRef<HTMLInputElement>();
 
 export default () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const actions = bindActionCreators(StudyActions, dispatch);
   const { current: word, mode } = useSelector(studyState);
@@ -105,7 +47,12 @@ export default () => {
       buttons.push(
         <Fab
           key={2}
-          className={classes.button}
+          sx={{
+            width: ({ spacing }) => spacing(12),
+            height: ({ spacing }) => spacing(12),
+            mx: 3,
+            color: 'common.white',
+          }}
           size="large"
           color="primary"
           disableFocusRipple
@@ -121,7 +68,12 @@ export default () => {
       buttons.push(
         <Fab
           key={1}
-          className={classes.button}
+          sx={{
+            width: ({ spacing }) => spacing(12),
+            height: ({ spacing }) => spacing(12),
+            mx: 3,
+            color: 'common.white',
+          }}
           size="large"
           color="secondary"
           disableFocusRipple
@@ -142,7 +94,12 @@ export default () => {
       buttons.push(
         <Fab
           key={3}
-          className={classes.button}
+          sx={{
+            width: ({ spacing }) => spacing(12),
+            height: ({ spacing }) => spacing(12),
+            mx: 3,
+            color: 'common.white',
+          }}
           size="large"
           color="secondary"
           disableFocusRipple
@@ -167,7 +124,7 @@ export default () => {
   };
 
   return (
-    <Grid container direction="column" className={classes.container}>
+    <Grid container direction="column" sx={{ height: '100%', position: 'relative' }}>
       {/* <Grid container justify="flex-end" alignItems="center" className={classes.menubar}>
         <Grid item xs>
           <IconButton className={classes.iconButton} onClick={handleBack} disableRipple disableTouchRipple>
@@ -183,7 +140,7 @@ export default () => {
       {(() => {
         if (!word) {
           return (
-            <Grid container justifyContent="center" alignItems="center" className={classes.bottom}>
+            <Grid container justifyContent="center" alignItems="center" sx={{ mb: 2, flexGrow: 1 }}>
               <Grid item>{getButtons(mode, word)}</Grid>
             </Grid>
           );
@@ -191,8 +148,12 @@ export default () => {
 
         return (
           <React.Fragment>
-            <Grid container alignItems="center" justifyContent="center" className={classes.top}>
-              <Card className={classes.card}>
+            <Grid
+              container
+              alignItems="center"
+              justifyContent="center"
+              sx={{ width: '100%', height: '380px', p: 1, pt: 2 }}>
+              <Card sx={{ width: '90%', height: '100%', borderRadius: 4, userSelect: 'none' }}>
                 <audio ref={audioRef} src={`/${word.mp3}`} />
                 {/* <CardHeader
                   className={classes.header}
@@ -204,7 +165,7 @@ export default () => {
                     </IconButton>
                   }
                 /> */}
-                <CardContent className={classes.content}>
+                <CardContent sx={{ textAlign: 'center', pt: 6 }}>
                   <Typography variant="h4" gutterBottom align="center">
                     {word.word}
                   </Typography>
@@ -216,7 +177,7 @@ export default () => {
                       <TextField
                         inputRef={zhRef}
                         label="中国語"
-                        className={classes.content}
+                        sx={{ textAlign: 'center', pt: 6 }}
                         value={word.vocChn}
                         margin="normal"
                         variant="outlined"
@@ -232,7 +193,7 @@ export default () => {
                       <TextField
                         inputRef={jaRef}
                         label="日本語"
-                        className={classes.content}
+                        sx={{ textAlign: 'center', pt: 6 }}
                         value={word.vocJpn}
                         margin="normal"
                         variant="outlined"
@@ -246,7 +207,7 @@ export default () => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid container justifyContent="center" alignItems="center" className={classes.bottom}>
+            <Grid container justifyContent="center" alignItems="center" sx={{ mb: 2, flexGrow: 1 }}>
               <Grid item>{getButtons(mode, word)}</Grid>
             </Grid>
           </React.Fragment>
