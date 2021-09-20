@@ -81,13 +81,12 @@ export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDi
           words: [infos.id],
         });
 
-        dispatch(
-          Actions.GROUP_WORD_UPDATE({
-            old: id,
-            new: infos.id,
-            details: res,
-          })
-        );
+        const payload = { old: id, new: infos.id, details: res };
+
+        // update group word list
+        dispatch(Actions.GROUP_WORD_UPDATE(payload));
+        // remove study item
+        dispatch(Actions.STUDY_REMOVE(payload));
       }
 
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));

@@ -40,9 +40,10 @@ const slice = createSlice({
 
     // グループ単語の削除
     GROUP_WORD_REMOVE: (state, { payload: { id, word } }: PayloadAction<Payloads.RemoveWordInGroup>) => {
-      const newItems = state.groupWords[id].filter((item) => item.id !== word);
-
-      state.groupWords[id] = newItems;
+      // 単語リスト
+      state.groupWords[id] = state.groupWords[id].filter((item) => item.id !== word);
+      // 表示リスト
+      state.activeGroupList = state.groupWords[state.activeGroup];
     },
 
     // グループ単語の詳細

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { concat, differenceBy } from 'lodash';
 import { Consts } from '@constants';
-import { Domains } from 'typings';
+import { Domains, Payloads } from 'typings';
 import { STUDY_START } from './studyActions';
 
 const studyState: Domains.StudyState = {
@@ -16,6 +16,11 @@ const slice = createSlice({
   name: 'study',
   initialState: studyState,
   reducers: {
+    STUDY_REMOVE: (state, { payload }: PayloadAction<Payloads.GroupWordUpdate>) => {
+      state.rows = state.rows.filter((item) => item.word !== payload.old);
+      state.history = state.history.filter((item) => item.word !== payload.old);
+      state.current = state.rows.length > 0 ? state.rows[0] : undefined;
+    },
     // 単語登録正常終了
     STUDY_ANSWER: (state, { payload }: PayloadAction<boolean>) => {
       if (!payload && state.mode !== Consts.MODES.AllTest) {
@@ -49,6 +54,7 @@ const slice = createSlice({
     builder
       .addCase(STUDY_START.pending, (state) => {
         state.current = undefined;
+        state.rows = [];
       })
       .addCase(STUDY_START.fulfilled, (state, { payload: { mode, items } }) => {
         // モード変更
