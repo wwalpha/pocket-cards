@@ -4,6 +4,7 @@ import { GROUP_DELETE, GROUP_LIST, GROUP_WORD_DETAILS, GROUP_WORD_LIST, GROUP_WO
 
 const grpState: Domains.GroupState = {
   activeGroup: '',
+  activeGroupList: [],
   groupWords: {},
   groups: [],
   regists: [],
@@ -17,11 +18,24 @@ const slice = createSlice({
     // グループを選択
     GROUP_ACTIVE: (state, { payload }: PayloadAction<string>) => {
       state.activeGroup = payload;
+      state.activeGroupList = state.groupWords[payload];
     },
 
     // グループ登録
     GROUP_REGIST: (state, { payload }: PayloadAction<Tables.TGroups>) => {
       state.groups.push(payload);
+    },
+
+    // グループ単語の検索
+    GROUP_WORD_SEARCH: (state, { payload }: PayloadAction<string>) => {
+      const { activeGroup, groupWords } = state;
+
+      if (payload.trim().length === 0) {
+        state.activeGroupList = groupWords[activeGroup];
+      } else {
+        const items = groupWords[activeGroup].filter((item) => item.id.indexOf(payload) !== -1);
+        state.activeGroupList = items;
+      }
     },
 
     // グループ単語の削除

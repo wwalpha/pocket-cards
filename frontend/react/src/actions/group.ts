@@ -72,3 +72,12 @@ export const regist = (details: Group.Details) => (dispatch: AppDispatch) =>
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
     })
   );
+
+/** グループリスト */
+export const search = (word: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // グループ一覧
+      dispatch(Actions.GROUP_WORD_SEARCH(word));
+    })
+  );

@@ -15,7 +15,7 @@ const appState = (state: RootState) => state.app;
 export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
   const wrdActions = bindActionCreators(WordActions, useDispatch());
-  const { activeGroup, groupWords } = useSelector(groupState);
+  const { activeGroup, activeGroupList: dataRows } = useSelector(groupState);
   const { displayCtrl } = useSelector(appState);
 
   // 学習
@@ -69,8 +69,6 @@ export default () => {
         </Box>
       </Box>
       {(() => {
-        const dataRows = groupWords[activeGroup];
-
         if (!dataRows || dataRows.length === 0) return;
 
         return (

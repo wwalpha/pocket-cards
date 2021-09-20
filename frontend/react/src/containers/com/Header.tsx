@@ -110,6 +110,10 @@ export default () => {
   // Menu Close
   const handleMenuClose = () => setAnchorEl(null);
 
+  const handleOnSearch = (e: React.SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    actions.search(e.currentTarget.value);
+  };
+
   /** 音声再生 */
   const handleReply = () => {
     if (!window.location.hostname.startsWith('localhost')) {
@@ -148,7 +152,11 @@ export default () => {
                     <SearchIconWrapper>
                       <SearchIcon />
                     </SearchIconWrapper>
-                    <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
+                    <StyledInputBase
+                      placeholder="Search…"
+                      inputProps={{ 'aria-label': 'search' }}
+                      onChange={handleOnSearch}
+                    />
                   </Search>
                 );
               }
@@ -178,7 +186,12 @@ export default () => {
 
             if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
               return [
-                <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={handleMenuOpen}>
+                <IconButton
+                  key={`studyMore`}
+                  aria-label="display more actions"
+                  edge="end"
+                  color="inherit"
+                  onClick={handleMenuOpen}>
                   <MoreIcon fontSize="large" />
                 </IconButton>,
               ];
