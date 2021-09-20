@@ -92,3 +92,14 @@ export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDi
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
     })
   );
+
+export const ignore = (word: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async (state: RootState) => {
+      const { activeGroup } = state.group;
+      // データ保存
+      await dispatch(Actions.STUDY_IGNORE(word)).unwrap();
+
+      dispatch(Actions.GROUP_WORD_REMOVE({ id: activeGroup, word: word }));
+    })
+  );

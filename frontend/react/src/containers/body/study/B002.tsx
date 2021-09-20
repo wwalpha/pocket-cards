@@ -48,6 +48,10 @@ export default () => {
     if (word) wrdActions.detail(word.word);
   };
 
+  const handleIgnore = () => {
+    if (word) wrdActions.ignore(word.word);
+  };
+
   const getButtons = (mode?: string, word?: Group.WordItem) => {
     const buttons = [];
 
@@ -138,7 +142,9 @@ export default () => {
         <StyledBarButton variant="contained" onClick={handleDetail}>
           編集
         </StyledBarButton>
-        <StyledBarButton variant="contained">無視</StyledBarButton>
+        <StyledBarButton variant="contained" onClick={handleIgnore}>
+          無視
+        </StyledBarButton>
       </Box>
 
       {(() => {

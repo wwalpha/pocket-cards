@@ -36,7 +36,7 @@ export const answer = (word: string, yes: boolean) => (dispatch: AppDispatch) =>
       dispatch(Actions.STUDY_ANSWER(yes));
 
       // 一定数以上の場合、再取得しない
-      if (rows.length > 3) {
+      if (rows.length > 4) {
         return;
       }
 
@@ -46,10 +46,10 @@ export const answer = (word: string, yes: boolean) => (dispatch: AppDispatch) =>
       // 新規の場合
       if (mode === Consts.MODES.New) {
         // 新規単語の追加
-        dispatch(Actions.STUDY_START(Consts.MODES.New));
+        dispatch(Actions.STUDY_CONTINUE(Consts.MODES.New));
       } else {
         // テストの場合
-        dispatch(Actions.STUDY_START(Consts.MODES.AllTest));
+        dispatch(Actions.STUDY_CONTINUE(Consts.MODES.AllTest));
       }
     })
   );
@@ -68,10 +68,10 @@ const updateStatus = async (groupId: string, word: string, yes: boolean, times: 
 export const startNew = () => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
-      // 新規単語の学習開始
-      dispatch(Actions.STUDY_START(Consts.MODES.New));
       // 画面遷移
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
+      // 新規単語の学習開始
+      dispatch(Actions.STUDY_START(Consts.MODES.New));
     })
   );
 
@@ -92,7 +92,7 @@ export const startTest = () => (dispatch: AppDispatch) =>
     withLoading(async () => {
       // 画面遷移
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
-      // 復習単語の学習開始
+      // テスト単語の学習開始
       dispatch(Actions.STUDY_START(Consts.MODES.AllTest));
     })
   );

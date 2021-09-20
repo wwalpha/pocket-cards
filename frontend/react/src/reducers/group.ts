@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains, Payloads, Tables } from 'typings';
-import { GROUP_DELETE, GROUP_LIST, GROUP_WORD_DETAILS, GROUP_WORD_LIST, GROUP_WORD_REPLACE } from './groupActions';
+import { GROUP_DELETE, GROUP_LIST, GROUP_WORD_DETAILS, GROUP_WORD_LIST } from './groupActions';
 
 const grpState: Domains.GroupState = {
   activeGroup: '',

@@ -1,6 +1,6 @@
 import { DynamoDB } from 'aws-sdk';
 import { Environment } from '@consts';
-import { APIs, Tables } from 'typings';
+import { Tables } from 'typings';
 import * as query from './query';
 import * as update from './update';
 

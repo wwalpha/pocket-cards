@@ -55,12 +55,3 @@ export const GROUP_WORD_DETAILS = createAsyncThunk<Group.WordDetails, string>(
     }
   }
 );
-
-export const GROUP_WORD_REPLACE = createAsyncThunk<Payloads.GroupWordUpdate, Payloads.GroupWordUpdate>(
-  'group/GROUP_WORD_REPLACE',
-  async (infos, { getState }) => {
-    const { activeGroup } = (getState() as RootState).group;
-
-    return infos;
-  }
-);
