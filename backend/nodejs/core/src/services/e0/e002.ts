@@ -12,13 +12,15 @@ export default async (req: Request<APIs.E002Params, any, APIs.E002Request, any>)
   // 単語が存在しない場合
   if (!record) {
     // 新規追加
-    await addNew(word);
+    const newWord = await addNew(word);
 
-    return;
+    return newWord;
   }
 
   // 既存更新
   await update(word, input);
+
+  return input;
 };
 
 const addNew = async (word: string) => {
@@ -40,6 +42,8 @@ const addNew = async (word: string) => {
 
   // DB 更新
   await DBHelper().put(WordMaster.put(item));
+
+  return item;
 };
 
 const update = async (word: string, input: APIs.E002Request) => {
@@ -47,7 +51,6 @@ const update = async (word: string, input: APIs.E002Request) => {
   await DBHelper().put(
     WordMaster.put({
       id: word,
-      mp3: input.mp3,
       pronounce: input.pronounce,
       vocChn: input.vocChn,
       vocJpn: input.vocJpn,
