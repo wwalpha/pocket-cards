@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { concat, differenceBy } from 'lodash';
 import { Consts } from '@constants';
-import { API } from '@utils';
-import { APIs, Domains, Payloads, RootState } from 'typings';
+import { Domains } from 'typings';
+import { STUDY_START } from './studyActions';
 
 const studyState: Domains.StudyState = {
   current: undefined,
@@ -11,32 +11,6 @@ const studyState: Domains.StudyState = {
   history: [],
   index: 0,
 };
-
-export const STUDY_START = createAsyncThunk<Payloads.StudyCase, string>(
-  'study/STUDY_START',
-  async (mode, { getState }) => {
-    const { activeGroup } = (getState() as RootState).group;
-
-    // default study case: new
-    let url = Consts.C006_URL(activeGroup);
-
-    // study case: test
-    if (mode === Consts.MODES.AllTest) {
-      url = Consts.C007_URL(activeGroup);
-    }
-    // study case: review
-    if (mode === Consts.MODES.Review) {
-      url = Consts.C008_URL(activeGroup);
-    }
-
-    const res = await API.get<APIs.C006Response>(url);
-
-    return {
-      mode: mode,
-      items: res.words,
-    };
-  }
-);
 
 const slice = createSlice({
   name: 'study',
@@ -72,23 +46,38 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(STUDY_START.fulfilled, (state, { payload: { mode, items } }) => {
-      // 差分を抽出する
-      const differ = differenceBy(items, state.history, 'word');
-      // 足りない単語数を計算する
-      const diffNum = Consts.PAGE_MAX_WORDS - state.rows.length;
-      // 追加する単語
-      const added = differ.splice(0, diffNum);
-      // 既存配列と合併する
-      const newArray = concat(state.rows, added);
+    builder
+      .addCase(STUDY_START.pending, (state) => {
+        state.current = undefined;
+      })
+      .addCase(STUDY_START.fulfilled, (state, { payload: { mode, items } }) => {
+        // モード変更
+        if (mode !== state.mode) {
+          state.history = [];
+          state.rows = items;
+          state.current = items[0];
+          state.index = 0;
+          state.mode = mode;
 
-      // モード変わった、或いは、既存データ存在しない
-      state.rows = newArray;
-      state.history = concat(state.history, added);
-      state.current = state.current ? state.current : newArray[0];
-      state.index = state.index;
-      state.mode = mode;
-    });
+          return;
+        }
+
+        // 差分を抽出する
+        const differ = differenceBy(items, state.history, 'word');
+        // 足りない単語数を計算する
+        const diffNum = Consts.PAGE_MAX_WORDS - state.rows.length;
+        // 追加する単語
+        const added = differ.splice(0, diffNum);
+        // 既存配列と合併する
+        const newArray = concat(state.rows, added);
+
+        // モード変わった、或いは、既存データ存在しない
+        state.rows = newArray;
+        state.history = concat(state.history, added);
+        state.current = state.current ? state.current : newArray[0];
+        state.index = state.index;
+        state.mode = mode;
+      });
   },
 });
 

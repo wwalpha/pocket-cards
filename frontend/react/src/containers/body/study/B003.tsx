@@ -40,16 +40,7 @@ export default () => {
   return (
     <form onSubmit={handleOnUpdate}>
       <Box margin={2}>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="id"
-          label="単語"
-          autoFocus
-          {...register('id')}
-        />
+        <TextField variant="outlined" margin="normal" required fullWidth id="id" label="単語" {...register('id')} />
         <TextField
           variant="outlined"
           margin="normal"

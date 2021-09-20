@@ -2,10 +2,11 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import { History } from 'history';
 import App from './app';
-import Study, { STUDY_START } from './study';
+import Study from './study';
 import Group from './group';
 import User from './user';
 import { GROUP_LIST, GROUP_DELETE, GROUP_WORD_LIST, GROUP_WORD_DETAILS } from './groupActions';
+import { STUDY_START } from './studyActions';
 
 export default (history: History<any>) =>
   combineReducers({

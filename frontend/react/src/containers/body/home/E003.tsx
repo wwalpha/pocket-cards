@@ -71,7 +71,6 @@ export default () => {
           fullWidth
           id="name"
           label="Group Name"
-          autoFocus
           {...register('name')}
         />
         <TextField
