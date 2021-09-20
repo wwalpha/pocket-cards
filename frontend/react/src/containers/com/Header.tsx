@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { push } from 'connected-react-router';
 import { styled, alpha } from '@mui/material/styles';
@@ -71,21 +71,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const actions = bindActionCreators(GroupActions, dispatch);
   const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { groups, activeGroup } = useSelector(groupState);
   const { current } = useSelector(studyState);
 
   const isMenuOpen = Boolean(anchorEl);
 
   // Left Icon action
-  const handleOnClickLeft = () => {
-    const paths = pathname.split('/');
-    paths.pop();
-
-    dispatch(push(paths.join('/')));
-  };
+  const handleOnGoback = () => history.goBack();
 
   // switch group regist screen
   const handleOnClickAdd = () => dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]));
@@ -136,7 +131,7 @@ export default () => {
         <Toolbar sx={{ minHeight: ({ spacing }) => spacing(8) }}>
           {(() => {
             return pathname.split('/').length <= 2 ? null : (
-              <IconButton sx={{ p: 0.5 }} onClick={handleOnClickLeft}>
+              <IconButton sx={{ p: 0.5 }} onClick={handleOnGoback}>
                 <ArrowBackIcon sx={{ color: 'common.white', fontSize: ({ spacing }) => spacing(4) }} />
               </IconButton>
             );
