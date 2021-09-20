@@ -1,6 +1,5 @@
 import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
-import logger from 'redux-logger';
 import reducers from '../reducers';
 import { configureStore } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
@@ -19,7 +18,7 @@ const persistedReducer = persistReducer(
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(routerMiddleware(history)).concat(logger),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(routerMiddleware(history)),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

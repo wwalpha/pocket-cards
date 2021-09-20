@@ -7,20 +7,22 @@ import { APIs, AppDispatch, Group, RootState } from 'typings';
 
 /** 単語削除 */
 export const del = (groupId: string, word: string) => (dispatch: AppDispatch) =>
-  withLoading(async () => {
-    // 画面遷移
-    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
+  dispatch(
+    withLoading(async () => {
+      // 画面遷移
+      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
 
-    await API.del<APIs.C005Response>(Consts.C005_URL(groupId, word));
+      await API.del<APIs.C005Response>(Consts.C005_URL(groupId, word));
 
-    // データ保存
-    dispatch(
-      Actions.GROUP_WORD_REMOVE({
-        id: groupId,
-        word,
-      })
-    );
-  });
+      // データ保存
+      dispatch(
+        Actions.GROUP_WORD_REMOVE({
+          id: groupId,
+          word,
+        })
+      );
+    })
+  );
 
 /** 単語削除 */
 export const deleteRow = (groupId: string, word: string) => (dispatch: AppDispatch) =>

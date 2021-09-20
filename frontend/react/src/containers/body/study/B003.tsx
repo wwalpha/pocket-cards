@@ -47,9 +47,7 @@ export default () => {
 
   const handleOnUpdate = handleSubmit((datas) => actions.update(current?.id as string, datas));
 
-  const handleOnDelete = () => {
-    actions.del(activeGroup, word);
-  };
+  const handleOnDelete = () => actions.del(activeGroup, word);
 
   return (
     <form onSubmit={handleOnUpdate}>
