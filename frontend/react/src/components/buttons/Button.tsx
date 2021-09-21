@@ -5,7 +5,7 @@ import { green } from '@mui/material/colors';
 const button: FunctionComponent<Props> = ({ isLoading, children, ...props }) => {
   return (
     <Box sx={{ m: 1, position: 'relative' }}>
-      <Button disableFocusRipple disableTouchRipple fullWidth {...props} disabled={isLoading}>
+      <Button disableFocusRipple disableTouchRipple disableRipple fullWidth {...props} disabled={isLoading}>
         {children}
       </Button>
       {isLoading && (

@@ -36,21 +36,15 @@ export const answer = (word: string, yes: boolean) => (dispatch: AppDispatch) =>
       dispatch(Actions.STUDY_ANSWER(yes));
 
       // 一定数以上の場合、再取得しない
-      if (rows.length > 4) {
+      if (rows.length > Consts.STUDY_BUFFER_LOWER_LIMIT) {
         return;
       }
 
       // 0.1秒待ち
       await sleep(100);
 
-      // 新規の場合
-      if (mode === Consts.MODES.New) {
-        // 新規単語の追加
-        dispatch(Actions.STUDY_CONTINUE(Consts.MODES.New));
-      } else {
-        // テストの場合
-        dispatch(Actions.STUDY_CONTINUE(Consts.MODES.AllTest));
-      }
+      // 単語の追加
+      dispatch(Actions.STUDY_CONTINUE());
     })
   );
 

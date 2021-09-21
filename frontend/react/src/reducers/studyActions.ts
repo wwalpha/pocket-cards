@@ -35,10 +35,11 @@ export const STUDY_START = createAsyncThunk<Payloads.StudyCase, string>(
   }
 );
 
-export const STUDY_CONTINUE = createAsyncThunk<Payloads.StudyCase, string>(
+export const STUDY_CONTINUE = createAsyncThunk<Payloads.StudyCase, void>(
   'study/STUDY_CONTINUE',
-  async (mode, { getState }) => {
+  async (_, { getState }) => {
     const { activeGroup } = (getState() as RootState).group;
+    const { mode } = (getState() as RootState).study;
 
     return await getWords(mode, activeGroup);
   }

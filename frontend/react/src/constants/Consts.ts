@@ -63,3 +63,5 @@ export const FOOT_HEIGHT = 72;
 export enum ShowTypes {
   REMOVE_WORD,
 }
+
+export const STUDY_BUFFER_LOWER_LIMIT = 4;

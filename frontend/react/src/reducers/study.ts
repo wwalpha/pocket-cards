@@ -6,7 +6,7 @@ import { STUDY_CONTINUE, STUDY_IGNORE, STUDY_START } from './studyActions';
 
 const studyState: Domains.StudyState = {
   current: undefined,
-  mode: undefined,
+  mode: '',
   rows: [],
   history: [],
   index: 0,

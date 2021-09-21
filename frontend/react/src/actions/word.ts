@@ -96,10 +96,17 @@ export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDi
 export const ignore = (word: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async (state: RootState) => {
-      const { activeGroup } = state.group;
+      const { rows } = state.study;
+
       // データ保存
       await dispatch(Actions.STUDY_IGNORE(word)).unwrap();
 
-      dispatch(Actions.GROUP_WORD_REMOVE({ id: activeGroup, word: word }));
+      // 一定数以上の場合、再取得しない
+      if (rows.length > Consts.STUDY_BUFFER_LOWER_LIMIT + 1) {
+        return;
+      }
+
+      // 単語の追加
+      await dispatch(Actions.STUDY_CONTINUE()).unwrap();
     })
   );
