@@ -65,7 +65,14 @@ export default () => {
           <Button
             variant="contained"
             color="primary"
-            sx={{ width: 120, m: 1, bgcolor: green[600] }}
+            sx={{
+              width: 120,
+              m: 1,
+              bgcolor: green[600],
+              '&:hover': {
+                bgcolor: green[600],
+              },
+            }}
             size="large"
             onClick={handleStart}
             isLoading={isLoading}>
@@ -74,7 +81,14 @@ export default () => {
           <Button
             variant="contained"
             color="primary"
-            sx={{ width: 120, m: 1, bgcolor: red[700] }}
+            sx={{
+              width: 120,
+              m: 1,
+              bgcolor: red[700],
+              '&:hover': {
+                bgcolor: red[700],
+              },
+            }}
             size="large"
             onClick={handleStop}
             isLoading={isLoading}>
@@ -85,7 +99,14 @@ export default () => {
           <Button
             variant="contained"
             color="primary"
-            sx={{ width: 120, m: 1, bgcolor: red[700] }}
+            sx={{
+              width: 120,
+              m: 1,
+              bgcolor: red[700],
+              '&:hover': {
+                bgcolor: red[700],
+              },
+            }}
             size="large"
             onClick={handleLogout}
             isLoading={isLoading}>

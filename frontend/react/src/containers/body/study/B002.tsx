@@ -19,6 +19,9 @@ const StyledBarButton = styled(Button)(({ theme: { spacing, palette } }) => ({
   marginLeft: spacing(1),
   marginRight: spacing(1),
   backgroundColor: palette.secondary.light,
+  '&:hover': {
+    backgroundColor: palette.secondary.light,
+  },
 }));
 
 export default () => {
@@ -139,10 +142,10 @@ export default () => {
   return (
     <Grid container direction="column" sx={{ height: '100%', position: 'relative' }}>
       <Box sx={{ display: 'flex', py: 1, mx: 1 }}>
-        <StyledBarButton variant="contained" onClick={handleDetail}>
+        <StyledBarButton variant="contained" disableTouchRipple disableFocusRipple disableRipple onClick={handleDetail}>
           編集
         </StyledBarButton>
-        <StyledBarButton variant="contained" onClick={handleIgnore}>
+        <StyledBarButton variant="contained" disableTouchRipple disableFocusRipple disableRipple onClick={handleIgnore}>
           無視
         </StyledBarButton>
       </Box>
