@@ -97,13 +97,12 @@ const slice = createSlice({
         state.index = state.index;
         state.mode = mode;
       })
-      .addCase(STUDY_IGNORE.fulfilled, (state) => {
+      .addCase(STUDY_IGNORE.fulfilled, (state, { payload }) => {
         // remove first item
-        const array = [...state.rows];
-        array.shift();
+        const array = state.rows.filter((item) => item.word !== payload);
 
         state.rows = array;
-        state.current = array[0];
+        state.current = array[state.index];
       });
   },
 });
