@@ -20,5 +20,6 @@ TABLE_NAME_WORD_IGNORE=${local.dynamodb_name_word_ignore}
 TABLE_NAME_HISTORIES=${local.dynamodb_name_histories}
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
 PATH_PATTERN=audio
+TZ=Asia/Tokyo
 EOT
 }
