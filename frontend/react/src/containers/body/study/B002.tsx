@@ -52,7 +52,11 @@ export default () => {
   };
 
   const handleIgnore = () => {
-    if (word) wrdActions.ignore(word.word);
+    if (word) {
+      wrdActions.ignore(word.word);
+
+      setShowText(false);
+    }
   };
 
   const getButtons = (mode?: string, word?: Group.WordItem) => {
