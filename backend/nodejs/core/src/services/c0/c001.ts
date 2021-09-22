@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { API, Commons, DateUtils, DBHelper, Logger } from '@utils';
-import { WordMaster, Groups, Words } from '@queries';
+import { WordMaster, Groups, Words, WordIgnore } from '@queries';
 import { APIs, Tables } from 'typings';
 
 /** グループ単語新規追加 */
@@ -25,16 +25,16 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
  * @returns void
  */
 const registWord = async (word: string, groupId: string, userId: string) => {
-  const result = await DBHelper().get<Tables.TWordMaster>(WordMaster.get(word));
+  const ignoreResult = await DBHelper().get(WordIgnore.get({ id: userId, word: word }));
 
-  let dict = result?.Item;
-
-  // word not exist
-  if (!dict) {
-    dict = await registDictionary(word);
+  // ignore word exist
+  if (ignoreResult?.Item) {
+    return;
   }
 
-  //
+  // get dictionary
+  const dict = await getDictionary(word);
+  // exist check
   const wordsResult = await DBHelper().get(Words.get({ id: word, groupId: groupId }));
 
   // regist word
@@ -57,7 +57,14 @@ const registWord = async (word: string, groupId: string, userId: string) => {
   await DBHelper().update(Groups.update.addCount(groupId, userId, 1));
 };
 
-const registDictionary = async (word: string): Promise<Tables.TWordMaster> => {
+const getDictionary = async (word: string): Promise<Tables.TWordMaster> => {
+  const result = await DBHelper().get<Tables.TWordMaster>(WordMaster.get(word));
+
+  // master exist
+  if (result && result.Item) {
+    return result.Item;
+  }
+
   const results = await Promise.all([
     API.getPronounce(word),
     Commons.saveWithMP3(word),
