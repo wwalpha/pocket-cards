@@ -19,21 +19,28 @@ export default async (req: Request<any, any, APIs.D003Request, any>): Promise<AP
 
   // remove word from all groups
   const tasks = results.Items.map(async (item) => {
-    const result = await DBHelper().get(Words.get({ groupId: item.id, id: word }));
+    try {
+      const result = await DBHelper().get(Words.get({ groupId: item.id, id: word }));
 
-    // validation
-    if (result?.Item) {
-      return;
+      // validation
+      if (!result?.Item) {
+        return;
+      }
+
+      await DBHelper().transactWrite({
+        TransactItems: [
+          {
+            Delete: Words.del({ groupId: item.id, id: word }),
+          },
+          {
+            Update: Groups.update.minusCount(item.id, userId, 1),
+          },
+        ],
+      });
+    } catch (err) {
+      console.log(item.id, word);
+      console.log(err);
     }
-
-    await DBHelper().transactWrite({
-      TransactItems: [
-        {
-          Delete: Words.del({ groupId: item.id, id: word }),
-          Update: Groups.update.minusCount(item.id, userId, 1),
-        },
-      ],
-    });
   });
 
   // execute tasks

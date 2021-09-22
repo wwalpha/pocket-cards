@@ -6,6 +6,7 @@ import * as D0 from '../datas/d0';
 import { HEADER_AUTH } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
+import { Tables } from 'typings';
 
 const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
 
@@ -31,19 +32,17 @@ describe('d0', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
-    expect(
-      (
-        await DBHelper().get(
-          WordIgnore.get({
-            id: userId,
-            word: D0.D003Req01.word,
-          })
-        )
-      )?.Item
-    ).toEqual(D0.D003Expect01);
-
+    const ignore = await DBHelper().get(
+      WordIgnore.get({
+        id: userId,
+        word: D0.D003Req01.word,
+      })
+    );
     const words = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WORDS });
+    const groups = await DBHelper().get<Tables.TGroups>(Groups.get({ id: 'G001', userId: userId }));
 
+    expect(ignore?.Item).toEqual(D0.D003Expect01);
     expect(words.Items).toEqual(D0.D003Expect02);
+    expect(groups?.Item?.count).toBe(0);
   });
 });
