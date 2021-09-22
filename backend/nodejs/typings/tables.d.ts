@@ -1,12 +1,12 @@
 export namespace Tables {
-  interface WordKey {
+  interface TWordsKey {
     // 単語
     id: string;
     // グループID
     groupId: string;
   }
 
-  interface TWords extends WordKey {
+  interface TWords extends TWordsKey {
     // 次の学習時間
     nextTime: string;
     // 最後の学習時間

@@ -1,8 +1,8 @@
 import { Request } from 'express';
+import { isEmpty } from 'lodash';
 import { DBHelper, Commons } from '@utils';
 import { Groups, WordIgnore, Words } from '@queries';
 import { APIs, Tables } from 'typings';
-import { isEmpty } from 'lodash';
 
 export default async (req: Request<any, any, APIs.D003Request, any>): Promise<APIs.D003Response> => {
   const userId = Commons.getUserId(req);
@@ -19,10 +19,21 @@ export default async (req: Request<any, any, APIs.D003Request, any>): Promise<AP
 
   // remove word from all groups
   const tasks = results.Items.map(async (item) => {
-    try {
-      // delete word from group
-      await DBHelper().delete(Words.del({ groupId: item.id, id: word }));
-    } catch (err) {}
+    const result = await DBHelper().get(Words.get({ groupId: item.id, id: word }));
+
+    // validation
+    if (result?.Item) {
+      return;
+    }
+
+    await DBHelper().transactWrite({
+      TransactItems: [
+        {
+          Delete: Words.del({ groupId: item.id, id: word }),
+          Update: Groups.update.minusCount(item.id, userId, 1),
+        },
+      ],
+    });
   });
 
   // execute tasks

@@ -2,10 +2,10 @@ import * as query from './query';
 import * as update from './update';
 import { Environment } from '@consts';
 import { DynamoDB } from 'aws-sdk';
-import { APIs, Tables } from 'typings';
+import { Tables } from 'typings';
 
 /** データ取得 */
-export const get = (key: Tables.WordKey) =>
+export const get = (key: Tables.TWordsKey) =>
   ({
     TableName: Environment.TABLE_NAME_WORDS,
     Key: key,
@@ -24,7 +24,7 @@ export const putNotExist = (item: Tables.TWords): DynamoDB.DocumentClient.PutIte
 });
 
 /** データ削除 */
-export const del = (key: Tables.WordKey): DynamoDB.DocumentClient.DeleteItemInput => ({
+export const del = (key: Tables.TWordsKey): DynamoDB.DocumentClient.DeleteItemInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   Key: key,
 });
