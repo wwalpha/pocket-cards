@@ -47,10 +47,14 @@ const addNew = async (word: string) => {
 };
 
 const update = async (word: string, input: APIs.E002Request) => {
+  // 音声の再取得
+  const mp3 = await Commons.saveWithMP3(word);
+
   // 単語詳細情報を取得する
   await DBHelper().put(
     WordMaster.put({
       id: word,
+      mp3: mp3,
       pronounce: input.pronounce,
       vocChn: input.vocChn,
       vocJpn: input.vocJpn,
