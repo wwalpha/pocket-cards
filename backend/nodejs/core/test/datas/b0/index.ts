@@ -12,5 +12,7 @@ export { default as B004DB01 } from './b004/db001.json';
 export { default as B004Req01 } from './b004/req001.json';
 export { default as B004Res01 } from './b004/res001.json';
 
-export { default as B005DB01 } from './b005/db001.json';
+export { default as B005DB_GROUP } from './b005/db001.json';
+export { default as B005DB_WORDS } from './b005/db002.json';
+
 export { default as B005Res01 } from './b005/res001.json';

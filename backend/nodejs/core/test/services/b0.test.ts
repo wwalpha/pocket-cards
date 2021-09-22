@@ -1,4 +1,4 @@
-import { Groups } from '@queries';
+import { Groups, Words } from '@queries';
 import { Commons, DBHelper } from '@utils';
 import server from '@src/server';
 import request from 'supertest';
@@ -6,6 +6,7 @@ import * as B0 from '../datas/b0';
 import { APIs } from 'typings';
 import { HEADER_AUTH } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
+import { TABLE_NAME_WORDS } from '@src/consts/Environment';
 
 const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
 const TABLE_NAME_GROUPS = process.env.TABLE_NAME_GROUPS as string;
@@ -13,6 +14,7 @@ const TABLE_NAME_GROUPS = process.env.TABLE_NAME_GROUPS as string;
 describe('b0', () => {
   afterEach(async () => {
     await client.truncateAll(TABLE_NAME_GROUPS);
+    await client.truncateAll(TABLE_NAME_WORDS);
   });
 
   test('b001', async () => {
@@ -77,7 +79,8 @@ describe('b0', () => {
 
   test('b005', async () => {
     // initialize table
-    await client.bulk(TABLE_NAME_GROUPS, B0.B005DB01);
+    await client.bulk(TABLE_NAME_GROUPS, B0.B005DB_GROUP);
+    await client.bulk(TABLE_NAME_WORDS, B0.B005DB_WORDS);
 
     // api call
     const res = await request(server).delete('/v1/groups/B005').set('authorization', HEADER_AUTH).send(B0.B004Req01);
@@ -85,9 +88,15 @@ describe('b0', () => {
     // database
     const userId = Commons.getUserInfo(HEADER_AUTH);
     const result = await DBHelper().get(Groups.get({ id: 'B005', userId: userId }));
+
     // status code
     expect(res.statusCode).toBe(200);
     // database
     expect(result?.Item).toBeUndefined();
+
+    // const words = await DBHelper().query(Words.query.listByGroup('B005'));
+
+    // no data
+    // expect(words.Items.length).toBe(0);
   });
 });

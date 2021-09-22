@@ -1,7 +1,8 @@
 import { Request } from 'express';
 import { DBHelper, Commons } from '@utils';
-import { Groups } from '@queries';
+import { Groups, Words } from '@queries';
 import { APIs } from 'typings';
+import { Environment } from '@consts';
 
 /**
  * グループ情報変更
@@ -18,4 +19,9 @@ export default async (req: Request<APIs.B005Params, void, APIs.B004Request, any>
       userId: userId,
     })
   );
+
+  const groupWords = await DBHelper().query(Words.query.listByGroup(groupId));
+
+  // remove all words in group
+  await DBHelper().truncate(Environment.TABLE_NAME_WORDS, groupWords.Items);
 };
