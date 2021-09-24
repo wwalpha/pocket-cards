@@ -57,12 +57,9 @@ export const GROUP_WORD_DETAILS = createAsyncThunk<Group.WordDetails, string>(
 );
 
 export const GROUP_STATUS = createAsyncThunk<Group.Status, void>('group/GROUP_STATUS', async (_, { getState }) => {
-  // const res = await API.get<APIs.E001Response>(Consts.E001_URL(word));
+  const { activeGroup } = (getState() as RootState).group;
 
-  return {
-    count: 1,
-    learned: 1,
-    unlearned: 1,
-    review: 1,
-  };
+  const res = await API.get<APIs.B006Response>(Consts.B006_URL(activeGroup));
+
+  return res;
 });

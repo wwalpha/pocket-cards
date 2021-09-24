@@ -1,7 +1,7 @@
 import { API } from '@aws-amplify/api';
 import { Consts } from '@constants';
 
-export const get = async <T = any>(path: string, headers?: any, name: string = Consts.API_NAME): Promise<T> =>
+export const get = async <Res = any>(path: string, headers?: any, name: string = Consts.API_NAME): Promise<Res> =>
   await API.get(name, path, {
     headers,
   });

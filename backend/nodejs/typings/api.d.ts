@@ -103,6 +103,22 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
+  // B006
+  // ------------------------------------------------------------
+  interface B006Params {
+    groupId: string;
+  }
+
+  interface B006Request {}
+
+  interface B006Response {
+    count: number;
+    learned: number;
+    unlearned: number;
+    review: number;
+  }
+
+  // ------------------------------------------------------------
   // C001
   // ------------------------------------------------------------
   interface C001Params {

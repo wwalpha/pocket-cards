@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { DBHelper, Logger, Commons } from '@utils';
+import { DBHelper, Commons } from '@utils';
 import { Groups } from '@queries';
 import { APIs, Tables } from 'typings';
 
@@ -8,7 +8,7 @@ import { APIs, Tables } from 'typings';
  *
  * GET /groups/:groupId
  */
-export default async (req: Request<APIs.B003Params, any, APIs.B001Request, any>): Promise<APIs.B003Response> => {
+export default async (req: Request<APIs.B003Params, any, APIs.B003Request, any>): Promise<APIs.B003Response> => {
   const userId = Commons.getUserId(req);
   const groupId = req.params.groupId;
 

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "AAA",
+    "groupId": "B006",
+    "nextTime": "20190402",
+    "lastTime": "20190401",
+    "times": 0,
+    "vocabulary": "中国"
+  },
+  {
+    "id": "BBB",
+    "groupId": "B006",
+    "nextTime": "20190402",
+    "lastTime": "20190401",
+    "times": 0,
+    "vocabulary": "中国"
+  },
+  {
+    "id": "CCC",
+    "groupId": "B006",
+    "nextTime": "20190404",
+    "lastTime": "20190403",
+    "times": 1,
+    "vocabulary": "米国"
+  },
+  {
+    "id": "DDD",
+    "groupId": "B006",
+    "nextTime": "20190404",
+    "lastTime": "20190403",
+    "times": 1,
+    "vocabulary": "米国"
+  },
+  {
+    "id": "EEE",
+    "groupId": "B006",
+    "nextTime": "20190404",
+    "lastTime": "20190403",
+    "times": 1,
+    "vocabulary": "米国"
+  },
+  {
+    "id": "FFF",
+    "groupId": "B006",
+    "nextTime": "20190404",
+    "lastTime": "20190403",
+    "times": 2,
+    "vocabulary": "米国"
+  }
+]

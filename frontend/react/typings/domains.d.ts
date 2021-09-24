@@ -25,7 +25,7 @@ export namespace Domains {
     /** word detail */
     current?: Group.WordDetails;
     /** group learn status */
-    status?: Group.state;
+    status?: Group.Status;
   }
 
   interface UserState {

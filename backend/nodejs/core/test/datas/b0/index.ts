@@ -16,3 +16,6 @@ export { default as B005DB_GROUP } from './b005/db001.json';
 export { default as B005DB_WORDS } from './b005/db002.json';
 
 export { default as B005Res01 } from './b005/res001.json';
+
+export { default as B006DB_WORDS } from './b006/db001.json';
+export { default as B006Res01 } from './b006/res001.json';

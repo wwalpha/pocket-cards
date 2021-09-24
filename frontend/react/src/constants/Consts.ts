@@ -20,6 +20,8 @@ export const B003_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 export const B004_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 // グループ情報削除
 export const B005_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
+// グループ学習状態
+export const B006_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}/status`;
 
 // 単語一括登録
 export const C001_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}/words`;

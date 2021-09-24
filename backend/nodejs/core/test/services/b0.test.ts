@@ -93,10 +93,18 @@ describe('b0', () => {
     expect(res.statusCode).toBe(200);
     // database
     expect(result?.Item).toBeUndefined();
+  });
 
-    // const words = await DBHelper().query(Words.query.listByGroup('B005'));
+  test('b006', async () => {
+    // initialize table
+    await client.bulk(TABLE_NAME_WORDS, B0.B006DB_WORDS);
 
-    // no data
-    // expect(words.Items.length).toBe(0);
+    // api call
+    const res = await request(server).get('/v1/groups/B006/status').set('authorization', HEADER_AUTH);
+
+    // status code
+    expect(res.statusCode).toBe(200);
+    // found 2 records
+    expect(res.body).toEqual(B0.B006Res01);
   });
 });
