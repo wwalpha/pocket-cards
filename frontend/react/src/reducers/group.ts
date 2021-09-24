@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains, Payloads, Tables } from 'typings';
-import { GROUP_DELETE, GROUP_LIST, GROUP_WORD_DETAILS, GROUP_WORD_LIST } from './groupActions';
+import { GROUP_DELETE, GROUP_LIST, GROUP_STATUS, GROUP_WORD_DETAILS, GROUP_WORD_LIST } from './groupActions';
 
 const grpState: Domains.GroupState = {
   activeGroup: '',
@@ -9,6 +9,7 @@ const grpState: Domains.GroupState = {
   groups: [],
   regists: [],
   current: undefined,
+  status: undefined,
 };
 
 const slice = createSlice({
@@ -86,6 +87,9 @@ const slice = createSlice({
       // delete group id
       .addCase(GROUP_DELETE.fulfilled, (state) => {
         state.groups = state.groups.filter((item) => item.id !== state.activeGroup);
+      })
+      .addCase(GROUP_STATUS.fulfilled, (state, { payload }) => {
+        state.status = payload;
       })
       // add words in group
       .addCase(GROUP_WORD_LIST.fulfilled, (state, { payload }) => {

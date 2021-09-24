@@ -24,6 +24,8 @@ export namespace Domains {
     regists: string[];
     /** word detail */
     current?: Group.WordDetails;
+    /** group learn status */
+    status?: Group.state;
   }
 
   interface UserState {

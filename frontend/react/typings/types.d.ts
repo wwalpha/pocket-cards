@@ -70,6 +70,17 @@ export namespace Group {
     // 回数
     times: number;
   }
+
+  interface Status {
+    // 単語数
+    count: number;
+    // 学習済み
+    learned: number;
+    // 未学習
+    unlearned: number;
+    // 復習
+    review: number;
+  }
 }
 
 interface ScreenInfo {
