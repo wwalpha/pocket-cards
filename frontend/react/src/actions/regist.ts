@@ -77,3 +77,21 @@ export const uploadImage = (image: string) => (dispatch: AppDispatch) =>
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistList]));
     })
   );
+
+export const manual = (word?: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async (state: RootState) => {
+      const { activeGroup } = state.group;
+
+      if (!word) return;
+
+      await API.post(Consts.C001_URL(activeGroup), {
+        words: [word],
+      } as APIs.C001Request);
+
+      // 画面遷移
+      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
+      // get latest list
+      dispatch(Actions.GROUP_WORD_LIST(activeGroup));
+    })
+  );

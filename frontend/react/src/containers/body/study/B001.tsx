@@ -1,13 +1,14 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import Button from '@components/buttons/Button';
 import { WordList } from '@components/functions';
-import { StudyActions, WordActions } from '@actions';
+import { StudyActions, WordActions, RegistActions } from '@actions';
 import { Paths, Consts } from '@constants';
 import { RootState } from 'typings';
+import { useForm } from 'react-hook-form';
 
 const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
@@ -15,8 +16,10 @@ const appState = (state: RootState) => state.app;
 export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
   const wrdActions = bindActionCreators(WordActions, useDispatch());
+  const regActions = bindActionCreators(RegistActions, useDispatch());
   const { activeGroup, activeGroupList: dataRows } = useSelector(groupState);
   const { displayCtrl } = useSelector(appState);
+  const [open, setOpen] = useState(false);
 
   // 学習
   const handleNew = () => actions.startNew();
@@ -30,6 +33,24 @@ export default () => {
   // 削除
   const handleDelete = (word: string) => wrdActions.deleteRow(activeGroup, word);
 
+  // open dialog
+  const handleOpen = () => setOpen(true);
+  // close dialog
+  const handleClose = () => setOpen(false);
+
+  const { handleSubmit, reset, register } = useForm({
+    mode: 'onChange',
+  });
+
+  const onSubmit = handleSubmit((datas) => {
+    // close dialog
+    setOpen(false);
+    // clear
+    reset();
+    // regist word action
+    regActions.manual(datas.newword);
+  });
+
   return (
     <React.Fragment>
       <Box display="flex" flexDirection="column" alignItems="center" margin={1} height="128px">
@@ -37,34 +58,44 @@ export default () => {
           <Button
             variant="contained"
             color="primary"
-            sx={{ width: 160, letterSpacing: 2, fontSize: '1.25rem', fontWeight: 600 }}
-            // @ts-ignore
-            component={Link}
-            to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
+            sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}
+            onClick={handleOpen}>
             新規登録
           </Button>
           <Button
             variant="contained"
             color="primary"
-            sx={{ width: 160, letterSpacing: 2, fontSize: '1.25rem', fontWeight: 600 }}
-            onClick={handleTest}>
-            テスト
+            sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}
+            // @ts-ignore
+            component={Link}
+            to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
+            一括登録
+          </Button>
+          <Button variant="contained" color="success" sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}>
+            詳細情報
           </Button>
         </Box>
         <Box display="flex" justifyContent="center">
           <Button
             variant="contained"
             color="primary"
-            sx={{ width: 160, letterSpacing: 2, fontSize: '1.25rem', fontWeight: 600 }}
+            sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}
             onClick={handleNew}>
             学習
           </Button>
           <Button
             variant="contained"
             color="primary"
-            sx={{ width: 160, letterSpacing: 2, fontSize: '1.25rem', fontWeight: 600 }}
+            sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}
             onClick={handleReview}>
             復習
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}
+            onClick={handleTest}>
+            テスト
           </Button>
         </Box>
       </Box>
@@ -80,6 +111,22 @@ export default () => {
           />
         );
       })()}
+      <Dialog open={open} onClose={handleClose}>
+        <form onSubmit={onSubmit}>
+          <DialogTitle>新規単語追加</DialogTitle>
+          <DialogContent>
+            <TextField id="newword" autoFocus variant="standard" margin="dense" fullWidth {...register('newword')} />
+          </DialogContent>
+          <DialogActions>
+            <Button variant="contained" color="error" onClick={handleClose}>
+              取消
+            </Button>
+            <Button variant="contained" color="primary" type="submit">
+              登録
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
     </React.Fragment>
   );
 };
