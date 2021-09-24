@@ -100,9 +100,11 @@ const slice = createSlice({
       .addCase(STUDY_IGNORE.fulfilled, (state, { payload }) => {
         // remove first item
         const array = state.rows.filter((item) => item.word !== payload);
+        const newIdx = state.index > array.length - 1 ? 0 : state.index;
 
         state.rows = array;
-        state.current = array[state.index];
+        state.index = newIdx;
+        state.current = array[newIdx];
       });
   },
 });
