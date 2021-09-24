@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import Button from '@components/buttons/Button';
 import { WordList } from '@components/functions';
-import { StudyActions, WordActions, RegistActions } from '@actions';
+import { StudyActions, WordActions, RegistActions, GroupActions } from '@actions';
 import { Paths, Consts } from '@constants';
 import { RootState } from 'typings';
 import { useForm } from 'react-hook-form';
@@ -17,6 +17,7 @@ export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
   const wrdActions = bindActionCreators(WordActions, useDispatch());
   const regActions = bindActionCreators(RegistActions, useDispatch());
+  const grpActions = bindActionCreators(GroupActions, useDispatch());
   const { activeGroup, activeGroupList: dataRows } = useSelector(groupState);
   const { displayCtrl } = useSelector(appState);
   const [open, setOpen] = useState(false);
@@ -32,6 +33,8 @@ export default () => {
   const handleDetail = (word: string) => wrdActions.detail(word);
   // 削除
   const handleDelete = (word: string) => wrdActions.deleteRow(activeGroup, word);
+  // 状態
+  const handleStatus = () => grpActions.status();
 
   // open dialog
   const handleOpen = () => setOpen(true);
@@ -71,7 +74,11 @@ export default () => {
             to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
             一括登録
           </Button>
-          <Button variant="contained" color="success" sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}>
+          <Button
+            variant="contained"
+            color="success"
+            sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}
+            onClick={handleStatus}>
             詳細情報
           </Button>
         </Box>

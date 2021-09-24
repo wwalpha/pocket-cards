@@ -12,6 +12,7 @@ export const ROUTE_PATH_INDEX: Record<string, number> = {
   StudyCard: 23,
   StudyFinish: 24,
   StudyEdit: 25,
+  StudyStatus: 26,
   MyPage: 31,
   Settings: 41,
   Groups: 61,
@@ -35,6 +36,7 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.StudyRegist]: '/study/regist',
   [ROUTE_PATH_INDEX.StudyEdit]: '/study/edit/:word',
   [ROUTE_PATH_INDEX.StudyCard]: '/study/card',
+  [ROUTE_PATH_INDEX.StudyStatus]: '/study/status',
   [ROUTE_PATH_INDEX.StudyFinish]: '/study/finish',
 };
 
@@ -84,6 +86,11 @@ export const ROUTE_INFO: App.PathInfo = {
     showBack: false,
     showFooter: true,
     title: 'SETTINGS',
+  },
+  [ROUTE_PATHS[ROUTE_PATH_INDEX.StudyStatus]]: {
+    showBack: true,
+    showFooter: true,
+    title: 'STUDY STATUS',
   },
   // [ROUTE_PATH_INDEX.Login]: '/login',
   // [ROUTE_PATH_INDEX.Regist]: '/regist',

@@ -81,3 +81,14 @@ export const search = (word: string) => (dispatch: AppDispatch) =>
       dispatch(Actions.GROUP_WORD_SEARCH(word));
     })
   );
+
+/** グループ学習状態 */
+export const status = () => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // グループ一覧
+      dispatch(Actions.GROUP_STATUS()).unwrap();
+
+      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyStatus]));
+    })
+  );
