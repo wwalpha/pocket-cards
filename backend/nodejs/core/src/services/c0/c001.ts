@@ -11,12 +11,7 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
   const userId = Commons.getUserId(req);
 
   // 既存単語マスタを検索する
-  const tasks = words.map((item) => {
-    const newword = Commons.getOriginal(item);
-
-    // word register task
-    return registWord(newword, groupId, userId);
-  });
+  const tasks = words.map((item) => registWord(item, groupId, userId));
 
   // regist
   await Promise.all(tasks);
@@ -30,8 +25,8 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
  * @param userId user id
  * @returns void
  */
-const registWord = async (word: string, groupId: string, userId: string) => {
-  const ignoreResult = await DBHelper().get(WordIgnore.get({ id: userId, word: word }));
+const registWord = async (id: string, groupId: string, userId: string) => {
+  const ignoreResult = await DBHelper().get(WordIgnore.get({ id: userId, word: id }));
 
   // ignore word exist
   if (ignoreResult?.Item) {
@@ -39,7 +34,7 @@ const registWord = async (word: string, groupId: string, userId: string) => {
   }
 
   // get dictionary
-  const dict = await getDictionary(word);
+  const dict = await getDictionary(id);
 
   try {
     // word table update
@@ -74,11 +69,11 @@ const registWord = async (word: string, groupId: string, userId: string) => {
   } catch (err) {}
 };
 
-const getDictionary = async (word: string): Promise<Tables.TWordMaster> => {
-  const result = await DBHelper().get<Tables.TWordMaster>(WordMaster.get(word));
+const getDictionary = async (id: string): Promise<Tables.TWordMaster> => {
+  const result = await DBHelper().get<Tables.TWordMaster>(WordMaster.get(id));
 
   if (!result || !result.Item) {
-    return await addNewword(word);
+    return await addNewword(id);
   }
 
   const item = result.Item;
@@ -97,17 +92,19 @@ const getDictionary = async (word: string): Promise<Tables.TWordMaster> => {
   return original.Item;
 };
 
-const addNewword = async (word: string) => {
+const addNewword = async (id: string) => {
+  const newword = Commons.getOriginal(id);
+
   const results = await Promise.all([
-    API.getPronounce(word),
-    Commons.saveWithMP3(word),
-    API.getTranslate(word, 'zh'),
-    API.getTranslate(word, 'ja'),
+    API.getPronounce(newword),
+    Commons.saveWithMP3(newword),
+    API.getTranslate(newword, 'zh'),
+    API.getTranslate(newword, 'ja'),
   ]);
 
   const record: Tables.TWordMaster = {
-    id: word,
-    original: Commons.getOriginal(word),
+    id: id,
+    original: newword,
     pronounce: results[0].pronounce,
     mp3: results[1],
     vocChn: results[2],
@@ -117,7 +114,7 @@ const addNewword = async (word: string) => {
   // regist dictionary
   await DBHelper().put(WordMaster.put(record));
 
-  Logger.info(`単語辞書の登録は完了しました. ${word}`);
+  Logger.info(`単語辞書の登録は完了しました. ${newword}`);
 
   return record;
 };
