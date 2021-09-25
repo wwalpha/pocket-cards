@@ -7,10 +7,10 @@ export default async (req: Request<APIs.E002Params, any, APIs.E002Request, any>)
   const word = req.params.word;
   const input = req.body;
 
-  const record = await DBHelper().get(WordMaster.get(word));
+  const record = await DBHelper().get<Tables.TWordMaster>(WordMaster.get(word));
 
   // 単語が存在しない場合
-  if (!record) {
+  if (!record || !record.Item) {
     // 新規追加
     const newWord = await addNew(word);
 
@@ -32,8 +32,11 @@ const addNew = async (word: string) => {
     API.getTranslate(word, 'ja'),
   ]);
 
+  const original = word.indexOf('+') !== -1 ? word.split('+').join(' ') : word;
+
   const item: Tables.TWordMaster = {
     id: word,
+    original: original,
     pronounce: results[0]['pronounce'],
     mp3: results[1],
     vocChn: results[2],
@@ -54,6 +57,7 @@ const update = async (word: string, input: APIs.E002Request) => {
   await DBHelper().put(
     WordMaster.put({
       id: word,
+      original: input.original,
       mp3: mp3,
       pronounce: input.pronounce,
       vocChn: input.vocChn,

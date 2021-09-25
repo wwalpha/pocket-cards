@@ -11,7 +11,13 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
   const userId = Commons.getUserId(req);
 
   // 既存単語マスタを検索する
-  const tasks = words.map((item) => registWord(item, groupId, userId));
+  const tasks = words.map((item) => {
+    const newword = Commons.word2Id(item);
+
+    // word register task
+    return registWord(newword, groupId, userId);
+  });
+
   // regist
   await Promise.all(tasks);
 };
@@ -34,37 +40,65 @@ const registWord = async (word: string, groupId: string, userId: string) => {
 
   // get dictionary
   const dict = await getDictionary(word);
-  // exist check
-  const wordsResult = await DBHelper().get(Words.get({ id: word, groupId: groupId }));
 
-  // regist word
-  await DBHelper().put(
-    Words.put({
-      id: word,
+  try {
+    // word table update
+    const input = Words.put({
+      id: dict.id,
+      display: dict.original,
       groupId: groupId,
       nextTime: DateUtils.getNow(),
       times: 0,
       vocabulary: dict.vocJpn,
-    })
-  );
+    });
 
-  // word exist before put
-  if (!wordsResult?.Item) {
-    return;
-  }
+    input.ConditionExpression = 'attribute_not_exists(id)';
 
-  // update group word count
-  await DBHelper().update(Groups.update.addCount(groupId, userId, 1));
+    // groug table update
+    const update = Groups.update.addCount(groupId, userId, 1);
+
+    // execute
+    await DBHelper().transactWrite({
+      TransactItems: [
+        { Put: input },
+        {
+          Update: {
+            TableName: update.TableName,
+            Key: update.Key,
+            UpdateExpression: update.UpdateExpression as string,
+            ExpressionAttributeNames: update.ExpressionAttributeNames,
+            ExpressionAttributeValues: update.ExpressionAttributeValues,
+          },
+        },
+      ],
+    });
+  } catch (err) {}
 };
 
 const getDictionary = async (word: string): Promise<Tables.TWordMaster> => {
   const result = await DBHelper().get<Tables.TWordMaster>(WordMaster.get(word));
 
-  // master exist
-  if (result && result.Item) {
-    return result.Item;
+  if (!result || !result.Item) {
+    return await addNewword(word);
   }
 
+  const item = result.Item;
+
+  // same word or multi words
+  if (item.id === item.original || Commons.getOriginal(item.id) === item.original) {
+    return item;
+  }
+
+  const original = await DBHelper().get<Tables.TWordMaster>(WordMaster.get(item.original));
+
+  if (!original || !original.Item) {
+    throw new Error(`Dictionary is not exist. ${item.original}`);
+  }
+
+  return original.Item;
+};
+
+const addNewword = async (word: string) => {
   const results = await Promise.all([
     API.getPronounce(word),
     Commons.saveWithMP3(word),
@@ -74,6 +108,7 @@ const getDictionary = async (word: string): Promise<Tables.TWordMaster> => {
 
   const record: Tables.TWordMaster = {
     id: word,
+    original: word,
     pronounce: results[0].pronounce,
     mp3: results[1],
     vocChn: results[2],

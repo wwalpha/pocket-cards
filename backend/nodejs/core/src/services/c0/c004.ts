@@ -36,6 +36,9 @@ const study = async (params: APIs.C004Params, input: APIs.C004Request, userId: s
     })
   );
 
+  // validation
+  if (!result || !result.Item) throw new Error(`Word not found. ${word}`);
+
   // 単語学習情報更新 と 履歴追加
   await DBHelper().transactWrite({
     TransactItems: [

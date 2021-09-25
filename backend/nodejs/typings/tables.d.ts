@@ -7,6 +7,7 @@ export namespace Tables {
   }
 
   interface TWords extends TWordsKey {
+    display?: string;
     // 次の学習時間
     nextTime: string;
     // 最後の学習時間
@@ -20,6 +21,8 @@ export namespace Tables {
   export interface TWordMaster {
     // 単語
     id: string;
+    // 原型
+    original: string;
     // 発音記号
     pronounce?: string;
     // 語彙（中国語）
