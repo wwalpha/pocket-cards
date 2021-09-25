@@ -7,7 +7,7 @@ export namespace Tables {
   }
 
   interface TWords extends TWordsKey {
-    display?: string;
+    display: string;
     // 次の学習時間
     nextTime: string;
     // 最後の学習時間

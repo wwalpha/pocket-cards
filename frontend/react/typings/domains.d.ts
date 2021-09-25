@@ -13,9 +13,10 @@ export namespace Domains {
   }
 
   interface GroupState {
+    // search word
+    searchWord: string;
+    // active group
     activeGroup: string;
-    /** group word list for display */
-    activeGroupList: Group.WordDetails[];
     /** user's all group infomations */
     groups: Tables.TGroups[];
     /** Group word list */
