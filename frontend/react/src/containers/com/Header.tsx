@@ -29,6 +29,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Paths, Consts } from '@constants';
 import { GroupActions } from '@actions';
 import { RootState } from 'typings';
+import { Groups } from '@mui/icons-material';
 
 const audioRef = React.createRef<HTMLAudioElement>();
 
@@ -76,6 +77,7 @@ export default () => {
   const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { current } = useSelector(studyState);
+  const { searchWord } = useSelector(groupState);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -150,6 +152,7 @@ export default () => {
                     <StyledInputBase
                       placeholder="Search…"
                       inputProps={{ 'aria-label': 'search' }}
+                      value={searchWord}
                       onChange={handleOnSearch}
                     />
                   </Search>

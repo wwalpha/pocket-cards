@@ -85,13 +85,26 @@ export const manual = (word?: string) => (dispatch: AppDispatch) =>
 
       if (!word) return;
 
+      const id = word.split(' ').join('+');
+
       await API.post(Consts.C001_URL(activeGroup), {
-        words: [word],
+        words: [id],
       } as APIs.C001Request);
 
       // 画面遷移
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
-      // get latest list
-      dispatch(Actions.GROUP_WORD_LIST(activeGroup));
+
+      const res = await API.get<APIs.C003Response>(Consts.C003_URL(activeGroup, id));
+
+      // validation
+      if (!res.item) return;
+
+      // get word information
+      dispatch(
+        Actions.GROUP_WORD_ADDED({
+          id: res.item?.id,
+          vocabulary: res.item?.vocabulary,
+        })
+      );
     })
   );

@@ -48,12 +48,12 @@ export default () => {
 
   // 単語詳細表示
   const handleDetail = () => {
-    if (word) wrdActions.detail(word.word);
+    if (word) wrdActions.detail(word.id);
   };
 
   const handleIgnore = () => {
     if (word) {
-      wrdActions.ignore(word.word);
+      wrdActions.ignore(word.id);
 
       setShowText(false);
     }
@@ -80,7 +80,7 @@ export default () => {
           disableRipple
           onTouchStart={handleTouchStart}
           onClick={() => {
-            handleAnswer(word.word, true);
+            handleAnswer(word.id, true);
           }}>
           知ってる
         </Fab>
@@ -101,7 +101,7 @@ export default () => {
           disableRipple
           onTouchStart={handleTouchStart}
           onClick={() => {
-            handleAnswer(word.word, false);
+            handleAnswer(word.id, false);
           }}>
           知らない
         </Fab>
@@ -174,7 +174,7 @@ export default () => {
                 <audio ref={audioRef} src={`/${word.mp3}`} />
                 <CardContent sx={{ textAlign: 'center', pt: 6 }}>
                   <Typography variant="h4" gutterBottom align="center">
-                    {word.word}
+                    {word.id.split('+').join(' ')}
                   </Typography>
                   <Typography variant="h6" align="center">
                     {word.pronounce ? `/${word.pronounce}/` : undefined}

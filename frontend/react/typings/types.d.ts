@@ -58,7 +58,7 @@ export namespace Group {
 
   interface WordItem {
     // 単語
-    word: string;
+    id: string;
     // 発音記号
     pronounce?: string;
     // 語彙（中国語）

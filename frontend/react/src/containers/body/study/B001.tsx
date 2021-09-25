@@ -24,10 +24,16 @@ export default () => {
   const [dataRows, setDataRows] = useState<Group.WordDetails[]>([]);
 
   useEffect(() => {
-    const datas = groupWords[activeGroup].filter((item) => item.id === searchWord.toLowerCase());
+    if (Object.keys(groupWords).includes(activeGroup)) {
+      const items = groupWords[activeGroup];
 
-    setDataRows(datas);
-  }, [groupWords, searchWord]);
+      if (searchWord.trim().length === 0) {
+        setDataRows(items);
+      } else {
+        setDataRows(items.filter((item) => item.id.indexOf(searchWord.toLowerCase()) !== -1));
+      }
+    }
+  }, [activeGroup, groupWords, searchWord]);
 
   // 学習
   const handleNew = () => actions.startNew();

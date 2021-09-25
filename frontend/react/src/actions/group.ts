@@ -12,6 +12,11 @@ export const activeGroup = (id: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.GROUP_WORD_LIST(id));
 };
 
+export const cleanGroup = () => (dispatch: AppDispatch) => {
+  // group clean
+  dispatch(Actions.GROUP_CLEAN());
+};
+
 /** グループ削除 */
 export const del = () => (dispatch: AppDispatch) =>
   dispatch(

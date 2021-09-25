@@ -19,6 +19,18 @@ const slice = createSlice({
     // グループを選択
     GROUP_ACTIVE: (state, { payload }: PayloadAction<string>) => {
       state.activeGroup = payload;
+      state.searchWord = '';
+    },
+
+    // グループを選択
+    GROUP_CLEAN: (state) => {
+      const { activeGroup, groupWords } = state;
+
+      // delete object
+      delete groupWords[activeGroup];
+
+      // clean
+      state.groupWords = groupWords;
     },
 
     // グループ登録
@@ -29,6 +41,15 @@ const slice = createSlice({
     // グループ単語の検索
     GROUP_WORD_SEARCH: (state, { payload }: PayloadAction<string>) => {
       state.searchWord = payload;
+    },
+
+    // グループ単語の追加
+    GROUP_WORD_ADDED: (state, { payload }: PayloadAction<Payloads.GroupWordDetails>) => {
+      const { activeGroup, groupWords } = state;
+      const array = [...groupWords[activeGroup], payload];
+
+      // 単語リスト
+      state.groupWords[activeGroup] = array;
     },
 
     // グループ単語の削除

@@ -53,7 +53,7 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary={item.original}
+              primary={item.id.split('+').join(' ')}
               primaryTypographyProps={{
                 variant: 'subtitle1',
               }}
