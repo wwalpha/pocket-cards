@@ -140,7 +140,6 @@ export namespace APIs {
 
   interface C002ResItem {
     id: string;
-    word: string;
     vocabulary?: string;
   }
 

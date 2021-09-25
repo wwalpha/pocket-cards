@@ -27,7 +27,7 @@ export const key = process.env.NODE_ENV === 'production' ? 'pkc' : 'pkc_dev';
 const persistedReducer = persistReducer(
   {
     key: key,
-    version: 2,
+    version: 3,
     storage,
   },
   reducers(history)

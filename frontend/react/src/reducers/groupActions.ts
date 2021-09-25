@@ -11,7 +11,6 @@ export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST',
 });
 
 export const GROUP_DELETE = createAsyncThunk<void, void>('group/GROUP_DELETE', async (_, { getState }) => {
-  console.log((getState() as RootState).group);
   const { activeGroup } = (getState() as RootState).group;
 
   await API.del(Consts.B005_URL(activeGroup));
@@ -26,7 +25,6 @@ export const GROUP_WORD_LIST = createAsyncThunk<Payloads.GroupWordList, string>(
       id: groupId,
       items: res.items.map((item) => ({
         id: item.id,
-        original: item.word,
         vocabulary: item.vocabulary,
       })),
     };
