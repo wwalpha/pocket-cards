@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import Button from '@components/buttons/Button';
 import { WordList } from '@components/functions';
 import { StudyActions, WordActions, RegistActions, GroupActions } from '@actions';
 import { Paths, Consts } from '@constants';
-import { RootState } from 'typings';
+import { Group, RootState } from 'typings';
 import { useForm } from 'react-hook-form';
 
 const groupState = (state: RootState) => state.group;
@@ -18,9 +18,16 @@ export default () => {
   const wrdActions = bindActionCreators(WordActions, useDispatch());
   const regActions = bindActionCreators(RegistActions, useDispatch());
   const grpActions = bindActionCreators(GroupActions, useDispatch());
-  const { activeGroup, activeGroupList: dataRows } = useSelector(groupState);
+  const { activeGroup, groupWords, searchWord } = useSelector(groupState);
   const { displayCtrl } = useSelector(appState);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [dataRows, setDataRows] = useState<Group.WordDetails[]>([]);
+
+  useEffect(() => {
+    const datas = groupWords[activeGroup].filter((item) => item.id === searchWord.toLowerCase());
+
+    setDataRows(datas);
+  }, [groupWords, searchWord]);
 
   // 学習
   const handleNew = () => actions.startNew();
@@ -30,7 +37,7 @@ export default () => {
   const handleTest = () => actions.startTest();
 
   // 詳細
-  const handleDetail = (word: string) => wrdActions.detail(word);
+  const handleDetail = (id: string) => wrdActions.detail(id);
   // 削除
   const handleDelete = (word: string) => wrdActions.deleteRow(activeGroup, word);
   // 状態

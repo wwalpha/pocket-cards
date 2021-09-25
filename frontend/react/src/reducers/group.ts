@@ -3,8 +3,8 @@ import { Domains, Payloads, Tables } from 'typings';
 import { GROUP_DELETE, GROUP_LIST, GROUP_STATUS, GROUP_WORD_DETAILS, GROUP_WORD_LIST } from './groupActions';
 
 const grpState: Domains.GroupState = {
+  searchWord: '',
   activeGroup: '',
-  activeGroupList: [],
   groupWords: {},
   groups: [],
   regists: [],
@@ -19,7 +19,6 @@ const slice = createSlice({
     // グループを選択
     GROUP_ACTIVE: (state, { payload }: PayloadAction<string>) => {
       state.activeGroup = payload;
-      state.activeGroupList = state.groupWords[payload];
     },
 
     // グループ登録
@@ -29,22 +28,13 @@ const slice = createSlice({
 
     // グループ単語の検索
     GROUP_WORD_SEARCH: (state, { payload }: PayloadAction<string>) => {
-      const { activeGroup, groupWords } = state;
-
-      if (payload.trim().length === 0) {
-        state.activeGroupList = groupWords[activeGroup];
-      } else {
-        const items = groupWords[activeGroup].filter((item) => item.id.indexOf(payload) !== -1);
-        state.activeGroupList = items;
-      }
+      state.searchWord = payload;
     },
 
     // グループ単語の削除
     GROUP_WORD_REMOVE: (state, { payload: { id, word } }: PayloadAction<Payloads.RemoveWordInGroup>) => {
       // 単語リスト
       state.groupWords[id] = state.groupWords[id].filter((item) => item.id !== word);
-      // 表示リスト
-      state.activeGroupList = state.groupWords[state.activeGroup];
     },
 
     // グループ単語の詳細
@@ -94,7 +84,6 @@ const slice = createSlice({
       // add words in group
       .addCase(GROUP_WORD_LIST.fulfilled, (state, { payload }) => {
         state.groupWords[payload.id] = payload.items;
-        state.activeGroupList = payload.items;
       })
       .addCase(GROUP_WORD_DETAILS.pending, (state) => {
         state.current = undefined;

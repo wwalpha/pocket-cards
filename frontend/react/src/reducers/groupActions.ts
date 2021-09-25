@@ -25,7 +25,8 @@ export const GROUP_WORD_LIST = createAsyncThunk<Payloads.GroupWordList, string>(
     return {
       id: groupId,
       items: res.items.map((item) => ({
-        id: item.word,
+        id: item.id,
+        original: item.word,
         vocabulary: item.vocabulary,
       })),
     };
@@ -44,6 +45,7 @@ export const GROUP_WORD_DETAILS = createAsyncThunk<Group.WordDetails, string>(
 
       return {
         id: word,
+        original: res.item.original,
         mp3: res.item?.mp3,
         pronounce: res.item?.pronounce,
         vocabulary: res.item?.vocJpn,

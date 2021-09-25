@@ -24,9 +24,7 @@ export default () => {
 
   const { handleSubmit, reset, register } = useForm({
     mode: 'onChange',
-    defaultValues: useMemo(() => {
-      return current;
-    }, [current]),
+    defaultValues: current,
   });
 
   useEffect(() => {
@@ -41,6 +39,15 @@ export default () => {
     <form onSubmit={handleOnUpdate}>
       <Box margin={2}>
         <TextField variant="outlined" margin="normal" required fullWidth id="id" label="単語" {...register('id')} />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="original"
+          label="表示"
+          {...register('original')}
+        />
         <TextField
           variant="outlined"
           margin="normal"
