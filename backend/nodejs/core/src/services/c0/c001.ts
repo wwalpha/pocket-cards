@@ -12,7 +12,7 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
 
   // 既存単語マスタを検索する
   const tasks = words.map((item) => {
-    const newword = Commons.word2Id(item);
+    const newword = Commons.getOriginal(item);
 
     // word register task
     return registWord(newword, groupId, userId);

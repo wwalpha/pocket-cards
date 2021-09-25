@@ -88,14 +88,6 @@ export const saveWithMP3 = async (word: string): Promise<string> => {
   return key;
 };
 
-export const getOriginal = (word: string) => {
-  if (word.indexOf('+') === -1) return word;
+export const getOriginal = (word: string) => word.split('+').join(' ');
 
-  return word.split('+').join(' ');
-};
-
-export const word2Id = (word: string) => {
-  if (word.indexOf(' ') === -1) return word;
-
-  return word.split(' ').join('+');
-};
+export const word2Id = (word: string) => word.split(' ').join('+');

@@ -19,7 +19,6 @@ export default async (req: Request<APIs.C002Params, any, any, any>): Promise<API
 
   const items = queryResult.Items.map<APIs.C002ResItem>((item) => ({
     id: item.id,
-    word: item.display,
     vocabulary: item.vocabulary,
   }));
 
