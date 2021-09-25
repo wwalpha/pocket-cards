@@ -8,6 +8,7 @@
 |                | /groups                        | PUT         | B001        | グループ新規作成         | ✓           |
 |                | /groups                        | GET         | B002        | グループ一覧取得         | ✓           |
 |                | /groups/{groupId}              | GET         | B003        | グループ情報取得         | ✓           |
+|                | /groups/{groupId}/status       | GET         | B006        | グループ学習状況取得     | ✓           |
 |                | /groups/{groupId}              | PUT         | B004        | グループ情報変更         | ✓           |
 |                | /groups/{groupId}              | DELETE      | B005        | グループ情報削除         | ✓           |
 |                | /groups/{groupId}/words        | POST        | C001        | 単語一括登録             | ✓           |
