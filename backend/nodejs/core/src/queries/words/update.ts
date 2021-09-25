@@ -19,12 +19,14 @@ export const nextTime = (word: string, groupId: string, nextTime: string): Dynam
 });
 
 /** 単語情報を更新する */
-export const info = (item: Tables.TWords): DynamoDB.DocumentClient.Update => ({
+export const info = (
+  key: Tables.TWordsKey,
+  times: number,
+  lastTime: string,
+  nextTime: string
+): DynamoDB.DocumentClient.Update => ({
   TableName: Environment.TABLE_NAME_WORDS,
-  Key: {
-    id: item.id,
-    groupId: item.groupId,
-  },
+  Key: key,
   UpdateExpression: 'set #times = :times, #lastTime = :lastTime, #nextTime = :nextTime',
   ExpressionAttributeNames: {
     '#times': 'times',
@@ -32,8 +34,8 @@ export const info = (item: Tables.TWords): DynamoDB.DocumentClient.Update => ({
     '#nextTime': 'nextTime',
   },
   ExpressionAttributeValues: {
-    ':times': item.times,
-    ':lastTime': item.lastTime,
-    ':nextTime': item.nextTime,
+    ':times': times,
+    ':lastTime': lastTime,
+    ':nextTime': nextTime,
   },
 });

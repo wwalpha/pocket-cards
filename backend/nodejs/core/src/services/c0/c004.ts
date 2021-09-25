@@ -43,13 +43,7 @@ const study = async (params: APIs.C004Params, input: APIs.C004Request, userId: s
   await DBHelper().transactWrite({
     TransactItems: [
       {
-        Update: Words.update.info({
-          id: word,
-          groupId: groupId,
-          nextTime: nextTime,
-          times: times,
-          lastTime: DateUtils.getNow(),
-        }),
+        Update: Words.update.info({ id: word, groupId: groupId }, times, nextTime, DateUtils.getNow()),
       },
       {
         Put: Histories.put({
