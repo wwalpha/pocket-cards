@@ -45,7 +45,6 @@ const registWord = async (word: string, groupId: string, userId: string) => {
     // word table update
     const input = Words.put({
       id: dict.id,
-      display: dict.original,
       groupId: groupId,
       nextTime: DateUtils.getNow(),
       times: 0,
@@ -108,7 +107,7 @@ const addNewword = async (word: string) => {
 
   const record: Tables.TWordMaster = {
     id: word,
-    original: word,
+    original: Commons.getOriginal(word),
     pronounce: results[0].pronounce,
     mp3: results[1],
     vocChn: results[2],
