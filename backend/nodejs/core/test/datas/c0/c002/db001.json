@@ -1,6 +1,7 @@
 [
   {
     "id": "china",
+    "display": "china",
     "groupId": "C002",
     "nextTime": "20190402",
     "lastTime": "20190401",
@@ -9,6 +10,7 @@
   },
   {
     "id": "america",
+    "display": "america",
     "groupId": "C002",
     "nextTime": "20190404",
     "lastTime": "20190403",
