@@ -40,7 +40,7 @@ export const D003_URL = () => `${API_VERSION}/user/wordignore`;
 export const E001_URL = (word: string) => `${API_VERSION}/words/${word}`;
 export const E002_URL = (word: string) => `${API_VERSION}/words/${word}`;
 
-export const VERSION = `Ver${process.env.VERSION}`;
+export const VERSION = `${process.env.VERSION}`;
 
 export const MODES = {
   New: '1',
