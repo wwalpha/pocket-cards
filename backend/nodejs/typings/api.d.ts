@@ -253,7 +253,7 @@ export namespace APIs {
 
   interface E002Request extends Tables.TWordMaster {}
 
-  type E002Response = void;
+  type E002Response = Tables.TWordMaster;
 
   // ------------------------------------------------------------
   // E003

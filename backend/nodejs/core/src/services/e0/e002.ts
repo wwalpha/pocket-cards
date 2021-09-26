@@ -16,9 +16,7 @@ export default async (req: Request<APIs.E002Params, any, APIs.E002Request, any>)
   // 単語が存在しない場合
   if (Commons.isEmpty(record)) {
     // 新規追加
-    await addNew(word);
-
-    return;
+    return await addNew(word);
   }
 
   // Original 単語変更
@@ -27,12 +25,12 @@ export default async (req: Request<APIs.E002Params, any, APIs.E002Request, any>)
 
     // original word not exist
     if (Commons.isEmpty(record)) {
-      await addNew(input.original);
+      return await addNew(input.original);
     }
   }
 
   // 既存更新
-  await update(word, input);
+  return await update(word, input);
 };
 
 /** validation function */
@@ -44,7 +42,7 @@ const validate = (req: APIs.E002Request) => {
 const getMaster = async (word: string) => await DBHelper().get<Tables.TWordMaster>(WordMaster.get(word));
 
 /** add new word */
-const addNew = async (word: string): Promise<void> => {
+const addNew = async (word: string): Promise<Tables.TWordMaster> => {
   // 新規単語追加
   const results = await Promise.all([
     API.getPronounce(word),
@@ -74,6 +72,8 @@ const addNew = async (word: string): Promise<void> => {
       console.log(err);
     }
   }
+
+  return record;
 };
 
 /** update master properties */
@@ -81,15 +81,17 @@ const update = async (word: string, input: APIs.E002Request) => {
   // 音声の再取得
   const mp3 = await Commons.saveWithMP3(word);
 
+  const putItem: Tables.TWordMaster = {
+    id: word,
+    original: input.original,
+    mp3: mp3,
+    pronounce: input.pronounce,
+    vocChn: input.vocChn,
+    vocJpn: input.vocJpn,
+  };
+
   // 単語詳細情報を取得する
-  await DBHelper().put(
-    WordMaster.put({
-      id: word,
-      original: input.original,
-      mp3: mp3,
-      pronounce: input.pronounce,
-      vocChn: input.vocChn,
-      vocJpn: input.vocJpn,
-    })
-  );
+  await DBHelper().put(WordMaster.put(putItem));
+
+  return putItem;
 };
