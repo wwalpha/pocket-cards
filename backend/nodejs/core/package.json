@@ -9,7 +9,8 @@
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "test": "jest --forceExit --passWithNoTests",
     "test:local": "jest test/services/e0.test.ts --forceExit --passWithNoTests",
-    "debug": "ts-node -r tsconfig-paths/register -r dotenv/config src/index.ts"
+    "debug": "ts-node -r tsconfig-paths/register -r dotenv/config src/index.ts",
+    "coverage": "ts-node test/coverage.ts"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.78",
