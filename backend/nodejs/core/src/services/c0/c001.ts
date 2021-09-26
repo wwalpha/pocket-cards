@@ -26,15 +26,15 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
  * @returns void
  */
 const registWord = async (id: string, groupId: string, userId: string) => {
-  const ignoreResult = await DBHelper().get(WordIgnore.get({ id: userId, word: id }));
+  // get dictionary
+  const dict = await getDictionary(id);
+
+  const ignoreResult = await DBHelper().get(WordIgnore.get({ id: userId, word: dict.id }));
 
   // ignore word exist
   if (ignoreResult?.Item) {
     return;
   }
-
-  // get dictionary
-  const dict = await getDictionary(id);
 
   try {
     // word table update
@@ -66,9 +66,19 @@ const registWord = async (id: string, groupId: string, userId: string) => {
         },
       ],
     });
-  } catch (err) {}
+  } catch (err) {
+    if ((err as any).code !== 'ConditionalCheckFailedException') {
+      console.log(err);
+    }
+  }
 };
 
+/**
+ * Get word informations from master table
+ *
+ * @param id
+ * @returns
+ */
 const getDictionary = async (id: string): Promise<Tables.TWordMaster> => {
   const result = await DBHelper().get<Tables.TWordMaster>(WordMaster.get(id));
 
@@ -92,6 +102,12 @@ const getDictionary = async (id: string): Promise<Tables.TWordMaster> => {
   return original.Item;
 };
 
+/**
+ * Add new word to master table
+ *
+ * @param id word
+ * @returns
+ */
 const addNewword = async (id: string) => {
   const newword = Commons.getOriginal(id);
 
