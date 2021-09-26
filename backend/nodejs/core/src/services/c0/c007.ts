@@ -58,7 +58,7 @@ const getDetails = async (words: Tables.TWords[]) => {
     if (!item) return;
 
     rets.push({
-      word: item.id,
+      id: item.id,
       mp3: item.mp3,
       pronounce: item.pronounce,
       vocChn: item.vocChn,

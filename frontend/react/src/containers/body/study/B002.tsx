@@ -174,7 +174,7 @@ export default () => {
                 <audio ref={audioRef} src={`/${word.mp3}`} />
                 <CardContent sx={{ textAlign: 'center', pt: 6 }}>
                   <Typography variant="h4" gutterBottom align="center">
-                    {word.id.split('+').join(' ')}
+                    {word.id ? word.id.split('+').join(' ') : ''}
                   </Typography>
                   <Typography variant="h6" align="center">
                     {word.pronounce ? `/${word.pronounce}/` : undefined}
