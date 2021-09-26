@@ -22,8 +22,8 @@ const slice = createSlice({
       state.current = undefined;
     },
     STUDY_REMOVE: (state, { payload }: PayloadAction<Payloads.GroupWordUpdate>) => {
-      state.rows = state.rows.filter((item) => item.word !== payload.old);
-      state.history = state.history.filter((item) => item.word !== payload.old);
+      state.rows = state.rows.filter((item) => item.id !== payload.old);
+      state.history = state.history.filter((item) => item.id !== payload.old);
       state.current = state.rows.length > 0 ? state.rows[0] : undefined;
     },
     // 単語登録正常終了
@@ -65,7 +65,7 @@ const slice = createSlice({
       })
       .addCase(STUDY_START.fulfilled, (state, { payload: { mode, items } }) => {
         // 差分を抽出する
-        const differ = differenceBy(items, state.history, 'word');
+        const differ = differenceBy(items, state.history, 'id');
         // 足りない単語数を計算する
         const diffNum = Consts.PAGE_MAX_WORDS - state.rows.length;
         // 追加する単語
@@ -82,7 +82,7 @@ const slice = createSlice({
       })
       .addCase(STUDY_CONTINUE.fulfilled, (state, { payload: { mode, items } }) => {
         // 差分を抽出する
-        const differ = differenceBy(items, state.history, 'word');
+        const differ = differenceBy(items, state.history, 'id');
         // 足りない単語数を計算する
         const diffNum = Consts.PAGE_MAX_WORDS - state.rows.length;
         // 追加する単語
@@ -99,7 +99,7 @@ const slice = createSlice({
       })
       .addCase(STUDY_IGNORE.fulfilled, (state, { payload }) => {
         // remove first item
-        const array = state.rows.filter((item) => item.word !== payload);
+        const array = state.rows.filter((item) => item.id !== payload);
         const newIdx = state.index > array.length - 1 ? 0 : state.index;
 
         state.rows = array;

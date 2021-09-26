@@ -49,6 +49,7 @@ export namespace Group {
 
   interface WordDetails {
     id: string;
+    original: string;
     pronounce?: string;
     vocabulary?: string;
     mp3?: string;
