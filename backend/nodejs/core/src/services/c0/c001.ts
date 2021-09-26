@@ -7,7 +7,7 @@ import { APIs, Tables } from 'typings';
 export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>): Promise<void> => {
   const input = req.body;
   const groupId = req.params.groupId;
-  const words = input.words.map((item) => item.toLowerCase());
+  const words = input.words.map((item) => item.toLowerCase().trim());
   const userId = Commons.getUserId(req);
 
   // 既存単語マスタを検索する
