@@ -74,7 +74,7 @@ export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDi
       } as APIs.E002Request);
 
       // 単語変更された
-      if (id !== infos.id) {
+      if (id !== infos.id || id !== infos.original) {
         // remove old word from group
         await API.del<APIs.C005Response>(Consts.C005_URL(activeGroup, id));
         // add new word to group
