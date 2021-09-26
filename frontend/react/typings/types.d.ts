@@ -11,7 +11,7 @@ export namespace Payloads {
 
   type GroupWordList = {
     id: string;
-    items: Group.WordDetails[];
+    items: Group.WordSimple[];
   };
 
   type GroupWordDetails = Group.WordDetails;
@@ -45,7 +45,12 @@ export namespace Group {
     description?: string;
   }
 
-  type GroupWords = Record<string, WordDetails[]>;
+  type GroupWords = Record<string, WordSimple[]>;
+
+  interface WordSimple {
+    id: string;
+    vocabulary?: string;
+  }
 
   interface WordDetails {
     id: string;

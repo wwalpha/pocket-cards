@@ -82,7 +82,7 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
 };
 
 interface WordListProps {
-  list: Group.WordDetails[];
+  list: Group.WordSimple[];
   onDetail?: (word: string) => void;
   onDelete?: (word: string) => void;
   showDelete?: boolean;

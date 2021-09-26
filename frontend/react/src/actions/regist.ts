@@ -103,6 +103,7 @@ export const manual = (word?: string) => (dispatch: AppDispatch) =>
       dispatch(
         Actions.GROUP_WORD_ADDED({
           id: res.item?.id,
+          original: '',
           vocabulary: res.item?.vocabulary,
         })
       );

@@ -21,7 +21,7 @@ export default () => {
   const { activeGroup, groupWords, searchWord } = useSelector(groupState);
   const { displayCtrl } = useSelector(appState);
   const [open, setOpen] = useState<boolean>(false);
-  const [dataRows, setDataRows] = useState<Group.WordDetails[]>([]);
+  const [dataRows, setDataRows] = useState<Group.WordSimple[]>([]);
 
   useEffect(() => {
     if (Object.keys(groupWords).includes(activeGroup)) {

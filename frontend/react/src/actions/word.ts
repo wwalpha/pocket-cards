@@ -67,6 +67,7 @@ export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDi
 
       const res = await API.put<APIs.E002Response>(Consts.E002_URL(id), {
         id: infos.id,
+        original: infos.original,
         pronounce: infos.pronounce,
         vocChn: infos.vocChn,
         vocJpn: infos.vocJpn,
