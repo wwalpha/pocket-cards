@@ -5,6 +5,7 @@ import { ClientUtils, DateUtils, Logger } from '@utils';
 import { ssm } from './clientUtils';
 import { Polly, S3 } from 'aws-sdk';
 import { Environment } from '@consts';
+import { GetItemOutput } from '@alphax/dynamodb';
 
 // Sleep
 export const sleep = (timeout: number) => new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
@@ -91,3 +92,11 @@ export const saveWithMP3 = async (word: string): Promise<string> => {
 export const getOriginal = (word: string) => word.split('+').join(' ');
 
 export const word2Id = (word: string) => word.split(' ').join('+');
+
+export const isEmpty = (item?: GetItemOutput) => {
+  if (item === undefined) return true;
+  if (item.Item === undefined) return true;
+  return false;
+};
+
+export const isNotEmpty = (item?: GetItemOutput) => !isEmpty(item);

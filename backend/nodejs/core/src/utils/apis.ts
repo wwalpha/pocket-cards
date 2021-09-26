@@ -15,16 +15,14 @@ export const getPronounce = async (word: string): Promise<IPAResponse> => {
 
 /** 翻訳 */
 export const getTranslate = async (word: string, targetLanguageCode: string): Promise<string> => {
-  const {
-    data: {
-      data: { translations },
-    },
-  } = await axios.post(`${Environment.TRANSLATION_API_URL}?key=${Environment.TRANSLATION_API_KEY}`, {
+  const res = await axios.post(`${Environment.TRANSLATION_API_URL}?key=${Environment.TRANSLATION_API_KEY}`, {
     q: word,
     from: 'en',
     target: targetLanguageCode,
     format: 'text',
   });
+
+  const translations = res.data.data.translations;
 
   // 結果ない場合、エラーとする
   if (!translations || translations.length === 0) {

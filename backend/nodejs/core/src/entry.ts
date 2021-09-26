@@ -18,6 +18,6 @@ export default async (req: Request, res: Response, callback: APIs.Callback) => {
     // エラーログ
     Logger.error('Error', error);
 
-    res.status(500).send(error);
+    res.status(500).send((error as any).message);
   }
 };
