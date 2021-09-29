@@ -48,24 +48,30 @@ const registWord = async (id: string, groupId: string, userId: string) => {
 
     input.ConditionExpression = 'attribute_not_exists(id)';
 
-    // groug table update
-    const update = Groups.update.addCount(groupId, userId, 1);
+    // add word
+    await DBHelper().put(input);
 
-    // execute
-    await DBHelper().transactWrite({
-      TransactItems: [
-        { Put: input },
-        {
-          Update: {
-            TableName: update.TableName,
-            Key: update.Key,
-            UpdateExpression: update.UpdateExpression as string,
-            ExpressionAttributeNames: update.ExpressionAttributeNames,
-            ExpressionAttributeValues: update.ExpressionAttributeValues,
-          },
-        },
-      ],
-    });
+    // count plus one
+    await DBHelper().update(Groups.update.addCount(groupId, userId, 1));
+
+    // groug table update
+    // const update = Groups.update.addCount(groupId, userId, 1);
+
+    // // execute
+    // await DBHelper().transactWrite({
+    //   TransactItems: [
+    //     { Put: input },
+    //     {
+    //       Update: {
+    //         TableName: update.TableName,
+    //         Key: update.Key,
+    //         UpdateExpression: update.UpdateExpression as string,
+    //         ExpressionAttributeNames: update.ExpressionAttributeNames,
+    //         ExpressionAttributeValues: update.ExpressionAttributeValues,
+    //       },
+    //     },
+    //   ],
+    // });
   } catch (err) {
     if ((err as any).code !== 'ConditionalCheckFailedException') {
       console.log(err);
