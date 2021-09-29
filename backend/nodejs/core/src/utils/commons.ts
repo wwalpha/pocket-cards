@@ -61,7 +61,7 @@ export const saveWithMP3 = async (word: string): Promise<string> => {
   const client = ClientUtils.polly();
 
   const request: Polly.SynthesizeSpeechInput = {
-    Text: word,
+    Text: getOriginal(word),
     TextType: 'text',
     VoiceId: 'Joanna',
     OutputFormat: 'mp3',
