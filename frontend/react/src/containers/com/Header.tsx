@@ -218,7 +218,7 @@ export default () => {
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={isMenuOpen}
         onClose={handleMenuClose}>
-        <MenuItem
+        {/* <MenuItem
           sx={{
             '&:hover': {
               bgcolor: 'primary.light',
@@ -232,7 +232,7 @@ export default () => {
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="フォルダ削除" />
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem
           sx={{
             '&:hover': {
