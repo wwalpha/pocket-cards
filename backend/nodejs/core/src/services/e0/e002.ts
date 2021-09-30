@@ -25,7 +25,7 @@ export default async (req: Request<APIs.E002Params, any, APIs.E002Request, any>)
 
     // original word not exist
     if (Commons.isEmpty(record)) {
-      return await addNew(input.original);
+      await addNew(input.original);
     }
   }
 
