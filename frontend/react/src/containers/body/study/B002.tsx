@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { createRef } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Fab, Grid, Card, CardContent, Typography, Box, Button, styled } from '@mui/material';
@@ -13,7 +13,7 @@ import { RootState, Group } from 'typings';
 const studyState = (state: RootState) => state.study;
 const appState = (state: RootState) => state.app;
 
-const audioRef = React.createRef<HTMLAudioElement>();
+const audioRef = createRef<HTMLAudioElement>();
 
 const StyledBarButton = styled(Button)(({ theme: { spacing, palette } }) => ({
   marginLeft: spacing(1),
@@ -79,6 +79,7 @@ export default () => {
           disableTouchRipple
           disableRipple
           onTouchStart={handleTouchStart}
+          onMouseDown={handleTouchStart}
           onClick={() => {
             handleAnswer(word.id, true);
           }}>
@@ -100,6 +101,7 @@ export default () => {
           disableTouchRipple
           disableRipple
           onTouchStart={handleTouchStart}
+          onMouseDown={handleTouchStart}
           onClick={() => {
             handleAnswer(word.id, false);
           }}>
@@ -152,6 +154,21 @@ export default () => {
         <StyledBarButton variant="contained" disableTouchRipple disableFocusRipple disableRipple onClick={handleIgnore}>
           無視
         </StyledBarButton>
+        {(() => {
+          if (window.navigator.userAgent.indexOf('iPhone') !== -1) return;
+          if (window.navigator.userAgent.indexOf('iPad') !== -1) return;
+
+          return (
+            <StyledBarButton
+              variant="contained"
+              disableTouchRipple
+              disableFocusRipple
+              disableRipple
+              onClick={handleTouchStart}>
+              語彙表示
+            </StyledBarButton>
+          );
+        })()}
       </Box>
 
       {(() => {
