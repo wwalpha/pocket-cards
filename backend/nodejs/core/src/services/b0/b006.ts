@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { DBHelper } from '@utils';
+import { DBHelper, DateUtils } from '@utils';
 import { Words } from '@queries';
 import { APIs, Tables } from 'typings';
 
@@ -18,11 +18,13 @@ export default async (req: Request<APIs.B006Params, any, APIs.B006Request, any>)
   const learned = results.Items.filter((item) => item.times > 1).length;
   const unlearned = results.Items.filter((item) => item.times === 0).length;
   const review = results.Items.filter((item) => item.times === 1).length;
+  const untested = results.Items.filter((item) => item.nextTime <= DateUtils.getNow()).length;
 
   return {
     count,
     learned,
     unlearned,
     review,
+    untested,
   };
 };

@@ -113,9 +113,14 @@ export namespace APIs {
 
   interface B006Response {
     count: number;
+    // 学習済み
     learned: number;
+    // 未学習
     unlearned: number;
+    // 復習
     review: number;
+    // 未テスト
+    untested: number;
   }
 
   // ------------------------------------------------------------
