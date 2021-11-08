@@ -40,6 +40,13 @@ const registWord = async (id: string, groupId: string, userId: string, userGroup
     return;
   }
 
+  const exists = await isExist(dict.id, userGroups);
+
+  // 単語は他のグループにすでに存在する
+  if (exists) {
+    return;
+  }
+
   try {
     // word table update
     const input = Words.put({
@@ -50,8 +57,7 @@ const registWord = async (id: string, groupId: string, userId: string, userGroup
       vocabulary: dict.vocJpn,
     });
 
-    input.ConditionExpression = getConditionExpression(userGroups);
-    input.ExpressionAttributeValues = getExpressionAttributeValues(userGroups);
+    input.ConditionExpression = 'attribute_not_exists(id)';
 
     // add word
     await DBHelper().put(input);
@@ -65,26 +71,25 @@ const registWord = async (id: string, groupId: string, userId: string, userGroup
   }
 };
 
-const getConditionExpression = (userGroups: string[]) => {
-  const commonStr = 'attribute_not_exists(id)';
+const isExist = async (word: string, userGroups: string[]) => {
+  const tasks = userGroups.map((item) =>
+    DBHelper().get(
+      Words.get({
+        id: word,
+        groupId: item,
+      })
+    )
+  );
 
-  if (userGroups.length === 0) return commonStr;
+  const results = await Promise.all(tasks);
 
-  const ins = userGroups.map((item, idx) => `:group${idx + 1}`);
+  const sum = results
+    .map<number>((item) => (item?.Item === undefined ? 0 : 1))
+    .reduce((prev, curr) => {
+      return prev + curr;
+    });
 
-  return `${commonStr} AND groupId IN (${ins.join(',')})`;
-};
-
-const getExpressionAttributeValues = (userGroups: string[]) => {
-  if (userGroups.length === 0) return undefined;
-
-  const ret: Record<string, string> = {};
-
-  userGroups.forEach((item, idx) => {
-    ret[`:group${idx + 1}`] = item;
-  });
-
-  return ret;
+  return sum > 0;
 };
 
 /**
