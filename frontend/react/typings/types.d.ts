@@ -86,6 +86,8 @@ export namespace Group {
     unlearned: number;
     // 復習
     review: number;
+    // 未テスト
+    untested: number;
   }
 }
 

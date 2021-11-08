@@ -21,6 +21,7 @@ export default () => {
             <Box mt={2}>学習済み単語数: {status?.learned}</Box>
             <Box mt={2}>未学習単語数: {status?.unlearned}</Box>
             <Box mt={2}>復習単語数: {status?.review}</Box>
+            <Box mt={2}>未テスト単語数: {status?.untested}</Box>
           </Fragment>
         );
       })()}
