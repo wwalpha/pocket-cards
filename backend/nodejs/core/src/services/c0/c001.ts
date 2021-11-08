@@ -10,8 +10,12 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
   const words = input.words.map((item) => item.toLowerCase().trim());
   const userId = Commons.getUserId(req);
 
+  // ユーザのグループID 一覧
+  const userGroups = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
+  const groupIds = userGroups.Items.map((item) => item.id);
+
   // 既存単語マスタを検索する
-  const tasks = words.map((item) => registWord(item, groupId, userId));
+  const tasks = words.map((item) => registWord(item, groupId, userId, groupIds));
 
   // regist
   await Promise.all(tasks);
@@ -25,7 +29,7 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
  * @param userId user id
  * @returns void
  */
-const registWord = async (id: string, groupId: string, userId: string) => {
+const registWord = async (id: string, groupId: string, userId: string, userGroups: string[]) => {
   // get dictionary
   const dict = await getDictionary(id);
 
@@ -46,37 +50,41 @@ const registWord = async (id: string, groupId: string, userId: string) => {
       vocabulary: dict.vocJpn,
     });
 
-    input.ConditionExpression = 'attribute_not_exists(id)';
+    input.ConditionExpression = getConditionExpression(userGroups);
+    input.ExpressionAttributeValues = getExpressionAttributeValues(userGroups);
 
     // add word
     await DBHelper().put(input);
 
     // count plus one
     await DBHelper().update(Groups.update.addCount(groupId, userId, 1));
-
-    // groug table update
-    // const update = Groups.update.addCount(groupId, userId, 1);
-
-    // // execute
-    // await DBHelper().transactWrite({
-    //   TransactItems: [
-    //     { Put: input },
-    //     {
-    //       Update: {
-    //         TableName: update.TableName,
-    //         Key: update.Key,
-    //         UpdateExpression: update.UpdateExpression as string,
-    //         ExpressionAttributeNames: update.ExpressionAttributeNames,
-    //         ExpressionAttributeValues: update.ExpressionAttributeValues,
-    //       },
-    //     },
-    //   ],
-    // });
   } catch (err) {
     if ((err as any).code !== 'ConditionalCheckFailedException') {
       console.log(err);
     }
   }
+};
+
+const getConditionExpression = (userGroups: string[]) => {
+  const commonStr = 'attribute_not_exists(id)';
+
+  if (userGroups.length === 0) return commonStr;
+
+  const ins = userGroups.map((item, idx) => `:group${idx + 1}`);
+
+  return `${commonStr} AND groupId IN (${ins.join(',')})`;
+};
+
+const getExpressionAttributeValues = (userGroups: string[]) => {
+  if (userGroups.length === 0) return undefined;
+
+  const ret: Record<string, string> = {};
+
+  userGroups.forEach((item, idx) => {
+    ret[`:group${idx + 1}`] = item;
+  });
+
+  return ret;
 };
 
 /**
@@ -90,6 +98,10 @@ const getDictionary = async (id: string): Promise<Tables.TWordMaster> => {
 
   if (!result || !result.Item) {
     return await addNewword(id);
+    // return {
+    //   id: id,
+    //   original: id,
+    // };
   }
 
   const item = result.Item;
