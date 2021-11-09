@@ -18,7 +18,7 @@ export default async (req: Request<APIs.B006Params, any, APIs.B006Request, any>)
   const learned = results.Items.filter((item) => item.times > 1).length;
   const unlearned = results.Items.filter((item) => item.times === 0).length;
   const review = results.Items.filter((item) => item.times === 1).length;
-  const untested = results.Items.filter((item) => item.nextTime <= DateUtils.getNow()).length;
+  const untested = results.Items.filter((item) => item.nextTime <= DateUtils.getNow() && item.times !== 0).length;
 
   return {
     count,
