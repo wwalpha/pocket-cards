@@ -44,10 +44,10 @@ export const detail = (word: string) => (dispatch: AppDispatch) =>
     withLoading(async () => {
       // 単語詳細画面へ遷移する
       const prefix = Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyEdit].split(':')[0];
+      // get word detail
+      await dispatch(Actions.GROUP_WORD_DETAILS(word)).unwrap();
       // dispatch screen
       dispatch(push(`${prefix}${word}`));
-      // get word detail
-      dispatch(Actions.GROUP_WORD_DETAILS(word));
     })
   );
 
