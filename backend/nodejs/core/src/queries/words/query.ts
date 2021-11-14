@@ -70,6 +70,19 @@ export const listByGroup = (groupId: string): DynamoDB.DocumentClient.QueryInput
   IndexName: 'gsiIdx1',
 });
 
+/** 単語一覧 */
+export const listByWord = (id: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_WORDS,
+  KeyConditionExpression: '#id = :id',
+  ExpressionAttributeNames: {
+    '#id': 'id',
+  },
+  ExpressionAttributeValues: {
+    ':id': id,
+  },
+  ScanIndexForward: false,
+});
+
 /**
  * 復習単語対象一覧を取得する
  *

@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { DBHelper, API, Commons } from '@utils';
-import { WordMaster } from '@queries';
+import { WordMaster, Words } from '@queries';
 import { APIs, Tables } from 'typings';
 import { isEmpty } from 'lodash';
 
@@ -92,6 +92,21 @@ const update = async (word: string, input: APIs.E002Request) => {
 
   // 単語詳細情報を取得する
   await DBHelper().put(WordMaster.put(putItem));
+
+  // get rows of same word in all groups
+  const words = await DBHelper().query(Words.query.listByWord(word));
+
+  // overwrite the vocabulary
+  const tasks = words.Items.map((item) =>
+    DBHelper().put(
+      Words.put({
+        ...item,
+        vocabulary: input.vocJpn,
+      })
+    )
+  );
+
+  await Promise.all(tasks);
 
   return putItem;
 };
