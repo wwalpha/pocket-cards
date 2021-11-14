@@ -51,12 +51,17 @@ export default () => {
     if (word) wrdActions.detail(word.id);
   };
 
+  // 単語無視
   const handleIgnore = () => {
-    if (word) {
-      wrdActions.ignore(word.id);
+    if (!word) return;
 
-      setShowText(false);
-    }
+    // call api for ignore word
+    wrdActions.ignore(word.id);
+    // hide text
+    setShowText(false);
+
+    // play next word's audio
+    setTimeout(() => play(), 300);
   };
 
   const getButtons = (mode?: string, word?: Group.WordItem) => {
