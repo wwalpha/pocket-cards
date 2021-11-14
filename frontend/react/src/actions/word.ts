@@ -3,7 +3,7 @@ import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
 import { push } from 'connected-react-router';
-import { APIs, AppDispatch, Group, RootState } from 'typings';
+import { APIs, AppDispatch, Group, Payloads, RootState } from 'typings';
 
 /** 単語削除 */
 export const del = (groupId: string, word: string) => (dispatch: AppDispatch) =>
@@ -85,9 +85,26 @@ export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDi
         const payload = { old: id, new: infos.id, details: res };
 
         // update group word list
-        dispatch(Actions.GROUP_WORD_UPDATE(payload));
+        dispatch(
+          Actions.GROUP_WORD_REMOVE({
+            id: activeGroup,
+            word: id,
+          })
+        );
+
         // remove study item
         dispatch(Actions.STUDY_REMOVE(payload));
+      } else {
+        const payload: Payloads.GroupWordUpdate = {
+          old: id,
+          new: infos.id,
+          details: {
+            ...res,
+            vocabulary: res.vocJpn,
+          },
+        };
+        // update group word list
+        dispatch(Actions.GROUP_WORD_UPDATE(payload));
       }
 
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
