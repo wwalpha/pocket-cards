@@ -17,6 +17,25 @@ export const registWords = (words: string[]) => (dispatch: AppDispatch) =>
     withLoading(async (state: RootState) => {
       const { activeGroup } = state.group;
 
+      // const items: string[][] = [];
+
+      // // split 10 words to array
+      // for (; words.length > 0; ) {
+      //   const unit = words.length > 10 ? 10 : words.length;
+
+      //   items.push(words.splice(0, unit));
+      // }
+
+      // // create post tasks
+      // const tasks = items.map((item) =>
+      //   API.post<APIs.C001Request>(Consts.C001_URL(activeGroup), {
+      //     words: item,
+      //   })
+      // );
+
+      // // post all words
+      // await Promise.all(tasks);
+
       for (; words.length > 0; ) {
         const unit = words.length > 100 ? 100 : words.length;
         const items = words.splice(0, unit);
