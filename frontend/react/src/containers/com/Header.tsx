@@ -117,6 +117,7 @@ export default () => {
       audioRef.current?.play();
     }
   };
+
   // 表示中画面情報
   const screen = Paths.ROUTE_INFO[pathname];
 

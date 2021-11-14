@@ -43,7 +43,7 @@ export default () => {
 
     setShowText(false);
 
-    setTimeout(() => play(), 100);
+    setTimeout(() => play(), 500);
   };
 
   // 単語詳細表示
@@ -61,7 +61,7 @@ export default () => {
     setShowText(false);
 
     // play next word's audio
-    setTimeout(() => play(), 300);
+    setTimeout(() => play(), 500);
   };
 
   const getButtons = (mode?: string, word?: Group.WordItem) => {
