@@ -18,7 +18,7 @@ export default () => {
   const wrdActions = bindActionCreators(WordActions, useDispatch());
   const regActions = bindActionCreators(RegistActions, useDispatch());
   const grpActions = bindActionCreators(GroupActions, useDispatch());
-  const { activeGroup, groupWords, searchWord } = useSelector(groupState);
+  const { groups, activeGroup, groupWords, searchWord } = useSelector(groupState);
   const { displayCtrl } = useSelector(appState);
   const [open, setOpen] = useState<boolean>(false);
   const [dataRows, setDataRows] = useState<Group.WordSimple[]>([]);
@@ -69,6 +69,9 @@ export default () => {
 
   return (
     <React.Fragment>
+      <Box display="flex" justifyContent="center" bgcolor="#4caf50" p={1} color="white">
+        <span>{groups.find((item) => item.id === activeGroup)?.name}</span>
+      </Box>
       <Box display="flex" flexDirection="column" alignItems="center" margin={1} height="128px">
         <Box display="flex" justifyContent="center">
           <Button

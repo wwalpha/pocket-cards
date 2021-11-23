@@ -77,7 +77,7 @@ export default () => {
   const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { current } = useSelector(studyState);
-  const { searchWord } = useSelector(groupState);
+  const { searchWord, groups, activeGroup } = useSelector(groupState);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -144,7 +144,7 @@ export default () => {
             color="inherit"
             sx={{ flexGrow: 1, fontWeight: 600, textAlign: 'center', letterSpacing: ({ spacing }) => spacing(0.25) }}>
             {(() => {
-              if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
+              if (pathname === Paths.PATHS_STUDY) {
                 return (
                   <Search>
                     <SearchIconWrapper>
@@ -160,11 +160,15 @@ export default () => {
                 );
               }
 
+              if (pathname === Paths.PATHS_STUDY_CARD) {
+                return groups.find((item) => item.id === activeGroup)?.name;
+              }
+
               return screen?.title;
             })()}
           </Typography>
           {(() => {
-            if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Settings]) {
+            if (pathname === Paths.PATHS_SETTINGS) {
               return <Button color="inherit">{Consts.VERSION}</Button>;
             }
 
@@ -196,7 +200,7 @@ export default () => {
               ];
             }
 
-            if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]) {
+            if (pathname === Paths.PATHS_STUDY_CARD) {
               const draw = [
                 <IconButton key="replyIcon" sx={{ p: 0.5 }} onClick={handleReply}>
                   <ReplayIcon sx={{ color: 'common.white', fontSize: ({ spacing }) => spacing(4) }} />
