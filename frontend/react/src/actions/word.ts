@@ -10,7 +10,7 @@ export const del = (groupId: string, word: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // 画面遷移
-      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
+      dispatch(push(Paths.PATHS_STUDY));
 
       await API.del<APIs.C005Response>(Consts.C005_URL(groupId, word));
 
@@ -107,7 +107,7 @@ export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDi
         dispatch(Actions.GROUP_WORD_UPDATE(payload));
       }
 
-      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
+      dispatch(push(Paths.PATHS_STUDY));
     })
   );
 
@@ -126,5 +126,25 @@ export const ignore = (word: string) => (dispatch: AppDispatch) =>
 
       // 単語の追加
       await dispatch(Actions.STUDY_CONTINUE()).unwrap();
+    })
+  );
+
+export const ignoreWord = (word: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async (state: RootState) => {
+      const { activeGroup } = state.group;
+
+      // データ保存
+      dispatch(Actions.STUDY_IGNORE(word)).unwrap();
+
+      // データ保存
+      dispatch(
+        Actions.GROUP_WORD_REMOVE({
+          id: activeGroup,
+          word: word,
+        })
+      );
+
+      dispatch(push(Paths.PATHS_STUDY));
     })
   );

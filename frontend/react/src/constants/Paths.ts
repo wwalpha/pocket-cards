@@ -40,6 +40,8 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.StudyFinish]: '/study/finish',
 };
 
+export const PATHS_STUDY = ROUTE_PATHS[ROUTE_PATH_INDEX.Study];
+
 export const ROUTE_INFO: App.PathInfo = {
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Root]]: {
     showBack: false,
