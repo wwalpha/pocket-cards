@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains, Payloads, Tables } from 'typings';
 import { GROUP_DELETE, GROUP_LIST, GROUP_STATUS, GROUP_WORD_DETAILS, GROUP_WORD_LIST } from './groupActions';
+import sortBy from 'lodash/sortBy';
 
 const grpState: Domains.GroupState = {
   searchWord: '',
@@ -93,7 +94,12 @@ const slice = createSlice({
     builder
       // get group list
       .addCase(GROUP_LIST.fulfilled, (state, { payload }) => {
-        state.groups = payload;
+        // sort by name
+        if (payload) {
+          state.groups = sortBy(payload, ['name']);
+        } else {
+          state.groups = payload;
+        }
       })
       // delete group id
       .addCase(GROUP_DELETE.fulfilled, (state) => {

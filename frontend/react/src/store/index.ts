@@ -6,8 +6,6 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
 import reducers from '../reducers';
 
-console.log(process.env);
-
 export const history = process.env.NODE_ENV === 'production' ? createBrowserHistory() : createHashHistory();
 export const key = process.env.NODE_ENV === 'production' ? 'pkc' : 'pkc_dev';
 
