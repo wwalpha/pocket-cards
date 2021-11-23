@@ -33,6 +33,8 @@ export default () => {
 
   const handleOnUpdate = handleSubmit((datas) => actions.update(current?.id as string, datas));
 
+  const handleOnIngore = () => actions.ignoreWord(current?.id as string);
+
   const handleOnDelete = () => actions.del(activeGroup, word);
 
   return (
@@ -78,6 +80,16 @@ export default () => {
             isLoading={isLoading}
             onClick={handleOnUpdate}>
             UPDATE
+          </Button>
+          <Button
+            size="large"
+            sx={{ bgcolor: 'error.main', color: 'common.white' }}
+            fullWidth
+            variant="contained"
+            color="primary"
+            isLoading={isLoading}
+            onClick={handleOnIngore}>
+            INGORE
           </Button>
         </Box>
       </Box>
