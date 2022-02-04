@@ -31,6 +31,7 @@ export const getUserInfo = (token: string) => {
   try {
     const jwt = decode(token, { complete: true });
 
+    //@ts-ignore
     return jwt?.payload['cognito:username'];
   } catch (err) {
     Logger.error(err);
