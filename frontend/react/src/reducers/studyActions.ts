@@ -4,18 +4,25 @@ import { RootState } from '@store';
 import { API } from '@utils';
 import { Payloads, APIs } from 'typings';
 
-const getWords = async (mode: string, group: string): Promise<Payloads.StudyCase> => {
-  // default study case: new
-  let url = Consts.C006_URL(group);
+const getWords = async (mode: string, group?: string): Promise<Payloads.StudyCase> => {
+  let url: string | undefined;
 
-  // study case: test
-  if (mode === Consts.MODES.AllTest) {
-    url = Consts.C007_URL(group);
-  }
-
-  // study case: review
-  if (mode === Consts.MODES.Review) {
-    url = Consts.C008_URL(group);
+  switch (mode) {
+    case Consts.MODES.New:
+      // new
+      url = group ? Consts.C006_URL(group) : Consts.D003_URL();
+      break;
+    case Consts.MODES.Review:
+      // review
+      url = group ? Consts.C008_URL(group) : Consts.D004_URL();
+      break;
+    case Consts.MODES.AllTest:
+      // test
+      url = group ? Consts.C007_URL(group) : Consts.D005_URL();
+      break;
+    default:
+      url = '';
+      break;
   }
 
   const res = await API.get<APIs.C006Response>(url);
@@ -52,4 +59,8 @@ export const STUDY_IGNORE = createAsyncThunk<string, string>('study/STUDY_IGNORE
   });
 
   return word;
+});
+
+export const STUDY_TODOS = createAsyncThunk<Payloads.StudyCase, string>('study/STUDY_TODOS', async (mode) => {
+  return await getWords(mode);
 });

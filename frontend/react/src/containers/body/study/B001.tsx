@@ -36,11 +36,11 @@ export default () => {
   }, [activeGroup, groupWords, searchWord]);
 
   // 学習
-  const handleNew = () => actions.startNew();
+  const handleNew = () => actions.startStudy(Consts.MODES.New);
   // 復習
-  const handleReview = () => actions.startReview();
+  const handleReview = () => actions.startStudy(Consts.MODES.Review);
   // テスト
-  const handleTest = () => actions.startTest();
+  const handleTest = () => actions.startStudy(Consts.MODES.AllTest);
 
   // 詳細
   const handleDetail = (id: string) => wrdActions.detail(id);

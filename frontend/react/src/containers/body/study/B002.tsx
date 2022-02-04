@@ -36,7 +36,7 @@ export default () => {
   const handleTouchStart = () => setShowText(true);
 
   /** 新規単語学習 */
-  const handleNext = () => actions.startReview();
+  const handleNext = () => actions.startStudy(Consts.MODES.Review);
 
   const handleAnswer = (word: string, yes: boolean) => {
     actions.answer(word, yes);

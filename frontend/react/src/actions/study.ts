@@ -58,35 +58,24 @@ const updateStatus = async (groupId: string, word: string, yes: boolean, times: 
   } as APIs.C004Request);
 };
 
-/** 新規単語学習 */
-export const startNew = () => (dispatch: AppDispatch) =>
+/** 新規単語/復習/テスト */
+export const startStudy = (mode: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // 画面遷移
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
       // 新規単語の学習開始
-      dispatch(Actions.STUDY_START(Consts.MODES.New));
+      dispatch(Actions.STUDY_START(mode));
     })
   );
 
-/** 単語復習 */
-export const startReview = () => (dispatch: AppDispatch) =>
+/** 新規単語/復習/テスト */
+export const startTodos = (mode: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // 画面遷移
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
-      // 復習単語の学習開始
-      dispatch(Actions.STUDY_START(Consts.MODES.Review));
-    })
-  );
-
-/** 単語テスト */
-export const startTest = () => (dispatch: AppDispatch) =>
-  dispatch(
-    withLoading(async () => {
-      // 画面遷移
-      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
-      // テスト単語の学習開始
-      dispatch(Actions.STUDY_START(Consts.MODES.AllTest));
+      // 新規単語の学習開始
+      dispatch(Actions.STUDY_TODOS(mode));
     })
   );

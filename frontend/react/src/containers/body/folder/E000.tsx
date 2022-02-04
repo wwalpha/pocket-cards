@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { GroupList, GroupNew, GroupEdit } from '@containers/body/home';
+import { GroupList, GroupNew, GroupEdit } from '@containers/body/folder';
 import { Paths } from '@constants';
 
 export default () => {

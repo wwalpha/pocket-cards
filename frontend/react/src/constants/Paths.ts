@@ -18,6 +18,7 @@ export const ROUTE_PATH_INDEX: Record<string, number> = {
   Groups: 61,
   GroupRegist: 62,
   GroupEdit: 63,
+  Todos: 71,
 };
 
 export const ROUTE_PATHS = {
@@ -38,6 +39,7 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.StudyCard]: '/study/card',
   [ROUTE_PATH_INDEX.StudyStatus]: '/study/status',
   [ROUTE_PATH_INDEX.StudyFinish]: '/study/finish',
+  [ROUTE_PATH_INDEX.Todos]: '/todos',
 };
 
 export const PATHS_STUDY = ROUTE_PATHS[ROUTE_PATH_INDEX.Study];
@@ -48,6 +50,9 @@ export const PATHS_STUDY_STATUS = ROUTE_PATHS[ROUTE_PATH_INDEX.StudyStatus];
 export const PATHS_STUDY_FINISH = ROUTE_PATHS[ROUTE_PATH_INDEX.StudyFinish];
 
 export const PATHS_SETTINGS = ROUTE_PATHS[ROUTE_PATH_INDEX.Settings];
+export const PATHS_TODOS = ROUTE_PATHS[ROUTE_PATH_INDEX.Todos];
+
+export const PATHS_GROUPS = ROUTE_PATHS[ROUTE_PATH_INDEX.Groups];
 
 export const ROUTE_INFO: App.PathInfo = {
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Root]]: {
@@ -75,7 +80,7 @@ export const ROUTE_INFO: App.PathInfo = {
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Groups]]: {
     showBack: false,
     showFooter: true,
-    title: 'HOME',
+    title: 'FOLDER LIST',
   },
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Study]]: {
     showBack: true,
@@ -100,6 +105,11 @@ export const ROUTE_INFO: App.PathInfo = {
     showBack: true,
     showFooter: true,
     title: 'STUDY STATUS',
+  },
+  [ROUTE_PATHS[ROUTE_PATH_INDEX.Todos]]: {
+    showBack: true,
+    showFooter: true,
+    title: 'TODOS',
   },
   // [ROUTE_PATH_INDEX.Login]: '/login',
   // [ROUTE_PATH_INDEX.Regist]: '/regist',
