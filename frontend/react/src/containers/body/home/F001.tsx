@@ -13,12 +13,12 @@ export default () => {
   // 学習
   const handleNew = () => actions.startTodos(Consts.MODES.New);
   // 復習
-  const handleReview = () => actions.startStudy(Consts.MODES.Review);
+  const handleReview = () => actions.startTodos(Consts.MODES.Review);
   // テスト
-  const handleTest = () => actions.startStudy(Consts.MODES.AllTest);
+  const handleTest = () => actions.startTodos(Consts.MODES.AllTest);
 
   return (
-    <Box>
+    <Box p={2}>
       <Button variant="contained" color="secondary" onClick={handleTest}>
         今日のテスト
       </Button>

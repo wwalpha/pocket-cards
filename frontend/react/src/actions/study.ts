@@ -10,7 +10,6 @@ export const answer = (word: string, yes: boolean) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async (state: RootState) => {
       const { mode, current, rows } = state.study;
-      const { activeGroup } = state.group;
 
       // 復習モードの場合、サーバ更新しない
       if (mode === Consts.MODES.Review) {
@@ -27,6 +26,7 @@ export const answer = (word: string, yes: boolean) => (dispatch: AppDispatch) =>
       // データなしの場合、処理しない
       if (!current) return;
 
+      const activeGroup = current.groupId;
       // 正解の場合、現在の回数、不正解の場合は0に戻ります
       const times = yes ? current.times : 0;
 

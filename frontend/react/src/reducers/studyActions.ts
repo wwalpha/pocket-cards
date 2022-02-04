@@ -14,7 +14,7 @@ const getWords = async (mode: string, group?: string): Promise<Payloads.StudyCas
       break;
     case Consts.MODES.Review:
       // review
-      url = group ? Consts.C008_URL(group) : Consts.D005_URL();
+      url = group ? Consts.C008_URL(group) : Consts.D006_URL();
       break;
     case Consts.MODES.AllTest:
       // test
