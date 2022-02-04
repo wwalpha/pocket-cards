@@ -3,6 +3,8 @@ export { default as Logger } from './logger';
 import * as Commons from './commons';
 import * as DateUtils from './dateUtils';
 import * as ClientUtils from './clientUtils';
+import * as QueryUtils from './queryUtils';
+
 export * as API from './apis';
 
-export { Commons, DateUtils, ClientUtils };
+export { Commons, DateUtils, ClientUtils, QueryUtils };
