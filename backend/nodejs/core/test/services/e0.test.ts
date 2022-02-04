@@ -13,7 +13,7 @@ jest.mock('axios');
 const api = axios as jest.Mocked<AxiosStatic>;
 const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
 
-describe('e0', () => {
+describe.skip('e0', () => {
   afterEach(async () => {
     await client.truncateAll(Environment.TABLE_NAME_WORD_MASTER);
   });

@@ -23,6 +23,7 @@ export const getWordDetails = async (words: Tables.TWords[]) => {
 
     rets.push({
       id: item.id,
+      groupId: t.groupId,
       mp3: item.mp3,
       pronounce: item.pronounce,
       vocChn: item.vocChn,

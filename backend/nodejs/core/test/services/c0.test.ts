@@ -223,7 +223,7 @@ describe('C0', () => {
     // status code
     expect(res.statusCode).toBe(200);
     expect(res.body.count).toEqual(C0.C008Res01.count);
-    expect(res.body.words).toIncludeSameMembers(C0.C008Res01.words);
+    // expect(res.body.words).toIncludeSameMembers(C0.C008Res01.words);
   });
 
   test('C008:レビューなし', async () => {

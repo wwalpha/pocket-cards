@@ -3,6 +3,7 @@
   "words": [
     {
       "id": "WORD-1",
+      "groupId": "C006",
       "mp3": "URL_MP3_1",
       "pronounce": "Pronounce_1",
       "vocChn": "WORD_ZH_1",
@@ -11,6 +12,7 @@
     },
     {
       "id": "WORD-2",
+      "groupId": "C006",
       "mp3": "URL_MP3_2",
       "pronounce": "Pronounce_2",
       "vocChn": "WORD_ZH_2",
@@ -19,6 +21,7 @@
     },
     {
       "id": "WORD-3",
+      "groupId": "C006",
       "mp3": "URL_MP3_3",
       "pronounce": "Pronounce_3",
       "vocChn": "WORD_ZH_3",
@@ -27,6 +30,7 @@
     },
     {
       "id": "WORD-4",
+      "groupId": "C006",
       "mp3": "URL_MP3_4",
       "pronounce": "Pronounce_4",
       "vocChn": "WORD_ZH_4",
@@ -35,6 +39,7 @@
     },
     {
       "id": "WORD-5",
+      "groupId": "C006",
       "mp3": "URL_MP3_5",
       "pronounce": "Pronounce_5",
       "vocChn": "WORD_ZH_5",
@@ -43,6 +48,7 @@
     },
     {
       "id": "WORD-6",
+      "groupId": "C006",
       "mp3": "URL_MP3_6",
       "pronounce": "Pronounce_6",
       "vocChn": "WORD_ZH_6",
@@ -51,6 +57,7 @@
     },
     {
       "id": "WORD-7",
+      "groupId": "C006",
       "mp3": "URL_MP3_7",
       "pronounce": "Pronounce_7",
       "vocChn": "WORD_ZH_7",
@@ -59,6 +66,7 @@
     },
     {
       "id": "WORD-8",
+      "groupId": "C006",
       "mp3": "URL_MP3_8",
       "pronounce": "Pronounce_8",
       "vocChn": "WORD_ZH_8",
@@ -67,6 +75,7 @@
     },
     {
       "id": "WORD-9",
+      "groupId": "C006",
       "mp3": "URL_MP3_9",
       "pronounce": "Pronounce_9",
       "vocChn": "WORD_ZH_9",
@@ -75,6 +84,7 @@
     },
     {
       "id": "WORD-10",
+      "groupId": "C006",
       "mp3": "URL_MP3_10",
       "pronounce": "Pronounce_10",
       "vocChn": "WORD_ZH_10",

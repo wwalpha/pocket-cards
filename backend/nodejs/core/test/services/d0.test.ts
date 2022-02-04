@@ -46,7 +46,7 @@ describe('d0', () => {
     expect(groups?.Item?.count).toBe(0);
   });
 
-  test('D004:今日のテスト', async () => {
+  test.skip('D004:今日のテスト', async () => {
     await client.bulk(Environment.TABLE_NAME_GROUPS, D0.D004DB_GROUP);
     await client.bulk(Environment.TABLE_NAME_WORDS, D0.D004DB_WORDS);
     await client.bulk(Environment.TABLE_NAME_WORD_MASTER, D0.D004DB_WORD_MASTER);
