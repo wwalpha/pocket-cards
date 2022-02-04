@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
 import { concat, differenceBy } from 'lodash';
 import { Consts } from '@constants';
 import { Domains, Payloads } from 'typings';
-import { STUDY_CONTINUE, STUDY_IGNORE, STUDY_START } from './studyActions';
+import { STUDY_CONTINUE, STUDY_IGNORE, STUDY_START, STUDY_TODOS } from './studyActions';
 
 const studyState: Domains.StudyState = {
   current: undefined,
@@ -57,13 +57,13 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(STUDY_START.pending, (state) => {
+      .addMatcher(isAnyOf(STUDY_START.pending, STUDY_TODOS.pending), (state) => {
         state.current = undefined;
         state.rows = [];
         state.history = [];
         state.index = 0;
       })
-      .addCase(STUDY_START.fulfilled, (state, { payload: { mode, items } }) => {
+      .addMatcher(isAnyOf(STUDY_START.fulfilled, STUDY_TODOS.fulfilled), (state, { payload: { mode, items } }) => {
         // 差分を抽出する
         const differ = differenceBy(items, state.history, 'id');
         // 足りない単語数を計算する
@@ -80,7 +80,7 @@ const slice = createSlice({
         state.index = state.index;
         state.mode = mode;
       })
-      .addCase(STUDY_CONTINUE.fulfilled, (state, { payload: { mode, items } }) => {
+      .addMatcher(isAnyOf(STUDY_CONTINUE.fulfilled), (state, { payload: { mode, items } }) => {
         // 差分を抽出する
         const differ = differenceBy(items, state.history, 'id');
         // 足りない単語数を計算する
@@ -97,7 +97,7 @@ const slice = createSlice({
         state.index = state.index;
         state.mode = mode;
       })
-      .addCase(STUDY_IGNORE.fulfilled, (state, { payload }) => {
+      .addMatcher(isAnyOf(STUDY_IGNORE.fulfilled), (state, { payload }) => {
         // remove first item
         const array = state.rows.filter((item) => item.id !== payload);
         const newIdx = state.index > array.length - 1 ? 0 : state.index;
