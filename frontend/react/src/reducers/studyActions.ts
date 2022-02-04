@@ -10,15 +10,15 @@ const getWords = async (mode: string, group?: string): Promise<Payloads.StudyCas
   switch (mode) {
     case Consts.MODES.New:
       // new
-      url = group ? Consts.C006_URL(group) : Consts.D003_URL();
+      url = group ? Consts.C006_URL(group) : Consts.D005_URL();
       break;
     case Consts.MODES.Review:
       // review
-      url = group ? Consts.C008_URL(group) : Consts.D004_URL();
+      url = group ? Consts.C008_URL(group) : Consts.D005_URL();
       break;
     case Consts.MODES.AllTest:
       // test
-      url = group ? Consts.C007_URL(group) : Consts.D005_URL();
+      url = group ? Consts.C007_URL(group) : Consts.D004_URL();
       break;
     default:
       url = '';
@@ -54,7 +54,7 @@ export const STUDY_CONTINUE = createAsyncThunk<Payloads.StudyCase, void>(
 
 export const STUDY_IGNORE = createAsyncThunk<string, string>('study/STUDY_IGNORE', async (word) => {
   // ignore word from study words
-  await API.post<APIs.D003Request, APIs.D003Response>(Consts.D003_URL(), {
+  await API.post<APIs.D003Request, APIs.D003Response>(Consts.D005_URL(), {
     word,
   });
 

@@ -2,7 +2,7 @@ import { Request } from 'express';
 import orderBy from 'lodash/orderBy';
 import { DBHelper, Logger, DateUtils, Commons, QueryUtils } from '@utils';
 import { Environment } from '@consts';
-import { Words, WordMaster, Groups } from '@queries';
+import { Words, Groups } from '@queries';
 import { APIs, Tables } from 'typings';
 
 /** 今日のテスト */

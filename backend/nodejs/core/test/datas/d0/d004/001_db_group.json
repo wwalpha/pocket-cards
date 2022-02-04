@@ -1,0 +1,23 @@
+[
+  {
+    "description": "Group Description 001",
+    "id": "G001",
+    "name": "GroupName001",
+    "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1",
+    "count": 3
+  },
+  {
+    "description": "Group Description 002",
+    "id": "G002",
+    "name": "GroupName002",
+    "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1",
+    "count": 7
+  },
+  {
+    "description": "Group Description 003",
+    "id": "G003",
+    "name": "GroupName003",
+    "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1",
+    "count": 0
+  }
+]

@@ -21,7 +21,7 @@ describe('d0', () => {
     await client.truncateAll(Environment.TABLE_NAME_GROUPS);
   });
 
-  test('D003:単語無視機能', async () => {
+  test.skip('D003:単語無視機能', async () => {
     await client.bulk(Environment.TABLE_NAME_GROUPS, D0.D003DB_GROUP);
     await client.bulk(Environment.TABLE_NAME_WORDS, D0.D003DB_WORDS);
 
@@ -44,5 +44,18 @@ describe('d0', () => {
     expect(ignore?.Item).toEqual(D0.D003Expect01);
     expect(words.Items).toEqual(D0.D003Expect02);
     expect(groups?.Item?.count).toBe(0);
+  });
+
+  test('D004:今日のテスト', async () => {
+    await client.bulk(Environment.TABLE_NAME_GROUPS, D0.D004DB_GROUP);
+    await client.bulk(Environment.TABLE_NAME_WORDS, D0.D004DB_WORDS);
+    await client.bulk(Environment.TABLE_NAME_WORD_MASTER, D0.D004DB_WORD_MASTER);
+
+    const apiPath = '/v1/today/test';
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const userId = '84d95083-9ee8-4187-b6e7-8123558ef2c1';
+
+    console.log(res.body);
+    console.log(res.statusCode);
   });
 });
