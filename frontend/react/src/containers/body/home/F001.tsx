@@ -3,19 +3,35 @@ import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import { Box } from '@mui/material';
 import Button from '@components/buttons/Button';
-import { StudyActions } from '@actions';
+import { StudyActions, GroupActions } from '@actions';
 import { Consts } from '@constants';
 
 export default () => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(StudyActions, dispatch);
+  const grpActions = bindActionCreators(GroupActions, dispatch);
 
   // 学習
-  const handleNew = () => actions.startTodos(Consts.MODES.New);
+  const handleNew = () => {
+    // clean active group
+    grpActions.cleanGroup();
+    // start study
+    actions.startTodos(Consts.MODES.New);
+  };
   // 復習
-  const handleReview = () => actions.startTodos(Consts.MODES.Review);
+  const handleReview = () => {
+    // clean active group
+    grpActions.cleanGroup();
+    // start study
+    actions.startTodos(Consts.MODES.Review);
+  };
   // テスト
-  const handleTest = () => actions.startTodos(Consts.MODES.AllTest);
+  const handleTest = () => {
+    // clean active group
+    grpActions.cleanGroup();
+    // start study
+    actions.startTodos(Consts.MODES.AllTest);
+  };
 
   return (
     <Box p={2}>

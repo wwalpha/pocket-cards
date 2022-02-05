@@ -32,6 +32,7 @@ const slice = createSlice({
 
       // clean
       state.groupWords = groupWords;
+      state.activeGroup = '';
     },
 
     // グループ登録
