@@ -54,7 +54,7 @@ export const STUDY_CONTINUE = createAsyncThunk<Payloads.StudyCase, void>(
 
 export const STUDY_IGNORE = createAsyncThunk<string, string>('study/STUDY_IGNORE', async (word) => {
   // ignore word from study words
-  await API.post<APIs.D003Request, APIs.D003Response>(Consts.D005_URL(), {
+  await API.post<APIs.D003Request, APIs.D003Response>(Consts.D003_URL(), {
     word,
   });
 

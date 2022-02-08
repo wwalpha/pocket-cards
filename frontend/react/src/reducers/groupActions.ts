@@ -25,24 +25,26 @@ export const GROUP_WORD_LIST = createAsyncThunk<Payloads.GroupWordList, string>(
       id: groupId,
       items: res.items.map((item) => ({
         id: item.id,
+        groupId: groupId,
         vocabulary: item.vocabulary,
       })),
     };
   }
 );
 
-export const GROUP_WORD_DETAILS = createAsyncThunk<Group.WordDetails, string>(
+export const GROUP_WORD_DETAILS = createAsyncThunk<Group.WordDetails, Group.WordSimple>(
   'group/GROUP_WORD_DETAILS',
-  async (word, { rejectWithValue }) => {
+  async (details, { rejectWithValue }) => {
     try {
-      const res = await API.get<APIs.E001Response>(Consts.E001_URL(word));
+      const res = await API.get<APIs.E001Response>(Consts.E001_URL(details.id));
 
       if (!res.item) {
-        return rejectWithValue(`Cannot found word: ${word}`);
+        return rejectWithValue(`Cannot found word: ${details.id}`);
       }
 
       return {
-        id: word,
+        id: details.id,
+        groupId: details.groupId,
         original: res.item.original,
         mp3: res.item?.mp3,
         pronounce: res.item?.pronounce,

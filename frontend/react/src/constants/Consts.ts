@@ -35,6 +35,7 @@ export const C008_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}/r
 
 export const D001_URL = () => `${API_VERSION}/image2text`;
 export const D002_URL = () => `${API_VERSION}/image2line`;
+export const D003_URL = () => `${API_VERSION}/user/wordignore`;
 export const D004_URL = () => `${API_VERSION}/today/test`;
 export const D005_URL = () => `${API_VERSION}/today/new`;
 export const D006_URL = () => `${API_VERSION}/today/review`;

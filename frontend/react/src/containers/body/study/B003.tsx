@@ -33,7 +33,7 @@ export default () => {
 
   const handleOnUpdate = handleSubmit((datas) => actions.update(current?.id as string, datas));
 
-  const handleOnIngore = () => actions.ignoreWord(current?.id as string);
+  const handleOnIngore = () => actions.ignoreWord(current);
 
   const handleOnDelete = () => actions.del(activeGroup, word);
 

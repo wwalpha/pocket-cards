@@ -49,11 +49,13 @@ export namespace Group {
 
   interface WordSimple {
     id: string;
+    groupId: string;
     vocabulary?: string;
   }
 
   interface WordDetails {
     id: string;
+    groupId: string;
     original: string;
     pronounce?: string;
     vocabulary?: string;

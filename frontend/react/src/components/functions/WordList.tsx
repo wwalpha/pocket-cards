@@ -15,8 +15,8 @@ import { Group } from 'typings';
 
 const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, onDelete }) => {
   const [index, setIndex] = useState(10);
-  const handleOnClick = (word: string) => onDetail?.(word);
-  const handleOnDelete = (word: string) => onDelete?.(word);
+  const handleOnClick = (dataRow: Group.WordSimple) => onDetail?.(dataRow);
+  const handleOnDelete = (dataRow: Group.WordSimple) => onDelete?.(dataRow);
 
   const handleOnScroll = (e: any) => {
     if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight - 20) {
@@ -46,7 +46,7 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
                 <Button
                   sx={{ color: 'common.white', fontSize: '0.75rem' }}
                   onClick={() => {
-                    handleOnClick(item.id);
+                    handleOnClick(item);
                   }}>
                   詳細
                 </Button>
@@ -68,7 +68,7 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
                 <IconButton
                   color="secondary"
                   onClick={() => {
-                    handleOnDelete(item.id);
+                    handleOnDelete(item);
                   }}>
                   <DeleteIcon fontSize="large" />
                 </IconButton>
@@ -83,8 +83,8 @@ const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, on
 
 interface WordListProps {
   list: Group.WordSimple[];
-  onDetail?: (word: string) => void;
-  onDelete?: (word: string) => void;
+  onDetail?: (details: Group.WordSimple) => void;
+  onDelete?: (details: Group.WordSimple) => void;
   showDelete?: boolean;
 }
 

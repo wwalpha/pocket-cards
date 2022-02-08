@@ -2,7 +2,7 @@ import { withLoading } from '@actions';
 import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
-import { push } from 'connected-react-router';
+import { push, goBack } from 'connected-react-router';
 import { APIs, AppDispatch, Group, Payloads, RootState } from 'typings';
 
 /** 単語削除 */
@@ -25,29 +25,29 @@ export const del = (groupId: string, word: string) => (dispatch: AppDispatch) =>
   );
 
 /** 単語削除 */
-export const deleteRow = (groupId: string, word: string) => (dispatch: AppDispatch) =>
+export const deleteRow = (details: Group.WordSimple) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // データ保存
       dispatch(
         Actions.GROUP_WORD_REMOVE({
-          id: groupId,
-          word: word,
+          id: details.groupId,
+          word: details.id,
         })
       );
     })
   );
 
 /** 単語詳細 */
-export const detail = (word: string) => (dispatch: AppDispatch) =>
+export const detail = (details: Group.WordSimple) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // 単語詳細画面へ遷移する
       const prefix = Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyEdit].split(':')[0];
       // get word detail
-      await dispatch(Actions.GROUP_WORD_DETAILS(word)).unwrap();
+      await dispatch(Actions.GROUP_WORD_DETAILS(details)).unwrap();
       // dispatch screen
-      dispatch(push(`${prefix}${word}`));
+      dispatch(push(`${prefix}${details.id}`));
     })
   );
 
@@ -82,7 +82,14 @@ export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDi
           words: [infos.id],
         });
 
-        const payload = { old: id, new: infos.id, details: res };
+        const payload = {
+          old: id,
+          new: infos.id,
+          details: {
+            ...res,
+            groupId: activeGroup,
+          },
+        };
 
         // update group word list
         dispatch(
@@ -100,6 +107,7 @@ export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDi
           new: infos.id,
           details: {
             ...res,
+            groupId: activeGroup,
             vocabulary: res.vocJpn,
           },
         };
@@ -107,7 +115,7 @@ export const update = (id: string, infos: Group.WordDetails) => (dispatch: AppDi
         dispatch(Actions.GROUP_WORD_UPDATE(payload));
       }
 
-      dispatch(push(Paths.PATHS_STUDY));
+      dispatch(goBack());
     })
   );
 
@@ -129,22 +137,23 @@ export const ignore = (word: string) => (dispatch: AppDispatch) =>
     })
   );
 
-export const ignoreWord = (word: string) => (dispatch: AppDispatch) =>
+export const ignoreWord = (details: Group.WordDetails | undefined) => (dispatch: AppDispatch) =>
   dispatch(
-    withLoading(async (state: RootState) => {
-      const { activeGroup } = state.group;
+    withLoading(async () => {
+      // error check
+      if (!details) return;
 
       // データ保存
-      dispatch(Actions.STUDY_IGNORE(word)).unwrap();
+      dispatch(Actions.STUDY_IGNORE(details.id)).unwrap();
 
       // データ保存
       dispatch(
         Actions.GROUP_WORD_REMOVE({
-          id: activeGroup,
-          word: word,
+          id: details.groupId,
+          word: details.id,
         })
       );
 
-      dispatch(push(Paths.PATHS_STUDY));
+      dispatch(goBack());
     })
   );

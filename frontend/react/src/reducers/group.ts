@@ -56,8 +56,13 @@ const slice = createSlice({
 
     // グループ単語の削除
     GROUP_WORD_REMOVE: (state, { payload: { id, word } }: PayloadAction<Payloads.RemoveWordInGroup>) => {
-      // 単語リスト
-      state.groupWords[id] = state.groupWords[id].filter((item) => item.id !== word);
+      const groupWords = state.groupWords[id];
+
+      // data not exists
+      if (groupWords) {
+        // 単語リスト
+        state.groupWords[id] = groupWords.filter((item) => item.id !== word);
+      }
     },
 
     // グループ単語の詳細
@@ -69,11 +74,13 @@ const slice = createSlice({
     GROUP_WORD_UPDATE: (state, { payload }: PayloadAction<Payloads.GroupWordUpdate>) => {
       const items = state.groupWords[state.activeGroup];
 
-      // remove old word and add new word
-      const oldIndex = items.findIndex((item) => item.id === payload.old);
-      items[oldIndex] = payload.details;
+      if (items) {
+        // remove old word and add new word
+        const oldIndex = items.findIndex((item) => item.id === payload.old);
+        items[oldIndex] = payload.details;
 
-      state.groupWords[state.activeGroup] = items;
+        state.groupWords[state.activeGroup] = items;
+      }
     },
 
     // 登録単語一覧を保管

@@ -43,9 +43,9 @@ export default () => {
   const handleTest = () => actions.startStudy(Consts.MODES.AllTest);
 
   // 詳細
-  const handleDetail = (id: string) => wrdActions.detail(id);
+  const handleDetail = (details: Group.WordSimple) => wrdActions.detail(details);
   // 削除
-  const handleDelete = (word: string) => wrdActions.deleteRow(activeGroup, word);
+  const handleDelete = (details: Group.WordSimple) => wrdActions.deleteRow(details);
   // 状態
   const handleStatus = () => grpActions.status();
 

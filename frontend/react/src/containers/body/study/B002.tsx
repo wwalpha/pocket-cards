@@ -48,7 +48,12 @@ export default () => {
 
   // 単語詳細表示
   const handleDetail = () => {
-    if (word) wrdActions.detail(word.id);
+    if (word) {
+      wrdActions.detail({
+        id: word.id,
+        groupId: word.groupId,
+      });
+    }
   };
 
   // 単語無視
