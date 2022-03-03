@@ -306,7 +306,7 @@ export namespace APIs {
   // Question
   // ------------------------------------------------------------
   interface QuestionRegistParams {
-    groupId: string;
+    setId: string;
   }
 
   interface QuestionRegistRequest {
@@ -314,4 +314,20 @@ export namespace APIs {
   }
 
   interface QuestionRegistResponse {}
+
+  // Study
+  interface QuestionStudyRequest {}
+
+  interface QuestionStudyResponse {
+    count: number;
+    questions: Tables.TQuestion[];
+  }
+
+  // Test
+  interface QuestionTestRequest {}
+
+  interface QuestionTestResponse {
+    count: number;
+    questions: Tables.TQuestion[];
+  }
 }

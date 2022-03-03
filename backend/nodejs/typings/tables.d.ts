@@ -1,10 +1,11 @@
 export namespace Tables {
   interface TQuestionKey {
     id: string;
-    groupId: string;
   }
 
   interface TQuestion extends TQuestionKey {
+    // グループID
+    setId: string;
     // 問題
     title: string;
     // 問題の説明

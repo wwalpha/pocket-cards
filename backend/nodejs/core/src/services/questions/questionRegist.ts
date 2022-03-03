@@ -7,16 +7,16 @@ import { APIs, Tables } from 'typings';
 /** 国語単語追加 */
 export default async (req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>): Promise<void> => {
   const input = req.body;
-  const groupId = req.params.groupId;
+  const setId = req.params.setId;
   const userId = Commons.getUserId(req);
 
   // ユーザのグループID 一覧
   const userGroups = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
-  const groupInfo = userGroups.Items.find((item) => item.id === groupId && item.userId === userId);
+  const groupInfo = userGroups.Items.find((item) => item.id === setId && item.userId === userId);
 
   // group not users
   if (!groupInfo) {
-    throw new Error(`Group is not exist. ${groupId}`);
+    throw new Error(`Set id is not exist. ${setId}`);
   }
 
   // regist
@@ -24,7 +24,7 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
     const items = item.split(',');
     const q: Tables.TQuestion = {
       id: generate(),
-      groupId: groupId,
+      setId: setId,
       title: items[0],
       description: items[1],
       choices: items[2].split('|'),

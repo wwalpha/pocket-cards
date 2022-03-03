@@ -2,7 +2,7 @@ import { Request } from 'express';
 import orderBy from 'lodash/orderBy';
 import { DBHelper, Logger, DateUtils, Commons, QueryUtils } from '@utils';
 import { Environment } from '@consts';
-import { Words, WordMaster, Groups } from '@queries';
+import { Words, Groups } from '@queries';
 import { APIs, Tables } from 'typings';
 
 /** 今日の再学習 */
@@ -11,7 +11,6 @@ export default async (req: Request): Promise<APIs.D005Response> => {
   const userId = Commons.getUserId(req);
   // ユーザのグループ一覧を取得する
   const userInfo = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
-
   const groups = userInfo.Items;
 
   // グループ存在しない
