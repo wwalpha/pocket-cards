@@ -55,6 +55,7 @@ export namespace APIs {
   // ------------------------------------------------------------
   interface B001Request {
     name: string;
+    subject: string;
     description?: string;
   }
 
@@ -300,4 +301,17 @@ export namespace APIs {
   interface E002Request extends Tables.TWordMaster {}
 
   type E002Response = Tables.TWordMaster;
+
+  // ------------------------------------------------------------
+  // Question
+  // ------------------------------------------------------------
+  interface QuestionRegistParams {
+    groupId: string;
+  }
+
+  interface QuestionRegistRequest {
+    questions: string[];
+  }
+
+  interface QuestionRegistResponse {}
 }

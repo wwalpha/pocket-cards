@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
+import { A002 } from '@src/services/a0';
 import { B001, B002, B003, B004, B005, B006 } from '@src/services/b0';
 import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/services/c0';
 import { D001, D003, D004, D005, D006 } from '@src/services/d0';
@@ -18,6 +19,10 @@ app.use(cors());
 app.options('*', (_, res) => res.sendStatus(200));
 // health check
 app.get('/v1', (_, res) => res.send('v3.1.0'));
+
+// ユーザ学習履歴
+app.get('/v1/history', express.json(), (req, res) => entry(req, res, A002));
+
 // グループ新規
 app.put('/v1/groups', express.json(), (req, res) => entry(req, res, B001));
 // グループ一覧

@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { DBHelper, Commons } from '@utils';
-import { APIs } from 'typings';
+import { APIs, Tables } from 'typings';
 import { Groups } from '@queries';
 
 /**
@@ -12,14 +12,21 @@ export default async (req: Request<APIs.B004Params, void, APIs.B004Request, any>
   const groupId = req.params.groupId;
   const item = req.body;
 
-  // データ更新
-  await DBHelper().put(
-    Groups.put({
+  const result = await DBHelper().get<Tables.TGroups>(
+    Groups.get({
       id: groupId,
-      userId,
-      name: item.name,
-      count: 0,
-      description: item.description,
+      userId: userId,
     })
   );
+
+  if (result?.Item) {
+    // データ更新
+    await DBHelper().put(
+      Groups.put({
+        ...result.Item,
+        name: item.name,
+        description: item.description,
+      })
+    );
+  }
 };

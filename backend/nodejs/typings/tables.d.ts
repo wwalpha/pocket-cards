@@ -1,4 +1,26 @@
 export namespace Tables {
+  interface TQuestionKey {
+    id: string;
+    groupId: string;
+  }
+
+  interface TQuestion extends TQuestionKey {
+    // 問題
+    title: string;
+    // 問題の説明
+    description: string;
+    // 選択肢
+    choices: string[];
+    // 回答
+    answer?: string;
+    // 次の学習時間
+    nextTime: string;
+    // 最後の学習時間
+    lastTime?: string;
+    // 学習回数
+    times: number;
+  }
+
   interface TWordsKey {
     // 単語
     id: string;
@@ -72,6 +94,8 @@ export namespace Tables {
     description?: string;
     // 単語数
     count: number;
+    // 科目
+    subject: string;
   }
 
   interface HistoriesKey {

@@ -24,6 +24,7 @@ export default async (req: Request<any, any, APIs.B001Request, any>): Promise<AP
     Groups.put({
       id: uuid,
       userId,
+      subject: item.subject,
       count: 0,
       ...values,
     })

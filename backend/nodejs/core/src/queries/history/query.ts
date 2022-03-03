@@ -7,7 +7,7 @@ import { Environment } from '@consts';
 export const byUserId = (user: string, timestamp: string) =>
   ({
     TableName: Environment.TABLE_NAME_HISTORIES,
-    ProjectionExpression: 'user, #timestamp, times, lastTime',
+    ProjectionExpression: '#user, #timestamp, times, lastTime',
     KeyConditionExpression: '#user = :user and #timestamp >= :timestamp',
     ExpressionAttributeNames: {
       '#user': 'user',
