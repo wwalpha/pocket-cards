@@ -157,7 +157,7 @@ resource "aws_dynamodb_table" "questions" {
   }
 
   attribute {
-    name = "groupId"
+    name = "setId"
     type = "S"
   }
 
@@ -168,7 +168,7 @@ resource "aws_dynamodb_table" "questions" {
 
   global_secondary_index {
     name            = "gsiIdx1"
-    hash_key        = "groupId"
+    hash_key        = "setId"
     range_key       = "nextTime"
     projection_type = "ALL"
   }

@@ -18,6 +18,7 @@ TABLE_NAME_WORDS=${local.dynamodb_name_words}
 TABLE_NAME_WORD_MASTER=${local.dynamodb_name_word_master}
 TABLE_NAME_WORD_IGNORE=${local.dynamodb_name_word_ignore}
 TABLE_NAME_HISTORIES=${local.dynamodb_name_histories}
+TABLE_NAME_QUESTIONS=${local.dynamodb_name_questions}
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
 PATH_PATTERN=audio
 TZ=Asia/Tokyo
