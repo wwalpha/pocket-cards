@@ -3,28 +3,40 @@
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_bucket" "archive" {
   bucket = local.bucket_name_archive
-  acl    = "private"
+}
 
-  lifecycle_rule {
-    enabled = true
+# ----------------------------------------------------------------------------------------------
+# Amazon S3 (画像保存用) LifeCycle
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_bucket_lifecycle_configuration" "archive_images" {
+  bucket = aws_s3_bucket.archive.id
 
-    prefix = "images/"
+  rule {
+    id = "images"
 
-    // 7日後削除
     expiration {
       days = 7
     }
+
+    filter {
+      prefix = "images/"
+    }
+
+    status = "Enabled"
   }
 
-  lifecycle_rule {
-    enabled = true
+  rule {
+    id = "frontend"
 
-    prefix = "frontend/"
-
-    // 90日後削除
     expiration {
-      days = 90
+      days = 30
     }
+
+    filter {
+      prefix = "frontend/"
+    }
+
+    status = "Enabled"
   }
 }
 
@@ -33,13 +45,12 @@ resource "aws_s3_bucket" "archive" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_bucket" "frontend" {
   bucket = local.bucket_name_frontend
-  acl    = "private"
 }
 
 # ----------------------------------------------------------------------------------------------
 # DEMO SITE
 # ----------------------------------------------------------------------------------------------
-resource "aws_s3_bucket_object" "this" {
+resource "aws_s3_object" "this" {
   for_each     = fileset("website/", "**/*.*")
   bucket       = aws_s3_bucket.frontend.id
   key          = each.value

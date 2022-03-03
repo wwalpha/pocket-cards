@@ -141,3 +141,35 @@ resource "aws_dynamodb_table" "word_ignore" {
     type = "S"
   }
 }
+
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Words
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "questions" {
+  name         = local.dynamodb_name_questions
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  attribute {
+    name = "groupId"
+    type = "S"
+  }
+
+  attribute {
+    name = "nextTime"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "gsiIdx1"
+    hash_key        = "groupId"
+    range_key       = "nextTime"
+    projection_type = "ALL"
+  }
+}

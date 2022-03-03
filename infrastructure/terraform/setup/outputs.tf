@@ -43,6 +43,9 @@ output "dynamodb_name_word_ignore" {
 output "dynamodb_name_histories" {
   value = aws_dynamodb_table.histories.name
 }
+output "dynamodb_name_questions" {
+  value = aws_dynamodb_table.questions.name
+}
 
 # ----------------------------------------------------------------------------------------------
 # Route53 DNS Servers
