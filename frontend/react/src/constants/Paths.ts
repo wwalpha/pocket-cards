@@ -54,6 +54,8 @@ export const PATHS_TODOS = ROUTE_PATHS[ROUTE_PATH_INDEX.Todos];
 
 export const PATHS_GROUPS = ROUTE_PATHS[ROUTE_PATH_INDEX.Groups];
 
+export const PATHS_MYPAGE = ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage];
+
 export const ROUTE_INFO: App.PathInfo = {
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Root]]: {
     showBack: false,
