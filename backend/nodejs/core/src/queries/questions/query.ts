@@ -11,12 +11,12 @@ export const test = (setId: string, nextTime: string): DynamoDB.DocumentClient.Q
   KeyConditionExpression: '#setId = :setId and #nextTime <= :nextTime',
   FilterExpression: '#times <> :times',
   ExpressionAttributeNames: {
-    '#groupId': 'groupId',
+    '#setId': 'setId',
     '#nextTime': 'nextTime',
     '#times': 'times',
   },
   ExpressionAttributeValues: {
-    ':groupId': setId,
+    ':setId': setId,
     ':nextTime': nextTime,
     ':times': 0,
   },
