@@ -6,9 +6,15 @@ import { Groups, Questions } from '@queries';
 import { APIs, Tables } from 'typings';
 
 /** 今日のテスト */
-export default async (req: Request): Promise<APIs.QuestionStudyResponse> => {
+export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Promise<APIs.QuestionStudyResponse> => {
   // ユーザID
   const userId = Commons.getUserId(req);
+  const subject = req.query.subject;
+
+  // 科目選択されていない
+  if (!subject) {
+    throw new Error('Please select subject.');
+  }
 
   // ユーザのグループ一覧を取得する
   const userInfo = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
