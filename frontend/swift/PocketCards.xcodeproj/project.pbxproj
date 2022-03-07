@@ -12,6 +12,11 @@
 		9A2949C927D58500004279A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949C827D58500004279A8 /* ContentView.swift */; };
 		9A2949CB27D58500004279A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A2949CA27D58500004279A8 /* Assets.xcassets */; };
 		9A2949CE27D58500004279A8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A2949CD27D58500004279A8 /* Preview Assets.xcassets */; };
+		9A2949D827D586B9004279A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949D727D586B9004279A8 /* AppDelegate.swift */; };
+		9A2949DB27D586E4004279A8 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949DA27D586E4004279A8 /* Alamofire.swift */; };
+		9A2949DD27D58704004279A8 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949DC27D58704004279A8 /* TokenManager.swift */; };
+		9A2949DF27D58727004279A8 /* Authencation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949DE27D58727004279A8 /* Authencation.swift */; };
+		9A2949E127D58775004279A8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949E027D58775004279A8 /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		9A2949CA27D58500004279A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A2949CD27D58500004279A8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9A2949D427D58604004279A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9A2949D727D586B9004279A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9A2949DA27D586E4004279A8 /* Alamofire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
+		9A2949DC27D58704004279A8 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		9A2949DE27D58727004279A8 /* Authencation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authencation.swift; sourceTree = "<group>"; };
+		9A2949E027D58775004279A8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		AF33037E5DC5E8CF388AACB9 /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5C607703176596A0DB88F52 /* Pods-PocketCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.debug.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,9 +86,13 @@
 		9A2949C527D58500004279A8 /* PocketCards */ = {
 			isa = PBXGroup;
 			children = (
+				9A2949D927D586D1004279A8 /* Utils */,
+				9A2949D627D586A9004279A8 /* Scenes */,
+				9A2949D527D586A0004279A8 /* Models */,
 				9A2949D427D58604004279A8 /* Info.plist */,
 				9A2949C627D58500004279A8 /* PocketCardsApp.swift */,
 				9A2949C827D58500004279A8 /* ContentView.swift */,
+				9A2949D727D586B9004279A8 /* AppDelegate.swift */,
 				9A2949CA27D58500004279A8 /* Assets.xcassets */,
 				9A2949CC27D58500004279A8 /* Preview Content */,
 			);
@@ -91,6 +105,31 @@
 				9A2949CD27D58500004279A8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9A2949D527D586A0004279A8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9A2949E027D58775004279A8 /* Colors.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9A2949D627D586A9004279A8 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		9A2949D927D586D1004279A8 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9A2949DA27D586E4004279A8 /* Alamofire.swift */,
+				9A2949DC27D58704004279A8 /* TokenManager.swift */,
+				9A2949DE27D58727004279A8 /* Authencation.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,7 +246,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2949D827D586B9004279A8 /* AppDelegate.swift in Sources */,
 				9A2949C927D58500004279A8 /* ContentView.swift in Sources */,
+				9A2949DD27D58704004279A8 /* TokenManager.swift in Sources */,
+				9A2949E127D58775004279A8 /* Colors.swift in Sources */,
+				9A2949DB27D586E4004279A8 /* Alamofire.swift in Sources */,
+				9A2949DF27D58727004279A8 /* Authencation.swift in Sources */,
 				9A2949C727D58500004279A8 /* PocketCardsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
