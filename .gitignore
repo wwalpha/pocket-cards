@@ -9,3 +9,6 @@ yarn.lock
 .nyc_output
 .env.credentials
 coverage
+awsconfiguration.json
+amplifyconfiguration.json
+Pods
