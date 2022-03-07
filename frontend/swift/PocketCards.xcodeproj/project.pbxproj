@@ -17,6 +17,25 @@
 		9A2949DD27D58704004279A8 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949DC27D58704004279A8 /* TokenManager.swift */; };
 		9A2949DF27D58727004279A8 /* Authencation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949DE27D58727004279A8 /* Authencation.swift */; };
 		9A2949E127D58775004279A8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949E027D58775004279A8 /* Colors.swift */; };
+		9A2949E527D592D0004279A8 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949E427D592D0004279A8 /* Question.swift */; };
+		9A2949E827D59396004279A8 /* QuestionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949E727D59396004279A8 /* QuestionServices.swift */; };
+		9A2949EB27D59448004279A8 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949EA27D59448004279A8 /* RootView.swift */; };
+		9A2949EF27D59466004279A8 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949EE27D59466004279A8 /* RootRouter.swift */; };
+		9A2949F327D59495004279A8 /* RootContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949F227D59495004279A8 /* RootContract.swift */; };
+		9A2949F627D59A3B004279A8 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949F527D59A3B004279A8 /* LoginView.swift */; };
+		9A2949FE27D59B13004279A8 /* ChoiceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2949FD27D59B13004279A8 /* ChoiceButton.swift */; };
+		9A294A0127D59BAD004279A8 /* ChoiceQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A294A0027D59BAD004279A8 /* ChoiceQuestion.swift */; };
+		9A294A0527D59D3B004279A8 /* LanguageHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A294A0427D59D3B004279A8 /* LanguageHomeView.swift */; };
+		9A294A0727D59D4E004279A8 /* LanguageHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A294A0627D59D4E004279A8 /* LanguageHomeRouter.swift */; };
+		9A294A0A27D59D6C004279A8 /* DailyStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A294A0927D59D6C004279A8 /* DailyStudyView.swift */; };
+		9A294A0C27D59EA9004279A8 /* DailyStudyContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A294A0B27D59EA9004279A8 /* DailyStudyContract.swift */; };
+		9A294A0E27D59EB5004279A8 /* DailyStudyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A294A0D27D59EB5004279A8 /* DailyStudyInteractor.swift */; };
+		9A294A1027D59EC7004279A8 /* DailyStudyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A294A0F27D59EC7004279A8 /* DailyStudyPresenter.swift */; };
+		9A294A1227D5A0D0004279A8 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A294A1127D5A0D0004279A8 /* Consts.swift */; };
+		9A294A1627D5A622004279A8 /* DailyStudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A294A1527D5A622004279A8 /* DailyStudyViewModel.swift */; };
+		9A294A1827D5AA42004279A8 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A294A1727D5AA42004279A8 /* amplifyconfiguration.json */; };
+		9A294A1A27D5AA47004279A8 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 9A294A1927D5AA47004279A8 /* awsconfiguration.json */; };
+		9ACF5E5327D5EDE000CFCC38 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACF5E5227D5EDE000CFCC38 /* SwiftUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +51,25 @@
 		9A2949DC27D58704004279A8 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		9A2949DE27D58727004279A8 /* Authencation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authencation.swift; sourceTree = "<group>"; };
 		9A2949E027D58775004279A8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		9A2949E427D592D0004279A8 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		9A2949E727D59396004279A8 /* QuestionServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionServices.swift; sourceTree = "<group>"; };
+		9A2949EA27D59448004279A8 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		9A2949EE27D59466004279A8 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
+		9A2949F227D59495004279A8 /* RootContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContract.swift; sourceTree = "<group>"; };
+		9A2949F527D59A3B004279A8 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		9A2949FD27D59B13004279A8 /* ChoiceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceButton.swift; sourceTree = "<group>"; };
+		9A294A0027D59BAD004279A8 /* ChoiceQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceQuestion.swift; sourceTree = "<group>"; };
+		9A294A0427D59D3B004279A8 /* LanguageHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageHomeView.swift; sourceTree = "<group>"; };
+		9A294A0627D59D4E004279A8 /* LanguageHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageHomeRouter.swift; sourceTree = "<group>"; };
+		9A294A0927D59D6C004279A8 /* DailyStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStudyView.swift; sourceTree = "<group>"; };
+		9A294A0B27D59EA9004279A8 /* DailyStudyContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStudyContract.swift; sourceTree = "<group>"; };
+		9A294A0D27D59EB5004279A8 /* DailyStudyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStudyInteractor.swift; sourceTree = "<group>"; };
+		9A294A0F27D59EC7004279A8 /* DailyStudyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStudyPresenter.swift; sourceTree = "<group>"; };
+		9A294A1127D5A0D0004279A8 /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
+		9A294A1527D5A622004279A8 /* DailyStudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStudyViewModel.swift; sourceTree = "<group>"; };
+		9A294A1727D5AA42004279A8 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = SOURCE_ROOT; };
+		9A294A1927D5AA47004279A8 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
+		9ACF5E5227D5EDE000CFCC38 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		AF33037E5DC5E8CF388AACB9 /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5C607703176596A0DB88F52 /* Pods-PocketCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.debug.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,15 +124,19 @@
 		9A2949C527D58500004279A8 /* PocketCards */ = {
 			isa = PBXGroup;
 			children = (
+				9A2949FB27D59AF2004279A8 /* Components */,
+				9A2949E227D59230004279A8 /* Domain */,
 				9A2949D927D586D1004279A8 /* Utils */,
 				9A2949D627D586A9004279A8 /* Scenes */,
-				9A2949D527D586A0004279A8 /* Models */,
 				9A2949D427D58604004279A8 /* Info.plist */,
 				9A2949C627D58500004279A8 /* PocketCardsApp.swift */,
 				9A2949C827D58500004279A8 /* ContentView.swift */,
 				9A2949D727D586B9004279A8 /* AppDelegate.swift */,
+				9A294A1927D5AA47004279A8 /* awsconfiguration.json */,
+				9A294A1727D5AA42004279A8 /* amplifyconfiguration.json */,
 				9A2949CA27D58500004279A8 /* Assets.xcassets */,
 				9A2949CC27D58500004279A8 /* Preview Content */,
+				9ACF5E5227D5EDE000CFCC38 /* SwiftUIView.swift */,
 			);
 			path = PocketCards;
 			sourceTree = "<group>";
@@ -110,7 +152,7 @@
 		9A2949D527D586A0004279A8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9A2949E027D58775004279A8 /* Colors.swift */,
+				9A2949E427D592D0004279A8 /* Question.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -118,6 +160,11 @@
 		9A2949D627D586A9004279A8 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9A294A0327D59D15004279A8 /* DailyTest */,
+				9A294A0227D59D0E004279A8 /* DailyStudy */,
+				9A2949F727D59A7D004279A8 /* Language */,
+				9A2949F427D59A21004279A8 /* Login */,
+				9A2949E927D5940E004279A8 /* Root */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -126,10 +173,108 @@
 			isa = PBXGroup;
 			children = (
 				9A2949DA27D586E4004279A8 /* Alamofire.swift */,
-				9A2949DC27D58704004279A8 /* TokenManager.swift */,
 				9A2949DE27D58727004279A8 /* Authencation.swift */,
+				9A2949E027D58775004279A8 /* Colors.swift */,
+				9A2949DC27D58704004279A8 /* TokenManager.swift */,
+				9A294A1127D5A0D0004279A8 /* Consts.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		9A2949E227D59230004279A8 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				9A2949E627D59336004279A8 /* Services */,
+				9A2949D527D586A0004279A8 /* Models */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		9A2949E627D59336004279A8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9A2949E727D59396004279A8 /* QuestionServices.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9A2949E927D5940E004279A8 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				9A2949F227D59495004279A8 /* RootContract.swift */,
+				9A2949EA27D59448004279A8 /* RootView.swift */,
+				9A2949EE27D59466004279A8 /* RootRouter.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		9A2949F427D59A21004279A8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9A2949F527D59A3B004279A8 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		9A2949F727D59A7D004279A8 /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				9A2949F827D59A84004279A8 /* Home */,
+			);
+			path = Language;
+			sourceTree = "<group>";
+		};
+		9A2949F827D59A84004279A8 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9A294A0427D59D3B004279A8 /* LanguageHomeView.swift */,
+				9A294A0627D59D4E004279A8 /* LanguageHomeRouter.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		9A2949FB27D59AF2004279A8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9A2949FF27D59B7A004279A8 /* View */,
+				9A2949FC27D59AFB004279A8 /* Button */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9A2949FC27D59AFB004279A8 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				9A2949FD27D59B13004279A8 /* ChoiceButton.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		9A2949FF27D59B7A004279A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9A294A0027D59BAD004279A8 /* ChoiceQuestion.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9A294A0227D59D0E004279A8 /* DailyStudy */ = {
+			isa = PBXGroup;
+			children = (
+				9A294A0B27D59EA9004279A8 /* DailyStudyContract.swift */,
+				9A294A0D27D59EB5004279A8 /* DailyStudyInteractor.swift */,
+				9A294A0F27D59EC7004279A8 /* DailyStudyPresenter.swift */,
+				9A294A0927D59D6C004279A8 /* DailyStudyView.swift */,
+				9A294A1527D5A622004279A8 /* DailyStudyViewModel.swift */,
+			);
+			path = DailyStudy;
+			sourceTree = "<group>";
+		};
+		9A294A0327D59D15004279A8 /* DailyTest */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DailyTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,7 +337,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A294A1A27D5AA47004279A8 /* awsconfiguration.json in Resources */,
 				9A2949CE27D58500004279A8 /* Preview Assets.xcassets in Resources */,
+				9A294A1827D5AA42004279A8 /* amplifyconfiguration.json in Resources */,
 				9A2949CB27D58500004279A8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,11 +394,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A2949D827D586B9004279A8 /* AppDelegate.swift in Sources */,
+				9A294A0E27D59EB5004279A8 /* DailyStudyInteractor.swift in Sources */,
+				9ACF5E5327D5EDE000CFCC38 /* SwiftUIView.swift in Sources */,
+				9A2949E527D592D0004279A8 /* Question.swift in Sources */,
+				9A294A1227D5A0D0004279A8 /* Consts.swift in Sources */,
+				9A294A0A27D59D6C004279A8 /* DailyStudyView.swift in Sources */,
+				9A294A0127D59BAD004279A8 /* ChoiceQuestion.swift in Sources */,
+				9A294A0C27D59EA9004279A8 /* DailyStudyContract.swift in Sources */,
+				9A2949F627D59A3B004279A8 /* LoginView.swift in Sources */,
 				9A2949C927D58500004279A8 /* ContentView.swift in Sources */,
+				9A2949F327D59495004279A8 /* RootContract.swift in Sources */,
+				9A2949EF27D59466004279A8 /* RootRouter.swift in Sources */,
+				9A294A1627D5A622004279A8 /* DailyStudyViewModel.swift in Sources */,
 				9A2949DD27D58704004279A8 /* TokenManager.swift in Sources */,
+				9A2949EB27D59448004279A8 /* RootView.swift in Sources */,
 				9A2949E127D58775004279A8 /* Colors.swift in Sources */,
+				9A2949E827D59396004279A8 /* QuestionServices.swift in Sources */,
+				9A294A0527D59D3B004279A8 /* LanguageHomeView.swift in Sources */,
+				9A294A0727D59D4E004279A8 /* LanguageHomeRouter.swift in Sources */,
 				9A2949DB27D586E4004279A8 /* Alamofire.swift in Sources */,
+				9A2949FE27D59B13004279A8 /* ChoiceButton.swift in Sources */,
 				9A2949DF27D58727004279A8 /* Authencation.swift in Sources */,
+				9A294A1027D59EC7004279A8 /* DailyStudyPresenter.swift in Sources */,
 				9A2949C727D58500004279A8 /* PocketCardsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
