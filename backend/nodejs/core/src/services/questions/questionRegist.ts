@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
+import isEmpty from 'lodash/isEmpty';
 import { Commons, DBHelper } from '@utils';
 import { Groups, Questions } from '@queries';
 import { APIs, Tables } from 'typings';
@@ -26,8 +27,8 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
       id: generate(),
       setId: groupId,
       title: items[0],
-      description: items[1],
-      choices: items[2].split('|'),
+      description: !isEmpty(items[1]) ? item[1] : undefined,
+      choices: !isEmpty(items[2]) ? items[2].split('|') : undefined,
       answer: items[3],
       times: 0,
       nextTime: '19000101',
