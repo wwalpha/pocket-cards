@@ -26,7 +26,7 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
         let params = ["subject": self.subject]
 
         API.request(URLs.STUDY, method: .get, parameters: params)
-            .responseDecodable(of: QuestionService.LoadQuestion.Response.self) { response in
+            .responseDecodable(of: QuestionServiceEnum.LoadQuestion.Response.self) { response in
                 guard let res = response.value else { return }
 
                 print("==HUB== \(res)")
@@ -46,6 +46,15 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
             }
     }
     
+    func onAction(correct: Bool) {
+        // wrong answer
+        if !correct {
+            self.questions.append(current!)
+        }
+
+        self.next()
+    }
+    
     func onChoice(choice: String) {
         if choice == current?.answer {
             if isAnswered {
@@ -59,18 +68,6 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
         }
     }
 
-    func onKnown() {
-        // remove known question
-//        questions.remove(at: index)
-//
-//        index -= 1
-//        self.next()
-    }
-    
-    func onUnknown() {
-//        self.next()
-    }
-    
     private func next() {
         current = self.questions.removeFirst()
         

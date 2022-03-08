@@ -10,10 +10,10 @@ import SwiftUI
 class LanguageHomeRouter {
     
     func makeStudyiew() -> some View {
-        return DailyStudyView().configureView()
+        return DailyStudyView(subject: SUBJECT.LANGUAGE).configureView()
     }
     
     func makeTestView() -> some View {
-        return DailyStudyView()
+        return DailyStudyView(subject: SUBJECT.LANGUAGE).configureView()
     }
 }

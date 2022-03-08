@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var auth: Authentication
+    
     var body: some View {
-        if (Auth.isSignedIn) {
+        if (auth.isSignedIn) {
             NavigationView {
                 RootView().configureView()
             }
@@ -17,6 +19,9 @@ struct ContentView: View {
         } else {
             LoginView()
         }
+//        FlashCard(question: "Front Side", answer: "Back Side") { correct in
+//            print(correct)
+//        }
     }
 }
 

@@ -1,14 +1,14 @@
 //
-//  LanguageHomeView.swift
+//  ScienceHomeView.swift
 //  PocketCards
 //
-//  Created by macmini on 2022/03/07.
+//  Created by macmini on 2022/03/08.
 //
 
 import SwiftUI
 
-struct LanguageHomeView: View {
-    private var router: LanguageHomeRouter?
+struct ScienceHomeView: View {
+    private var router: ScienceHomeRouter?
     
     var body: some View {
         VStack {
@@ -20,7 +20,7 @@ struct LanguageHomeView: View {
                     .foregroundColor(Color.white)
                     .font(.largeTitle)
                     .frame(width: 360, alignment: .center)
-                    .background(Color.language)
+                    .background(Color.science)
             }.padding(16)
             
             NavigationLink(destination: router?.makeStudyiew()) {
@@ -29,28 +29,28 @@ struct LanguageHomeView: View {
                     .foregroundColor(Color.white)
                     .font(.largeTitle)
                     .frame(width: 360, alignment: .center)
-                    .background(Color.language)
+                    .background(Color.science)
             }.padding(16)
             
             Spacer()
         }
         .padding()
-        .navigationTitle("国語")
+        .navigationTitle("理科")
     }
 }
 
-extension LanguageHomeView {
+extension ScienceHomeView {
     func configureView() -> some View {
         var view = self
-        let router = LanguageHomeRouter()
+        let router = ScienceHomeRouter()
         view.router = router
         
         return view
     }
 }
 
-struct LanguageHomeView_Previews: PreviewProvider {
+struct ScienceHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        LanguageHomeView()
+        ScienceHomeView()
     }
 }

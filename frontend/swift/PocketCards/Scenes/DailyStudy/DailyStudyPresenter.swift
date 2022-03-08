@@ -16,7 +16,7 @@ extension DailyStudyPresenter: DailyStudyPresentationLogic {
     func showNext(q: Question) {
         let title = q.description.isEmpty ? q.title : "\(q.title)\n\n\(q.description)"
         
-        view?.showNext(title: title, choices: q.choices)
+        view?.showNext(title: title,  choices: q.choices, answer: q.answer)
     }
     
     func showError(index: String) {

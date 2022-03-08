@@ -2,7 +2,7 @@
 //  PocketCardsApp.swift
 //  PocketCards
 //
-//  Created by macmini on 2022/03/07.
+//  Created by macmini on 2022/03/08.
 //
 
 import SwiftUI
@@ -13,8 +13,9 @@ struct PocketCardsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(appDelegate.auth)
+            ContentView().onAppear {
+                Auth.initialize()
+            }.environmentObject(Auth)
         }
     }
 }

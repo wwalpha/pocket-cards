@@ -4,13 +4,17 @@
 //
 //  Created by macmini on 2022/03/07.
 //
-
 import SwiftUI
 
 struct DailyStudyView: View {
     var interactor: DailyStudyBusinessLogic?
+    private var subject: String;
     
     @ObservedObject var viewModel = DailyStudyViewModel()
+    
+    init(subject:String) {
+        self.subject = subject
+    }
     
     var body: some View {
         if viewModel.title.isEmpty {
@@ -21,24 +25,36 @@ struct DailyStudyView: View {
         } else if viewModel.title == "Nothing" {
             Text("Nothing....")
         } else {
-            ChoiceQuestion(
-                question: viewModel.title,
-                choices: viewModel.choices,
-                isShowError: viewModel.isShowError,
-                onChoice: interactor!.onChoice
-            )
+            // Language
+            if subject == SUBJECT.LANGUAGE {
+                ChoiceQuestion(
+                    question: viewModel.title,
+                    choices: viewModel.choices,
+                    isShowError: viewModel.isShowError,
+                    onChoice: interactor!.onChoice
+                )
+            } else {
+                // Society or Science
+                FlashCard(
+                    question: viewModel.title,
+                    answer: viewModel.answer,
+                    action: interactor!.onAction
+                )
+            }
         }
     }
 }
 
 extension DailyStudyView: DailyStudyDisplayLogic {
+
     func showError(index: String) {
         self.viewModel.isShowError = index
     }
     
-    func showNext(title: String, choices: [String]) {
+    func showNext(title: String, choices: [String], answer: String) {
         self.viewModel.title = title
         self.viewModel.choices = choices
+        self.viewModel.answer = answer
         self.viewModel.isShowError = ""
     }
     
@@ -63,6 +79,6 @@ extension DailyStudyView {
 
 struct DailyStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyStudyView()
+        DailyStudyView(subject: SUBJECT.LANGUAGE)
     }
 }

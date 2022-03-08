@@ -12,43 +12,43 @@ struct RootView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                // Language button
-                NavigationLink(destination: router?.makeLanguageHomeView()) {
-                    Text("Language")
-                        .padding()
-                        .foregroundColor(Color.white)
-                        .font(.largeTitle)
-                        .frame(width: 200, height: 100, alignment: .center)
-                        .background(Color.language)
-                }
-                
-                Spacer()
-                
-                //                    // Society button
-                //                    presenter.linkSocietyHome {
-                //                        Text("Society")
-                //                            .padding()
-                //                            .foregroundColor(Color.white)
-                //                            .font(.largeTitle)
-                //                            .frame(width: 200, height: 100,alignment: .center)
-                //                            .background(Color.blue)
-                //
-                //                    }
-                //
-                //                    Spacer()
-                //
-                //                    presenter.linkScienceHome {
-                //                        // Science button
-                //                        Text("Science")
-                //                            .padding()
-                //                            .foregroundColor(Color.white)
-                //                            .font(.largeTitle)
-                //                            .frame(width: 200, height: 100,alignment: .center)
-                //                            .background(Color.blue)
-                //                    }
-                
-            }.padding(.horizontal, 150)
+            Spacer()
+            
+            // Language button
+            NavigationLink(destination: router?.makeLanguageHomeView()) {
+                Text("Language")
+                    .foregroundColor(Color.white)
+                    .font(.largeTitle)
+                    .frame(width: 360, height: 120, alignment: .center)
+                    .background(Color.language)
+            }
+            .padding(16)
+            
+            
+            // Society button
+            NavigationLink(destination: router?.makeSocietyHomeView()) {
+                Text("Society")
+                    .padding(32)
+                    .foregroundColor(Color.white)
+                    .font(.largeTitle)
+                    .frame(width: 360, height: 120,alignment: .center)
+                    .background(Color.society)
+            }
+            .padding(16)
+            
+            NavigationLink(destination: router?.makeScienceHomeView()) {
+                // Science button
+                Text("Science")
+                    .padding(32)
+                    .foregroundColor(Color.white)
+                    .font(.largeTitle)
+                    .frame(width: 360, height: 120,alignment: .center)
+                    .background(Color.science)
+            }
+            .padding(16)
+
+            Spacer()
+            
         }.navigationTitle("Home")
     }
 }

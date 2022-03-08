@@ -14,10 +14,10 @@ class RootRouter {
     }
 
     func makeScienceHomeView() -> some View {
-        return RootView().configureView()
+        return ScienceHomeView().configureView()
     }
 
     func makeSocietyHomeView() -> some View {
-        return RootView().configureView()
+        return SocietyHomeView().configureView()
     }
 }

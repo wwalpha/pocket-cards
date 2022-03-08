@@ -35,6 +35,12 @@
 		9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD28D27D7394C0000A16B /* Colors.swift */; };
 		9A1FD2A527D7394C0000A16B /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD29027D7394C0000A16B /* Question.swift */; };
 		9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD29227D7394C0000A16B /* QuestionServices.swift */; };
+		9A7F876A27D747C800446E9D /* FlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F876927D747C700446E9D /* FlashCard.swift */; };
+		9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F876B27D7498600446E9D /* FlippingView.swift */; };
+		9A7F877227D7602500446E9D /* ScienceHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877127D7602500446E9D /* ScienceHomeRouter.swift */; };
+		9A7F877427D7603300446E9D /* ScienceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877327D7603300446E9D /* ScienceHomeView.swift */; };
+		9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877527D7604D00446E9D /* SocietyHomeView.swift */; };
+		9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +74,12 @@
 		9A1FD29027D7394C0000A16B /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		9A1FD29227D7394C0000A16B /* QuestionServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionServices.swift; sourceTree = "<group>"; };
 		9A1FD2A727D7406B0000A16B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9A7F876927D747C700446E9D /* FlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCard.swift; sourceTree = "<group>"; };
+		9A7F876B27D7498600446E9D /* FlippingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlippingView.swift; sourceTree = "<group>"; };
+		9A7F877127D7602500446E9D /* ScienceHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScienceHomeRouter.swift; sourceTree = "<group>"; };
+		9A7F877327D7603300446E9D /* ScienceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScienceHomeView.swift; sourceTree = "<group>"; };
+		9A7F877527D7604D00446E9D /* SocietyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeView.swift; sourceTree = "<group>"; };
+		9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeRouter.swift; sourceTree = "<group>"; };
 		9B6883D21AA546318D9DFDB4 /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F24140CE1BDC4A02837DB2D /* Pods-PocketCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.debug.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,7 +125,6 @@
 		9A1FD24B27D7369B0000A16B /* PocketCards */ = {
 			isa = PBXGroup;
 			children = (
-				9A1FD2A727D7406B0000A16B /* Info.plist */,
 				9A1FD27127D7394C0000A16B /* Components */,
 				9A1FD28E27D7394C0000A16B /* Domain */,
 				9A1FD27627D7394C0000A16B /* Scenes */,
@@ -124,7 +135,9 @@
 				9A1FD26427D738CF0000A16B /* AppDelegate.swift */,
 				9A1FD24E27D7369B0000A16B /* ContentView.swift */,
 				9A1FD25027D7369C0000A16B /* Assets.xcassets */,
+				9A1FD2A727D7406B0000A16B /* Info.plist */,
 				9A1FD25227D7369C0000A16B /* Preview Content */,
+				9A7F876B27D7498600446E9D /* FlippingView.swift */,
 			);
 			path = PocketCards;
 			sourceTree = "<group>";
@@ -158,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				9A1FD27527D7394C0000A16B /* ChoiceQuestion.swift */,
+				9A7F876927D747C700446E9D /* FlashCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -165,9 +179,11 @@
 		9A1FD27627D7394C0000A16B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				9A1FD27727D7394C0000A16B /* DailyTest */,
+				9A7F876F27D7600B00446E9D /* Society */,
+				9A7F876D27D75FEC00446E9D /* Science */,
 				9A1FD27827D7394C0000A16B /* Language */,
 				9A1FD27C27D7394C0000A16B /* Root */,
+				9A1FD27727D7394C0000A16B /* DailyTest */,
 				9A1FD28027D7394C0000A16B /* DailyStudy */,
 				9A1FD28627D7394C0000A16B /* Login */,
 			);
@@ -263,6 +279,40 @@
 				9A1FD29227D7394C0000A16B /* QuestionServices.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		9A7F876D27D75FEC00446E9D /* Science */ = {
+			isa = PBXGroup;
+			children = (
+				9A7F876E27D7600300446E9D /* Home */,
+			);
+			path = Science;
+			sourceTree = "<group>";
+		};
+		9A7F876E27D7600300446E9D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9A7F877127D7602500446E9D /* ScienceHomeRouter.swift */,
+				9A7F877327D7603300446E9D /* ScienceHomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		9A7F876F27D7600B00446E9D /* Society */ = {
+			isa = PBXGroup;
+			children = (
+				9A7F877027D7601400446E9D /* Home */,
+			);
+			path = Society;
+			sourceTree = "<group>";
+		};
+		9A7F877027D7601400446E9D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */,
+				9A7F877527D7604D00446E9D /* SocietyHomeView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		B09FBC9FFFA9B5A600498F48 /* Pods */ = {
@@ -395,6 +445,7 @@
 				9A1FD29327D7394C0000A16B /* ChoiceButton.swift in Sources */,
 				9A1FD29527D7394C0000A16B /* LanguageHomeRouter.swift in Sources */,
 				9A1FD26527D738CF0000A16B /* AppDelegate.swift in Sources */,
+				9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */,
 				9A1FD2A027D7394C0000A16B /* Consts.swift in Sources */,
 				9A1FD2A327D7394C0000A16B /* Alamofire.swift in Sources */,
 				9A1FD29E27D7394C0000A16B /* DailyStudyContract.swift in Sources */,
@@ -402,12 +453,17 @@
 				9A1FD2A527D7394C0000A16B /* Question.swift in Sources */,
 				9A1FD29427D7394C0000A16B /* ChoiceQuestion.swift in Sources */,
 				9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */,
+				9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */,
 				9A1FD29827D7394C0000A16B /* RootView.swift in Sources */,
 				9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */,
+				9A7F877427D7603300446E9D /* ScienceHomeView.swift in Sources */,
 				9A1FD29C27D7394C0000A16B /* DailyStudyInteractor.swift in Sources */,
 				9A1FD2A127D7394C0000A16B /* Authencation.swift in Sources */,
+				9A7F877227D7602500446E9D /* ScienceHomeRouter.swift in Sources */,
 				9A1FD29627D7394C0000A16B /* LanguageHomeView.swift in Sources */,
 				9A1FD24F27D7369B0000A16B /* ContentView.swift in Sources */,
+				9A7F876A27D747C800446E9D /* FlashCard.swift in Sources */,
+				9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */,
 				9A1FD29D27D7394C0000A16B /* DailyStudyPresenter.swift in Sources */,
 				9A1FD29A27D7394C0000A16B /* DailyStudyView.swift in Sources */,
 				9A1FD24D27D7369B0000A16B /* PocketCardsApp.swift in Sources */,

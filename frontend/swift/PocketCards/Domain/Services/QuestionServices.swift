@@ -5,9 +5,9 @@
 //  Created by macmini on 2022/03/07.
 //
 
-import Foundation
+import Combine
 
-enum QuestionService {
+enum QuestionServiceEnum {
     enum LoadQuestion {
         struct Request {}
         
@@ -22,3 +22,21 @@ enum QuestionService {
         }
     }
 }
+
+//class QuestionService {
+//
+//    func loadQuestion(subject: String) -> Future<[Question], Never> {
+//        return Future() { promise in
+//            let params = ["subject": subject]
+//
+//            API.request(URLs.STUDY, method: .get, parameters: params)
+//                .responseDecodable(of: QuestionServiceEnum.LoadQuestion.Response.self) { response in
+//                    guard let res = response.value else { return }
+//
+//                    print("==HUB== \(res)")
+//
+//                    promise(.success(res.questions))
+//                }
+//        }
+//    }
+//}

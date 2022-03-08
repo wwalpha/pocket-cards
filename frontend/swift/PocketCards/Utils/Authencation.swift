@@ -19,7 +19,9 @@ class Authentication: ObservableObject {
             switch payload.eventName {
             case HubPayload.EventName.Auth.signedIn:
                 print("==HUB== User signed In, update UI")
-                self.isSignedIn = true
+                DispatchQueue.main.async {
+                    self.isSignedIn = true
+                }
             case HubPayload.EventName.Auth.signedOut:
                 print("==HUB== User signed Out, update UI")
                 self.isSignedIn = false

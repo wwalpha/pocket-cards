@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DailyStudyDisplayLogic {
-    func showNext(title: String, choices: [String])
+    func showNext(title: String, choices: [String], answer: String)
 
     func showError(index: String)
     
@@ -20,9 +20,7 @@ protocol DailyStudyBusinessLogic {
     
     func onChoice(choice: String)
     
-    func onKnown()
-    
-    func onUnknown()
+    func onAction(correct: Bool)
 }
 
 protocol DailyStudyPresentationLogic {
