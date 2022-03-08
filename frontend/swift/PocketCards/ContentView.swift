@@ -2,16 +2,14 @@
 //  ContentView.swift
 //  PocketCards
 //
-//  Created by macmini on 2022/03/07.
+//  Created by macmini on 2022/03/08.
 //
 
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var auth: Authentication
-
     var body: some View {
-        if (auth.isSignedIn) {
+        if (Auth.isSignedIn) {
             NavigationView {
                 RootView().configureView()
             }

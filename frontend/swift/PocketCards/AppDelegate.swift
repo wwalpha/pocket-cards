@@ -7,9 +7,9 @@
 
 import Amplify
 import AmplifyPlugins
+import AWSPluginsCore
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    let auth = Authentication()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         do {
@@ -18,9 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             print("Amplify configured with auth plugin")
 
-            auth.eventListen()
-            // initialize
-            auth.initialize()
+            // listen
+            Auth.eventListen()
             
         } catch {
             print("Failed to initialize Amplify with \(error)")

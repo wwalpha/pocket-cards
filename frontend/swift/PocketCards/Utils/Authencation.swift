@@ -9,9 +9,11 @@ import Amplify
 import AmplifyPlugins
 import AWSPluginsCore
 
+let Auth = Authentication()
+
 class Authentication: ObservableObject {
     @Published var isSignedIn: Bool = false
-    
+
     func eventListen() -> Void {
         _ = Amplify.Hub.listen(to: .auth) { (payload) in
             switch payload.eventName {

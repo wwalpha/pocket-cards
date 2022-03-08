@@ -31,10 +31,11 @@ struct ChoiceButton: View {
     }
 }
 
-//struct ChoiceButtonView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//
-//        ChoiceButton(text: "12345", index: "1", isError: true,  answer: "")
-//    }
-//}
+struct ChoiceButtonView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        ChoiceButton(text: "12345", isError: true) {
+            print(111)
+        }
+    }
+}
