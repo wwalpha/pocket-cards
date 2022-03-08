@@ -135,10 +135,10 @@ resource "aws_cognito_user_pool_client" "this" {
     "profile"
   ]
   callback_urls = [
-    "https://www.${local.domain_name}/"
+    "https://www.${local.domain_name}/,myapp://"
   ]
   logout_urls = [
-    "https://www.${local.domain_name}/logout"
+    "https://www.${local.domain_name}/logout,myapp://"
   ]
   supported_identity_providers = [aws_cognito_identity_provider.google.provider_name]
   explicit_auth_flows = [
