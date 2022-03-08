@@ -96,7 +96,7 @@ export namespace Tables {
     // 単語数
     count: number;
     // 科目
-    subject: string;
+    subject?: string;
   }
 
   interface HistoriesKey {

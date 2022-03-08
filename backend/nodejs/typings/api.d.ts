@@ -334,4 +334,18 @@ export namespace APIs {
     count: number;
     questions: Tables.TQuestion[];
   }
+
+  // ------------------------------------------------------------
+  // Question Answer
+  // ------------------------------------------------------------
+  interface QuestionAnswerParams {
+    groupId: string;
+    questionId: string;
+  }
+
+  interface QuestionAnswerRequest {
+    correct?: boolean;
+  }
+
+  type QuestionAnswerResponse = void;
 }

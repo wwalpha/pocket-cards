@@ -7,7 +7,7 @@ import { B001, B002, B003, B004, B005, B006 } from '@src/services/b0';
 import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/services/c0';
 import { D001, D003, D004, D005, D006 } from '@src/services/d0';
 import { E001, E002 } from '@src/services/e0';
-import { QuestionRegist, QuestionStudy, QuestionTest } from '@src/services/questions';
+import { QuestionRegist, QuestionStudy, QuestionTest, QuestionAnswer } from '@src/services/questions';
 import entry from './entry';
 
 const app = express();
@@ -77,5 +77,8 @@ app.post('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(re
 app.get('/v1/questions/study', express.json(), (req, res) => entry(req, res, QuestionStudy));
 // 今日のテスト
 app.get('/v1/questions/test', express.json(), (req, res) => entry(req, res, QuestionTest));
+
+// 問題情報更新
+app.post('/v1/questions/:questionId/answer', express.json(), (req, res) => entry(req, res, QuestionAnswer as any));
 
 export default app;
