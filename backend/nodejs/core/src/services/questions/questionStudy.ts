@@ -28,7 +28,9 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
   // next study date
   const date = DateUtils.getNow();
   // get study items
-  const tasks = groups.map((item) => DBHelper().query<Tables.TQuestion>(Questions.query.study(item.id, date)));
+  const tasks = groups
+    .filter((item) => item.subject === subject)
+    .map((item) => DBHelper().query<Tables.TQuestion>(Questions.query.study(item.id, date)));
   // execute
   const results = await Promise.all(tasks);
 
