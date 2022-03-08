@@ -9,11 +9,11 @@ export namespace Tables {
     // 問題
     title: string;
     // 問題の説明
-    description: string;
+    description?: string;
     // 選択肢
-    choices: string[];
+    choices?: string[];
     // 回答
-    answer?: string;
+    answer: string;
     // 次の学習時間
     nextTime: string;
     // 最後の学習時間
