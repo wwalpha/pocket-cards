@@ -23,7 +23,7 @@ struct RootView: View {
                     .background(Color.language)
             }
             .padding(16)
-            
+
             
             // Society button
             NavigationLink(destination: router?.makeSocietyHomeView()) {
@@ -49,7 +49,15 @@ struct RootView: View {
 
             Spacer()
             
-        }.navigationTitle("Home")
+        }
+            .navigationTitle("Home")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Sign Out") {
+                        Auth.signOut()
+                    }
+                }
+            }
     }
 }
 

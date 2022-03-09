@@ -45,13 +45,15 @@ struct FlashCard: View {
                         }
                     }
                 }
-                .padding(64)
+                .padding(.horizontal,64)
+                .padding(.vertical, 32)
                 
                 HStack {
                     Spacer()
                     
                     Button(action: {
                         self.action(false)
+                        self.angle = 0.0
                     }, label: {
                         Text("知らない")
                             .frame(maxWidth: geo.size.width * 0.25, maxHeight: 64, alignment: .center)
@@ -65,6 +67,7 @@ struct FlashCard: View {
                     
                     Button(action: {
                         self.action(true)
+                        self.angle = 0.0
                     }, label: {
                         Text("知ってる")
                             .frame(maxWidth: geo.size.width * 0.25, maxHeight: 64, alignment: .center)
@@ -122,5 +125,6 @@ struct FlashCard_Previews: PreviewProvider {
         FlashCard(question: "Front Side", answer: "Back Side") { correct in
             print(correct)
         }
+.previewInterfaceOrientation(.landscapeLeft)
     }
 }

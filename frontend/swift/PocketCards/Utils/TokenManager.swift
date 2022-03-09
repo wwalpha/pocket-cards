@@ -19,6 +19,12 @@ class TokenManager {
         self.refreshToken = tokens.refreshToken
     }
     
+    func clear() {
+        self.accessToken = ""
+        self.idToken = ""
+        self.refreshToken = ""
+    }
+    
     func getIdToken() -> String {
         return self.idToken
     }

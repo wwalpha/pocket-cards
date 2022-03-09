@@ -51,9 +51,9 @@ extension DailyStudyView: DailyStudyDisplayLogic {
         self.viewModel.isShowError = index
     }
     
-    func showNext(title: String, choices: [String], answer: String) {
+    func showNext(title: String, answer: String, choices: [String]?) {
         self.viewModel.title = title
-        self.viewModel.choices = choices
+        self.viewModel.choices = choices != nil ? choices! : []
         self.viewModel.answer = answer
         self.viewModel.isShowError = ""
     }
@@ -66,7 +66,7 @@ extension DailyStudyView: DailyStudyDisplayLogic {
 extension DailyStudyView {
     func configureView() -> some View {
         var view = self
-        let interactor = DailyStudyInteractor(subject: SUBJECT.LANGUAGE)
+        let interactor = DailyStudyInteractor(subject: self.subject)
         let presenter = DailyStudyPresenter()
         
         view.interactor = interactor

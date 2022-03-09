@@ -24,8 +24,12 @@ class Authentication: ObservableObject {
                 }
             case HubPayload.EventName.Auth.signedOut:
                 print("==HUB== User signed Out, update UI")
-                self.isSignedIn = false
+                DispatchQueue.main.async {
+                    self.isSignedIn = false
+                }
             case HubPayload.EventName.Auth.sessionExpired:
+                print("==HUB== Session expired, show sign in aui")
+            case HubPayload.EventName.Auth.fetchSessionAPI:
                 print("==HUB== Session expired, show sign in aui")
             default:
                 print("==HUB== \(payload)")
@@ -56,21 +60,25 @@ class Authentication: ObservableObject {
     }
     
     func signIn() {
-        _ = Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: UIApplication.shared.windows.first!) { result in
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        
+        _ = Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: window!, options: .preferPrivateSession()) { result in
             switch(result) {
             case .success(let result):
                 print(result)
                 
                 // fetch user details
-                _ = Amplify.Auth.fetchUserAttributes() { (result) in
+                _ = Amplify.Auth.fetchUserAttributes() { result in
                     switch result {
                     case .success(let session):
                         print(session)
+                        self.initialize()
                     case .failure(let error):
                         print(error)
                     }
                 }
-                
             case .failure(let error):
                 print("Can not signin \(error)")
             }
@@ -78,11 +86,13 @@ class Authentication: ObservableObject {
     }
     
     func signOut() {
-        _ = Amplify.Auth.signOut() { (result) in
+        _ = Amplify.Auth.signOut(options: .init(globalSignOut: true)) { (result) in
             print(result)
             switch(result) {
             case .success():
                 print("Signout succeded")
+                TokenManager.shared.clear()
+                
             case .failure(let error):
                 print("Signout failed with \(error)")
             }

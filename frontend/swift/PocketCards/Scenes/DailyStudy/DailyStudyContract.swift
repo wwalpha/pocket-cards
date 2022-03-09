@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DailyStudyDisplayLogic {
-    func showNext(title: String, choices: [String], answer: String)
+    func showNext(title: String, answer: String, choices: [String]?)
 
     func showError(index: String)
     

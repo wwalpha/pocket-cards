@@ -24,7 +24,7 @@ final class RequestInterceptor: Alamofire.RequestInterceptor {
 //            return completion(.success(urlRequest))
 //        }
         var urlRequest = urlRequest
-        
+
         // Set the Authorization header value using the access token.
         urlRequest.setValue(TokenManager.shared.getIdToken(), forHTTPHeaderField: "Authorization")
 

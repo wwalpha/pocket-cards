@@ -11,11 +11,11 @@ struct Question: Codable {
     var id: String
     var setId: String
     var title: String
-    var description: String
+    var description: String?
     var lastTime: String
     var nextTime: String
     var times: Int
-    var choices: [String]
+    var choices: [String]?
     var answer: String
 
     private enum CodingKeys: String, CodingKey {
