@@ -8,13 +8,17 @@
 import Amplify
 import AmplifyPlugins
 import AWSPluginsCore
+import Foundation
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         do {
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
-            try Amplify.configure()
+            guard let data = AMPLIFY_CONFIGURATION else { return false }
+            let authConf = try JSONDecoder().decode(AuthCategoryConfiguration.self, from: data)
+
+            try Amplify.configure(AmplifyConfiguration(auth: authConf))
             
             print("Amplify configured with auth plugin")
 

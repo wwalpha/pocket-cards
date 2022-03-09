@@ -57,6 +57,11 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
+            key = "COGNITO_IDENTITY_POOL_ID"
+            value = "ap-northeast-1:48cf19ae-8444-45fa-941d-a99a8074de4e"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "COGNITO_POOL_ID"
             value = "ap-northeast-1_xnk5dRyF0"
             isEnabled = "YES">

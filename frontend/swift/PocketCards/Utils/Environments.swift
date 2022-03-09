@@ -8,16 +8,13 @@
 import Foundation
 
 let AWS_REGION: String = ProcessInfo.processInfo.environment["AWS_REGION"]!
+let COGNITO_IDENTITY_POOL_ID: String = ProcessInfo.processInfo.environment["COGNITO_IDENTITY_POOL_ID"]!
 let COGNITO_POOL_ID: String = ProcessInfo.processInfo.environment["COGNITO_POOL_ID"]!
 let COGNITO_APP_CLIENT_ID: String = ProcessInfo.processInfo.environment["COGNITO_APP_CLIENT_ID"]!
 let COGNITO_WEB_DOMAIN: String = ProcessInfo.processInfo.environment["COGNITO_WEB_DOMAIN"]!
 
-
 let AMPLIFY_CONFIGURATION = """
 {
-  "UserAgent": "aws-amplify-cli/2.0",
-  "Version": "1.0",
-  "auth": {
     "plugins": {
       "awsCognitoAuthPlugin": {
         "UserAgent": "aws-amplify/cli",
@@ -28,7 +25,7 @@ let AMPLIFY_CONFIGURATION = """
         "CredentialsProvider": {
           "CognitoIdentity": {
             "Default": {
-              "PoolId": "\(COGNITO_POOL_ID)",
+              "PoolId": "\(COGNITO_IDENTITY_POOL_ID)",
               "Region": "\(AWS_REGION)"
             }
           }
@@ -64,7 +61,6 @@ let AMPLIFY_CONFIGURATION = """
         }
       }
     }
-  }
 }
 """.data(using: .utf8)
 
@@ -79,7 +75,7 @@ let AWS_CONFIGURATION = """
     "CredentialsProvider": {
         "CognitoIdentity": {
             "Default": {
-                "PoolId": "\(COGNITO_POOL_ID)",
+                "PoolId": "\(COGNITO_IDENTITY_POOL_ID)",
                 "Region": "\(AWS_REGION)"
             }
         }

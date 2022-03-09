@@ -14,15 +14,16 @@ struct LoginView: View {
     var body: some View {
         VStack {
             HStack {
-                Button("Sign In") {
+                Button {
                     auth.signIn()
+                } label: {
+                    Text("Sign In")
+                        .frame(width: 240, height: 64, alignment: .center)
+                        .font(.title)
+                        .padding()
+                        .foregroundColor(Color.white)
+                        .background(Color.society)
                 }
-                .frame(width: 240, height: 64, alignment: .center)
-                .font(.title)
-                .padding()
-                .foregroundColor(Color.white)
-                .background(Color.society)
-                
             }
         }
         
