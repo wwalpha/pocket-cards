@@ -18,6 +18,8 @@ protocol DailyStudyDisplayLogic {
 protocol DailyStudyBusinessLogic {
     func loadQuestion()
     
+    func updateAnswer(correct: Bool)
+    
     func onChoice(choice: String)
     
     func onAction(correct: Bool)

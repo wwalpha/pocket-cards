@@ -40,6 +40,8 @@
 		9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877527D7604D00446E9D /* SocietyHomeView.swift */; };
 		9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */; };
 		9A7F877A27D8269600446E9D /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877927D8269600446E9D /* Environments.swift */; };
+		9AF57E6727D8DC60002B1F32 /* DailyTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */; };
+		9AF57E6927D8DC6F002B1F32 /* DailyTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,8 @@
 		9A7F877527D7604D00446E9D /* SocietyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeView.swift; sourceTree = "<group>"; };
 		9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeRouter.swift; sourceTree = "<group>"; };
 		9A7F877927D8269600446E9D /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
+		9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestView.swift; sourceTree = "<group>"; };
+		9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestViewModel.swift; sourceTree = "<group>"; };
 		9B6883D21AA546318D9DFDB4 /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F24140CE1BDC4A02837DB2D /* Pods-PocketCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.debug.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,6 +193,8 @@
 		9A1FD27727D7394C0000A16B /* DailyTest */ = {
 			isa = PBXGroup;
 			children = (
+				9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */,
+				9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */,
 			);
 			path = DailyTest;
 			sourceTree = "<group>";
@@ -447,6 +453,7 @@
 				9A1FD2A227D7394C0000A16B /* TokenManager.swift in Sources */,
 				9A1FD2A527D7394C0000A16B /* Question.swift in Sources */,
 				9A1FD29427D7394C0000A16B /* ChoiceQuestion.swift in Sources */,
+				9AF57E6927D8DC6F002B1F32 /* DailyTestViewModel.swift in Sources */,
 				9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */,
 				9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */,
 				9A1FD29827D7394C0000A16B /* RootView.swift in Sources */,
@@ -459,6 +466,7 @@
 				9A1FD24F27D7369B0000A16B /* ContentView.swift in Sources */,
 				9A7F876A27D747C800446E9D /* FlashCard.swift in Sources */,
 				9A7F877A27D8269600446E9D /* Environments.swift in Sources */,
+				9AF57E6727D8DC60002B1F32 /* DailyTestView.swift in Sources */,
 				9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */,
 				9A1FD29D27D7394C0000A16B /* DailyStudyPresenter.swift in Sources */,
 				9A1FD29A27D7394C0000A16B /* DailyStudyView.swift in Sources */,

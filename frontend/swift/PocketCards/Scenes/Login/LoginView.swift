@@ -24,6 +24,17 @@ struct LoginView: View {
                         .foregroundColor(Color.white)
                         .background(Color.society)
                 }
+                
+                Button {
+                    auth.signOut()
+                } label: {
+                    Text("Sign Out")
+                        .frame(width: 240, height: 64, alignment: .center)
+                        .font(.title)
+                        .padding()
+                        .foregroundColor(Color.white)
+                        .background(Color.society)
+                }
             }
         }
         

@@ -22,16 +22,39 @@ class DailyStudyInteractor {
 }
 
 extension DailyStudyInteractor: DailyStudyBusinessLogic {
+    
+    // update answer
+    func updateAnswer(correct: Bool) {
+        guard let id = current?.id else { return }
+
+        let params = [
+            "correct": correct
+        ]
+        
+        print("updateAnswer", id, correct)
+        API.request(URLs.ANSWER(id: id), method: .post, parameters: params)
+            .responseData { response in
+                print("response", response)
+                switch response.result {
+                case .success:
+                    print("Successful")
+                case let .failure(error):
+                    print(error)
+                }
+            }
+    }
+    
     func loadQuestion() {
         let params = ["subject": self.subject]
         
+//        print("Token", TokenManager.shared.getIdToken())
 //        let headers:HTTPHeaders = [.authorization(TokenManager.shared.getIdToken())]
 //        AF.request(URLs.STUDY,method: .get, parameters: params,  headers: headers)
-//            .responseDecodable(of: QuestionServiceEnum.LoadQuestion.Response.self) { response in
+//            .responseData { response in
 //
 //                switch (response).result {
 //                case .success(let Value):
-//                    print("success", Value)
+//                    print("success \(String(data:Value,encoding: .utf8))")
 //                case .failure(let Error):
 //                    print("222222")
 //
@@ -46,7 +69,11 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
 
                 print("==HUB== \(res)")
 
-                self.questions.append(contentsOf: res.questions)
+                for q in res.questions {
+                    if !self.questions.contains(where: {$0.id == q.id } ) {
+                        self.questions.append(q)
+                    }
+                }
 
                 // No new questions
                 if self.questions.count == 0 {
@@ -63,7 +90,9 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
     
     func onAction(correct: Bool) {
         // wrong answer
-        if !correct {
+        if correct {
+            self.updateAnswer(correct: true)
+        } else {
             self.questions.append(current!)
         }
         
@@ -74,6 +103,9 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
         if choice == current?.answer {
             if isAnswered {
                 self.questions.append(current!)
+            } else {
+                // update to known
+                self.updateAnswer(correct: true)
             }
             self.next()
             self.isAnswered = false
@@ -90,6 +122,7 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
         
         // add new questions
         if self.questions.count < 3 {
+            print("Load Questions")
             self.loadQuestion()
         }
     }

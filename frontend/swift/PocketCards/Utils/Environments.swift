@@ -12,6 +12,7 @@ let COGNITO_IDENTITY_POOL_ID: String = ProcessInfo.processInfo.environment["COGN
 let COGNITO_POOL_ID: String = ProcessInfo.processInfo.environment["COGNITO_POOL_ID"]!
 let COGNITO_APP_CLIENT_ID: String = ProcessInfo.processInfo.environment["COGNITO_APP_CLIENT_ID"]!
 let COGNITO_WEB_DOMAIN: String = ProcessInfo.processInfo.environment["COGNITO_WEB_DOMAIN"]!
+let API_URL: String = ProcessInfo.processInfo.environment["API_URL"]!
 
 let AMPLIFY_CONFIGURATION = """
 {

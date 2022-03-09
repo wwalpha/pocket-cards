@@ -7,10 +7,14 @@
 
 import Foundation
 
-struct URLs {
-    private static let HOST = "https://api.pkc.onecloudlabo.com"
+class URLs {
+    private static let HOST = API_URL
     static let STUDY = "\(HOST)/v1/questions/study"
-    static let TEST = "\(HOST)/v1/questions/study"
+    static let TEST = "\(HOST)/v1/questions/test"
+    
+    static func ANSWER(id: String) -> String {
+        return "\(self.HOST)/v1/questions/\(id)/answer"
+    }
 }
 
 struct SUBJECT {

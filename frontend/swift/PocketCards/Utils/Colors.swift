@@ -13,5 +13,7 @@ extension Color {
     static let science = Color("Science")
     static let grey50 = Color("Grey50")
     static let grey100 = Color("Grey100")
+    static let systemYellow = Color("Yellow")
+    static let green100 = Color("Green100")
 }
 

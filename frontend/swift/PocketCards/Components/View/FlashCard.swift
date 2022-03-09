@@ -20,7 +20,7 @@ struct FlashCard: View {
                 ZStack {
                     Text(question)
                         .frame(width: geo.size.width * 0.8,  height: geo.size.height * 0.6, alignment: .center)
-                        .font(.largeTitle)
+                        .font(.system(size: 64, design: .default))
                         .padding()
                         .border(Color.purple, width: 5)
                         .background(Color.grey100)
@@ -28,10 +28,10 @@ struct FlashCard: View {
                     
                     Text(answer)
                         .frame(width: geo.size.width * 0.8,  height: geo.size.height * 0.6, alignment: .center)
-                        .font(.largeTitle)
+                        .font(.system(size: 64, design: .default))
                         .padding()
                         .border(Color.purple, width: 5)
-                        .background(Color.grey100)
+                        .background(Color.green100)
                         .opacity(flipped ? 1.0 : 0.0)
                 }
                 .modifier(FlipEffect(flipped: $flipped, angle: angle, axis: (x: 0, y: 1)))
@@ -60,7 +60,7 @@ struct FlashCard: View {
                             .padding()
                             .font(.largeTitle)
                             .foregroundColor(Color.white)
-                            .background(Color.red)
+                            .background(Color.systemYellow)
                     })
                     
                     Spacer()

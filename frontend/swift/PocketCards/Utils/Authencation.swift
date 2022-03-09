@@ -29,8 +29,12 @@ class Authentication: ObservableObject {
                 }
             case HubPayload.EventName.Auth.sessionExpired:
                 print("==HUB== Session expired, show sign in aui")
+                self.isSignedIn = false
+                self.initialize()
             case HubPayload.EventName.Auth.fetchSessionAPI:
                 print("==HUB== Session expired, show sign in aui")
+            case HubPayload.EventName.Auth.fetchUserAttributesAPI:
+                self.initialize()
             default:
                 print("==HUB== \(payload)")
                 break
@@ -43,12 +47,16 @@ class Authentication: ObservableObject {
             do {
                 let session = try result.get()
 
+                print("fetchAuthSession", session)
+                
                 DispatchQueue.main.async {
                     self.isSignedIn = session.isSignedIn
                 }
                 
                 if let cognitoTokenProvider = session as? AuthCognitoTokensProvider {
                     let tokens = try cognitoTokenProvider.getCognitoTokens().get()
+
+                    print("updateTokens", tokens)
 
                     TokenManager.shared.updateTokens(tokens: tokens)
                 }
@@ -74,7 +82,6 @@ class Authentication: ObservableObject {
                     switch result {
                     case .success(let session):
                         print(session)
-                        self.initialize()
                     case .failure(let error):
                         print(error)
                     }
