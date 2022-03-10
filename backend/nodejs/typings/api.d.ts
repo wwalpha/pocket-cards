@@ -344,7 +344,7 @@ export namespace APIs {
   }
 
   interface QuestionAnswerRequest {
-    correct?: boolean;
+    correct?: string;
   }
 
   type QuestionAnswerResponse = void;
