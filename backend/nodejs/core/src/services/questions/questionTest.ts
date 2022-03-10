@@ -6,9 +6,10 @@ import { Groups, Questions } from '@queries';
 import { APIs, Tables } from 'typings';
 
 /** 今日のテスト */
-export default async (req: Request): Promise<APIs.QuestionStudyResponse> => {
+export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Promise<APIs.QuestionTestResponse> => {
   // ユーザID
   const userId = Commons.getUserId(req);
+  const subject = req.query.subject;
 
   // ユーザのグループ一覧を取得する
   const userInfo = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
@@ -22,7 +23,9 @@ export default async (req: Request): Promise<APIs.QuestionStudyResponse> => {
   // next study date
   const date = DateUtils.getNow();
   // get study items
-  const tasks = groups.map((item) => DBHelper().query<Tables.TQuestion>(Questions.query.test(item.id, date)));
+  const tasks = groups
+    .filter((item) => item.subject === subject)
+    .map((item) => DBHelper().query<Tables.TQuestion>(Questions.query.test(item.id, date)));
   // execute
   const results = await Promise.all(tasks);
 

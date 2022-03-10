@@ -330,6 +330,10 @@ export namespace APIs {
   // Test
   interface QuestionTestRequest {}
 
+  interface QuestionTestQuery {
+    subject?: string;
+  }
+
   interface QuestionTestResponse {
     count: number;
     questions: Tables.TQuestion[];
