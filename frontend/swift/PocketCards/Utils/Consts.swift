@@ -27,3 +27,12 @@ struct MODE {
     static let STUDY = "1"
     static let TEST = "2"
 }
+
+class Correct {
+    private static let  correct = "1"
+    private static let  uncorrect = "0"
+    
+    static func convert(value: Bool) -> String {
+        return value ? self.correct : self.uncorrect
+    }
+}

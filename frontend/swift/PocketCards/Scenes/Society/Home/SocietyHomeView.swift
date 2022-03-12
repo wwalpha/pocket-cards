@@ -23,7 +23,7 @@ struct SocietyHomeView: View {
                     .background(Color.society)
             }.padding(16)
             
-            NavigationLink(destination: router?.makeStudyiew()) {
+            NavigationLink(destination: router?.makeTestView()) {
                 Text("日々のテスト")
                     .padding()
                     .foregroundColor(Color.white)

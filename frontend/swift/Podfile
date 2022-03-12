@@ -9,4 +9,5 @@ target 'PocketCards' do
   pod 'Amplify'
   pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
   pod 'Alamofire'
+  pod 'Charts'
 end

@@ -14,6 +14,6 @@ class ScienceHomeRouter {
     }
     
     func makeTestView() -> some View {
-        return DailyStudyView(subject: SUBJECT.SCIENCE).configureView()
+        return DailyTestView(subject: SUBJECT.SCIENCE).configureView()
     }
 }

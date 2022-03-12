@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var auth: Authentication
-    
+
     var body: some View {
         if (auth.isSignedIn) {
             NavigationView {

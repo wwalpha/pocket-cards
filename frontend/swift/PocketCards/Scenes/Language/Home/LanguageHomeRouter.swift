@@ -14,6 +14,6 @@ class LanguageHomeRouter {
     }
     
     func makeTestView() -> some View {
-        return DailyStudyView(subject: SUBJECT.LANGUAGE).configureView()
+        return DailyTestView(subject: SUBJECT.LANGUAGE).configureView()
     }
 }

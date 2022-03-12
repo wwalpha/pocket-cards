@@ -24,6 +24,6 @@ extension DailyStudyPresenter: DailyStudyPresentationLogic {
     }
 
     func showNothing() {
-        
+        view?.showNothing()
     }
 }

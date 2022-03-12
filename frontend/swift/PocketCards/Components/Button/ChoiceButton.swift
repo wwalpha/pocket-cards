@@ -18,14 +18,14 @@ struct ChoiceButton: View {
             Button(action: onDetail) {
                 HStack {
                     Text(self.text)
-                        .frame(maxWidth: .infinity, maxHeight: 48, alignment: .leading)
+                        .frame(maxWidth: .infinity, maxHeight: 32, alignment: .leading)
                         .padding(.all)
                         .padding(.leading, 16)
                         .font(.title)
                         .foregroundColor(Color.gray)
-                        .foregroundColor(Color.gray.opacity(0.5))
+//                        .foregroundColor(Color.gray.opacity(0.8))
                         .contentShape(Rectangle())
-                }.border(isError ? Color.red : Color.gray, width: 5)
+                }.border(isError ? Color.error : Color.secondary, width: 5)
             }
         }
     }

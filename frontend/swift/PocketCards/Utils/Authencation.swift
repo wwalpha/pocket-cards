@@ -29,8 +29,10 @@ class Authentication: ObservableObject {
                 }
             case HubPayload.EventName.Auth.sessionExpired:
                 print("==HUB== Session expired, show sign in aui")
-                self.isSignedIn = false
-                self.initialize()
+                DispatchQueue.main.async {
+                    self.isSignedIn = false
+                }
+                //                self.initialize()
             case HubPayload.EventName.Auth.fetchSessionAPI:
                 print("==HUB== Session expired, show sign in aui")
             case HubPayload.EventName.Auth.fetchUserAttributesAPI:

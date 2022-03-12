@@ -26,11 +26,15 @@ PODS:
   - AWSPluginsCore (1.21.0):
     - Amplify (= 1.21.0)
     - AWSCore (~> 2.27.0)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
 
 DEPENDENCIES:
   - Alamofire
   - Amplify
   - AmplifyPlugins/AWSCognitoAuthPlugin
+  - Charts
 
 SPEC REPOS:
   trunk:
@@ -43,6 +47,7 @@ SPEC REPOS:
     - AWSCore
     - AWSMobileClient
     - AWSPluginsCore
+    - Charts
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
@@ -54,7 +59,8 @@ SPEC CHECKSUMS:
   AWSCore: 577d083806d0d86d102462cdd06d16706b74410b
   AWSMobileClient: a4716d7418ca79fb3081d97139fb590c2a4e7cd8
   AWSPluginsCore: d0e4ea6ca225b0f79e40193178c06348b8220a86
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
 
-PODFILE CHECKSUM: 8375a96b6b06a38bdf7bb863bd7136b324fb48e0
+PODFILE CHECKSUM: e24279e658b5c4950298efba817c0166814c9b8b
 
 COCOAPODS: 1.11.2

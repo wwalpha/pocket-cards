@@ -23,7 +23,8 @@ struct DailyStudyView: View {
                     interactor?.loadQuestion()
                 }
         } else if viewModel.title == "Nothing" {
-            Text("Nothing....")
+            Text("今日のテストは終わりました")
+                .font(.system(size: 64, design: .default))
         } else {
             // Language
             if subject == SUBJECT.LANGUAGE {

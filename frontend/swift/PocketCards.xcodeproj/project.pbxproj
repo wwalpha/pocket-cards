@@ -33,6 +33,7 @@
 		9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD28D27D7394C0000A16B /* Colors.swift */; };
 		9A1FD2A527D7394C0000A16B /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD29027D7394C0000A16B /* Question.swift */; };
 		9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD29227D7394C0000A16B /* QuestionServices.swift */; };
+		9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */; };
 		9A7F876A27D747C800446E9D /* FlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F876927D747C700446E9D /* FlashCard.swift */; };
 		9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F876B27D7498600446E9D /* FlippingView.swift */; };
 		9A7F877227D7602500446E9D /* ScienceHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877127D7602500446E9D /* ScienceHomeRouter.swift */; };
@@ -40,13 +41,18 @@
 		9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877527D7604D00446E9D /* SocietyHomeView.swift */; };
 		9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */; };
 		9A7F877A27D8269600446E9D /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877927D8269600446E9D /* Environments.swift */; };
+		9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */; };
 		9AF57E6727D8DC60002B1F32 /* DailyTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */; };
 		9AF57E6927D8DC6F002B1F32 /* DailyTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */; };
+		9AF57E6B27D96288002B1F32 /* DailyTestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6A27D96288002B1F32 /* DailyTestInteractor.swift */; };
+		9AF57E6D27D96292002B1F32 /* DailyTestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6C27D96292002B1F32 /* DailyTestPresenter.swift */; };
+		9AF57E6F27D962A0002B1F32 /* DailyTestContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6E27D962A0002B1F32 /* DailyTestContract.swift */; };
+		9AF57E7127D96624002B1F32 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E7027D96624002B1F32 /* StringUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		85615E6482D9C98A21B1D7CA /* Pods-PocketCards.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.release.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.release.xcconfig"; sourceTree = "<group>"; };
-		9A1FD24927D7369B0000A16B /* PocketCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A1FD24927D7369B0000A16B /* 勉強にゃん.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "勉強にゃん.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A1FD24C27D7369B0000A16B /* PocketCardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketCardsApp.swift; sourceTree = "<group>"; };
 		9A1FD24E27D7369B0000A16B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9A1FD25027D7369C0000A16B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,6 +79,7 @@
 		9A1FD29027D7394C0000A16B /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		9A1FD29227D7394C0000A16B /* QuestionServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionServices.swift; sourceTree = "<group>"; };
 		9A1FD2A727D7406B0000A16B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 		9A7F876927D747C700446E9D /* FlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCard.swift; sourceTree = "<group>"; };
 		9A7F876B27D7498600446E9D /* FlippingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlippingView.swift; sourceTree = "<group>"; };
 		9A7F877127D7602500446E9D /* ScienceHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScienceHomeRouter.swift; sourceTree = "<group>"; };
@@ -80,8 +87,14 @@
 		9A7F877527D7604D00446E9D /* SocietyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeView.swift; sourceTree = "<group>"; };
 		9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeRouter.swift; sourceTree = "<group>"; };
 		9A7F877927D8269600446E9D /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
+		9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestView.swift; sourceTree = "<group>"; };
 		9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestViewModel.swift; sourceTree = "<group>"; };
+		9AF57E6A27D96288002B1F32 /* DailyTestInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestInteractor.swift; sourceTree = "<group>"; };
+		9AF57E6C27D96292002B1F32 /* DailyTestPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestPresenter.swift; sourceTree = "<group>"; };
+		9AF57E6E27D962A0002B1F32 /* DailyTestContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestContract.swift; sourceTree = "<group>"; };
+		9AF57E7027D96624002B1F32 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
+		9AF57EA527D9D35D002B1F32 /* PocketCards copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PocketCards copy-Info.plist"; path = "/Users/macmini/Documents/projects/pocket-cards/frontend/swift/PocketCards copy-Info.plist"; sourceTree = "<absolute>"; };
 		9B6883D21AA546318D9DFDB4 /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F24140CE1BDC4A02837DB2D /* Pods-PocketCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.debug.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,13 +126,14 @@
 				9A1FD24A27D7369B0000A16B /* Products */,
 				B09FBC9FFFA9B5A600498F48 /* Pods */,
 				21995CF8A05F90E62A3C1153 /* Frameworks */,
+				9AF57EA527D9D35D002B1F32 /* PocketCards copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		9A1FD24A27D7369B0000A16B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A1FD24927D7369B0000A16B /* PocketCards.app */,
+				9A1FD24927D7369B0000A16B /* 勉強にゃん.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,6 +152,7 @@
 				9A1FD2A727D7406B0000A16B /* Info.plist */,
 				9A1FD25227D7369C0000A16B /* Preview Content */,
 				9A7F876B27D7498600446E9D /* FlippingView.swift */,
+				9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */,
 			);
 			path = PocketCards;
 			sourceTree = "<group>";
@@ -155,6 +170,7 @@
 			children = (
 				9A1FD27227D7394C0000A16B /* Button */,
 				9A1FD27427D7394C0000A16B /* View */,
+				9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -195,6 +211,9 @@
 			children = (
 				9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */,
 				9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */,
+				9AF57E6A27D96288002B1F32 /* DailyTestInteractor.swift */,
+				9AF57E6C27D96292002B1F32 /* DailyTestPresenter.swift */,
+				9AF57E6E27D962A0002B1F32 /* DailyTestContract.swift */,
 			);
 			path = DailyTest;
 			sourceTree = "<group>";
@@ -255,6 +274,7 @@
 				9A1FD28C27D7394C0000A16B /* Alamofire.swift */,
 				9A1FD28D27D7394C0000A16B /* Colors.swift */,
 				9A7F877927D8269600446E9D /* Environments.swift */,
+				9AF57E7027D96624002B1F32 /* StringUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -346,7 +366,7 @@
 			);
 			name = PocketCards;
 			productName = PocketCards;
-			productReference = 9A1FD24927D7369B0000A16B /* PocketCards.app */;
+			productReference = 9A1FD24927D7369B0000A16B /* 勉強にゃん.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -441,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AF57E7127D96624002B1F32 /* StringUtils.swift in Sources */,
 				9A1FD29B27D7394C0000A16B /* DailyStudyViewModel.swift in Sources */,
 				9A1FD29727D7394C0000A16B /* RootRouter.swift in Sources */,
 				9A1FD29327D7394C0000A16B /* ChoiceButton.swift in Sources */,
@@ -450,8 +471,10 @@
 				9A1FD2A027D7394C0000A16B /* Consts.swift in Sources */,
 				9A1FD2A327D7394C0000A16B /* Alamofire.swift in Sources */,
 				9A1FD29E27D7394C0000A16B /* DailyStudyContract.swift in Sources */,
+				9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */,
 				9A1FD2A227D7394C0000A16B /* TokenManager.swift in Sources */,
 				9A1FD2A527D7394C0000A16B /* Question.swift in Sources */,
+				9AF57E6F27D962A0002B1F32 /* DailyTestContract.swift in Sources */,
 				9A1FD29427D7394C0000A16B /* ChoiceQuestion.swift in Sources */,
 				9AF57E6927D8DC6F002B1F32 /* DailyTestViewModel.swift in Sources */,
 				9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */,
@@ -459,6 +482,7 @@
 				9A1FD29827D7394C0000A16B /* RootView.swift in Sources */,
 				9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */,
 				9A7F877427D7603300446E9D /* ScienceHomeView.swift in Sources */,
+				9AF57E6B27D96288002B1F32 /* DailyTestInteractor.swift in Sources */,
 				9A1FD29C27D7394C0000A16B /* DailyStudyInteractor.swift in Sources */,
 				9A1FD2A127D7394C0000A16B /* Authencation.swift in Sources */,
 				9A7F877227D7602500446E9D /* ScienceHomeRouter.swift in Sources */,
@@ -472,6 +496,8 @@
 				9A1FD29A27D7394C0000A16B /* DailyStudyView.swift in Sources */,
 				9A1FD24D27D7369B0000A16B /* PocketCardsApp.swift in Sources */,
 				9A1FD29F27D7394C0000A16B /* LoginView.swift in Sources */,
+				9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */,
+				9AF57E6D27D96292002B1F32 /* DailyTestPresenter.swift in Sources */,
 				9A1FD29927D7394C0000A16B /* RootContract.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,6 +637,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -619,7 +646,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alpha.PocketCards;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "勉強にゃん";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -642,6 +669,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -650,7 +678,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alpha.PocketCards;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "勉強にゃん";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -32,13 +32,13 @@ final class RequestInterceptor: Alamofire.RequestInterceptor {
     }
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
-        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
-            /// The request did not fail due to a 401 Unauthorized response.
-            /// Return the original error and don't retry the request.
-            return completion(.doNotRetryWithError(error))
-        }
+//        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
+//            /// The request did not fail due to a 401 Unauthorized response.
+//            /// Return the original error and don't retry the request.
+//            return completion(.doNotRetryWithError(error))
+//        }
         
-        print(error)
+//        print(error)
 
 //        refreshToken { [weak self] result in
 //            guard let self = self else { return }

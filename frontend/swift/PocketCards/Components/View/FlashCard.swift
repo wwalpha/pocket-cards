@@ -25,7 +25,7 @@ struct FlashCard: View {
                         .border(Color.purple, width: 5)
                         .background(Color.grey100)
                         .opacity(flipped ? 0.0 : 1.0)
-                    
+
                     Text(answer)
                         .frame(width: geo.size.width * 0.8,  height: geo.size.height * 0.6, alignment: .center)
                         .font(.system(size: 64, design: .default))

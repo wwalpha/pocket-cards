@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RootView: View {
     private var router: RootRouter?
-    
+
     var body: some View {
         VStack {
             Spacer()
@@ -48,13 +48,24 @@ struct RootView: View {
             .padding(16)
 
             Spacer()
-            
         }
-            .navigationTitle("Home")
+            .navigationBarTitleDisplayMode(.inline)
+//            .navigationBarColor(UIColor(Color.primaryDark), UIColor(Color.white))
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Home")
+                        .font(.largeTitle.bold())
+                        .accessibilityAddTraits(.isHeader)
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Sign Out") {
+                    Button {
                         Auth.signOut()
+                    } label: {
+                        Text("Sign Out")
+                            .frame(width: 120, height: 36, alignment: .center)
+//                            .foregroundColor(Color.white)
+//                            .background(Color.accent1)
                     }
                 }
             }

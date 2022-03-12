@@ -23,7 +23,7 @@ struct LanguageHomeView: View {
                     .background(Color.language)
             }.padding(16)
             
-            NavigationLink(destination: router?.makeStudyiew()) {
+            NavigationLink(destination: router?.makeTestView()) {
                 Text("日々のテスト")
                     .padding()
                     .foregroundColor(Color.white)
@@ -36,6 +36,7 @@ struct LanguageHomeView: View {
         }
         .padding()
         .navigationTitle("国語")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 

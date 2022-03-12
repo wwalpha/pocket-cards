@@ -28,7 +28,7 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
         guard let id = current?.id else { return }
 
         let params = [
-            "correct": correct
+            "correct": Correct.convert(value: correct)
         ]
         
         print("updateAnswer", id, correct)
@@ -70,6 +70,10 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
                 print("==HUB== \(res)")
 
                 for q in res.questions {
+                    if self.current?.id == q.id {
+                        continue
+                    }
+                    
                     if !self.questions.contains(where: {$0.id == q.id } ) {
                         self.questions.append(q)
                     }
@@ -121,7 +125,7 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
         presenter?.showNext(q: current!)
         
         // add new questions
-        if self.questions.count < 3 {
+        if self.questions.count < 5 {
             print("Load Questions")
             self.loadQuestion()
         }

@@ -20,11 +20,13 @@ struct ChoiceQuestion: View {
                 GeometryReader { geometry in
                     Text(question)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                        .font(.largeTitle)
+                        .font(.system(size: 48, design: .default))
                         .padding(.leading, 32)
-                        .border(Color.purple, width: 5)
+                        .border(Color.primary, width: 5)
                 }
-            }.padding(.bottom, 32)
+            }
+                .padding(.bottom, 32)
+                .padding(.top, 32)
             
             ForEach (0..<choices.count) { idx in
                 let item = choices[idx]
@@ -41,8 +43,10 @@ struct ChoiceQuestion: View {
     }
 }
 
-//struct ChoiceQuestion_Previews: PreviewProvider {
-//    static var previews: some View {
-////        ChoiceQuestion(question: "Question", choices: ["AAA", "BBB", "CCC", "DDD"], answer: "3")
-//    }
-//}
+struct ChoiceQuestion_Previews: PreviewProvider {
+    static var previews: some View {
+        ChoiceQuestion(question: "aaaaaaaa", choices: ["AAA", "BBB", "CCCC", "DDDD"], isShowError: "") { t in
+        }
+.previewInterfaceOrientation(.landscapeLeft)
+    }
+}

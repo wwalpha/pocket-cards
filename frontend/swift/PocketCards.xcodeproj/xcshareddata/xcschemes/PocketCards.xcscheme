@@ -68,7 +68,7 @@
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "COGNITO_APP_CLIENT_ID"
-            value = "503leveidc92dss87gf1e3sm9i"
+            value = "1f3etlgg9p34q9u6toou3dcihs"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
@@ -84,7 +84,7 @@
       </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -104,7 +104,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
