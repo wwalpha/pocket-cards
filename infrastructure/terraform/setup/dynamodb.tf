@@ -173,3 +173,35 @@ resource "aws_dynamodb_table" "questions" {
     projection_type = "ALL"
   }
 }
+
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Words
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "learning" {
+  name         = local.dynamodb_name_learning
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "qid"
+
+  attribute {
+    name = "qid"
+    type = "S"
+  }
+
+  attribute {
+    name = "userId"
+    type = "S"
+  }
+
+  attribute {
+    name = "subjectNextTime"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "gsiIdx1"
+    hash_key        = "userId"
+    range_key       = "subjectNextTime"
+    projection_type = "ALL"
+  }
+}

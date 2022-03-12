@@ -38,6 +38,7 @@ locals {
   dynamodb_name_word_ignore = "${var.project_name}-wordignore-${local.suffix}"
   dynamodb_name_histories   = "${var.project_name}-histories-${local.suffix}"
   dynamodb_name_questions   = "${var.project_name}-questions-${local.suffix}"
+  dynamodb_name_learning    = "${var.project_name}-learning-${local.suffix}"
 }
 
 # ----------------------------------------------------------------------------------------------

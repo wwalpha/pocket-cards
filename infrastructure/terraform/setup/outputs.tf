@@ -46,7 +46,9 @@ output "dynamodb_name_histories" {
 output "dynamodb_name_questions" {
   value = aws_dynamodb_table.questions.name
 }
-
+output "dynamodb_name_learning" {
+  value = aws_dynamodb_table.learning.name
+}
 # ----------------------------------------------------------------------------------------------
 # Route53 DNS Servers
 # ----------------------------------------------------------------------------------------------
