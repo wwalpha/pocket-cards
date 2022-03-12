@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { defaultTo } from 'lodash';
 import { DateUtils, DBHelper } from '@utils';
-import { Questions } from '@queries';
+import { Learning } from '@queries';
 import { APIs, Tables } from 'typings';
 
 export default async (
@@ -10,7 +10,7 @@ export default async (
   const input = req.body;
   const { questionId } = req.params;
 
-  const result = await DBHelper().get<Tables.TQuestion>(Questions.get({ id: questionId }));
+  const result = await DBHelper().get<Tables.TLearning>(Learning.get({ qid: questionId }));
   const question = result?.Item;
 
   if (!question) {
@@ -23,10 +23,10 @@ export default async (
 
   // 問題情報更新
   await DBHelper().put(
-    Questions.put({
+    Learning.put({
       ...question,
       times: times,
-      nextTime: nextTime,
+      subjectNextTime: `${question.subjectNextTime.split('_')[0]}_${nextTime}`,
     })
   );
 };

@@ -27,6 +27,7 @@ const start = async () => {
         groupId: item.groupId,
         lastTime: item.lastTime,
         subjectNextTime: `${grpItem?.subject}_${item.nextTime}`,
+        // @ts-ignore
         times: item.times,
       })
     );
