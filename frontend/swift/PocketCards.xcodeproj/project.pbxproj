@@ -34,6 +34,7 @@
 		9A1FD2A527D7394C0000A16B /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD29027D7394C0000A16B /* Question.swift */; };
 		9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD29227D7394C0000A16B /* QuestionServices.swift */; };
 		9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */; };
+		9A6E044F27DC3682005D87EE /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6E044E27DC3681005D87EE /* CardButton.swift */; };
 		9A7F876A27D747C800446E9D /* FlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F876927D747C700446E9D /* FlashCard.swift */; };
 		9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F876B27D7498600446E9D /* FlippingView.swift */; };
 		9A7F877227D7602500446E9D /* ScienceHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877127D7602500446E9D /* ScienceHomeRouter.swift */; };
@@ -80,6 +81,7 @@
 		9A1FD29227D7394C0000A16B /* QuestionServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionServices.swift; sourceTree = "<group>"; };
 		9A1FD2A727D7406B0000A16B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
+		9A6E044E27DC3681005D87EE /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		9A7F876927D747C700446E9D /* FlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCard.swift; sourceTree = "<group>"; };
 		9A7F876B27D7498600446E9D /* FlippingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlippingView.swift; sourceTree = "<group>"; };
 		9A7F877127D7602500446E9D /* ScienceHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScienceHomeRouter.swift; sourceTree = "<group>"; };
@@ -94,7 +96,6 @@
 		9AF57E6C27D96292002B1F32 /* DailyTestPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestPresenter.swift; sourceTree = "<group>"; };
 		9AF57E6E27D962A0002B1F32 /* DailyTestContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestContract.swift; sourceTree = "<group>"; };
 		9AF57E7027D96624002B1F32 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
-		9AF57EA527D9D35D002B1F32 /* PocketCards copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PocketCards copy-Info.plist"; path = "/Users/macmini/Documents/projects/pocket-cards/frontend/swift/PocketCards copy-Info.plist"; sourceTree = "<absolute>"; };
 		9B6883D21AA546318D9DFDB4 /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F24140CE1BDC4A02837DB2D /* Pods-PocketCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.debug.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,7 +127,6 @@
 				9A1FD24A27D7369B0000A16B /* Products */,
 				B09FBC9FFFA9B5A600498F48 /* Pods */,
 				21995CF8A05F90E62A3C1153 /* Frameworks */,
-				9AF57EA527D9D35D002B1F32 /* PocketCards copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				9A1FD27327D7394C0000A16B /* ChoiceButton.swift */,
+				9A6E044E27DC3681005D87EE /* CardButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -471,6 +472,7 @@
 				9A1FD2A027D7394C0000A16B /* Consts.swift in Sources */,
 				9A1FD2A327D7394C0000A16B /* Alamofire.swift in Sources */,
 				9A1FD29E27D7394C0000A16B /* DailyStudyContract.swift in Sources */,
+				9A6E044F27DC3682005D87EE /* CardButton.swift in Sources */,
 				9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */,
 				9A1FD2A227D7394C0000A16B /* TokenManager.swift in Sources */,
 				9A1FD2A527D7394C0000A16B /* Question.swift in Sources */,

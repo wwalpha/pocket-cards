@@ -22,7 +22,7 @@ struct ChoiceQuestion: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                         .font(.system(size: 48, design: .default))
                         .padding(.leading, 32)
-                        .border(Color.primary, width: 5)
+                        .border(Color.purple, width: 5)
                 }
             }
                 .padding(.bottom, 32)

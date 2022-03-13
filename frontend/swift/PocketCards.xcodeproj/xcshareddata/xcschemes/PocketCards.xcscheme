@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9A1FD24827D7369B0000A16B"
-               BuildableName = "PocketCards.app"
+               BuildableName = "&#x52c9;&#x5f37;&#x306b;&#x3083;&#x3093;.app"
                BlueprintName = "PocketCards"
                ReferencedContainer = "container:PocketCards.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9A1FD24827D7369B0000A16B"
-            BuildableName = "PocketCards.app"
+            BuildableName = "&#x52c9;&#x5f37;&#x306b;&#x3083;&#x3093;.app"
             BlueprintName = "PocketCards"
             ReferencedContainer = "container:PocketCards.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9A1FD24827D7369B0000A16B"
-            BuildableName = "PocketCards.app"
+            BuildableName = "&#x52c9;&#x5f37;&#x306b;&#x3083;&#x3093;.app"
             BlueprintName = "PocketCards"
             ReferencedContainer = "container:PocketCards.xcodeproj">
          </BuildableReference>

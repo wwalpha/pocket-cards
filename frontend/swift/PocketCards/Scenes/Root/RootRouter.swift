@@ -8,16 +8,30 @@
 import SwiftUI
 
 class RootRouter {
+
+    func makeLanguageStudyiew() -> some View {
+        return DailyStudyView(subject: SUBJECT.LANGUAGE).configureView()
+    }
     
-    func makeLanguageHomeView() -> some View {
-        return LanguageHomeView().configureView()
+    func makeLanguageTestView() -> some View {
+        return DailyTestView(subject: SUBJECT.LANGUAGE).configureView()
+    }
+    
+    func makeScienceStudyiew() -> some View {
+        return DailyStudyView(subject: SUBJECT.SCIENCE).configureView()
+    }
+    
+    func makeScienceTestView() -> some View {
+        return DailyTestView(subject: SUBJECT.SCIENCE).configureView()
     }
 
-    func makeScienceHomeView() -> some View {
-        return ScienceHomeView().configureView()
+    
+    func makeSocietyStudyiew() -> some View {
+        return DailyStudyView(subject: SUBJECT.SOCIETY).configureView()
+    }
+    
+    func makeSocietyTestView() -> some View {
+        return DailyTestView(subject: SUBJECT.SOCIETY).configureView()
     }
 
-    func makeSocietyHomeView() -> some View {
-        return SocietyHomeView().configureView()
-    }
 }

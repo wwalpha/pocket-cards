@@ -32,11 +32,11 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
         
         print("updateAnswer", id, correct)
         API.request(URLs.ANSWER(id: id), method: .post, parameters: params)
-            .responseData { response in
-                print("response", response)
+            .response { response in
                 switch response.result {
                 case .success:
-                    print("Successful")
+                    // show next question
+                    self.next()
                 case let .failure(error):
                     print(error)
                 }
@@ -78,12 +78,6 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
                     }
                 }
 
-                // No new questions
-                if self.questions.count == 0 {
-                    self.presenter?.showNothing()
-                    return
-                }
-
                 // initialize
                 if (self.current == nil) {
                     self.next()
@@ -94,18 +88,19 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
     func onAction(correct: Bool) {
         // update question state
         self.updateAnswer(correct: correct)
-        // show next question
-        self.next()
     }
     
     func onChoice(choice: String) {
         // update question state
         self.updateAnswer(correct: choice == current?.answer )
-        // show next question
-        self.next()
     }
     
     private func next() {
+        if (self.questions.count == 0) {
+            presenter?.showNothing()
+            return
+        }
+        
         current = self.questions.removeFirst()
         
         presenter?.showNext(q: current!)
