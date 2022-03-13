@@ -35,12 +35,12 @@ export const getWordDetails = async (words: Tables.TWords[]) => {
   return rets;
 };
 
-export const getQuestionDetails = async (ids: Tables.TQuestionKey[]) => {
+export const getQuestionDetails = async (ids: Tables.TLearningKey[]) => {
   // 単語明細情報を取得する
   const tasks = ids.map((item) =>
-    DBHelper().get<Tables.TQuestion>(
+    DBHelper().get<Tables.TQuestions>(
       Questions.get({
-        id: item.id,
+        id: item.qid,
       })
     )
   );

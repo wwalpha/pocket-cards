@@ -157,19 +157,46 @@ resource "aws_dynamodb_table" "questions" {
   }
 
   attribute {
-    name = "setId"
-    type = "S"
-  }
-
-  attribute {
-    name = "nextTime"
+    name = "groupId"
     type = "S"
   }
 
   global_secondary_index {
     name            = "gsiIdx1"
-    hash_key        = "setId"
-    range_key       = "nextTime"
+    hash_key        = "groupId"
+    range_key       = "id"
+    projection_type = "KEYS_ONLY"
+  }
+}
+
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Words
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "learning" {
+  name         = local.dynamodb_name_learning
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "qid"
+
+  attribute {
+    name = "qid"
+    type = "S"
+  }
+
+  attribute {
+    name = "userId"
+    type = "S"
+  }
+
+  attribute {
+    name = "subjectNextTime"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "gsiIdx1"
+    hash_key        = "userId"
+    range_key       = "subjectNextTime"
     projection_type = "ALL"
   }
 }

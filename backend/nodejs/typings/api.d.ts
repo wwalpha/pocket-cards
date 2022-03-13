@@ -330,6 +330,10 @@ export namespace APIs {
   // Test
   interface QuestionTestRequest {}
 
+  interface QuestionTestQuery {
+    subject?: string;
+  }
+
   interface QuestionTestResponse {
     count: number;
     questions: Tables.TQuestion[];
@@ -339,12 +343,11 @@ export namespace APIs {
   // Question Answer
   // ------------------------------------------------------------
   interface QuestionAnswerParams {
-    groupId: string;
     questionId: string;
   }
 
   interface QuestionAnswerRequest {
-    correct?: boolean;
+    correct?: string;
   }
 
   type QuestionAnswerResponse = void;

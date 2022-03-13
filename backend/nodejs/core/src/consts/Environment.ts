@@ -9,6 +9,7 @@ export const TABLE_NAME_WORD_MASTER = process.env.TABLE_NAME_WORD_MASTER as stri
 export const TABLE_NAME_WORD_IGNORE = process.env.TABLE_NAME_WORD_IGNORE as string;
 export const TABLE_NAME_HISTORIES = process.env.TABLE_NAME_HISTORIES as string;
 export const TABLE_NAME_QUESTIONS = process.env.TABLE_NAME_QUESTIONS as string;
+export const TABLE_NAME_LEARNING = process.env.TABLE_NAME_LEARNING as string;
 
 export const PATH_PATTERN = process.env.PATH_PATTERN as string;
 // 最大単語数、default 10件

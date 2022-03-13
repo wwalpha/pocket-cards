@@ -15,6 +15,8 @@ const TABLE_NAME_WORDS = process.env.TABLE_NAME_WORDS as string;
 const TABLE_NAME_WORD_MASTER = process.env.TABLE_NAME_WORD_MASTER as string;
 const TABLE_NAME_WORD_IGNORE = process.env.TABLE_NAME_WORD_IGNORE as string;
 const TABLE_NAME_HISTORIES = process.env.TABLE_NAME_HISTORIES as string;
+const TABLE_NAME_QUESTIONS = process.env.TABLE_NAME_QUESTIONS as string;
+const TABLE_NAME_LEARNING = process.env.TABLE_NAME_LEARNING as string;
 
 const setup = async () => {
   console.log('jest setup start...');
@@ -123,6 +125,53 @@ const setup = async () => {
         AttributeDefinitions: [
           { AttributeName: 'user', AttributeType: 'S' },
           { AttributeName: 'timestamp', AttributeType: 'S' },
+        ],
+      })
+      .promise(),
+    dbClient
+      .createTable({
+        TableName: TABLE_NAME_QUESTIONS,
+        BillingMode: 'PROVISIONED',
+        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+        AttributeDefinitions: [
+          { AttributeName: 'id', AttributeType: 'S' },
+          { AttributeName: 'groupId', AttributeType: 'S' },
+        ],
+        GlobalSecondaryIndexes: [
+          {
+            IndexName: 'gsiIdx1',
+            KeySchema: [
+              { AttributeName: 'groupId', KeyType: 'HASH' },
+              { AttributeName: 'id', KeyType: 'RANGE' },
+            ],
+            Projection: { ProjectionType: 'ALL' },
+            ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
+          },
+        ],
+      })
+      .promise(),
+    dbClient
+      .createTable({
+        TableName: TABLE_NAME_LEARNING,
+        BillingMode: 'PROVISIONED',
+        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        KeySchema: [{ AttributeName: 'qid', KeyType: 'HASH' }],
+        AttributeDefinitions: [
+          { AttributeName: 'qid', AttributeType: 'S' },
+          { AttributeName: 'userId', AttributeType: 'S' },
+          { AttributeName: 'subjectNextTime', AttributeType: 'S' },
+        ],
+        GlobalSecondaryIndexes: [
+          {
+            IndexName: 'gsiIdx1',
+            KeySchema: [
+              { AttributeName: 'userId', KeyType: 'HASH' },
+              { AttributeName: 'subjectNextTime', KeyType: 'RANGE' },
+            ],
+            Projection: { ProjectionType: 'ALL' },
+            ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
+          },
         ],
       })
       .promise(),

@@ -35,6 +35,7 @@ locals {
   dynamodb_name_word_ignore = local.remote_setup.dynamodb_name_word_ignore
   dynamodb_name_histories   = local.remote_setup.dynamodb_name_histories
   dynamodb_name_questions   = local.remote_setup.dynamodb_name_questions
+  dynamodb_name_learning    = local.remote_setup.dynamodb_name_learning
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway

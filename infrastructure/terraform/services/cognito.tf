@@ -135,10 +135,10 @@ resource "aws_cognito_user_pool_client" "this" {
     "profile"
   ]
   callback_urls = [
-    "https://www.${local.domain_name}/,myapp://"
+    "https://www.${local.domain_name}/"
   ]
   logout_urls = [
-    "https://www.${local.domain_name}/logout,myapp://"
+    "https://www.${local.domain_name}/logout"
   ]
   supported_identity_providers = [aws_cognito_identity_provider.google.provider_name]
   explicit_auth_flows = [
@@ -146,12 +146,38 @@ resource "aws_cognito_user_pool_client" "this" {
     "ALLOW_REFRESH_TOKEN_AUTH",
     "ALLOW_USER_SRP_AUTH"
   ]
+}
 
-  # default_redirect_uri                 = var.default_redirect_uri
-  # read_attributes                      = var.read_attributes
-  # refresh_token_validity               = var.refresh_token_validity
-  # supported_identity_providers         = var.supported_identity_providers
-  # write_attributes                     = var.write_attributes
+# -------------------------------------------------------
+# Amazon Cognito User Pool Client
+# -------------------------------------------------------
+resource "aws_cognito_user_pool_client" "ios" {
+  name = "${aws_cognito_user_pool.this.name}_iOS"
+
+  user_pool_id    = aws_cognito_user_pool.this.id
+  generate_secret = false
+
+  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes = [
+    "aws.cognito.signin.user.admin",
+    "email",
+    "openid",
+    "phone",
+    "profile"
+  ]
+  callback_urls = [
+    "myapp://"
+  ]
+  logout_urls = [
+    "myapp://"
+  ]
+  supported_identity_providers = [aws_cognito_identity_provider.google.provider_name]
+  explicit_auth_flows = [
+    "ALLOW_CUSTOM_AUTH",
+    "ALLOW_REFRESH_TOKEN_AUTH",
+    "ALLOW_USER_SRP_AUTH"
+  ]
 }
 
 # --------------------------------------------------------------------------------------------------------------

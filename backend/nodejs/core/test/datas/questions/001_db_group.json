@@ -1,0 +1,16 @@
+[
+  {
+    "description": "Group Description 001",
+    "id": "G001",
+    "name": "GroupName001",
+    "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1",
+    "subject": "1"
+  },
+  {
+    "description": "Group Description 002",
+    "id": "G002",
+    "name": "GroupName002",
+    "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1",
+    "subject": "2"
+  }
+]
