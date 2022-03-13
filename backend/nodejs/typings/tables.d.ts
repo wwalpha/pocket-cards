@@ -62,11 +62,11 @@ export namespace Tables {
     // 回答音声
     voiceAnswer?: string;
     /** @deprecated 次の学習時間 */
-    nextTime: string;
+    nextTime?: string;
     /** @deprecated 最後の学習時間 */
     lastTime?: string;
     /** @deprecated 学習回数 */
-    times: number;
+    times?: number;
   }
 
   interface TQuestionsGSI1Key {

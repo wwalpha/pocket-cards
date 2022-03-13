@@ -5,19 +5,19 @@ import { Environment } from '@consts';
  * 問題一覧を取得する
  * 対象: Times <> 0, NextTime <= now, NextTime DESC, Top 10
  */
-export const test = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
+export const test = (userId: string, subjectNextTime: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'id',
-  KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#userId = :userId and #subjectNextTime <= :subjectNextTime',
   FilterExpression: '#times <> :times',
   ExpressionAttributeNames: {
     '#userId': 'userId',
-    '#nextTime': 'nextTime',
+    '#subjectNextTime': 'subjectNextTime',
     '#times': 'times',
   },
   ExpressionAttributeValues: {
     ':userId': userId,
-    ':nextTime': nextTime,
+    ':subjectNextTime': subjectNextTime,
     ':times': 0,
   },
   IndexName: 'gsiIdx1',
@@ -30,24 +30,24 @@ export const test = (userId: string, nextTime: string): DynamoDB.DocumentClient.
  *
  * 対象：Times = 0, NextTime <= now, NextTime DESC, Top 10
  */
-export const study = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
+export const study = (userId: string, subjectNextTime: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'id',
-  KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#userId = :userId and #subjectNextTime <= :subjectNextTime',
   FilterExpression: '#times = :times',
   ExpressionAttributeNames: {
-    '#groupId': 'groupId',
+    '#userId': 'userId',
     '#times': 'times',
-    '#nextTime': 'nextTime',
+    '#subjectNextTime': 'subjectNextTime',
   },
   ExpressionAttributeValues: {
     ':userId': userId,
     ':times': 0,
-    ':nextTime': nextTime,
+    ':subjectNextTime': subjectNextTime,
   },
   IndexName: 'gsiIdx1',
   ScanIndexForward: false,
-  Limit: 100,
+  Limit: 10,
 });
 
 // export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({

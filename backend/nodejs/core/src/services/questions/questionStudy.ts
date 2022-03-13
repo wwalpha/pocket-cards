@@ -1,7 +1,5 @@
 import { Request } from 'express';
-import orderBy from 'lodash/orderBy';
 import { DBHelper, Logger, DateUtils, Commons, QueryUtils } from '@utils';
-import { Environment } from '@consts';
 import { Learning } from '@queries';
 import { APIs, Tables } from 'typings';
 
@@ -28,14 +26,14 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
 
   Logger.info(`Count: ${results.Count}`);
 
-  const items = results.Items;
-  // 時間順
-  const sorted = orderBy(items, 'lastTime');
-  // 時間順で上位N件を対象とします
-  const targets = sorted.length > Environment.WORDS_LIMIT ? sorted.slice(0, Environment.WORDS_LIMIT) : sorted;
+  // const items = results.Items;
+  // // 時間順
+  // const sorted = orderBy(items, 'lastTime');
+  // // 時間順で上位N件を対象とします
+  // const targets = sorted.length > Environment.WORDS_LIMIT ? sorted.slice(0, Environment.WORDS_LIMIT) : sorted;
 
   // 単語明細情報の取得
-  const details = await QueryUtils.getQuestionDetails(targets);
+  const details = await QueryUtils.getQuestionDetails(results.Items);
 
   return {
     count: details.length,
