@@ -343,7 +343,6 @@ export namespace APIs {
   // Question Answer
   // ------------------------------------------------------------
   interface QuestionAnswerParams {
-    groupId: string;
     questionId: string;
   }
 
