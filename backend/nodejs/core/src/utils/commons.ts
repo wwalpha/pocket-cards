@@ -105,7 +105,7 @@ export const isNotEmpty = (item?: GetItemOutput) => !isEmpty(item);
 
 export const generateImage = async (url: string): Promise<string> => {
   const filename: string = `${short.generate()}`;
-  const filedata: string = await getImage(url);
+  const filedata: Buffer | undefined = await getImage(url);
   const extension: string | undefined = url.split('.').pop();
   const key: string = `${Consts.PATH_IMAGE}/${filename}.${extension}`;
 
@@ -117,6 +117,37 @@ export const generateImage = async (url: string): Promise<string> => {
 
   // S3に保存する
   await ClientUtils.s3().putObject(putRequest).promise();
+
+  return key;
+};
+
+export const createJapaneseVoice = async (text: string) => {
+  const client = ClientUtils.polly();
+
+  const request: Polly.SynthesizeSpeechInput = {
+    Text: text,
+    TextType: 'text',
+    VoiceId: 'Takumi',
+    OutputFormat: 'mp3',
+    LanguageCode: 'ja-JP',
+  };
+
+  const response = await client.synthesizeSpeech(request).promise();
+
+  // ファイル名
+  const filename: string = `${short.generate()}.mp3`;
+  const key: string = `${Consts.PATH_VOICE}/${filename}`;
+
+  const putRequest: S3.Types.PutObjectRequest = {
+    Bucket: Environment.BUCKET_NAME_MATERAILS,
+    Key: key,
+    Body: response.AudioStream,
+  };
+
+  const s3Client = ClientUtils.s3();
+
+  // S3に保存する
+  await s3Client.putObject(putRequest).promise();
 
   return key;
 };

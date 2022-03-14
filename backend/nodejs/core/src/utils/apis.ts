@@ -32,8 +32,41 @@ export const getTranslate = async (word: string, targetLanguageCode: string): Pr
   return translations[0].translatedText;
 };
 
-export const getImage = async (url: string) => {
-  const res = await axios.get(url);
+export const getImage = async (url: string): Promise<Buffer | undefined> => {
+  // validation
+  if (url.indexOf('.') === -1) return;
 
+  // get extension
+  const ext = url.split('.').pop();
+  let contentType = 'image/png';
+
+  switch (ext?.toUpperCase()) {
+    case 'JPEG':
+      contentType = 'image/jpeg';
+      break;
+    case 'JPG':
+      contentType = 'image/jpeg';
+      break;
+    case 'PNG':
+      contentType = 'image/png';
+      break;
+    case 'GIF':
+      contentType = 'image/gif';
+      break;
+    case 'BMP':
+      contentType = 'image/bmp';
+      break;
+    default:
+      break;
+  }
+
+  const res = await axios.get<Buffer>(url, {
+    headers: {
+      'Content-Type': contentType,
+    },
+    responseType: 'arraybuffer',
+  });
+
+  // get failed
   return res.data;
 };

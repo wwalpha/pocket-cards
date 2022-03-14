@@ -21,19 +21,23 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   }
 
   // regist
-  const tasks = input.questions.map((item) => {
+  const tasks = input.questions.map(async (item) => {
     const items = item.split(',');
+    const id = generate();
+    const title = items[0];
+    const answer = items[3];
+
     const qItem: Tables.TQuestions = {
-      id: generate(),
+      id: id,
       groupId: groupId,
-      title: items[0],
+      title: title,
       description: !isEmpty(items[1]) ? item[1] : undefined,
       choices: !isEmpty(items[2]) ? items[2].split('|') : undefined,
-      answer: items[3],
+      answer: answer,
     };
 
     const lItem: Tables.TLearning = {
-      qid: qItem.id,
+      qid: id,
       groupId: groupId,
       userId: userId,
       subjectNextTime: `${groupInfo.subject}_19000101`,
@@ -41,10 +45,75 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
       times: 0,
     };
 
-    return DBHelper().transactWrite({
+    // 登録成功
+    await DBHelper().transactWrite({
       TransactItems: [{ Put: Questions.put(qItem) }, { Put: Learning.put(lItem) }],
     });
+
+    // create image file if needed
+    createImages(id, title, answer);
+    // create voice of text
+    createVoices(id, title, answer);
   });
 
   await Promise.all(tasks);
+};
+
+const createImages = async (qid: string, title: string, answer: string): Promise<void> => {
+  const newTitle = await getS3Key(title);
+  const newAnswer = await getS3Key(answer);
+
+  // not changed
+  if (newTitle === title && newAnswer === answer) {
+    return;
+  }
+
+  const results = await DBHelper().get<Tables.TQuestions>(Questions.get({ id: qid }));
+  const item = results?.Item;
+
+  if (!item) return;
+
+  // update url
+  await DBHelper().put(
+    Questions.put({
+      ...item,
+      title: newTitle,
+      answer: newAnswer,
+    })
+  );
+};
+
+const getS3Key = async (text: string): Promise<string> => {
+  if (!text.match(/\[http(s?):\/\/.*\]$/)) {
+    return text;
+  }
+
+  const startIdx = text.indexOf('[http');
+  const endIdx = text.indexOf(']');
+  const url = text.substring(startIdx + 1, endIdx);
+
+  const s3Key = await Commons.generateImage(url);
+
+  return text.replace(/\[http(s?):\/\/.*\]$/, `[${s3Key}]`);
+};
+
+const createVoices = async (qid: string, title: string, answer: string): Promise<void> => {
+  const newTitle = title.replace(/\[http(s?):\/\/.*\]$/, '');
+  const newAnswer = answer.replace(/\[http(s?):\/\/.*\]$/, '');
+  const titleKey = await Commons.createJapaneseVoice(newTitle);
+  const answerKey = await Commons.createJapaneseVoice(newAnswer);
+
+  const results = await DBHelper().get<Tables.TQuestions>(Questions.get({ id: qid }));
+  const item = results?.Item;
+
+  if (!item) return;
+
+  // update url
+  await DBHelper().put(
+    Questions.put({
+      ...item,
+      voiceTitle: titleKey,
+      voiceAnswer: answerKey,
+    })
+  );
 };
