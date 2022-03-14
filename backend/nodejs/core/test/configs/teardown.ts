@@ -50,7 +50,7 @@ const teardown = async () => {
 export const listObject = async (token?: string): Promise<S3.Object[]> => {
   const results = await s3Client
     .listObjectsV2({
-      Bucket: BUCKET_NAME_FRONTEND,
+      Bucket: BUCKET_NAME_MATERAILS,
       ContinuationToken: token,
     })
     .promise();
