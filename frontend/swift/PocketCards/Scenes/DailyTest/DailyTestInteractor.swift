@@ -79,7 +79,7 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
                 }
 
                 // initialize
-                if (self.current == nil) {
+                if (self.current == nil && self.questions.count > 0) {
                     self.next()
                 }
             }

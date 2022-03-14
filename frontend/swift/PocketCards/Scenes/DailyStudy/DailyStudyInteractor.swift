@@ -79,14 +79,8 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
                     }
                 }
 
-                // No new questions
-                if self.questions.count == 0 {
-                    self.presenter?.showNothing()
-                    return
-                }
-
                 // initialize
-                if (self.current == nil) {
+                if (self.current == nil && self.questions.count > 0) {
                     self.next()
                 }
             }

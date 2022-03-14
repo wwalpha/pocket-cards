@@ -29,12 +29,14 @@ PODS:
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
+  - Kingfisher (7.2.0)
 
 DEPENDENCIES:
   - Alamofire
   - Amplify
   - AmplifyPlugins/AWSCognitoAuthPlugin
   - Charts
+  - Kingfisher (~> 7.0)
 
 SPEC REPOS:
   trunk:
@@ -48,6 +50,7 @@ SPEC REPOS:
     - AWSMobileClient
     - AWSPluginsCore
     - Charts
+    - Kingfisher
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
@@ -60,7 +63,8 @@ SPEC CHECKSUMS:
   AWSMobileClient: a4716d7418ca79fb3081d97139fb590c2a4e7cd8
   AWSPluginsCore: d0e4ea6ca225b0f79e40193178c06348b8220a86
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  Kingfisher: 3ac0b75b155cabc0e544877d1a4deea29feece92
 
-PODFILE CHECKSUM: e24279e658b5c4950298efba817c0166814c9b8b
+PODFILE CHECKSUM: dd2f83e8a1a9c8802ccb1beaf582ff8422f5ea96
 
 COCOAPODS: 1.11.2
