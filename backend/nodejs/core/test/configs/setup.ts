@@ -26,7 +26,7 @@ const setup = async () => {
   const dbClient = helper.getClient();
 
   await Promise.all([
-    s3Client.createBucket({ Bucket: process.env.BUCKET_NAME_FRONTEND as string }).promise(),
+    s3Client.createBucket({ Bucket: process.env.BUCKET_NAME_MATERAILS as string }).promise(),
     dbClient
       .createTable({
         TableName: TABLE_NAME_USERS,
