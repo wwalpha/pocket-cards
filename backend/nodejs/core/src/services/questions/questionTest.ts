@@ -34,7 +34,7 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
   const targets = items.length > Environment.WORDS_LIMIT ? items.slice(0, Environment.WORDS_LIMIT) : items;
 
   // 単語明細情報の取得
-  const details = await QueryUtils.getQuestionDetails(results.Items);
+  const details = await QueryUtils.getQuestionDetails(targets);
 
   return {
     count: details.length,
