@@ -5,6 +5,7 @@
 //  Created by macmini on 2022/03/08.
 //
 import SwiftUI
+import Kingfisher
 
 struct FlashCard: View {
     @State private var flipped = false
@@ -18,7 +19,15 @@ struct FlashCard: View {
         GeometryReader { geo in
             VStack {
                 ZStack {
-                    Text(question)
+                    VStack {
+                        Text(question.removeImage())
+                        
+                        if (!question.getImage().isEmpty) {
+                            KFImage(URL(string: DOMAIN_HOST + question.getImage())!)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        }
+                    }
                         .frame(width: geo.size.width * 0.8,  height: geo.size.height * 0.6, alignment: .center)
                         .font(.system(size: 64, design: .default))
                         .padding()
@@ -26,7 +35,15 @@ struct FlashCard: View {
                         .background(Color.grey100)
                         .opacity(flipped ? 0.0 : 1.0)
 
-                    Text(answer)
+                    VStack {
+                        Text(answer.removeImage())
+                        
+                        if (!answer.getImage().isEmpty) {
+                            KFImage(URL(string: DOMAIN_HOST + answer.getImage())!)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        }
+                    }
                         .frame(width: geo.size.width * 0.8,  height: geo.size.height * 0.6, alignment: .center)
                         .font(.system(size: 64, design: .default))
                         .padding()
