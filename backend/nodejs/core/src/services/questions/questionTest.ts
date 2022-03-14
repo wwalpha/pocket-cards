@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import { DBHelper, Logger, DateUtils, Commons, QueryUtils } from '@utils';
 import { Learning } from '@queries';
+import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 
 /** 今日のテスト */
@@ -26,11 +27,11 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
 
   Logger.info(`Count: ${results.Count}`);
 
-  // const items = results.Items;
+  const items = results.Items;
   // // 時間順
   // const sorted = orderBy(items, 'lastTime');
   // // 時間順で上位N件を対象とします
-  // const targets = sorted.length > Environment.WORDS_LIMIT ? sorted.slice(0, Environment.WORDS_LIMIT) : sorted;
+  const targets = items.length > Environment.WORDS_LIMIT ? items.slice(0, Environment.WORDS_LIMIT) : items;
 
   // 単語明細情報の取得
   const details = await QueryUtils.getQuestionDetails(results.Items);
