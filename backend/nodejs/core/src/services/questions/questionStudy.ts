@@ -17,7 +17,7 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
   // next study date
   const date = DateUtils.getNow();
   // 問題一覧
-  const results = await DBHelper().query<Tables.TLearning>(Learning.query.study(userId, `${subject}_${date}`));
+  const results = await DBHelper().query<Tables.TLearning>(Learning.query.study(userId, date, subject));
 
   // 検索結果０件の場合
   if (results.Count === 0) {

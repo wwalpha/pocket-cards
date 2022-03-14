@@ -40,7 +40,8 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
       qid: id,
       groupId: groupId,
       userId: userId,
-      subjectNextTime: `${groupInfo.subject}_19000101`,
+      subject: groupInfo.subject,
+      nextTime: '19000101',
       lastTime: '19000101',
       times: 0,
     };

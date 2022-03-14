@@ -26,7 +26,7 @@ export default async (
     Learning.put({
       ...question,
       times: times,
-      subjectNextTime: `${question.subjectNextTime.split('_')[0]}_${nextTime}`,
+      nextTime: nextTime,
     })
   );
 };

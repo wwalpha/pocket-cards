@@ -88,19 +88,21 @@ export namespace Tables {
     userId: string;
     // グループID
     groupId: string;
-    // 科目_次の学習時間
-    subjectNextTime: string;
+    // 次回の学習時間
+    nextTime: string;
     // 最後の学習時間
     lastTime?: string;
     // 学習回数
     times: number;
+    // 科目
+    subject?: string;
   }
 
   interface TLearningGSI1Key {
     // ユーザID
     userId: string;
     // 次の学習時間
-    subjectNextTime: string;
+    nextTime: string;
   }
 
   interface TLearningGSI1Projection extends TLearningGSI1Key {
