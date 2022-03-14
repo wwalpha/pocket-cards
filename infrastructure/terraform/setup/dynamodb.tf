@@ -189,14 +189,26 @@ resource "aws_dynamodb_table" "learning" {
   }
 
   attribute {
-    name = "subjectNextTime"
+    name = "nextTime"
+    type = "S"
+  }
+
+  attribute {
+    name = "groupId"
     type = "S"
   }
 
   global_secondary_index {
     name            = "gsiIdx1"
     hash_key        = "userId"
-    range_key       = "subjectNextTime"
+    range_key       = "nextTime"
+    projection_type = "ALL"
+  }
+
+  global_secondary_index {
+    name            = "gsiIdx2"
+    hash_key        = "groupId"
+    range_key       = "nextTime"
     projection_type = "ALL"
   }
 }
