@@ -51,9 +51,9 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
     });
 
     // create image file if needed
-    createImages(id, title, answer);
+    await createImages(id, title, answer);
     // create voice of text
-    createVoices(id, title, answer);
+    await createVoices(id, title, answer);
   });
 
   await Promise.all(tasks);
