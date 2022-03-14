@@ -1,12 +1,12 @@
 # ----------------------------------------------------------------------------------------------
-# Amazon S3 (画像保存用)
+# Amazon S3 (archive用)
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_bucket" "archive" {
   bucket = local.bucket_name_archive
 }
 
 # ----------------------------------------------------------------------------------------------
-# Amazon S3 (画像保存用) LifeCycle
+# Amazon S3 (archive用) LifeCycle
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_bucket_lifecycle_configuration" "archive_images" {
   bucket = aws_s3_bucket.archive.id
@@ -63,4 +63,16 @@ resource "aws_s3_object" "this" {
       etag
     ]
   }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Amazon S3 (資材)
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_bucket" "materials" {
+  bucket = local.bucket_name_materials
+}
+
+resource "aws_s3_bucket_acl" "materials" {
+  bucket = aws_s3_bucket.materials.id
+  acl    = "private"
 }

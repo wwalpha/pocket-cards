@@ -11,11 +11,11 @@ export const TABLE_NAME_HISTORIES = process.env.TABLE_NAME_HISTORIES as string;
 export const TABLE_NAME_QUESTIONS = process.env.TABLE_NAME_QUESTIONS as string;
 export const TABLE_NAME_LEARNING = process.env.TABLE_NAME_LEARNING as string;
 
-export const PATH_PATTERN = process.env.PATH_PATTERN as string;
 // 最大単語数、default 10件
 export const WORDS_LIMIT = process.env.WORDS_LIMIT ? Number(process.env.WORDS_LIMIT) : 10;
 
 export const BUCKET_NAME_FRONTEND = process.env.BUCKET_NAME_FRONTEND as string;
+export const BUCKET_NAME_MATERAILS = process.env.BUCKET_NAME_MATERAILS as string;
 
 export const IPA_API_URL = process.env.IPA_API_URL as string;
 export const IPA_API_KEY = process.env.IPA_API_KEY as string;

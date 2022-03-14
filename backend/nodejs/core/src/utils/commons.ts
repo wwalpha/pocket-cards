@@ -4,8 +4,9 @@ import { decode } from 'jsonwebtoken';
 import { ClientUtils, DateUtils, Logger } from '@utils';
 import { ssm } from './clientUtils';
 import { Polly, S3 } from 'aws-sdk';
-import { Environment } from '@consts';
+import { Environment, Consts } from '@consts';
 import { GetItemOutput } from '@alphax/dynamodb';
+import { getImage } from './apis';
 
 // Sleep
 export const sleep = (timeout: number) => new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
@@ -74,7 +75,7 @@ export const saveWithMP3 = async (word: string): Promise<string> => {
   // ファイル名
   const filename: string = `${short.generate()}.mp3`;
   const prefix: string = DateUtils.getNow();
-  const key: string = `${Environment.PATH_PATTERN}/${prefix}/${filename}`;
+  const key: string = `${Consts.PATH_PATTERN}/${prefix}/${filename}`;
 
   const putRequest: S3.Types.PutObjectRequest = {
     Bucket: Environment.BUCKET_NAME_FRONTEND,
@@ -101,3 +102,21 @@ export const isEmpty = (item?: GetItemOutput) => {
 };
 
 export const isNotEmpty = (item?: GetItemOutput) => !isEmpty(item);
+
+export const generateImage = async (url: string): Promise<string> => {
+  const filename: string = `${short.generate()}`;
+  const filedata: string = await getImage(url);
+  const extension: string | undefined = url.split('.').pop();
+  const key: string = `${Consts.PATH_IMAGE}/${filename}.${extension}`;
+
+  const putRequest: S3.Types.PutObjectRequest = {
+    Bucket: Environment.BUCKET_NAME_MATERAILS,
+    Key: key,
+    Body: filedata,
+  };
+
+  // S3に保存する
+  await ClientUtils.s3().putObject(putRequest).promise();
+
+  return key;
+};

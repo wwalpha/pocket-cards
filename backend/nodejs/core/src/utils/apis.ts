@@ -31,3 +31,9 @@ export const getTranslate = async (word: string, targetLanguageCode: string): Pr
 
   return translations[0].translatedText;
 };
+
+export const getImage = async (url: string) => {
+  const res = await axios.get(url);
+
+  return res.data;
+};

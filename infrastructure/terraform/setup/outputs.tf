@@ -21,6 +21,9 @@ output "bucket_name_frontend" {
 output "bucket_name_archive" {
   value = aws_s3_bucket.archive.id
 }
+output "bucket_name_materials" {
+  value = aws_s3_bucket.materials.id
+}
 
 # ----------------------------------------------------------------------------------------------
 # DynamoDB

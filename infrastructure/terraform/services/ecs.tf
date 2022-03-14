@@ -3,7 +3,13 @@
 # ----------------------------------------------------------------------------------------------
 resource "aws_ecs_cluster" "this" {
   name = "${local.project_name}-cluster"
+}
 
+# ----------------------------------------------------------------------------------------------
+# ECS Cluster Capacity Providers
+# ----------------------------------------------------------------------------------------------
+resource "aws_ecs_cluster_capacity_providers" "this" {
+  cluster_name       = aws_ecs_cluster.this.name
   capacity_providers = ["FARGATE", "FARGATE_SPOT"]
 
   default_capacity_provider_strategy {
@@ -48,7 +54,7 @@ resource "aws_ecs_task_definition" "this" {
       container_name  = local.task_def_family
       container_image = "${aws_ecr_repository.this.repository_url}:latest"
       container_port  = 8080
-      env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_bucket_object.backend.key}"
+      env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.backend.key}"
     }
   )
 

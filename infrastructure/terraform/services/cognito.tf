@@ -212,6 +212,13 @@ resource "aws_cognito_identity_provider" "google" {
     email    = "email"
     username = "sub"
   }
+
+  lifecycle {
+    ignore_changes = [
+      provider_details["client_id"],
+      provider_details["client_secret"],
+    ]
+  }
 }
 
 # --------------------------------------------------------------------------------------------------------------

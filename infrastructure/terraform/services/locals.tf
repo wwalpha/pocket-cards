@@ -35,6 +35,7 @@ locals {
   # CloudFront
   # -----------------------------------------------
   origin_id_frontend     = "frontend"
+  origin_id_materials    = "materials"
   origin_id_audio        = "audio"
   origin_id_api          = "api"
   origin_id_path         = "/api"
@@ -52,8 +53,9 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # S3 Bucket
   # ----------------------------------------------------------------------------------------------
-  bucket_name_frontend = local.remote_setup.bucket_name_frontend
-  bucket_name_archive  = local.remote_setup.bucket_name_archive
+  bucket_name_frontend  = local.remote_setup.bucket_name_frontend
+  bucket_name_archive   = local.remote_setup.bucket_name_archive
+  bucket_name_materials = local.remote_setup.bucket_name_materials
 
   # ----------------------------------------------------------------------------------------------
   # Route53
@@ -84,6 +86,13 @@ data "aws_s3_bucket" "frontend" {
 # ----------------------------------------------------------------------------------------------
 data "aws_s3_bucket" "archive" {
   bucket = local.bucket_name_archive
+}
+
+# ----------------------------------------------------------------------------------------------
+# Amazon S3 Bucket - Materials
+# ----------------------------------------------------------------------------------------------
+data "aws_s3_bucket" "materials" {
+  bucket = local.bucket_name_materials
 }
 
 # ----------------------------------------------------------------------------------------------

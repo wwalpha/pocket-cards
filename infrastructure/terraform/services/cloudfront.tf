@@ -16,6 +16,15 @@ resource "aws_cloudfront_distribution" "this" {
     }
   }
 
+  origin {
+    domain_name = data.aws_s3_bucket.materials.bucket_regional_domain_name
+    origin_id   = local.origin_id_materials
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.this.cloudfront_access_identity_path
+    }
+  }
+
   custom_error_response {
     error_caching_min_ttl = 3000
     error_code            = 403
@@ -37,6 +46,24 @@ resource "aws_cloudfront_distribution" "this" {
         forward = "none"
       }
     }
+  }
+
+  ordered_cache_behavior {
+    path_pattern     = "/contents/*"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
+    target_origin_id = local.origin_id_materials
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    compress               = true
   }
 
   viewer_certificate {
@@ -85,6 +112,35 @@ data "aws_iam_policy_document" "this" {
 
     resources = [
       "${data.aws_s3_bucket.frontend.arn}/*"
+    ]
+  }
+}
+
+# ------------------------------------------------------------------------------------------------
+# CloudFront Origin Access Identity Policy (Materials)
+# ------------------------------------------------------------------------------------------------
+resource "aws_s3_bucket_policy" "materials" {
+  depends_on = [aws_cloudfront_origin_access_identity.this]
+
+  bucket = local.bucket_name_materials
+  policy = data.aws_iam_policy_document.materials.json
+}
+
+data "aws_iam_policy_document" "materials" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${aws_cloudfront_origin_access_identity.this.id}"]
+    }
+
+    actions = [
+      "s3:GetObject",
+    ]
+
+    resources = [
+      "${data.aws_s3_bucket.materials.arn}/*"
     ]
   }
 }
