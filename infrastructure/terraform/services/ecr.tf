@@ -11,6 +11,32 @@ resource "aws_ecr_repository" "this" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# ECR Lifecycle Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_ecr_lifecycle_policy" "this" {
+  repository = aws_ecr_repository.this.name
+
+  policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Expire images count more than 3",
+            "selection": {
+                "tagStatus": "any",
+                "countType": "imageCountMoreThan",
+                "countNumber": 3
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+}
+
+# ----------------------------------------------------------------------------------------------
 # Null Resource
 # ----------------------------------------------------------------------------------------------
 resource "null_resource" "nginx" {
