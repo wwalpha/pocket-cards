@@ -21,11 +21,11 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
   const results = await DBHelper().query<Tables.TLearning>(Learning.query.test(userId, date, subject));
 
   // 検索結果０件の場合
-  if (results.Count === 0) {
+  if (results.Items.length === 0) {
     return EmptyResponse();
   }
 
-  Logger.info(`Count: ${results.Count}`);
+  Logger.info(`Count: ${results.Items.length}`);
 
   const items = results.Items;
   // // 時間順

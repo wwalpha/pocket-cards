@@ -24,6 +24,7 @@ export const test = (userId: string, nextTime: string, subject: string): DynamoD
   },
   IndexName: 'gsiIdx1',
   ScanIndexForward: false,
+  Limit: 50,
 });
 
 /**
@@ -50,6 +51,7 @@ export const study = (userId: string, nextTime: string, subject: string): Dynamo
   },
   IndexName: 'gsiIdx1',
   ScanIndexForward: false,
+  Limit: 50,
 });
 
 // export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
