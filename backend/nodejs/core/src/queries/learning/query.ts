@@ -54,6 +54,23 @@ export const study = (userId: string, nextTime: string, subject: string): Dynamo
   Limit: 50,
 });
 
+/** Daily Questions */
+export const daily = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid, subject, times',
+  KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
+  ExpressionAttributeNames: {
+    '#userId': 'userId',
+    '#nextTime': 'nextTime',
+  },
+  ExpressionAttributeValues: {
+    ':userId': userId,
+    ':nextTime': nextTime,
+  },
+  IndexName: 'gsiIdx1',
+  ScanIndexForward: false,
+});
+
 // export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
 //   TableName: Environment.TABLE_NAME_QUESTIONS,
 //   KeyConditionExpression: '#groupId = :groupId',
