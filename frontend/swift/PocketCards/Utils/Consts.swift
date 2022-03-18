@@ -15,6 +15,8 @@ class URLs {
     static func ANSWER(id: String) -> String {
         return "\(self.HOST)/v1/questions/\(id)/answer"
     }
+    
+    static let REPORT_DAILY = "\(HOST)/v1/reports/daily"
 }
 
 struct SUBJECT {

@@ -33,6 +33,12 @@
 		9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD28D27D7394C0000A16B /* Colors.swift */; };
 		9A1FD2A527D7394C0000A16B /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD29027D7394C0000A16B /* Question.swift */; };
 		9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD29227D7394C0000A16B /* QuestionServices.swift */; };
+		9A61EEA927E4684B002C73D0 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEA827E4684B002C73D0 /* TabBar.swift */; };
+		9A61EEAC27E46914002C73D0 /* ReportContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEAB27E46914002C73D0 /* ReportContract.swift */; };
+		9A61EEAE27E4691F002C73D0 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEAD27E4691F002C73D0 /* ReportView.swift */; };
+		9A61EEB027E46930002C73D0 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEAF27E46930002C73D0 /* ReportViewModel.swift */; };
+		9A61EEB227E46946002C73D0 /* ReportInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEB127E46946002C73D0 /* ReportInteractor.swift */; };
+		9A61EEB427E46952002C73D0 /* ReportPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEB327E46952002C73D0 /* ReportPresenter.swift */; };
 		9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */; };
 		9A6E044F27DC3682005D87EE /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6E044E27DC3681005D87EE /* CardButton.swift */; };
 		9A7F876A27D747C800446E9D /* FlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F876927D747C700446E9D /* FlashCard.swift */; };
@@ -42,6 +48,7 @@
 		9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877527D7604D00446E9D /* SocietyHomeView.swift */; };
 		9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */; };
 		9A7F877A27D8269600446E9D /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877927D8269600446E9D /* Environments.swift */; };
+		9ADD155827DF83AD00C9CE64 /* Commons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADD155727DF83AD00C9CE64 /* Commons.swift */; };
 		9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */; };
 		9AF57E6727D8DC60002B1F32 /* DailyTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */; };
 		9AF57E6927D8DC6F002B1F32 /* DailyTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */; };
@@ -80,6 +87,12 @@
 		9A1FD29027D7394C0000A16B /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		9A1FD29227D7394C0000A16B /* QuestionServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionServices.swift; sourceTree = "<group>"; };
 		9A1FD2A727D7406B0000A16B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9A61EEA827E4684B002C73D0 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		9A61EEAB27E46914002C73D0 /* ReportContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContract.swift; sourceTree = "<group>"; };
+		9A61EEAD27E4691F002C73D0 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
+		9A61EEAF27E46930002C73D0 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
+		9A61EEB127E46946002C73D0 /* ReportInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportInteractor.swift; sourceTree = "<group>"; };
+		9A61EEB327E46952002C73D0 /* ReportPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPresenter.swift; sourceTree = "<group>"; };
 		9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 		9A6E044E27DC3681005D87EE /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		9A7F876927D747C700446E9D /* FlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCard.swift; sourceTree = "<group>"; };
@@ -89,6 +102,7 @@
 		9A7F877527D7604D00446E9D /* SocietyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeView.swift; sourceTree = "<group>"; };
 		9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeRouter.swift; sourceTree = "<group>"; };
 		9A7F877927D8269600446E9D /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
+		9ADD155727DF83AD00C9CE64 /* Commons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commons.swift; sourceTree = "<group>"; };
 		9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestView.swift; sourceTree = "<group>"; };
 		9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestViewModel.swift; sourceTree = "<group>"; };
@@ -171,6 +185,7 @@
 				9A1FD27227D7394C0000A16B /* Button */,
 				9A1FD27427D7394C0000A16B /* View */,
 				9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */,
+				9A61EEA827E4684B002C73D0 /* TabBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -196,6 +211,7 @@
 		9A1FD27627D7394C0000A16B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9A61EEAA27E468FF002C73D0 /* Report */,
 				9A7F876F27D7600B00446E9D /* Society */,
 				9A7F876D27D75FEC00446E9D /* Science */,
 				9A1FD27827D7394C0000A16B /* Language */,
@@ -210,11 +226,11 @@
 		9A1FD27727D7394C0000A16B /* DailyTest */ = {
 			isa = PBXGroup;
 			children = (
+				9AF57E6E27D962A0002B1F32 /* DailyTestContract.swift */,
 				9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */,
 				9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */,
 				9AF57E6A27D96288002B1F32 /* DailyTestInteractor.swift */,
 				9AF57E6C27D96292002B1F32 /* DailyTestPresenter.swift */,
-				9AF57E6E27D962A0002B1F32 /* DailyTestContract.swift */,
 			);
 			path = DailyTest;
 			sourceTree = "<group>";
@@ -239,9 +255,9 @@
 		9A1FD27C27D7394C0000A16B /* Root */ = {
 			isa = PBXGroup;
 			children = (
+				9A1FD27F27D7394C0000A16B /* RootContract.swift */,
 				9A1FD27D27D7394C0000A16B /* RootRouter.swift */,
 				9A1FD27E27D7394C0000A16B /* RootView.swift */,
-				9A1FD27F27D7394C0000A16B /* RootContract.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -249,11 +265,11 @@
 		9A1FD28027D7394C0000A16B /* DailyStudy */ = {
 			isa = PBXGroup;
 			children = (
+				9A1FD28527D7394C0000A16B /* DailyStudyContract.swift */,
 				9A1FD28127D7394C0000A16B /* DailyStudyView.swift */,
 				9A1FD28227D7394C0000A16B /* DailyStudyViewModel.swift */,
 				9A1FD28327D7394C0000A16B /* DailyStudyInteractor.swift */,
 				9A1FD28427D7394C0000A16B /* DailyStudyPresenter.swift */,
-				9A1FD28527D7394C0000A16B /* DailyStudyContract.swift */,
 			);
 			path = DailyStudy;
 			sourceTree = "<group>";
@@ -276,6 +292,7 @@
 				9A1FD28D27D7394C0000A16B /* Colors.swift */,
 				9A7F877927D8269600446E9D /* Environments.swift */,
 				9AF57E7027D96624002B1F32 /* StringUtils.swift */,
+				9ADD155727DF83AD00C9CE64 /* Commons.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -303,6 +320,18 @@
 				9A1FD29227D7394C0000A16B /* QuestionServices.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		9A61EEAA27E468FF002C73D0 /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				9A61EEAB27E46914002C73D0 /* ReportContract.swift */,
+				9A61EEAD27E4691F002C73D0 /* ReportView.swift */,
+				9A61EEAF27E46930002C73D0 /* ReportViewModel.swift */,
+				9A61EEB127E46946002C73D0 /* ReportInteractor.swift */,
+				9A61EEB327E46952002C73D0 /* ReportPresenter.swift */,
+			);
+			path = Report;
 			sourceTree = "<group>";
 		};
 		9A7F876D27D75FEC00446E9D /* Science */ = {
@@ -467,17 +496,22 @@
 				9A1FD29727D7394C0000A16B /* RootRouter.swift in Sources */,
 				9A1FD29327D7394C0000A16B /* ChoiceButton.swift in Sources */,
 				9A1FD29527D7394C0000A16B /* LanguageHomeRouter.swift in Sources */,
+				9A61EEB427E46952002C73D0 /* ReportPresenter.swift in Sources */,
 				9A1FD26527D738CF0000A16B /* AppDelegate.swift in Sources */,
 				9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */,
 				9A1FD2A027D7394C0000A16B /* Consts.swift in Sources */,
 				9A1FD2A327D7394C0000A16B /* Alamofire.swift in Sources */,
+				9A61EEB027E46930002C73D0 /* ReportViewModel.swift in Sources */,
 				9A1FD29E27D7394C0000A16B /* DailyStudyContract.swift in Sources */,
 				9A6E044F27DC3682005D87EE /* CardButton.swift in Sources */,
 				9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */,
+				9ADD155827DF83AD00C9CE64 /* Commons.swift in Sources */,
 				9A1FD2A227D7394C0000A16B /* TokenManager.swift in Sources */,
 				9A1FD2A527D7394C0000A16B /* Question.swift in Sources */,
+				9A61EEB227E46946002C73D0 /* ReportInteractor.swift in Sources */,
 				9AF57E6F27D962A0002B1F32 /* DailyTestContract.swift in Sources */,
 				9A1FD29427D7394C0000A16B /* ChoiceQuestion.swift in Sources */,
+				9A61EEA927E4684B002C73D0 /* TabBar.swift in Sources */,
 				9AF57E6927D8DC6F002B1F32 /* DailyTestViewModel.swift in Sources */,
 				9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */,
 				9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */,
@@ -486,6 +520,7 @@
 				9A7F877427D7603300446E9D /* ScienceHomeView.swift in Sources */,
 				9AF57E6B27D96288002B1F32 /* DailyTestInteractor.swift in Sources */,
 				9A1FD29C27D7394C0000A16B /* DailyStudyInteractor.swift in Sources */,
+				9A61EEAC27E46914002C73D0 /* ReportContract.swift in Sources */,
 				9A1FD2A127D7394C0000A16B /* Authencation.swift in Sources */,
 				9A7F877227D7602500446E9D /* ScienceHomeRouter.swift in Sources */,
 				9A1FD29627D7394C0000A16B /* LanguageHomeView.swift in Sources */,
@@ -496,6 +531,7 @@
 				9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */,
 				9A1FD29D27D7394C0000A16B /* DailyStudyPresenter.swift in Sources */,
 				9A1FD29A27D7394C0000A16B /* DailyStudyView.swift in Sources */,
+				9A61EEAE27E4691F002C73D0 /* ReportView.swift in Sources */,
 				9A1FD24D27D7369B0000A16B /* PocketCardsApp.swift in Sources */,
 				9A1FD29F27D7394C0000A16B /* LoginView.swift in Sources */,
 				9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */,

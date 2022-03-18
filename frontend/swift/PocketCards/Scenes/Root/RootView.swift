@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import AVFoundation
+import Kingfisher
 
 struct RootView: View {
     private var router: RootRouter?
@@ -13,8 +15,8 @@ struct RootView: View {
     var body: some View {
         let gradient1 = LinearGradient(
             colors: [Color.init(hex: 0x2193b0), Color.init(hex: 0x6dd5ed)],
-            startPoint: .bottomTrailing,
-            endPoint: .topTrailing
+            startPoint: .topTrailing,
+            endPoint: .bottomLeading
         )
         let gradient2 = LinearGradient(
             colors: [Color.init(hex: 0xc21500), Color.init(hex: 0xffc500)],
@@ -24,7 +26,7 @@ struct RootView: View {
         
         VStack(alignment: .leading, spacing: 32) {
             Spacer()
-            
+
             HStack {
                 Text("国語")
                     .frame(height: 120, alignment: .topLeading)
