@@ -351,4 +351,24 @@ export namespace APIs {
   }
 
   type QuestionAnswerResponse = void;
+
+  // ------------------------------------------------------------
+  // Reports
+  // ------------------------------------------------------------
+  interface DailyReportResquest {}
+
+  interface DailyReportResponse {
+    language: {
+      study: number;
+      test: number;
+    };
+    society: {
+      study: number;
+      test: number;
+    };
+    science: {
+      study: number;
+      test: number;
+    };
+  }
 }
