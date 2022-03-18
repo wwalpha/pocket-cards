@@ -13,7 +13,7 @@ struct ChoiceQuestion: View {
     var choices: [String]
     var isShowError: String
     var onChoice: (_: String) -> Void
-    
+
     var body: some View {
         VStack {
             HStack {

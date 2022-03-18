@@ -12,6 +12,8 @@ class DailyTestInteractor {
     
     private var subject: String
     private var current: Question?
+    private var index: Int = -1
+    private var maxCount = 10
     
     var questions: [Question] = []
     
@@ -23,7 +25,7 @@ class DailyTestInteractor {
 extension DailyTestInteractor: DailyTestBusinessLogic {
     
     // update answer
-    func updateAnswer(correct: Bool) {
+    func updateAnswer(id: String, correct: Bool) {
         guard let id = current?.id else { return }
 
         let params = [
@@ -31,12 +33,22 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
         ]
         
         print("updateAnswer", id, correct)
+
         API.request(URLs.ANSWER(id: id), method: .post, parameters: params)
             .response { response in
                 switch response.result {
                 case .success:
-                    // show next question
-                    self.next()
+                    print("Successful")
+                    // remove updated question
+                    self.questions.removeAll(where: { $0.id == id })
+                    // reindex
+                    guard let newIndex = self.questions.firstIndex(where: { $0.id == self.current?.id }) else { return }
+                    self.index = newIndex
+                    
+                    // add questions
+                    if self.questions.count < 5 {
+                        self.loadQuestion()
+                    }
                 case let .failure(error):
                     print(error)
                 }
@@ -79,20 +91,34 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
                 }
 
                 // initialize
-                if (self.current == nil && self.questions.count > 0) {
-                    self.next()
+                if self.current == nil {
+                    if self.questions.count > 0 {
+                        self.next()
+                    } else {
+                        self.presenter?.showNothing()
+                    }
                 }
             }
     }
     
+    func onPlay(front: Bool) {
+        guard let thisURL = front ? self.current?.voiceTitle : self.current?.voiceAnswer else { return }
+
+        Audio.play(url: DOMAIN_HOST + thisURL)
+    }
+
     func onAction(correct: Bool) {
         // update question state
-        self.updateAnswer(correct: correct)
+        self.updateAnswer(id: current!.id, correct: correct)
+        // show next question
+        self.next()
     }
     
     func onChoice(choice: String) {
         // update question state
-        self.updateAnswer(correct: choice == current?.answer )
+        self.updateAnswer(id: current!.id, correct: choice == current?.answer)
+        // show next question
+        self.next()
     }
     
     private func next() {
@@ -100,15 +126,17 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
             presenter?.showNothing()
             return
         }
+
+        self.index = (self.index + 1) % self.questions.count
         
-        current = self.questions.removeFirst()
-        
-        presenter?.showNext(q: current!)
-        
-        // add new questions
-        if self.questions.count < 3 {
-            print("Load Questions")
-            self.loadQuestion()
+        if (self.questions.count > self.index) {
+            current = self.questions[self.index]
+            presenter?.showNext(q: current!)
+        } else if self.questions.count != 0 {
+            self.index = 0
+            current = self.questions[self.index]
+        } else {
+            presenter?.showNothing()
         }
     }
 }

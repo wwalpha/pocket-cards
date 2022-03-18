@@ -14,11 +14,25 @@ struct FlashCard: View {
     var question: String
     var answer: String
     var action: (_: Bool) -> Void
-
+    var onPlay: (_ front: Bool) -> Void
+    
     var body: some View {
         GeometryReader { geo in
             VStack {
                 ZStack {
+                    Button {
+                        self.onPlay(!flipped)
+                    } label: {
+                        HStack {
+                            Image(systemName: "speaker.wave.3")
+                        }
+                            .padding()
+                            .border(Color.blue, width: 2)
+                    }
+                    .frame(width: 120, height: 48, alignment: .center)
+                    .position(x: geo.size.width - 220, y: 72)
+                    .zIndex(100)
+                    
                     VStack {
                         Text(question.removeImage())
                         
@@ -67,7 +81,7 @@ struct FlashCard: View {
                 
                 HStack {
                     Spacer()
-                    
+
                     Button(action: {
                         self.action(false)
                         self.angle = 0.0
@@ -141,7 +155,8 @@ struct FlashCard_Previews: PreviewProvider {
     static var previews: some View {
         FlashCard(question: "Front Side", answer: "Back Side") { correct in
             print(correct)
+        } onPlay: { front in
+            print(front)
         }
-.previewInterfaceOrientation(.landscapeLeft)
     }
 }

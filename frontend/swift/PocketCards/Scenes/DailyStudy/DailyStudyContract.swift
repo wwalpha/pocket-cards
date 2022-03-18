@@ -18,11 +18,13 @@ protocol DailyStudyDisplayLogic {
 protocol DailyStudyBusinessLogic {
     func loadQuestion()
     
-    func updateAnswer(correct: Bool)
+    func updateAnswer(id: String, correct: Bool)
     
     func onChoice(choice: String)
     
     func onAction(correct: Bool)
+    
+    func onPlay(front: Bool)
 }
 
 protocol DailyStudyPresentationLogic {

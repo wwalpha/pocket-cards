@@ -23,7 +23,7 @@ struct DailyStudyView: View {
                     interactor?.loadQuestion()
                 }
         } else if viewModel.title == "Nothing" {
-            Text("今日のテストは終わりました")
+            Text("今日の学習は終わりました")
                 .font(.system(size: 64, design: .default))
         } else {
             // Language
@@ -39,7 +39,8 @@ struct DailyStudyView: View {
                 FlashCard(
                     question: viewModel.title,
                     answer: viewModel.answer,
-                    action: interactor!.onAction
+                    action: interactor!.onAction,
+                    onPlay: interactor!.onPlay
                 )
             }
         }

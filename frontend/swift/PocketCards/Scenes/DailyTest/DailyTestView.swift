@@ -40,7 +40,8 @@ struct DailyTestView: View {
                 FlashCard(
                     question: viewModel.title,
                     answer: viewModel.answer,
-                    action: interactor!.onAction
+                    action: interactor!.onAction,
+                    onPlay: interactor!.onPlay
                 )
             }
         }
