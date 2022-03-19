@@ -11,5 +11,4 @@ class ReportPresenter {
     var view: ReportDisplayLogic?
 }
 
-extension ReportPresenter: ReportPresentationLogic {
-}
+extension ReportPresenter: ReportPresentationLogic {}

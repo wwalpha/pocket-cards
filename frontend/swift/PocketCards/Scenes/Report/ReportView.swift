@@ -18,19 +18,18 @@ struct ReportView: View {
     }
 }
 
-extension ReportView: ReportDisplayLogic {
-}
+extension ReportView: ReportDisplayLogic {}
 
-extension ReportView  {
+extension ReportView {
     func configureView() -> some View {
         var view = self
         let interactor = ReportInteractor()
         let presenter = ReportPresenter()
-        
+
         view.interactor = interactor
         interactor.presenter = presenter
         presenter.view = view
-        
+
         return view
     }
 }

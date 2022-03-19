@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ChoiceButton: View {
-    var text : String
+    var text: String
     var isError: Bool = false
 
     let onDetail: () -> Void
-    
+
     var body: some View {
         HStack {
             Button(action: onDetail) {
@@ -32,7 +32,6 @@ struct ChoiceButton: View {
 }
 
 struct ChoiceButtonView_Previews: PreviewProvider {
-
     static var previews: some View {
         ChoiceButton(text: "12345", isError: true) {
             print(111)

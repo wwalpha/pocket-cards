@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ChoiceQuestion: View {
-    
     var question: String
     var choices: [String]
     var isShowError: String
@@ -17,7 +16,7 @@ struct ChoiceQuestion: View {
     var body: some View {
         VStack {
             HStack {
-                GeometryReader { geometry in
+                GeometryReader { _ in
                     Text(question)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                         .font(.system(size: 48, design: .default))
@@ -25,14 +24,14 @@ struct ChoiceQuestion: View {
                         .border(Color.purple, width: 5)
                 }
             }
-                .padding(.bottom, 32)
-                .padding(.top, 32)
-            
-            ForEach (0..<choices.count) { idx in
+            .padding(.bottom, 32)
+            .padding(.top, 32)
+
+            ForEach(0 ..< choices.count) { idx in
                 let item = choices[idx]
                 let index = String(idx + 1)
-                let isError : Bool = !self.isShowError.isEmpty ? self.isShowError == index : false
-                
+                let isError: Bool = !self.isShowError.isEmpty ? self.isShowError == index : false
+
                 ChoiceButton(text: item, isError: isError) {
                     self.onChoice(index)
                 }
@@ -45,8 +44,8 @@ struct ChoiceQuestion: View {
 
 struct ChoiceQuestion_Previews: PreviewProvider {
     static var previews: some View {
-        ChoiceQuestion(question: "aaaaaaaa", choices: ["AAA", "BBB", "CCCC", "DDDD"], isShowError: "") { t in
+        ChoiceQuestion(question: "aaaaaaaa", choices: ["AAA", "BBB", "CCCC", "DDDD"], isShowError: "") { _ in
         }
-.previewInterfaceOrientation(.landscapeLeft)
+        .previewInterfaceOrientation(.landscapeLeft)
     }
 }

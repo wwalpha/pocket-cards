@@ -6,12 +6,10 @@
 //
 import Foundation
 
-protocol RootRoutingLogic
-{
+protocol RootRoutingLogic {
     func makeLanguageHomeView()
-    
+
     func makeScienceHomeView()
-    
+
     func makeSocietyHomeView()
 }
-

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LanguageHomeView: View {
     private var router: LanguageHomeRouter?
-    
+
     var body: some View {
         VStack {
             Spacer()
@@ -22,7 +22,7 @@ struct LanguageHomeView: View {
                     .frame(width: 360, alignment: .center)
                     .background(Color.language)
             }.padding(16)
-            
+
             NavigationLink(destination: router?.makeTestView()) {
                 Text("日々のテスト")
                     .padding()
@@ -31,7 +31,7 @@ struct LanguageHomeView: View {
                     .frame(width: 360, alignment: .center)
                     .background(Color.language)
             }.padding(16)
-            
+
             Spacer()
         }
         .padding()
@@ -45,7 +45,7 @@ extension LanguageHomeView {
         var view = self
         let router = LanguageHomeRouter()
         view.router = router
-        
+
         return view
     }
 }
