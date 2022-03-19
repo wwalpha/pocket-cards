@@ -162,10 +162,11 @@ resource "aws_dynamodb_table" "questions" {
   }
 
   global_secondary_index {
-    name            = "gsiIdx1"
-    hash_key        = "groupId"
-    range_key       = "id"
-    projection_type = "KEYS_ONLY"
+    name               = "gsiIdx1"
+    hash_key           = "groupId"
+    range_key          = "id"
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["title", "subject"]
   }
 }
 
