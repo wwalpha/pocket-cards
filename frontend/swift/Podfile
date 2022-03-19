@@ -11,4 +11,5 @@ target 'PocketCards' do
   pod 'Alamofire'
   pod 'Charts'
   pod 'Kingfisher', '~> 7.0'
+  pod 'SwiftFormat/CLI'
 end

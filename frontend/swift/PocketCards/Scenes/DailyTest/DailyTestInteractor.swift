@@ -9,29 +9,28 @@ import Alamofire
 
 class DailyTestInteractor {
     var presenter: DailyTestPresentationLogic?
-    
+
     private var subject: String
     private var current: Question?
     private var index: Int = -1
     private var maxCount = 10
-    
+
     var questions: [Question] = []
-    
-    init(subject: String){
+
+    init(subject: String) {
         self.subject = subject
     }
 }
 
 extension DailyTestInteractor: DailyTestBusinessLogic {
-    
     // update answer
     func updateAnswer(id: String, correct: Bool) {
         guard let id = current?.id else { return }
 
         let params = [
-            "correct": Correct.convert(value: correct)
+            "correct": Correct.convert(value: correct),
         ]
-        
+
         print("updateAnswer", id, correct)
 
         API.request(URLs.ANSWER(id: id), method: .post, parameters: params)
@@ -44,7 +43,7 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
                     // reindex
                     guard let newIndex = self.questions.firstIndex(where: { $0.id == self.current?.id }) else { return }
                     self.index = newIndex
-                    
+
                     // add questions
                     if self.questions.count < 5 {
                         self.loadQuestion()
@@ -54,10 +53,10 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
                 }
             }
     }
-    
+
     func loadQuestion() {
-        let params = ["subject": self.subject]
-        
+        let params = ["subject": subject]
+
 //        print("Token", TokenManager.shared.getIdToken())
 //        let headers:HTTPHeaders = [.authorization(TokenManager.shared.getIdToken())]
 //        AF.request(URLs.STUDY,method: .get, parameters: params,  headers: headers)
@@ -72,9 +71,9 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
 //                    print(Error)
 //                }
 //            }
-        
+
         API.request(URLs.TEST, method: .get, parameters: params)
-            .validate(statusCode: 200..<300)
+            .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: QuestionServiceEnum.LoadQuestion.Response.self) { response in
                 guard let res = response.value else { return }
 
@@ -85,7 +84,7 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
                         continue
                     }
 
-                    if !self.questions.contains(where: {$0.id == q.id } ) {
+                    if !self.questions.contains(where: { $0.id == q.id }) {
                         self.questions.append(q)
                     }
                 }
@@ -100,41 +99,41 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
                 }
             }
     }
-    
+
     func onPlay(front: Bool) {
-        guard let thisURL = front ? self.current?.voiceTitle : self.current?.voiceAnswer else { return }
+        guard let thisURL = front ? current?.voiceTitle : current?.voiceAnswer else { return }
 
         Audio.play(url: DOMAIN_HOST + thisURL)
     }
 
     func onAction(correct: Bool) {
         // update question state
-        self.updateAnswer(id: current!.id, correct: correct)
+        updateAnswer(id: current!.id, correct: correct)
         // show next question
-        self.next()
+        next()
     }
-    
+
     func onChoice(choice: String) {
         // update question state
-        self.updateAnswer(id: current!.id, correct: choice == current?.answer)
+        updateAnswer(id: current!.id, correct: choice == current?.answer)
         // show next question
-        self.next()
+        next()
     }
-    
+
     private func next() {
-        if (self.questions.count == 0) {
+        if questions.count == 0 {
             presenter?.showNothing()
             return
         }
 
-        self.index = (self.index + 1) % self.questions.count
-        
-        if (self.questions.count > self.index) {
-            current = self.questions[self.index]
+        index = (index + 1) % questions.count
+
+        if questions.count > index {
+            current = questions[index]
             presenter?.showNext(q: current!)
-        } else if self.questions.count != 0 {
-            self.index = 0
-            current = self.questions[self.index]
+        } else if questions.count != 0 {
+            index = 0
+            current = questions[index]
         } else {
             presenter?.showNothing()
         }

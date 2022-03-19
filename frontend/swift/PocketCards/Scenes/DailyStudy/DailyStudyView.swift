@@ -8,14 +8,14 @@ import SwiftUI
 
 struct DailyStudyView: View {
     var interactor: DailyStudyBusinessLogic?
-    private var subject: String;
-    
+    private var subject: String
+
     @ObservedObject var viewModel = DailyStudyViewModel()
-    
-    init(subject:String) {
+
+    init(subject: String) {
         self.subject = subject
     }
-    
+
     var body: some View {
         if viewModel.title.isEmpty {
             Text("Loading....")
@@ -48,33 +48,32 @@ struct DailyStudyView: View {
 }
 
 extension DailyStudyView: DailyStudyDisplayLogic {
-
     func showError(index: String) {
-        self.viewModel.isShowError = index
+        viewModel.isShowError = index
     }
-    
+
     func showNext(title: String, answer: String, choices: [String]?) {
-        self.viewModel.title = title
-        self.viewModel.choices = choices != nil ? choices! : []
-        self.viewModel.answer = answer
-        self.viewModel.isShowError = ""
+        viewModel.title = title
+        viewModel.choices = choices != nil ? choices! : []
+        viewModel.answer = answer
+        viewModel.isShowError = ""
     }
-    
+
     func showNothing() {
-        self.viewModel.title = "Nothing"
+        viewModel.title = "Nothing"
     }
 }
 
 extension DailyStudyView {
     func configureView() -> some View {
         var view = self
-        let interactor = DailyStudyInteractor(subject: self.subject)
+        let interactor = DailyStudyInteractor(subject: subject)
         let presenter = DailyStudyPresenter()
-        
+
         view.interactor = interactor
         interactor.presenter = presenter
         presenter.view = view
-        
+
         return view
     }
 }
