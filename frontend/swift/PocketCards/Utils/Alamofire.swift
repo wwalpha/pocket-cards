@@ -11,14 +11,13 @@ import Foundation
 let API: Session = {
     let configuration = URLSessionConfiguration.af.default
     configuration.timeoutIntervalForRequest = 30
-    
+
     return Session(configuration: configuration, interceptor: RequestInterceptor())
 }()
 
 // Mark
 final class RequestInterceptor: Alamofire.RequestInterceptor {
-    
-    func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+    func adapt(_ urlRequest: URLRequest, for _: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
 //        guard urlRequest.url?.absoluteString.hasPrefix("https://api.authenticated.com") == true else {
 //            /// If the request does not require authentication, we can directly return it as unmodified.
 //            return completion(.success(urlRequest))
@@ -30,14 +29,15 @@ final class RequestInterceptor: Alamofire.RequestInterceptor {
 
         completion(.success(urlRequest))
     }
-    
-    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+
+    func retry(_: Request, for _: Session, dueTo error: Error, completion _: @escaping (RetryResult) -> Void) {
+        debugPrint("retry", error)
 //        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
 //            /// The request did not fail due to a 401 Unauthorized response.
 //            /// Return the original error and don't retry the request.
 //            return completion(.doNotRetryWithError(error))
 //        }
-        
+
 //        print(error)
 
 //        refreshToken { [weak self] result in

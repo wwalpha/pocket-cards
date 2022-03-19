@@ -25,14 +25,13 @@ extension Color {
     static let accent2 = Color("Accent2")
     static let error = Color("Error")
 
-    init(hex: UInt, alpha: Double = 1) {
+    init(hex: UInt, alpha _: Double = 1) {
         self.init(
             .sRGB,
-            red: Double((hex >> 16) & 0xff) / 255,
-            green: Double((hex >> 08) & 0xff) / 255,
-            blue: Double((hex >> 00) & 0xff) / 255,
+            red: Double((hex >> 16) & 0xFF) / 255,
+            green: Double((hex >> 08) & 0xFF) / 255,
+            blue: Double((hex >> 00) & 0xFF) / 255,
             opacity: 1
         )
     }
 }
-

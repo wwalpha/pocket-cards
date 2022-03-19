@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScienceHomeView: View {
     private var router: ScienceHomeRouter?
-    
+
     var body: some View {
         VStack {
             Spacer()
@@ -22,7 +22,7 @@ struct ScienceHomeView: View {
                     .frame(width: 360, alignment: .center)
                     .background(Color.science)
             }.padding(16)
-            
+
             NavigationLink(destination: router?.makeTestView()) {
                 Text("日々のテスト")
                     .padding()
@@ -31,7 +31,7 @@ struct ScienceHomeView: View {
                     .frame(width: 360, alignment: .center)
                     .background(Color.science)
             }.padding(16)
-            
+
             Spacer()
         }
         .padding()
@@ -44,7 +44,7 @@ extension ScienceHomeView {
         var view = self
         let router = ScienceHomeRouter()
         view.router = router
-        
+
         return view
     }
 }

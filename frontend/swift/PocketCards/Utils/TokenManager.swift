@@ -12,24 +12,24 @@ class TokenManager {
     private var accessToken: String = ""
     private var idToken: String = ""
     private var refreshToken: String = ""
-    
+
     func updateTokens(tokens: AuthCognitoTokens) {
-        self.accessToken = tokens.accessToken
-        self.idToken = tokens.idToken
-        self.refreshToken = tokens.refreshToken
+        accessToken = tokens.accessToken
+        idToken = tokens.idToken
+        refreshToken = tokens.refreshToken
     }
-    
+
     func clear() {
-        self.accessToken = ""
-        self.idToken = ""
-        self.refreshToken = ""
+        accessToken = ""
+        idToken = ""
+        refreshToken = ""
     }
-    
+
     func getIdToken() -> String {
-        return self.idToken
+        return idToken
     }
-    
+
     func getAccessToken() -> String {
-        return self.accessToken
+        return accessToken
     }
 }

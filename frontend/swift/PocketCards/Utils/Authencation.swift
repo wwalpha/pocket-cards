@@ -14,8 +14,8 @@ let Auth = Authentication()
 class Authentication: ObservableObject {
     @Published var isSignedIn: Bool = false
 
-    func eventListen() -> Void {
-        _ = Amplify.Hub.listen(to: .auth) { (payload) in
+    func eventListen() {
+        _ = Amplify.Hub.listen(to: .auth) { payload in
             switch payload.eventName {
             case HubPayload.EventName.Auth.signedIn:
                 print("==HUB== User signed In, update UI")
@@ -32,29 +32,28 @@ class Authentication: ObservableObject {
                 DispatchQueue.main.async {
                     self.isSignedIn = false
                 }
-                //                self.initialize()
+            //                self.initialize()
             case HubPayload.EventName.Auth.fetchSessionAPI:
                 print("==HUB== Session expired, show sign in aui")
             case HubPayload.EventName.Auth.fetchUserAttributesAPI:
                 self.initialize()
             default:
                 print("==HUB== \(payload)")
-                break
             }
         }
     }
-    
-    func initialize() -> Void {
+
+    func initialize() {
         _ = Amplify.Auth.fetchAuthSession { result in
             do {
                 let session = try result.get()
 
                 print("fetchAuthSession", session)
-                
+
                 DispatchQueue.main.async {
                     self.isSignedIn = session.isSignedIn
                 }
-                
+
                 if let cognitoTokenProvider = session as? AuthCognitoTokensProvider {
                     let tokens = try cognitoTokenProvider.getCognitoTokens().get()
 
@@ -68,41 +67,41 @@ class Authentication: ObservableObject {
             }
         }
     }
-    
+
     func signIn() {
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         let window = windowScene?.windows.first
-        
+
         _ = Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: window!, options: .preferPrivateSession()) { result in
-            switch(result) {
-            case .success(let result):
+            switch result {
+            case let .success(result):
                 print(result)
-                
+
                 // fetch user details
-                _ = Amplify.Auth.fetchUserAttributes() { result in
+                _ = Amplify.Auth.fetchUserAttributes { result in
                     switch result {
-                    case .success(let session):
+                    case let .success(session):
                         print(session)
-                    case .failure(let error):
+                    case let .failure(error):
                         print(error)
                     }
                 }
-            case .failure(let error):
+            case let .failure(error):
                 print("Can not signin \(error)")
             }
         }
     }
-    
+
     func signOut() {
-        _ = Amplify.Auth.signOut(options: .init(globalSignOut: true)) { (result) in
+        _ = Amplify.Auth.signOut(options: .init(globalSignOut: true)) { result in
             print(result)
-            switch(result) {
+            switch result {
             case .success():
                 print("Signout succeded")
                 TokenManager.shared.clear()
-                
-            case .failure(let error):
+
+            case let .failure(error):
                 print("Signout failed with \(error)")
             }
         }

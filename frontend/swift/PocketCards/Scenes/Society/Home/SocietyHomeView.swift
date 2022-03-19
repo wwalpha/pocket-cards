@@ -13,7 +13,7 @@ struct SocietyHomeView: View {
     var body: some View {
         VStack {
             Spacer()
-            
+
             NavigationLink(destination: router?.makeStudyiew()) {
                 Text("勉強の取込")
                     .padding()
@@ -22,7 +22,7 @@ struct SocietyHomeView: View {
                     .frame(width: 360, alignment: .center)
                     .background(Color.society)
             }.padding(16)
-            
+
             NavigationLink(destination: router?.makeTestView()) {
                 Text("日々のテスト")
                     .padding()
@@ -31,7 +31,7 @@ struct SocietyHomeView: View {
                     .frame(width: 360, alignment: .center)
                     .background(Color.society)
             }.padding(16)
-            
+
             Spacer()
         }
         .padding()
@@ -44,7 +44,7 @@ extension SocietyHomeView {
         var view = self
         let router = SocietyHomeRouter()
         view.router = router
-        
+
         return view
     }
 }

@@ -11,17 +11,30 @@ let Audio = AudioPlayer()
 
 class AudioPlayer {
     var player: AVPlayer?
-    
+    var audioPlayer: AVAudioPlayer?
+
     func play(url: String) {
         guard let thisURL = URL(string: url) else { return }
-        
-        do {
-            let item = AVPlayerItem(url: thisURL)
-            player = AVPlayer(playerItem: item)
-            player?.volume = 1.0
-            player?.play()
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
+
+        let item = AVPlayerItem(url: thisURL)
+        player = AVPlayer(playerItem: item)
+        player?.volume = 1.0
+        player?.play()
+    }
+
+    func playCorrect() {
+        playLocal(url: "correct")
+    }
+
+    func playInCorrect() {
+        playLocal(url: "incorrect")
+    }
+
+    private func playLocal(url: String) {
+        let path = Bundle.main.path(forResource: url, ofType: "mp3")
+        let url = URL(fileURLWithPath: path!)
+        let audioPlayer = try! AVAudioPlayer(contentsOf: url)
+
+        audioPlayer.play()
     }
 }
