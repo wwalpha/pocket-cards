@@ -119,11 +119,11 @@ const setup = async () => {
         BillingMode: 'PROVISIONED',
         ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
         KeySchema: [
-          { AttributeName: 'user', KeyType: 'HASH' },
+          { AttributeName: 'qid', KeyType: 'HASH' },
           { AttributeName: 'timestamp', KeyType: 'RANGE' },
         ],
         AttributeDefinitions: [
-          { AttributeName: 'user', AttributeType: 'S' },
+          { AttributeName: 'qid', AttributeType: 'S' },
           { AttributeName: 'timestamp', AttributeType: 'S' },
         ],
       })
