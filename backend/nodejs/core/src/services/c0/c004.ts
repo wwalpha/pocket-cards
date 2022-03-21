@@ -45,16 +45,16 @@ const study = async (params: APIs.C004Params, input: APIs.C004Request, userId: s
       {
         Update: Words.update.info({ id: word, groupId: groupId }, times, DateUtils.getNow(), nextTime),
       },
-      {
-        Put: Histories.put({
-          user: userId,
-          timestamp: moment().format('YYYYMMDDHHmmssSSS'),
-          word: word,
-          group: groupId,
-          times: times,
-          lastTime: result?.Item?.lastTime,
-        }),
-      },
+      // {
+      //   Put: Histories.put({
+      //     user: userId,
+      //     timestamp: moment().format('YYYYMMDDHHmmssSSS'),
+      //     word: word,
+      //     group: groupId,
+      //     times: times,
+      //     lastTime: result?.Item?.lastTime,
+      //   }),
+      // },
     ],
   });
 };

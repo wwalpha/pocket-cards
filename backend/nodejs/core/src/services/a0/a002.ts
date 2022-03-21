@@ -29,8 +29,8 @@ export default async (req: Request): Promise<APIs.A002Response> => {
   }
 
   const daily = items.filter((item) => item.timestamp >= day1);
-  const dailyReview = daily.filter((item) => item.times === 1 && item.lastTime);
-  const dailyNew = daily.filter((item) => item.times === 1 && !item.lastTime);
+  const dailyReview = daily.filter((item) => item.timesAfter === 1 && item.lastTime);
+  const dailyNew = daily.filter((item) => item.timesAfter === 1 && !item.lastTime);
   const weekly = items.filter((item) => item.timestamp >= day2).length;
   const monthly = items.filter((item) => item.timestamp >= day3).length;
 
