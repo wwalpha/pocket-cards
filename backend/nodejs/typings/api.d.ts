@@ -353,6 +353,20 @@ export namespace APIs {
   type QuestionAnswerResponse = void;
 
   // ------------------------------------------------------------
+  // Question Details
+  // ------------------------------------------------------------
+  interface QuestionDetailsParams {
+    groupId: string;
+  }
+
+  interface QuestionDetailsRequest {}
+
+  interface QuestionDetailsResponse {
+    count: number;
+    questions: Tables.TQuestion[];
+  }
+
+  // ------------------------------------------------------------
   // Reports
   // ------------------------------------------------------------
   interface DailyReportResquest {}

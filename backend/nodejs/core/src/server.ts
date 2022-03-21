@@ -7,7 +7,7 @@ import { B001, B002, B003, B004, B005, B006 } from '@src/services/b0';
 import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/services/c0';
 import { D001, D003, D004, D005, D006 } from '@src/services/d0';
 import { E001, E002 } from '@src/services/e0';
-import { QuestionRegist, QuestionStudy, QuestionExam, QuestionAnswer } from '@src/services/questions';
+import { QuestionRegist, QuestionStudy, QuestionExam, QuestionAnswer, QuestionDetails } from '@src/services/questions';
 import { ReportDaily } from '@src/services/reports';
 
 import entry from './entry';
@@ -73,8 +73,9 @@ app.put('/v1/words/:word', express.json(), (req, res) => entry(req, res, E002 as
 
 // 問題一括登録
 app.post('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
-// 問題一括取得
-// app.get('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
+// 問題詳細一括取得
+app.get('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionDetails));
+
 // 今日の学習
 app.get('/v1/questions/study', express.json(), (req, res) => entry(req, res, QuestionStudy));
 // 今日のテスト
