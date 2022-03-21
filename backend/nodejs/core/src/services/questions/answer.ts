@@ -30,6 +30,7 @@ export default async (
           ...question,
           times: times,
           nextTime: nextTime,
+          lastTime: DateUtils.getNow(),
         }),
       },
       {
