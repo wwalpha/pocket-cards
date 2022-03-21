@@ -109,10 +109,10 @@ resource "aws_dynamodb_table" "word_master" {
 resource "aws_dynamodb_table" "histories" {
   name         = local.dynamodb_name_histories
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "lid"
+  hash_key     = "qid"
   range_key    = "timestamp"
   attribute {
-    name = "lid"
+    name = "qid"
     type = "S"
   }
   attribute {
