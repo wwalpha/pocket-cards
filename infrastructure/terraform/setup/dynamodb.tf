@@ -89,7 +89,6 @@ resource "aws_dynamodb_table" "words" {
   # }
 }
 
-
 # ----------------------------------------------------------------------------------------------
 # Dynamodb Table - Word Master
 # ----------------------------------------------------------------------------------------------
@@ -110,10 +109,10 @@ resource "aws_dynamodb_table" "word_master" {
 resource "aws_dynamodb_table" "histories" {
   name         = local.dynamodb_name_histories
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "user"
+  hash_key     = "lid"
   range_key    = "timestamp"
   attribute {
-    name = "user"
+    name = "lid"
     type = "S"
   }
   attribute {
