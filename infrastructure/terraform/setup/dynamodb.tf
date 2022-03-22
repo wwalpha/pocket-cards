@@ -104,10 +104,10 @@ resource "aws_dynamodb_table" "word_master" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Dynamodb Table - Histories
+# Dynamodb Table - Traces
 # ----------------------------------------------------------------------------------------------
-resource "aws_dynamodb_table" "histories" {
-  name         = local.dynamodb_name_histories
+resource "aws_dynamodb_table" "traces" {
+  name         = local.dynamodb_name_traces
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "qid"
   range_key    = "timestamp"
@@ -129,6 +129,24 @@ resource "aws_dynamodb_table" "histories" {
     hash_key        = "userId"
     range_key       = "timestamp"
     projection_type = "ALL"
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Histories
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "histories" {
+  name         = local.dynamodb_name_histories
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "userId"
+  range_key    = "timestamp"
+  attribute {
+    name = "userId"
+    type = "S"
+  }
+  attribute {
+    name = "timestamp"
+    type = "S"
   }
 }
 
@@ -180,9 +198,8 @@ resource "aws_dynamodb_table" "questions" {
   }
 }
 
-
 # ----------------------------------------------------------------------------------------------
-# Dynamodb Table - Words
+# Dynamodb Table - Learning
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "learning" {
   name         = local.dynamodb_name_learning

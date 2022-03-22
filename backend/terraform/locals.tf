@@ -36,6 +36,7 @@ locals {
   dynamodb_name_histories   = local.remote_setup.dynamodb_name_histories
   dynamodb_name_questions   = local.remote_setup.dynamodb_name_questions
   dynamodb_name_learning    = local.remote_setup.dynamodb_name_learning
+  dynamodb_name_traces      = local.remote_setup.dynamodb_name_traces
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
