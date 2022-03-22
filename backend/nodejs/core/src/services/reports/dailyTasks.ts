@@ -1,11 +1,10 @@
 import { Request } from 'express';
-import { defaultTo } from 'lodash';
 import { Learning } from '@queries';
 import { DBHelper, DateUtils, Commons } from '@utils';
 import { APIs, Tables } from 'typings';
 import { Consts } from '@consts';
 
-export default async (req: Request<any, any, APIs.DailyReportResquest, any>): Promise<APIs.DailyReportResponse> => {
+export default async (req: Request<any, any, APIs.DailyTasksResquest, any>): Promise<APIs.DailyTasksResponse> => {
   const userId = Commons.getUserId(req);
 
   // next study date
@@ -15,15 +14,12 @@ export default async (req: Request<any, any, APIs.DailyReportResquest, any>): Pr
 
   return {
     language: {
-      study: results.Items.filter((item) => item.subject === Consts.SUBJECT.LANGUAGE && item.times === 0).length,
       test: results.Items.filter((item) => item.subject === Consts.SUBJECT.LANGUAGE && item.times !== 0).length,
     },
     science: {
-      study: results.Items.filter((item) => item.subject === Consts.SUBJECT.SCIENCE && item.times === 0).length,
       test: results.Items.filter((item) => item.subject === Consts.SUBJECT.SCIENCE && item.times !== 0).length,
     },
     society: {
-      study: results.Items.filter((item) => item.subject === Consts.SUBJECT.SOCIETY && item.times === 0).length,
       test: results.Items.filter((item) => item.subject === Consts.SUBJECT.SOCIETY && item.times !== 0).length,
     },
   };

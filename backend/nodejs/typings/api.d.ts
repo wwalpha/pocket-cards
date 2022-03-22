@@ -367,22 +367,30 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
-  // Reports
+  // Reports - Daily Tasks
   // ------------------------------------------------------------
-  interface DailyReportResquest {}
+  interface DailyTasksResquest {}
 
-  interface DailyReportResponse {
+  interface DailyTasksResponse {
     language: {
-      study: number;
       test: number;
     };
     society: {
-      study: number;
       test: number;
     };
     science: {
-      study: number;
       test: number;
     };
+  }
+
+  // ------------------------------------------------------------
+  // Reports - Leaning Progress
+  // ------------------------------------------------------------
+  interface LearningProgressRequest {}
+
+  interface LearningProgressResponse {
+    language: number;
+    society: number;
+    science: number;
   }
 }
