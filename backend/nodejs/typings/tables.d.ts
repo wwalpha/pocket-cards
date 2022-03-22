@@ -199,5 +199,9 @@ export namespace Tables {
     timestamp: string;
   }
 
-  interface THistories extends THistoriesKey {}
+  interface THistories extends THistoriesKey {
+    japanese: number;
+    science: number;
+    society: number;
+  }
 }
