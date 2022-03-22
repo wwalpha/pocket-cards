@@ -8,7 +8,7 @@ import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/services/c0
 import { D001, D003, D004, D005, D006 } from '@src/services/d0';
 import { E001, E002 } from '@src/services/e0';
 import { QuestionRegist, QuestionStudy, QuestionExam, QuestionAnswer, QuestionDetails } from '@src/services/questions';
-import { ReportDaily } from '@src/services/reports';
+import { DailyTasks, LearningProgress } from '@src/services/reports';
 
 import entry from './entry';
 
@@ -85,6 +85,8 @@ app.get('/v1/questions/test', express.json(), (req, res) => entry(req, res, Ques
 app.post('/v1/questions/:questionId/answer', express.json(), (req, res) => entry(req, res, QuestionAnswer as any));
 
 // Report daily
-app.get('/v1/reports/daily', express.json(), (req, res) => entry(req, res, ReportDaily as any));
+app.get('/v1/reports/dailytasks', express.json(), (req, res) => entry(req, res, DailyTasks as any));
+// leaning progress
+app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, LearningProgress as any));
 
 export default app;
