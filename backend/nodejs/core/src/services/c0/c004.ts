@@ -3,7 +3,7 @@ import { Request } from 'express';
 import { defaultTo } from 'lodash';
 import moment from 'moment';
 import { Commons, DateUtils, DBHelper } from '@utils';
-import { Words, Histories } from '@queries';
+import { Words, Traces } from '@queries';
 import { APIs, Tables } from 'typings';
 
 export default async (req: Request<APIs.C004Params, any, APIs.C004Request, any>): Promise<APIs.C004Response> => {

@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { defaultTo } from 'lodash';
 import { DateUtils, DBHelper } from '@utils';
-import { Histories, Learning } from '@queries';
+import { Traces, Learning } from '@queries';
 import { APIs, Tables } from 'typings';
 
 export default async (
@@ -35,7 +35,7 @@ export default async (
       },
       {
         // 履歴登録
-        Put: Histories.put({
+        Put: Traces.put({
           qid: question.qid,
           timestamp: DateUtils.getTimestamp(),
           groupId: question.groupId,

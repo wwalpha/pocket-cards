@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Histories } from '@queries';
+import { Traces } from '@queries';
 import { DBHelper, DateUtils, Commons } from '@utils';
 import { APIs, Tables } from 'typings';
 import { Consts } from '@consts';
@@ -13,7 +13,7 @@ export default async (
   // next study date
   const timestamp = DateUtils.getTimestamp();
   // 問題一覧
-  const results = await DBHelper().query<Tables.THistories>(Histories.query.byUserId(userId, timestamp));
+  const results = await DBHelper().query<Tables.TTraces>(Traces.query.byUserId(userId, timestamp));
 
   const items = results.Items;
 
@@ -24,7 +24,7 @@ export default async (
   };
 };
 
-const getCount = (array: Tables.THistories[], subject: string): number => {
+const getCount = (array: Tables.TTraces[], subject: string): number => {
   // group by qid
   const grouped = _.groupBy(
     array.filter((a) => a.subject === subject),

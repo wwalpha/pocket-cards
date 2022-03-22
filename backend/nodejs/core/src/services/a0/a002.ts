@@ -2,7 +2,7 @@ import { Request } from 'express';
 import moment from 'moment';
 import { APIs, Tables } from 'typings';
 import { DBHelper, DateUtils, Commons } from '@utils';
-import { Histories, Groups, Words } from '@queries';
+import { Traces, Groups, Words } from '@queries';
 
 // 環境変数
 const TIMESTAMP_ENDFIX = '000000000';
@@ -20,7 +20,7 @@ export default async (req: Request): Promise<APIs.A002Response> => {
   // 月次
   const day3 = `${moment().add(-1, 'months').format('YYYYMMDD')}${TIMESTAMP_ENDFIX}`;
 
-  const results = await DBHelper().query<Tables.THistories>(Histories.query.byUserId(userId, `${day3}`));
+  const results = await DBHelper().query<Tables.TTraces>(Traces.query.byUserId(userId, `${day3}`));
   const items = results.Items;
 
   // 検索結果なし

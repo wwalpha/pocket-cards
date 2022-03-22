@@ -17,7 +17,7 @@ describe('d0', () => {
     await client.truncateAll(Environment.TABLE_NAME_WORD_IGNORE);
     await client.truncateAll(Environment.TABLE_NAME_WORDS);
     await client.truncateAll(Environment.TABLE_NAME_WORD_MASTER);
-    await client.truncateAll(Environment.TABLE_NAME_HISTORIES);
+    await client.truncateAll(Environment.TABLE_NAME_TRACES);
     await client.truncateAll(Environment.TABLE_NAME_GROUPS);
   });
 

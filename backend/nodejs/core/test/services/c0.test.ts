@@ -17,7 +17,7 @@ describe('C0', () => {
   afterEach(async () => {
     await client.truncateAll(Environment.TABLE_NAME_WORDS);
     await client.truncateAll(Environment.TABLE_NAME_WORD_MASTER);
-    await client.truncateAll(Environment.TABLE_NAME_HISTORIES);
+    await client.truncateAll(Environment.TABLE_NAME_TRACES);
     await client.truncateAll(Environment.TABLE_NAME_GROUPS);
   });
 
@@ -90,7 +90,7 @@ describe('C0', () => {
       .expect(200);
 
     const wordItem = (await client.get(Words.get({ id: 'WORD-4', groupId: 'C004' })))?.Item;
-    const historyItem = await (await client.scan({ TableName: Environment.TABLE_NAME_HISTORIES })).Items[0];
+    const historyItem = await (await client.scan({ TableName: Environment.TABLE_NAME_TRACES })).Items[0];
 
     const expectWord = C0.C004Res01_Word;
     // @ts-ignore
@@ -113,7 +113,7 @@ describe('C0', () => {
       .expect(200);
 
     const wordItem = (await client.get(Words.get({ id: 'WORD-4', groupId: 'C004' })))?.Item;
-    const historyItem = (await client.scan({ TableName: Environment.TABLE_NAME_HISTORIES })).Items[0];
+    const historyItem = (await client.scan({ TableName: Environment.TABLE_NAME_TRACES })).Items[0];
 
     const expectWord = C0.C004Res02_Word;
     // @ts-ignore

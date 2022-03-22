@@ -170,14 +170,14 @@ export namespace Tables {
   //   subject?: string;
   // }
 
-  interface HistoriesKey {
+  interface TracesKey {
     // 問題ID
     qid: string;
     // Timestamp
     timestamp: string;
   }
 
-  interface THistories extends HistoriesKey {
+  interface TTraces extends TracesKey {
     // ユーザID
     userId?: string;
     // グループID
@@ -191,4 +191,13 @@ export namespace Tables {
     // 科目
     subject?: string;
   }
+
+  interface THistoriesKey {
+    // ユーザID
+    userId: string;
+    // Timestamp
+    timestamp: string;
+  }
+
+  interface THistories extends THistoriesKey {}
 }
