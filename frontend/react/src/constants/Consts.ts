@@ -70,3 +70,10 @@ export enum ShowTypes {
 }
 
 export const STUDY_BUFFER_LOWER_LIMIT = 5;
+
+export enum SUBJECT {
+  ENGLISH,
+  JAPANESE,
+  SCIENCE,
+  SOCIETY,
+}

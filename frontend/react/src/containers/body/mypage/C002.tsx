@@ -2,7 +2,7 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import Loading from '@components/Loading';
-import * as MyPageActions from '@actions/mypage';
+// import * as MyPageActions from '@actions/mypage';
 import { RootState } from 'typings';
 // import { Animation, ValueScale } from '@devexpress/dx-react-chart';
 // import { ArgumentAxis, Chart, ValueAxis, BarSeries } from '@devexpress/dx-react-chart-material-ui';
@@ -14,7 +14,8 @@ const appState = (state: RootState) => state.app;
 const C002: React.FunctionComponent<any> = () => {
   const { isLoading } = useSelector(appState);
   const { daily, weekly, monthly } = useSelector(userState);
-  const actions = bindActionCreators(MyPageActions, useDispatch());
+  // const actions = bindActionCreators(MyPageActions, useDispatch());
+  const actions = null;
 
   // Loading中
   if (isLoading) {

@@ -43,6 +43,7 @@ export namespace Group {
     id: string;
     name: string;
     description?: string;
+    subject: string;
   }
 
   type GroupWords = Record<string, WordSimple[]>;

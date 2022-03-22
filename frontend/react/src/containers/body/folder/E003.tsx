@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Box } from '@mui/material';
+import { TextField, Box, FormControl, Select, InputLabel, MenuItem } from '@mui/material';
 import Button from '@components/buttons/Button';
 import { GroupActions } from '@actions';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { RootState } from 'typings';
+import { Consts } from '@constants';
 
 const useYupValidationResolver = (schema: yup.AnyObjectSchema) =>
   React.useCallback(
@@ -58,6 +59,7 @@ export default () => {
       id: '',
       name: datas.name,
       description: datas.description,
+      subject: datas.subject,
     });
   });
 
@@ -81,6 +83,19 @@ export default () => {
           label="Group Description"
           {...register('description')}
         />
+        <FormControl sx={{ my: 2 }} fullWidth>
+          <InputLabel id="demo-simple-select-helper-label">Subject *</InputLabel>
+          <Select
+            id="Subject"
+            // value={age}
+            label="Subject"
+            required
+            {...register('subject')}>
+            <MenuItem value={Consts.SUBJECT.JAPANESE.toString()}>Japanese</MenuItem>
+            <MenuItem value={Consts.SUBJECT.SCIENCE.toString()}>Science</MenuItem>
+            <MenuItem value={Consts.SUBJECT.SOCIETY.toString()}>Society</MenuItem>
+          </Select>
+        </FormControl>
         <Box mt={2}>
           <Button size="large" fullWidth variant="contained" color="secondary" type="submit" isLoading={isLoading}>
             REGIST

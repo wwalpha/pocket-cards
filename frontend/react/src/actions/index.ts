@@ -32,7 +32,6 @@ export const withLoading = createAsyncThunk('app/Loading', async (func: Function
 
 export * as AppActions from './app';
 export * as GroupActions from './group';
-export * as MypageActions from './mypage';
 export * as RegistActions from './regist';
 export * as StudyActions from './study';
 export * as WordActions from './word';
