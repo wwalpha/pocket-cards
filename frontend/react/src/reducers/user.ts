@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Domains, User } from 'typings';
+import { Domains, Payloads, User } from 'typings';
 
 const userState: Domains.UserState = {
   details: undefined,
@@ -26,15 +26,15 @@ const slice = createSlice({
       state.details = undefined;
     },
 
-    USER_HISTORY: (state) => {
-      // draft.remainingReview = info.remaining.review;
-      // draft.remainingTest = info.remaining.test;
-      // draft.daily = info.daily.total;
-      // draft.dailyNew = info.daily.new;
-      // draft.dailyReview = info.daily.review;
-      // draft.weekly = info.weekly;
-      // draft.monthly = info.monthly;
-    },
+    // USER_HISTORY: (state, { payload }: PayloadAction<Payloads.History>) => {
+    //   state.remainingReview = payload.remaining.review;
+    //   state.remainingTest = payload.remaining.test;
+    //   state.daily = payload.daily.total;
+    //   state.dailyNew = payload.daily.new;
+    //   state.dailyReview = payload.daily.review;
+    //   state.weekly = payload.weekly;
+    //   state.monthly = payload.monthly;
+    // },
   },
 });
 

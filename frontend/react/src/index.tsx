@@ -53,13 +53,13 @@ const persistor = persistStore(store);
 
 const provider = (
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <ThemeProvider theme={theme}>
-        <ConnectedRouter history={history}>
-          <Authenticator />
-        </ConnectedRouter>
-      </ThemeProvider>
-    </PersistGate>
+    {/* <PersistGate loading={null} persistor={persistor}> */}
+    <ThemeProvider theme={theme}>
+      <ConnectedRouter history={history}>
+        <Authenticator />
+      </ConnectedRouter>
+    </ThemeProvider>
+    {/* </PersistGate> */}
   </Provider>
 );
 

@@ -18,7 +18,7 @@ const grpState = (state: RootState) => state.group;
 export default () => {
   const { word } = useParams<B003Params>();
   const { isLoading } = useSelector(appState);
-  const { activeGroup, current } = useSelector(grpState);
+  const { current } = useSelector(grpState);
 
   const actions = bindActionCreators(WordActions, useDispatch());
 
@@ -35,7 +35,7 @@ export default () => {
 
   const handleOnIngore = () => actions.ignoreWord(current);
 
-  const handleOnDelete = () => actions.del(activeGroup, word);
+  const handleOnDelete = () => actions.del(current?.groupId as string, word);
 
   return (
     <form onSubmit={handleOnUpdate}>

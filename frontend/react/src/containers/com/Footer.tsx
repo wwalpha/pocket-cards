@@ -6,6 +6,7 @@ import { BottomNavigation, BottomNavigationAction, Paper, Theme } from '@mui/mat
 import HomeIcon from '@mui/icons-material/HomeOutlined';
 import SettingsIcon from '@mui/icons-material/SettingsOutlined';
 import FolderIcon from '@mui/icons-material/FolderOpen';
+import PersonIcon from '@mui/icons-material/Person';
 import { Paths, Consts } from '@constants';
 import { AppActions } from '@actions';
 import { RootState } from 'typings';
@@ -50,6 +51,15 @@ export default () => {
             <Link to={Paths.PATHS_GROUPS} {...props} />
           ))}
         />
+        {/* <BottomNavigationAction
+          sx={{ pt: 1 }}
+          value={Paths.ROUTE_PATH_INDEX.MyPage}
+          icon={<PersonIcon sx={{ fontSize: '2.5rem' }} />}
+          disabled={status !== Consts.SERVER_STATUS.RUNNING}
+          component={React.forwardRef((props: any, ref: any) => (
+            <Link to={Paths.PATHS_MYPAGE} {...props} />
+          ))}
+        /> */}
         <BottomNavigationAction
           sx={{ pt: 1 }}
           value={Paths.ROUTE_PATH_INDEX.Settings}
