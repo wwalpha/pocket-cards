@@ -15,6 +15,6 @@ export default async (
   const items = _.orderBy(results.Items, ['timestamp', 'asc']);
 
   return {
-    histories: items,
+    histories: items.map((item) => _.omit(item, ['userId'])),
   };
 };

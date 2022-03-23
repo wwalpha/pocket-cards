@@ -9,6 +9,7 @@ import { D001, D003, D004, D005, D006 } from '@src/services/d0';
 import { E001, E002 } from '@src/services/e0';
 import { QuestionRegist, QuestionStudy, QuestionExam, QuestionAnswer, QuestionDetails } from '@src/services/questions';
 import { DailyTasks, LearningProgress } from '@src/services/reports';
+import { Patchs } from '@src/services/patch';
 
 import entry from './entry';
 
@@ -88,5 +89,7 @@ app.post('/v1/questions/:questionId/answer', express.json(), (req, res) => entry
 app.get('/v1/reports/dailytasks', express.json(), (req, res) => entry(req, res, DailyTasks as any));
 // leaning progress
 app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, LearningProgress as any));
+
+app.patch('/v1/patchs/20220323', express.json(), (req, res) => entry(req, res, Patchs as any));
 
 export default app;

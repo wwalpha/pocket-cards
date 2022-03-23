@@ -389,6 +389,11 @@ export namespace APIs {
   interface LearningProgressRequest {}
 
   interface LearningProgressResponse {
-    histories: Tables.THistories[];
+    histories: {
+      timestamp: string;
+      japanese?: number;
+      science?: number;
+      society?: number;
+    }[];
   }
 }
