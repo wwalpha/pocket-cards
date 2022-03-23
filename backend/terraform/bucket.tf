@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------
 # Backend Environment file
 # ----------------------------------------------------------------------------------------------
-resource "aws_s3_bucket_object" "resource" {
+resource "aws_s3_object" "resources" {
   bucket  = local.bucket_name_archive
   key     = "envs/backend.env"
   content = <<EOT
