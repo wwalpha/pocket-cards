@@ -10,10 +10,10 @@ export default async () => {
   });
 
   // yesterday
-  const timestamp = moment().format('YYYYMMDD');
+  const timestamp = moment().add(-1, 'days').format('YYYYMMDD');
 
   const tasks = results.Items.map(async (item) => {
-    const traceResults = await DBHelper().query(Traces.query.byUserId(item.id, timestamp));
+    const traceResults = await DBHelper().query(Traces.query.byUserId(item.id, `${timestamp}999999`));
     const items = traceResults.Items;
 
     const japanese = getCount(items, Consts.SUBJECT.JAPANESE.toString());
