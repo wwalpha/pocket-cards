@@ -10,7 +10,7 @@ export default async () => {
   });
 
   // yesterday
-  const timestamp = moment().add(-1, 'days').format('YYYYMMDD');
+  const timestamp = moment().format('YYYYMMDD');
 
   const tasks = results.Items.map(async (item) => {
     const traceResults = await DBHelper().query(Traces.query.byUserId(item.id, timestamp));
