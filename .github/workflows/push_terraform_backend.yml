@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - backend/nodejs/lambda/**
-      - backend/nodejs/typings/**
     branches-ignore:
       - releases/**
   workflow_run:
