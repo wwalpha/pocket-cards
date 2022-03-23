@@ -128,10 +128,3 @@ output "ssm_vision_api_url" {
 output "ssm_vision_api_key" {
   value = aws_ssm_parameter.vision_api_key.name
 }
-
-# ----------------------------------------------------------------------------------------------
-# Repository URL (Batch)
-# ----------------------------------------------------------------------------------------------
-output "ssm_repo_url_batch" {
-  value = aws_ssm_parameter.repo_url_batch.name
-}
