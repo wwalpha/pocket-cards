@@ -60,6 +60,7 @@ locals {
   ssm_translation_api_key = local.remote_setup.ssm_translation_api_key
   ssm_vision_api_url      = local.remote_setup.ssm_vision_api_url
   ssm_vision_api_key      = local.remote_setup.ssm_vision_api_key
+  ssm_repo_url_batch      = local.remote_setup.ssm_repo_url_batch
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -130,4 +131,11 @@ data "aws_ssm_parameter" "vision_api_url" {
 data "aws_ssm_parameter" "vision_api_key" {
   name            = local.ssm_vision_api_key
   with_decryption = true
+}
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Batch repository url
+# ----------------------------------------------------------------------------------------------
+data "aws_ssm_parameter" "repo_url_batch" {
+  name = local.ssm_repo_url_batch
 }

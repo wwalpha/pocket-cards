@@ -149,3 +149,55 @@ resource "aws_iam_role_policy" "ecs_task_status_basic" {
     ]
   })
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - Batch
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "batch" {
+  name               = "${local.project_name_uc}_Lambda_BatchRole"
+  assume_role_policy = data.aws_iam_policy_document.lambda_role_policy.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - Batch Basic Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "batch" {
+  role       = aws_iam_role.batch.name
+  policy_arn = local.lambda_basic_policy_arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - Batch Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy" "batch" {
+  name = "Batch_Policy"
+  role = aws_iam_role.batch.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:BatchGetItem",
+          "dynamodb:BatchWriteItem",
+          "dynamodb:Describe*",
+          "dynamodb:List*",
+          "dynamodb:GetItem",
+          "dynamodb:Query",
+          "dynamodb:Scan",
+          "dynamodb:PartiQL*",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:UpdateItem"
+        ]
+        Resource = "*"
+      },
+    ]
+  })
+}

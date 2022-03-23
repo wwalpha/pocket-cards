@@ -130,3 +130,23 @@ resource "aws_lambda_permission" "ecs_task_status" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${data.aws_apigatewayv2_api.admin.execution_arn}/*/*/status"
 }
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Function - Batch
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_function" "batch" {
+  function_name = "${local.project_name}-batch"
+  package_type  = "Image"
+  image_uri     = data.aws_ssm_parameter.repo_url_batch.value
+  memory_size   = 256
+  role          = aws_iam_role.batch.arn
+  timeout       = 300
+
+  environment {
+    variables = {
+      TABLE_NAME_USERS     = local.dynamodb_name_users
+      TABLE_NAME_TRACES    = local.dynamodb_name_traces
+      TABLE_NAME_HISTORIES = local.dynamodb_name_histories
+    }
+  }
+}
