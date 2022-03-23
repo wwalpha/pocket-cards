@@ -11,6 +11,7 @@ on:
     workflows:
       - PUSH_T) Service Build
       - PUSH_B) Lambda Build
+      - PUSH_B) Batch Build
     branches:
       - master
     types:
