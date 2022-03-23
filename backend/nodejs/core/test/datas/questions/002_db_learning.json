@@ -4,7 +4,8 @@
     "lastTime": "19000101",
     "times": 0,
     "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1",
-    "subjectNextTime": "2_19000101",
+    "nextTime": "19000101",
+    "subject": "2",
     "groupId": "G001"
   },
   {
@@ -12,7 +13,8 @@
     "lastTime": "19000101",
     "times": 0,
     "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1",
-    "subjectNextTime": "2_19000101",
+    "nextTime": "19000101",
+    "subject": "2",
     "groupId": "G001"
   },
   {
@@ -20,7 +22,8 @@
     "lastTime": "19000101",
     "times": 0,
     "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1",
-    "subjectNextTime": "2_20991231",
+    "nextTime": "20991231",
+    "subject": "2",
     "groupId": "G001"
   }
 ]

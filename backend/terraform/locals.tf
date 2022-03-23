@@ -36,6 +36,7 @@ locals {
   dynamodb_name_histories   = local.remote_setup.dynamodb_name_histories
   dynamodb_name_questions   = local.remote_setup.dynamodb_name_questions
   dynamodb_name_learning    = local.remote_setup.dynamodb_name_learning
+  dynamodb_name_traces      = local.remote_setup.dynamodb_name_traces
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -59,6 +60,7 @@ locals {
   ssm_translation_api_key = local.remote_setup.ssm_translation_api_key
   ssm_vision_api_url      = local.remote_setup.ssm_vision_api_url
   ssm_vision_api_key      = local.remote_setup.ssm_vision_api_key
+  ssm_repo_url_batch      = local.remote_services.ssm_repo_url_batch
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -129,4 +131,11 @@ data "aws_ssm_parameter" "vision_api_url" {
 data "aws_ssm_parameter" "vision_api_key" {
   name            = local.ssm_vision_api_key
   with_decryption = true
+}
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Batch repository url
+# ----------------------------------------------------------------------------------------------
+data "aws_ssm_parameter" "repo_url_batch" {
+  name = local.ssm_repo_url_batch
 }

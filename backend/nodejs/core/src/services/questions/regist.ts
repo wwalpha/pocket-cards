@@ -40,7 +40,8 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
       qid: id,
       groupId: groupId,
       userId: userId,
-      subjectNextTime: `${groupInfo.subject}_19000101`,
+      subject: groupInfo.subject,
+      nextTime: '19000101',
       lastTime: '19000101',
       times: 0,
     };
@@ -51,9 +52,9 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
     });
 
     // create image file if needed
-    createImages(id, title, answer);
+    await createImages(id, title, answer);
     // create voice of text
-    createVoices(id, title, answer);
+    await createVoices(id, title, answer);
   });
 
   await Promise.all(tasks);

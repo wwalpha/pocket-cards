@@ -62,12 +62,14 @@ export const regist = (details: Group.Details) => (dispatch: AppDispatch) =>
       const res = await API.put<APIs.B001Response>(Consts.B001_URL(), {
         name: details.name,
         description: details.description,
+        subject: details.subject,
       } as APIs.B001Request);
 
       // データ保存
       dispatch(
         Actions.GROUP_REGIST({
           id: res.groupId,
+          userId: 'dummy',
           count: 0,
           name: details.name,
           description: details.description,

@@ -18,7 +18,7 @@ env:
 
 jobs:
   Update:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     environment:
       name: dev
     defaults:

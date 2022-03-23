@@ -3,14 +3,14 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Card, CardContent, Typography } from '@mui/material';
 import Loading from '@components/Loading';
-import * as MyPageActions from '@actions/mypage';
+import { UserActions } from '@actions';
 import { RootState } from 'typings';
 
 const userState = (state: RootState) => state.user;
 const appState = (state: RootState) => state.app;
 
 export default () => {
-  const actions = bindActionCreators(MyPageActions, useDispatch());
+  const actions = bindActionCreators(UserActions, useDispatch());
   const { remainingTest, remainingReview, daily, dailyNew, dailyReview, weekly, monthly } = useSelector(userState);
   const { isLoading } = useSelector(appState);
 

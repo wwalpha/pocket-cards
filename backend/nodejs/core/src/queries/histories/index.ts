@@ -4,7 +4,7 @@ import { Tables } from 'typings';
 export * as query from './query';
 
 /** データ取得 */
-export const get = (key: Tables.HistoriesKey): DynamoDB.DocumentClient.GetItemInput => ({
+export const get = (key: Tables.THistoriesKey): DynamoDB.DocumentClient.GetItemInput => ({
   TableName: Environment.TABLE_NAME_HISTORIES,
   Key: key,
 });

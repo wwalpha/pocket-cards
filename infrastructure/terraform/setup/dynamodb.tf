@@ -89,7 +89,6 @@ resource "aws_dynamodb_table" "words" {
   # }
 }
 
-
 # ----------------------------------------------------------------------------------------------
 # Dynamodb Table - Word Master
 # ----------------------------------------------------------------------------------------------
@@ -105,15 +104,44 @@ resource "aws_dynamodb_table" "word_master" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Traces
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "traces" {
+  name         = local.dynamodb_name_traces
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "qid"
+  range_key    = "timestamp"
+  attribute {
+    name = "qid"
+    type = "S"
+  }
+  attribute {
+    name = "timestamp"
+    type = "S"
+  }
+  attribute {
+    name = "userId"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "gsiIdx1"
+    hash_key        = "userId"
+    range_key       = "timestamp"
+    projection_type = "ALL"
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
 # Dynamodb Table - Histories
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "histories" {
   name         = local.dynamodb_name_histories
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "user"
+  hash_key     = "userId"
   range_key    = "timestamp"
   attribute {
-    name = "user"
+    name = "userId"
     type = "S"
   }
   attribute {
@@ -162,16 +190,16 @@ resource "aws_dynamodb_table" "questions" {
   }
 
   global_secondary_index {
-    name            = "gsiIdx1"
-    hash_key        = "groupId"
-    range_key       = "id"
-    projection_type = "KEYS_ONLY"
+    name               = "gsiIdx1"
+    hash_key           = "groupId"
+    range_key          = "id"
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["title", "subject"]
   }
 }
 
-
 # ----------------------------------------------------------------------------------------------
-# Dynamodb Table - Words
+# Dynamodb Table - Learning
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "learning" {
   name         = local.dynamodb_name_learning
@@ -189,14 +217,26 @@ resource "aws_dynamodb_table" "learning" {
   }
 
   attribute {
-    name = "subjectNextTime"
+    name = "nextTime"
+    type = "S"
+  }
+
+  attribute {
+    name = "groupId"
     type = "S"
   }
 
   global_secondary_index {
     name            = "gsiIdx1"
     hash_key        = "userId"
-    range_key       = "subjectNextTime"
+    range_key       = "nextTime"
+    projection_type = "ALL"
+  }
+
+  global_secondary_index {
+    name            = "gsiIdx2"
+    hash_key        = "groupId"
+    range_key       = "nextTime"
     projection_type = "ALL"
   }
 }

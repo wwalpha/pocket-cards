@@ -57,3 +57,4 @@ resource "aws_ssm_parameter" "vision_api_key" {
   value     = var.vision_api_key
   overwrite = true
 }
+

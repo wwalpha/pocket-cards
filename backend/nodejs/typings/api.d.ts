@@ -351,4 +351,49 @@ export namespace APIs {
   }
 
   type QuestionAnswerResponse = void;
+
+  // ------------------------------------------------------------
+  // Question Details
+  // ------------------------------------------------------------
+  interface QuestionDetailsParams {
+    groupId: string;
+  }
+
+  interface QuestionDetailsRequest {}
+
+  interface QuestionDetailsResponse {
+    count: number;
+    questions: Tables.TQuestion[];
+  }
+
+  // ------------------------------------------------------------
+  // Reports - Daily Tasks
+  // ------------------------------------------------------------
+  interface DailyTasksResquest {}
+
+  interface DailyTasksResponse {
+    language: {
+      test: number;
+    };
+    society: {
+      test: number;
+    };
+    science: {
+      test: number;
+    };
+  }
+
+  // ------------------------------------------------------------
+  // Reports - Leaning Progress
+  // ------------------------------------------------------------
+  interface LearningProgressRequest {}
+
+  interface LearningProgressResponse {
+    histories: {
+      timestamp: string;
+      japanese?: number;
+      science?: number;
+      society?: number;
+    }[];
+  }
 }

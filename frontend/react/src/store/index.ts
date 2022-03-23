@@ -19,7 +19,8 @@ const persistedReducer = persistReducer(
 );
 
 const store = configureStore({
-  reducer: persistedReducer,
+  // reducer: persistedReducer,
+  reducer: reducers(history),
   middleware: (getDefaultMiddleware) => {
     let middle = getDefaultMiddleware();
 
@@ -34,7 +35,7 @@ const store = configureStore({
 });
 
 if (module.hot) {
-  module.hot.accept('../reducers', () => store.replaceReducer(persistedReducer));
+  module.hot.accept('../reducers', () => store.replaceReducer(reducers(history)));
 }
 
 export type RootState = ReturnType<typeof store.getState>;

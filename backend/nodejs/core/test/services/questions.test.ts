@@ -120,4 +120,17 @@ describe('d0', () => {
 
     expect(result?.Item).toMatchObject(QUESTIONS.ANSWER05_EXPECT01);
   });
+
+  test('Question06:質問一覧', async () => {
+    await client.bulk(Environment.TABLE_NAME_QUESTIONS, QUESTIONS.DETAILS05_DB_QUESTIONS);
+
+    const apiPath = '/v1/groups/G001/questions';
+
+    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+
+    // status code
+    expect(res.statusCode).toBe(200);
+
+    expect(res.body).toEqual(QUESTIONS.DETAILS05_EXPECT01);
+  });
 });

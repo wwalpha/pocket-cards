@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Box } from '@mui/material';
+import { TextField, Box, Select, InputLabel, FormControl, MenuItem } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
+import { Consts } from '@constants';
 import { Button } from '@components/buttons';
 import { GroupActions } from '@actions';
 import { RootState } from 'typings';
@@ -25,6 +26,7 @@ export default () => {
   } = useForm<{
     name: string;
     description: string;
+    subject: string;
   }>();
 
   // 編集
@@ -33,6 +35,7 @@ export default () => {
       id: activeGroup,
       name: datas.name,
       description: datas.description,
+      subject: datas.subject,
     });
   });
 
@@ -71,6 +74,23 @@ export default () => {
             />
           )}
         />
+        <Controller
+          name="subject"
+          control={control}
+          defaultValue={groupInfo?.subject}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl sx={{ my: 2 }} fullWidth>
+              <InputLabel id="demo-simple-select-helper-label">Subject *</InputLabel>
+              <Select label="Subject" value={value} required>
+                <MenuItem value={Consts.SUBJECT.JAPANESE.toString()}>Japanese</MenuItem>
+                <MenuItem value={Consts.SUBJECT.SCIENCE.toString()}>Science</MenuItem>
+                <MenuItem value={Consts.SUBJECT.SOCIETY.toString()}>Society</MenuItem>
+              </Select>
+            </FormControl>
+          )}
+        />
+
         <Box mt={2}>
           <Button size="large" fullWidth variant="contained" color="secondary" type="submit" isLoading={isLoading}>
             EDIT

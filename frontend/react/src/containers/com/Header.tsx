@@ -142,7 +142,13 @@ export default () => {
           <Typography
             variant="h5"
             color="inherit"
-            sx={{ flexGrow: 1, fontWeight: 600, textAlign: 'center', letterSpacing: ({ spacing }) => spacing(0.25) }}>
+            sx={{
+              flexGrow: 1,
+              fontWeight: 600,
+              textAlign: 'center',
+              letterSpacing: ({ spacing }) => spacing(0.25),
+              color: 'common.white',
+            }}>
             {(() => {
               if (pathname === Paths.PATHS_STUDY) {
                 return (

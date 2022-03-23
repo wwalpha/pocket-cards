@@ -7,7 +7,10 @@ import { B001, B002, B003, B004, B005, B006 } from '@src/services/b0';
 import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/services/c0';
 import { D001, D003, D004, D005, D006 } from '@src/services/d0';
 import { E001, E002 } from '@src/services/e0';
-import { QuestionRegist, QuestionStudy, QuestionTest, QuestionAnswer } from '@src/services/questions';
+import { QuestionRegist, QuestionStudy, QuestionExam, QuestionAnswer, QuestionDetails } from '@src/services/questions';
+import { DailyTasks, LearningProgress } from '@src/services/reports';
+import { Patchs } from '@src/services/patch';
+
 import entry from './entry';
 
 const app = express();
@@ -71,14 +74,22 @@ app.put('/v1/words/:word', express.json(), (req, res) => entry(req, res, E002 as
 
 // 問題一括登録
 app.post('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
-// 問題一括取得
-// app.get('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
+// 問題詳細一括取得
+app.get('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionDetails));
+
 // 今日の学習
 app.get('/v1/questions/study', express.json(), (req, res) => entry(req, res, QuestionStudy));
 // 今日のテスト
-app.get('/v1/questions/test', express.json(), (req, res) => entry(req, res, QuestionTest));
+app.get('/v1/questions/test', express.json(), (req, res) => entry(req, res, QuestionExam));
 
 // 問題情報更新
 app.post('/v1/questions/:questionId/answer', express.json(), (req, res) => entry(req, res, QuestionAnswer as any));
+
+// Report daily
+app.get('/v1/reports/dailytasks', express.json(), (req, res) => entry(req, res, DailyTasks as any));
+// leaning progress
+app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, LearningProgress as any));
+
+app.patch('/v1/patchs/20220323', express.json(), (req, res) => entry(req, res, Patchs as any));
 
 export default app;

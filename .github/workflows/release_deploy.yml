@@ -74,7 +74,7 @@ jobs:
 
   # Backend
   Backend:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs:
       - Terraform
     environment:

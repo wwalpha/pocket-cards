@@ -88,19 +88,21 @@ export namespace Tables {
     userId: string;
     // グループID
     groupId: string;
-    // 科目_次の学習時間
-    subjectNextTime: string;
+    // 次回の学習時間
+    nextTime: string;
     // 最後の学習時間
     lastTime?: string;
     // 学習回数
     times: number;
+    // 科目
+    subject?: string;
   }
 
   interface TLearningGSI1Key {
     // ユーザID
     userId: string;
     // 次の学習時間
-    subjectNextTime: string;
+    nextTime: string;
   }
 
   interface TLearningGSI1Projection extends TLearningGSI1Key {
@@ -168,21 +170,38 @@ export namespace Tables {
   //   subject?: string;
   // }
 
-  interface HistoriesKey {
-    // ユーザID
-    user: string;
+  interface TracesKey {
+    // 問題ID
+    qid: string;
     // Timestamp
     timestamp: string;
   }
 
-  interface THistories extends HistoriesKey {
+  interface TTraces extends TracesKey {
+    // ユーザID
+    userId?: string;
     // グループID
-    group?: string;
-    // 単語
-    word?: string;
+    groupId?: string;
     // 最後の学習時間
     lastTime?: string;
-    // 学習回数
-    times?: number;
+    // 学習回数(解答前)
+    timesBefore?: number;
+    // 学習回数(解答後)
+    timesAfter?: number;
+    // 科目
+    subject?: string;
+  }
+
+  interface THistoriesKey {
+    // ユーザID
+    userId: string;
+    // Timestamp
+    timestamp: string;
+  }
+
+  interface THistories extends THistoriesKey {
+    japanese?: number;
+    science?: number;
+    society?: number;
   }
 }

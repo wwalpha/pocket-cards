@@ -1,0 +1,6 @@
+export enum SUBJECT {
+  ENGLISH,
+  JAPANESE,
+  SCIENCE,
+  SOCIETY,
+}

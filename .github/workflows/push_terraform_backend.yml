@@ -4,13 +4,12 @@ on:
   push:
     paths:
       - backend/nodejs/lambda/**
-      - backend/nodejs/typings/**
     branches-ignore:
       - releases/**
   workflow_run:
     workflows:
       - PUSH_T) Service Build
-      - PUSH_B) Lambda Build
+      - PUSH_B) Batch Build
     branches:
       - master
     types:
@@ -25,7 +24,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: dev

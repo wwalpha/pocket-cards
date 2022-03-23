@@ -107,3 +107,11 @@ output "api_gateway_id_admin" {
 output "api_gateway_authorizer_id_admin" {
   value = aws_apigatewayv2_authorizer.admin.id
 }
+
+
+# ----------------------------------------------------------------------------------------------
+# Repository URL (Batch)
+# ----------------------------------------------------------------------------------------------
+output "ssm_repo_url_batch" {
+  value = aws_ssm_parameter.repo_url_batch.name
+}

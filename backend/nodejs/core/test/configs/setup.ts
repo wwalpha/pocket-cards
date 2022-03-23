@@ -17,6 +17,7 @@ const TABLE_NAME_WORD_IGNORE = process.env.TABLE_NAME_WORD_IGNORE as string;
 const TABLE_NAME_HISTORIES = process.env.TABLE_NAME_HISTORIES as string;
 const TABLE_NAME_QUESTIONS = process.env.TABLE_NAME_QUESTIONS as string;
 const TABLE_NAME_LEARNING = process.env.TABLE_NAME_LEARNING as string;
+const TABLE_NAME_TRACES = process.env.TABLE_NAME_TRACES as string;
 
 const setup = async () => {
   console.log('jest setup start...');
@@ -26,7 +27,7 @@ const setup = async () => {
   const dbClient = helper.getClient();
 
   await Promise.all([
-    s3Client.createBucket({ Bucket: process.env.BUCKET_NAME_FRONTEND as string }).promise(),
+    s3Client.createBucket({ Bucket: process.env.BUCKET_NAME_MATERAILS as string }).promise(),
     dbClient
       .createTable({
         TableName: TABLE_NAME_USERS,
@@ -115,15 +116,15 @@ const setup = async () => {
       .promise(),
     dbClient
       .createTable({
-        TableName: TABLE_NAME_HISTORIES,
+        TableName: TABLE_NAME_TRACES,
         BillingMode: 'PROVISIONED',
         ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
         KeySchema: [
-          { AttributeName: 'user', KeyType: 'HASH' },
+          { AttributeName: 'qid', KeyType: 'HASH' },
           { AttributeName: 'timestamp', KeyType: 'RANGE' },
         ],
         AttributeDefinitions: [
-          { AttributeName: 'user', AttributeType: 'S' },
+          { AttributeName: 'qid', AttributeType: 'S' },
           { AttributeName: 'timestamp', AttributeType: 'S' },
         ],
       })
@@ -160,18 +161,33 @@ const setup = async () => {
         AttributeDefinitions: [
           { AttributeName: 'qid', AttributeType: 'S' },
           { AttributeName: 'userId', AttributeType: 'S' },
-          { AttributeName: 'subjectNextTime', AttributeType: 'S' },
+          { AttributeName: 'nextTime', AttributeType: 'S' },
         ],
         GlobalSecondaryIndexes: [
           {
             IndexName: 'gsiIdx1',
             KeySchema: [
               { AttributeName: 'userId', KeyType: 'HASH' },
-              { AttributeName: 'subjectNextTime', KeyType: 'RANGE' },
+              { AttributeName: 'nextTime', KeyType: 'RANGE' },
             ],
             Projection: { ProjectionType: 'ALL' },
             ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
           },
+        ],
+      })
+      .promise(),
+    dbClient
+      .createTable({
+        TableName: TABLE_NAME_HISTORIES,
+        BillingMode: 'PROVISIONED',
+        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        KeySchema: [
+          { AttributeName: 'userId', KeyType: 'HASH' },
+          { AttributeName: 'timestamp', KeyType: 'RANGE' },
+        ],
+        AttributeDefinitions: [
+          { AttributeName: 'userId', AttributeType: 'S' },
+          { AttributeName: 'timestamp', AttributeType: 'S' },
         ],
       })
       .promise(),

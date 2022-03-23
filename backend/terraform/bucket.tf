@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------
 # Backend Environment file
 # ----------------------------------------------------------------------------------------------
-resource "aws_s3_bucket_object" "resource" {
+resource "aws_s3_object" "resources" {
   bucket  = local.bucket_name_archive
   key     = "envs/backend.env"
   content = <<EOT
@@ -20,8 +20,9 @@ TABLE_NAME_WORD_IGNORE=${local.dynamodb_name_word_ignore}
 TABLE_NAME_HISTORIES=${local.dynamodb_name_histories}
 TABLE_NAME_QUESTIONS=${local.dynamodb_name_questions}
 TABLE_NAME_LEARNING=${local.dynamodb_name_learning}
+TABLE_NAME_TRACES=${local.dynamodb_name_traces}
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
-BUCKET_NAME_MATERIALS=${local.bucket_name_materials}
+BUCKET_NAME_MATERAILS=${local.bucket_name_materials}
 PATH_PATTERN=audio
 TZ=Asia/Tokyo
 EOT

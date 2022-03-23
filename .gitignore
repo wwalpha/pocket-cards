@@ -1,3 +1,4 @@
+backend/nodejs/lambda/authorizer/*
 node_modules
 .DS_Store
 *.auto.tfvars

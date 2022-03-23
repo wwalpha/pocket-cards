@@ -1,14 +1,14 @@
 import { DynamoDB } from 'aws-sdk';
 import { Environment } from '@consts';
 
-export const byGroupId = (setId: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_QUESTIONS,
-  KeyConditionExpression: '#setId = :setId',
+  KeyConditionExpression: '#groupId = :groupId',
   ExpressionAttributeNames: {
-    '#setId': 'setId',
+    '#groupId': 'groupId',
   },
   ExpressionAttributeValues: {
-    ':setId': setId,
+    ':groupId': groupId,
   },
   IndexName: 'gsiIdx1',
 });

@@ -3,7 +3,7 @@ import { Request } from 'express';
 import { defaultTo } from 'lodash';
 import moment from 'moment';
 import { Commons, DateUtils, DBHelper } from '@utils';
-import { Words, Histories } from '@queries';
+import { Words, Traces } from '@queries';
 import { APIs, Tables } from 'typings';
 
 export default async (req: Request<APIs.C004Params, any, APIs.C004Request, any>): Promise<APIs.C004Response> => {
@@ -45,16 +45,16 @@ const study = async (params: APIs.C004Params, input: APIs.C004Request, userId: s
       {
         Update: Words.update.info({ id: word, groupId: groupId }, times, DateUtils.getNow(), nextTime),
       },
-      {
-        Put: Histories.put({
-          user: userId,
-          timestamp: moment().format('YYYYMMDDHHmmssSSS'),
-          word: word,
-          group: groupId,
-          times: times,
-          lastTime: result?.Item?.lastTime,
-        }),
-      },
+      // {
+      //   Put: Histories.put({
+      //     user: userId,
+      //     timestamp: moment().format('YYYYMMDDHHmmssSSS'),
+      //     word: word,
+      //     group: groupId,
+      //     times: times,
+      //     lastTime: result?.Item?.lastTime,
+      //   }),
+      // },
     ],
   });
 };
