@@ -57,3 +57,19 @@ resource "aws_ssm_parameter" "vision_api_key" {
   value     = var.vision_api_key
   overwrite = true
 }
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Repository URL (Batch)
+# ----------------------------------------------------------------------------------------------
+resource "aws_ssm_parameter" "repo_url_batch" {
+  name      = "/${var.project_name}/repo_url_batch"
+  type      = "SecureString"
+  value     = "dummy"
+  overwrite = true
+
+  lifecycle {
+    ignore_changes = [
+      value
+    ]
+  }
+}
