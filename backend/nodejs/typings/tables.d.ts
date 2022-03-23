@@ -200,8 +200,8 @@ export namespace Tables {
   }
 
   interface THistories extends THistoriesKey {
-    japanese: number;
-    science: number;
-    society: number;
+    japanese?: number;
+    science?: number;
+    society?: number;
   }
 }

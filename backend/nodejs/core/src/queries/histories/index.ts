@@ -4,14 +4,14 @@ import { Tables } from 'typings';
 export * as query from './query';
 
 /** データ取得 */
-export const get = (key: Tables.TracesKey): DynamoDB.DocumentClient.GetItemInput => ({
-  TableName: Environment.TABLE_NAME_TRACES,
+export const get = (key: Tables.THistoriesKey): DynamoDB.DocumentClient.GetItemInput => ({
+  TableName: Environment.TABLE_NAME_HISTORIES,
   Key: key,
 });
 
 /** データ登録 */
-export const put = (item: Tables.TTraces) =>
+export const put = (item: Tables.THistories) =>
   ({
-    TableName: Environment.TABLE_NAME_TRACES,
+    TableName: Environment.TABLE_NAME_HISTORIES,
     Item: item,
   } as DynamoDB.DocumentClient.PutItemInput);

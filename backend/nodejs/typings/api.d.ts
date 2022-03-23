@@ -389,8 +389,6 @@ export namespace APIs {
   interface LearningProgressRequest {}
 
   interface LearningProgressResponse {
-    language: number;
-    society: number;
-    science: number;
+    histories: Tables.THistories[];
   }
 }
