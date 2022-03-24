@@ -10,17 +10,32 @@ export default async (req: Request<any, any, APIs.DailyTasksResquest, any>): Pro
   // next study date
   const date = DateUtils.getNow();
   // 問題一覧
-  const results = await DBHelper().query<Tables.TLearning>(Learning.query.daily(userId, date));
+  const pastResults = await DBHelper().query<Tables.TLearning>(Learning.query.past(userId, date));
+  const currentResults = await DBHelper().query<Tables.TLearning>(Learning.query.current(userId, date));
 
   return {
     language: {
-      test: results.Items.filter((item) => item.subject === Consts.SUBJECT.LANGUAGE && item.times !== 0).length,
+      archive: getArchive(currentResults.Items, Consts.SUBJECT.LANGUAGE),
+      target: getTarget(pastResults.Items, currentResults.Items, Consts.SUBJECT.LANGUAGE),
     },
     science: {
-      test: results.Items.filter((item) => item.subject === Consts.SUBJECT.SCIENCE && item.times !== 0).length,
+      archive: getArchive(currentResults.Items, Consts.SUBJECT.SCIENCE),
+      target: getTarget(pastResults.Items, currentResults.Items, Consts.SUBJECT.SCIENCE),
     },
     society: {
-      test: results.Items.filter((item) => item.subject === Consts.SUBJECT.SOCIETY && item.times !== 0).length,
+      archive: getArchive(currentResults.Items, Consts.SUBJECT.SOCIETY),
+      target: getTarget(pastResults.Items, currentResults.Items, Consts.SUBJECT.SOCIETY),
     },
   };
+};
+
+const getTarget = (past: Tables.TLearning[], current: Tables.TLearning[], subject: string): number => {
+  const pastCount = past.filter((item) => item.subject === subject).length;
+  const currentCount = current.filter((item) => item.subject === subject).length;
+
+  return pastCount + currentCount;
+};
+
+const getArchive = (current: Tables.TLearning[], subject: string): number => {
+  return current.filter((item) => item.subject === subject).length;
 };

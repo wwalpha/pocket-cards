@@ -6,6 +6,7 @@ node_modules
 .terraform
 .terraform.lock.hcl
 dist
+dist.zip
 yarn.lock
 .nyc_output
 .env.credentials
