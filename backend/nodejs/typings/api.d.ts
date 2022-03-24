@@ -320,7 +320,7 @@ export namespace APIs {
 
   interface QuestionStudyResponse {
     count: number;
-    questions: Tables.TQuestion[];
+    questions: Tables.TQuestions[];
   }
 
   interface QuestionStudyQuery {
@@ -336,7 +336,7 @@ export namespace APIs {
 
   interface QuestionTestResponse {
     count: number;
-    questions: Tables.TQuestion[];
+    questions: Tables.TQuestions[];
   }
 
   // ------------------------------------------------------------
@@ -363,7 +363,7 @@ export namespace APIs {
 
   interface QuestionDetailsResponse {
     count: number;
-    questions: Tables.TQuestion[];
+    questions: Tables.TQuestions[];
   }
 
   // ------------------------------------------------------------
@@ -373,13 +373,16 @@ export namespace APIs {
 
   interface DailyTasksResponse {
     language: {
-      test: number;
+      archive: number;
+      target: number;
     };
     society: {
-      test: number;
+      archive: number;
+      target: number;
     };
     science: {
-      test: number;
+      archive: number;
+      target: number;
     };
   }
 
