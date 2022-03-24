@@ -147,6 +147,7 @@ resource "aws_lambda_function" "batch" {
       TABLE_NAME_USERS     = local.dynamodb_name_users
       TABLE_NAME_TRACES    = local.dynamodb_name_traces
       TABLE_NAME_HISTORIES = local.dynamodb_name_histories
+      TZ                   = "Asia/Tokyo"
     }
   }
 }
