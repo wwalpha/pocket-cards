@@ -30,7 +30,7 @@ export default async (req: Request<any, any, APIs.DailyTasksResquest, any>): Pro
 };
 
 const getTarget = (past: Tables.TLearning[], current: Tables.TLearning[], subject: string): number => {
-  const pastCount = past.filter((item) => item.subject === subject).length;
+  const pastCount = past.filter((item) => item.subject === subject).filter((item) => item.times !== 0).length;
   const currentCount = current.filter((item) => item.subject === subject).length;
 
   return pastCount + currentCount;
