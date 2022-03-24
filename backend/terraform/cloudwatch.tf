@@ -16,3 +16,13 @@ resource "aws_cloudwatch_event_target" "this" {
   target_id = "SendToLambda"
   arn       = aws_lambda_function.batch.arn
 }
+
+# ---------------------------------------------------------------------------------------------
+# AWS CloudWatch Event Rule Permission (Lambda)
+# ---------------------------------------------------------------------------------------------
+resource "aws_lambda_permission" "this" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.batch.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.this.arn
+}
