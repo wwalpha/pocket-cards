@@ -15,8 +15,9 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # ECS
   # ----------------------------------------------------------------------------------------------
-  ecs_cluster_name = local.remote_services.ecs_cluster_name
-  ecs_service_name = local.remote_services.ecs_service_name
+  ecs_cluster_name         = local.remote_services.ecs_cluster_name
+  ecs_service_name_backend = local.remote_services.ecs_service_name_backend
+  ecs_service_name_auth    = local.remote_services.ecs_service_name_auth
 
   # ----------------------------------------------------------------------------------------------
   # Lambda
@@ -73,9 +74,17 @@ data "aws_ecs_cluster" "this" {
 # ----------------------------------------------------------------------------------------------
 # ECS Service
 # ----------------------------------------------------------------------------------------------
-data "aws_ecs_service" "this" {
+data "aws_ecs_service" "backend" {
   cluster_arn  = data.aws_ecs_cluster.this.arn
-  service_name = local.ecs_service_name
+  service_name = local.ecs_service_name_backend
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service
+# ----------------------------------------------------------------------------------------------
+data "aws_ecs_service" "auth" {
+  cluster_arn  = data.aws_ecs_cluster.this.arn
+  service_name = local.ecs_service_name_auth
 }
 
 # ----------------------------------------------------------------------------------------------
