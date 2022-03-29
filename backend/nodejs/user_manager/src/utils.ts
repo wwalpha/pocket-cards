@@ -35,7 +35,7 @@ export const common = async (req: express.Request, res: express.Response, app: a
   } catch (err) {
     Logger.error('unhandled error:', err);
 
-    const message = defaultTo(err.response?.data, err.message);
+    const message = defaultTo((err as any).response?.data, (err as any).message);
 
     res.status(500).send(message);
   }

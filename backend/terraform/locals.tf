@@ -16,8 +16,9 @@ locals {
   # ECS
   # ----------------------------------------------------------------------------------------------
   ecs_cluster_name         = local.remote_services.ecs_cluster_name
-  ecs_service_name_backend = local.remote_services.ecs_service_name_backend
   ecs_service_name_auth    = local.remote_services.ecs_service_name_auth
+  ecs_service_name_backend = local.remote_services.ecs_service_name_backend
+  ecs_service_name_users   = local.remote_services.ecs_service_name_users
 
   # ----------------------------------------------------------------------------------------------
   # Lambda
@@ -38,6 +39,7 @@ locals {
   dynamodb_name_questions   = local.remote_setup.dynamodb_name_questions
   dynamodb_name_learning    = local.remote_setup.dynamodb_name_learning
   dynamodb_name_traces      = local.remote_setup.dynamodb_name_traces
+  dynamodb_name_settings    = local.remote_setup.dynamodb_name_settings
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -72,7 +74,7 @@ data "aws_ecs_cluster" "this" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# ECS Service
+# ECS Service - Backend
 # ----------------------------------------------------------------------------------------------
 data "aws_ecs_service" "backend" {
   cluster_arn  = data.aws_ecs_cluster.this.arn
@@ -80,11 +82,19 @@ data "aws_ecs_service" "backend" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# ECS Service
+# ECS Service - Auth Manager
 # ----------------------------------------------------------------------------------------------
 data "aws_ecs_service" "auth" {
   cluster_arn  = data.aws_ecs_cluster.this.arn
   service_name = local.ecs_service_name_auth
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service - User Manager
+# ----------------------------------------------------------------------------------------------
+data "aws_ecs_service" "users" {
+  cluster_arn  = data.aws_ecs_cluster.this.arn
+  service_name = local.ecs_service_name_users
 }
 
 # ----------------------------------------------------------------------------------------------

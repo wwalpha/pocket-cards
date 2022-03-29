@@ -240,3 +240,18 @@ resource "aws_dynamodb_table" "learning" {
     projection_type = "ALL"
   }
 }
+
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Settings
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "settings" {
+  name         = local.dynamodb_name_settings
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+}

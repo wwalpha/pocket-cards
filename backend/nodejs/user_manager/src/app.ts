@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
 import express from 'express';
 import { DynamodbHelper } from '@alphax/dynamodb';
-import { User, Tables } from 'typings';
+import { Users, Tables } from 'typings';
 import { Environments } from './consts';
 import { createNewUser, getUsers, lookupUserPoolData } from './cognito';
 import { Logger } from './utils';
@@ -22,7 +22,7 @@ export const healthCheck = async () => ({ service: 'User Manager', isAlive: true
  *
  * @param req request
  */
-export const lookupUser = async (req: express.Request): Promise<User.LookupUserResponse> => {
+export const lookupUser = async (req: express.Request): Promise<Users.LookupUserResponse> => {
   Logger.debug('Looking up user pool data for: ' + req.params.id);
 
   // find user in user pool
@@ -44,11 +44,11 @@ export const lookupUser = async (req: express.Request): Promise<User.LookupUserR
  * @returns created user details
  */
 export const createUser = async (
-  req: express.Request<any, any, User.CreateUserRequest>
-): Promise<User.CreateUserResponse> => {
+  req: express.Request<any, any, Users.CreateUserRequest>
+): Promise<Users.CreateUserResponse> => {
   Logger.debug(`Creating user: ${req.body.email}`);
 
-  const settings = await helper.get<Tables.Settings.Cognito>({
+  const settings = await helper.get<Tables.TSettingsCognito>({
     TableName: Environments.TABLE_NAME_SETTINGS,
     Key: {
       Id: 'TENANT_USER',
@@ -61,10 +61,10 @@ export const createUser = async (
   }
   console.log(req.body);
   // create new user
-  const user = await createNewUser(req.body, settings.Item.UserPoolId, 'TENANT_USER');
+  const user = await createNewUser(req.body, settings.Item.userPoolId, 'TENANT_USER');
 
   return {
-    userId: user.Email,
+    userId: user.email,
   };
 };
 
@@ -75,13 +75,13 @@ export const createUser = async (
  * @returns
  */
 export const createAdminUser = async (
-  req: express.Request<any, any, User.CreateAdminRequest>
-): Promise<User.CreateAdminResponse> => {
+  req: express.Request<any, any, Users.CreateAdminRequest>
+): Promise<Users.CreateAdminResponse> => {
   Logger.debug(`Creating user: ${req.body.email}`);
 
   const request = req.body;
 
-  const settings = await helper.get<Tables.Settings.Cognito>({
+  const settings = await helper.get<Tables.TSettingsCognito>({
     TableName: Environments.TABLE_NAME_SETTINGS,
     Key: {
       Id: 'TENANT_ADMIN',
@@ -94,24 +94,24 @@ export const createAdminUser = async (
   }
 
   // create admin user
-  const userItem = await createNewUser(request, settings.Item.UserPoolId, 'TENANT_ADMIN');
+  const userItem = await createNewUser(request, settings.Item.userPoolId, 'TENANT_ADMIN');
 
-  return { userId: userItem.UserId, email: userItem.Email, userName: userItem.UserName };
+  return { userId: userItem.id, email: userItem.email, userName: userItem.username };
 };
 
-export const listAdminUsers = async (): Promise<User.ListAdminUsersResponse> => {
-  const settings = await helper.get<Tables.Settings.Cognito>({
+export const listAdminUsers = async (): Promise<Users.ListAdminUsersResponse> => {
+  const settings = await helper.get<Tables.TSettingsCognito>({
     TableName: Environments.TABLE_NAME_SETTINGS,
     Key: {
       Id: 'TENANT_ADMIN',
     },
   });
 
-  if (!settings?.Item?.UserPoolId) {
+  if (!settings?.Item?.userPoolId) {
     throw new Error('Cannot found admin settings');
   }
 
-  const users = await getUsers(settings.Item.UserPoolId);
+  const users = await getUsers(settings.Item.userPoolId);
 
   return {
     users,

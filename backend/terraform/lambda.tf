@@ -41,6 +41,7 @@ resource "aws_lambda_function" "ecs_task_start" {
       CLUSTER_ARN         = data.aws_ecs_cluster.this.arn
       SERVICE_ARN_BACKEND = data.aws_ecs_service.backend.arn
       SERVICE_ARN_AUTH    = data.aws_ecs_service.auth.arn
+      SERVICE_ARN_USERS   = data.aws_ecs_service.users.arn
     }
   }
 }
@@ -78,6 +79,7 @@ resource "aws_lambda_function" "ecs_task_stop" {
       CLUSTER_ARN         = data.aws_ecs_cluster.this.arn
       SERVICE_ARN_BACKEND = data.aws_ecs_service.backend.arn
       SERVICE_ARN_AUTH    = data.aws_ecs_service.auth.arn
+      SERVICE_ARN_USERS   = data.aws_ecs_service.users.arn
     }
   }
 }
