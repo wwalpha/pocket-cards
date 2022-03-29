@@ -18,10 +18,7 @@ COPY package.json .
 # install dependencies only
 RUN yarn install --production --no-lockfile
 
-# set express port
-ENV EXPOSE_PORT=80
-
 # expose 80 port
-EXPOSE ${EXPOSE_PORT}
+EXPOSE 8080
 
 CMD [ "yarn", "start"]
