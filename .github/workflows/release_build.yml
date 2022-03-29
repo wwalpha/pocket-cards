@@ -23,8 +23,9 @@ env:
   ECS_SERVICE_NAME: backend
   ECS_TAKS_DEFINITION: pkc-backend
   ECS_TAKS_DEFINITION_FILE: task_definition.json
-  ECR_REPO_BACKEND: pkc/backend
-  ECR_REPO_BATCH: pkc/batch
+  ECR_REPO_AUTH: pkc/auth2
+  ECR_REPO_BACKEND: pkc/backend3
+  ECR_REPO_BATCH: pkc/batch3
   SSM_PARAMETER_NAME_ECR: /pkc/repository_url
   SSM_PARAMETER_NAME_FRONTEND: /pkc/frontend
 
@@ -79,7 +80,7 @@ jobs:
 
   # Backend
   Backend:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     environment:
       name: prod
     defaults:
@@ -149,7 +150,7 @@ jobs:
 
   # Batch
   Batch:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     environment:
       name: prod
     defaults:
@@ -210,9 +211,73 @@ jobs:
         run: |
           aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/batch --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
 
+  # Auth Manager
+  Auth:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/auth_manager
+
+    steps:
+      # Source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # Install, Build
+      - name: Build
+        run: |
+          yarn install
+          yarn build
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Unit Test
+      - name: Unit Test
+        run: |
+          docker-compose up -d --build
+          sleep 10
+          yarn test
+          docker-compose down
+
+      # ECR Login
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # docker build and push
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REPO_AUTH .
+          docker tag $ECR_REPO_AUTH $ECR_REGISTRY/$ECR_REPO_AUTH:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPO_AUTH:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPO_AUTH:$IMAGE_TAG"
+
+      # Update Repository URL
+      - name: Update ecs repository url
+        run: |
+          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/auth --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
+
+
   # Lambda
   Lambda:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     concurrency: Lambda
     environment:
       name: prod
@@ -263,7 +328,7 @@ jobs:
 
   # Frontend
   Frontend:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     concurrency: frontend
     environment:
       name: prod

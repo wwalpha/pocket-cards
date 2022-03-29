@@ -11,7 +11,7 @@ on:
 
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
-  ECR_REPOSITORY: pkc/auth
+  ECR_REPOSITORY: pkc/auth2
   SSM_PARAMETER_NAME: /pkc/repository_url
   WORKING_DIR: backend/nodejs/auth_manager
 
