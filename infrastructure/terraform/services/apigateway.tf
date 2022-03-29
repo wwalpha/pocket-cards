@@ -73,9 +73,10 @@ resource "aws_apigatewayv2_domain_name" "this" {
 # API Gateway Domain API Mapping
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_api_mapping" "this" {
-  api_id      = aws_apigatewayv2_api.this.id
-  domain_name = aws_apigatewayv2_domain_name.this.domain_name
-  stage       = aws_apigatewayv2_stage.this.id
+  api_id          = aws_apigatewayv2_api.this.id
+  domain_name     = aws_apigatewayv2_domain_name.this.domain_name
+  stage           = aws_apigatewayv2_stage.this.id
+  api_mapping_key = "v1"
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -142,9 +143,10 @@ resource "aws_apigatewayv2_stage" "admin" {
 # API Gateway Domain API Mapping - Admin
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_api_mapping" "admin" {
-  api_id      = aws_apigatewayv2_api.admin.id
-  domain_name = aws_apigatewayv2_domain_name.this.domain_name
-  stage       = aws_apigatewayv2_stage.admin.id
+  api_id          = aws_apigatewayv2_api.admin.id
+  domain_name     = aws_apigatewayv2_domain_name.this.domain_name
+  stage           = aws_apigatewayv2_stage.admin.id
+  api_mapping_key = "admin"
 }
 
 # ---------------------------------------------------------------------------------------------
