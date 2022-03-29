@@ -27,3 +27,18 @@ resource "aws_s3_object" "users" {
     ]
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# Auth Service Environment file
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "auth" {
+  bucket  = local.bucket_name_archive
+  key     = "envs/auth.env"
+  content = ""
+
+  lifecycle {
+    ignore_changes = [
+      content
+    ]
+  }
+}

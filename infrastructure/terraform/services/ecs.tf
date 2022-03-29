@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "this" {
     {
       aws_region      = local.region
       container_name  = local.task_def_family_backend
-      container_image = "${module.ecr_repo_backend.repository_url}:latest"
+      container_image = "${local.repo_url_backend}:latest"
       container_port  = 8080
       env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.backend.key}"
     }
