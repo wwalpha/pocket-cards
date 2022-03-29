@@ -156,3 +156,10 @@ output "repo_url_batch" {
 output "repo_url_users" {
   value = module.ecr_repo_users.repository_url
 }
+
+# ----------------------------------------------------------------------------------------------
+# Repository URL (Batch)
+# ----------------------------------------------------------------------------------------------
+output "ssm_repo_url_batch" {
+  value = aws_ssm_parameter.repo_url_batch.name
+}

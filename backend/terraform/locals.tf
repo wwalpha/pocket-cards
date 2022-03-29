@@ -60,7 +60,7 @@ locals {
   ssm_translation_api_key = local.remote_setup.ssm_translation_api_key
   ssm_vision_api_url      = local.remote_setup.ssm_vision_api_url
   ssm_vision_api_key      = local.remote_setup.ssm_vision_api_key
-  ssm_repo_url_batch      = local.remote_services.ssm_repo_url_batch
+  ssm_repo_url_batch      = local.remote_setup.ssm_repo_url_batch
 }
 
 # ----------------------------------------------------------------------------------------------
