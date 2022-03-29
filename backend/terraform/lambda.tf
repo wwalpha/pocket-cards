@@ -38,8 +38,9 @@ resource "aws_lambda_function" "ecs_task_start" {
   timeout          = 10
   environment {
     variables = {
-      CLUSTER_ARN = data.aws_ecs_cluster.this.arn
-      SERVICE_ARN = data.aws_ecs_service.this.arn
+      CLUSTER_ARN         = data.aws_ecs_cluster.this.arn
+      SERVICE_ARN_BACKEND = data.aws_ecs_service.backend.arn
+      SERVICE_ARN_AUTH    = data.aws_ecs_service.auth.arn
     }
   }
 }
@@ -74,8 +75,9 @@ resource "aws_lambda_function" "ecs_task_stop" {
   timeout          = 10
   environment {
     variables = {
-      CLUSTER_ARN = data.aws_ecs_cluster.this.arn
-      SERVICE_ARN = data.aws_ecs_service.this.arn
+      CLUSTER_ARN         = data.aws_ecs_cluster.this.arn
+      SERVICE_ARN_BACKEND = data.aws_ecs_service.backend.arn
+      SERVICE_ARN_AUTH    = data.aws_ecs_service.auth.arn
     }
   }
 }
