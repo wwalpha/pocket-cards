@@ -35,7 +35,7 @@ resource "aws_apigatewayv2_authorizer" "this" {
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_stage" "this" {
   api_id      = aws_apigatewayv2_api.this.id
-  name        = "$default"
+  name        = "v1"
   auto_deploy = true
 
   access_log_settings {
