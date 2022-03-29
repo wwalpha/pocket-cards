@@ -8,8 +8,9 @@ export default async (e: PostAuthenticationTriggerEvent) => {
   const item: Tables.TUsers = {
     id: e.userName,
     email: e.request.userAttributes['email'],
-    name: e.request.userAttributes['name'],
+    username: e.request.userAttributes['name'],
     icon: e.request.userAttributes['picture'],
+    role: 'TENANT_USER',
   };
 
   // ユーザ登録
