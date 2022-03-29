@@ -4,8 +4,7 @@ import { DynamodbHelper } from '@alphax/dynamodb';
 import { CognitoIdentityServiceProvider } from 'aws-sdk';
 import { AuthenticationDetails, CognitoUser, CognitoUserPool, CognitoUserSession } from 'amazon-cognito-identity-js';
 import { authenticateUser, decodeAccessToken, isAuthenticateFailure, Logger, lookupUser } from './utils';
-import { Environments } from './consts';
-import { Auth, System, Tables } from 'typings';
+import { Auth } from 'typings';
 
 const helper = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
 const cognito = new CognitoIdentityServiceProvider({ endpoint: process.env.AWS_ENDPOINT });
@@ -24,7 +23,7 @@ export const common = async (req: express.Request, res: express.Response, app: a
 
     res.status(200).send(results);
   } catch (err) {
-    const message = defaultTo(err.response?.data, err.message);
+    const message = defaultTo((err as any).response?.data, (err as any).message);
 
     Logger.error('Unhandle error:', err);
 
@@ -93,7 +92,11 @@ export const initiateAuth = async (
 
   // Cognito information
   const clientId = accessToken.client_id;
-  const userPoolId = accessToken.iss.substring(accessToken.iss.lastIndexOf('/') + 1);
+  const userPoolId = accessToken.iss?.substring(accessToken.iss?.lastIndexOf('/') + 1);
+
+  if (!userPoolId) {
+    throw new Error('Refresh token failed. iss is invalidate');
+  }
 
   const results = await cognito
     .adminInitiateAuth({
@@ -124,37 +127,37 @@ export const initiateAuth = async (
 };
 
 /** get release informations */
-export const release = async (): Promise<System.ReleaseResponse> => {
-  const results = await helper.get<Tables.Settings.Releases>({
-    TableName: Environments.TABLE_NAME_SETTINGS,
-    Key: {
-      Id: 'RELEASE',
-    } as Tables.Settings.Key,
-  });
+// export const release = async (): Promise<System.ReleaseResponse> => {
+//   const results = await helper.get<Tables.Settings.Releases>({
+//     TableName: Environments.TABLE_NAME_SETTINGS,
+//     Key: {
+//       Id: 'RELEASE',
+//     } as Tables.Settings.Key,
+//   });
 
-  if (!results || !results.Item) {
-    throw new Error('Can not found release infomations.');
-  }
+//   if (!results || !results.Item) {
+//     throw new Error('Can not found release infomations.');
+//   }
 
-  return {
-    infos: results.Item.Texts,
-  };
-};
+//   return {
+//     infos: results.Item.Texts,
+//   };
+// };
 
-/** get current version */
-export const version = async (): Promise<System.VersionResponse> => {
-  const results = await helper.get<Tables.Settings.Releases>({
-    TableName: Environments.TABLE_NAME_SETTINGS,
-    Key: {
-      Id: 'RELEASE',
-    } as Tables.Settings.Key,
-  });
+// /** get current version */
+// export const version = async (): Promise<System.VersionResponse> => {
+//   const results = await helper.get<Tables.Settings.Releases>({
+//     TableName: Environments.TABLE_NAME_SETTINGS,
+//     Key: {
+//       Id: 'RELEASE',
+//     } as Tables.Settings.Key,
+//   });
 
-  if (!results || !results.Item) {
-    throw new Error('Unknown version');
-  }
+//   if (!results || !results.Item) {
+//     throw new Error('Unknown version');
+//   }
 
-  return {
-    version: results.Item.Texts[0].version,
-  };
-};
+//   return {
+//     version: results.Item.Texts[0].version,
+//   };
+// };
