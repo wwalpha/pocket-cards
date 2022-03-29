@@ -23,8 +23,10 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # ECS
   # ----------------------------------------------------------------------------------------------
-  task_def_family = "${local.project_name}-backend"
-  task_def_rev    = max(aws_ecs_task_definition.this.revision, data.aws_ecs_task_definition.this.revision)
+  task_def_family_backend = "${local.project_name}-backend"
+  task_def_family_users   = "${local.project_name}-users"
+  task_def_rev            = max(aws_ecs_task_definition.this.revision, data.aws_ecs_task_definition.backend.revision)
+  task_def_rev_users      = max(aws_ecs_task_definition.users.revision, data.aws_ecs_task_definition.users.revision)
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -96,11 +98,19 @@ data "aws_s3_bucket" "materials" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# ECS Task Definition
+# ECS Task Definition - Backend
 # ----------------------------------------------------------------------------------------------
-data "aws_ecs_task_definition" "this" {
+data "aws_ecs_task_definition" "backend" {
   depends_on      = [aws_ecs_task_definition.this]
   task_definition = aws_ecs_task_definition.this.family
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Task Definition - Users
+# ----------------------------------------------------------------------------------------------
+data "aws_ecs_task_definition" "users" {
+  depends_on      = [aws_ecs_task_definition.users]
+  task_definition = aws_ecs_task_definition.users.family
 }
 
 # ----------------------------------------------------------------------------------------------
