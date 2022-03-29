@@ -1,6 +1,6 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
-import { auth, common, healthCheck, initiateAuth } from './app';
+import { login, common, healthCheck, initiateAuth } from './app';
 
 // Instantiate application
 const app = express();
@@ -17,7 +17,7 @@ app.use(
 app.get('/auth/health', async (req, res) => await common(req, res, healthCheck));
 
 // process login request
-app.post('/auth', async (req, res) => await common(req, res, auth));
+app.post('/auth/login', async (req, res) => await common(req, res, login));
 
 // refresh tokens
 app.post('/auth/refresh', async (req, res) => await common(req, res, initiateAuth));
