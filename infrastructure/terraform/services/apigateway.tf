@@ -169,7 +169,7 @@ resource "aws_apigatewayv2_authorizer" "admin" {
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_route" "backend_get" {
   api_id             = aws_apigatewayv2_api.this.id
-  route_key          = "GET /{proxy+}"
+  route_key          = "GET /backend/{proxy+}"
   target             = "integrations/${aws_apigatewayv2_integration.link.id}"
   authorizer_id      = aws_apigatewayv2_authorizer.this.id
   authorization_type = "JWT"
@@ -177,7 +177,7 @@ resource "aws_apigatewayv2_route" "backend_get" {
 
 resource "aws_apigatewayv2_route" "backend_post" {
   api_id             = aws_apigatewayv2_api.this.id
-  route_key          = "POST /{proxy+}"
+  route_key          = "POST /backend/{proxy+}"
   target             = "integrations/${aws_apigatewayv2_integration.link.id}"
   authorizer_id      = aws_apigatewayv2_authorizer.this.id
   authorization_type = "JWT"
@@ -185,7 +185,7 @@ resource "aws_apigatewayv2_route" "backend_post" {
 
 resource "aws_apigatewayv2_route" "backend_put" {
   api_id             = aws_apigatewayv2_api.this.id
-  route_key          = "PUT /{proxy+}"
+  route_key          = "PUT /backend/{proxy+}"
   target             = "integrations/${aws_apigatewayv2_integration.link.id}"
   authorizer_id      = aws_apigatewayv2_authorizer.this.id
   authorization_type = "JWT"
@@ -193,7 +193,7 @@ resource "aws_apigatewayv2_route" "backend_put" {
 
 resource "aws_apigatewayv2_route" "backend_delete" {
   api_id             = aws_apigatewayv2_api.this.id
-  route_key          = "DELETE /{proxy+}"
+  route_key          = "DELETE /backend/{proxy+}"
   target             = "integrations/${aws_apigatewayv2_integration.link.id}"
   authorizer_id      = aws_apigatewayv2_authorizer.this.id
   authorization_type = "JWT"
@@ -201,6 +201,6 @@ resource "aws_apigatewayv2_route" "backend_delete" {
 
 resource "aws_apigatewayv2_route" "backend_options" {
   api_id    = aws_apigatewayv2_api.this.id
-  route_key = "OPTIONS /{proxy+}"
+  route_key = "OPTIONS /backend/{proxy+}"
   target    = "integrations/${aws_apigatewayv2_integration.link.id}"
 }
