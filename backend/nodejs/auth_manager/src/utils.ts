@@ -6,7 +6,8 @@ import {
 } from 'amazon-cognito-identity-js';
 import axios from 'axios';
 import winston from 'winston';
-import { Auth, User, Token } from 'typings';
+import { JwtPayload } from 'jsonwebtoken';
+import { Auth, Users } from 'typings';
 import { API_URLs } from './consts';
 import { decode } from 'jsonwebtoken';
 
@@ -57,11 +58,11 @@ export const isAuthenticateFailure = (value: any): boolean => {
 };
 
 /** lookup user */
-export const lookupUser = async (username: string): Promise<User.LookupUserResponse> => {
+export const lookupUser = async (username: string): Promise<Users.LookupUserResponse> => {
   const userURL = API_URLs.LookupUser(username);
 
   // get userpool infos
-  const response = await axios.get<User.LookupUserResponse>(userURL);
+  const response = await axios.get<Users.LookupUserResponse>(userURL);
 
   // user not found
   if (response.status !== 200 || response.data.isExist === false) {
@@ -72,7 +73,7 @@ export const lookupUser = async (username: string): Promise<User.LookupUserRespo
 };
 
 /** decode access token */
-export const decodeAccessToken = (token: string): Token.AccessToken => {
+export const decodeAccessToken = (token: string): JwtPayload => {
   // Fail if the token is not jwt
   const jwt = decode(token, { complete: true });
 
@@ -80,5 +81,9 @@ export const decodeAccessToken = (token: string): Token.AccessToken => {
     throw new Error('Not a valid JWT token');
   }
 
-  return jwt.payload as unknown as Token.AccessToken;
+  if (typeof jwt.payload === 'string') {
+    throw new Error('Not a valid JWT token');
+  }
+
+  return jwt.payload;
 };

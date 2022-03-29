@@ -1,6 +1,6 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
-import { auth, common, healthCheck, initiateAuth, release, version } from './app';
+import { auth, common, healthCheck, initiateAuth } from './app';
 
 // Instantiate application
 const app = express();
@@ -20,12 +20,12 @@ app.get('/auth/health', async (req, res) => await common(req, res, healthCheck))
 app.post('/auth', async (req, res) => await common(req, res, auth));
 
 // refresh tokens
-app.post('/auth/initiate', async (req, res) => await common(req, res, initiateAuth));
+app.post('/auth/refresh', async (req, res) => await common(req, res, initiateAuth));
 
 // get system version no
-app.get('/system/version', async (req, res) => await common(req, res, version));
+// app.get('/system/version', async (req, res) => await common(req, res, version));
 
-// get release information
-app.get('/system/releases', async (req, res) => await common(req, res, release));
+// // get release information
+// app.get('/system/releases', async (req, res) => await common(req, res, release));
 
 export default app;
