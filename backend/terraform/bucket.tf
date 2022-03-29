@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------------------------
-# Backend Environment file
+# Backend Service Environment file
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_object" "resources" {
   bucket  = local.bucket_name_archive
@@ -24,6 +24,19 @@ TABLE_NAME_TRACES=${local.dynamodb_name_traces}
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
 BUCKET_NAME_MATERAILS=${local.bucket_name_materials}
 PATH_PATTERN=audio
+TZ=Asia/Tokyo
+EOT
+}
+
+# ----------------------------------------------------------------------------------------------
+# Users Service Environment file
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "users" {
+  bucket  = local.bucket_name_archive
+  key     = "envs/users.env"
+  content = <<EOT
+TABLE_NAME_USERS=${local.dynamodb_name_users}
+TABLE_NAME_GROUPS=${local.dynamodb_name_groups}
 TZ=Asia/Tokyo
 EOT
 }
