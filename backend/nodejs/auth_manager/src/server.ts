@@ -14,13 +14,13 @@ app.use(
 );
 
 // health check
-app.get('/auth/health', async (req, res) => await common(req, res, healthCheck));
+app.get('/v1/auth/health', async (req, res) => await common(req, res, healthCheck));
 
 // process login request
-app.post('/auth/login', async (req, res) => await common(req, res, login));
+app.post('/v1/auth/login', async (req, res) => await common(req, res, login));
 
 // refresh tokens
-app.post('/auth/refresh', async (req, res) => await common(req, res, initiateAuth));
+app.post('/v1/auth/refresh', async (req, res) => await common(req, res, initiateAuth));
 
 // get system version no
 // app.get('/system/version', async (req, res) => await common(req, res, version));
