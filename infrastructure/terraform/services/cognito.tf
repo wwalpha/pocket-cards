@@ -233,3 +233,142 @@ resource "aws_cognito_identity_pool" "this" {
     server_side_token_check = false
   }
 }
+
+# --------------------------------------------------------------------------------------------------------------
+# Amazon Cognito User Pool - Tenant Admin
+# --------------------------------------------------------------------------------------------------------------
+resource "aws_cognito_user_pool" "admin" {
+  name                     = "${local.project_name}-AdminUserPool"
+  username_attributes      = ["email"]
+  auto_verified_attributes = ["email"]
+  mfa_configuration        = "OFF"
+
+  username_configuration {
+    case_sensitive = true
+  }
+
+  account_recovery_setting {
+    recovery_mechanism {
+      name     = "verified_email"
+      priority = 1
+    }
+  }
+
+  admin_create_user_config {
+    allow_admin_create_user_only = true
+  }
+
+  schema {
+    name                     = "email"
+    attribute_data_type      = "String"
+    developer_only_attribute = false
+    mutable                  = true
+    required                 = true
+
+    string_attribute_constraints {
+      max_length = 2048
+      min_length = 0
+    }
+  }
+
+  schema {
+    name                     = "name"
+    attribute_data_type      = "String"
+    developer_only_attribute = false
+    mutable                  = true
+    required                 = true
+
+    string_attribute_constraints {
+      max_length = 2048
+      min_length = 0
+    }
+  }
+
+  schema {
+    name                = "role"
+    attribute_data_type = "String"
+    mutable             = true
+
+    string_attribute_constraints {
+      min_length = 1
+      max_length = 256
+    }
+  }
+
+  password_policy {
+    minimum_length                   = 10
+    require_lowercase                = true
+    require_numbers                  = true
+    require_symbols                  = true
+    require_uppercase                = true
+    temporary_password_validity_days = 7
+  }
+
+  lifecycle {
+    ignore_changes = [
+      estimated_number_of_users
+    ]
+  }
+}
+
+# -------------------------------------------------------
+# Amazon Cognito User Pool Client
+# -------------------------------------------------------
+resource "aws_cognito_user_pool_client" "admin" {
+  name = "${aws_cognito_user_pool.admin.name}Client"
+
+  user_pool_id    = aws_cognito_user_pool.admin.id
+  generate_secret = false
+
+  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_flows_user_pool_client = true
+  allowed_oauth_scopes = [
+    "aws.cognito.signin.user.admin",
+    "email",
+    "openid",
+    "phone",
+    "profile"
+  ]
+  callback_urls = ["https://www.${local.domain_name}/admin"]
+  logout_urls   = ["https://www.${local.domain_name}/admin/logout"]
+  explicit_auth_flows = [
+    "ALLOW_CUSTOM_AUTH",
+    "ALLOW_REFRESH_TOKEN_AUTH",
+    "ALLOW_USER_SRP_AUTH",
+    "ALLOW_ADMIN_USER_PASSWORD_AUTH",
+  ]
+}
+
+# --------------------------------------------------------------------------------------------------------------
+# Amazon Cognito User Pool Client Domain
+# --------------------------------------------------------------------------------------------------------------
+resource "aws_cognito_user_pool_domain" "admin" {
+  domain       = "${terraform.workspace}-${local.project_name}-admin"
+  user_pool_id = aws_cognito_user_pool.admin.id
+}
+
+# --------------------------------------------------------------------------------------------------------------
+# Amazon Cognito Identity Pool
+# --------------------------------------------------------------------------------------------------------------
+resource "aws_cognito_identity_pool" "admin" {
+  identity_pool_name = "${terraform.workspace}-${local.project_name}-admin"
+
+  cognito_identity_providers {
+    client_id               = aws_cognito_user_pool_client.admin.id
+    provider_name           = aws_cognito_user_pool.admin.endpoint
+    server_side_token_check = false
+  }
+}
+
+# --------------------------------------------------------------------------------------------------------------
+# Amazon Cognito Admin User
+# --------------------------------------------------------------------------------------------------------------
+resource "null_resource" "cognito_admin" {
+  triggers = {
+    user_pool_id = aws_cognito_user_pool.admin.id
+  }
+
+  provisioner "local-exec" {
+    command = "aws cognito-idp admin-create-user --region ${local.region} --user-pool-id ${aws_cognito_user_pool.admin.id} --username ${var.admin_email} --user-attributes Name=email,Value=${var.admin_email} Name=name,Value=${var.admin_email} Name=custom:role,Value=SYSTEM_ADMIN"
+  }
+}

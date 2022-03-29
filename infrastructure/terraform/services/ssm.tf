@@ -4,7 +4,7 @@
 resource "aws_ssm_parameter" "backend_repo_url" {
   name      = "/${local.project_name}/repository_url/backend"
   type      = "String"
-  value     = "${aws_ecr_repository.this.repository_url}:latest"
+  value     = "${module.ecr_repo_backend.repository_url}:latest"
   overwrite = true
 
   lifecycle {
@@ -20,7 +20,7 @@ resource "aws_ssm_parameter" "backend_repo_url" {
 resource "aws_ssm_parameter" "repo_url_batch" {
   name      = "/${local.project_name}/repository_url/batch"
   type      = "String"
-  value     = "${aws_ecr_repository.batch.repository_url}:latest"
+  value     = "${module.ecr_repo_batch.repository_url}:latest"
   overwrite = true
 
   lifecycle {
@@ -29,3 +29,20 @@ resource "aws_ssm_parameter" "repo_url_batch" {
     ]
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Repository URL (Users)
+# ----------------------------------------------------------------------------------------------
+resource "aws_ssm_parameter" "repo_url_users" {
+  name      = "/${local.project_name}/repository_url/users"
+  type      = "String"
+  value     = "${module.ecr_repo_users.repository_url}:latest"
+  overwrite = true
+
+  lifecycle {
+    ignore_changes = [
+      value
+    ]
+  }
+}
+

@@ -23,8 +23,7 @@ resource "aws_ecs_cluster_capacity_providers" "this" {
 # AWS ECS Service - Token Service Task Definition
 # ----------------------------------------------------------------------------------------------
 resource "aws_ecs_task_definition" "this" {
-  depends_on         = [null_resource.nginx]
-  family             = local.task_def_family
+  family             = local.task_def_family_backend
   task_role_arn      = aws_iam_role.ecs_task.arn
   execution_role_arn = aws_iam_role.ecs_task_exec.arn
   network_mode       = "awsvpc"
@@ -51,8 +50,8 @@ resource "aws_ecs_task_definition" "this" {
     "taskdefs/definition.tpl",
     {
       aws_region      = local.region
-      container_name  = local.task_def_family
-      container_image = "${aws_ecr_repository.this.repository_url}:latest"
+      container_name  = local.task_def_family_backend
+      container_image = "${module.ecr_repo_backend.repository_url}:latest"
       container_port  = 8080
       env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.backend.key}"
     }
