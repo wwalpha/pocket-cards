@@ -6,15 +6,15 @@ export namespace Tables {
 
   interface TUsers extends TUsersKey {
     // ユーザ名
-    name?: string;
+    username: string;
     // ユーザ ICon
     icon?: string;
     // メール
-    email?: string;
-    // // 前回ログイン
-    // lastLogin?: string;
-    // // 直近ログイン
-    // login?: string;
+    email: string;
+    // ロール
+    role: string;
+    //
+    sub?: string;
   }
 
   interface TGroupsKey {
@@ -203,5 +203,16 @@ export namespace Tables {
     japanese?: number;
     science?: number;
     society?: number;
+  }
+
+  interface TSettingsKey {
+    // ID
+    id: string;
+  }
+
+  interface TSettingsCognito extends TSettingsKey {
+    userPoolId: string;
+    clientId: string;
+    identityPoolId: string;
   }
 }

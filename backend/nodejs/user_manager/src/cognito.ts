@@ -2,7 +2,7 @@ import { DynamodbHelper } from '@alphax/dynamodb';
 import { CognitoIdentityServiceProvider, Credentials } from 'aws-sdk';
 import express from 'express';
 import { decode } from 'jsonwebtoken';
-import { Tables, User, Token } from 'typings';
+import { Tables, Users } from 'typings';
 import { Environments } from './consts';
 
 const helper = new DynamodbHelper();
@@ -15,13 +15,13 @@ const helper = new DynamodbHelper();
  * @param tenantId The id of the tenant (if this is not system context)
  * @param credentials The credentials used ben looking up the user
  */
-export const lookupUserPoolData = async (userId: string): Promise<User.CognitoInfos | undefined> => {
-  const searchParams: Tables.UserKey = {
-    UserId: userId,
+export const lookupUserPoolData = async (userId: string): Promise<Users.CognitoInfos | undefined> => {
+  const searchParams: Tables.TUsersKey = {
+    id: userId,
   };
 
   // get the item from the database
-  const results = await helper.get<Tables.UserItem>({
+  const results = await helper.get<Tables.TUsers>({
     TableName: Environments.TABLE_NAME_USER,
     Key: searchParams,
   });
@@ -31,21 +31,21 @@ export const lookupUserPoolData = async (userId: string): Promise<User.CognitoIn
     return undefined;
   }
 
-  const role = results.Item.Role;
-  const key: Tables.Settings.Key = {
-    Id: role,
+  const role = results.Item.role;
+  const key: Tables.TSettingsKey = {
+    id: role,
   };
 
-  const settings = await helper.get<Tables.Settings.Cognito>({
+  const settings = await helper.get<Tables.TSettingsCognito>({
     TableName: Environments.TABLE_NAME_SETTINGS,
     Key: key,
   });
 
   // user founded
   return {
-    ClientId: settings?.Item?.ClientId,
-    UserPoolId: settings?.Item?.UserPoolId,
-    IdentityPoolId: settings?.Item?.IdentityPoolId,
+    ClientId: settings?.Item?.clientId,
+    UserPoolId: settings?.Item?.userPoolId,
+    IdentityPoolId: settings?.Item?.identityPoolId,
   };
 };
 
@@ -57,15 +57,15 @@ export const lookupUserPoolData = async (userId: string): Promise<User.CognitoIn
  * @param cognito The cognito infomations
  */
 export const createNewUser = async (
-  userInfo: User.TenantUser,
+  userInfo: Users.TenantUser,
   userPoolId: string,
   role: 'TENANT_ADMIN' | 'TENANT_USER'
 ) => {
-  const userItem: Tables.UserItem = {
-    UserId: userInfo.email,
-    UserName: userInfo.userName,
-    Email: userInfo.email,
-    Role: role,
+  const userItem: Tables.TUsers = {
+    id: userInfo.email,
+    username: userInfo.userName,
+    email: userInfo.email,
+    role: role,
   };
 
   // create cognito user;
@@ -73,7 +73,7 @@ export const createNewUser = async (
 
   // set sub
   if (user.Attributes) {
-    userItem.Sub = user.Attributes[0].Value;
+    userItem.sub = user.Attributes[0].Value;
   }
 
   const helper = new DynamodbHelper();
@@ -124,6 +124,10 @@ const decodeToken = (token?: string) => {
   // decode failed
   if (decodedToken === null) throw new Error(`Decode token failed. ${token}`);
 
+  if (typeof decodedToken.payload === 'string') {
+    throw new Error(`Decode token failed. ${token}`);
+  }
+
   return decodedToken.payload;
 };
 
@@ -135,7 +139,7 @@ const decodeToken = (token?: string) => {
  * @param user user attributes
  *
  */
-export const createCognitoUser = async (userPoolId: string, user: Tables.UserItem, credentials?: Credentials) => {
+export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers, credentials?: Credentials) => {
   // init service provider
   const provider = new CognitoIdentityServiceProvider({
     credentials: credentials,
@@ -145,21 +149,21 @@ export const createCognitoUser = async (userPoolId: string, user: Tables.UserIte
   const result = await provider
     .adminCreateUser({
       UserPoolId: userPoolId,
-      Username: user.UserId,
+      Username: user.id,
       DesiredDeliveryMediums: ['EMAIL'],
       ForceAliasCreation: true,
       UserAttributes: [
         {
           Name: 'name',
-          Value: user.UserName,
+          Value: user.username,
         },
         {
           Name: 'email',
-          Value: user.Email,
+          Value: user.email,
         },
         {
           Name: 'custom:role',
-          Value: user.Role,
+          Value: user.role,
         },
       ],
     })

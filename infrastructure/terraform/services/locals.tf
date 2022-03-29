@@ -59,7 +59,8 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # DynamoDB
   # ----------------------------------------------------------------------------------------------
-  dynamodb_name_users = local.remote_setup.dynamodb_name_users
+  dynamodb_name_users    = local.remote_setup.dynamodb_name_users
+  dynamodb_name_settings = local.remote_setup.dynamodb_name_settings
 
   # ----------------------------------------------------------------------------------------------
   # CloudTrail
@@ -151,3 +152,9 @@ data "aws_route53_zone" "this" {
 }
 
 
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Settings
+# ----------------------------------------------------------------------------------------------
+data "aws_dynamodb_table" "settings" {
+  name = local.dynamodb_name_settings
+}
