@@ -128,3 +128,31 @@ output "ssm_vision_api_url" {
 output "ssm_vision_api_key" {
   value = aws_ssm_parameter.vision_api_key.name
 }
+
+# ----------------------------------------------------------------------------------------------
+# ECR Repository URL - Backend
+# ----------------------------------------------------------------------------------------------
+output "repo_url_backend" {
+  value = module.ecr_repo_backend.repository_url
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECR Repository URL - Auth
+# ----------------------------------------------------------------------------------------------
+output "repo_url_auth" {
+  value = module.ecr_repo_auth.repository_url
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECR Repository URL - Batch
+# ----------------------------------------------------------------------------------------------
+output "repo_url_batch" {
+  value = module.ecr_repo_batch.repository_url
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECR Repository URL - Users
+# ----------------------------------------------------------------------------------------------
+output "repo_url_users" {
+  value = module.ecr_repo_users.repository_url
+}

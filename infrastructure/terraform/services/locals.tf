@@ -25,8 +25,10 @@ locals {
   # ----------------------------------------------------------------------------------------------
   task_def_family_backend = "${local.project_name}-backend"
   task_def_family_users   = "${local.project_name}-users"
+  task_def_family_auth    = "${local.project_name}-auth"
   task_def_rev            = max(aws_ecs_task_definition.this.revision, data.aws_ecs_task_definition.backend.revision)
   task_def_rev_users      = max(aws_ecs_task_definition.users.revision, data.aws_ecs_task_definition.users.revision)
+  task_def_rev_auth       = max(aws_ecs_task_definition.auth.revision, data.aws_ecs_task_definition.auth.revision)
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -48,9 +50,29 @@ locals {
   api_path_pattern       = local.origin_id_api
 
   # ----------------------------------------------------------------------------------------------
+  # Lambda
+  # ----------------------------------------------------------------------------------------------
+  lambda_handler          = "index.handler"
+  lambda_runtime          = "nodejs14.x"
+  lambda_basic_policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+
+  # ----------------------------------------------------------------------------------------------
+  # DynamoDB
+  # ----------------------------------------------------------------------------------------------
+  dynamodb_name_users = local.remote_setup.dynamodb_name_users
+
+  # ----------------------------------------------------------------------------------------------
   # CloudTrail
   # ----------------------------------------------------------------------------------------------
   ct_prefix = "trail"
+
+  # ----------------------------------------------------------------------------------------------
+  # ECR
+  # ----------------------------------------------------------------------------------------------
+  repo_url_backend = local.remote_setup.repo_url_backend
+  repo_url_batch   = local.remote_setup.repo_url_batch
+  repo_url_auth    = local.remote_setup.repo_url_auth
+  repo_url_users   = local.remote_setup.repo_url_users
 
   # ----------------------------------------------------------------------------------------------
   # S3 Bucket
@@ -114,11 +136,11 @@ data "aws_ecs_task_definition" "users" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# SSM Parameter Store - Backend repository url
+# ECS Task Definition - Auth
 # ----------------------------------------------------------------------------------------------
-data "aws_ssm_parameter" "backend_repo_url" {
-  depends_on = [aws_ssm_parameter.backend_repo_url]
-  name       = aws_ssm_parameter.backend_repo_url.name
+data "aws_ecs_task_definition" "auth" {
+  depends_on      = [aws_ecs_task_definition.auth]
+  task_definition = aws_ecs_task_definition.auth.family
 }
 
 # ----------------------------------------------------------------------------------------------

@@ -13,6 +13,20 @@ data "aws_iam_policy_document" "ecs_task_role_policy" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy
+# ----------------------------------------------------------------------------------------------
+data "aws_iam_policy_document" "lambda" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS ECS Task Role
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role" "ecs_task" {
@@ -221,4 +235,24 @@ resource "aws_cognito_identity_pool_roles_attachment" "authenticated" {
   roles = {
     "authenticated" = aws_iam_role.authenticated.arn
   }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Execution Role - Authorizer
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "authorizer" {
+  name               = "${local.project_name_uc}_AuthorizerRole"
+  assume_role_policy = data.aws_iam_policy_document.lambda.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Execution Policy - CloudWatch Full Access
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "authorizer" {
+  role       = aws_iam_role.authorizer.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchFullAccess"
 }

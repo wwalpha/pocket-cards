@@ -1,14 +1,14 @@
 # ----------------------------------------------------------------------------------------------
-# ECS Service - Users Service
+# ECS Service - Auth Service
 # ----------------------------------------------------------------------------------------------
-resource "aws_ecs_service" "users" {
+resource "aws_ecs_service" "auth" {
   depends_on = [aws_ecs_cluster.this]
 
-  name                               = "users"
+  name                               = "auth"
   cluster                            = aws_ecs_cluster.this.id
   desired_count                      = 0
   platform_version                   = "LATEST"
-  task_definition                    = "arn:aws:ecs:${local.region}:${local.account_id}:task-definition/${aws_ecs_task_definition.users.family}:${local.task_def_rev_users}"
+  task_definition                    = "arn:aws:ecs:${local.region}:${local.account_id}:task-definition/${aws_ecs_task_definition.auth.family}:${local.task_def_rev_auth}"
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 100
   health_check_grace_period_seconds  = 0
@@ -55,10 +55,10 @@ resource "aws_ecs_service" "users" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS ECS Service - Users Service Task Definition
+# AWS ECS Service - Auth Service Task Definition
 # ----------------------------------------------------------------------------------------------
-resource "aws_ecs_task_definition" "users" {
-  family             = local.task_def_family_users
+resource "aws_ecs_task_definition" "auth" {
+  family             = local.task_def_family_auth
   task_role_arn      = aws_iam_role.ecs_task.arn
   execution_role_arn = aws_iam_role.ecs_task_exec.arn
   network_mode       = "awsvpc"
@@ -73,10 +73,10 @@ resource "aws_ecs_task_definition" "users" {
     "taskdefs/definition.tpl",
     {
       aws_region      = local.region
-      container_name  = local.task_def_family_users
-      container_image = "${local.repo_url_users}:latest"
+      container_name  = local.task_def_family_auth
+      container_image = "${local.repo_url_auth}:latest"
       container_port  = 8080
-      env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.users.key}"
+      env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.auth.key}"
     }
   )
 
