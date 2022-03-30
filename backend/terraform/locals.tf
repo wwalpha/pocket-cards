@@ -20,6 +20,10 @@ locals {
   ecs_service_name_backend = local.remote_services.ecs_service_name_backend
   ecs_service_name_users   = local.remote_services.ecs_service_name_users
 
+  ecs_service_env_key_auth    = local.remote_services.ecs_service_env_key_auth
+  ecs_service_env_key_backend = local.remote_services.ecs_service_env_key_backend
+  ecs_service_env_key_users   = local.remote_services.ecs_service_env_key_users
+
   # ----------------------------------------------------------------------------------------------
   # Lambda
   # ----------------------------------------------------------------------------------------------
@@ -51,6 +55,13 @@ locals {
   apigw_authorizer_id_admin    = local.remote_services.api_gateway_authorizer_id_admin
   apigw_integration_id_backend = local.remote_services.apigw_integration_id_backend
   apigw_integration_id_auth    = local.remote_services.apigw_integration_id_auth
+
+  # ----------------------------------------------------------------------------------------------
+  # Cloud Map
+  # ----------------------------------------------------------------------------------------------
+  cloudmap_namespace    = local.remote_services.cloudmap_namespace
+  cloudmap_service_auth = local.remote_services.cloudmap_service_auth
+  cloudmap_service_user = local.remote_services.cloudmap_service_user
 
   # ----------------------------------------------------------------------------------------------
   # S3

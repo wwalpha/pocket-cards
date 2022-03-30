@@ -3,7 +3,7 @@
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_object" "resources" {
   bucket  = local.bucket_name_archive
-  key     = "envs/backend.env"
+  key     = local.ecs_service_env_key_backend
   content = <<EOT
 AWS_DEFAULT_REGION=ap-northeast-1
 IPA_API_URL=${data.aws_ssm_parameter.ipa_api_url.value}
@@ -33,11 +33,24 @@ EOT
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_object" "users" {
   bucket  = local.bucket_name_archive
-  key     = "envs/users.env"
+  key     = local.ecs_service_env_key_users
   content = <<EOT
 TABLE_NAME_USERS=${local.dynamodb_name_users}
 TABLE_NAME_GROUPS=${local.dynamodb_name_groups}
 TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
 TZ=Asia/Tokyo
+EOT
+}
+
+# ----------------------------------------------------------------------------------------------
+# Auth Service Environment file
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "auth" {
+  bucket  = local.bucket_name_archive
+  key     = local.ecs_service_env_key_auth
+  content = <<EOT
+TZ=Asia/Tokyo
+TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
+ENDPOINT_USER_SERVICE=http://${local.cloudmap_service_user}.${local.cloudmap_namespace}:8080
 EOT
 }
