@@ -36,7 +36,6 @@ resource "aws_s3_object" "users" {
   key     = local.ecs_service_env_key_users
   content = <<EOT
 TABLE_NAME_USERS=${local.dynamodb_name_users}
-TABLE_NAME_GROUPS=${local.dynamodb_name_groups}
 TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
 TZ=Asia/Tokyo
 EOT
