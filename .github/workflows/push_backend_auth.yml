@@ -12,6 +12,12 @@ on:
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
   ECR_REPOSITORY: pkc/auth2
+  ECS_CLUSTER_NAME: pkc-cluster
+  ECS_SERVICE_NAME: auth_manager
+  ECS_TAKS_DEFINITION: pkc-auth
+  ECS_TAKS_DEFINITION_FILE: task_definition.json
+
+  ECR_REPOSITORY: pkc/auth2
   SSM_PARAMETER_NAME: /pkc/repository_url
   WORKING_DIR: backend/nodejs/auth_manager
 
@@ -72,6 +78,24 @@ jobs:
           docker tag $ECR_REPOSITORY $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+      # update task definition
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: render-web-container
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.filepath.outputs.definition }}
+          container-name: ${{ env.ECS_TAKS_DEFINITION }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.render-web-container.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_NAME }}
+          cluster: ${{ env.ECS_CLUSTER_NAME }}
+          wait-for-service-stability: false
+          force-new-deployment: true
 
       # Update Repository URL
       - name: Update ecs repository url
