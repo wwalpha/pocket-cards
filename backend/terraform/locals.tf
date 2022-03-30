@@ -59,9 +59,9 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # Cloud Map
   # ----------------------------------------------------------------------------------------------
-  cloudmap_namespace    = local.remote_services.cloudmap_namespace
-  cloudmap_service_auth = local.remote_services.cloudmap_service_auth
-  cloudmap_service_user = local.remote_services.cloudmap_service_user
+  cloudmap_namespace     = local.remote_services.cloudmap_namespace
+  cloudmap_service_auth  = local.remote_services.cloudmap_service_auth
+  cloudmap_service_users = local.remote_services.cloudmap_service_users
 
   # ----------------------------------------------------------------------------------------------
   # S3
