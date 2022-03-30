@@ -16,8 +16,6 @@ env:
   ECS_SERVICE_NAME: auth_manager
   ECS_TAKS_DEFINITION: pkc-auth
   ECS_TAKS_DEFINITION_FILE: task_definition.json
-
-  ECR_REPOSITORY: pkc/auth2
   SSM_PARAMETER_NAME: /pkc/repository_url
   WORKING_DIR: backend/nodejs/auth_manager
 
