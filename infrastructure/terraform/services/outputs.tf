@@ -142,3 +142,24 @@ output "apigw_integration_id_auth" {
 output "apigw_integration_id_backend" {
   value = aws_apigatewayv2_integration.backend.id
 }
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service Auth Environment file bucket key
+# ----------------------------------------------------------------------------------------------
+output "ecs_service_auth_env_key" {
+  value = aws_s3_object.auth.key
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service Auth Environment file bucket key
+# ----------------------------------------------------------------------------------------------
+output "ecs_service_users_env_key" {
+  value = aws_s3_object.users.key
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service Auth Environment file bucket key
+# ----------------------------------------------------------------------------------------------
+output "ecs_service_backend_env_key" {
+  value = aws_s3_object.backend.key
+}
