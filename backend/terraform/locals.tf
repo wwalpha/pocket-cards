@@ -44,8 +44,13 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # API Gateway
   # ----------------------------------------------------------------------------------------------
-  api_gateway_id_admin            = local.remote_services.api_gateway_id_admin
-  api_gateway_authorizer_id_admin = local.remote_services.api_gateway_authorizer_id_admin
+  apigw_id                     = local.remote_services.api_gateway_id
+  apigw_id_admin               = local.remote_services.api_gateway_id_admin
+  apigw_authorizer_id_cognito  = local.remote_services.apigw_authorizer_id_cognito
+  apigw_authorizer_id_lambda   = local.remote_services.apigw_authorizer_id_lambda
+  apigw_authorizer_id_admin    = local.remote_services.api_gateway_authorizer_id_admin
+  apigw_integration_id_backend = local.remote_services.apigw_integration_id_backend
+  apigw_integration_id_auth    = local.remote_services.apigw_integration_id_auth
 
   # ----------------------------------------------------------------------------------------------
   # S3
@@ -101,7 +106,7 @@ data "aws_ecs_service" "users" {
 # APIGateway - Admin
 # ----------------------------------------------------------------------------------------------
 data "aws_apigatewayv2_api" "admin" {
-  api_id = local.api_gateway_id_admin
+  api_id = local.apigw_id_admin
 }
 
 # ----------------------------------------------------------------------------------------------
