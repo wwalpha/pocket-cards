@@ -22,7 +22,7 @@ export const lookupUserPoolData = async (userId: string): Promise<Users.CognitoI
 
   // get the item from the database
   const results = await helper.get<Tables.TUsers>({
-    TableName: Environments.TABLE_NAME_USER,
+    TableName: Environments.TABLE_NAME_USERS,
     Key: searchParams,
   });
 
@@ -80,7 +80,7 @@ export const createNewUser = async (
 
   // add user
   await helper.put({
-    TableName: Environments.TABLE_NAME_USER,
+    TableName: Environments.TABLE_NAME_USERS,
     Item: userItem,
   });
 
