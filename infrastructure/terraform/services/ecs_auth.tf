@@ -38,7 +38,7 @@ resource "aws_ecs_service" "auth" {
   }
 
   service_registries {
-    registry_arn = aws_service_discovery_service.this.arn
+    registry_arn = aws_service_discovery_service.auth.arn
     port         = 8080
   }
 
