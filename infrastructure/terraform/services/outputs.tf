@@ -146,20 +146,41 @@ output "apigw_integration_id_backend" {
 # ----------------------------------------------------------------------------------------------
 # ECS Service Auth Environment file bucket key
 # ----------------------------------------------------------------------------------------------
-output "ecs_service_auth_env_key" {
+output "ecs_service_env_key_auth" {
   value = aws_s3_object.auth.key
 }
 
 # ----------------------------------------------------------------------------------------------
 # ECS Service Auth Environment file bucket key
 # ----------------------------------------------------------------------------------------------
-output "ecs_service_users_env_key" {
+output "ecs_service_env_key_users" {
   value = aws_s3_object.users.key
 }
 
 # ----------------------------------------------------------------------------------------------
 # ECS Service Auth Environment file bucket key
 # ----------------------------------------------------------------------------------------------
-output "ecs_service_backend_env_key" {
+output "ecs_service_env_key_backend" {
   value = aws_s3_object.backend.key
+}
+
+# ----------------------------------------------------------------------------------------------
+# CloudMap - Namespace
+# ----------------------------------------------------------------------------------------------
+output "cloudmap_namespace" {
+  value = aws_service_discovery_private_dns_namespace.this.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# CloudMap Service - Auth
+# ----------------------------------------------------------------------------------------------
+output "cloudmap_service_auth" {
+  value = aws_service_discovery_service.auth.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# CloudMap Service - Users
+# ----------------------------------------------------------------------------------------------
+output "cloudmap_service_users" {
+  value = aws_service_discovery_service.users.name
 }
