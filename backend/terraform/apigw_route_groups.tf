@@ -15,7 +15,7 @@ resource "aws_apigatewayv2_route" "post_group_func" {
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_route" "get_group_func" {
   api_id             = local.apigw_id
-  route_key          = "POST /groups/{proxy+}"
+  route_key          = "GET /groups/{proxy+}"
   target             = "integrations/${local.apigw_integration_id_auth}"
   authorization_type = "CUSTOM"
   authorizer_id      = local.apigw_authorizer_id_lambda
