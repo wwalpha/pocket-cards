@@ -102,10 +102,17 @@ output "api_gateway_id" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# API Gateway Authorizer ID
+# API Gateway Authorizer ID - Cognito
 # ----------------------------------------------------------------------------------------------
-output "api_gateway_authorizer_id" {
+output "apigw_authorizer_id_cognito" {
   value = aws_apigatewayv2_authorizer.this.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# API Gateway Authorizer ID - Lambda
+# ----------------------------------------------------------------------------------------------
+output "apigw_authorizer_id_lambda" {
+  value = aws_apigatewayv2_authorizer.auth.id
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -120,4 +127,18 @@ output "api_gateway_id_admin" {
 # ----------------------------------------------------------------------------------------------
 output "api_gateway_authorizer_id_admin" {
   value = aws_apigatewayv2_authorizer.admin.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# API Gateway Integration ID - Auth
+# ----------------------------------------------------------------------------------------------
+output "apigw_integration_id_auth" {
+  value = aws_apigatewayv2_integration.auth.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# API Gateway Integration ID - Backend
+# ----------------------------------------------------------------------------------------------
+output "apigw_integration_id_backend" {
+  value = aws_apigatewayv2_integration.backend.id
 }
