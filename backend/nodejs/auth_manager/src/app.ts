@@ -32,7 +32,9 @@ export const common = async (req: express.Request, res: express.Response, app: a
 };
 
 // process login request
-export const login = async (req: express.Request<any, any, Auth.SignInRequest>): Promise<Auth.SignInResponse> => {
+export const login = async (
+  req: express.Request<any, any, Auth.SignInRequest>
+): Promise<Auth.SignInResponse | undefined> => {
   Logger.info({
     username: req.body.username,
     password: '******',
@@ -58,24 +60,41 @@ export const login = async (req: express.Request<any, any, Auth.SignInRequest>):
     Password: request.password,
   });
 
-  const result = await authenticateUser(request, cognitoUser, authDetails);
+  try {
+    const result = await authenticateUser(request, cognitoUser, authDetails);
 
-  // authenticate failure
-  if (isAuthenticateFailure(result)) {
+    // authenticate failure
+    if (isAuthenticateFailure(result)) {
+      return {
+        success: false,
+        mfaRequired: 'mfaRequired' in result,
+        newPasswordRequired: 'newPasswordRequired' in result,
+      };
+    }
+
+    const session = result as CognitoUserSession;
+
+    // get user id token and access token
+    const idToken = session.getIdToken().getJwtToken();
+    const accessToken = session.getAccessToken().getJwtToken();
+    const refreshToken = session.getRefreshToken().getToken();
+
     return {
-      mfaRequired: 'mfaRequired' in result,
-      newPasswordRequired: 'newPasswordRequired' in result,
+      success: true,
+      idToken: idToken,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
     };
+  } catch (err) {
+    const error = err as any;
+
+    if (error.code === 'NotAuthorizedException') {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
   }
-
-  const session = result as CognitoUserSession;
-
-  // get user id token and access token
-  const idToken = session.getIdToken().getJwtToken();
-  const accessToken = session.getAccessToken().getJwtToken();
-  const refreshToken = session.getRefreshToken().getToken();
-
-  return { idToken: idToken, accessToken: accessToken, refreshToken: refreshToken };
 };
 
 /**
