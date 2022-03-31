@@ -3,7 +3,8 @@
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "authorizer" {
   function_name = "${local.project_name}-authorizer"
-  filename      = data.archive_file.authorizer.output_path
+  s3_bucket     = local.bucket_name_archive
+  s3_key        = aws_s3_object.lambda_authorizer.key
   handler       = local.lambda_handler
   runtime       = local.lambda_runtime
   memory_size   = 128
@@ -13,24 +14,6 @@ resource "aws_lambda_function" "authorizer" {
     variables = {
       TABLE_NAME_USER = local.dynamodb_name_users
     }
-  }
-}
-
-data "archive_file" "authorizer" {
-  type        = "zip"
-  output_path = "${path.module}/dist/authorizer.zip"
-
-  source {
-    content  = <<EOT
-exports.handler = async (event) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify('Hello from Lambda!'),
-  };
-  return response;
-};
-EOT
-    filename = "index.js"
   }
 }
 
