@@ -53,3 +53,18 @@ TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
 ENDPOINT_USERS_SERVICE=http://${local.cloudmap_service_users}.${local.cloudmap_namespace}:8080
 EOT
 }
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module - Cognito post signup
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "cognito_post_signup" {
+  bucket = local.bucket_name_archive
+  key    = local.lambda_module_cognito_post_signup
+  source = data.archive_file.cognito_post_signup.output_path
+}
+
+data "archive_file" "cognito_post_signup" {
+  type        = "zip"
+  source_dir  = "../nodejs/lambda/cognito/dist"
+  output_path = "../nodejs/lambda/cognito/dist.zip"
+}

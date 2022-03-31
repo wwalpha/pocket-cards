@@ -1,30 +1,4 @@
 # ----------------------------------------------------------------------------------------------
-# Lambda Function - Cognito
-# ----------------------------------------------------------------------------------------------
-resource "aws_lambda_function" "cognito" {
-  filename         = data.archive_file.cognito.output_path
-  source_code_hash = data.archive_file.cognito.output_base64sha256
-  function_name    = "${local.project_name}-cognito"
-  handler          = local.lambda_handler
-  memory_size      = 128
-  role             = aws_iam_role.cognito.arn
-  runtime          = local.lambda_runtime
-  timeout          = 10
-
-  environment {
-    variables = {
-      TABLE_USERS = local.dynamodb_name_users
-    }
-  }
-}
-
-data "archive_file" "cognito" {
-  type        = "zip"
-  source_dir  = "../nodejs/lambda/cognito/dist"
-  output_path = "../nodejs/lambda/cognito/dist.zip"
-}
-
-# ----------------------------------------------------------------------------------------------
 # Lambda Function - ECS Task Start
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "ecs_task_start" {

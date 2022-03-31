@@ -27,9 +27,10 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # Lambda
   # ----------------------------------------------------------------------------------------------
-  lambda_handler          = "index.handler"
-  lambda_runtime          = "nodejs14.x"
-  lambda_basic_policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  lambda_handler                    = "index.handler"
+  lambda_runtime                    = "nodejs14.x"
+  lambda_basic_policy_arn           = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  lambda_module_cognito_post_signup = local.remote_services.lambda_module_cognito_post_signup
 
   # ----------------------------------------------------------------------------------------------
   # DynamoDB
@@ -80,6 +81,12 @@ locals {
   ssm_vision_api_url      = local.remote_setup.ssm_vision_api_url
   ssm_vision_api_key      = local.remote_setup.ssm_vision_api_key
   ssm_repo_url_batch      = local.remote_setup.ssm_repo_url_batch
+
+  # ----------------------------------------------------------------------------------------------
+  # Cognito
+  # ----------------------------------------------------------------------------------------------
+  cognito_identity_pool_arn_admin = local.remote_services.cognito_identity_pool_arn_admin
+  cognito_identity_pool_arn_users = local.remote_services.cognito_identity_pool_arn_users
 }
 
 # ----------------------------------------------------------------------------------------------
