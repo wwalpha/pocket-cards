@@ -31,3 +31,20 @@ resource "aws_dynamodb_table_item" "tenant_user" {
 }
 ITEM
 }
+
+# ---------------------------------------------------------------------------------------------
+# Dynamodb Table Item - TENANT_USER
+# ---------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table_item" "cognito_admin" {
+  table_name = data.aws_dynamodb_table.users.name
+  hash_key   = data.aws_dynamodb_table.users.hash_key
+
+  item = <<ITEM
+{
+  "id": {"S": "${var.admin_email}"},
+  "email": {"S": "${var.admin_email}"},
+  "role": {"S": "TENANT_ADMIN"},
+  "username": {"S": "${var.admin_email}"}
+}
+ITEM
+}

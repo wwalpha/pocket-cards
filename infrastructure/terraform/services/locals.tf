@@ -158,3 +158,10 @@ data "aws_route53_zone" "this" {
 data "aws_dynamodb_table" "settings" {
   name = local.dynamodb_name_settings
 }
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Users
+# ----------------------------------------------------------------------------------------------
+data "aws_dynamodb_table" "users" {
+  name = local.dynamodb_name_users
+}
