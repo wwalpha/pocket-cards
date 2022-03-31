@@ -13,6 +13,22 @@ output "api_url" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# Cognito Identity Pool Arn - Admin
+# ----------------------------------------------------------------------------------------------
+output "cognito_identity_pool_arn_admin" {
+  sensitive = true
+  value     = aws_cognito_identity_pool.admin.arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# Cognito Identity Pool Arn - Users
+# ----------------------------------------------------------------------------------------------
+output "cognito_identity_pool_arn_users" {
+  sensitive = true
+  value     = aws_cognito_identity_pool.this.arn
+}
+
+# ----------------------------------------------------------------------------------------------
 # Cognito User Pool ID
 # ----------------------------------------------------------------------------------------------
 output "cognito_user_pool_id" {
@@ -183,4 +199,18 @@ output "cloudmap_service_auth" {
 # ----------------------------------------------------------------------------------------------
 output "cloudmap_service_users" {
   value = aws_service_discovery_service.users.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module - API Gateway Authorizer
+# ----------------------------------------------------------------------------------------------
+output "lambda_module_apigw_authorizer" {
+  value = aws_s3_object.lambda_authorizer.key
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module - Cognito Pre Signup
+# ----------------------------------------------------------------------------------------------
+output "lambda_module_cognito_post_signup" {
+  value = aws_s3_object.lambda_cognito_post_signup.key
 }
