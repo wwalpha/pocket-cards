@@ -2,8 +2,7 @@
 # Lambda Function - Cognito
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "cognito_post_signup" {
-  s3_bucket     = local.bucket_name_archive
-  s3_key        = aws_s3_object.lambda_cognito_post_signup.key
+  filename      = data.archive_file.lambda_default.output_path
   function_name = "${local.project_name}-cognito-post-signup"
   handler       = local.lambda_handler
   memory_size   = 128

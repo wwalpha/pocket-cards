@@ -211,6 +211,6 @@ output "lambda_module_apigw_authorizer" {
 # ----------------------------------------------------------------------------------------------
 # Lambda module - Cognito Pre Signup
 # ----------------------------------------------------------------------------------------------
-output "lambda_module_cognito_post_signup" {
-  value = aws_s3_object.lambda_cognito_post_signup.key
+output "lambda_function_name_cognito_post_signup" {
+  value = aws_lambda_function.cognito_post_signup.function_name
 }

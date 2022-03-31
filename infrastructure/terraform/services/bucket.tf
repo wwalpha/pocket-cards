@@ -48,17 +48,17 @@ EOT
 # ----------------------------------------------------------------------------------------------
 # S3 Object - Lambda Module
 # ----------------------------------------------------------------------------------------------
-resource "aws_s3_object" "lambda_cognito_post_signup" {
-  bucket = local.bucket_name_archive
-  key    = "lambda/cognito_post_signup.zip"
-  source = data.archive_file.lambda_default.output_path
+# resource "aws_s3_object" "lambda_cognito_post_signup" {
+#   bucket = local.bucket_name_archive
+#   key    = "lambda/cognito_post_signup.zip"
+#   source = data.archive_file.lambda_default.output_path
 
-  lifecycle {
-    ignore_changes = [
-      source
-    ]
-  }
-}
+#   lifecycle {
+#     ignore_changes = [
+#       source
+#     ]
+#   }
+# }
 
 # ----------------------------------------------------------------------------------------------
 # S3 Object - API Gateway Authorizer
