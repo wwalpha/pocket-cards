@@ -66,6 +66,10 @@ resource "aws_cognito_user_pool" "this" {
   #   source_arn             = var.email_source_arn
   # }
 
+  lambda_config {
+    post_confirmation = aws_lambda_function.cognito_post_signup.arn
+  }
+
   # lambda_config {
   #   create_auth_challenge          = var.create_auth_challenge
   #   custom_message                 = var.custom_message
@@ -304,6 +308,10 @@ resource "aws_cognito_user_pool" "admin" {
     temporary_password_validity_days = 7
   }
 
+  lambda_config {
+    post_confirmation = aws_lambda_function.cognito_post_signup.arn
+  }
+
   lifecycle {
     ignore_changes = [
       estimated_number_of_users
@@ -363,12 +371,14 @@ resource "aws_cognito_identity_pool" "admin" {
 # --------------------------------------------------------------------------------------------------------------
 # Amazon Cognito Admin User
 # --------------------------------------------------------------------------------------------------------------
-resource "null_resource" "cognito_admin" {
-  triggers = {
-    user_pool_id = aws_cognito_user_pool.admin.id
-  }
+resource "aws_cognito_user" "cognito_admin" {
+  user_pool_id = aws_cognito_user_pool.admin.id
+  username     = var.admin_email
 
-  provisioner "local-exec" {
-    command = "aws cognito-idp admin-create-user --region ${local.region} --user-pool-id ${aws_cognito_user_pool.admin.id} --username ${var.admin_email} --user-attributes Name=email,Value=${var.admin_email} Name=name,Value=${var.admin_email} Name=custom:role,Value=SYSTEM_ADMIN"
+  attributes = {
+    name           = var.admin_email
+    email          = var.admin_email
+    email_verified = true
+    role           = "SYSTEM_ADMIN"
   }
 }
