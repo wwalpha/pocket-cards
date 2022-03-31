@@ -58,9 +58,10 @@ EOT
 # Lambda module - Cognito post signup
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_object" "cognito_post_signup" {
-  bucket = local.bucket_name_archive
-  key    = local.lambda_module_cognito_post_signup
-  source = data.archive_file.cognito_post_signup.output_path
+  bucket      = local.bucket_name_archive
+  key         = local.lambda_module_cognito_post_signup
+  source      = data.archive_file.cognito_post_signup.output_path
+  source_hash = data.archive_file.cognito_post_signup.output_md5
 }
 
 data "archive_file" "cognito_post_signup" {
