@@ -62,7 +62,7 @@ export const createUser = async (
 
   // create new user
   try {
-    const user = await createNewUser(req.body, settings.Item.userPoolId, req.body.role);
+    const user = await createNewUser(req.body, settings.Item.userPoolId, 'TENANT_USER', req.body.status);
 
     return {
       success: true,

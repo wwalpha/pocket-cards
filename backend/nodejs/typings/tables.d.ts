@@ -11,8 +11,10 @@ export namespace Tables {
     icon?: string;
     // メール
     email: string;
-    // ロール
+    // TENANT_ADMIN / TENANT_USER
     role: string;
+    // 保護者・利用者・管理者
+    status: string;
     //
     sub?: string;
   }

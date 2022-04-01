@@ -48,7 +48,10 @@ export namespace Users {
     identityPoolId?: string;
   }
 
-  interface CreateUserRequest extends TenantUser {}
+  interface CreateUserRequest extends TenantUser {
+    // status
+    status: string;
+  }
 
   interface CreateUserResponse {
     success: boolean;
