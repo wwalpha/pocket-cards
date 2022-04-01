@@ -61,7 +61,7 @@ export const createUser = async (
   }
   console.log(req.body);
   // create new user
-  const user = await createNewUser(req.body, settings.Item.userPoolId, 'TENANT_USER');
+  const user = await createNewUser(req.body, settings.Item.userPoolId, req.body.role);
 
   return {
     userId: user.email,
