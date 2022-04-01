@@ -53,12 +53,18 @@ export const lookupUserPoolData = async (userId: string): Promise<Users.CognitoI
  * @param userInfo the tenant admin regist request
  * @param cognito The cognito infomations
  */
-export const createNewUser = async (userInfo: Users.TenantUser, userPoolId: string, role: string = 'TENANT_ADMIN') => {
+export const createNewUser = async (
+  userInfo: Users.TenantUser,
+  userPoolId: string,
+  role: 'TENANT_ADMIN' | 'TENANT_USER',
+  status = 'admin'
+) => {
   const userItem: Tables.TUsers = {
     id: userInfo.email,
     username: userInfo.userName,
     email: userInfo.email,
-    role: role,
+    role,
+    status,
   };
 
   // create cognito user;
