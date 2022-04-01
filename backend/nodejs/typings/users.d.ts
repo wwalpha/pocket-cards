@@ -12,6 +12,8 @@ export namespace Users {
     userName: string;
     /** email */
     email: string;
+    /** role */
+    role?: string;
   }
 
   interface GetUserResquest {}
