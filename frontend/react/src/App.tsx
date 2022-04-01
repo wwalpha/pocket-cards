@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { makeStyles, createStyles } from '@mui/styles';
 import { Box, Theme } from '@mui/material';
 import { Paths, Consts } from '@constants';
-import { Header, Footer, RegistMain, StudyMain, MyPageMain, Settings, Home, Folder } from '@containers';
+import { Header, Footer, RegistMain, StudyMain, MyPageMain, Settings, Home, Folder, SignUp } from '@containers';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -49,6 +49,7 @@ const App = () => {
           <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Settings]} component={Settings} />
           <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]} component={Folder} />
           <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Todos]} component={Home} />
+          <Route path={Paths.PATHS_SIGN_UP} component={SignUp} />
         </Switch>
       </div>
       <Footer />

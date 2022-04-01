@@ -8,7 +8,8 @@ export const SERVER_START_URL = () => '/admin/start';
 export const SERVER_STOP_URL = () => '/admin/stop';
 export const SERVER_STATUS_URL = () => '/admin/status';
 
-export const AUTH_LOGIN = () => `${API_VERSION}/auth/login`;
+export const SIGN_IN = () => `${API_VERSION}/auth/login`;
+export const SIGN_UP = () => `${API_VERSION}/users`;
 
 export const A002_URL = () => `${API_VERSION}/history`;
 
@@ -78,4 +79,11 @@ export enum SUBJECT {
   JAPANESE,
   SCIENCE,
   SOCIETY,
+}
+
+export enum SIGN_STATUS {
+  NOT_LOGIN,
+  NEW_PASSWORD_REQUIRED,
+  MFA_REQUIRED,
+  LOGINED,
 }
