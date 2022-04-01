@@ -50,7 +50,7 @@ resource "aws_s3_object" "auth" {
   content = <<EOT
 TZ=Asia/Tokyo
 TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
-ENDPOINT_USERS_SERVICE=http://${local.cloudmap_service_users}.${local.cloudmap_namespace}:8080
+ENDPOINT_USERS_SERVICE=http://${local.cloudmap_service_users}.${local.cloudmap_namespace}:8080/v1
 EOT
 }
 
