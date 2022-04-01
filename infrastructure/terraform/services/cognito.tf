@@ -77,9 +77,9 @@ resource "aws_cognito_user_pool" "this" {
   #   source_arn             = var.email_source_arn
   # }
 
-  lambda_config {
-    post_confirmation = aws_lambda_function.cognito_post_signup.arn
-  }
+  # lambda_config {
+  #   post_confirmation = aws_lambda_function.cognito_post_signup.arn
+  # }
 
   # lambda_config {
   #   create_auth_challenge          = var.create_auth_challenge
@@ -319,9 +319,9 @@ resource "aws_cognito_user_pool" "admin" {
     temporary_password_validity_days = 7
   }
 
-  lambda_config {
-    post_confirmation = aws_lambda_function.cognito_post_signup.arn
-  }
+  # lambda_config {
+  #   post_confirmation = aws_lambda_function.cognito_post_signup.arn
+  # }
 
   lifecycle {
     ignore_changes = [
