@@ -8,6 +8,8 @@ export const SERVER_START_URL = () => '/admin/start';
 export const SERVER_STOP_URL = () => '/admin/stop';
 export const SERVER_STATUS_URL = () => '/admin/status';
 
+export const AUTH_LOGIN = () => `${API_VERSION}/auth/login`;
+
 export const A002_URL = () => `${API_VERSION}/history`;
 
 // グループ新規作成

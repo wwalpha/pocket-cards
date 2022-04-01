@@ -1,20 +1,19 @@
 import { withLoading } from '@actions';
-import { CognitoUser } from '@aws-amplify/auth';
 import { Consts } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
-import { AppDispatch, APIs } from 'typings';
+import { AppDispatch, APIs, Auth } from 'typings';
 
 /** ログイン */
-export const loggedIn = (user: CognitoUser) => async (dispatch: AppDispatch) => {
-  // 画面初期化
-  // status();
-  // データ保存
-  dispatch(
-    Actions.USER_SIGN_IN({
-      username: user.getUsername(),
+export const signin = (username: string, passwd: string, newPassword?: string) => async (dispatch: AppDispatch) => {
+  // sign in
+  await dispatch(
+    Actions.SIGN_IN({
+      username: username,
+      password: passwd,
+      newPassword: newPassword,
     })
-  );
+  ).unwrap();
 };
 
 /** ログアウト */

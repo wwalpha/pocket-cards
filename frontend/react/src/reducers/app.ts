@@ -1,12 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Domains } from 'typings';
+import { Domains, Auth } from 'typings';
 import { Consts } from '@constants';
 
 const appState: Domains.AppState = {
   tabIndex: 11,
   isLoading: false,
+  isLogined: false,
   status: Consts.SERVER_STATUS.STOPPED,
   displayCtrl: {},
+  username: '',
+  mfaRequired: false,
+  newPasswordRequired: false,
+  tokens: {},
 };
 
 const slice = createSlice({
@@ -38,15 +43,19 @@ const slice = createSlice({
       state.status = payload;
     },
 
-    // グループ選択
-    // GROUP_SELECT: (state, { payload }: PayloadAction<string>) => {
-    //   state.groupId = payload;
-    // },
+    SIGN_IN: (state, { payload }: PayloadAction<Auth.SignInResponse & Auth.SignInRequest>) => {
+      state.mfaRequired = payload.mfaRequired;
+      state.newPasswordRequired = payload.newPasswordRequired;
+      state.username = payload.username;
 
-    /** 画面表示制御 */
-    // DISPLAY_CONTROL: (state, { payload: { type, value } }: PayloadAction<Actions.ShowPayload>) => {
-    //   state.displayCtrl[type] = value;
-    // },
+      if (payload.idToken && payload.accessToken && payload.refreshToken) {
+        state.tokens = {
+          idToken: payload.idToken,
+          accessToken: payload.accessToken,
+          refreshToken: payload.refreshToken,
+        };
+      }
+    },
   },
 });
 

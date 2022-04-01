@@ -11,9 +11,6 @@ const helper = new DynamodbHelper();
  * Lookup a user's pool data in the user table
  *
  * @param userId The id of the user being looked up
- * @param isSystemContext Is this being called in the context of a system user (registration, system user provisioning)
- * @param tenantId The id of the tenant (if this is not system context)
- * @param credentials The credentials used ben looking up the user
  */
 export const lookupUserPoolData = async (userId: string): Promise<Users.CognitoInfos | undefined> => {
   const searchParams: Tables.TUsersKey = {
