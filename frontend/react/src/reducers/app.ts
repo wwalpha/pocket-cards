@@ -5,13 +5,9 @@ import { Consts } from '@constants';
 const appState: Domains.AppState = {
   tabIndex: 11,
   isLoading: false,
-  isLogined: false,
+  isShowStack: false,
   status: Consts.SERVER_STATUS.STOPPED,
   displayCtrl: {},
-  username: '',
-  mfaRequired: false,
-  newPasswordRequired: false,
-  tokens: {},
 };
 
 const slice = createSlice({
@@ -31,6 +27,11 @@ const slice = createSlice({
     // end loading
     APP_COM_01_FAILURE: (state, action: PayloadAction<Error>) => {
       state.isLoading = false;
+
+      if (action.payload.name === 'Error') {
+        state.isShowStack = true;
+        state.message = action.payload.message;
+      }
     },
 
     // タブ変更
@@ -41,20 +42,6 @@ const slice = createSlice({
     // サーバステータス更新
     SERVER_STATUS: (state, { payload }: PayloadAction<string>) => {
       state.status = payload;
-    },
-
-    SIGN_IN: (state, { payload }: PayloadAction<Auth.SignInResponse & Auth.SignInRequest>) => {
-      state.mfaRequired = payload.mfaRequired;
-      state.newPasswordRequired = payload.newPasswordRequired;
-      state.username = payload.username;
-
-      if (payload.idToken && payload.accessToken && payload.refreshToken) {
-        state.tokens = {
-          idToken: payload.idToken,
-          accessToken: payload.accessToken,
-          refreshToken: payload.refreshToken,
-        };
-      }
     },
   },
 });

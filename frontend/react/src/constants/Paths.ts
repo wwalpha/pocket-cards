@@ -3,7 +3,7 @@ import { App } from 'typings';
 export const ROUTE_PATH_INDEX: Record<string, number> = {
   Root: 0,
   SignIn: 1,
-  Login: 2,
+  SignUp: 2,
   NewPassword: 3,
   Regist: 11,
   RegistList: 12,
@@ -24,8 +24,8 @@ export const ROUTE_PATH_INDEX: Record<string, number> = {
 
 export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.Root]: '/',
-  [ROUTE_PATH_INDEX.SignIn]: '/signin',
-  [ROUTE_PATH_INDEX.NewPassword]: '/newpassword',
+  [ROUTE_PATH_INDEX.SignIn]: '/',
+  [ROUTE_PATH_INDEX.SignUp]: '/signup',
   [ROUTE_PATH_INDEX.Login]: '/login',
   [ROUTE_PATH_INDEX.Regist]: '/regist',
   [ROUTE_PATH_INDEX.RegistList]: '/regist/list',
@@ -44,8 +44,8 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.Todos]: '/todos',
 };
 
-export const PATHS_SIGNIN_TOP = ROUTE_PATHS[ROUTE_PATH_INDEX.Login];
-export const PATHS_SIGNIN_NEWPASSWORD = ROUTE_PATHS[ROUTE_PATH_INDEX.NewPassword];
+export const PATHS_SIGN_UP = ROUTE_PATHS[ROUTE_PATH_INDEX.SignUp];
+export const PATHS_SIGN_IN = ROUTE_PATHS[ROUTE_PATH_INDEX.SignIn];
 
 export const PATHS_STUDY = ROUTE_PATHS[ROUTE_PATH_INDEX.Study];
 export const PATHS_STUDY_CARD = ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard];

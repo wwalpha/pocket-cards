@@ -13,7 +13,7 @@ const appState = (state: RootState) => state.app;
 
 const C002: React.FunctionComponent<any> = () => {
   const { isLoading } = useSelector(appState);
-  const { daily, weekly, monthly } = useSelector(userState);
+  // const { daily, weekly, monthly } = useSelector(userState);
   // const actions = bindActionCreators(MyPageActions, useDispatch());
   const actions = null;
 

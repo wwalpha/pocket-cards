@@ -2,6 +2,11 @@ import { APIs, Tables, App, Group } from '.';
 
 export namespace Domains {
   interface AppState {
+    // error message
+    message?: string;
+    // stack open flag
+    isShowStack: boolean;
+    // tab index
     tabIndex: number;
     // loading
     isLoading: boolean;
@@ -9,20 +14,6 @@ export namespace Domains {
     status: string;
     // display control
     displayCtrl: Record<number, boolean>;
-    // sign status
-    isLogined: boolean;
-    // username
-    username: string;
-    // mfa required flag
-    mfaRequired?: boolean;
-    // new password required flag
-    newPasswordRequired?: boolean;
-    // Tokens
-    tokens: {
-      idToken?: string;
-      accessToken?: string;
-      refreshToken?: string;
-    };
   }
 
   interface GroupState {
@@ -43,14 +34,24 @@ export namespace Domains {
   }
 
   interface UserState {
-    details?: User.Details;
-    remainingTest: number;
-    remainingReview: number;
-    daily: number;
-    dailyNew: number;
-    dailyReview: number;
-    weekly: number;
-    monthly: number;
+    // 0: not login, 1: new password, 2: logined
+    loginStatus: number;
+    // username
+    username: string;
+    // Tokens
+    tokens: {
+      idToken?: string;
+      accessToken?: string;
+      refreshToken?: string;
+    };
+    // details?: User.Details;
+    // remainingTest: number;
+    // remainingReview: number;
+    // daily: number;
+    // dailyNew: number;
+    // dailyReview: number;
+    // weekly: number;
+    // monthly: number;
   }
 
   interface StudyState {

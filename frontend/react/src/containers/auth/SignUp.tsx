@@ -2,33 +2,31 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
   Container,
   CssBaseline,
-  Avatar,
   Typography,
   TextField,
-  FormControlLabel,
-  Checkbox,
+  FormControl,
   Grid,
-  Button as MButton,
+  InputLabel,
+  Select,
+  MenuItem,
   Box,
 } from '@mui/material';
 import { Button } from '@components/buttons';
 import { UserActions } from '@actions';
-import { Paths } from '@constants';
-import { RootState, SignInForm } from 'typings';
-import { default as styles } from './SignIn.style';
+import { RootState, SignUpForm } from 'typings';
+import { default as styles } from './SignUp.style';
 
 const app = (state: RootState) => state.app;
-const defaultValues: SignInForm = {
-  username: 'wwalpha@gmail.com',
-  password: 'g/oiqZ4UX3',
+const defaultValues: SignUpForm = {
+  email: '',
+  role: '',
+  username: '',
 };
 
-const SignIn = () => {
+const SignUp = () => {
   const classes = styles();
   const { isLoading } = useSelector(app);
   const actions = bindActionCreators(UserActions, useDispatch());
@@ -37,26 +35,40 @@ const SignIn = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInForm>({ defaultValues });
+  } = useForm<SignUpForm>({ defaultValues });
 
   // 編集
-  const onSubmit = handleSubmit((datas) => {
-    actions.signin(datas.username, datas.password);
+  const onSubmit = handleSubmit(({ email, role, username }) => {
+    actions.signup(username, email, role);
   });
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in to PocketCards
+          Sign up to PocketCards
         </Typography>
         <form className={classes.form} noValidate onSubmit={onSubmit}>
           <Controller
             name="username"
+            control={control}
+            rules={{
+              required: 'required',
+            }}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                label="Username"
+                value={value}
+                onChange={onChange}
+              />
+            )}
+          />
+          <Controller
+            name="email"
             control={control}
             rules={{
               required: 'required',
@@ -67,7 +79,6 @@ const SignIn = () => {
             }}
             render={({ field: { onChange, value } }) => (
               <TextField
-                error={errors.username !== undefined}
                 variant="outlined"
                 margin="normal"
                 fullWidth
@@ -76,57 +87,38 @@ const SignIn = () => {
                 autoComplete="email"
                 value={value}
                 onChange={onChange}
-                helperText={errors.username?.message}
               />
             )}
           />
           <Controller
-            name="password"
+            name="role"
             control={control}
             rules={{
               required: 'required',
             }}
             render={({ field: { onChange, value } }) => (
-              <TextField
-                error={errors.password !== undefined}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                label="Password"
-                type="password"
-                autoComplete="current-password"
-                value={value}
-                onChange={onChange}
-                helperText={errors.password?.message}
-              />
+              <FormControl fullWidth sx={{ mt: 1 }}>
+                <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                <Select value={value} label="Role" onChange={onChange}>
+                  <MenuItem value="PARENT">保護者</MenuItem>
+                  <MenuItem value="CHILD">子供</MenuItem>
+                </Select>
+              </FormControl>
             )}
           />
-          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-          <Button
-            isLoading={isLoading}
-            type="submit"
-            size="large"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}>
-            Sign In
-          </Button>
-          <Box sx={{ m: 1, mt: 2 }}>
-            <MButton
+
+          <Box sx={{ my: 2 }}>
+            <Button
               isLoading={isLoading}
+              type="submit"
               size="large"
               fullWidth
               variant="contained"
-              color="secondary"
-              className={classes.submit}
-              component={React.forwardRef((props: any, ref: any) => (
-                <Link to={Paths.PATHS_SIGN_UP} {...props} />
-              ))}>
+              color="primary"
+              className={classes.submit}>
               Sign Up
-            </MButton>
+            </Button>
           </Box>
-
           {/* <Button
             type="button"
             variant="contained"
@@ -136,13 +128,10 @@ const SignIn = () => {
             onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })}>
             <img src="./img/btn_google_signin_dark_normal_web.png" />
           </Button> */}
-          <Grid container>
-            <Grid item xs></Grid>
-          </Grid>
         </form>
       </div>
     </Container>
   );
 };
 
-export default SignIn;
+export default SignUp;

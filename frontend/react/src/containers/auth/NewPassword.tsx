@@ -2,49 +2,35 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useForm, Controller } from 'react-hook-form';
-import { Container, CssBaseline, TextField, Theme } from '@mui/material';
-import { makeStyles, createStyles } from '@mui/styles';
+import { Container, CssBaseline, TextField } from '@mui/material';
 import { Button } from '@components/buttons';
 import { UserActions } from '@actions';
-import { RootState } from 'typings';
-
-const useStyles = makeStyles(({ palette, spacing }: Theme) =>
-  createStyles({
-    paper: {
-      marginTop: spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    avatar: { margin: spacing(1), backgroundColor: palette.secondary.main },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: spacing(1),
-    },
-    submit: { margin: spacing(3, 0, 2) },
-    button: { padding: spacing(0) },
-  })
-);
+import { RootState, NewPasswordForm } from 'typings';
+import { default as styles } from './SignIn.style';
 
 const appState = (state: RootState) => state.app;
+const userState = (state: RootState) => state.user;
+
+const defaultValues: NewPasswordForm = {
+  oldPassword: 'g/oiqZ4UX3',
+  newPassword: '',
+  confirmPassword: '',
+};
 
 const NewPassword = () => {
-  const classes = useStyles();
+  const classes = styles();
   const actions = bindActionCreators(UserActions, useDispatch());
-  const { isLoading, username } = useSelector(appState);
+  const { isLoading } = useSelector(appState);
+  const { username } = useSelector(userState);
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<{
-    oldpassword: string;
-    newpassword: string;
-    confirmpassword: string;
-  }>();
+  } = useForm<NewPasswordForm>({ defaultValues });
 
-  const onSubmit = handleSubmit(({ oldpassword, newpassword }) => {
-    actions.signin(username, oldpassword, newpassword);
+  const onSubmit = handleSubmit(({ oldPassword, newPassword }) => {
+    actions.signin(username, oldPassword, newPassword);
   });
 
   return (
@@ -53,9 +39,9 @@ const NewPassword = () => {
       <div className={classes.paper}>
         <form className={classes.form} noValidate onSubmit={onSubmit}>
           <Controller
-            name="oldpassword"
+            name="oldPassword"
             control={control}
-            rules={{ required: true }}
+            rules={{ required: 'required' }}
             render={({ field: { onChange, value } }) => (
               <TextField
                 variant="outlined"
@@ -69,10 +55,9 @@ const NewPassword = () => {
             )}
           />
           <Controller
-            name="newpassword"
+            name="newPassword"
             control={control}
-            defaultValue=""
-            rules={{ required: true }}
+            rules={{ required: 'required' }}
             render={({ field: { onChange, value } }) => (
               <TextField
                 variant="outlined"
@@ -85,9 +70,8 @@ const NewPassword = () => {
             )}
           />
           <Controller
-            name="confirmpassword"
+            name="confirmPassword"
             control={control}
-            defaultValue=""
             rules={{ required: true }}
             render={({ field: { onChange, value } }) => (
               <TextField

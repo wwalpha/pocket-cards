@@ -51,16 +51,6 @@ export const activeGroup = (groupId: string) => async (dispatch: AppDispatch) =>
     })
   );
 
-/** 画面表示制御 */
-// export const show = (type: number, value: boolean) => (dispatch: Dispatch) => {
-//   dispatch(
-//     AppActions.DISPLAY_CONTROL({
-//       type,
-//       value,
-//     })
-//   );
-// };
-
 /** タブ変更 */
 export const activeTab = (index: number) => (dispatch: AppDispatch) => {
   dispatch(Actions.APP_TAB_INDEX(index));
