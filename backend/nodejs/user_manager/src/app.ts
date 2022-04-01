@@ -51,8 +51,8 @@ export const createUser = async (
   const settings = await helper.get<Tables.TSettingsCognito>({
     TableName: Environments.TABLE_NAME_SETTINGS,
     Key: {
-      Id: 'TENANT_USER',
-    },
+      id: 'TENANT_USER',
+    } as Tables.TSettingsKey,
   });
 
   // data not found
@@ -84,7 +84,7 @@ export const createAdminUser = async (
   const settings = await helper.get<Tables.TSettingsCognito>({
     TableName: Environments.TABLE_NAME_SETTINGS,
     Key: {
-      Id: 'TENANT_ADMIN',
+      id: 'TENANT_ADMIN',
     },
   });
 
@@ -103,7 +103,7 @@ export const listAdminUsers = async (): Promise<Users.ListAdminUsersResponse> =>
   const settings = await helper.get<Tables.TSettingsCognito>({
     TableName: Environments.TABLE_NAME_SETTINGS,
     Key: {
-      Id: 'TENANT_ADMIN',
+      id: 'TENANT_ADMIN',
     },
   });
 
