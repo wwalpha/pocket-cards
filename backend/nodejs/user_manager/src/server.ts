@@ -11,18 +11,18 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 
 // health check
-app.get('/users/health', async (req, res) => await common(req, res, healthCheck));
+app.get('/v1/users/health', async (req, res) => await common(req, res, healthCheck));
 
 // create a admin user
-app.post('/users/admins', async (req, res) => await common(req, res, createAdminUser));
+app.post('/v1/users/admins', async (req, res) => await common(req, res, createAdminUser));
 
 // list all admin users
-app.get('/users/admins', async (req, res) => await common(req, res, listAdminUsers));
+app.get('/v1/users/admins', async (req, res) => await common(req, res, listAdminUsers));
 
 // Lookup user pool for any user - no user data returned
-app.get('/users/pool/:id', async (req, res) => await common(req, res, lookupUser));
+app.get('/v1/users/pool/:id', async (req, res) => await common(req, res, lookupUser));
 
 // create a normal user
-app.post('/users', async (req, res) => await common(req, res, createUser));
+app.post('/v1/users', async (req, res) => await common(req, res, createUser));
 
 export default app;
