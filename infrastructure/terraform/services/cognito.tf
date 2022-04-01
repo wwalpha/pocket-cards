@@ -39,6 +39,17 @@ resource "aws_cognito_user_pool" "this" {
     # }
   }
 
+  schema {
+    name                = "role"
+    attribute_data_type = "String"
+    mutable             = true
+
+    string_attribute_constraints {
+      min_length = 1
+      max_length = 256
+    }
+  }
+
   # dynamic "schema" {
   #   for_each = var.schema
 
