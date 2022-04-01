@@ -69,9 +69,13 @@ export const createUser = async (
       userId: user.email,
     };
   } catch (err) {
+    // log
+    Logger.error(err);
+
     const error = err as AWSError;
     let message = 'Unknown Error.';
 
+    // user exists
     if (error.code === 'UsernameExistsException') {
       message = error.message;
     }
