@@ -247,3 +247,39 @@ resource "aws_iam_role_policy_attachment" "cognito_post_signup_cloudwatch_logs" 
   role       = aws_iam_role.cognito_post_signup.name
   policy_arn = local.lambda_basic_policy_arn
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "ecs_task_users" {
+  name               = "${local.project_name_uc}_ECSTask_UsersRole"
+  assume_role_policy = data.aws_iam_policy_document.ecs_task_role_policy.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy - CloudWatch Basic Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "ecs_task_users_cloudwatch" {
+  role       = aws_iam_role.ecs_task_users.name
+  policy_arn = aws_iam_policy.cloudwatch_logs_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy - Dynamodb Basic Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "ecs_task_users_dynamodb" {
+  role       = aws_iam_role.ecs_task_users.name
+  policy_arn = aws_iam_policy.dynamodb_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy - Cognito Admin Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "ecs_task_users_cognito" {
+  role       = aws_iam_role.ecs_task_users.name
+  policy_arn = aws_iam_policy.cognito_admin.arn
+}
