@@ -5,8 +5,8 @@ import { Users } from 'typings';
 import Server from '../src/server';
 
 describe('user manager', () => {
-  test('get /v1/users/health', async () => {
-    const response = await request(Server).get('/users/health');
+  test('get /users/health', async () => {
+    const response = await request(Server).get('/v1/users/health');
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({
@@ -15,7 +15,7 @@ describe('user manager', () => {
     });
   });
 
-  test.skip('get /v1/users/admins', async () => {
+  test.skip('get /users/admins', async () => {
     mocked(CognitoIdentityServiceProvider).prototype.listUsers = jest.fn().mockImplementationOnce(() => ({
       promise: () =>
         Promise.resolve({
@@ -26,7 +26,7 @@ describe('user manager', () => {
         }),
     }));
 
-    const response = await request(Server).get('/users/admins');
+    const response = await request(Server).get('/v1/users/admins');
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({
