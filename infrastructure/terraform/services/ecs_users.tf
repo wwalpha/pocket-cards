@@ -59,7 +59,7 @@ resource "aws_ecs_service" "users" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_ecs_task_definition" "users" {
   family             = local.task_def_family_users
-  task_role_arn      = aws_iam_role.ecs_task.arn
+  task_role_arn      = aws_iam_role.ecs_task_users.arn
   execution_role_arn = aws_iam_role.ecs_task_exec.arn
   network_mode       = "awsvpc"
   cpu                = "256"

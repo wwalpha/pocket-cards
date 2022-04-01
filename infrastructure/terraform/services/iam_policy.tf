@@ -49,3 +49,23 @@ resource "aws_iam_policy" "cloudwatch_logs_basic" {
     ]
   })
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS IAM Policy - Cognito Admin
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_policy" "cognito_admin" {
+  name = "${local.project_name_uc}_CognitoAdminPolicy"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "cognito-idp:Admin*",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
