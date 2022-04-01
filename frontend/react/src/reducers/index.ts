@@ -7,6 +7,7 @@ import Group from './group';
 import User from './user';
 import { GROUP_LIST, GROUP_DELETE, GROUP_WORD_LIST, GROUP_WORD_DETAILS, GROUP_STATUS } from './groupActions';
 import { STUDY_START, STUDY_CONTINUE, STUDY_IGNORE, STUDY_TODOS } from './studyActions';
+import { SIGN_IN } from './appActions';
 
 export default (history: History<any>) =>
   combineReducers({
@@ -31,4 +32,5 @@ export const Actions = {
   STUDY_CONTINUE,
   STUDY_IGNORE,
   STUDY_TODOS,
+  SIGN_IN,
 };

@@ -1,4 +1,3 @@
-import { CognitoUser } from '@aws-amplify/auth';
 import { APIs, Tables, App, Group } from '.';
 
 export namespace Domains {
@@ -10,6 +9,20 @@ export namespace Domains {
     status: string;
     // display control
     displayCtrl: Record<number, boolean>;
+    // sign status
+    isLogined: boolean;
+    // username
+    username: string;
+    // mfa required flag
+    mfaRequired?: boolean;
+    // new password required flag
+    newPasswordRequired?: boolean;
+    // Tokens
+    tokens: {
+      idToken?: string;
+      accessToken?: string;
+      refreshToken?: string;
+    };
   }
 
   interface GroupState {

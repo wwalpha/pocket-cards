@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
-import Auth from '@aws-amplify/auth';
 import {
   Box,
   IconButton,
@@ -38,7 +37,7 @@ export default () => {
 
   // Logout
   const handleLogout = async () => {
-    await Auth.signOut();
+    // await Auth.signOut();
 
     usrActions.logout();
   };

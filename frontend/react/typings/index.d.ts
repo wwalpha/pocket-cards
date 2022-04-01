@@ -1,5 +1,6 @@
 export * from './domains';
 export * from './types';
+export * from './forms';
 
 // backend
 export * from '../../../backend/nodejs/typings/index';
