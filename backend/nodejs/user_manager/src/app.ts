@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk';
+import AWS, { AWSError } from 'aws-sdk';
 import express from 'express';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Users, Tables } from 'typings';
@@ -59,13 +59,28 @@ export const createUser = async (
   if (!settings || !settings.Item) {
     throw new Error('Cannot find cognito settings');
   }
-  console.log(req.body);
-  // create new user
-  const user = await createNewUser(req.body, settings.Item.userPoolId, req.body.role);
 
-  return {
-    userId: user.email,
-  };
+  // create new user
+  try {
+    const user = await createNewUser(req.body, settings.Item.userPoolId, req.body.role);
+
+    return {
+      success: true,
+      userId: user.email,
+    };
+  } catch (err) {
+    const error = err as AWSError;
+    let message = 'Unknown Error.';
+
+    if (error.code === 'UsernameExistsException') {
+      message = error.message;
+    }
+
+    return {
+      success: false,
+      message: message,
+    };
+  }
 };
 
 /**
