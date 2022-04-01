@@ -51,7 +51,9 @@ export namespace Users {
   interface CreateUserRequest extends TenantUser {}
 
   interface CreateUserResponse {
-    userId: string;
+    success: boolean;
+    message?: string;
+    userId?: string;
   }
 
   interface ListAdminUsersRequest {}
