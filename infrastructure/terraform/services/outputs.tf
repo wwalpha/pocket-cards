@@ -160,6 +160,13 @@ output "apigw_integration_id_backend" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# API Gateway Integration ID - Users
+# ----------------------------------------------------------------------------------------------
+output "apigw_integration_id_users" {
+  value = aws_apigatewayv2_integration.users.id
+}
+
+# ----------------------------------------------------------------------------------------------
 # ECS Service Auth Environment file bucket key
 # ----------------------------------------------------------------------------------------------
 output "ecs_service_env_key_auth" {
