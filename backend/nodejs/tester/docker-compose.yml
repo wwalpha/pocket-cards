@@ -1,0 +1,38 @@
+version: '3'
+services:
+  # localstack
+  localstack:
+    image: localstack/localstack:0.12.14
+    container_name: localstack
+    ports:
+      - '4566:4566'
+    environment:
+      - DEFAULT_REGION=us-east-1
+      - SERVICES=dynamodb
+  # auth_manager
+  auth_manager:
+    image: localstack/localstack:0.12.14
+    container_name: localstack
+    ports:
+      - '4566:4566'
+    environment:
+      - DEFAULT_REGION=us-east-1
+      - SERVICES=dynamodb
+  # user_manager
+  user_manager:
+    image: localstack/localstack:0.12.14
+    container_name: localstack
+    ports:
+      - '4566:4566'
+    environment:
+      - DEFAULT_REGION=us-east-1
+      - SERVICES=dynamodb
+  # backend
+  backend:
+    image: localstack/localstack:0.12.14
+    container_name: localstack
+    ports:
+      - '4566:4566'
+    environment:
+      - DEFAULT_REGION=us-east-1
+      - SERVICES=dynamodb
