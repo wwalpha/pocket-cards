@@ -54,4 +54,68 @@ ENDPOINT_USERS_SERVICE=http://${local.cloudmap_service_users}.${local.cloudmap_n
 EOT
 }
 
+# ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda start module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_start" {
+  bucket = local.bucket_name_archive
+  key    = "lambda/start.zip"
+  source = data.archive_file.lambda_default.output_path
 
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda stop module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_stop" {
+  bucket = local.bucket_name_archive
+  key    = "lambda/stop.zip"
+  source = data.archive_file.lambda_default.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda status module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_status" {
+  bucket = local.bucket_name_archive
+  key    = "lambda/status.zip"
+  source = data.archive_file.lambda_default.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Archive file - Lambda default module
+# ----------------------------------------------------------------------------------------------
+data "archive_file" "lambda_default" {
+  type        = "zip"
+  output_path = "${path.module}/dist/default.zip"
+
+  source {
+    content  = <<EOT
+exports.handler = async (event) => {
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify('Hello from Lambda!'),
+  };
+  return response;
+};
+EOT
+    filename = "index.js"
+  }
+}
