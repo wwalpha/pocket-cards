@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import { SignIn, SignUp } from '.';
-import App from '../../App';
-import { RootState } from 'typings';
+import { SignIn, SignUp, NewPassword } from '.';
+import { AppActions } from '@actions';
 import { Consts, Paths } from '@constants';
-import NewPassword from './NewPassword';
-import { Route, Switch } from 'react-router-dom';
+import { RootState } from 'typings';
+import App from '../../App';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -17,21 +18,41 @@ const app = (state: RootState) => state.app;
 const user = (state: RootState) => state.user;
 
 const Authenticator: React.FunctionComponent = () => {
-  const { isShowStack, message } = useSelector(app);
+  const { showSnackbar, severity, message } = useSelector(app);
   const { loginStatus } = useSelector(user);
+  const actions = bindActionCreators(AppActions, useDispatch());
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    // setOpen(false);
+    actions.closeSnackbar();
   };
 
   return (
     <React.Fragment>
-      {(() => {
+      <Switch>
+        <Route exact path="/">
+          {loginStatus === Consts.SIGN_STATUS.LOGINED ? <App /> : <SignIn />}
+        </Route>
+        <Route path={Paths.PATHS_SIGN_UP} component={SignUp} />
+        <Route>
+          {(() => {
+            if (loginStatus === Consts.SIGN_STATUS.NEW_PASSWORD_REQUIRED) {
+              return <NewPassword />;
+            }
+
+            return <Redirect to={Paths.PATHS_SIGN_IN} />;
+          })()}
+        </Route>
+      </Switch>
+
+      {/* {(() => {
         if (loginStatus === Consts.SIGN_STATUS.LOGINED) return <App />;
+        if (loginStatus === Consts.SIGN_STATUS.NOT_LOGIN) {
+          return <Redirect to={Paths.PATHS_SIGN_IN} />;
+        }
 
         return (
           <Switch>
@@ -39,13 +60,13 @@ const Authenticator: React.FunctionComponent = () => {
             <Route path={Paths.PATHS_SIGN_UP} component={SignUp} />
           </Switch>
         );
-      })()}
+      })()} */}
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={isShowStack}
+        open={showSnackbar}
         autoHideDuration={6000}
         onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
           {message}
         </Alert>
       </Snackbar>
