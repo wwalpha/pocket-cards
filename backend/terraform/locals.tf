@@ -31,6 +31,7 @@ locals {
   lambda_runtime                           = "nodejs14.x"
   lambda_basic_policy_arn                  = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   lambda_function_name_cognito_post_signup = local.remote_services.lambda_function_name_cognito_post_signup
+  lambda_function_name_authorizer          = local.remote_services.lambda_function_name_authorizer
 
   # ----------------------------------------------------------------------------------------------
   # DynamoDB

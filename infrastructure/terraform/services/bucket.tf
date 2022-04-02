@@ -46,26 +46,26 @@ EOT
 }
 
 # ----------------------------------------------------------------------------------------------
-# S3 Object - Lambda Module
-# ----------------------------------------------------------------------------------------------
-# resource "aws_s3_object" "lambda_cognito_post_signup" {
-#   bucket = local.bucket_name_archive
-#   key    = "lambda/cognito_post_signup.zip"
-#   source = data.archive_file.lambda_default.output_path
-
-#   lifecycle {
-#     ignore_changes = [
-#       source
-#     ]
-#   }
-# }
-
-# ----------------------------------------------------------------------------------------------
 # S3 Object - API Gateway Authorizer
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_object" "lambda_authorizer" {
   bucket = local.bucket_name_archive
   key    = "lambda/apigw_authorizer.zip"
+  source = data.archive_file.lambda_authorizer.output_path
+
+  lifecycle {
+    ignore_changes = [
+      source
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda default module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_default" {
+  bucket = local.bucket_name_archive
+  key    = "lambda/default.zip"
   source = data.archive_file.lambda_default.output_path
 
   lifecycle {
@@ -89,6 +89,36 @@ exports.handler = async (event) => {
     statusCode: 200,
     body: JSON.stringify('Hello from Lambda!'),
   };
+  return response;
+};
+EOT
+    filename = "index.js"
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Archive file - Lambda authorizer module
+# ----------------------------------------------------------------------------------------------
+data "archive_file" "lambda_authorizer" {
+  type        = "zip"
+  output_path = "${path.module}/dist/authorizer.zip"
+
+  source {
+    content  = <<EOT
+exports.handler = async (event) => {
+  const response = {
+    "principalId": "abcdef",
+    "policyDocument": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": "execute-api:Invoke",
+          "Effect": "Allow",
+          "Resource": "*"
+        }
+      ]
+    }
+  }
   return response;
 };
 EOT

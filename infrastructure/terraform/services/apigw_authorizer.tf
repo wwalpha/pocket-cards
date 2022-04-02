@@ -15,6 +15,12 @@ resource "aws_lambda_function" "authorizer" {
       TABLE_NAME_USERS = local.dynamodb_name_users
     }
   }
+
+  lifecycle {
+    ignore_changes = [
+      source_code_hash
+    ]
+  }
 }
 
 # ----------------------------------------------------------------------------------------------

@@ -54,17 +54,4 @@ ENDPOINT_USERS_SERVICE=http://${local.cloudmap_service_users}.${local.cloudmap_n
 EOT
 }
 
-# ----------------------------------------------------------------------------------------------
-# Lambda Deploy - Cognito post signup
-# ----------------------------------------------------------------------------------------------
-data "archive_file" "cognito_post_signup" {
-  type        = "zip"
-  source_dir  = "../nodejs/lambda/cognito/dist"
-  output_path = "../nodejs/lambda/cognito/dist.zip"
-}
 
-resource "null_resource" "cognito_post_signup" {
-  provisioner "local-exec" {
-    command = "aws lambda update-function-code --function-name ${local.lambda_function_name_cognito_post_signup} --zip-file fileb://${data.archive_file.cognito_post_signup.output_path}"
-  }
-}
