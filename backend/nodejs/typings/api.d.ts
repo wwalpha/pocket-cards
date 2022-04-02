@@ -66,6 +66,10 @@ export namespace APIs {
   // ------------------------------------------------------------
   // B002
   // ------------------------------------------------------------
+  interface GroupListQuery {
+    subject?: string;
+  }
+
   interface GroupListRequest {}
 
   interface GroupListResponse {
