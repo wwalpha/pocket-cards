@@ -65,3 +65,8 @@ export const closeSnackbar = () => (dispatch: AppDispatch) => {
 export const showSuccess = (text: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.APP_SHOW_SUCCESS(text));
 };
+
+export const initialize = () => (dispatch: AppDispatch) => {
+  // get group list
+  dispatch(Actions.GROUP_LIST());
+};

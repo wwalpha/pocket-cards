@@ -124,4 +124,29 @@ class CredentialManager {
   };
 }
 
-export default CredentialManager;
+const key = process.env.NODE_ENV === 'production' ? 'pkc' : 'pkc_dev';
+const Credentials = new CredentialManager(key);
+
+export default Credentials;
+
+// Credentials.refreshSession = async (accessToken?: string, refreshToken?: string) => {
+//   if (!refreshToken) return;
+
+//   const res = await axios.post<Auth.InitiateAuthResponse>(
+//     `${Environments.BACKEND_API_URL}${Consts.API_URLs.InitiateAuth}`,
+//     {
+//       accessToken,
+//       refreshToken,
+//     } as Auth.InitiateAuthRequest
+//   );
+
+//   // error check
+//   if (!res.data.idToken || !res.data.accessToken) {
+//     throw new Error('Refresh tokens failed.');
+//   }
+
+//   return {
+//     idToken: res.data.idToken,
+//     accessToken: res.data.accessToken,
+//   };
+// };

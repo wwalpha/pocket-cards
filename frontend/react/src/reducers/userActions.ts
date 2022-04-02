@@ -1,7 +1,6 @@
 import { Consts } from '@constants';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Credentials } from '../index';
-import { API } from '@utils';
+import { API, Credentials } from '@utils';
 import { Auth, Users } from 'typings';
 
 export const SIGN_IN = createAsyncThunk<Auth.SignInResponse & Auth.SignInRequest, Auth.SignInRequest>(
