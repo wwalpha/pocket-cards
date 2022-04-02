@@ -49,7 +49,7 @@ resource "aws_lambda_function" "authorizer" {
   source_code_hash = aws_s3_object.lambda_authorizer.etag
   handler          = local.lambda_handler
   runtime          = local.lambda_runtime
-  memory_size      = 128
+  memory_size      = 1024
   role             = aws_iam_role.authorizer.arn
   timeout          = 3
   environment {
