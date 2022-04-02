@@ -66,7 +66,7 @@ export const login = async (
     // authenticate failure
     if (isAuthenticateFailure(result)) {
       return {
-        success: false,
+        success: 'false',
         mfaRequired: 'mfaRequired' in result,
         newPasswordRequired: 'newPasswordRequired' in result,
       };
@@ -80,7 +80,7 @@ export const login = async (
     const refreshToken = session.getRefreshToken().getToken();
 
     return {
-      success: true,
+      success: 'true',
       idToken: idToken,
       accessToken: accessToken,
       refreshToken: refreshToken,
@@ -90,7 +90,7 @@ export const login = async (
 
     if (error.code === 'NotAuthorizedException') {
       return {
-        success: false,
+        success: 'false',
         message: error.message,
       };
     }
