@@ -94,6 +94,8 @@ export const login = async (
         message: error.message,
       };
     }
+
+    throw err;
   }
 };
 

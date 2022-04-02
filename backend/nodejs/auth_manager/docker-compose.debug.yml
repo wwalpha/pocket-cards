@@ -2,7 +2,7 @@ version: '3'
 services:
   # localstack
   localstack:
-    image: user_manager:latest
+    image: pkc/user_manager:latest
     container_name: user_manager
     ports:
       - '9000:8080'
