@@ -150,8 +150,8 @@ resource "null_resource" "cognito_post_signup" {
 # ----------------------------------------------------------------------------------------------
 data "archive_file" "authorizer" {
   type        = "zip"
-  source_dir  = "../nodejs/authorizer/dist"
-  output_path = "../nodejs/authorizer/dist.zip"
+  source_dir  = "../nodejs/lambda/authorizer/dist"
+  output_path = "../nodejs/lambda/authorizer/dist.zip"
 }
 
 resource "null_resource" "authorizer" {
