@@ -6,7 +6,7 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "tsc",
-    "postbuild": "cd dist && yarn install --production && zip -rq ../dist.zip ."
+    "postbuild": "cd dist && zip -rq ../dist.zip ."
   },
   "dependencies": {
     "aws-sdk": "^2.966.0"
