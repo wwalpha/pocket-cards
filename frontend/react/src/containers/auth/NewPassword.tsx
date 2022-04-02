@@ -12,22 +12,27 @@ const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
 
 const defaultValues: NewPasswordForm = {
-  oldPassword: 'g/oiqZ4UX3',
   newPassword: '',
   confirmPassword: '',
+  oldPassword: '',
 };
 
 const NewPassword = () => {
   const classes = styles();
   const actions = bindActionCreators(UserActions, useDispatch());
   const { isLoading } = useSelector(appState);
-  const { username } = useSelector(userState);
+  const { username, password } = useSelector(userState);
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<NewPasswordForm>({ defaultValues });
+  } = useForm<NewPasswordForm>({
+    defaultValues: {
+      ...defaultValues,
+      oldPassword: password || '',
+    },
+  });
 
   const onSubmit = handleSubmit(({ oldPassword, newPassword }) => {
     actions.signin(username, oldPassword, newPassword);

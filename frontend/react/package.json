@@ -17,7 +17,8 @@
     "@mui/styles": "^5.0.0",
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.21.0",
-    "connected-react-router": "^6.9.1",
+    "buffer": "^6.0.3",
+    "connected-react-router": "^6.9.2",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -31,7 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
     "@types/compression-webpack-plugin": "^6.0.6",
     "@types/copy-webpack-plugin": "^8.0.1",
     "@types/dotenv-webpack": "^7.0.3",

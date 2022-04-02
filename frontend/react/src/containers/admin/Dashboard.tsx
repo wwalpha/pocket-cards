@@ -1,7 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
-import { DrawerLeft, GroupList, RightPanel } from '.';
+import { DrawerLeft, Mainboard } from '.';
 import { default as styles } from './Dashboard.style';
 
 const drawerWidth = 200;
@@ -18,10 +17,7 @@ const Dashboard = () => {
         </Toolbar>
       </AppBar>
       <DrawerLeft />
-      <Switch>
-        <Route exact path="/" component={GroupList} />
-      </Switch>
-      <RightPanel />
+      <Mainboard />
     </Box>
   );
 };

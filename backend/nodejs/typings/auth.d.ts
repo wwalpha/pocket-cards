@@ -9,7 +9,7 @@ export namespace Auth {
 
   /** User Login Response */
   interface SignInResponse extends AuthenticateFailure {
-    success: boolean;
+    success: 'true' | 'false';
     message?: string;
     idToken?: string;
     accessToken?: string;

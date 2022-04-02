@@ -30,6 +30,16 @@ const Authenticator: React.FunctionComponent = () => {
     actions.closeSnackbar();
   };
 
+  if (loginStatus === Consts.SIGN_STATUS.NEW_PASSWORD_REQUIRED) {
+    return <NewPassword />;
+  }
+
+  // login successed
+  if (loginStatus === Consts.SIGN_STATUS.LOGINED) {
+    // initialize
+    actions.initialize();
+  }
+
   return (
     <React.Fragment>
       <Switch>
@@ -38,13 +48,7 @@ const Authenticator: React.FunctionComponent = () => {
         </Route>
         <Route path={Paths.PATHS_SIGN_UP} component={SignUp} />
         <Route>
-          {(() => {
-            if (loginStatus === Consts.SIGN_STATUS.NEW_PASSWORD_REQUIRED) {
-              return <NewPassword />;
-            }
-
-            return <Redirect to={Paths.PATHS_SIGN_IN} />;
-          })()}
+          <Redirect to={Paths.PATHS_SIGN_IN} />
         </Route>
       </Switch>
 

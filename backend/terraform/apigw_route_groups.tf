@@ -1,3 +1,33 @@
+# ---------------------------------------------------------------------------------------------
+# API Gateway Route - Group Functions
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_route" "get_groups" {
+  api_id             = local.apigw_id
+  route_key          = "GET /groups"
+  target             = "integrations/${local.apigw_integration_id_auth}"
+  authorization_type = "CUSTOM"
+  authorizer_id      = local.apigw_authorizer_id_lambda
+}
+
+# ---------------------------------------------------------------------------------------------
+# API Gateway Route - Group Functions
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_route" "put_groups" {
+  api_id             = local.apigw_id
+  route_key          = "PUT /groups"
+  target             = "integrations/${local.apigw_integration_id_auth}"
+  authorization_type = "CUSTOM"
+  authorizer_id      = local.apigw_authorizer_id_lambda
+}
+
+# ---------------------------------------------------------------------------------------------
+# API Gateway Route - Group Functions
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_route" "opts_group" {
+  api_id    = local.apigw_id
+  route_key = "OPTIONS /groups"
+  target    = "integrations/${local.apigw_integration_id_auth}"
+}
 
 # ---------------------------------------------------------------------------------------------
 # API Gateway Route - Group Functions
