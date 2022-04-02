@@ -104,6 +104,9 @@ const buildAuthPolicy = async (
   switch (status) {
     case 'TENANT_ADMIN':
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/admin/*');
+      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups');
+      policy.allowMethod(AuthPolicy.HttpVerb.PUT, '/groups');
+      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/groups/*');
       break;
     case 'PARENT':
       policy.denyMethod(AuthPolicy.HttpVerb.ALL, '/admin/*');
