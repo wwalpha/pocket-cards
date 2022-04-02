@@ -7,8 +7,7 @@ import { Groups } from '@queries';
  * グループ情報変更
  * PUT /groups/:groupId
  */
-export default async (req: Request<APIs.B004Params, void, APIs.B004Request, any>): Promise<void> => {
-  const userId = Commons.getUserId(req);
+export default async (req: Request<APIs.GroupUpdateParams, void, APIs.GroupUpdateRequest, any>): Promise<void> => {
   const groupId = req.params.groupId;
   const item = req.body;
 

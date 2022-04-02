@@ -3,13 +3,12 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
 import { A002 } from '@src/services/a0';
-import { GroupRegist, GroupList, GroupDescribe, B004, B005, B006 } from '@src/services/b0';
+import { GroupRegist, GroupList, GroupDescribe, GroupUpdate, GroupRemove, B006 } from '@src/services/b0';
 import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/services/c0';
 import { D001, D003, D004, D005, D006 } from '@src/services/d0';
 import { E001, E002 } from '@src/services/e0';
 import { QuestionRegist, QuestionStudy, QuestionExam, QuestionAnswer, QuestionDetails } from '@src/services/questions';
 import { DailyTasks, LearningProgress } from '@src/services/reports';
-// import { Patchs } from '@src/services/patch';
 
 import entry from './entry';
 
@@ -34,9 +33,9 @@ app.get('/v1/groups', express.json(), (req, res) => entry(req, res, GroupList));
 // グループ一覧
 app.get('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupDescribe));
 // グループ更新
-app.put('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, B004 as any));
+app.put('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupUpdate));
 // グループ削除
-app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, B005 as any));
+app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupRemove));
 // グループ学習状態
 app.get('/v1/groups/:groupId/status', express.json(), (req, res) => entry(req, res, B006 as any));
 // 単語一括登録

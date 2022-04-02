@@ -89,11 +89,11 @@ export namespace APIs {
   // ------------------------------------------------------------
   // B004
   // ------------------------------------------------------------
-  interface B004Params {
+  interface GroupUpdateParams {
     groupId: string;
   }
 
-  interface B004Request {
+  interface GroupUpdateRequest {
     name?: string;
     description?: string;
   }
@@ -101,7 +101,7 @@ export namespace APIs {
   // ------------------------------------------------------------
   // B005
   // ------------------------------------------------------------
-  interface B005Params {
+  interface GroupRemoveParams {
     groupId: string;
   }
 
