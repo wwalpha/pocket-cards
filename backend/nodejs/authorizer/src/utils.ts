@@ -48,18 +48,15 @@ export const getPublicKeys = async (iss: string): Promise<Record<string, string>
 export const validateToken = (pems: Record<string, string>, token: string) => {
   // Fail if the token is not jwt
   const decodedJwt = decodeToken(token);
-  const payload = decodedJwt?.payload as JwtPayload;
+  const payload = decodedJwt.payload as JwtPayload;
   const iss = payload.iss;
-
-  // const n = iss.lastIndexOf('/');
-  // const resultUserPoolId = iss?.substring(n + 1);
 
   if (!decodedJwt) {
     throw new Error('Not a valid JWT token');
   }
 
   // Fail if token is not from your UserPool
-  if (payload.iss != iss) {
+  if (!iss) {
     throw new Error('Invalid issuer');
   }
 
@@ -76,9 +73,5 @@ export const validateToken = (pems: Record<string, string>, token: string) => {
   }
 
   // Verify the signature of the JWT token to ensure it's really coming from your User Pool
-  try {
-    verify(token, pems[kid], { issuer: iss });
-  } catch (err) {
-    throw new Error('Cannot Verify Signature');
-  }
+  verify(token, pems[kid], { issuer: iss });
 };
