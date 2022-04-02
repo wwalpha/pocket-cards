@@ -53,22 +53,22 @@ export namespace APIs {
   // ------------------------------------------------------------
   // B001
   // ------------------------------------------------------------
-  interface B001Request {
+  interface GroupRegistRequest {
     name: string;
     subject: string;
     description?: string;
   }
 
-  interface B001Response {
+  interface GroupRegistResponse {
     groupId: string;
   }
 
   // ------------------------------------------------------------
   // B002
   // ------------------------------------------------------------
-  interface B002Request {}
+  interface GroupListRequest {}
 
-  interface B002Response {
+  interface GroupListResponse {
     count: number;
     items: Tables.TGroups[];
   }
@@ -76,13 +76,13 @@ export namespace APIs {
   // ------------------------------------------------------------
   // B003
   // ------------------------------------------------------------
-  interface B003Params {
+  interface GroupDescribeParams {
     groupId: string;
   }
 
-  interface B003Request {}
+  interface GroupDescribeRequest {}
 
-  interface B003Response {
+  interface GroupDescribeResponse {
     item?: Tables.TGroups;
   }
 

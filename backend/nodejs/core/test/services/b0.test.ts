@@ -23,9 +23,9 @@ describe('b0', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
-    const { groupId } = res.body as APIs.B001Response;
+    const { groupId } = res.body as APIs.GroupRegistResponse;
     const userId = Commons.getUserInfo(HEADER_AUTH);
-    const result = await DBHelper().get(Groups.get({ id: groupId, userId: userId }));
+    const result = await DBHelper().get(Groups.get({ id: groupId }));
 
     expect(result?.Item).toMatchObject(B0.B001Res);
   });
@@ -70,7 +70,7 @@ describe('b0', () => {
     const res = await request(server).put('/v1/groups/B004').set('authorization', HEADER_AUTH).send(B0.B004Req01);
 
     // database
-    const result = await DBHelper().get(Groups.get({ id: 'B004', userId: 'B004' }));
+    const result = await DBHelper().get(Groups.get({ id: 'B004' }));
     // status code
     expect(res.statusCode).toBe(200);
     // found 2 records
@@ -87,7 +87,7 @@ describe('b0', () => {
 
     // database
     const userId = Commons.getUserInfo(HEADER_AUTH);
-    const result = await DBHelper().get(Groups.get({ id: 'B005', userId: userId }));
+    const result = await DBHelper().get(Groups.get({ id: 'B005' }));
 
     // status code
     expect(res.statusCode).toBe(200);

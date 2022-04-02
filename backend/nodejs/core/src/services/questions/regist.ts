@@ -13,7 +13,7 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
 
   // ユーザのグループID 一覧
   const userGroups = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
-  const groupInfo = userGroups.Items.find((item) => item.id === groupId && item.userId === userId);
+  const groupInfo = userGroups.Items.find((item) => item.id === groupId);
 
   // group not users
   if (!groupInfo) {
