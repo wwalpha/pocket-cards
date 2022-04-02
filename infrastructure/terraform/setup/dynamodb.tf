@@ -26,22 +26,17 @@ resource "aws_dynamodb_table" "groups" {
   name         = local.dynamodb_name_groups
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
-  range_key    = "userId"
+  range_key    = "subject"
+
   attribute {
     name = "id"
     type = "S"
   }
   attribute {
-    name = "userId"
+    name = "subject"
     type = "S"
   }
 
-  global_secondary_index {
-    name            = "gsiIdx1"
-    hash_key        = "userId"
-    range_key       = "id"
-    projection_type = "ALL"
-  }
 }
 
 # ----------------------------------------------------------------------------------------------
