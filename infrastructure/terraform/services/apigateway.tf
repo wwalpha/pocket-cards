@@ -42,6 +42,7 @@ resource "aws_apigatewayv2_stage" "this" {
     destination_arn = aws_cloudwatch_log_group.api.arn
     format = jsonencode(
       {
+        apiId          = "$context.apiId"
         httpMethod     = "$context.httpMethod"
         ip             = "$context.identity.sourceIp"
         protocol       = "$context.protocol"
@@ -50,6 +51,7 @@ resource "aws_apigatewayv2_stage" "this" {
         responseLength = "$context.responseLength"
         routeKey       = "$context.routeKey"
         status         = "$context.status"
+        error          = "$context.authorizer.error"
       }
     )
   }

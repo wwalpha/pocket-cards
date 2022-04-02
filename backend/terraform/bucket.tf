@@ -54,16 +54,6 @@ ENDPOINT_USERS_SERVICE=http://${local.cloudmap_service_users}.${local.cloudmap_n
 EOT
 }
 
-# # ----------------------------------------------------------------------------------------------
-# # Lambda module - Cognito post signup
-# # ----------------------------------------------------------------------------------------------
-# resource "aws_s3_object" "cognito_post_signup" {
-#   bucket      = local.bucket_name_archive
-#   key         = local.lambda_module_cognito_post_signup
-#   source      = data.archive_file.cognito_post_signup.output_path
-#   source_hash = data.archive_file.cognito_post_signup.output_md5
-# }
-
 # ----------------------------------------------------------------------------------------------
 # Lambda Deploy - Cognito post signup
 # ----------------------------------------------------------------------------------------------

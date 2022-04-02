@@ -12,7 +12,7 @@ resource "aws_lambda_function" "authorizer" {
   timeout       = 3
   environment {
     variables = {
-      TABLE_NAME_USER = local.dynamodb_name_users
+      TABLE_NAME_USERS = local.dynamodb_name_users
     }
   }
 }
@@ -24,7 +24,7 @@ resource "aws_lambda_permission" "authorizer" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.authorizer.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.this.execution_arn}/authorizers/${aws_apigatewayv2_authorizer.this.id}"
+  source_arn    = "${aws_apigatewayv2_api.this.execution_arn}/authorizers/${aws_apigatewayv2_authorizer.auth.id}"
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ resource "aws_apigatewayv2_authorizer" "auth" {
   authorizer_type                   = "REQUEST"
   authorizer_uri                    = aws_lambda_function.authorizer.invoke_arn
   authorizer_payload_format_version = "2.0"
-  enable_simple_responses           = true
+  enable_simple_responses           = false
   authorizer_result_ttl_in_seconds  = 300
   identity_sources                  = ["$request.header.Authorization"]
 }
