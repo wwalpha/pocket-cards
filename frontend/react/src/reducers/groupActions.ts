@@ -5,7 +5,7 @@ import { API } from '@utils';
 import { Tables, APIs, Payloads, Group } from 'typings';
 
 export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST', async () => {
-  const res = await API.get<APIs.B002Response>(Consts.B002_URL());
+  const res = await API.get<APIs.GroupListResponse>(Consts.B002_URL());
 
   return res.items;
 });

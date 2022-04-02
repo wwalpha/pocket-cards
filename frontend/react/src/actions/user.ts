@@ -9,13 +9,18 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
   dispatch(
     withLoading(async () => {
       // sign in
-      await dispatch(
+      const res = await dispatch(
         Actions.SIGN_IN({
           username: username,
           password: passwd,
           newPassword: newPassword,
         })
       ).unwrap();
+
+      console.log(res);
+      if (res.success !== 'true') {
+        dispatch(Actions.APP_SHOW_ERROR(res.message || 'Unknown Error'));
+      }
     })
   );
 
