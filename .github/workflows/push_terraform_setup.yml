@@ -11,6 +11,13 @@ on:
       - .github/workflows/push_terraform_backend.yml
     branches-ignore:
       - releases/**
+  workflow_run:
+    workflows:
+      - PUSH_B) Lambda Build
+    branches:
+      - master
+    types:
+      - completed
   workflow_dispatch:
 
 env:
