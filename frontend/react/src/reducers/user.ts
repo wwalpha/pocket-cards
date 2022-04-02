@@ -28,7 +28,7 @@ const slice = createSlice({
         } else if (payload.newPasswordRequired) {
           // require new password
           state.loginStatus = Consts.SIGN_STATUS.NEW_PASSWORD_REQUIRED;
-        } else {
+        } else if (payload.success === 'true') {
           state.loginStatus = Consts.SIGN_STATUS.LOGINED;
         }
 
