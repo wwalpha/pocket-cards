@@ -229,6 +229,14 @@ resource "aws_iam_role_policy_attachment" "authorizer" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS Lambda Execution Policy - Dynamodb Basic Access
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "authorizer_dynamodb" {
+  role       = aws_iam_role.authorizer.name
+  policy_arn = aws_iam_policy.dynamodb_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS Lambda Role - Cognito
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role" "cognito_post_signup" {
