@@ -2,21 +2,23 @@ import { Request } from 'express';
 import { generate } from 'short-uuid';
 import isEmpty from 'lodash/isEmpty';
 import { Commons, DBHelper } from '@utils';
-import { Groups, Learning, Questions } from '@queries';
+import { Groups, Questions } from '@queries';
 import { APIs, Tables } from 'typings';
 
 /** 問題カード一括追加 */
 export default async (req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>): Promise<void> => {
   const input = req.body;
   const groupId = req.params.groupId;
-  const userId = Commons.getUserId(req);
 
   // ユーザのグループID 一覧
-  const userGroups = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
-  const groupInfo = userGroups.Items.find((item) => item.id === groupId);
+  const groupInfo = await DBHelper().get<Tables.TGroups>(
+    Groups.get({
+      id: groupId,
+    })
+  );
 
   // group not users
-  if (!groupInfo) {
+  if (!groupInfo?.Item) {
     throw new Error(`Group id is not exist. ${groupId}`);
   }
 
@@ -36,19 +38,19 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
       answer: answer,
     };
 
-    const lItem: Tables.TLearning = {
-      qid: id,
-      groupId: groupId,
-      userId: userId,
-      subject: groupInfo.subject,
-      nextTime: '19000101',
-      lastTime: '19000101',
-      times: 0,
-    };
+    // const lItem: Tables.TLearning = {
+    //   qid: id,
+    //   groupId: groupId,
+    //   userId: userId,
+    //   subject: groupInfo.subject,
+    //   nextTime: '19000101',
+    //   lastTime: '19000101',
+    //   times: 0,
+    // };
 
     // 登録成功
     await DBHelper().transactWrite({
-      TransactItems: [{ Put: Questions.put(qItem) }, { Put: Learning.put(lItem) }],
+      TransactItems: [{ Put: Questions.put(qItem) }],
     });
 
     // create image file if needed
