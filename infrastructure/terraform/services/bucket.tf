@@ -50,27 +50,27 @@ EOT
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_object" "lambda_authorizer" {
   bucket = local.bucket_name_archive
-  key    = "lambda/apigw_authorizer.zip"
+  key    = "lambda/authorizer.zip"
   source = data.archive_file.lambda_authorizer.output_path
 
   lifecycle {
     ignore_changes = [
-      source
+      etag
     ]
   }
 }
 
 # ----------------------------------------------------------------------------------------------
-# S3 Object - Lambda default module
+# S3 Object - Lambda cognito module
 # ----------------------------------------------------------------------------------------------
-resource "aws_s3_object" "lambda_default" {
+resource "aws_s3_object" "lambda_cognito" {
   bucket = local.bucket_name_archive
-  key    = "lambda/default.zip"
+  key    = "lambda/cognito.zip"
   source = data.archive_file.lambda_default.output_path
 
   lifecycle {
     ignore_changes = [
-      source
+      etag
     ]
   }
 }
