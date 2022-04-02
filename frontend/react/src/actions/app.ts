@@ -55,3 +55,13 @@ export const activeGroup = (groupId: string) => async (dispatch: AppDispatch) =>
 export const activeTab = (index: number) => (dispatch: AppDispatch) => {
   dispatch(Actions.APP_TAB_INDEX(index));
 };
+
+/** close snackbar */
+export const closeSnackbar = () => (dispatch: AppDispatch) => {
+  dispatch(Actions.APP_CLOSE_SNACKBAR());
+};
+
+/** show success snackbar */
+export const showSuccess = (text: string) => (dispatch: AppDispatch) => {
+  dispatch(Actions.APP_SHOW_SUCCESS(text));
+};

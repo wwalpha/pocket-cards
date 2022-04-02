@@ -19,21 +19,29 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
     })
   );
 
-export const signup = (username: string, email: string, role: string) => (dispatch: AppDispatch) =>
+export const signup = (username: string, email: string, status: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // sign in
-      await dispatch(
+      const res = await dispatch(
         Actions.SIGN_UP({
           userId: email,
           userName: username,
           email: email,
-          role: role,
+          status: status,
         })
       ).unwrap();
 
-      // Sign In
-      dispatch(push(Paths.PATHS_SIGN_IN));
+      if (res.success == true) {
+        // Sign In
+        dispatch(push(Paths.PATHS_SIGN_IN));
+
+        // success
+        dispatch(Actions.APP_SHOW_SUCCESS('User regist success.'));
+      } else {
+        // success
+        dispatch(Actions.APP_SHOW_ERROR(res.message || ''));
+      }
     })
   );
 
@@ -41,12 +49,3 @@ export const signup = (username: string, email: string, role: string) => (dispat
 export const logout = () => async (dispatch: AppDispatch) => {
   dispatch(Actions.SIGN_OUT);
 };
-
-/** 学習履歴 */
-// export const history = () => async (dispatch: AppDispatch) =>
-//   dispatch(
-//     withLoading(async () => {
-//       // const res = await API.get<APIs.A002Response>(Consts.A002_URL());
-//       // dispatch(Actions.USER_HISTORY(res));
-//     })
-//   );

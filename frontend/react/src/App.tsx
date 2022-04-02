@@ -4,6 +4,7 @@ import { makeStyles, createStyles } from '@mui/styles';
 import { Box, Theme } from '@mui/material';
 import { Paths, Consts } from '@constants';
 import { Header, Footer, RegistMain, StudyMain, MyPageMain, Settings, Home, Folder, SignUp } from '@containers';
+import { Dashboard } from '@containers/admin';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -36,6 +37,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 const App = () => {
   const classes = useStyles();
+
+  if (true) {
+    return <Dashboard />;
+  }
 
   return (
     <Box display="flex" flexDirection="column" className={classes.root}>

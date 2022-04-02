@@ -16,6 +16,9 @@ export const SIGN_IN = createAsyncThunk<Auth.SignInResponse & Auth.SignInRequest
   }
 );
 
-export const SIGN_UP = createAsyncThunk<void, Users.CreateUserRequest>('user/SIGN_UP', async (request) => {
-  await API.post<Users.CreateUserRequest, Users.CreateUserResponse>(Consts.SIGN_UP(), request);
-});
+export const SIGN_UP = createAsyncThunk<Users.CreateUserResponse, Users.CreateUserRequest>(
+  'user/SIGN_UP',
+  async (request) => {
+    return await API.post<Users.CreateUserRequest, Users.CreateUserResponse>(Consts.SIGN_UP(), request);
+  }
+);
