@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Domains, Auth } from 'typings';
+import { Domains } from 'typings';
 import { Consts } from '@constants';
 
 const appState: Domains.AppState = {
   tabIndex: 11,
   isLoading: false,
-  isShowStack: false,
+  showSnackbar: false,
   status: Consts.SERVER_STATUS.STOPPED,
   displayCtrl: {},
 };
@@ -29,9 +29,28 @@ const slice = createSlice({
       state.isLoading = false;
 
       if (action.payload.name === 'Error') {
-        state.isShowStack = true;
+        state.showSnackbar = true;
+        state.severity = 'error';
         state.message = action.payload.message;
       }
+    },
+
+    APP_SHOW_SUCCESS: (state, action: PayloadAction<string>) => {
+      state.showSnackbar = true;
+      state.severity = 'success';
+      state.message = action.payload;
+    },
+
+    APP_SHOW_ERROR: (state, action: PayloadAction<string>) => {
+      state.showSnackbar = true;
+      state.severity = 'error';
+      state.message = action.payload;
+    },
+
+    APP_CLOSE_SNACKBAR: (state) => {
+      state.showSnackbar = false;
+      state.severity = undefined;
+      state.message = undefined;
     },
 
     // タブ変更

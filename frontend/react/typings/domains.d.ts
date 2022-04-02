@@ -2,10 +2,12 @@ import { APIs, Tables, App, Group } from '.';
 
 export namespace Domains {
   interface AppState {
-    // error message
+    // message type
+    severity?: 'success' | 'info' | 'warning' | 'error';
+    // message
     message?: string;
     // stack open flag
-    isShowStack: boolean;
+    showSnackbar: boolean;
     // tab index
     tabIndex: number;
     // loading
