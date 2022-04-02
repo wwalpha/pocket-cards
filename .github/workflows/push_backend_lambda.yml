@@ -19,6 +19,7 @@ env:
 jobs:
   Cognito:
     runs-on: ubuntu-latest
+    concurrency: Cognito
     environment:
       name: dev
     defaults:
@@ -53,6 +54,7 @@ jobs:
 
   Start:
     runs-on: ubuntu-latest
+    concurrency: Start
     environment:
       name: dev
     defaults:
@@ -87,6 +89,7 @@ jobs:
 
   Stop:
     runs-on: ubuntu-latest
+    concurrency: Stop
     environment:
       name: dev
     defaults:
@@ -121,6 +124,7 @@ jobs:
 
   Status:
     runs-on: ubuntu-latest
+    concurrency: Status
     environment:
       name: dev
     defaults:
@@ -155,6 +159,7 @@ jobs:
 
   Authorizer:
     runs-on: ubuntu-latest
+    concurrency: Authorizer
     environment:
       name: dev
     defaults:
