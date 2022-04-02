@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - backend/nodejs/lambda/**
+      - .github/workflows/push_backend_lambda.yml
     branches-ignore:
       - releases/**
   workflow_dispatch:
