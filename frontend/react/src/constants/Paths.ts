@@ -26,7 +26,8 @@ export const ROUTE_PATH_INDEX: Record<string, number> = {
 export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.Root]: '/',
   [ROUTE_PATH_INDEX.SignIn]: '/',
-  [ROUTE_PATH_INDEX.SignUp]: '/signup',
+  [ROUTE_PATH_INDEX.SignUp]: '/auth/signup',
+  [ROUTE_PATH_INDEX.NewPassword]: '/auth/newpassword',
   [ROUTE_PATH_INDEX.Login]: '/login',
   [ROUTE_PATH_INDEX.Regist]: '/regist',
   [ROUTE_PATH_INDEX.RegistList]: '/regist/list',
@@ -52,6 +53,7 @@ export const PATHS_ADMIN_DASHBOARD = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminDashboard
 // user auth
 export const PATHS_SIGN_UP = ROUTE_PATHS[ROUTE_PATH_INDEX.SignUp];
 export const PATHS_SIGN_IN = ROUTE_PATHS[ROUTE_PATH_INDEX.SignIn];
+export const PATHS_NEW_PASSWORD = ROUTE_PATHS[ROUTE_PATH_INDEX.NewPassword];
 
 export const PATHS_STUDY = ROUTE_PATHS[ROUTE_PATH_INDEX.Study];
 export const PATHS_STUDY_CARD = ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard];

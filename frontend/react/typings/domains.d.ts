@@ -40,12 +40,9 @@ export namespace Domains {
     loginStatus: number;
     // username
     username: string;
-    // Tokens
-    tokens: {
-      idToken?: string;
-      accessToken?: string;
-      refreshToken?: string;
-    };
+    // password
+    password?: string;
+
     // details?: User.Details;
     // remainingTest: number;
     // remainingReview: number;

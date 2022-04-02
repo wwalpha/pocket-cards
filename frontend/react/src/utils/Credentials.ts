@@ -1,4 +1,5 @@
 import { defaultTo } from 'lodash';
+import { Buffer } from 'buffer';
 
 type Tokens = {
   idToken: string;
@@ -57,7 +58,6 @@ class CredentialManager {
         this.accessToken = session.accessToken;
       }
     }
-
     return {
       idToken: this.idToken as string,
       accessToken: this.accessToken as string,
@@ -70,7 +70,7 @@ class CredentialManager {
     this.storage.setItem(`${this.keyPrefix}.username`, username);
   };
 
-  setUserTokens = (tokens: Tokens) => {
+  setTokens = (tokens: Tokens) => {
     this.idToken = tokens.idToken;
     this.accessToken = tokens.accessToken;
     this.refreshToken = tokens.refreshToken;
@@ -124,4 +124,4 @@ class CredentialManager {
   };
 }
 
-export default new CredentialManager('pkc');
+export default CredentialManager;

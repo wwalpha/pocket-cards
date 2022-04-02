@@ -8,16 +8,6 @@ const userState: Domains.UserState = {
   loginStatus: Consts.SIGN_STATUS.NOT_LOGIN,
   // user name
   username: '',
-  // tokens
-  tokens: {},
-  // details: undefined,
-  // remainingTest: 0,
-  // remainingReview: 0,
-  // daily: 0,
-  // dailyNew: 0,
-  // dailyReview: 0,
-  // weekly: 0,
-  // monthly: 0,
 };
 
 const slice = createSlice({
@@ -43,14 +33,7 @@ const slice = createSlice({
         }
 
         state.username = payload.username;
-
-        if (payload.idToken && payload.accessToken && payload.refreshToken) {
-          state.tokens = {
-            idToken: payload.idToken,
-            accessToken: payload.accessToken,
-            refreshToken: payload.refreshToken,
-          };
-        }
+        state.password = payload.password;
       })
       .addCase(SIGN_UP.fulfilled, (state, { payload }) => {
         console.log('SIGN UP Success');
