@@ -68,9 +68,13 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
     validateToken(pems, identitySource);
 
     // principalId
-    const principalId = payload['cognito:username'];
+    const principalId = payload['name'];
 
-    return await buildAuthPolicy(event, principalId);
+    const policy = await buildAuthPolicy(event, principalId);
+
+    console.log(JSON.stringify(policy));
+
+    return policy;
   } catch (err) {
     Logger.error(err);
 
@@ -100,6 +104,9 @@ const buildAuthPolicy = async (
 
   const policy = new AuthPolicy(principalId, accountId, apiOptions);
   const status = await getUserRole(principalId);
+
+  console.log('status', status);
+  console.log('principalId', principalId);
 
   switch (status) {
     case 'TENANT_ADMIN':
