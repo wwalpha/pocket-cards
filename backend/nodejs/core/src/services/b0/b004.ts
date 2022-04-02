@@ -15,7 +15,6 @@ export default async (req: Request<APIs.B004Params, void, APIs.B004Request, any>
   const result = await DBHelper().get<Tables.TGroups>(
     Groups.get({
       id: groupId,
-      userId: userId,
     })
   );
 

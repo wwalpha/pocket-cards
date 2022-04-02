@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
 import { A002 } from '@src/services/a0';
-import { B001, B002, B003, B004, B005, B006 } from '@src/services/b0';
+import { GroupRegist, GroupList, GroupDescribe, B004, B005, B006 } from '@src/services/b0';
 import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/services/c0';
 import { D001, D003, D004, D005, D006 } from '@src/services/d0';
 import { E001, E002 } from '@src/services/e0';
@@ -28,11 +28,11 @@ app.get('/v1/backend', (_, res) => res.send('v3.1.0'));
 app.get('/v1/history', express.json(), (req, res) => entry(req, res, A002));
 
 // グループ新規
-app.put('/v1/groups', express.json(), (req, res) => entry(req, res, B001));
+app.put('/v1/groups', express.json(), (req, res) => entry(req, res, GroupRegist));
 // グループ一覧
-app.get('/v1/groups', express.json(), (req, res) => entry(req, res, B002));
+app.get('/v1/groups', express.json(), (req, res) => entry(req, res, GroupList));
 // グループ一覧
-app.get('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, B003 as any));
+app.get('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupDescribe));
 // グループ更新
 app.put('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, B004 as any));
 // グループ削除

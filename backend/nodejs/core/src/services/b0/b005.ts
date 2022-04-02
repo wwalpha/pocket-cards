@@ -16,7 +16,6 @@ export default async (req: Request<APIs.B005Params, void, APIs.B004Request, any>
   await DBHelper().delete(
     Groups.del({
       id: groupId,
-      userId: userId,
     })
   );
 

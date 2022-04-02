@@ -24,14 +24,7 @@ export namespace Tables {
     id: string;
   }
 
-  interface TGroupGSI1Key {
-    // グループID
-    id: string;
-    // ユーザID
-    userId: string;
-  }
-
-  interface TGroups extends TGroupsKey, TGroupGSI1Key {
+  interface TGroups extends TGroupsKey {
     // グループ名
     name?: string;
     // 説明
@@ -157,20 +150,7 @@ export namespace Tables {
   interface GroupsKey {
     // グループID
     id: string;
-    // ユーザID
-    userId?: string;
   }
-
-  // interface TGroups extends GroupsKey {
-  //   // グループ名
-  //   name?: string;
-  //   // 説明
-  //   description?: string;
-  //   // 単語数
-  //   count: number;
-  //   // 科目
-  //   subject?: string;
-  // }
 
   interface TracesKey {
     // 問題ID
