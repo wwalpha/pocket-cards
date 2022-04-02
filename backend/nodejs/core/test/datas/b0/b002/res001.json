@@ -2,16 +2,14 @@
   "count": 2,
   "items": [
     {
-      "description": "Group Description 001",
-      "id": "B002-1",
-      "name": "GroupName001",
-      "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1"
+      "name": "GroupName002",
+      "description": "Group Description 002",
+      "id": "B002-2"
     },
     {
-      "description": "Group Description 002",
-      "id": "B002-2",
-      "name": "GroupName002",
-      "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1"
+      "name": "GroupName001",
+      "description": "Group Description 001",
+      "id": "B002-1"
     }
   ]
 }
