@@ -42,19 +42,16 @@ const setup = async () => {
         TableName: TABLE_NAME_GROUPS,
         BillingMode: 'PROVISIONED',
         ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
-        KeySchema: [
-          { AttributeName: 'id', KeyType: 'HASH' },
-          { AttributeName: 'userId', KeyType: 'RANGE' },
-        ],
+        KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
         AttributeDefinitions: [
           { AttributeName: 'id', AttributeType: 'S' },
-          { AttributeName: 'userId', AttributeType: 'S' },
+          { AttributeName: 'subject', AttributeType: 'S' },
         ],
         GlobalSecondaryIndexes: [
           {
             IndexName: 'gsiIdx1',
             KeySchema: [
-              { AttributeName: 'userId', KeyType: 'HASH' },
+              { AttributeName: 'subject', KeyType: 'HASH' },
               { AttributeName: 'id', KeyType: 'RANGE' },
             ],
             Projection: { ProjectionType: 'ALL' },

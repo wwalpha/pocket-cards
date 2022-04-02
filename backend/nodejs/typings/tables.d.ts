@@ -25,14 +25,14 @@ export namespace Tables {
   }
 
   interface TGroups extends TGroupsKey {
+    // 科目
+    subject: string;
     // グループ名
     name?: string;
     // 説明
     description?: string;
     // 単語数
     count?: number;
-    // 科目
-    subject: string;
     // index
     index?: number;
   }
