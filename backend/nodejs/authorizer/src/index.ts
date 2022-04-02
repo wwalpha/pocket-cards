@@ -1,11 +1,12 @@
+import { DynamoDB } from 'aws-sdk';
 import { APIGatewayAuthorizerResult, APIGatewayRequestAuthorizerEventV2 } from 'aws-lambda';
 import { JwtPayload } from 'jsonwebtoken';
 import winston from 'winston';
+import omit from 'lodash/omit';
 import { decodeToken, getPublicKeys, validateToken } from './utils';
 import { Environments } from './consts';
 import { ApiOptions, AuthPolicy } from './AuthPolicy';
-import { DynamoDB } from 'aws-sdk';
-import { Tables } from '../../typings/tables';
+import { Tables } from 'typings';
 
 const PEM_KEYS: Record<string, Record<string, string>> = {};
 const API_KEYS: string[] = [];
@@ -20,7 +21,7 @@ const client = new DynamoDB.DocumentClient({
 });
 
 export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promise<APIGatewayAuthorizerResult> => {
-  Logger.info('event', event);
+  Logger.info('event', omit(event, ['identitySource', 'headers.authorization']));
 
   // authorizator token
   const identitySource = event.identitySource[0];
@@ -57,16 +58,21 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
 
     // not cached
     if (!pems) {
-      // cache public keys
-      PEM_KEYS[iss] = await getPublicKeys(iss);
+      // get public keys
+      pems = await getPublicKeys(iss);
+      // cache
+      PEM_KEYS[iss] = pems;
     }
 
+    // validate token
+    validateToken(pems, identitySource);
+
     // principalId
-    const principalId = payload.email;
+    const principalId = payload['cognito:username'];
 
     return await buildAuthPolicy(event, principalId);
   } catch (err) {
-    console.log(err);
+    Logger.error(err);
 
     return authorizationFailure();
   }

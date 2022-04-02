@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon ./src/index.ts dotenv_config_path=.env.dev",
     "build": "tsc -p tsconfig.build.json",
+    "build:image": "yarn build && docker build -t pkc/auth_manager .",
     "start": "node index.js",
     "test": "jest"
   },

@@ -47,9 +47,5 @@ describe('authorizer', () => {
     });
 
     console.log(JSON.stringify(res));
-
-    // expect(res).toEqual({
-    //   isAuthorized: true,
-    // });
   });
 });
