@@ -6,6 +6,7 @@ on:
       - backend/nodejs/lambda/**
     branches-ignore:
       - releases/**
+  workflow_dispatch:
 
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
