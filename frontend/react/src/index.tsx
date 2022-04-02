@@ -8,9 +8,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import { ConnectedRouter } from 'connected-react-router';
 import Authenticator from './containers/auth/Authenticator';
 import { Consts } from '@constants';
+import { Credentials } from '@utils';
 import store, { history } from './store';
 import theme from './Theme';
-import { Credentials } from '@utils';
 
 // Auth.configure({
 //   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -66,3 +66,8 @@ const provider = (
 const root = document.getElementById('root');
 
 render(provider, root);
+
+// window.addEventListener('unhandledrejection', function (event) {
+//   console.log(event.promise);
+//   console.log(event.reason);
+// });
