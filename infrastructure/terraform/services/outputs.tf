@@ -209,15 +209,15 @@ output "cloudmap_service_users" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Lambda module - API Gateway Authorizer
-# ----------------------------------------------------------------------------------------------
-output "lambda_module_apigw_authorizer" {
-  value = aws_s3_object.lambda_authorizer.key
-}
-
-# ----------------------------------------------------------------------------------------------
-# Lambda module - Cognito Pre Signup
+# Lambda function name - Cognito Pre Signup
 # ----------------------------------------------------------------------------------------------
 output "lambda_function_name_cognito_post_signup" {
   value = aws_lambda_function.cognito_post_signup.function_name
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda function name - API Gateway Authorizer
+# ----------------------------------------------------------------------------------------------
+output "lambda_function_name_authorizer" {
+  value = aws_lambda_function.authorizer.function_name
 }

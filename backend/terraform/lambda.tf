@@ -129,3 +129,33 @@ resource "aws_lambda_function" "batch" {
     }
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Deploy - Cognito post signup
+# ----------------------------------------------------------------------------------------------
+data "archive_file" "cognito_post_signup" {
+  type        = "zip"
+  source_dir  = "../nodejs/lambda/cognito/dist"
+  output_path = "../nodejs/lambda/cognito/dist.zip"
+}
+
+resource "null_resource" "cognito_post_signup" {
+  provisioner "local-exec" {
+    command = "aws lambda update-function-code --function-name ${local.lambda_function_name_cognito_post_signup} --zip-file fileb://${data.archive_file.cognito_post_signup.output_path}"
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Deploy - API Gateway Authroizer
+# ----------------------------------------------------------------------------------------------
+data "archive_file" "authorizer" {
+  type        = "zip"
+  source_dir  = "../nodejs/authorizer/dist"
+  output_path = "../nodejs/authorizer/dist.zip"
+}
+
+resource "null_resource" "authorizer" {
+  provisioner "local-exec" {
+    command = "aws lambda update-function-code --function-name ${local.lambda_function_name_authorizer} --zip-file fileb://${data.archive_file.authorizer.output_path}"
+  }
+}
