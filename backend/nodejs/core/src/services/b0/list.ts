@@ -3,13 +3,24 @@ import { DBHelper } from '@utils';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 
-export default async (_: Request): Promise<APIs.GroupListResponse> => {
-  // 検索結果
-  const results = await DBHelper().scan<Tables.TGroups>({
-    TableName: Environment.TABLE_NAME_GROUPS,
-  });
+export default async (
+  request: Request<any, any, APIs.GroupListRequest, APIs.GroupListQuery>
+): Promise<APIs.GroupListResponse> => {
+  const subject = request.query.subject;
 
-  const items = results.Items;
+  let items: Tables.TGroups[] = [];
+
+  // has filter
+  if (subject) {
+    //
+    // const results = await DBHelper().query<Tables.TGroups>(Groups.query.bySubject);
+  } else {
+    const results = await DBHelper().scan<Tables.TGroups>({
+      TableName: Environment.TABLE_NAME_GROUPS,
+    });
+
+    items = results.Items;
+  }
 
   // ０件
   if (items.length === 0) {
