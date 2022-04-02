@@ -5,8 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
+    "prebuild": "rm -rf dist",
     "build": "tsc -p tsconfig.build.json",
-    "postbuild": "yarn copyfiles && cd dist && yarn install --production",
+    "postbuild": "yarn copyfiles && cd dist && yarn install --production && zip -rq ../dist.zip .",
     "copyfiles": "cp package.build.json dist/package.json",
     "test": "jest"
   },

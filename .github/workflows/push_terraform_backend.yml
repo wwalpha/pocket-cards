@@ -19,18 +19,18 @@ env:
   AWS_DEFAULT_REGION: ap-northeast-1
   WORKING_DIR: backend/terraform
   WORKING_DIR_LAMBDA: backend/nodejs/lambda
+  S3_BUCKET: pkc-archive-376965
   TF_WORKSPACE: dev
   TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
 
 jobs:
-  build:
+  Cognito:
     runs-on: ubuntu-latest
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: dev
     defaults:
       run:
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.WORKING_DIR_LAMBDA }}
 
     steps:
       # source checkout
@@ -42,14 +42,39 @@ jobs:
         with:
           node-version: 14.x
 
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
       # Install and Build
       - name: Build
-        working-directory: ${{ env.WORKING_DIR_LAMBDA }}
         run: |
-          yarn build:cognito
-          yarn build:start
-          yarn build:status
-          yarn build:stop
+          cd cognito
+          yarn install
+          yarn build
+          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/cognito.zip
+
+  Start:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR_LAMBDA }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
 
       # AWS Credentials
       - name: Configure AWS credentials
@@ -59,12 +84,141 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
+      # Install and Build
+      - name: Build
+        run: |
+          cd start
+          yarn install
+          yarn build
+          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/start.zip
+
+  Stop:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR_LAMBDA }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Install and Build
+      - name: Build
+        run: |
+          cd stop
+          yarn install
+          yarn build
+          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/stop.zip
+
+  Status:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR_LAMBDA }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Install and Build
+      - name: Build
+        run: |
+          cd status
+          yarn install
+          yarn build
+          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/status.zip
+
+  Authorizer:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR_LAMBDA }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Install and Build
+      - name: Build
+        run: |
+          cd authorizer
+          yarn install
+          yarn build
+          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/authorizer.zip
+
+  Terraform:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    needs:
+      - Cognito
+      - Start
+      - Stop
+      - Status
+      - Authorizer
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
       # Install the latest version of Terraform CLI 
       # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.0.4
+          terraform_version: 1.1.7
           cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
 
       # Backend init
