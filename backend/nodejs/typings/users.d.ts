@@ -12,7 +12,7 @@ export namespace Users {
     /** username */
     userName: string;
     /** email */
-    email?: string;
+    email: string;
     /** role */
     role?: string;
   }

@@ -1,13 +1,13 @@
-GET http://localhost:8080/auth/health
+GET http://localhost:8080/v1/auth/health
 
 
-POST http://localhost:8080/auth
+POST http://localhost:8080/v1/auth/login
 Content-Type: application/json
 
 {
-  "username": "ktou@doo.com",
-  "password": "6q>xJCAl3%",
-  "newPassword": "Session10+"
+  "username": "wwalpha80@gmail.com",
+  "password": "NsNx$jP1",
+  "newPassword": "AAAAAAAAAAA"
 }
 
 POST http://localhost:8080/auth

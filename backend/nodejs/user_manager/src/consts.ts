@@ -5,3 +5,8 @@ export const Environments = {
   TABLE_NAME_USERS: process.env.TABLE_NAME_USERS as string,
   TABLE_NAME_CURRICULUMS: process.env.TABLE_NAME_CURRICULUMS as string,
 };
+
+export const Authority = {
+  PARENT: 'PARENT',
+  CHILD: 'CHILD',
+};
