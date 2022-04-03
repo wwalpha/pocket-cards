@@ -9,6 +9,7 @@ import { D001, D003, D004, D005, D006 } from '@src/services/d0';
 import { E001, E002 } from '@src/services/e0';
 import { QuestionRegist, QuestionStudy, QuestionExam, QuestionAnswer, QuestionList } from '@src/services/questions';
 import { DailyTasks, LearningProgress } from '@src/services/reports';
+import { CurriculumRegist, CurriculumList, CurriculumRemove, CurriculumDescirbe } from '@src/services/curriculums';
 
 import entry from './entry';
 
@@ -88,5 +89,12 @@ app.post('/v1/questions/:questionId/answer', express.json(), (req, res) => entry
 app.get('/v1/reports/dailytasks', express.json(), (req, res) => entry(req, res, DailyTasks as any));
 // leaning progress
 app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, LearningProgress as any));
+
+// カリキュラム登録
+app.put('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumRegist));
+// カリキュラム一覧
+app.get('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumList));
+// カリキュラム削除
+app.delete('/v1/curriculums/:curriculumId', express.json(), (req, res) => entry(req, res, CurriculumRemove));
 
 export default app;

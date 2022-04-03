@@ -12,7 +12,7 @@ export namespace Users {
     /** username */
     userName: string;
     /** email */
-    email: string;
+    email?: string;
     /** role */
     role?: string;
   }
@@ -33,7 +33,7 @@ export namespace Users {
     /** user name */
     userName: string;
     /** email */
-    email: string;
+    email?: string;
   }
 
   interface LookupUserRequest {}
@@ -54,6 +54,8 @@ export namespace Users {
   interface CreateUserRequest extends TenantUser {
     // authority
     authority: string;
+    // password
+    password: string;
   }
 
   interface CreateUserResponse {

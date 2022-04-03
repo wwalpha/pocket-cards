@@ -403,4 +403,34 @@ export namespace APIs {
       society?: number;
     }[];
   }
+
+  // ------------------------------------------------------------
+  // Curriculums - Curriculum Regist
+  // ------------------------------------------------------------
+  interface CurriculumRegistRequest {
+    userId: string;
+    groupId: string;
+  }
+
+  interface CurriculumRegistResponse {
+    curriculumId?: string;
+  }
+
+  // ------------------------------------------------------------
+  // Curriculums - Curriculum Describe
+  // ------------------------------------------------------------
+  interface CurriculumDescribeRequest {}
+
+  interface CurriculumDescribeResponse {}
+
+  // ------------------------------------------------------------
+  // Curriculums - Curriculum Remove
+  // ------------------------------------------------------------
+  interface CurriculumRemoveParams {
+    curriculumId: string;
+  }
+
+  type CurriculumRemoveRequest = void;
+
+  type CurriculumRemoveResponse = void;
 }
