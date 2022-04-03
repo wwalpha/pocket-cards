@@ -14,7 +14,8 @@ resource "aws_lambda_function" "cognito_post_signup" {
 
   environment {
     variables = {
-      TABLE_USERS = local.dynamodb_name_users
+      TABLE_USERS                         = local.dynamodb_name_users
+      AWS_NODEJS_CONNECTION_REUSE_ENABLED = "1"
     }
   }
 }
@@ -54,7 +55,8 @@ resource "aws_lambda_function" "authorizer" {
   timeout          = 3
   environment {
     variables = {
-      TABLE_NAME_USERS = local.dynamodb_name_users
+      TABLE_NAME_USERS                    = local.dynamodb_name_users
+      AWS_NODEJS_CONNECTION_REUSE_ENABLED = "1"
     }
   }
 }
