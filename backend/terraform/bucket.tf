@@ -21,6 +21,8 @@ TABLE_NAME_HISTORIES=${local.dynamodb_name_histories}
 TABLE_NAME_QUESTIONS=${local.dynamodb_name_questions}
 TABLE_NAME_LEARNING=${local.dynamodb_name_learning}
 TABLE_NAME_TRACES=${local.dynamodb_name_traces}
+TABLE_NAME_CURRICULUMS=${local.dynamodb_name_curriculums}
+
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
 BUCKET_NAME_MATERAILS=${local.bucket_name_materials}
 PATH_PATTERN=audio
@@ -38,6 +40,7 @@ resource "aws_s3_object" "users" {
   content = <<EOT
 TABLE_NAME_USERS=${local.dynamodb_name_users}
 TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
+TABLE_NAME_CURRICULUMS=${local.dynamodb_name_curriculums}
 TZ=Asia/Tokyo
 AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
 EOT
