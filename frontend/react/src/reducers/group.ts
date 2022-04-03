@@ -14,7 +14,6 @@ import sortBy from 'lodash/sortBy';
 const grpState: Domains.GroupState = {
   searchWord: '',
   activeGroup: '',
-  activeSubject: '',
   groupWords: {},
   groups: [],
   regists: [],
@@ -112,6 +111,11 @@ const slice = createSlice({
     // 単語登録一覧をクリア
     GROUP_REGIST_REMOVE: (state, { payload }: PayloadAction<string>) => {
       state.regists = state.regists.filter((item) => item !== payload);
+    },
+
+    // 単語登録一覧をクリア
+    GROUP_QUESTION_CLEAR: (state) => {
+      state.questions = [];
     },
   },
   extraReducers: (builder) => {

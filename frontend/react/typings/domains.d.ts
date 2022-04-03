@@ -16,6 +16,8 @@ export namespace Domains {
     status: string;
     // display control
     displayCtrl: Record<number, boolean>;
+    // active subject
+    activeSubject: string;
   }
 
   interface GroupState {
@@ -23,8 +25,6 @@ export namespace Domains {
     searchWord: string;
     // active group
     activeGroup: string;
-    // active subject
-    activeSubject: string;
     /** edit mode */
     editable: number;
     /** user's all group infomations */

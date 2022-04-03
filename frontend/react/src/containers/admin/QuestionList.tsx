@@ -12,29 +12,44 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
 import { AdminActions } from '@actions';
+import { UploadButton } from '@components/buttons';
 import { RootState } from 'typings';
 import { StyledTableCell } from './Mainboard.style';
 
 const groupState = (state: RootState) => state.group;
+const appState = (state: RootState) => state.app;
 
 export default () => {
   const history = useHistory();
+  const actions = bindActionCreators(AdminActions, useDispatch());
   const { questions } = useSelector(groupState);
+  const { isLoading } = useSelector(appState);
 
-  const handleHistoryBack = () => history.goBack();
+  const handleHistoryBack = () => {
+    // back to prev screen
+    history.goBack();
+    // clear questions
+    actions.clearQuestions();
+  };
+
+  const handleReadAsText = (texts: string) => {
+    actions.uploadQuestions(texts);
+  };
 
   return (
     <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <Box my={1} display="flex">
-        <Button variant="contained" color="secondary" sx={{ width: 120 }} onClick={handleHistoryBack}>
+        <Button variant="contained" color="secondary" sx={{ width: 120, mr: 1 }} onClick={handleHistoryBack}>
           BACK
         </Button>
+        <UploadButton loading={isLoading} variant="contained" sx={{ width: 120, mr: 1 }} readAsText={handleReadAsText}>
+          Upload
+        </UploadButton>
       </Box>
       <TableContainer component={Paper}>
         <Table aria-label="customized table" size="small">
           <TableHead>
             <TableRow>
-              {/* <StyledTableCell sx={{ width: 80 }}></StyledTableCell> */}
               <StyledTableCell sx={{ width: 80 }}>ID</StyledTableCell>
               <StyledTableCell>Title</StyledTableCell>
               <StyledTableCell>Answer</StyledTableCell>
