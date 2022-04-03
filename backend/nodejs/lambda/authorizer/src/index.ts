@@ -68,7 +68,7 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
     validateToken(pems, identitySource);
 
     // principalId
-    const principalId = payload['email'];
+    const principalId = payload['cognito:username'];
 
     const policy = await buildAuthPolicy(event, principalId);
 
