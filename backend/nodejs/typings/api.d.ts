@@ -357,15 +357,15 @@ export namespace APIs {
   type QuestionAnswerResponse = void;
 
   // ------------------------------------------------------------
-  // Question Details
+  // Question List
   // ------------------------------------------------------------
-  interface QuestionDetailsParams {
+  interface QuestionListParams {
     groupId: string;
   }
 
-  interface QuestionDetailsRequest {}
+  interface QuestionListRequest {}
 
-  interface QuestionDetailsResponse {
+  interface QuestionListResponse {
     count: number;
     questions: Tables.TQuestions[];
   }
