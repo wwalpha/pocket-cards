@@ -10,6 +10,11 @@ export const selectGroup = (id: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.GROUP_ACTIVE(id));
 };
 
+export const selectSubject = (id: string) => (dispatch: AppDispatch) => {
+  // active group
+  dispatch(Actions.APP_ACTIVE_SUBJECT(id));
+};
+
 export const editable = (mode: Consts.EDIT_MODE) => (dispatch: AppDispatch) => {
   // active group
   dispatch(Actions.GROUP_EDITABLE(mode));
@@ -40,5 +45,26 @@ export const questionList = () => (dispatch: AppDispatch) =>
       await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
 
       dispatch(push(Paths.PATHS_ADMIN_GROUP_QUESTIONS));
+    })
+  );
+
+/** 質問リスト */
+export const clearQuestions = () => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // clear questions
+      dispatch(Actions.GROUP_QUESTION_CLEAR());
+    })
+  );
+
+/** 質問リスト */
+export const uploadQuestions = (texts: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // regist questions
+      await dispatch(Actions.GROUP_QUESTION_REGIST(texts)).unwrap();
+
+      // Get question lists
+      await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
     })
   );

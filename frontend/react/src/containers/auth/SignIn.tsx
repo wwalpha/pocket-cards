@@ -112,14 +112,12 @@ const SignIn = () => {
             className={classes.submit}>
             Sign In
           </Button>
-          <Box sx={{ m: 1, mt: 2 }}>
+          <Box sx={{ m: 1 }}>
             <MButton
-              isLoading={isLoading}
               size="large"
               fullWidth
               variant="contained"
               color="secondary"
-              className={classes.submit}
               component={React.forwardRef((props: any, ref: any) => (
                 <Link to={Paths.PATHS_SIGN_UP} {...props} />
               ))}>

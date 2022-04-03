@@ -25,7 +25,7 @@ const appState = (state: RootState) => state.app;
 export default () => {
   const actions = bindActionCreators(AdminActions, useDispatch());
   const { groups } = useSelector(groupState);
-  const { isLoading } = useSelector(appState);
+  const { isLoading, activeSubject } = useSelector(appState);
 
   // Folder click
   const handleOnClick = (groupId: string, editable: Consts.EDIT_MODE) => {
@@ -42,6 +42,8 @@ export default () => {
     // 質問リスト取得
     actions.questionList();
   };
+
+  const displayGroups = groups.filter((item) => item.subject === activeSubject);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -62,7 +64,7 @@ export default () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {groups.map((item) => (
+              {displayGroups.map((item) => (
                 <TableRow hover key={item.id}>
                   <TableCell>
                     <Box sx={{ display: 'flex' }}>

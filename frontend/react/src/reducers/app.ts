@@ -3,6 +3,7 @@ import { Domains } from 'typings';
 import { Consts } from '@constants';
 
 const appState: Domains.AppState = {
+  activeSubject: Consts.SUBJECT.JAPANESE.toString(),
   tabIndex: 11,
   isLoading: false,
   showSnackbar: false,
@@ -61,6 +62,10 @@ const slice = createSlice({
     // サーバステータス更新
     SERVER_STATUS: (state, { payload }: PayloadAction<string>) => {
       state.status = payload;
+    },
+
+    APP_ACTIVE_SUBJECT: (state, { payload }: PayloadAction<string>) => {
+      state.activeSubject = payload;
     },
   },
 });
