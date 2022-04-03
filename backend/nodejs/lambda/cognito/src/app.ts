@@ -12,7 +12,7 @@ export default async (e: PostConfirmationConfirmSignUpTriggerEvent) => {
     email: e.request.userAttributes['email'],
     username: e.request.userAttributes['name'],
     role: 'TENANT_USER',
-    status: 'PARENT',
+    authority: 'PARENT',
   };
 
   // ユーザ登録
