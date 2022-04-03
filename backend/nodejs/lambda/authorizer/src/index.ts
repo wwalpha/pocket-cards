@@ -103,12 +103,12 @@ const buildAuthPolicy = async (
   apiOptions.stage = stage;
 
   const policy = new AuthPolicy(principalId, accountId, apiOptions);
-  const status = await getUserRole(principalId);
+  const authority = await getUserRole(principalId);
 
-  console.log('status', status);
+  console.log('authority', authority);
   console.log('principalId', principalId);
 
-  switch (status) {
+  switch (authority) {
     case 'TENANT_ADMIN':
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/admin/*');
       policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups');
@@ -145,7 +145,7 @@ const getUserRole = async (userId: string): Promise<string> => {
   // user not found
   if (!userInfo) return '';
 
-  return (userInfo as Tables.TUsers).status;
+  return (userInfo as Tables.TUsers).authority;
 };
 
 /**
