@@ -25,6 +25,7 @@ BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
 BUCKET_NAME_MATERAILS=${local.bucket_name_materials}
 PATH_PATTERN=audio
 TZ=Asia/Tokyo
+AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
 EOT
 }
 
@@ -38,6 +39,7 @@ resource "aws_s3_object" "users" {
 TABLE_NAME_USERS=${local.dynamodb_name_users}
 TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
 TZ=Asia/Tokyo
+AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
 EOT
 }
 
@@ -51,6 +53,7 @@ resource "aws_s3_object" "auth" {
 TZ=Asia/Tokyo
 TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
 ENDPOINT_USERS_SERVICE=http://${local.cloudmap_service_users}.${local.cloudmap_namespace}:8080/v1
+AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
 EOT
 }
 
