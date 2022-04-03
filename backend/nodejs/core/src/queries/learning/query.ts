@@ -87,14 +87,15 @@ export const current = (userId: string, lastTime: string): DynamoDB.DocumentClie
   IndexName: 'gsiIdx1',
 });
 
-// export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
-//   TableName: Environment.TABLE_NAME_QUESTIONS,
-//   KeyConditionExpression: '#groupId = :groupId',
-//   ExpressionAttributeNames: {
-//     '#groupId': 'groupId',
-//   },
-//   ExpressionAttributeValues: {
-//     ':groupId': groupId,
-//   },
-//   IndexName: 'gsiIdx1',
-// });
+export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#groupId = :groupId',
+  ExpressionAttributeNames: {
+    '#groupId': 'groupId',
+  },
+  ExpressionAttributeValues: {
+    ':groupId': groupId,
+  },
+  IndexName: 'gsiIdx2',
+});

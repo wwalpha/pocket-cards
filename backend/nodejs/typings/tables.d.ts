@@ -10,7 +10,7 @@ export namespace Tables {
     // ユーザ ICon
     icon?: string;
     // メール
-    email: string;
+    email?: string;
     // TENANT_ADMIN / TENANT_USER
     role: string;
     // 保護者・利用者・管理者
@@ -196,5 +196,19 @@ export namespace Tables {
     userPoolId: string;
     clientId: string;
     identityPoolId: string;
+  }
+
+  interface TCurriculumsKey {
+    id: string;
+  }
+
+  interface TCurriculums extends TCurriculumsKey {
+    userId: string;
+    groupId: string;
+  }
+
+  interface TCurriculumsGSI1Key {
+    userId: string;
+    groupId: string;
   }
 }
