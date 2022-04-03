@@ -70,8 +70,3 @@ export const showSuccess = (text: string) => (dispatch: AppDispatch) => {
 export const showError = (text: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.APP_SHOW_ERROR(text));
 };
-
-export const initialize = () => (dispatch: AppDispatch) => {
-  // get group list
-  dispatch(Actions.GROUP_LIST());
-};

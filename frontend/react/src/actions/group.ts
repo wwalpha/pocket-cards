@@ -12,6 +12,11 @@ export const activeGroup = (id: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.GROUP_WORD_LIST(id));
 };
 
+export const selectGroup = (id: string) => (dispatch: AppDispatch) => {
+  // active group
+  dispatch(Actions.GROUP_ACTIVE(id));
+};
+
 export const cleanGroup = () => (dispatch: AppDispatch) => {
   // group clean
   dispatch(Actions.GROUP_CLEAN());
@@ -69,6 +74,7 @@ export const regist = (details: Group.Details) => (dispatch: AppDispatch) =>
       dispatch(
         Actions.GROUP_REGIST({
           id: res.groupId,
+          subject: details.subject,
           count: 0,
           name: details.name,
           description: details.description,

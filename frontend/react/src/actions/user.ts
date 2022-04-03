@@ -17,9 +17,12 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
         })
       ).unwrap();
 
-      console.log(res);
       if (res.success !== 'true') {
         dispatch(Actions.APP_SHOW_ERROR(res.message || 'Unknown Error'));
+      } else {
+        dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
+        // initialize
+        dispatch(Actions.GROUP_LIST());
       }
     })
   );

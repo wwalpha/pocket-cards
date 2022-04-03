@@ -38,10 +38,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 const App = () => {
   const classes = useStyles();
 
-  if (true) {
-    return <Dashboard />;
-  }
-
   return (
     <Box display="flex" flexDirection="column" className={classes.root}>
       <Header />
