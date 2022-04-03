@@ -20,7 +20,7 @@ export const B002_URL = () => `${API_VERSION}/groups`;
 // グループ情報取得
 export const B003_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 // グループ情報変更
-export const B004_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
+export const GroupUpdate = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 // グループ情報削除
 export const B005_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 // グループ学習状態
@@ -45,6 +45,9 @@ export const D006_URL = () => `${API_VERSION}/today/review`;
 
 export const E001_URL = (word: string) => `${API_VERSION}/words/${word}`;
 export const E002_URL = (word: string) => `${API_VERSION}/words/${word}`;
+
+export const QUESTION_LIST = (groupId: string) => `${API_VERSION}/groups/${groupId}/questions`;
+export const QUESTION_REGIST = (groupId: string) => `${API_VERSION}/groups/${groupId}/questions`;
 
 export const VERSION = `${process.env.VERSION}`;
 
@@ -86,4 +89,10 @@ export enum SIGN_STATUS {
   NEW_PASSWORD_REQUIRED,
   MFA_REQUIRED,
   LOGINED,
+}
+
+export enum EDIT_MODE {
+  REGIST,
+  EDIT,
+  READONLY,
 }

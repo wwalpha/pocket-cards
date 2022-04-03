@@ -12,11 +12,6 @@ export const activeGroup = (id: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.GROUP_WORD_LIST(id));
 };
 
-export const selectGroup = (id: string) => (dispatch: AppDispatch) => {
-  // active group
-  dispatch(Actions.GROUP_ACTIVE(id));
-};
-
 export const cleanGroup = () => (dispatch: AppDispatch) => {
   // group clean
   dispatch(Actions.GROUP_CLEAN());
@@ -38,7 +33,7 @@ export const edit = (details: Group.Details) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // グループ編集API
-      await API.put<void, APIs.GroupUpdateRequest>(Consts.B004_URL(details.id), {
+      await API.put<void, APIs.GroupUpdateRequest>(Consts.GroupUpdate(details.id), {
         name: details.name,
         description: details.description,
       });

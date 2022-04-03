@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { DrawerLeft, Mainboard, GroupDetails } from '.';
+import { DrawerLeft, Mainboard, GroupDetails, QuestionList } from '.';
 import { default as styles } from './Dashboard.style';
 import { Paths } from '@constants';
 
@@ -30,6 +30,7 @@ const Dashboard = () => {
         <Switch>
           <Route exact path={path} component={Mainboard} />
           <Route path={Paths.PATHS_ADMIN_GROUP_DETAILS} component={GroupDetails} />
+          <Route path={Paths.PATHS_ADMIN_GROUP_QUESTIONS} component={QuestionList} />
         </Switch>
       </Box>
     </Box>

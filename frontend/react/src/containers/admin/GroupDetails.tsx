@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Consts } from '@constants';
-import { GroupActions } from '@actions';
+import { AdminActions } from '@actions';
 import { RootState, GroupEditForm } from 'typings';
 
 const groupState = (state: RootState) => state.group;
@@ -20,14 +20,12 @@ const appState = (state: RootState) => state.app;
 
 export default () => {
   const history = useHistory();
-  const actions = bindActionCreators(GroupActions, useDispatch());
-  const { groups, activeGroup } = useSelector(groupState);
+  const actions = bindActionCreators(AdminActions, useDispatch());
+  const { groups, activeGroup, editable } = useSelector(groupState);
   const { isLoading } = useSelector(appState);
 
   // 選択中のGroup情報取得
   const groupInfo = groups.find((item) => item.id === activeGroup);
-
-  console.log(groupInfo);
 
   const {
     control,
@@ -53,12 +51,6 @@ export default () => {
 
   const handleBack = () => history.goBack();
 
-  const [age, setAge] = React.useState('');
-
-  const handleChange = (event: any) => {
-    setAge(event.target.value as string);
-  };
-
   return (
     <form onSubmit={onSubmit}>
       <Box margin={2}>
@@ -68,6 +60,7 @@ export default () => {
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
             <TextField
+              disabled={editable === Consts.EDIT_MODE.READONLY}
               variant="outlined"
               margin="normal"
               fullWidth
@@ -82,6 +75,7 @@ export default () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
+              disabled={editable === Consts.EDIT_MODE.READONLY}
               variant="outlined"
               margin="normal"
               fullWidth
@@ -91,7 +85,7 @@ export default () => {
             />
           )}
         />
-        <FormControl fullWidth>
+        {/* <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Age</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -103,31 +97,20 @@ export default () => {
             <MenuItem value={20}>Twenty</MenuItem>
             <MenuItem value={30}>Thirty</MenuItem>
           </Select>
-        </FormControl>
-
-        <FormControl sx={{ my: 2 }} fullWidth>
-          <InputLabel id="demo-simple-select-helper-label">Subject *</InputLabel>
-
-          <Controller
-            name="subject"
-            control={control}
-            rules={{ required: 'required' }}
-            render={({ field: { onChange, value } }) => (
-              <Select onChange={onChange} value={value} fullWidth>
-                <MenuItem value={Consts.SUBJECT.JAPANESE.toString()}>国 語</MenuItem>
-                <MenuItem value={Consts.SUBJECT.SCIENCE.toString()}>理 科</MenuItem>
-                <MenuItem value={Consts.SUBJECT.SOCIETY.toString()}>社 会</MenuItem>
-              </Select>
-            )}
-          />
-        </FormControl>
+        </FormControl> */}
 
         <Controller
           name="subject"
           control={control}
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
-            <Select onChange={onChange} value={value} fullWidth>
+            <Select
+              disabled={!(editable === Consts.EDIT_MODE.REGIST)}
+              onChange={onChange}
+              value={value}
+              fullWidth
+              sx={{ mt: 2 }}>
+              <MenuItem value={Consts.SUBJECT.ENGLISH.toString()}>英 語</MenuItem>
               <MenuItem value={Consts.SUBJECT.JAPANESE.toString()}>国 語</MenuItem>
               <MenuItem value={Consts.SUBJECT.SCIENCE.toString()}>理 科</MenuItem>
               <MenuItem value={Consts.SUBJECT.SOCIETY.toString()}>社 会</MenuItem>
@@ -136,16 +119,23 @@ export default () => {
         />
 
         <Box mt={2} display="flex" flexDirection="row-reverse">
-          <LoadingButton
-            size="large"
-            variant="contained"
-            color="primary"
-            type="submit"
-            loading={isLoading}
-            sx={{ mx: 1 }}>
-            EDIT
-          </LoadingButton>
-          <Button size="large" variant="contained" color="secondary" sx={{ mx: 1 }} onClick={handleBack}>
+          {(() => {
+            if (editable !== Consts.EDIT_MODE.READONLY) {
+              return (
+                <LoadingButton
+                  size="large"
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  loading={isLoading}
+                  sx={{ mx: 1, width: 120 }}>
+                  EDIT
+                </LoadingButton>
+              );
+            }
+          })()}
+
+          <Button size="large" variant="contained" color="secondary" sx={{ mx: 1, width: 120 }} onClick={handleBack}>
             BACK
           </Button>
         </Box>

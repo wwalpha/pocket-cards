@@ -5,7 +5,14 @@ import App from './app';
 import Study from './study';
 import Group from './group';
 import User from './user';
-import { GROUP_LIST, GROUP_DELETE, GROUP_WORD_LIST, GROUP_WORD_DETAILS, GROUP_STATUS } from './groupActions';
+import {
+  GROUP_LIST,
+  GROUP_DELETE,
+  GROUP_WORD_LIST,
+  GROUP_WORD_DETAILS,
+  GROUP_STATUS,
+  GROUP_QUESTION_LIST,
+} from './groupActions';
 import { STUDY_START, STUDY_CONTINUE, STUDY_IGNORE, STUDY_TODOS } from './studyActions';
 import { SIGN_IN, SIGN_UP } from './userActions';
 
@@ -28,6 +35,7 @@ export const Actions = {
   GROUP_STATUS,
   GROUP_WORD_LIST,
   GROUP_WORD_DETAILS,
+  GROUP_QUESTION_LIST,
   STUDY_START,
   STUDY_CONTINUE,
   STUDY_IGNORE,
