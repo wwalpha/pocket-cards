@@ -3,9 +3,11 @@ import { CognitoIdentityServiceProvider, Credentials } from 'aws-sdk';
 import express from 'express';
 import { decode } from 'jsonwebtoken';
 import { Tables, Users } from 'typings';
-import { Environments } from './consts';
+import { Environments, Authority } from './consts';
 
 const helper = new DynamodbHelper();
+// init service provider
+const provider = new CognitoIdentityServiceProvider();
 
 /**
  * Lookup a user's pool data in the user table
@@ -58,7 +60,7 @@ export const createNewUser = async (
   userInfo: Users.TenantUser,
   userPoolId: string,
   role: 'TENANT_ADMIN' | 'TENANT_USER',
-  authority = 'admin'
+  authority = 'TENANT_ADMIN'
 ) => {
   const userItem: Tables.TUsers = {
     id: userInfo.email,
@@ -139,33 +141,22 @@ const decodeToken = (token?: string) => {
  * @param user user attributes
  *
  */
-export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers, credentials?: Credentials) => {
-  // init service provider
-  const provider = new CognitoIdentityServiceProvider({
-    credentials: credentials,
-  });
+export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers) => {
+  const attributes: CognitoIdentityServiceProvider.AttributeListType = [
+    { Name: 'name', Value: user.username },
+    { Name: 'email', Value: user.email },
+    { Name: 'custom:role', Value: user.role },
+  ];
 
   // create new user
   const result = await provider
     .adminCreateUser({
+      MessageAction: user.authority === Authority.CHILD ? 'SUPPRESS' : undefined,
       UserPoolId: userPoolId,
-      Username: user.id,
+      Username: user.email,
       DesiredDeliveryMediums: ['EMAIL'],
       ForceAliasCreation: true,
-      UserAttributes: [
-        {
-          Name: 'name',
-          Value: user.username,
-        },
-        {
-          Name: 'email',
-          Value: user.email,
-        },
-        {
-          Name: 'custom:role',
-          Value: user.role,
-        },
-      ],
+      UserAttributes: attributes,
     })
     .promise();
 
@@ -177,8 +168,6 @@ export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers,
 };
 
 export const getUsers = async (userPoolId: string) => {
-  const provider = new CognitoIdentityServiceProvider();
-
   return listUsers(provider, userPoolId);
 };
 
@@ -219,4 +208,16 @@ const listUsers = async (
   }
 
   return usernames;
+};
+
+/** force change password */
+export const adminSetUserPassword = async (UserPoolId: string, Username: string, Password: string) => {
+  await provider
+    .adminSetUserPassword({
+      UserPoolId,
+      Username,
+      Password,
+      Permanent: true,
+    })
+    .promise();
 };

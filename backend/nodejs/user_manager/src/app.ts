@@ -2,8 +2,8 @@ import AWS, { AWSError } from 'aws-sdk';
 import express from 'express';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Users, Tables } from 'typings';
-import { Environments } from './consts';
-import { createNewUser, getUsers, lookupUserPoolData } from './cognito';
+import { Authority, Environments } from './consts';
+import { adminSetUserPassword, createNewUser, getUsers, lookupUserPoolData } from './cognito';
 import { Logger } from './utils';
 
 // update aws config
@@ -61,9 +61,17 @@ export const createUser = async (
     throw new Error('Cannot find cognito settings');
   }
 
+  const { email, password, authority } = req.body;
+  const userPoolId = settings.Item.userPoolId;
+
   // create new user
   try {
-    const user = await createNewUser(req.body, settings.Item.userPoolId, 'TENANT_USER', req.body.authority);
+    const user = await createNewUser(req.body, userPoolId, 'TENANT_USER', authority);
+
+    // force change user password
+    if (authority === Authority.CHILD) {
+      await adminSetUserPassword(userPoolId, email, password);
+    }
 
     return {
       success: true,
