@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
 import { Curriculums, Groups, Questions } from '@queries';
-import { DBHelper } from '@utils';
+import { Commons, DBHelper } from '@utils';
 import { APIs, Tables } from 'typings';
 import { Environment } from '@consts';
 
@@ -9,6 +9,7 @@ export default async (
   req: Request<any, any, APIs.CurriculumRegistRequest, any>
 ): Promise<APIs.CurriculumRegistResponse> => {
   const { groupId, userId } = req.body;
+  const guardian = Commons.getUserId(req);
 
   if (!groupId || !userId) {
     throw new Error('Parameter check error.');
@@ -49,6 +50,7 @@ export default async (
   await DBHelper().put(
     Curriculums.put({
       id: id,
+      guardian: guardian,
       userId: userId,
       groupId: groupId,
     })

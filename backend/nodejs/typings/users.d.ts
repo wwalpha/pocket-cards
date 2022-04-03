@@ -55,7 +55,7 @@ export namespace Users {
     // authority
     authority: string;
     // password
-    password: string;
+    password?: string;
   }
 
   interface CreateUserResponse {
