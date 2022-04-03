@@ -58,6 +58,9 @@ output "dynamodb_name_traces" {
 output "dynamodb_name_settings" {
   value = aws_dynamodb_table.settings.name
 }
+output "dynamodb_name_curriculums" {
+  value = aws_dynamodb_table.curriculums.name
+}
 # ----------------------------------------------------------------------------------------------
 # Route53 DNS Servers
 # ----------------------------------------------------------------------------------------------

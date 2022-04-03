@@ -11,6 +11,7 @@ export const TABLE_NAME_TRACES = process.env.TABLE_NAME_TRACES as string;
 export const TABLE_NAME_HISTORIES = process.env.TABLE_NAME_HISTORIES as string;
 export const TABLE_NAME_QUESTIONS = process.env.TABLE_NAME_QUESTIONS as string;
 export const TABLE_NAME_LEARNING = process.env.TABLE_NAME_LEARNING as string;
+export const TABLE_NAME_CURRICULUMS = process.env.TABLE_NAME_CURRICULUMS as string;
 
 // 最大単語数、default 10件
 export const WORDS_LIMIT = process.env.WORDS_LIMIT ? Number(process.env.WORDS_LIMIT) : 10;

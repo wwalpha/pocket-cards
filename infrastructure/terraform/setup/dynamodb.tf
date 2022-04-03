@@ -255,3 +255,34 @@ resource "aws_dynamodb_table" "settings" {
     type = "S"
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Curriculums
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "curriculums" {
+  name         = local.dynamodb_name_curriculums
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  attribute {
+    name = "userId"
+    type = "S"
+  }
+
+  attribute {
+    name = "groupId"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "gsiIdx1"
+    hash_key        = "userId"
+    range_key       = "groupId"
+    projection_type = "ALL"
+  }
+}

@@ -44,6 +44,7 @@ locals {
   dynamodb_name_learning    = local.remote_setup.dynamodb_name_learning
   dynamodb_name_traces      = local.remote_setup.dynamodb_name_traces
   dynamodb_name_settings    = local.remote_setup.dynamodb_name_settings
+  dynamodb_name_curriculums = local.remote_setup.dynamodb_name_curriculums
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
