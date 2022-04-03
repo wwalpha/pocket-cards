@@ -194,7 +194,7 @@ resource "aws_dynamodb_table" "questions" {
     hash_key           = "groupId"
     range_key          = "id"
     projection_type    = "INCLUDE"
-    non_key_attributes = ["title", "subject"]
+    non_key_attributes = ["title", "answer", "subject"]
   }
 }
 

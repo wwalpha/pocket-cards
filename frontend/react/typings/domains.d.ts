@@ -23,6 +23,10 @@ export namespace Domains {
     searchWord: string;
     // active group
     activeGroup: string;
+    // active subject
+    activeSubject: string;
+    /** edit mode */
+    editable: number;
     /** user's all group infomations */
     groups: Tables.TGroups[];
     /** Group word list */
@@ -33,6 +37,8 @@ export namespace Domains {
     current?: Group.WordDetails;
     /** group learn status */
     status?: Group.Status;
+    /** Questions */
+    questions: Group.Question[];
   }
 
   interface UserState {

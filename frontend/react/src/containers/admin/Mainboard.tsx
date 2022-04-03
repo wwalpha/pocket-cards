@@ -11,24 +11,36 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
+import LoadingButton from '@mui/lab/LoadingButton';
 import EditIcon from '@mui/icons-material/Edit';
 import PageviewIcon from '@mui/icons-material/Pageview';
-import { GroupActions } from '@actions';
-import { Paths } from '@constants';
+import { AdminActions } from '@actions';
+import { Paths, Consts } from '@constants';
 import { RootState } from 'typings';
 import { StyledTableCell } from './Mainboard.style';
 
 const groupState = (state: RootState) => state.group;
+const appState = (state: RootState) => state.app;
 
 export default () => {
-  const dispatch = useDispatch();
-  const actions = bindActionCreators(GroupActions, useDispatch());
+  const actions = bindActionCreators(AdminActions, useDispatch());
   const { groups } = useSelector(groupState);
+  const { isLoading } = useSelector(appState);
 
   // Folder click
-  const handleOnClick = (groupId: string) => {
+  const handleOnClick = (groupId: string, editable: Consts.EDIT_MODE) => {
     // 選択値を保存する
     actions.selectGroup(groupId);
+    // 編集モード
+    actions.editable(editable);
+  };
+
+  // get question list
+  const handleQuestions = (groupId: string) => {
+    // 選択値を保存する
+    actions.selectGroup(groupId);
+    // 質問リスト取得
+    actions.questionList();
   };
 
   return (
@@ -44,6 +56,7 @@ export default () => {
             <TableHead>
               <TableRow>
                 <StyledTableCell sx={{ width: 80 }}></StyledTableCell>
+                <StyledTableCell>ID</StyledTableCell>
                 <StyledTableCell>Title</StyledTableCell>
                 <StyledTableCell>Description</StyledTableCell>
               </TableRow>
@@ -60,35 +73,31 @@ export default () => {
                         size="small"
                         sx={{ py: 0, mx: 0.5 }}
                         onClick={() => {
-                          handleOnClick(item.id);
+                          handleOnClick(item.id, Consts.EDIT_MODE.EDIT);
                         }}
                         component={React.forwardRef((props: any, ref: any) => (
                           <Link to={Paths.PATHS_ADMIN_GROUP_DETAILS} {...props} />
                         ))}>
                         Edit
                       </Button>
-                      <Button
+                      <LoadingButton
+                        loading={isLoading}
                         variant="contained"
                         color="secondary"
                         startIcon={<PageviewIcon />}
                         size="small"
                         sx={{ py: 0, mx: 0.5 }}
                         onClick={() => {
-                          handleOnClick(item.id);
+                          handleQuestions(item.id);
                         }}
                         component={React.forwardRef((props: any, ref: any) => (
-                          <Link to={Paths.PATHS_ADMIN_GROUP_DETAILS} {...props} />
+                          <Link to={Paths.PATHS_ADMIN_GROUP_QUESTIONS} {...props} />
                         ))}>
                         View
-                      </Button>
+                      </LoadingButton>
                     </Box>
-                    {/* <IconButton color="secondary" sx={{ p: 0, px: 0.5 }}>
-                      <EditIcon />
-                    </IconButton> */}
-                    {/* <IconButton color="secondary" sx={{ p: 0, px: 0.5 }}>
-                      <PageviewIcon />
-                    </IconButton> */}
                   </TableCell>
+                  <TableCell>{item.id}</TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.description}</TableCell>
                 </TableRow>

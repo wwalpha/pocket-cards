@@ -65,3 +65,22 @@ export const GROUP_STATUS = createAsyncThunk<Group.Status, void>('group/GROUP_ST
 
   return res;
 });
+
+/** Question List */
+export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[]>(
+  'group/GROUP_QUESTION_LIST',
+  async (_, { getState }) => {
+    // request parameter
+    const { activeGroup } = (getState() as RootState).group;
+
+    // request
+    const res = await API.get<APIs.QuestionListResponse>(Consts.QUESTION_LIST(activeGroup));
+
+    // response
+    return res.questions.map((item) => ({
+      id: item.id,
+      title: item.title,
+      answer: item.answer,
+    }));
+  }
+);

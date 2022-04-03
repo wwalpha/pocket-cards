@@ -1,22 +1,38 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains, Payloads, Tables } from 'typings';
-import { GROUP_DELETE, GROUP_LIST, GROUP_STATUS, GROUP_WORD_DETAILS, GROUP_WORD_LIST } from './groupActions';
+import { Consts } from '@constants';
+import {
+  GROUP_DELETE,
+  GROUP_LIST,
+  GROUP_QUESTION_LIST,
+  GROUP_STATUS,
+  GROUP_WORD_DETAILS,
+  GROUP_WORD_LIST,
+} from './groupActions';
 import sortBy from 'lodash/sortBy';
 
 const grpState: Domains.GroupState = {
   searchWord: '',
   activeGroup: '',
+  activeSubject: '',
   groupWords: {},
   groups: [],
   regists: [],
   current: undefined,
   status: undefined,
+  editable: -1,
+  questions: [],
 };
 
 const slice = createSlice({
   name: 'group',
   initialState: grpState,
   reducers: {
+    // グループ編集モード
+    GROUP_EDITABLE: (state, { payload }: PayloadAction<Consts.EDIT_MODE>) => {
+      state.editable = payload;
+    },
+
     // グループを選択
     GROUP_ACTIVE: (state, { payload }: PayloadAction<string>) => {
       state.activeGroup = payload;
@@ -125,6 +141,9 @@ const slice = createSlice({
       })
       .addCase(GROUP_WORD_DETAILS.fulfilled, (state, { payload }) => {
         state.current = payload;
+      })
+      .addCase(GROUP_QUESTION_LIST.fulfilled, (state, { payload }) => {
+        state.questions = payload;
       });
   },
 });
