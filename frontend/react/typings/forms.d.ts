@@ -6,7 +6,7 @@ export interface SignInForm {
 }
 
 export interface SignUpForm {
-  role: string;
+  authority: string;
   email: string;
   username: string;
 }

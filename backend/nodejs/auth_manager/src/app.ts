@@ -81,6 +81,7 @@ export const login = async (
 
     return {
       success: 'true',
+      authority: userInfo.authority,
       idToken: idToken,
       accessToken: accessToken,
       refreshToken: refreshToken,

@@ -14,7 +14,7 @@ export namespace Tables {
     // TENANT_ADMIN / TENANT_USER
     role: string;
     // 保護者・利用者・管理者
-    status: string;
+    authority: string;
     //
     sub?: string;
   }

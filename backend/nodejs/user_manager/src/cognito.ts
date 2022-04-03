@@ -40,6 +40,7 @@ export const lookupUserPoolData = async (userId: string): Promise<Users.CognitoI
 
   // user founded
   return {
+    Authority: results.Item.authority,
     ClientId: settings?.Item?.clientId,
     UserPoolId: settings?.Item?.userPoolId,
     IdentityPoolId: settings?.Item?.identityPoolId,
@@ -57,14 +58,14 @@ export const createNewUser = async (
   userInfo: Users.TenantUser,
   userPoolId: string,
   role: 'TENANT_ADMIN' | 'TENANT_USER',
-  status = 'admin'
+  authority = 'admin'
 ) => {
   const userItem: Tables.TUsers = {
     id: userInfo.email,
     username: userInfo.userName,
     email: userInfo.email,
     role,
-    status,
+    authority,
   };
 
   // create cognito user;

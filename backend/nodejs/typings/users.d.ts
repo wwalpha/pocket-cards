@@ -1,5 +1,6 @@
 export namespace Users {
   interface CognitoInfos {
+    Authority?: string;
     UserPoolId?: string;
     ClientId?: string;
     IdentityPoolId?: string;
@@ -40,6 +41,8 @@ export namespace Users {
   interface LookupUserResponse {
     /** is user exist */
     isExist: boolean;
+    /** user authority */
+    authority?: string;
     /** user pool id */
     userPoolId?: string;
     /** user pool client id */
@@ -49,8 +52,8 @@ export namespace Users {
   }
 
   interface CreateUserRequest extends TenantUser {
-    // status
-    status: string;
+    // authority
+    authority: string;
   }
 
   interface CreateUserResponse {
