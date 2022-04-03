@@ -31,6 +31,7 @@ export const lookupUser = async (req: express.Request): Promise<Users.LookupUser
   // lookup user response
   return {
     isExist: user !== undefined,
+    authority: user?.Authority,
     identityPoolId: user?.IdentityPoolId,
     userPoolId: user?.UserPoolId,
     clientId: user?.ClientId,
@@ -62,7 +63,7 @@ export const createUser = async (
 
   // create new user
   try {
-    const user = await createNewUser(req.body, settings.Item.userPoolId, 'TENANT_USER', req.body.status);
+    const user = await createNewUser(req.body, settings.Item.userPoolId, 'TENANT_USER', req.body.authority);
 
     return {
       success: true,

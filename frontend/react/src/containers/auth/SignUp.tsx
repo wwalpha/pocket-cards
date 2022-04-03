@@ -22,7 +22,7 @@ import { default as styles } from './SignUp.style';
 const app = (state: RootState) => state.app;
 const defaultValues: SignUpForm = {
   email: '',
-  role: '',
+  authority: '',
   username: '',
 };
 
@@ -38,8 +38,8 @@ const SignUp = () => {
   } = useForm<SignUpForm>({ defaultValues });
 
   // 編集
-  const onSubmit = handleSubmit(({ email, role, username }) => {
-    actions.signup(username, email, role);
+  const onSubmit = handleSubmit(({ email, authority, username }) => {
+    actions.signup(username, email, authority);
   });
 
   return (
@@ -91,7 +91,7 @@ const SignUp = () => {
             )}
           />
           <Controller
-            name="role"
+            name="authority"
             control={control}
             rules={{
               required: 'required',
