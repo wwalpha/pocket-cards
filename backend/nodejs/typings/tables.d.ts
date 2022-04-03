@@ -203,6 +203,7 @@ export namespace Tables {
   }
 
   interface TCurriculums extends TCurriculumsKey {
+    guardian: string;
     userId: string;
     groupId: string;
   }
