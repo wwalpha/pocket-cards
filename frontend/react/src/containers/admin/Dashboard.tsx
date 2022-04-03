@@ -1,23 +1,37 @@
 import React from 'react';
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
-import { DrawerLeft, Mainboard } from '.';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { DrawerLeft, Mainboard, GroupDetails } from '.';
 import { default as styles } from './Dashboard.style';
-
-const drawerWidth = 200;
-const rightWidth = 240;
+import { Paths } from '@constants';
 
 const Dashboard = () => {
+  const { path } = useRouteMatch();
+
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Permanent drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <DrawerLeft />
-      <Mainboard />
+      <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+        <AppBar
+          position="static"
+          sx={{
+            boxShadow: 'none',
+            height: ({ spacing }) => spacing(8),
+            bgcolor: 'primary.dark',
+            userSelect: 'none',
+          }}>
+          <Toolbar>
+            <Typography variant="h6" noWrap component="div">
+              Dashboard
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
+        <Switch>
+          <Route exact path={path} component={Mainboard} />
+          <Route path={Paths.PATHS_ADMIN_GROUP_DETAILS} component={GroupDetails} />
+        </Switch>
+      </Box>
     </Box>
   );
 };

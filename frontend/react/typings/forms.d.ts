@@ -16,3 +16,9 @@ export interface NewPasswordForm {
   newPassword: string;
   confirmPassword: string;
 }
+
+export interface GroupEditForm {
+  name: string;
+  description: string;
+  subject: string;
+}

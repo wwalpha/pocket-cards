@@ -116,11 +116,10 @@ const buildAuthPolicy = async (
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/groups/*');
       break;
     case 'PARENT':
-      policy.denyMethod(AuthPolicy.HttpVerb.ALL, '/admin/*');
-      policy.allowAllMethods();
+      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups');
+      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups/*/questions');
       break;
     case 'CHILD':
-      policy.denyMethod(AuthPolicy.HttpVerb.ALL, '/admin/*');
       policy.allowAllMethods();
       break;
     default:

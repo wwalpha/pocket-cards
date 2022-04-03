@@ -7,6 +7,7 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { SignIn, SignUp, NewPassword } from '.';
 import { AppActions } from '@actions';
 import { Consts, Paths } from '@constants';
+import { Dashboard } from '@containers/admin';
 import { RootState } from 'typings';
 import App from '../../App';
 
@@ -23,21 +24,13 @@ const Authenticator: React.FunctionComponent = () => {
   const actions = bindActionCreators(AppActions, useDispatch());
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
+    if (reason !== 'clickaway') {
+      actions.closeSnackbar();
     }
-
-    actions.closeSnackbar();
   };
 
   if (loginStatus === Consts.SIGN_STATUS.NEW_PASSWORD_REQUIRED) {
     return <NewPassword />;
-  }
-
-  // login successed
-  if (loginStatus === Consts.SIGN_STATUS.LOGINED) {
-    // initialize
-    actions.initialize();
   }
 
   return (
@@ -47,6 +40,9 @@ const Authenticator: React.FunctionComponent = () => {
           {loginStatus === Consts.SIGN_STATUS.LOGINED ? <App /> : <SignIn />}
         </Route>
         <Route path={Paths.PATHS_SIGN_UP} component={SignUp} />
+        <Route path={Paths.PATHS_ADMIN_DASHBOARD}>
+          {loginStatus === Consts.SIGN_STATUS.LOGINED ? <Dashboard /> : <SignIn />}
+        </Route>
         <Route>
           <Redirect to={Paths.PATHS_SIGN_IN} />
         </Route>

@@ -21,6 +21,7 @@ export const ROUTE_PATH_INDEX: Record<string, number> = {
   GroupEdit: 63,
   Todos: 71,
   AdminDashboard: 101,
+  AdminGroupDetails: 102,
 };
 
 export const ROUTE_PATHS = {
@@ -45,10 +46,12 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.StudyFinish]: '/study/finish',
   [ROUTE_PATH_INDEX.Todos]: '/todos',
   [ROUTE_PATH_INDEX.AdminDashboard]: '/admin',
+  [ROUTE_PATH_INDEX.AdminGroupDetails]: '/admin/group',
 };
 
 // admin
 export const PATHS_ADMIN_DASHBOARD = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminDashboard];
+export const PATHS_ADMIN_GROUP_DETAILS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminGroupDetails];
 
 // user auth
 export const PATHS_SIGN_UP = ROUTE_PATHS[ROUTE_PATH_INDEX.SignUp];

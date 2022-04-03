@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
@@ -10,28 +11,28 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
-import FolderIcon from '@mui/icons-material/Folder';
+import EditIcon from '@mui/icons-material/Edit';
+import PageviewIcon from '@mui/icons-material/Pageview';
 import { GroupActions } from '@actions';
-import { RootState, Tables } from 'typings';
+import { Paths } from '@constants';
+import { RootState } from 'typings';
 import { StyledTableCell } from './Mainboard.style';
-import { RightPanel } from '.';
 
 const groupState = (state: RootState) => state.group;
 
 export default () => {
   const dispatch = useDispatch();
-  const actions = bindActionCreators(GroupActions, dispatch);
-  const [selectedGroup, setSelectedGroup] = useState<Tables.TGroups>();
+  const actions = bindActionCreators(GroupActions, useDispatch());
   const { groups } = useSelector(groupState);
 
   // Folder click
-  const handleOnClick = (item: Tables.TGroups) => {
-    // is selected
-    setSelectedGroup(item);
+  const handleOnClick = (groupId: string) => {
+    // 選択値を保存する
+    actions.selectGroup(groupId);
   };
 
   return (
-    <Box sx={{ mt: 10, display: 'flex', width: `calc(100% - 200px)` }}>
+    <Box sx={{ display: 'flex' }}>
       <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
         <Box sx={{ display: 'flex', flexDirection: 'row-reverse', mx: 2, my: 1 }}>
           <Button variant="contained" color="secondary">
@@ -42,19 +43,52 @@ export default () => {
           <Table aria-label="customized table" size="small">
             <TableHead>
               <TableRow>
+                <StyledTableCell sx={{ width: 80 }}></StyledTableCell>
                 <StyledTableCell>Title</StyledTableCell>
                 <StyledTableCell>Description</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {groups.map((item) => (
-                <TableRow
-                  hover
-                  key={item.id}
-                  sx={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    handleOnClick(item);
-                  }}>
+                <TableRow hover key={item.id}>
+                  <TableCell>
+                    <Box sx={{ display: 'flex' }}>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<EditIcon />}
+                        size="small"
+                        sx={{ py: 0, mx: 0.5 }}
+                        onClick={() => {
+                          handleOnClick(item.id);
+                        }}
+                        component={React.forwardRef((props: any, ref: any) => (
+                          <Link to={Paths.PATHS_ADMIN_GROUP_DETAILS} {...props} />
+                        ))}>
+                        Edit
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<PageviewIcon />}
+                        size="small"
+                        sx={{ py: 0, mx: 0.5 }}
+                        onClick={() => {
+                          handleOnClick(item.id);
+                        }}
+                        component={React.forwardRef((props: any, ref: any) => (
+                          <Link to={Paths.PATHS_ADMIN_GROUP_DETAILS} {...props} />
+                        ))}>
+                        View
+                      </Button>
+                    </Box>
+                    {/* <IconButton color="secondary" sx={{ p: 0, px: 0.5 }}>
+                      <EditIcon />
+                    </IconButton> */}
+                    {/* <IconButton color="secondary" sx={{ p: 0, px: 0.5 }}>
+                      <PageviewIcon />
+                    </IconButton> */}
+                  </TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.description}</TableCell>
                 </TableRow>
@@ -63,11 +97,6 @@ export default () => {
           </Table>
         </TableContainer>
       </Box>
-      {(() => {
-        if (selectedGroup) {
-          return <RightPanel />;
-        }
-      })()}
     </Box>
   );
 };
