@@ -297,8 +297,9 @@ jobs:
 
       # Install and Build
       - name: Authorizer
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
         run: |
+          printenv
           cd authorizer
           yarn install
           yarn build
@@ -306,7 +307,7 @@ jobs:
 
       # Install and Build
       - name: Status
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
         run: |
           cd status
           yarn install
@@ -315,7 +316,7 @@ jobs:
 
       # Install and Build
       - name: Start
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
         run: |
           cd start
           yarn install
@@ -324,7 +325,7 @@ jobs:
 
       # Install and Build
       - name: Stop
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
         run: |
           cd stop
           yarn install
