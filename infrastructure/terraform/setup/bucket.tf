@@ -5,8 +5,18 @@ resource "aws_s3_bucket" "archive" {
   bucket = local.bucket_name_archive
 }
 
+# ----------------------------------------------------------------------------------------------
+# deprecated
+# ----------------------------------------------------------------------------------------------
 resource "aws_s3_bucket_versioning" "materials" {
   bucket = aws_s3_bucket.materials.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_versioning" "archive" {
+  bucket = aws_s3_bucket.archive.id
   versioning_configuration {
     status = "Enabled"
   }
@@ -95,44 +105,3 @@ resource "aws_s3_bucket_acl" "materials" {
   acl    = "private"
 }
 
-# resource "aws_s3_bucket_versioning" "materials" {
-#   bucket = aws_s3_bucket.materials.id
-#   versioning_configuration {
-#     status = "Enabled"
-#   }
-# }
-
-# # ----------------------------------------------------------------------------------------------
-# # Amazon S3 Lifecycle - materials
-# # ----------------------------------------------------------------------------------------------
-# resource "aws_s3_bucket_lifecycle_configuration" "materials" {
-#   bucket = aws_s3_bucket.archive.id
-
-#   rule {
-#     id = "images"
-
-#     expiration {
-#       days = 7
-#     }
-
-#     filter {
-#       prefix = "images/"
-#     }
-
-#     status = "Enabled"
-#   }
-
-#   rule {
-#     id = "frontend"
-
-#     expiration {
-#       days = 30
-#     }
-
-#     filter {
-#       prefix = "frontend/"
-#     }
-
-#     status = "Enabled"
-#   }
-# }
