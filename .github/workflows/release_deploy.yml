@@ -76,6 +76,13 @@ jobs:
           terraform init
           terraform apply -auto-approve
 
+      # Terraform Backend
+      - name: Terraform Backend
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/terraform
+        run: |
+          terraform init
+          terraform apply -auto-approve
+
   # Backend
   Backend:
     runs-on: ubuntu-latest
