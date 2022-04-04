@@ -4,7 +4,7 @@
 module "ecr_repo_backend" {
   source = "./m_ecr"
 
-  repo_name = "${var.project_name}/backend3"
+  repo_name = "${var.project_name}/backend"
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ module "ecr_repo_backend" {
 module "ecr_repo_batch" {
   source = "./m_ecr"
 
-  repo_name = "${var.project_name}/batch3"
+  repo_name = "${var.project_name}/batch"
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ module "ecr_repo_batch" {
 module "ecr_repo_users" {
   source = "./m_ecr"
 
-  repo_name = "${var.project_name}/users2"
+  repo_name = "${var.project_name}/users"
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -31,5 +31,5 @@ module "ecr_repo_users" {
 module "ecr_repo_auth" {
   source = "./m_ecr"
 
-  repo_name = "${var.project_name}/auth2"
+  repo_name = "${var.project_name}/auth"
 }
