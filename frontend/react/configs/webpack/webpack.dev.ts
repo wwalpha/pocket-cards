@@ -1,4 +1,4 @@
-import { HotModuleReplacementPlugin, LoaderOptionsPlugin, Configuration } from 'webpack';
+import { HotModuleReplacementPlugin, Configuration } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import * as path from 'path';
@@ -13,6 +13,7 @@ const dev: Configuration = {
   devtool: 'inline-source-map',
   entry: ['webpack-hot-middleware/client'],
   plugins: [
+    // @ts-ignore
     new Dotenv(),
     // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
