@@ -15,7 +15,9 @@ on:
 
     secrets:
       AWS_ACCESS_KEY_ID:
+        required: false
       AWS_SECRET_ACCESS_KEY:
+        required: false
       # translation_api_url:
       # translation_api_key:
       # ipa_api_url:
