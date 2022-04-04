@@ -44,7 +44,7 @@ resource "aws_dynamodb_table_item" "cognito_admin" {
   "id": {"S": "${var.admin_email}"},
   "email": {"S": "${var.admin_email}"},
   "role": {"S": "TENANT_ADMIN"},
-  "status": {"S": "TENANT_ADMIN"},
+  "authority": {"S": "TENANT_ADMIN"},
   "sub": {"S": "${aws_cognito_user.cognito_admin.sub}"}
 }
 ITEM

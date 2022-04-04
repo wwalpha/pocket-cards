@@ -254,7 +254,6 @@ resource "aws_cognito_identity_pool" "this" {
 # --------------------------------------------------------------------------------------------------------------
 resource "aws_cognito_user_pool" "admin" {
   name                     = "${local.project_name}-AdminUserPool"
-  username_attributes      = ["email"]
   auto_verified_attributes = ["email"]
   mfa_configuration        = "OFF"
 
@@ -334,8 +333,7 @@ resource "aws_cognito_user_pool" "admin" {
 # Amazon Cognito User Pool Client
 # -------------------------------------------------------
 resource "aws_cognito_user_pool_client" "admin" {
-  name = "${aws_cognito_user_pool.admin.name}Client"
-
+  name            = "${aws_cognito_user_pool.admin.name}Client"
   user_pool_id    = aws_cognito_user_pool.admin.id
   generate_secret = false
 
