@@ -1,4 +1,4 @@
-import { Tables } from '../core/typings/index';
+import { Tables } from './tables';
 import { Request } from 'express';
 
 // ------------------------------------------------------------
@@ -412,9 +412,7 @@ export namespace APIs {
     groupId: string;
   }
 
-  interface CurriculumRegistResponse {
-    curriculumId?: string;
-  }
+  type CurriculumRegistResponse = Tables.TCurriculums;
 
   // ------------------------------------------------------------
   // Curriculums - Curriculum Describe
