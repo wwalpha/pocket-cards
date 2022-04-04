@@ -25,27 +25,20 @@ on:
       TF_API_TOKEN:
         required: true
       translation_api_url:
-        type: string
       translation_api_key:
-        type: string
       ipa_api_url:
-        type: string
       ipa_api_key:
-        type: string
       vision_api_url:
-        type: string
       vision_api_key:
-        type: string
       domain_name:
-        type: string
       google_client_id:
-        type: string
       google_client_secret:
-        type: string
 
 jobs:
   Terraform:
     runs-on: ubuntu-latest
+    environment:
+      name: dev
     env:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
       TF_WORKSPACE: ${{ inputs.environment }}
