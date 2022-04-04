@@ -2,15 +2,15 @@
 # Lambda Function - Cognito
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "cognito_post_signup" {
-  function_name    = "${local.project_name}-cognito-post-signup"
-  s3_bucket        = local.bucket_name_archive
-  s3_key           = aws_s3_object.lambda_cognito.key
-  source_code_hash = aws_s3_object.lambda_cognito.etag
-  handler          = local.lambda_handler
-  memory_size      = 128
-  role             = aws_iam_role.cognito_post_signup.arn
-  runtime          = local.lambda_runtime
-  timeout          = 10
+  function_name     = "${local.project_name}-cognito-post-signup"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = aws_s3_object.lambda_cognito.key
+  s3_object_version = aws_s3_object.lambda_cognito.version_id
+  handler           = local.lambda_handler
+  memory_size       = 128
+  role              = aws_iam_role.cognito_post_signup.arn
+  runtime           = local.lambda_runtime
+  timeout           = 10
 
   environment {
     variables = {
@@ -44,15 +44,15 @@ resource "aws_lambda_permission" "cognito_users" {
 # Lambda Function - Authorizer
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "authorizer" {
-  function_name    = "${local.project_name}-authorizer"
-  s3_bucket        = local.bucket_name_archive
-  s3_key           = aws_s3_object.lambda_authorizer.key
-  source_code_hash = aws_s3_object.lambda_authorizer.etag
-  handler          = local.lambda_handler
-  runtime          = local.lambda_runtime
-  memory_size      = 1024
-  role             = aws_iam_role.authorizer.arn
-  timeout          = 3
+  function_name     = "${local.project_name}-authorizer"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = aws_s3_object.lambda_authorizer.key
+  s3_object_version = aws_s3_object.lambda_authorizer.version_id
+  handler           = local.lambda_handler
+  runtime           = local.lambda_runtime
+  memory_size       = 1024
+  role              = aws_iam_role.authorizer.arn
+  timeout           = 3
   environment {
     variables = {
       TABLE_NAME_USERS                    = local.dynamodb_name_users
