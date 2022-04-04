@@ -2,14 +2,14 @@ import { DynamoDB } from 'aws-sdk';
 import { Environment } from '@consts';
 
 /** グループ一覧を取得する */
-export const byUserId = (userId: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byGuardian = (guardian: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_CURRICULUMS,
-  KeyConditionExpression: '#userId = :userId',
+  KeyConditionExpression: '#guardian = :guardian',
   ExpressionAttributeNames: {
-    '#userId': 'userId',
+    '#guardian': 'guardian',
   },
   ExpressionAttributeValues: {
-    ':userId': userId,
+    ':guardian': guardian,
   },
   IndexName: 'gsiIdx1',
 });
