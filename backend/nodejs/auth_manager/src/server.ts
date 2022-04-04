@@ -1,4 +1,5 @@
 import express from 'express';
+import morgan from 'morgan';
 import { json, urlencoded } from 'body-parser';
 import { login, common, healthCheck, initiateAuth } from './app';
 
@@ -7,11 +8,8 @@ const app = express();
 
 // Configure middleware
 app.use(json());
-app.use(
-  urlencoded({
-    extended: false,
-  })
-);
+app.use(urlencoded({ extended: false }));
+app.use(morgan('combined'));
 
 // health check
 app.get('/v1/auth/health', async (req, res) => await common(req, res, healthCheck));
