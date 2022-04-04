@@ -18,7 +18,6 @@ on:
       - master
     types:
       - completed
-  workflow_dispatch:
 
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
