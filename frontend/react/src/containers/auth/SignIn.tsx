@@ -14,7 +14,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import MButton from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { LoadingButton } from '@mui/lab';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { UserActions } from '@actions';
 import { Paths } from '@constants';
 import { RootState, SignInForm } from 'typings';
