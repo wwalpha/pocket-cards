@@ -13,13 +13,13 @@ on:
         required: true
         type: string
 
-    secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
-      TF_API_TOKEN:
-        required: true
+    # secrets:
+    #   AWS_ACCESS_KEY_ID:
+    #     required: true
+    #   AWS_SECRET_ACCESS_KEY:
+    #     required: true
+    #   TF_API_TOKEN:
+    #     required: true
       # translation_api_url:
       # translation_api_key:
       # ipa_api_url:
@@ -48,6 +48,7 @@ jobs:
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
+    environment: dev
 
     steps:
       # source checkout
