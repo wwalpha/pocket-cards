@@ -21,8 +21,8 @@ import { RootState, SignInForm } from 'typings';
 
 const app = (state: RootState) => state.app;
 const defaultValues: SignInForm = {
-  username: 'wwalpha80@gmail.com',
-  password: 'Session10+',
+  username: '',
+  password: '',
 };
 
 const styles = {
