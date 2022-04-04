@@ -21,7 +21,6 @@ on:
 
 env:
   WORKING_DIR: infrastructure/terraform/setup
-  # TF_WORKSPACE: dev
   # TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
   # TF_VAR_translation_api_url:  ${{ secrets.TRANSLATION_API_URL }}
   # TF_VAR_translation_api_key:  ${{ secrets.TRANSLATION_API_KEY }}
