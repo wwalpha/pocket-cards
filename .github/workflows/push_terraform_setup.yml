@@ -36,5 +36,5 @@ jobs:
     uses: ./.github/workflows/reuse_terraform.yml
     with:
       region: ap-northeast-1
-      working-directory: ${{ env.WORKING_DIR }}
+      working-directory: infrastructure/terraform/setup
       environment: dev
