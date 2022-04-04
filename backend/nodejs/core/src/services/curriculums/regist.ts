@@ -29,7 +29,7 @@ export default async (
 
   // group not exsits or no question in group
   if (!groupInfo || questions.length === 0) {
-    return {};
+    throw new Error('Group informations not found.');
   }
 
   const dataRows = questions.map<Tables.TLearning>((item) => ({
@@ -45,18 +45,14 @@ export default async (
   // bulk insert
   await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
 
-  const id = generate();
-  // add new curriculum
-  await DBHelper().put(
-    Curriculums.put({
-      id: id,
-      guardian: guardian,
-      userId: userId,
-      groupId: groupId,
-    })
-  );
-
-  return {
-    curriculumId: id,
+  const item: Tables.TCurriculums = {
+    id: generate(),
+    guardian: guardian,
+    userId: userId,
+    groupId: groupId,
   };
+  // add new curriculum
+  await DBHelper().put(Curriculums.put(item));
+
+  return item;
 };
