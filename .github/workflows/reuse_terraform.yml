@@ -33,9 +33,11 @@ on:
 jobs:
   Terraform:
     runs-on: ubuntu-latest
+    environment:
+      name: dev
     env:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
-      TF_WORKSPACE: ${{ inputs.environment }}
+      TF_WORKSPACE: ${{ inputs.workspace }}
       # TF_VAR_translation_api_url:  ${{ secrets.translation_api_url }}
       # TF_VAR_translation_api_key:  ${{ secrets.translation_api_key }}
       # TF_VAR_ipa_api_url:  ${{ secrets.ipa_api_url }}
@@ -48,12 +50,14 @@ jobs:
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
-    environment: dev
 
     steps:
       # source checkout
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: test
+        run: printenv
 
       # AWS Credentials
       - name: Configure AWS credentials
