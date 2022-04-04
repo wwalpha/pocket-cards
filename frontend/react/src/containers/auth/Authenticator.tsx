@@ -8,6 +8,8 @@ import { SignIn, SignUp, NewPassword } from '.';
 import { AppActions } from '@actions';
 import { Consts, Paths } from '@constants';
 import { Dashboard } from '@containers/admin';
+import { GuardianTop } from '@containers/guardian';
+
 import { RootState } from 'typings';
 import App from '../../App';
 
@@ -42,6 +44,9 @@ const Authenticator: React.FunctionComponent = () => {
         <Route path={Paths.PATHS_SIGN_UP} component={SignUp} />
         <Route path={Paths.PATHS_ADMIN_DASHBOARD}>
           {loginStatus === Consts.SIGN_STATUS.LOGINED ? <Dashboard /> : <SignIn />}
+        </Route>
+        <Route path={Paths.PATHS_GUARDIAN_TOP}>
+          {loginStatus === Consts.SIGN_STATUS.LOGINED ? <GuardianTop /> : <SignIn />}
         </Route>
         <Route>
           <Redirect to={Paths.PATHS_SIGN_IN} />

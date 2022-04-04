@@ -48,15 +48,10 @@ export namespace Domains {
     username: string;
     // password
     password?: string;
-
-    // details?: User.Details;
-    // remainingTest: number;
-    // remainingReview: number;
-    // daily: number;
-    // dailyNew: number;
-    // dailyReview: number;
-    // weekly: number;
-    // monthly: number;
+    // authority
+    authority?: string;
+    // curriculums
+    curriculums: Tables.TCurriculums[];
   }
 
   interface StudyState {

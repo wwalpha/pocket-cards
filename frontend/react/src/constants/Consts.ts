@@ -49,6 +49,10 @@ export const E002_URL = (word: string) => `${API_VERSION}/words/${word}`;
 export const QUESTION_LIST = (groupId: string) => `${API_VERSION}/groups/${groupId}/questions`;
 export const QUESTION_REGIST = (groupId: string) => `${API_VERSION}/groups/${groupId}/questions`;
 
+export const CURRICULUM_LIST = () => `${API_VERSION}/curriculums`;
+export const CURRICULUM_REGIST = () => `${API_VERSION}/curriculums`;
+export const CURRICULUM_REMOVE = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}`;
+
 export const VERSION = `${process.env.VERSION}`;
 
 export const MODES = {
@@ -66,6 +70,12 @@ export const SERVER_STATUS = {
   ACTIVATING: 'ACTIVATING',
   PENDING: 'PENDING',
   STOPPING: 'STOPPING',
+};
+
+export const Authority = {
+  ADMIN: 'TENANT_ADMIN',
+  PARENT: 'PARENT',
+  CHILD: 'CHILD',
 };
 
 export const HEADER_HEIGHT = 64;

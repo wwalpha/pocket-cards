@@ -10,9 +10,13 @@ export const selectGroup = (id: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.GROUP_ACTIVE(id));
 };
 
-export const selectSubject = (id: string) => (dispatch: AppDispatch) => {
+export const selectSubject = (id: string, pathname: string) => (dispatch: AppDispatch) => {
   // active group
   dispatch(Actions.APP_ACTIVE_SUBJECT(id));
+  // move to top page
+  if (pathname !== Paths.PATHS_ADMIN_DASHBOARD) {
+    dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
+  }
 };
 
 export const editable = (mode: Consts.EDIT_MODE) => (dispatch: AppDispatch) => {

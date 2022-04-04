@@ -1,5 +1,5 @@
 import { withLoading } from '@actions';
-import { Paths } from '@constants';
+import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';
 import { push } from 'connected-react-router';
 import { AppDispatch } from 'typings';
@@ -10,7 +10,7 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
     withLoading(async () => {
       // sign in
       const res = await dispatch(
-        Actions.SIGN_IN({
+        Actions.USER_SIGN_IN({
           username: username,
           password: passwd,
           newPassword: newPassword,
@@ -19,10 +19,20 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
 
       if (res.success !== 'true') {
         dispatch(Actions.APP_SHOW_ERROR(res.message || 'Unknown Error'));
-      } else {
+        return;
+      }
+
+      // login success
+      if (res.authority === Consts.Authority.ADMIN) {
         dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
         // initialize
         dispatch(Actions.GROUP_LIST());
+      } else if (res.authority === Consts.Authority.PARENT) {
+        dispatch(push(Paths.PATHS_GUARDIAN_TOP));
+        // initialize
+        dispatch(Actions.GROUP_LIST());
+        // initialize
+        dispatch(Actions.USER_CURRICULUM_LIST());
       }
     })
   );
@@ -32,7 +42,7 @@ export const signup = (username: string, email: string, authority: string) => (d
     withLoading(async () => {
       // sign in
       const res = await dispatch(
-        Actions.SIGN_UP({
+        Actions.USER_SIGN_UP({
           userId: email,
           userName: username,
           email: email,

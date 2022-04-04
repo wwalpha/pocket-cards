@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
+import { useDispatch } from 'react-redux';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,16 +10,15 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import BookIcon from '@mui/icons-material/Book';
-import { AdminActions } from '@actions';
+import { GuardianActions } from '@actions';
+// import { default as styles } from './DrawerLeft.style';
 import { Consts } from '@constants';
-import { default as styles } from './DrawerLeft.style';
 
 const drawerWidth = 200;
 
 export default () => {
   const location = useLocation();
-  const classes = styles();
-  const actions = bindActionCreators(AdminActions, useDispatch());
+  const actions = bindActionCreators(GuardianActions, useDispatch());
 
   const handleClick = (subject: string) => {
     actions.selectSubject(subject, location.pathname);

@@ -1,13 +1,15 @@
 import { Consts } from '@constants';
 import { createSlice } from '@reduxjs/toolkit';
 import { Domains } from 'typings';
-import { SIGN_IN, SIGN_UP } from './userActions';
+import * as UserActions from './userActions';
 
 const userState: Domains.UserState = {
   // login status: Not login
   loginStatus: Consts.SIGN_STATUS.NOT_LOGIN,
   // user name
   username: '',
+  // curriculums
+  curriculums: [],
 };
 
 const slice = createSlice({
@@ -21,7 +23,7 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(SIGN_IN.fulfilled, (state, { payload }) => {
+      .addCase(UserActions.USER_SIGN_IN.fulfilled, (state, { payload }) => {
         // require mfa code
         if (payload.mfaRequired) {
           state.loginStatus = Consts.SIGN_STATUS.MFA_REQUIRED;
@@ -34,9 +36,19 @@ const slice = createSlice({
 
         state.username = payload.username;
         state.password = payload.password;
+        state.authority = payload.authority;
       })
-      .addCase(SIGN_UP.fulfilled, (state, { payload }) => {
+      .addCase(UserActions.USER_SIGN_UP.fulfilled, (state, { payload }) => {
         console.log('SIGN UP Success');
+      })
+      .addCase(UserActions.USER_CURRICULUM_REGIST.fulfilled, (state, { payload }) => {
+        state.curriculums.push(payload);
+      })
+      .addCase(UserActions.USER_CURRICULUM_REMOVE.fulfilled, (state, { payload }) => {
+        state.curriculums = state.curriculums.filter((item) => item.id !== payload);
+      })
+      .addCase(UserActions.USER_CURRICULUM_LIST.fulfilled, (state, { payload }) => {
+        state.curriculums = payload.items;
       });
   },
 });
