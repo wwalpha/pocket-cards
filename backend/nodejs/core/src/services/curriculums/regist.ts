@@ -28,8 +28,13 @@ export default async (
   const questions = results[1].Items;
 
   // group not exsits or no question in group
-  if (!groupInfo || questions.length === 0) {
+  if (!groupInfo) {
     throw new Error('Group informations not found.');
+  }
+
+  // group not exsits or no question in group
+  if (questions.length === 0) {
+    throw new Error('No questions in group');
   }
 
   const dataRows = questions.map<Tables.TLearning>((item) => ({
