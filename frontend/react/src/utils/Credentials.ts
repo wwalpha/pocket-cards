@@ -1,4 +1,4 @@
-import { defaultTo } from 'lodash';
+import defaultTo from 'lodash/defaultTo';
 import { Buffer } from 'buffer';
 
 type Tokens = {

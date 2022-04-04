@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Theme, withStyles } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -7,19 +6,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 class Loading extends React.Component<LoadingProps, any, any> {
   render() {
     //@ts-ignore
-    const { size = 96, className, classes } = this.props;
-    if (!classes) return;
+    const { size = 96, className } = this.props;
 
     return (
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="center"
-        classes={{
-          container: classes.root,
-        }}
-        className={className}>
-        <Paper className={classes.paper}>
+      <Grid container alignItems="center" justifyContent="center" sx={styles.root}>
+        <Paper sx={styles.paper}>
           <CircularProgress size={size} />
         </Paper>
       </Grid>
@@ -27,7 +18,7 @@ class Loading extends React.Component<LoadingProps, any, any> {
   }
 }
 
-const styles = ({ palette: { primary } }: Theme) => ({
+const styles = {
   root: {
     position: 'absolute',
     height: '100%',
@@ -40,12 +31,12 @@ const styles = ({ palette: { primary } }: Theme) => ({
     backgroundColor: 'transparent',
   },
   progress: {
-    color: primary.dark,
+    color: 'primary.dark',
   },
-});
+};
 
 //@ts-ignore
-export default withStyles(styles as any)(Loading);
+export default Loading;
 
 export interface LoadingProps {
   size?: number;
