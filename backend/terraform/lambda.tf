@@ -2,15 +2,15 @@
 # Lambda Function - ECS Task Start
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "ecs_task_start" {
-  s3_bucket        = local.bucket_name_archive
-  s3_key           = "lambda/start.zip"
-  source_code_hash = aws_s3_object.lambda_start.etag
-  function_name    = "${local.project_name}-ecs-task-start"
-  handler          = local.lambda_handler
-  memory_size      = 128
-  role             = aws_iam_role.ecs_task_start.arn
-  runtime          = local.lambda_runtime
-  timeout          = 10
+  function_name     = "${local.project_name}-ecs-task-start"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = "lambda/start.zip"
+  s3_object_version = aws_s3_object.lambda_start.version_id
+  handler           = local.lambda_handler
+  memory_size       = 128
+  role              = aws_iam_role.ecs_task_start.arn
+  runtime           = local.lambda_runtime
+  timeout           = 10
   environment {
     variables = {
       CLUSTER_ARN         = data.aws_ecs_cluster.this.arn
@@ -35,15 +35,15 @@ resource "aws_lambda_permission" "ecs_task_start" {
 # Lambda Function - ECS Task Stop
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "ecs_task_stop" {
-  s3_bucket        = local.bucket_name_archive
-  s3_key           = "lambda/stop.zip"
-  source_code_hash = aws_s3_object.lambda_stop.etag
-  function_name    = "${local.project_name}-ecs-task-stop"
-  handler          = local.lambda_handler
-  memory_size      = 128
-  role             = aws_iam_role.ecs_task_stop.arn
-  runtime          = local.lambda_runtime
-  timeout          = 10
+  function_name     = "${local.project_name}-ecs-task-stop"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = "lambda/stop.zip"
+  s3_object_version = aws_s3_object.lambda_stop.version_id
+  handler           = local.lambda_handler
+  memory_size       = 128
+  role              = aws_iam_role.ecs_task_stop.arn
+  runtime           = local.lambda_runtime
+  timeout           = 10
   environment {
     variables = {
       CLUSTER_ARN         = data.aws_ecs_cluster.this.arn
@@ -68,15 +68,15 @@ resource "aws_lambda_permission" "ecs_task_stop" {
 # Lambda Function - ECS Task Status
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "ecs_task_status" {
-  s3_bucket        = local.bucket_name_archive
-  s3_key           = "lambda/status.zip"
-  source_code_hash = aws_s3_object.lambda_status.etag
-  function_name    = "${local.project_name}-ecs-task-status"
-  handler          = local.lambda_handler
-  memory_size      = 128
-  role             = aws_iam_role.ecs_task_status.arn
-  runtime          = local.lambda_runtime
-  timeout          = 10
+  function_name     = "${local.project_name}-ecs-task-status"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = "lambda/status.zip"
+  s3_object_version = aws_s3_object.lambda_status.version_id
+  handler           = local.lambda_handler
+  memory_size       = 128
+  role              = aws_iam_role.ecs_task_status.arn
+  runtime           = local.lambda_runtime
+  timeout           = 10
   environment {
     variables = {
       CLUSTER_ARN = data.aws_ecs_cluster.this.arn

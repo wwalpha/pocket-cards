@@ -5,14 +5,22 @@ resource "aws_s3_bucket" "archive" {
   bucket = local.bucket_name_archive
 }
 
+resource "aws_s3_bucket_versioning" "materials" {
+  bucket = aws_s3_bucket.materials.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 # ----------------------------------------------------------------------------------------------
 # Amazon S3 (archive用) LifeCycle
 # ----------------------------------------------------------------------------------------------
-resource "aws_s3_bucket_lifecycle_configuration" "archive_images" {
+resource "aws_s3_bucket_lifecycle_configuration" "archive" {
   bucket = aws_s3_bucket.archive.id
 
   rule {
-    id = "images"
+    id     = "images"
+    status = "Enabled"
 
     expiration {
       days = 7
@@ -21,12 +29,11 @@ resource "aws_s3_bucket_lifecycle_configuration" "archive_images" {
     filter {
       prefix = "images/"
     }
-
-    status = "Enabled"
   }
 
   rule {
-    id = "frontend"
+    id     = "frontend"
+    status = "Enabled"
 
     expiration {
       days = 30
@@ -35,8 +42,19 @@ resource "aws_s3_bucket_lifecycle_configuration" "archive_images" {
     filter {
       prefix = "frontend/"
     }
+  }
 
+  rule {
+    id     = "lambda"
     status = "Enabled"
+
+    noncurrent_version_expiration {
+      noncurrent_days = 7
+    }
+
+    filter {
+      prefix = "lambda/"
+    }
   }
 }
 
@@ -76,3 +94,45 @@ resource "aws_s3_bucket_acl" "materials" {
   bucket = aws_s3_bucket.materials.id
   acl    = "private"
 }
+
+# resource "aws_s3_bucket_versioning" "materials" {
+#   bucket = aws_s3_bucket.materials.id
+#   versioning_configuration {
+#     status = "Enabled"
+#   }
+# }
+
+# # ----------------------------------------------------------------------------------------------
+# # Amazon S3 Lifecycle - materials
+# # ----------------------------------------------------------------------------------------------
+# resource "aws_s3_bucket_lifecycle_configuration" "materials" {
+#   bucket = aws_s3_bucket.archive.id
+
+#   rule {
+#     id = "images"
+
+#     expiration {
+#       days = 7
+#     }
+
+#     filter {
+#       prefix = "images/"
+#     }
+
+#     status = "Enabled"
+#   }
+
+#   rule {
+#     id = "frontend"
+
+#     expiration {
+#       days = 30
+#     }
+
+#     filter {
+#       prefix = "frontend/"
+#     }
+
+#     status = "Enabled"
+#   }
+# }
