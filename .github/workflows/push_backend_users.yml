@@ -11,7 +11,7 @@ on:
 
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
-  ECR_REPOSITORY: pkc/users2
+  ECR_REPOSITORY: pkc/users
   ECS_CLUSTER_NAME: pkc-cluster
   ECS_SERVICE_NAME: user_manager
   ECS_TAKS_DEFINITION: pkc-users
