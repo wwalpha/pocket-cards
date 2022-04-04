@@ -35,6 +35,7 @@ jobs:
     environment:
       name: ${{ inputs.environment }}
     env:
+      AWS_DEFAULT_REGION: ${{ inputs.region }}
       TF_WORKSPACE: ${{ inputs.environment }}
       TF_VAR_translation_api_url:  ${{ secrets.translation_api_url }}
       TF_VAR_translation_api_key:  ${{ secrets.translation_api_key }}
