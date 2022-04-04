@@ -34,7 +34,7 @@ env:
 
 jobs:
   Terraform:
-    uses: ./.github/workflows/reuse_terraform.yml@main
+    uses: ./.github/workflows/reuse_terraform.yml
     with:
       region: ${{ env.AWS_DEFAULT_REGION }}
       working-directory: ${{ env.WORKING_DIR }}
