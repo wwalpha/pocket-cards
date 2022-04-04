@@ -6,8 +6,6 @@ import Dotenv from 'dotenv-webpack';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.base';
 
-// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-
 const dev: Configuration = {
   mode: 'development',
   devtool: 'inline-source-map',
@@ -15,8 +13,6 @@ const dev: Configuration = {
   plugins: [
     // @ts-ignore
     new Dotenv(),
-    // @ts-ignore
-    // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       title: 'Chat',
       filename: 'index.html',
