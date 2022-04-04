@@ -433,4 +433,14 @@ export namespace APIs {
   type CurriculumRemoveRequest = void;
 
   type CurriculumRemoveResponse = void;
+
+  // ------------------------------------------------------------
+  // Curriculums - Curriculum Lists
+  // ------------------------------------------------------------
+  interface CurriculumListsRequest {}
+
+  interface CurriculumListsResponse {
+    count: number;
+    items: Tables.TCurriculums[];
+  }
 }
