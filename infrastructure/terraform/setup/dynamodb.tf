@@ -17,6 +17,9 @@ resource "aws_dynamodb_table" "users" {
     name = "id"
     type = "S"
   }
+  tags = {
+    Project = local.project_name_uc
+  }
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -41,6 +44,9 @@ resource "aws_dynamodb_table" "groups" {
     hash_key        = "subject"
     range_key       = "id"
     projection_type = "ALL"
+  }
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -75,18 +81,9 @@ resource "aws_dynamodb_table" "words" {
     projection_type = "ALL"
   }
 
-  # local_secondary_index {
-  #   name               = "lsiIdx1"
-  #   range_key          = "nextTime"
-  #   projection_type    = "INCLUDE"
-  #   non_key_attributes = ["times"]
-  # }
-
-  # local_secondary_index {
-  #   name            = "lsiIdx2"
-  #   range_key       = "lastTime"
-  #   projection_type = "KEYS_ONLY"
-  # }
+  tags = {
+    Project = local.project_name_uc
+  }
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -100,6 +97,10 @@ resource "aws_dynamodb_table" "word_master" {
   attribute {
     name = "id"
     type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -130,6 +131,10 @@ resource "aws_dynamodb_table" "traces" {
     range_key       = "timestamp"
     projection_type = "ALL"
   }
+
+  tags = {
+    Project = local.project_name_uc
+  }
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -140,6 +145,7 @@ resource "aws_dynamodb_table" "histories" {
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "userId"
   range_key    = "timestamp"
+
   attribute {
     name = "userId"
     type = "S"
@@ -147,6 +153,10 @@ resource "aws_dynamodb_table" "histories" {
   attribute {
     name = "timestamp"
     type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -167,6 +177,10 @@ resource "aws_dynamodb_table" "word_ignore" {
   attribute {
     name = "word"
     type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -195,6 +209,10 @@ resource "aws_dynamodb_table" "questions" {
     range_key          = "id"
     projection_type    = "INCLUDE"
     non_key_attributes = ["title", "answer", "subject"]
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -239,6 +257,10 @@ resource "aws_dynamodb_table" "learning" {
     range_key       = "nextTime"
     projection_type = "ALL"
   }
+
+  tags = {
+    Project = local.project_name_uc
+  }
 }
 
 
@@ -253,6 +275,10 @@ resource "aws_dynamodb_table" "settings" {
   attribute {
     name = "id"
     type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -284,5 +310,9 @@ resource "aws_dynamodb_table" "curriculums" {
     hash_key        = "guardian"
     range_key       = "groupId"
     projection_type = "ALL"
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }

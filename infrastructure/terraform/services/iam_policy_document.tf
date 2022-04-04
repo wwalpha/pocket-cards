@@ -25,3 +25,17 @@ data "aws_iam_policy_document" "lambda" {
     }
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS IAM Policy Document - AWS Backup
+# ----------------------------------------------------------------------------------------------
+data "aws_iam_policy_document" "backup" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["backup.amazonaws.com"]
+    }
+  }
+}

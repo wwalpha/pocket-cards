@@ -291,3 +291,24 @@ resource "aws_iam_role_policy_attachment" "ecs_task_users_cognito" {
   role       = aws_iam_role.ecs_task_users.name
   policy_arn = aws_iam_policy.cognito_admin.arn
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role - Backup
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "backup" {
+  name               = "${local.project_name_uc}_BackupRole"
+  assume_role_policy = data.aws_iam_policy_document.backup.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+
+# ----------------------------------------------------------------------------------------------
+# AWS IAM Policy - Backup
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "backup" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
+  role       = aws_iam_role.backup.name
+}
