@@ -166,7 +166,7 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.render-web-container.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE_NAME_USER }}
+          service: ${{ env.ECS_SERVICE_NAME_AUTH }}
           cluster: ${{ env.ECS_CLUSTER_NAME }}
           wait-for-service-stability: true
           force-new-deployment: true
@@ -210,63 +210,10 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.render-web-container.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE_NAME_AUTH }}
+          service: ${{ env.ECS_SERVICE_NAME_USER }}
           cluster: ${{ env.ECS_CLUSTER_NAME }}
           wait-for-service-stability: true
           force-new-deployment: true
-
-  # [Lambda]
-  # Lambda:
-  #   runs-on: ubuntu-18.04
-  #   needs:
-  #     - Terraform
-  #   concurrency: lambda
-  #   environment:
-  #     name: prod
-  #   defaults:
-  #     run:
-  #       working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
-
-  #   steps:
-  #     # Source checkout
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-
-  #     # Setup Node.js
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: 14.x
-
-  #     # Install and Build
-  #     - name: Build
-  #       run: |
-  #         yarn build:cognito
-  #         yarn build:start
-  #         yarn build:status
-  #         yarn build:stop
-
-  #     # AWS Credentials
-  #     - name: Configure AWS credentials
-  #       uses: aws-actions/configure-aws-credentials@v1
-  #       with:
-  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #         aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-  #     # Install the latest version of Terraform CLI 
-  #     # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-  #     - name: Setup Terraform
-  #       uses: hashicorp/setup-terraform@v1
-  #       with:
-  #         terraform_version: 1.0.4
-  #         cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
-
-  #     # Backend init
-  #     - name: Terraform Backend
-  #       working-directory: ${{ env.WORKING_DIR_BACKEND }}/terraform
-  #       run: |
-  #         terraform init
-  #         terraform apply -auto-approve=true
 
   # [Frontend]
   Frontend:
