@@ -53,7 +53,7 @@ jobs:
     with:
       region: ap-northeast-1
       working-directory: infrastructure/terraform/setup
-      environment: dev
+      workspace: dev
     # secrets:
     #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
