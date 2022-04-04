@@ -31,8 +31,7 @@ on:
 jobs:
   Terraform:
     runs-on: ubuntu-latest
-    environment:
-      name: dev
+    environment: dev
     env:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
       TF_WORKSPACE: ${{ inputs.workspace }}
