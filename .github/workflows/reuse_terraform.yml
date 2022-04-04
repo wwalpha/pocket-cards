@@ -3,27 +3,23 @@ name: Terraform Workflow
 on:
   workflow_call:
     inputs:
-      environment:
+      workspace:
         required: true
         type: string
-        default: dev
-        description: dev or prod
       region:
         required: true
         type: string
-        default: ap-northeast-1
-        description: tokyo or virginia
       working-directory:
         required: true
         type: string
 
-    # secrets:
-    #   AWS_ACCESS_KEY_ID:
-    #     required: true
-    #   AWS_SECRET_ACCESS_KEY:
-    #     required: true
-    #   TF_API_TOKEN:
-    #     required: true
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      TF_API_TOKEN:
+        required: true
       # translation_api_url:
       # translation_api_key:
       # ipa_api_url:
@@ -37,8 +33,6 @@ on:
 jobs:
   Terraform:
     runs-on: ubuntu-latest
-    environment:
-      name: dev
     env:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
       TF_WORKSPACE: ${{ inputs.environment }}
