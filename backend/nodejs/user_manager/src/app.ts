@@ -70,6 +70,11 @@ export const createUser = async (
 
     // force change user password
     if (authority === Authority.CHILD) {
+      // required
+      if (!password) {
+        throw new Error('Required parameter: password');
+      }
+
       await adminSetUserPassword(userPoolId, email, password);
     }
 
