@@ -1,14 +1,12 @@
 import React, { FunctionComponent, Fragment, useState } from 'react';
-import {
-  ListItem,
-  List,
-  ListItemText,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  Avatar,
-  Button,
-  IconButton,
-} from '@mui/material';
+import ListItem from '@mui/material/ListItem';
+import List from '@mui/material/List';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import { Consts } from '@constants';
 import { Group } from 'typings';

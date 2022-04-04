@@ -2,11 +2,13 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useForm, Controller } from 'react-hook-form';
-import { Container, CssBaseline, TextField } from '@mui/material';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 import { Button } from '@components/buttons';
 import { UserActions } from '@actions';
 import { RootState, NewPasswordForm } from 'typings';
-import { default as styles } from './SignIn.style';
 
 const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
@@ -17,8 +19,23 @@ const defaultValues: NewPasswordForm = {
   oldPassword: '',
 };
 
+const styles = {
+  paper: {
+    mt: 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: { margin: 1, bgcolor: 'secondary.main' },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    mt: 1,
+  },
+  submit: { mt: 3, mb: 0, ml: 2 },
+  button: { p: 0 },
+};
+
 const NewPassword = () => {
-  const classes = styles();
   const actions = bindActionCreators(UserActions, useDispatch());
   const { isLoading } = useSelector(appState);
   const { username, password } = useSelector(userState);
@@ -41,8 +58,8 @@ const NewPassword = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <form className={classes.form} noValidate onSubmit={onSubmit}>
+      <Box sx={styles.paper}>
+        <form noValidate onSubmit={onSubmit}>
           <Controller
             name="oldPassword"
             control={control}
@@ -93,7 +110,7 @@ const NewPassword = () => {
             Confirm
           </Button>
         </form>
-      </div>
+      </Box>
     </Container>
   );
 };

@@ -15,6 +15,7 @@ const dev: Configuration = {
   plugins: [
     // @ts-ignore
     new Dotenv(),
+    // @ts-ignore
     // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       title: 'Chat',
