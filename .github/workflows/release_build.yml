@@ -25,7 +25,7 @@ env:
   ECR_REPO_AUTH: pkc/auth2
   ECR_REPO_BACKEND: pkc/backend3
   ECR_REPO_BATCH: pkc/batch3
-  ECR_REPO_USERS: pkc/user2
+  ECR_REPO_USERS: pkc/users2
   SSM_PARAMETER_NAME_ECR: /pkc/repository_url
   SSM_PARAMETER_NAME_FRONTEND: /pkc/frontend
   S3_BUCKET: pkc-archive-af2a18
