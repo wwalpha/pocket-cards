@@ -23,11 +23,11 @@ const configs: Configuration = {
   },
   externals: {
     moment: 'moment',
-    lodash: {
-      commonjs: 'lodash',
-      amd: 'lodash',
-      root: '_', // indicates global variable
-    },
+    // lodash: {
+    //   commonjs: 'lodash',
+    //   amd: 'lodash',
+    //   root: '_', // indicates global variable
+    // },
   },
   module: {
     rules: [

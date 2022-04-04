@@ -1,5 +1,5 @@
 import { push } from 'connected-react-router';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { defaultFailure, withLoading } from '@actions';
 import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';

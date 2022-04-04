@@ -1,5 +1,6 @@
 import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
-import { concat, differenceBy } from 'lodash';
+import concat from 'lodash/concat';
+import differenceBy from 'lodash/differenceBy';
 import { Consts } from '@constants';
 import { Domains, Payloads } from 'typings';
 import { STUDY_CONTINUE, STUDY_IGNORE, STUDY_START, STUDY_TODOS } from './studyActions';

@@ -14,7 +14,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import MButton from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { Button } from '@components/buttons';
+import { LoadingButton } from '@mui/lab';
 import { UserActions } from '@actions';
 import { Paths } from '@constants';
 import { RootState, SignInForm } from 'typings';
@@ -41,12 +41,8 @@ const styles = {
     m: 1,
     bgcolor: 'secondary.main',
   },
-  submit: {
-    m: 3,
-  },
-  button: {
-    p: 0,
-  },
+  submit: { mb: 1 },
+  button: { p: 0 },
 };
 
 const SignIn = () => {
@@ -122,8 +118,8 @@ const SignIn = () => {
             )}
           />
           <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-          <Button
-            isLoading={isLoading}
+          <LoadingButton
+            loading={isLoading}
             type="submit"
             size="large"
             fullWidth
@@ -131,19 +127,18 @@ const SignIn = () => {
             color="primary"
             sx={styles.submit}>
             Sign In
-          </Button>
-          <Box sx={{ m: 1 }}>
-            <MButton
-              size="large"
-              fullWidth
-              variant="contained"
-              color="secondary"
-              component={React.forwardRef((props: any, ref: any) => (
-                <Link to={Paths.PATHS_SIGN_UP} {...props} />
-              ))}>
-              Sign Up
-            </MButton>
-          </Box>
+          </LoadingButton>
+          <MButton
+            sx={{ mt: 1 }}
+            size="large"
+            fullWidth
+            variant="contained"
+            color="secondary"
+            component={React.forwardRef((props: any, ref: any) => (
+              <Link to={Paths.PATHS_SIGN_UP} {...props} />
+            ))}>
+            Sign Up
+          </MButton>
 
           {/* <Button
             type="button"
