@@ -2,6 +2,9 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # Environment
   # ----------------------------------------------------------------------------------------------
+  environment     = terraform.workspace
+  is_dev          = local.environment == "dev"
+  prod_only       = local.is_dev ? 0 : 1
   remote_setup    = data.terraform_remote_state.setup.outputs
   remote_services = data.terraform_remote_state.services.outputs
 
