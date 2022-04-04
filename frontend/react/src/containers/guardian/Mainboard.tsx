@@ -90,6 +90,7 @@ export default () => {
                         const func = !item ? handleApply : handleRelease;
                         const icon = !item ? <CheckCircleIcon /> : <HighlightOffIcon />;
                         const color = item ? 'primary' : 'secondary';
+                        const id = item ? item.id : dataRow.id;
 
                         return (
                           <LoadingButton
@@ -100,7 +101,7 @@ export default () => {
                             size="small"
                             sx={{ py: 0, mx: 0.5 }}
                             onClick={() => {
-                              func(dataRow.id);
+                              func(id);
                             }}>
                             {label}
                           </LoadingButton>

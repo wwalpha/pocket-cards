@@ -24,8 +24,8 @@ import { default as styles } from './SignIn.style';
 
 const app = (state: RootState) => state.app;
 const defaultValues: SignInForm = {
-  username: 'wwalpha@gmail.com',
-  password: 'g/oiqZ4UX3',
+  username: '',
+  password: '',
 };
 
 const SignIn = () => {
