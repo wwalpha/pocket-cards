@@ -24,15 +24,15 @@ on:
         required: true
       TF_API_TOKEN:
         required: true
-      translation_api_url:
-      translation_api_key:
-      ipa_api_url:
-      ipa_api_key:
-      vision_api_url:
-      vision_api_key:
-      domain_name:
-      google_client_id:
-      google_client_secret:
+      # translation_api_url:
+      # translation_api_key:
+      # ipa_api_url:
+      # ipa_api_key:
+      # vision_api_url:
+      # vision_api_key:
+      # domain_name:
+      # google_client_id:
+      # google_client_secret:
 
 jobs:
   Terraform:
@@ -42,15 +42,15 @@ jobs:
     env:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
       TF_WORKSPACE: ${{ inputs.environment }}
-      TF_VAR_translation_api_url:  ${{ secrets.translation_api_url }}
-      TF_VAR_translation_api_key:  ${{ secrets.translation_api_key }}
-      TF_VAR_ipa_api_url:  ${{ secrets.ipa_api_url }}
-      TF_VAR_ipa_api_key:  ${{ secrets.ipa_api_key }}
-      TF_VAR_vision_api_url:  ${{ secrets.vision_api_url }}
-      TF_VAR_vision_api_key:  ${{ secrets.vision_api_key }}
-      TF_VAR_domain_name: ${{ secrets.domain_name }}
-      TF_VAR_google_client_id:  ${{ secrets.google_client_id }}
-      TF_VAR_google_client_secret:  ${{ secrets.google_client_secret }}
+      # TF_VAR_translation_api_url:  ${{ secrets.translation_api_url }}
+      # TF_VAR_translation_api_key:  ${{ secrets.translation_api_key }}
+      # TF_VAR_ipa_api_url:  ${{ secrets.ipa_api_url }}
+      # TF_VAR_ipa_api_key:  ${{ secrets.ipa_api_key }}
+      # TF_VAR_vision_api_url:  ${{ secrets.vision_api_url }}
+      # TF_VAR_vision_api_key:  ${{ secrets.vision_api_key }}
+      # TF_VAR_domain_name: ${{ secrets.domain_name }}
+      # TF_VAR_google_client_id:  ${{ secrets.google_client_id }}
+      # TF_VAR_google_client_secret:  ${{ secrets.google_client_secret }}
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
