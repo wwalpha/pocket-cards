@@ -1,11 +1,10 @@
 import React from 'react';
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { DrawerLeft, Mainboard, GroupDetails, QuestionList } from '.';
-import { default as styles } from './Dashboard.style';
 import { Paths } from '@constants';
+import { DrawerLeft, Mainboard, QuestionList } from '.';
 
-const Dashboard = () => {
+export default () => {
   const { path } = useRouteMatch();
 
   return (
@@ -22,19 +21,16 @@ const Dashboard = () => {
           }}>
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              管理者画面
+              保護者管理画面
             </Typography>
           </Toolbar>
         </AppBar>
 
         <Switch>
           <Route exact path={path} component={Mainboard} />
-          <Route path={Paths.PATHS_ADMIN_GROUP_DETAILS} component={GroupDetails} />
-          <Route path={Paths.PATHS_ADMIN_GROUP_QUESTIONS} component={QuestionList} />
+          <Route path={Paths.PATHS_GUARDIAN_GROUP_QUESTIONS} component={QuestionList} />
         </Switch>
       </Box>
     </Box>
   );
 };
-
-export default Dashboard;
