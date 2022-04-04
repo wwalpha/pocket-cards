@@ -3,17 +3,31 @@ name: Terraform Workflow
 on:
   workflow_call:
     inputs:
-      region:
-        required: true
-        type: string
-        default: ap-northeast-1
-      working-directory:
-        required: true
-        type: string
       environment:
         required: true
         type: string
         default: dev
+        description: dev or prod
+      region:
+        required: true
+        type: string
+        default: ap-northeast-1
+        description: tokyo or virginia
+      working-directory:
+        required: true
+        type: string
+      translation_api_url:
+        type: string
+      translation_api_key:
+        type: string
+      ipa_api_url:
+        type: string
+      ipa_api_key:
+        type: string
+      vision_api_url:
+        type: string
+      vision_api_key:
+        type: string
 
 jobs:
   Terraform:
@@ -22,7 +36,15 @@ jobs:
       name: ${{ inputs.environment }}
     env:
       TF_WORKSPACE: ${{ inputs.environment }}
-      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_VAR_translation_api_url:  ${{ secrets.translation_api_url }}
+      TF_VAR_translation_api_key:  ${{ secrets.translation_api_key }}
+      TF_VAR_ipa_api_url:  ${{ secrets.ipa_api_url }}
+      TF_VAR_ipa_api_key:  ${{ secrets.ipa_api_key }}
+      TF_VAR_vision_api_url:  ${{ secrets.vision_api_url }}
+      TF_VAR_vision_api_key:  ${{ secrets.vision_api_key }}
+      TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
+      TF_VAR_google_client_id:  ${{ secrets.GOOGLE_CLIENT_ID }}
+      TF_VAR_google_client_secret:  ${{ secrets.GOOGLE_CLIENT_SECRET }}
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
@@ -46,7 +68,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.1.7
-          cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       # Terraform execution
       - name: Terraform Execution
