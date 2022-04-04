@@ -4,6 +4,8 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+// const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin');
+// const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 const configs: Configuration = {
   target: 'web',
@@ -18,6 +20,14 @@ const configs: Configuration = {
     mainFields: ['browser', 'main', 'module'],
     extensions: ['.ts', '.tsx', '.js'],
     plugins: [new TsconfigPathsPlugin()],
+  },
+  externals: {
+    moment: 'moment',
+    lodash: {
+      commonjs: 'lodash',
+      amd: 'lodash',
+      root: '_', // indicates global variable
+    },
   },
   module: {
     rules: [
@@ -42,6 +52,12 @@ const configs: Configuration = {
     ],
   },
   plugins: [
+    // new MomentLocalesPlugin({
+    //   localesToKeep: ['ja'],
+    // }),
+    // new MomentTimezoneDataPlugin({
+    //   matchZones: 'Asia/Tokyo',
+    // }),
     new WebpackManifestPlugin({
       writeToFileEmit: true,
     }),

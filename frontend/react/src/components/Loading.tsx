@@ -1,9 +1,12 @@
 import * as React from 'react';
-import { withStyles } from '@mui/styles';
-import { Grid, Paper, CircularProgress, Theme, StandardProps } from '@mui/material';
+import { Theme, withStyles } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
 
 class Loading extends React.Component<LoadingProps, any, any> {
   render() {
+    //@ts-ignore
     const { size = 96, className, classes } = this.props;
     if (!classes) return;
 
@@ -41,8 +44,9 @@ const styles = ({ palette: { primary } }: Theme) => ({
   },
 });
 
+//@ts-ignore
 export default withStyles(styles as any)(Loading);
 
-export interface LoadingProps extends StandardProps<any, any> {
+export interface LoadingProps {
   size?: number;
 }

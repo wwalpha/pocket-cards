@@ -2,22 +2,19 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
-import {
-  Container,
-  CssBaseline,
-  Typography,
-  TextField,
-  FormControl,
-  Grid,
-  InputLabel,
-  Select,
-  MenuItem,
-  Box,
-} from '@mui/material';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
 import { Button } from '@components/buttons';
 import { UserActions } from '@actions';
 import { RootState, SignUpForm } from 'typings';
-import { default as styles } from './SignUp.style';
 
 const app = (state: RootState) => state.app;
 const defaultValues: SignUpForm = {
@@ -26,8 +23,18 @@ const defaultValues: SignUpForm = {
   username: '',
 };
 
+const styles = {
+  '@global': {
+    body: { bgcolor: 'common.white' },
+  },
+  paper: { mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' },
+  avatar: { m: 1, backgroundColor: 'secondary.main' },
+  form: { width: '100%', MimeType: 1 },
+  submit: { m: 3 },
+  button: { p: 0 },
+};
+
 const SignUp = () => {
-  const classes = styles();
   const { isLoading } = useSelector(app);
   const actions = bindActionCreators(UserActions, useDispatch());
 
@@ -45,11 +52,11 @@ const SignUp = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <Box sx={styles.paper}>
         <Typography component="h1" variant="h5">
           Sign up to PocketCards
         </Typography>
-        <form className={classes.form} noValidate onSubmit={onSubmit}>
+        <form noValidate onSubmit={onSubmit}>
           <Controller
             name="username"
             control={control}
@@ -115,7 +122,7 @@ const SignUp = () => {
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}>
+              sx={styles.submit}>
               Sign Up
             </Button>
           </Box>
@@ -124,12 +131,12 @@ const SignUp = () => {
             variant="contained"
             color="primary"
             size="large"
-            className={classes.button}
+            sx={styles.button}
             onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })}>
             <img src="./img/btn_google_signin_dark_normal_web.png" />
           </Button> */}
         </form>
-      </div>
+      </Box>
     </Container>
   );
 };

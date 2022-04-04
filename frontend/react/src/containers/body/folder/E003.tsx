@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Box, FormControl, Select, InputLabel, MenuItem } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 import Button from '@components/buttons/Button';
 import { GroupActions } from '@actions';
 import { useForm } from 'react-hook-form';

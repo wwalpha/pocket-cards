@@ -4,32 +4,52 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import {
-  Container,
-  CssBaseline,
-  Avatar,
-  Typography,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Grid,
-  Button as MButton,
-  Box,
-} from '@mui/material';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import MButton from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import { Button } from '@components/buttons';
 import { UserActions } from '@actions';
 import { Paths } from '@constants';
 import { RootState, SignInForm } from 'typings';
-import { default as styles } from './SignIn.style';
 
 const app = (state: RootState) => state.app;
 const defaultValues: SignInForm = {
-  username: '',
-  password: '',
+  username: 'wwalpha80@gmail.com',
+  password: 'Session10+',
+};
+
+const styles = {
+  '@global': {
+    body: {
+      bgcolor: 'common.white',
+    },
+  },
+  paper: {
+    mt: 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    m: 1,
+    bgcolor: 'secondary.main',
+  },
+  submit: {
+    m: 3,
+  },
+  button: {
+    p: 0,
+  },
 };
 
 const SignIn = () => {
-  const classes = styles();
   const { isLoading } = useSelector(app);
   const actions = bindActionCreators(UserActions, useDispatch());
 
@@ -47,14 +67,14 @@ const SignIn = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <Box sx={styles.paper}>
+        <Avatar sx={styles.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in to PocketCards
         </Typography>
-        <form className={classes.form} noValidate onSubmit={onSubmit}>
+        <form noValidate onSubmit={onSubmit}>
           <Controller
             name="username"
             control={control}
@@ -109,7 +129,7 @@ const SignIn = () => {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}>
+            sx={styles.submit}>
             Sign In
           </Button>
           <Box sx={{ m: 1 }}>
@@ -130,7 +150,7 @@ const SignIn = () => {
             variant="contained"
             color="primary"
             size="large"
-            className={classes.button}
+            sx={classes.button}
             onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })}>
             <img src="./img/btn_google_signin_dark_normal_web.png" />
           </Button> */}
@@ -138,7 +158,7 @@ const SignIn = () => {
             <Grid item xs></Grid>
           </Grid>
         </form>
-      </div>
+      </Box>
     </Container>
   );
 };

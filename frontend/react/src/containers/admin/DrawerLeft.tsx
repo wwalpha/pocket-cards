@@ -12,13 +12,11 @@ import ListItemText from '@mui/material/ListItemText';
 import BookIcon from '@mui/icons-material/Book';
 import { AdminActions } from '@actions';
 import { Consts } from '@constants';
-import { default as styles } from './DrawerLeft.style';
 
 const drawerWidth = 200;
 
 export default () => {
   const location = useLocation();
-  const classes = styles();
   const actions = bindActionCreators(AdminActions, useDispatch());
 
   const handleClick = (subject: string) => {

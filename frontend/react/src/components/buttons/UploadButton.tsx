@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { ButtonProps } from '@mui/material';
+import { ButtonProps } from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 const button: FunctionComponent<Props> = ({ readAsText, readAsDataURL, children, ...props }) => {
