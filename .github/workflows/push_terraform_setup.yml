@@ -34,12 +34,11 @@ env:
 jobs:
   Terraform:
     uses: ./.github/workflows/reuse_terraform.yml
-    environment:
-      name: dev
     with:
       region: ap-northeast-1
       working-directory: infrastructure/terraform/setup
       workspace: dev
+    secrets:
       translation_api_url:  ${{ secrets.translation_api_url }}
       translation_api_key:  ${{ secrets.translation_api_key }}
       ipa_api_url:  ${{ secrets.ipa_api_url }}
