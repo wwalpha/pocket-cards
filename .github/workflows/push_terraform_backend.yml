@@ -20,7 +20,7 @@ jobs:
     with:
       region: ${{ env.AWS_REGION }}
       working-directory: ${{ env.WORKING_DIR }}
-      environment: ${{ env.ENVIRONMENT }}
+      environment: env
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
