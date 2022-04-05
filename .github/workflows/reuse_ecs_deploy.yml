@@ -52,6 +52,10 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
 
     steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
       # AWS Credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
