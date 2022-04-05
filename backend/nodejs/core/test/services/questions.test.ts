@@ -94,7 +94,7 @@ describe('d0', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
-    const result = await DBHelper().get(Learning.get({ qid: 'Q001' }));
+    const result = await DBHelper().get(Learning.get({ qid: 'Q001', userId: '84d95083-9ee8-4187-b6e7-8123558ef2c1' }));
 
     expect(result?.Item).toMatchObject(QUESTIONS.ANSWER04_EXPECT01);
   });
@@ -114,7 +114,7 @@ describe('d0', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
-    const result = await DBHelper().get(Learning.get({ qid: 'Q001' }));
+    const result = await DBHelper().get(Learning.get({ qid: 'Q001', userId: '84d95083-9ee8-4187-b6e7-8123558ef2c1' }));
 
     expect(result?.Item).toMatchObject(QUESTIONS.ANSWER05_EXPECT01);
   });
