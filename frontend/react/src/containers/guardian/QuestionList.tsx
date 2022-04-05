@@ -25,7 +25,12 @@ export default () => {
   return (
     <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <Box my={1} display="flex">
-        <Button variant="contained" color="secondary" sx={{ width: 120, mr: 1 }} onClick={handleHistoryBack}>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          sx={{ width: 120, mr: 1 }}
+          onClick={handleHistoryBack}>
           BACK
         </Button>
       </Box>

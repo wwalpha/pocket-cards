@@ -2,6 +2,7 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Paths } from '@constants';
@@ -31,8 +32,16 @@ export default () => {
           }}>
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              保護者管理画面
+              Guardian Dashboard
             </Typography>
+            <Box sx={{ ml: 2 }}>
+              <Button variant="outlined" color="inherit" sx={{ mx: 1, borderRadius: 0 }}>
+                ADD
+              </Button>
+              <Button variant="outlined" color="inherit" sx={{ mx: 1, borderRadius: 0 }}>
+                LOGOUT
+              </Button>
+            </Box>
           </Toolbar>
         </AppBar>
         <Toolbar />

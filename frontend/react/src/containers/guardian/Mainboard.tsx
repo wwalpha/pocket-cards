@@ -51,12 +51,7 @@ export default () => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-        <Box sx={{ display: 'flex', flexDirection: 'row-reverse', mx: 2, my: 1 }}>
-          <Button variant="contained" color="secondary">
-            ＋
-          </Button>
-        </Box>
+      <Box sx={{ my: 2, mx: 3, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
         <TableContainer component={Paper}>
           <Table aria-label="customized table" size="small">
             <TableHead>
@@ -69,7 +64,7 @@ export default () => {
             </TableHead>
             <TableBody>
               {displayGroups.map((dataRow) => (
-                <TableRow hover key={dataRow.id}>
+                <TableRow key={dataRow.id}>
                   <TableCell>
                     <Box sx={{ display: 'flex' }}>
                       <LoadingButton
@@ -89,7 +84,7 @@ export default () => {
                         const label = !item ? 'Apply' : 'Cancel';
                         const func = !item ? handleApply : handleCancel;
                         const icon = !item ? <CheckCircleIcon /> : <HighlightOffIcon />;
-                        const color = item ? 'info' : 'secondary';
+                        const color = item ? 'info' : 'primary';
                         const id = item ? item.id : dataRow.id;
 
                         return (
