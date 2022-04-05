@@ -9,6 +9,7 @@ on:
 env:
   AWS_DEFAULT_REGION: us-east-1
   WORKING_DIR_FRONTEND: frontend/react
+  TF_WORKSPACE: prod
 
 jobs:
   #Terraform
