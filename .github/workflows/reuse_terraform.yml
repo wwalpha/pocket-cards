@@ -50,7 +50,6 @@ on:
 jobs:
   Apply:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment: ${{ inputs.environment }}
     env:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
