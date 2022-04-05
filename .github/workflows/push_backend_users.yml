@@ -24,14 +24,6 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  Test:
-    runs-on: ubuntu-latest
-    needs: Build
-    steps:
-      - run: echo ${{ needs.Build.outputs.image }}
-
-      - run: echo ${{ needs.Build.outputs }}
-
   Deploy:
     uses: ./.github/workflows/reuse_ecs_deploy.yml
     needs: Build
