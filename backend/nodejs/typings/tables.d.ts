@@ -76,11 +76,11 @@ export namespace Tables {
   interface TLearningKey {
     // 問題ID
     qid: string;
+    // ユーザID
+    userId: string;
   }
 
   interface TLearning extends TLearningKey {
-    // ユーザID
-    userId: string;
     // グループID
     groupId: string;
     // 次回の学習時間

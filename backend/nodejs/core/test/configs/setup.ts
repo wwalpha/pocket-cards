@@ -154,7 +154,10 @@ const setup = async () => {
         TableName: TABLE_NAME_LEARNING,
         BillingMode: 'PROVISIONED',
         ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
-        KeySchema: [{ AttributeName: 'qid', KeyType: 'HASH' }],
+        KeySchema: [
+          { AttributeName: 'qid', KeyType: 'HASH' },
+          { AttributeName: 'userId', KeyType: 'RANGE' },
+        ],
         AttributeDefinitions: [
           { AttributeName: 'qid', AttributeType: 'S' },
           { AttributeName: 'userId', AttributeType: 'S' },
