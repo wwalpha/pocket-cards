@@ -21,16 +21,12 @@ on:
     types:
       - completed
 
-env:
-  AWS_REGION: ap-northeast-1
-  WORKING_DIR: infrastructure/terraform/services
-
 jobs:
   Terraform:
     uses: ./.github/workflows/reuse_terraform.yml
     with:
-      region: ${{ env.AWS_REGION }}
-      working-directory: ${{ env.WORKING_DIR }}
+      region: ap-northeast-1
+      working-directory: infrastructure/terraform/setup
       environment: dev
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
