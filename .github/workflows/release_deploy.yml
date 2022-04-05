@@ -11,7 +11,6 @@ env:
   WORKING_DIR_BACKEND: backend
   WORKING_DIR_FRONTEND: frontend/react
   TF_WORKSPACE: prod
-  TF_VARS: ${{ secrets.TERRAFORM_VARS }}
   ECS_CLUSTER_NAME: pkc-cluster
   ECS_SERVICE_NAME_BACKEND: backend
   ECS_SERVICE_NAME_AUTH: auth_manager
@@ -28,6 +27,8 @@ jobs:
     runs-on: ubuntu-18.04
     environment:
       name: prod
+    env:
+      TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
     steps:
       # source checkout
