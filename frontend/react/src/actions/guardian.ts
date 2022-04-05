@@ -19,7 +19,7 @@ export const curriculumRegist = (groupId: string) => (dispatch: AppDispatch) =>
       // Get question lists
       dispatch(
         Actions.USER_CURRICULUM_REGIST({
-          userId: 'wwalpha00@gmail.com',
+          userId: 'Google_109439805128280065775',
           groupId: groupId,
         })
       );
