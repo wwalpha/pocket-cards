@@ -35,6 +35,8 @@ jobs:
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
   Service:
+    needs:
+      - Setup
     uses: ./.github/workflows/reuse_terraform.yml
     with:
       region: ap-northeast-1
@@ -47,6 +49,8 @@ jobs:
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
   Backend:
+    needs:
+      - Service
     uses: ./.github/workflows/reuse_terraform.yml
     with:
       region: ap-northeast-1
