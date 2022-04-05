@@ -9,6 +9,7 @@ on:
       - .github/workflows/push_terraform_setup.yml
       - .github/workflows/push_terraform_services.yml
       - .github/workflows/push_terraform_backend.yml
+      - .github/workflows/reuse_terraform.yml
     branches-ignore:
       - releases/**
   workflow_run:
