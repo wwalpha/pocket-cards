@@ -12,43 +12,29 @@ on:
       - releases/**
 
 jobs:
-  BUILD_DEPLOY:
-    uses: ./.github/workflows/reuse_ecs_all.yml
+  Build:
+    uses: ./.github/workflows/reuse_ecs_build.yml
     with:
       region: ap-northeast-1
       working-directory: backend/nodejs/user_manager
       environment: dev
-      ECR_REPOSITORY: pkc/users
       ECS_SERVICE_NAME: user_manager
-      ECS_TASK_DEF: pkc-users
-      ECS_WAIT_FOR_STABILITY: false
+      ECR_REPOSITORY: pkc/users
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  # Build:
-  #   uses: ./.github/workflows/reuse_ecs_build.yml
-  #   with:
-  #     region: ap-northeast-1
-  #     working-directory: backend/nodejs/user_manager
-  #     environment: dev
-  #     ECS_SERVICE_NAME: user_manager
-  #     ECR_REPOSITORY: pkc/users
-  #   secrets:
-  #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-  # Deploy:
-  #   uses: ./.github/workflows/reuse_ecs_deploy.yml
-  #   needs: Build
-  #   with:
-  #     region: ap-northeast-1
-  #     working-directory: backend/nodejs/user_manager
-  #     environment: dev
-  #     ECS_SERVICE_NAME: user_manager
-  #     ECS_TASK_DEF: pkc-users
-  #     ECS_WAIT_FOR_STABILITY: false
-  #     ECR_IMAGE: ${{ needs.Build.outputs.image }}
-  #   secrets:
-  #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  Deploy:
+    uses: ./.github/workflows/reuse_ecs_deploy.yml
+    needs: Build
+    with:
+      region: ap-northeast-1
+      working-directory: backend/nodejs/user_manager
+      environment: dev
+      ECS_SERVICE_NAME: user_manager
+      ECS_TASK_DEF: pkc-users
+      ECS_WAIT_FOR_STABILITY: false
+      ECR_IMAGE: ${{ needs.Build.outputs.image }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
