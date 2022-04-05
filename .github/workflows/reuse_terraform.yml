@@ -66,7 +66,7 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       # Terraform execution
-      - name: Terraform Execution
+      - name: Apply Terraform 
         run: |
           echo $TF_VARS > local.auto.tfvars.json
           terraform init
