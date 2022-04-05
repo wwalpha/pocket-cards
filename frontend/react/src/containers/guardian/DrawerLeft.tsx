@@ -11,10 +11,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import BookIcon from '@mui/icons-material/Book';
 import { GuardianActions } from '@actions';
-// import { default as styles } from './DrawerLeft.style';
 import { Consts } from '@constants';
-
-const drawerWidth = 200;
+import { styles } from './DrawerLeft.style';
 
 export default () => {
   const location = useLocation();
@@ -25,60 +23,53 @@ export default () => {
   };
 
   return (
-    <Drawer
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }}
-      variant="permanent"
-      anchor="left">
+    <Drawer sx={styles.drawer} variant="permanent" anchor="left">
       <Toolbar />
       <Divider />
-      <List>
+      <List sx={styles.list}>
         <ListItem
           button
           key="Japanese"
           onClick={() => {
             handleClick(Consts.SUBJECT.JAPANESE.toString());
           }}>
-          <ListItemIcon sx={{ minWidth: 32 }}>
+          <ListItemIcon sx={styles.itemIcon}>
             <BookIcon sx={{ color: '#b71927' }} />
           </ListItemIcon>
           <ListItemText primary="国 語" />
         </ListItem>
+        <Divider />
         <ListItem
           button
           key="Science"
           onClick={() => {
             handleClick(Consts.SUBJECT.SCIENCE.toString());
           }}>
-          <ListItemIcon sx={{ minWidth: 32 }}>
+          <ListItemIcon sx={styles.itemIcon}>
             <BookIcon sx={{ color: '#f19116' }} />
           </ListItemIcon>
           <ListItemText primary="理 科" />
         </ListItem>
+        <Divider />
         <ListItem
           button
           key="Society"
           onClick={() => {
             handleClick(Consts.SUBJECT.SOCIETY.toString());
           }}>
-          <ListItemIcon sx={{ minWidth: 32 }}>
+          <ListItemIcon sx={styles.itemIcon}>
             <BookIcon sx={{ color: '#288f46' }} />
           </ListItemIcon>
           <ListItemText primary="社 会" />
         </ListItem>
+        <Divider />
         <ListItem
           button
           key="English"
           onClick={() => {
             handleClick(Consts.SUBJECT.ENGLISH.toString());
           }}>
-          <ListItemIcon sx={{ minWidth: 32 }}>
+          <ListItemIcon sx={styles.itemIcon}>
             <BookIcon sx={{ color: '#b71927' }} />
           </ListItemIcon>
           <ListItemText primary="英 語" />
