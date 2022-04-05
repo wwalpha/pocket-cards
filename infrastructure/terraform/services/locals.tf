@@ -10,7 +10,7 @@ locals {
   region       = data.aws_region.this.name
   region_us    = "us-east-1"
   vpc_id       = local.is_dev ? var.vpc_id : module.vpc[0].vpc_id
-  subnets      = local.is_dev ? var.vpc_subnets : module.vpc[0].public_subnets
+  vpc_subnets  = local.is_dev ? var.vpc_subnets : module.vpc[0].public_subnets
 
   # ----------------------------------------------------------------------------------------------
   # Project Informations
