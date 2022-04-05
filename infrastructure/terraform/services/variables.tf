@@ -17,5 +17,4 @@ variable "subnets" {
 # System Admin Email
 # ----------------------------------------------------------------------------------------------
 variable "admin_email" {
-  default = "wwalpha@gmail.com"
 }
