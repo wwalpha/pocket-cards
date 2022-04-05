@@ -12,13 +12,7 @@ env:
   WORKING_DIR_BACKEND: backend
   WORKING_DIR_FRONTEND: frontend/react
   TF_WORKSPACE: prod
-  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-  TF_VAR_translation_api_url:  ${{ secrets.TRANSLATION_API_URL }}
-  TF_VAR_translation_api_key:  ${{ secrets.TRANSLATION_API_KEY }}
-  TF_VAR_ipa_api_url:  ${{ secrets.IPA_API_URL }}
-  TF_VAR_ipa_api_key:  ${{ secrets.IPA_API_KEY }}
-  TF_VAR_vision_api_url:  ${{ secrets.VISION_API_URL }}
-  TF_VAR_vision_api_key:  ${{ secrets.VISION_API_KEY }}
+  TF_VARS: ${{ secrets.TERRAFORM_VARS }}
   ECS_CLUSTER_NAME: pkc-cluster
   ECS_TAKS_DEFINITION: pkc-backend
   ECS_TAKS_DEFINITION_FILE: task_definition.json
@@ -35,10 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: prod
-    env:
-      TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
-      TF_VAR_google_client_id:  ${{ secrets.GOOGLE_CLIENT_ID }}
-      TF_VAR_google_client_secret:  ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
     steps:
       # source checkout
@@ -58,7 +48,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.0.4
+          terraform_version: 1.1.7
           cli_config_credentials_hostname: app.terraform.io
           cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
 
@@ -66,7 +56,7 @@ jobs:
       - name: Terraform Setup
         working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/setup
         run: |
-          rm -rf local.auto.tfvars
+          echo $TF_VARS > local.auto.tfvars.json
           terraform init
           terraform plan
           terraform apply -auto-approve
@@ -75,6 +65,7 @@ jobs:
       - name: Terraform Service
         working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/services
         run: |
+          echo $TF_VARS > local.auto.tfvars.json
           terraform init
           terraform plan
           terraform apply -auto-approve
