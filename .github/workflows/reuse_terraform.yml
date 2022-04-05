@@ -46,9 +46,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: test
-        run: printenv
-
       # AWS Credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
