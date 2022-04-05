@@ -10,18 +10,20 @@ on:
       - completed
 
 env:
-  TF_VAR_vpc_id: vpc-08f77b07c34029b7a
-  TF_VAR_subnets: '["subnet-003cfdcdbaf257d95","subnet-0221940ce594a9f84"]'
+  AWS_REGION: ap-northeast-1
+  WORKING_DIR: infrastructure/terraform/services
+  AWS_VPC_ID: vpc-08f77b07c34029b7a
+  AWS_VPC_SUBNETS: '["subnet-003cfdcdbaf257d95","subnet-0221940ce594a9f84"]'
 
 jobs:
   Terraform:
     uses: ./.github/workflows/reuse_terraform.yml
     with:
-      region: ap-northeast-1
-      working-directory: infrastructure/terraform/services
+      region: ${{ env.AWS_REGION }}
+      working-directory: ${{ env.WORKING_DIR }}
       environment: dev
-      # vpc_id:  ${{ env.TF_VAR_vpc_id }}
-      # subnets:  ${{ env.TF_VAR_subnets }}
+      vpc_id:  ${{ env.AWS_VPC_ID }}
+      vpc_subnets:  ${{ env.AWS_VPC_SUBNETS }}
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

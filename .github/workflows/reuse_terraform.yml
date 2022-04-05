@@ -15,7 +15,7 @@ on:
       vpc_id:
         required: false
         type: string
-      subnets:
+      vpc_subnets:
         required: false
         type: string
 
@@ -63,7 +63,9 @@ jobs:
       TF_VAR_domain_name: ${{ secrets.domain_name }}
       TF_VAR_google_client_id:  ${{ secrets.google_client_id }}
       TF_VAR_google_client_secret:  ${{ secrets.google_client_secret }}
-      # TF_VAR_admin_email: ${{ secrets.ADMIN_EMAIL }}
+      TF_VAR_admin_email: ${{ secrets.ADMIN_EMAIL }}
+      TF_VAR_vpc_id: ${{ secrets.vpc_id }}
+      TF_VAR_subnets: ${{ secrets.vpc_subnets }}
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
