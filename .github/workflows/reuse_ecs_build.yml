@@ -13,6 +13,10 @@ on:
       working-directory:
         required: true
         type: string
+      run-tests:
+        required: false
+        type: boolean
+        default: true
       ECR_REPOSITORY:
         required: true
         type: string
@@ -71,12 +75,13 @@ jobs:
           mask-aws-account-id: 'no'
 
       # Unit Test
-      # - name: Unit Test
-      #   run: |
-      #     docker-compose up -d --build
-      #     sleep 10
-      #     yarn test
-      #     docker-compose down
+      - name: Unit Test
+        if: ${{ inputs.run-tests == true }}
+        run: |
+          docker-compose up -d --build
+          sleep 10
+          yarn test
+          docker-compose down
 
       # ECR Login
       - name: Login to Amazon ECR
