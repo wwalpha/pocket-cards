@@ -100,8 +100,8 @@ jobs:
       # Terraform execution
       - name: Terraform Execution
         run: |
-          echo $TF_VARS > local.auto.tfvars
+          echo $TF_VARS > local.auto.tfvars.json
           terraform init
-          terraform plan -out=terraform
+          terraform plan -out=terraform -compact-warnings
           terraform apply "terraform"
 

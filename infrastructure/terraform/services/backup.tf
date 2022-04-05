@@ -34,7 +34,7 @@ resource "aws_backup_selection" "dynamodb" {
   iam_role_arn = aws_iam_role.backup.arn
   name         = "dynamodb"
   plan_id      = aws_backup_plan.dynamodb.id
-  resources    = ["arn:aws:dynamodb:*:*:table/*"]
+  resources    = ["arn:aws:dynamodb:*:*:table/pkc-*"]
 
   selection_tag {
     type  = "STRINGEQUALS"
