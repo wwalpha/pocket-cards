@@ -18,31 +18,12 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { UserActions } from '@actions';
 import { Paths } from '@constants';
 import { RootState, SignInForm } from 'typings';
+import { styles } from './SignIn.style';
 
 const app = (state: RootState) => state.app;
 const defaultValues: SignInForm = {
-  username: '',
-  password: '',
-};
-
-const styles = {
-  '@global': {
-    body: {
-      bgcolor: 'common.white',
-    },
-  },
-  paper: {
-    mt: 8,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    m: 1,
-    bgcolor: 'secondary.main',
-  },
-  submit: { mb: 1 },
-  button: { p: 0 },
+  username: 'wwalpha80@gmail.com',
+  password: 'Session10+',
 };
 
 const SignIn = () => {
@@ -125,11 +106,11 @@ const SignIn = () => {
             fullWidth
             variant="contained"
             color="primary"
-            sx={styles.submit}>
+            sx={styles.signin}>
             Sign In
           </LoadingButton>
           <MButton
-            sx={{ mt: 1 }}
+            sx={styles.signup}
             size="large"
             fullWidth
             variant="contained"

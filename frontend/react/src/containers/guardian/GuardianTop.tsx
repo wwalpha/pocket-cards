@@ -13,14 +13,21 @@ export default () => {
   return (
     <Box sx={{ display: 'flex' }}>
       <DrawerLeft />
-      <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1,
+        }}>
         <AppBar
-          position="static"
+          position="fixed"
           sx={{
             boxShadow: 'none',
             height: ({ spacing }) => spacing(8),
-            bgcolor: 'primary.dark',
+            bgcolor: 'primary.main',
             userSelect: 'none',
+            width: { sm: `calc(100% - 200px)` },
+            ml: { sm: `200px` },
           }}>
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
@@ -28,7 +35,7 @@ export default () => {
             </Typography>
           </Toolbar>
         </AppBar>
-
+        <Toolbar />
         <Switch>
           <Route exact path={path} component={Mainboard} />
           <Route path={Paths.PATHS_GUARDIAN_GROUP_QUESTIONS} component={QuestionList} />

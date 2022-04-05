@@ -35,7 +35,7 @@ export default () => {
     actions.curriculumRegist(groupId);
   };
   // get question list
-  const handleRelease = (id: string) => {
+  const handleCancel = (id: string) => {
     actions.curriculumRemove(id);
   };
 
@@ -86,10 +86,10 @@ export default () => {
                       </LoadingButton>
                       {(() => {
                         const item = curriculums.find((item) => item.groupId === dataRow.id);
-                        const label = !item ? 'Apply' : 'Release';
-                        const func = !item ? handleApply : handleRelease;
+                        const label = !item ? 'Apply' : 'Cancel';
+                        const func = !item ? handleApply : handleCancel;
                         const icon = !item ? <CheckCircleIcon /> : <HighlightOffIcon />;
-                        const color = item ? 'primary' : 'secondary';
+                        const color = item ? 'info' : 'secondary';
                         const id = item ? item.id : dataRow.id;
 
                         return (
@@ -99,7 +99,7 @@ export default () => {
                             color={color}
                             startIcon={icon}
                             size="small"
-                            sx={{ py: 0, mx: 0.5 }}
+                            sx={{ py: 0, mx: 0.5, width: 100 }}
                             onClick={() => {
                               func(id);
                             }}>
