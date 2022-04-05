@@ -1,4 +1,4 @@
-import { Tables } from '../core/typings/index';
+import { Tables } from './tables';
 import { Request } from 'express';
 
 // ------------------------------------------------------------
@@ -53,22 +53,26 @@ export namespace APIs {
   // ------------------------------------------------------------
   // B001
   // ------------------------------------------------------------
-  interface B001Request {
+  interface GroupRegistRequest {
     name: string;
     subject: string;
     description?: string;
   }
 
-  interface B001Response {
+  interface GroupRegistResponse {
     groupId: string;
   }
 
   // ------------------------------------------------------------
   // B002
   // ------------------------------------------------------------
-  interface B002Request {}
+  interface GroupListQuery {
+    subject?: string;
+  }
 
-  interface B002Response {
+  interface GroupListRequest {}
+
+  interface GroupListResponse {
     count: number;
     items: Tables.TGroups[];
   }
@@ -76,24 +80,24 @@ export namespace APIs {
   // ------------------------------------------------------------
   // B003
   // ------------------------------------------------------------
-  interface B003Params {
+  interface GroupDescribeParams {
     groupId: string;
   }
 
-  interface B003Request {}
+  interface GroupDescribeRequest {}
 
-  interface B003Response {
+  interface GroupDescribeResponse {
     item?: Tables.TGroups;
   }
 
   // ------------------------------------------------------------
   // B004
   // ------------------------------------------------------------
-  interface B004Params {
+  interface GroupUpdateParams {
     groupId: string;
   }
 
-  interface B004Request {
+  interface GroupUpdateRequest {
     name?: string;
     description?: string;
   }
@@ -101,7 +105,7 @@ export namespace APIs {
   // ------------------------------------------------------------
   // B005
   // ------------------------------------------------------------
-  interface B005Params {
+  interface GroupRemoveParams {
     groupId: string;
   }
 
@@ -320,7 +324,7 @@ export namespace APIs {
 
   interface QuestionStudyResponse {
     count: number;
-    questions: Tables.TQuestion[];
+    questions: Tables.TQuestions[];
   }
 
   interface QuestionStudyQuery {
@@ -336,7 +340,7 @@ export namespace APIs {
 
   interface QuestionTestResponse {
     count: number;
-    questions: Tables.TQuestion[];
+    questions: Tables.TQuestions[];
   }
 
   // ------------------------------------------------------------
@@ -353,17 +357,17 @@ export namespace APIs {
   type QuestionAnswerResponse = void;
 
   // ------------------------------------------------------------
-  // Question Details
+  // Question List
   // ------------------------------------------------------------
-  interface QuestionDetailsParams {
+  interface QuestionListParams {
     groupId: string;
   }
 
-  interface QuestionDetailsRequest {}
+  interface QuestionListRequest {}
 
-  interface QuestionDetailsResponse {
+  interface QuestionListResponse {
     count: number;
-    questions: Tables.TQuestion[];
+    questions: Tables.TQuestions[];
   }
 
   // ------------------------------------------------------------
@@ -373,13 +377,16 @@ export namespace APIs {
 
   interface DailyTasksResponse {
     language: {
-      test: number;
+      archive: number;
+      target: number;
     };
     society: {
-      test: number;
+      archive: number;
+      target: number;
     };
     science: {
-      test: number;
+      archive: number;
+      target: number;
     };
   }
 
@@ -395,5 +402,43 @@ export namespace APIs {
       science?: number;
       society?: number;
     }[];
+  }
+
+  // ------------------------------------------------------------
+  // Curriculums - Curriculum Regist
+  // ------------------------------------------------------------
+  interface CurriculumRegistRequest {
+    userId: string;
+    groupId: string;
+  }
+
+  type CurriculumRegistResponse = Tables.TCurriculums;
+
+  // ------------------------------------------------------------
+  // Curriculums - Curriculum Describe
+  // ------------------------------------------------------------
+  interface CurriculumDescribeRequest {}
+
+  interface CurriculumDescribeResponse {}
+
+  // ------------------------------------------------------------
+  // Curriculums - Curriculum Remove
+  // ------------------------------------------------------------
+  interface CurriculumRemoveParams {
+    curriculumId: string;
+  }
+
+  type CurriculumRemoveRequest = void;
+
+  type CurriculumRemoveResponse = void;
+
+  // ------------------------------------------------------------
+  // Curriculums - Curriculum Lists
+  // ------------------------------------------------------------
+  interface CurriculumListsRequest {}
+
+  interface CurriculumListsResponse {
+    count: number;
+    items: Tables.TCurriculums[];
   }
 }

@@ -1,18 +1,15 @@
 import React, { Fragment, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
-import Auth from '@aws-amplify/auth';
-import {
-  Box,
-  IconButton,
-  Typography,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Avatar,
-  ListItemSecondaryAction,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import Avatar from '@mui/material/Avatar';
 import { green, red } from '@mui/material/colors';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
@@ -38,7 +35,7 @@ export default () => {
 
   // Logout
   const handleLogout = async () => {
-    await Auth.signOut();
+    // await Auth.signOut();
 
     usrActions.logout();
   };

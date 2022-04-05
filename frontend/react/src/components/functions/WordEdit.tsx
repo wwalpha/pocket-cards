@@ -1,5 +1,7 @@
 import React, { FunctionComponent, useState, Fragment } from 'react';
-import { ListItem, ListItemText, ListItemSecondaryAction } from '@mui/material';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { TextField } from '@components/inputs';
 

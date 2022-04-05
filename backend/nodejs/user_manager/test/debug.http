@@ -1,0 +1,30 @@
+GET http://localhost:8080/v1/users/health
+
+GET http://localhost:8080/v1/users/pool/test001@dxc.com
+
+GET http://localhost:8080/v1/users/pool/test002@dxc.com
+
+GET http://localhost:8080/v1/users/pool/test003@dxc.com
+
+
+POST http://localhost:8080/v1/users
+content-type: application/json
+
+{
+  "userId" : "test004@dxc.com",
+  "userName": "test004",
+  "email": "test004@dxc.com"
+}
+
+POST http://localhost:8080/v1/users
+content-type: application/json
+
+{
+  "userId" : "wwalpha001@gmail.com",
+  "userName": "test005",
+  "email": "wwalpha001@gmail.com",
+  "authority": "CHILD",
+  "password": "XXXXXXXXXXXX"
+}
+
+GET http://localhost:8080/users/admins

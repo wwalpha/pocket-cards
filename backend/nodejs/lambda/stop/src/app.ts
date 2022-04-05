@@ -1,22 +1,32 @@
 import { ECS } from 'aws-sdk';
 
 const CLUSTER_ARN = process.env.CLUSTER_ARN as string;
-const SERVICE_ARN = process.env.SERVICE_ARN as string;
+const SERVICE_ARN_BACKEND = process.env.SERVICE_ARN_BACKEND as string;
+const SERVICE_ARN_AUTH = process.env.SERVICE_ARN_AUTH as string;
+const SERVICE_ARN_USERS = process.env.SERVICE_ARN_USERS as string;
+
+const client = new ECS();
 
 export default async () => {
-  const ecs = new ECS();
+  await stopServices(SERVICE_ARN_BACKEND);
 
+  await stopServices(SERVICE_ARN_AUTH);
+
+  await stopServices(SERVICE_ARN_USERS);
+};
+
+const stopServices = async (service: string) => {
   // update service
-  await ecs
+  await client
     .updateService({
       cluster: CLUSTER_ARN,
-      service: SERVICE_ARN,
+      service: service,
       desiredCount: 0,
     })
     .promise();
 
   // list tasks
-  const tasks = await ecs
+  const tasks = await client
     .listTasks({
       cluster: CLUSTER_ARN,
     })
@@ -24,7 +34,7 @@ export default async () => {
 
   // stop tasks
   const allTask = tasks.taskArns?.map((item) =>
-    ecs
+    client
       .stopTask({
         cluster: CLUSTER_ARN,
         task: item,

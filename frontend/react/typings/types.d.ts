@@ -1,3 +1,5 @@
+import { Tables } from '.';
+
 declare module '*.svg' {
   const content: string;
   export default content;
@@ -25,6 +27,11 @@ export namespace Payloads {
   type RemoveWordInGroup = {
     id: string;
     word: string;
+  };
+
+  type QuestionList = {
+    id: string;
+    items: Group.Question[];
   };
 }
 
@@ -94,6 +101,8 @@ export namespace Group {
     // 未テスト
     untested: number;
   }
+
+  type Question = Pick<Tables.TQuestions, 'id' | 'title' | 'answer'>;
 }
 
 interface ScreenInfo {

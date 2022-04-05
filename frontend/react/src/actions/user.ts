@@ -1,32 +1,69 @@
 import { withLoading } from '@actions';
-import { CognitoUser } from '@aws-amplify/auth';
-import { Consts } from '@constants';
+import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';
-import { API } from '@utils';
-import { AppDispatch, APIs } from 'typings';
+import { push } from 'connected-react-router';
+import { AppDispatch } from 'typings';
 
 /** ログイン */
-export const loggedIn = (user: CognitoUser) => async (dispatch: AppDispatch) => {
-  // 画面初期化
-  // status();
-  // データ保存
+export const signin = (username: string, passwd: string, newPassword?: string) => (dispatch: AppDispatch) =>
   dispatch(
-    Actions.USER_SIGN_IN({
-      username: user.getUsername(),
+    withLoading(async () => {
+      // sign in
+      const res = await dispatch(
+        Actions.USER_SIGN_IN({
+          username: username,
+          password: passwd,
+          newPassword: newPassword,
+        })
+      ).unwrap();
+
+      if (res.success !== 'true') {
+        dispatch(Actions.APP_SHOW_ERROR(res.message || 'Unknown Error'));
+        return;
+      }
+
+      // login success
+      if (res.authority === Consts.Authority.ADMIN) {
+        dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
+        // initialize
+        dispatch(Actions.GROUP_LIST());
+      } else if (res.authority === Consts.Authority.PARENT) {
+        dispatch(push(Paths.PATHS_GUARDIAN_TOP));
+        // initialize
+        dispatch(Actions.GROUP_LIST());
+        // initialize
+        dispatch(Actions.USER_CURRICULUM_LIST());
+      }
     })
   );
-};
+
+export const signup = (username: string, email: string, authority: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // sign in
+      const res = await dispatch(
+        Actions.USER_SIGN_UP({
+          userId: email,
+          userName: username,
+          email: email,
+          authority: authority,
+        })
+      ).unwrap();
+
+      if (res.success == true) {
+        // Sign In
+        dispatch(push(Paths.PATHS_SIGN_IN));
+
+        // success
+        dispatch(Actions.APP_SHOW_SUCCESS('User regist success.'));
+      } else {
+        // success
+        dispatch(Actions.APP_SHOW_ERROR(res.message || ''));
+      }
+    })
+  );
 
 /** ログアウト */
 export const logout = () => async (dispatch: AppDispatch) => {
-  dispatch(Actions.USER_SIGN_OUT);
+  dispatch(Actions.SIGN_OUT);
 };
-
-/** 学習履歴 */
-export const history = () => async (dispatch: AppDispatch) =>
-  dispatch(
-    withLoading(async () => {
-      // const res = await API.get<APIs.A002Response>(Consts.A002_URL());
-      // dispatch(Actions.USER_HISTORY(res));
-    })
-  );

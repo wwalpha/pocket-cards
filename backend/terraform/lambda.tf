@@ -1,53 +1,24 @@
 # ----------------------------------------------------------------------------------------------
-# Lambda Function - Cognito
-# ----------------------------------------------------------------------------------------------
-resource "aws_lambda_function" "cognito" {
-  filename         = data.archive_file.cognito.output_path
-  source_code_hash = data.archive_file.cognito.output_base64sha256
-  function_name    = "${local.project_name}-cognito"
-  handler          = local.lambda_handler
-  memory_size      = 128
-  role             = aws_iam_role.cognito.arn
-  runtime          = local.lambda_runtime
-  timeout          = 10
-
-  environment {
-    variables = {
-      TABLE_USERS = local.dynamodb_name_users
-    }
-  }
-}
-
-data "archive_file" "cognito" {
-  type        = "zip"
-  source_dir  = "../nodejs/lambda/cognito/dist"
-  output_path = "../nodejs/lambda/cognito/dist.zip"
-}
-
-# ----------------------------------------------------------------------------------------------
 # Lambda Function - ECS Task Start
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "ecs_task_start" {
-  filename         = data.archive_file.ecs_task_start.output_path
-  source_code_hash = data.archive_file.ecs_task_start.output_base64sha256
-  function_name    = "${local.project_name}-ecs-task-start"
-  handler          = local.lambda_handler
-  memory_size      = 128
-  role             = aws_iam_role.ecs_task_start.arn
-  runtime          = local.lambda_runtime
-  timeout          = 10
+  function_name     = "${local.project_name}-ecs-task-start"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = "lambda/start.zip"
+  s3_object_version = aws_s3_object.lambda_start.version_id
+  handler           = local.lambda_handler
+  memory_size       = 128
+  role              = aws_iam_role.ecs_task_start.arn
+  runtime           = local.lambda_runtime
+  timeout           = 10
   environment {
     variables = {
-      CLUSTER_ARN = data.aws_ecs_cluster.this.arn
-      SERVICE_ARN = data.aws_ecs_service.this.arn
+      CLUSTER_ARN         = data.aws_ecs_cluster.this.arn
+      SERVICE_ARN_BACKEND = data.aws_ecs_service.backend.arn
+      SERVICE_ARN_AUTH    = data.aws_ecs_service.auth.arn
+      SERVICE_ARN_USERS   = data.aws_ecs_service.users.arn
     }
   }
-}
-
-data "archive_file" "ecs_task_start" {
-  type        = "zip"
-  source_dir  = "../nodejs/lambda/start/dist"
-  output_path = "../nodejs/lambda/start/dist.zip"
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -64,26 +35,23 @@ resource "aws_lambda_permission" "ecs_task_start" {
 # Lambda Function - ECS Task Stop
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "ecs_task_stop" {
-  filename         = data.archive_file.ecs_task_stop.output_path
-  source_code_hash = data.archive_file.ecs_task_stop.output_base64sha256
-  function_name    = "${local.project_name}-ecs-task-stop"
-  handler          = local.lambda_handler
-  memory_size      = 128
-  role             = aws_iam_role.ecs_task_stop.arn
-  runtime          = local.lambda_runtime
-  timeout          = 10
+  function_name     = "${local.project_name}-ecs-task-stop"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = "lambda/stop.zip"
+  s3_object_version = aws_s3_object.lambda_stop.version_id
+  handler           = local.lambda_handler
+  memory_size       = 128
+  role              = aws_iam_role.ecs_task_stop.arn
+  runtime           = local.lambda_runtime
+  timeout           = 10
   environment {
     variables = {
-      CLUSTER_ARN = data.aws_ecs_cluster.this.arn
-      SERVICE_ARN = data.aws_ecs_service.this.arn
+      CLUSTER_ARN         = data.aws_ecs_cluster.this.arn
+      SERVICE_ARN_BACKEND = data.aws_ecs_service.backend.arn
+      SERVICE_ARN_AUTH    = data.aws_ecs_service.auth.arn
+      SERVICE_ARN_USERS   = data.aws_ecs_service.users.arn
     }
   }
-}
-
-data "archive_file" "ecs_task_stop" {
-  type        = "zip"
-  source_dir  = "../nodejs/lambda/stop/dist"
-  output_path = "../nodejs/lambda/stop/dist.zip"
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -100,25 +68,20 @@ resource "aws_lambda_permission" "ecs_task_stop" {
 # Lambda Function - ECS Task Status
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "ecs_task_status" {
-  filename         = data.archive_file.ecs_task_status.output_path
-  source_code_hash = data.archive_file.ecs_task_status.output_base64sha256
-  function_name    = "${local.project_name}-ecs-task-status"
-  handler          = local.lambda_handler
-  memory_size      = 128
-  role             = aws_iam_role.ecs_task_status.arn
-  runtime          = local.lambda_runtime
-  timeout          = 10
+  function_name     = "${local.project_name}-ecs-task-status"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = "lambda/status.zip"
+  s3_object_version = aws_s3_object.lambda_status.version_id
+  handler           = local.lambda_handler
+  memory_size       = 128
+  role              = aws_iam_role.ecs_task_status.arn
+  runtime           = local.lambda_runtime
+  timeout           = 10
   environment {
     variables = {
       CLUSTER_ARN = data.aws_ecs_cluster.this.arn
     }
   }
-}
-
-data "archive_file" "ecs_task_status" {
-  type        = "zip"
-  source_dir  = "../nodejs/lambda/status/dist"
-  output_path = "../nodejs/lambda/status/dist.zip"
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -147,6 +110,7 @@ resource "aws_lambda_function" "batch" {
       TABLE_NAME_USERS     = local.dynamodb_name_users
       TABLE_NAME_TRACES    = local.dynamodb_name_traces
       TABLE_NAME_HISTORIES = local.dynamodb_name_histories
+      TZ                   = "Asia/Tokyo"
     }
   }
 }

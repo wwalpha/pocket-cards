@@ -5,8 +5,9 @@ import App from './app';
 import Study from './study';
 import Group from './group';
 import User from './user';
-import { GROUP_LIST, GROUP_DELETE, GROUP_WORD_LIST, GROUP_WORD_DETAILS, GROUP_STATUS } from './groupActions';
-import { STUDY_START, STUDY_CONTINUE, STUDY_IGNORE, STUDY_TODOS } from './studyActions';
+import * as GroupActions from './groupActions';
+import * as StudyActions from './studyActions';
+import * as UserActions from './userActions';
 
 export default (history: History<any>) =>
   combineReducers({
@@ -22,13 +23,7 @@ export const Actions = {
   ...Group.actions,
   ...Study.actions,
   ...User.actions,
-  GROUP_LIST,
-  GROUP_DELETE,
-  GROUP_STATUS,
-  GROUP_WORD_LIST,
-  GROUP_WORD_DETAILS,
-  STUDY_START,
-  STUDY_CONTINUE,
-  STUDY_IGNORE,
-  STUDY_TODOS,
+  ...StudyActions,
+  ...GroupActions,
+  ...UserActions,
 };

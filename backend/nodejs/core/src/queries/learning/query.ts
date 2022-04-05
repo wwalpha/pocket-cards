@@ -55,7 +55,7 @@ export const study = (userId: string, nextTime: string, subject: string): Dynamo
 });
 
 /** Daily Questions */
-export const daily = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
+export const past = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid, subject, times',
   KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
@@ -71,14 +71,31 @@ export const daily = (userId: string, nextTime: string): DynamoDB.DocumentClient
   ScanIndexForward: false,
 });
 
-// export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
-//   TableName: Environment.TABLE_NAME_QUESTIONS,
-//   KeyConditionExpression: '#groupId = :groupId',
-//   ExpressionAttributeNames: {
-//     '#groupId': 'groupId',
-//   },
-//   ExpressionAttributeValues: {
-//     ':groupId': groupId,
-//   },
-//   IndexName: 'gsiIdx1',
-// });
+export const current = (userId: string, lastTime: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid, subject, times',
+  KeyConditionExpression: '#userId = :userId',
+  FilterExpression: '#lastTime = :lastTime',
+  ExpressionAttributeNames: {
+    '#userId': 'userId',
+    '#lastTime': 'lastTime',
+  },
+  ExpressionAttributeValues: {
+    ':userId': userId,
+    ':lastTime': lastTime,
+  },
+  IndexName: 'gsiIdx1',
+});
+
+export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#groupId = :groupId',
+  ExpressionAttributeNames: {
+    '#groupId': 'groupId',
+  },
+  ExpressionAttributeValues: {
+    ':groupId': groupId,
+  },
+  IndexName: 'gsiIdx2',
+});

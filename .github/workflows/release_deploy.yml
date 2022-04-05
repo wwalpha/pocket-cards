@@ -11,18 +11,15 @@ env:
   WORKING_DIR_BACKEND: backend
   WORKING_DIR_FRONTEND: frontend/react
   TF_WORKSPACE: prod
-  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-  TF_VAR_translation_api_url:  ${{ secrets.TRANSLATION_API_URL }}
-  TF_VAR_translation_api_key:  ${{ secrets.TRANSLATION_API_KEY }}
-  TF_VAR_ipa_api_url:  ${{ secrets.IPA_API_URL }}
-  TF_VAR_ipa_api_key:  ${{ secrets.IPA_API_KEY }}
-  TF_VAR_vision_api_url:  ${{ secrets.VISION_API_URL }}
-  TF_VAR_vision_api_key:  ${{ secrets.VISION_API_KEY }}
   ECS_CLUSTER_NAME: pkc-cluster
-  ECS_SERVICE_NAME: backend
-  ECS_TAKS_DEFINITION: pkc-backend
+  ECS_SERVICE_NAME_BACKEND: backend
+  ECS_SERVICE_NAME_AUTH: auth_manager
+  ECS_SERVICE_NAME_USER: user_manager
   ECS_TAKS_DEFINITION_FILE: task_definition.json
-  SSM_PARAMETER_NAME_BACKEND: /pkc/repository_url/backend
+  ECS_TAKS_DEFINITION_AUTH: pkc-auth
+  ECS_TAKS_DEFINITION_USERS: pkc-users
+  ECS_TAKS_DEFINITION_BACKEND: pkc-backend
+  SSM_PARAMETER_NAME_ECR: /pkc/repository_url
   SSM_PARAMETER_NAME_FRONTEND: /pkc/frontend
 
 jobs:
@@ -31,9 +28,8 @@ jobs:
     environment:
       name: prod
     env:
-      TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
-      TF_VAR_google_client_id:  ${{ secrets.GOOGLE_CLIENT_ID }}
-      TF_VAR_google_client_secret:  ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
     steps:
       # source checkout
@@ -53,7 +49,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.0.4
+          terraform_version: 1.1.7
           cli_config_credentials_hostname: app.terraform.io
           cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
 
@@ -61,7 +57,7 @@ jobs:
       - name: Terraform Setup
         working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/setup
         run: |
-          rm -rf local.auto.tfvars
+          echo $TF_VARS > local.auto.tfvars.json
           terraform init
           terraform apply -auto-approve
 
@@ -69,6 +65,15 @@ jobs:
       - name: Terraform Service
         working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/services
         run: |
+          echo $TF_VARS > local.auto.tfvars.json
+          terraform init
+          terraform apply -auto-approve
+
+      # Terraform Backend
+      - name: Terraform Backend
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/terraform
+        run: |
+          echo $TF_VARS > local.auto.tfvars.json
           terraform init
           terraform apply -auto-approve
 
@@ -93,8 +98,8 @@ jobs:
       - name: Get ECS informations
         id: ecs
         run: |
-          aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
-          image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_BACKEND --with-decryption | jq -r .Parameter.Value)
+          aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION_BACKEND | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
+          image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_ECR/backend --with-decryption | jq -r .Parameter.Value)
           echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
           echo "::set-output name=image::$image"
 
@@ -104,48 +109,27 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ${{ steps.ecs.outputs.definition }}
-          container-name: ${{ env.ECS_TAKS_DEFINITION }}
+          container-name: ${{ env.ECS_TAKS_DEFINITION_BACKEND }}
           image: ${{ steps.ecs.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.render-web-container.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE_NAME }}
+          service: ${{ env.ECS_SERVICE_NAME_BACKEND }}
           cluster: ${{ env.ECS_CLUSTER_NAME }}
           wait-for-service-stability: true
           force-new-deployment: true
 
-  # [Lambda]
-  Lambda:
-    runs-on: ubuntu-18.04
+  # Auth Manager
+  Auth:
+    runs-on: ubuntu-latest
     needs:
       - Terraform
-    concurrency: lambda
     environment:
       name: prod
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
 
     steps:
-      # Source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # Install and Build
-      - name: Build
-        run: |
-          yarn build:cognito
-          yarn build:start
-          yarn build:status
-          yarn build:stop
-
       # AWS Credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -154,20 +138,76 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
-      # Install the latest version of Terraform CLI 
-      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.0.4
-          cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
-
-      # Backend init
-      - name: Terraform Backend
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/terraform
+      # Get ECS informations
+      - name: Get ECS informations
+        id: ecs
         run: |
-          terraform init
-          terraform apply -auto-approve=true
+          aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION_AUTH | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
+          image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_ECR/auth --with-decryption | jq -r .Parameter.Value)
+          echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
+          echo "::set-output name=image::$image"
+
+      # update task definition
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: render-web-container
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.ecs.outputs.definition }}
+          container-name: ${{ env.ECS_TAKS_DEFINITION_AUTH }}
+          image: ${{ steps.ecs.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.render-web-container.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_NAME_AUTH }}
+          cluster: ${{ env.ECS_CLUSTER_NAME }}
+          wait-for-service-stability: true
+          force-new-deployment: true
+
+  # Users Manager
+  Users:
+    runs-on: ubuntu-latest
+    needs:
+      - Terraform
+    environment:
+      name: prod
+
+    steps:
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Get ECS informations
+      - name: Get ECS informations
+        id: ecs
+        run: |
+          aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION_USERS | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
+          image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_ECR/users --with-decryption | jq -r .Parameter.Value)
+          echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
+          echo "::set-output name=image::$image"
+
+      # update task definition
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: render-web-container
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.ecs.outputs.definition }}
+          container-name: ${{ env.ECS_TAKS_DEFINITION_USERS }}
+          image: ${{ steps.ecs.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.render-web-container.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_NAME_USER }}
+          cluster: ${{ env.ECS_CLUSTER_NAME }}
+          wait-for-service-stability: true
+          force-new-deployment: true
 
   # [Frontend]
   Frontend:

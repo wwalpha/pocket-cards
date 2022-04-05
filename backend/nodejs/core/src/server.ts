@@ -3,13 +3,13 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
 import { A002 } from '@src/services/a0';
-import { B001, B002, B003, B004, B005, B006 } from '@src/services/b0';
+import { GroupRegist, GroupList, GroupDescribe, GroupUpdate, GroupRemove, B006 } from '@src/services/b0';
 import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/services/c0';
 import { D001, D003, D004, D005, D006 } from '@src/services/d0';
 import { E001, E002 } from '@src/services/e0';
-import { QuestionRegist, QuestionStudy, QuestionExam, QuestionAnswer, QuestionDetails } from '@src/services/questions';
+import { QuestionRegist, QuestionStudy, QuestionExam, QuestionAnswer, QuestionList } from '@src/services/questions';
 import { DailyTasks, LearningProgress } from '@src/services/reports';
-import { Patchs } from '@src/services/patch';
+import { CurriculumRegist, CurriculumList, CurriculumRemove, CurriculumDescirbe } from '@src/services/curriculums';
 
 import entry from './entry';
 
@@ -22,21 +22,21 @@ app.use(cors());
 
 app.options('*', (_, res) => res.sendStatus(200));
 // health check
-app.get('/v1', (_, res) => res.send('v3.1.0'));
+app.get('/v1/backend', (_, res) => res.send('v3.1.0'));
 
 // ユーザ学習履歴
 app.get('/v1/history', express.json(), (req, res) => entry(req, res, A002));
 
 // グループ新規
-app.put('/v1/groups', express.json(), (req, res) => entry(req, res, B001));
+app.put('/v1/groups', express.json(), (req, res) => entry(req, res, GroupRegist));
 // グループ一覧
-app.get('/v1/groups', express.json(), (req, res) => entry(req, res, B002));
+app.get('/v1/groups', express.json(), (req, res) => entry(req, res, GroupList));
 // グループ一覧
-app.get('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, B003 as any));
+app.get('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupDescribe));
 // グループ更新
-app.put('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, B004 as any));
+app.put('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupUpdate));
 // グループ削除
-app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, B005 as any));
+app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupRemove));
 // グループ学習状態
 app.get('/v1/groups/:groupId/status', express.json(), (req, res) => entry(req, res, B006 as any));
 // 単語一括登録
@@ -75,7 +75,7 @@ app.put('/v1/words/:word', express.json(), (req, res) => entry(req, res, E002 as
 // 問題一括登録
 app.post('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
 // 問題詳細一括取得
-app.get('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionDetails));
+app.get('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionList));
 
 // 今日の学習
 app.get('/v1/questions/study', express.json(), (req, res) => entry(req, res, QuestionStudy));
@@ -90,6 +90,11 @@ app.get('/v1/reports/dailytasks', express.json(), (req, res) => entry(req, res, 
 // leaning progress
 app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, LearningProgress as any));
 
-app.patch('/v1/patchs/20220323', express.json(), (req, res) => entry(req, res, Patchs as any));
+// カリキュラム登録
+app.put('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumRegist));
+// カリキュラム一覧
+app.get('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumList));
+// カリキュラム削除
+app.delete('/v1/curriculums/:curriculumId', express.json(), (req, res) => entry(req, res, CurriculumRemove));
 
 export default app;

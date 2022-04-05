@@ -8,6 +8,9 @@ export const SERVER_START_URL = () => '/admin/start';
 export const SERVER_STOP_URL = () => '/admin/stop';
 export const SERVER_STATUS_URL = () => '/admin/status';
 
+export const SIGN_IN = () => `${API_VERSION}/auth/login`;
+export const SIGN_UP = () => `${API_VERSION}/users`;
+
 export const A002_URL = () => `${API_VERSION}/history`;
 
 // グループ新規作成
@@ -17,7 +20,7 @@ export const B002_URL = () => `${API_VERSION}/groups`;
 // グループ情報取得
 export const B003_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 // グループ情報変更
-export const B004_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
+export const GroupUpdate = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 // グループ情報削除
 export const B005_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 // グループ学習状態
@@ -43,6 +46,13 @@ export const D006_URL = () => `${API_VERSION}/today/review`;
 export const E001_URL = (word: string) => `${API_VERSION}/words/${word}`;
 export const E002_URL = (word: string) => `${API_VERSION}/words/${word}`;
 
+export const QUESTION_LIST = (groupId: string) => `${API_VERSION}/groups/${groupId}/questions`;
+export const QUESTION_REGIST = (groupId: string) => `${API_VERSION}/groups/${groupId}/questions`;
+
+export const CURRICULUM_LIST = () => `${API_VERSION}/curriculums`;
+export const CURRICULUM_REGIST = () => `${API_VERSION}/curriculums`;
+export const CURRICULUM_REMOVE = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}`;
+
 export const VERSION = `${process.env.VERSION}`;
 
 export const MODES = {
@@ -62,6 +72,12 @@ export const SERVER_STATUS = {
   STOPPING: 'STOPPING',
 };
 
+export const Authority = {
+  ADMIN: 'TENANT_ADMIN',
+  PARENT: 'PARENT',
+  CHILD: 'CHILD',
+};
+
 export const HEADER_HEIGHT = 64;
 export const FOOT_HEIGHT = 72;
 
@@ -76,4 +92,17 @@ export enum SUBJECT {
   JAPANESE,
   SCIENCE,
   SOCIETY,
+}
+
+export enum SIGN_STATUS {
+  NOT_LOGIN,
+  NEW_PASSWORD_REQUIRED,
+  MFA_REQUIRED,
+  LOGINED,
+}
+
+export enum EDIT_MODE {
+  REGIST,
+  EDIT,
+  READONLY,
 }

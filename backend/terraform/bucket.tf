@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------------------------------
-# Backend Environment file
+# Backend Service Environment file
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_object" "resources" {
   bucket  = local.bucket_name_archive
-  key     = "envs/backend.env"
+  key     = local.ecs_service_env_key_backend
   content = <<EOT
 AWS_DEFAULT_REGION=ap-northeast-1
 IPA_API_URL=${data.aws_ssm_parameter.ipa_api_url.value}
@@ -21,9 +21,107 @@ TABLE_NAME_HISTORIES=${local.dynamodb_name_histories}
 TABLE_NAME_QUESTIONS=${local.dynamodb_name_questions}
 TABLE_NAME_LEARNING=${local.dynamodb_name_learning}
 TABLE_NAME_TRACES=${local.dynamodb_name_traces}
+TABLE_NAME_CURRICULUMS=${local.dynamodb_name_curriculums}
+
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
 BUCKET_NAME_MATERAILS=${local.bucket_name_materials}
 PATH_PATTERN=audio
 TZ=Asia/Tokyo
+AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
 EOT
+}
+
+# ----------------------------------------------------------------------------------------------
+# Users Service Environment file
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "users" {
+  bucket  = local.bucket_name_archive
+  key     = local.ecs_service_env_key_users
+  content = <<EOT
+TABLE_NAME_USERS=${local.dynamodb_name_users}
+TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
+TABLE_NAME_CURRICULUMS=${local.dynamodb_name_curriculums}
+TZ=Asia/Tokyo
+AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
+EOT
+}
+
+# ----------------------------------------------------------------------------------------------
+# Auth Service Environment file
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "auth" {
+  bucket  = local.bucket_name_archive
+  key     = local.ecs_service_env_key_auth
+  content = <<EOT
+TZ=Asia/Tokyo
+TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
+ENDPOINT_USERS_SERVICE=http://${local.cloudmap_service_users}.${local.cloudmap_namespace}:8080/v1
+AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
+EOT
+}
+
+# ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda start module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_start" {
+  bucket = local.bucket_name_archive
+  key    = "lambda/start.zip"
+  source = data.archive_file.lambda_default.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda stop module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_stop" {
+  bucket = local.bucket_name_archive
+  key    = "lambda/stop.zip"
+  source = data.archive_file.lambda_default.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda status module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_status" {
+  bucket = local.bucket_name_archive
+  key    = "lambda/status.zip"
+  source = data.archive_file.lambda_default.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Archive file - Lambda default module
+# ----------------------------------------------------------------------------------------------
+data "archive_file" "lambda_default" {
+  type        = "zip"
+  output_path = "${path.module}/dist/default.zip"
+
+  source {
+    content  = <<EOT
+exports.handler = async (event) => {
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify('Hello from Lambda!'),
+  };
+  return response;
+};
+EOT
+    filename = "index.js"
+  }
 }

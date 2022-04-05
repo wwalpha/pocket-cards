@@ -1,15 +1,18 @@
 import { DynamoDB } from 'aws-sdk';
-import { PostAuthenticationTriggerEvent } from 'aws-lambda';
+import { PostConfirmationConfirmSignUpTriggerEvent } from 'aws-lambda';
 import { Tables } from 'typings';
 
 const client = new DynamoDB.DocumentClient();
 
-export default async (e: PostAuthenticationTriggerEvent) => {
+export default async (e: PostConfirmationConfirmSignUpTriggerEvent) => {
+  console.log(e);
+
   const item: Tables.TUsers = {
     id: e.userName,
     email: e.request.userAttributes['email'],
-    name: e.request.userAttributes['name'],
-    icon: e.request.userAttributes['picture'],
+    username: e.request.userAttributes['name'],
+    role: 'TENANT_USER',
+    authority: 'PARENT',
   };
 
   // ユーザ登録

@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "postbuild": "cd dist && zip -rq ../dist.zip ."
   },
   "dependencies": {
     "aws-sdk": "^2.966.0"

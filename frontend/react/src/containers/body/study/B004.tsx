@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import { RootState } from 'typings';
 
 const appState = (state: RootState) => state.app;

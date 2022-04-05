@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import * as Actions from '@actions/regist';
 import Button from '@components/buttons/Button';
 import WebCamera from '@components/WebCamera';
-import { Theme, Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'typings';

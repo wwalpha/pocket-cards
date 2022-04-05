@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Card, CardContent, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 import Loading from '@components/Loading';
 import { UserActions } from '@actions';
 import { RootState } from 'typings';
@@ -11,7 +14,7 @@ const appState = (state: RootState) => state.app;
 
 export default () => {
   const actions = bindActionCreators(UserActions, useDispatch());
-  const { remainingTest, remainingReview, daily, dailyNew, dailyReview, weekly, monthly } = useSelector(userState);
+  // const { remainingTest, remainingReview, daily, dailyNew, dailyReview, weekly, monthly } = useSelector(userState);
   const { isLoading } = useSelector(appState);
 
   React.useMemo(() => {
@@ -38,7 +41,7 @@ export default () => {
             <Grid container alignItems="center">
               <Grid item xs>
                 <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
-                  {remainingTest}
+                  {/* {remainingTest} */}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -55,7 +58,7 @@ export default () => {
             <Grid container alignItems="center">
               <Grid item xs>
                 <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
-                  {remainingReview}
+                  {/* {remainingReview} */}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -74,7 +77,7 @@ export default () => {
             <Grid container alignItems="center">
               <Grid item xs>
                 <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
-                  {dailyNew}
+                  {/* {dailyNew} */}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -91,7 +94,7 @@ export default () => {
             <Grid container alignItems="center">
               <Grid item xs>
                 <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
-                  {dailyReview}
+                  {/* {dailyReview} */}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -110,7 +113,7 @@ export default () => {
             <Grid container alignItems="center">
               <Grid item xs>
                 <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
-                  {daily}
+                  {/* {daily} */}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -127,7 +130,7 @@ export default () => {
             <Grid container alignItems="center">
               <Grid item xs>
                 <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
-                  {weekly}
+                  {/* {weekly} */}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -146,7 +149,7 @@ export default () => {
             <Grid container alignItems="center">
               <Grid item xs>
                 <Typography sx={{ fontSize: '2rem', textAlign: 'center' }} color="textPrimary">
-                  {monthly}
+                  {/* {monthly} */}
                 </Typography>
               </Grid>
               <Grid item xs={3}>

@@ -16,7 +16,7 @@ export default async (req: Request<APIs.C005Params, any, any, any>): Promise<API
       },
       {
         // グループ単語数更新
-        Update: Groups.update.minusCount(params.groupId, userId, 1),
+        Update: Groups.update.minusCount({ id: params.groupId }, 1),
       },
     ],
   });

@@ -23,7 +23,7 @@ const start = async () => {
     return DBHelper().put(
       Learning.put({
         qid: item.id,
-        userId: grpItem?.userId as string,
+        // userId: grpItem?.userId as string,
         groupId: item.groupId,
         lastTime: item.lastTime,
         subjectNextTime: `${grpItem?.subject}_${item.nextTime}`,

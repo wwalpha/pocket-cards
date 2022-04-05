@@ -1,8 +1,14 @@
-import { CognitoUser } from '@aws-amplify/auth';
 import { APIs, Tables, App, Group } from '.';
 
 export namespace Domains {
   interface AppState {
+    // message type
+    severity?: 'success' | 'info' | 'warning' | 'error';
+    // message
+    message?: string;
+    // stack open flag
+    showSnackbar: boolean;
+    // tab index
     tabIndex: number;
     // loading
     isLoading: boolean;
@@ -10,6 +16,8 @@ export namespace Domains {
     status: string;
     // display control
     displayCtrl: Record<number, boolean>;
+    // active subject
+    activeSubject: string;
   }
 
   interface GroupState {
@@ -17,6 +25,8 @@ export namespace Domains {
     searchWord: string;
     // active group
     activeGroup: string;
+    /** edit mode */
+    editable: number;
     /** user's all group infomations */
     groups: Tables.TGroups[];
     /** Group word list */
@@ -27,17 +37,21 @@ export namespace Domains {
     current?: Group.WordDetails;
     /** group learn status */
     status?: Group.Status;
+    /** Questions */
+    questions: Group.Question[];
   }
 
   interface UserState {
-    details?: User.Details;
-    remainingTest: number;
-    remainingReview: number;
-    daily: number;
-    dailyNew: number;
-    dailyReview: number;
-    weekly: number;
-    monthly: number;
+    // 0: not login, 1: new password, 2: logined
+    loginStatus: number;
+    // username
+    username: string;
+    // password
+    password?: string;
+    // authority
+    authority?: string;
+    // curriculums
+    curriculums: Tables.TCurriculums[];
   }
 
   interface StudyState {

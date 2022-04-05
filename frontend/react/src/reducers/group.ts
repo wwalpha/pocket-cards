@@ -1,6 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains, Payloads, Tables } from 'typings';
-import { GROUP_DELETE, GROUP_LIST, GROUP_STATUS, GROUP_WORD_DETAILS, GROUP_WORD_LIST } from './groupActions';
+import { Consts } from '@constants';
+import {
+  GROUP_DELETE,
+  GROUP_LIST,
+  GROUP_QUESTION_LIST,
+  GROUP_STATUS,
+  GROUP_WORD_DETAILS,
+  GROUP_WORD_LIST,
+} from './groupActions';
 import sortBy from 'lodash/sortBy';
 
 const grpState: Domains.GroupState = {
@@ -11,12 +19,19 @@ const grpState: Domains.GroupState = {
   regists: [],
   current: undefined,
   status: undefined,
+  editable: -1,
+  questions: [],
 };
 
 const slice = createSlice({
   name: 'group',
   initialState: grpState,
   reducers: {
+    // グループ編集モード
+    GROUP_EDITABLE: (state, { payload }: PayloadAction<Consts.EDIT_MODE>) => {
+      state.editable = payload;
+    },
+
     // グループを選択
     GROUP_ACTIVE: (state, { payload }: PayloadAction<string>) => {
       state.activeGroup = payload;
@@ -97,6 +112,11 @@ const slice = createSlice({
     GROUP_REGIST_REMOVE: (state, { payload }: PayloadAction<string>) => {
       state.regists = state.regists.filter((item) => item !== payload);
     },
+
+    // 単語登録一覧をクリア
+    GROUP_QUESTION_CLEAR: (state) => {
+      state.questions = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -125,6 +145,9 @@ const slice = createSlice({
       })
       .addCase(GROUP_WORD_DETAILS.fulfilled, (state, { payload }) => {
         state.current = payload;
+      })
+      .addCase(GROUP_QUESTION_LIST.fulfilled, (state, { payload }) => {
+        state.questions = payload;
       });
   },
 });

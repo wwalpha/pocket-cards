@@ -55,6 +55,12 @@ output "dynamodb_name_learning" {
 output "dynamodb_name_traces" {
   value = aws_dynamodb_table.traces.name
 }
+output "dynamodb_name_settings" {
+  value = aws_dynamodb_table.settings.name
+}
+output "dynamodb_name_curriculums" {
+  value = aws_dynamodb_table.curriculums.name
+}
 # ----------------------------------------------------------------------------------------------
 # Route53 DNS Servers
 # ----------------------------------------------------------------------------------------------
@@ -127,4 +133,39 @@ output "ssm_vision_api_url" {
 # ----------------------------------------------------------------------------------------------
 output "ssm_vision_api_key" {
   value = aws_ssm_parameter.vision_api_key.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECR Repository URL - Backend
+# ----------------------------------------------------------------------------------------------
+output "repo_url_backend" {
+  value = module.ecr_repo_backend.repository_url
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECR Repository URL - Auth
+# ----------------------------------------------------------------------------------------------
+output "repo_url_auth" {
+  value = module.ecr_repo_auth.repository_url
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECR Repository URL - Batch
+# ----------------------------------------------------------------------------------------------
+output "repo_url_batch" {
+  value = module.ecr_repo_batch.repository_url
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECR Repository URL - Users
+# ----------------------------------------------------------------------------------------------
+output "repo_url_users" {
+  value = module.ecr_repo_users.repository_url
+}
+
+# ----------------------------------------------------------------------------------------------
+# Repository URL (Batch)
+# ----------------------------------------------------------------------------------------------
+output "ssm_repo_url_batch" {
+  value = aws_ssm_parameter.repo_url_batch.name
 }
