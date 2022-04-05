@@ -5,189 +5,68 @@ on:
     paths:
       - backend/nodejs/lambda/**
       - .github/workflows/push_backend_lambda.yml
+      - .github/workflows/reuse_lambda.yml
     branches-ignore:
       - releases/**
   workflow_dispatch:
 
-env:
-  AWS_DEFAULT_REGION: ap-northeast-1
-  WORKING_DIR: backend/nodejs/lambda
-  S3_BUCKET: pkc-archive-376965
-  TF_WORKSPACE: dev
-  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-
 jobs:
   Cognito:
-    runs-on: ubuntu-latest
-    concurrency: Cognito
-    environment:
-      name: dev
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR }}
-
-    steps:
-      # source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Install and Build
-      - name: Build
-        run: |
-          cd cognito
-          yarn install
-          yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/cognito.zip
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: ap-northeast-1
+      working-directory: backend/nodejs/lambda/cognito
+      environment: dev
+      outputs-bucket: pkc-archive-376965
+      function-name: cognito
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Start:
-    runs-on: ubuntu-latest
-    concurrency: Start
-    environment:
-      name: dev
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR }}
-
-    steps:
-      # source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Install and Build
-      - name: Build
-        run: |
-          cd start
-          yarn install
-          yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/start.zip
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: ap-northeast-1
+      working-directory: backend/nodejs/lambda/start
+      environment: dev
+      outputs-bucket: pkc-archive-376965
+      function-name: start
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Stop:
-    runs-on: ubuntu-latest
-    concurrency: Stop
-    environment:
-      name: dev
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR }}
-
-    steps:
-      # source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Install and Build
-      - name: Build
-        run: |
-          cd stop
-          yarn install
-          yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/stop.zip
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: ap-northeast-1
+      working-directory: backend/nodejs/lambda/stop
+      environment: dev
+      outputs-bucket: pkc-archive-376965
+      function-name: stop
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Status:
-    runs-on: ubuntu-latest
-    concurrency: Status
-    environment:
-      name: dev
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR }}
-
-    steps:
-      # source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Install and Build
-      - name: Build
-        run: |
-          cd status
-          yarn install
-          yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/status.zip
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: ap-northeast-1
+      working-directory: backend/nodejs/lambda/status
+      environment: dev
+      outputs-bucket: pkc-archive-376965
+      function-name: status
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Authorizer:
-    runs-on: ubuntu-latest
-    concurrency: Authorizer
-    environment:
-      name: dev
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR }}
-
-    steps:
-      # source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Install and Build
-      - name: Build
-        run: |
-          cd authorizer
-          yarn install
-          yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/authorizer.zip
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: ap-northeast-1
+      working-directory: backend/nodejs/lambda/authorizer
+      environment: dev
+      outputs-bucket: pkc-archive-376965
+      function-name: authorizer
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
