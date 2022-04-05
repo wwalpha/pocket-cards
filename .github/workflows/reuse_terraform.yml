@@ -12,6 +12,12 @@ on:
       working-directory:
         required: true
         type: string
+      vpc_id:
+        required: false
+        type: string
+      subnets:
+        required: false
+        type: string
 
     secrets:
       AWS_ACCESS_KEY_ID:
@@ -38,10 +44,13 @@ on:
         required: false
       google_client_secret:
         required: false
+      admin_email:
+        required: false
 
 jobs:
-  Terraform:
+  Apply:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment: ${{ inputs.environment }}
     env:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
@@ -55,6 +64,7 @@ jobs:
       TF_VAR_domain_name: ${{ secrets.domain_name }}
       TF_VAR_google_client_id:  ${{ secrets.google_client_id }}
       TF_VAR_google_client_secret:  ${{ secrets.google_client_secret }}
+      TF_VAR_admin_email: ${{ secrets.ADMIN_EMAIL }}
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}

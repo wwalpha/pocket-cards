@@ -11,48 +11,20 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_DEFAULT_REGION: ap-northeast-1
-  WORKING_DIR: infrastructure/terraform/services
-  TF_WORKSPACE: dev
-  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
   TF_VAR_vpc_id: vpc-08f77b07c34029b7a
   TF_VAR_subnets: '["subnet-003cfdcdbaf257d95","subnet-0221940ce594a9f84"]'
-  TF_VAR_admin_email: ${{ secrets.ADMIN_EMAIL }}
 
 jobs:
-  Update:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    environment:
-      name: dev
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR }}
-
-    steps:
-      # source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Install the latest version of Terraform CLI 
-      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.0.4
-          cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
-
-      # Service init
-      - name: Terraform Services
-        run: |
-          terraform init
-          terraform plan -out=services
-          terraform apply "services"
+  Terraform:
+    uses: ./.github/workflows/reuse_terraform.yml
+    with:
+      region: ap-northeast-1
+      working-directory: infrastructure/terraform/services
+      environment: dev
+      # vpc_id:  ${{ env.TF_VAR_vpc_id }}
+      # subnets:  ${{ env.TF_VAR_subnets }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      admin_email:  ${{ secrets.ADMIN_EMAIL }}
