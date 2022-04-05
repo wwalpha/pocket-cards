@@ -5,22 +5,29 @@ on:
     inputs:
       environment:
         required: true
+        type: string
       region:
         required: true
+        type: string
       working-directory:
         required: true
+        type: string
       ECS_CLUSTER_NAME:
         required: true
+        type: string
         default: pkc-cluster
       ECS_SERVICE_NAME:
         required: true
+        type: string
       ECS_TASK_DEF:
         required: true
+        type: string
       ECS_WAIT_FOR_STABILITY:
         required: true
         type: boolean
       ECR_IMAGE:
         required: true
+        type: string
 
     secrets:
       AWS_ACCESS_KEY_ID:
