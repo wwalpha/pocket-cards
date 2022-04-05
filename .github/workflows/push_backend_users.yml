@@ -6,6 +6,8 @@ on:
       - backend/nodejs/user_manager/**
       - backend/nodejs/typings/**
       - .github/workflows/push_backend_users.yml
+      - .github/workflows/reuse_ecs_build.yml
+      - .github/workflows/reuse_ecs_deploy.yml
     branches-ignore:
       - releases/**
 
