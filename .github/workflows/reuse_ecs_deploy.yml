@@ -47,6 +47,7 @@ jobs:
       ECS_TAKS_DEFINITION_FILE: task_definition.json
       ECS_WAIT_FOR_STABILITY: ${{ inputs.ECS_WAIT_FOR_STABILITY }}
       SSM_PARAMETER_NAME: /pkc/repository_url
+      WORKING_DIR: ${{ inputs.working-directory }}
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
