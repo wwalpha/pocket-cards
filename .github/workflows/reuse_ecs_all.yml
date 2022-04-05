@@ -1,0 +1,68 @@
+name: ECS Workflow
+
+on:
+  workflow_call:
+    # inputs
+    inputs:
+      environment:
+        required: true
+        type: string
+      region:
+        required: true
+        type: string
+      working-directory:
+        required: true
+        type: string
+      run-tests:
+        required: false
+        type: boolean
+        default: true
+      ECR_REPOSITORY:
+        required: true
+        type: string
+      ECS_CLUSTER_NAME:
+        type: string
+        default: pkc-cluster
+      ECS_SERVICE_NAME:
+        required: true
+        type: string
+      ECS_TASK_DEF:
+        required: true
+        type: string
+      ECS_WAIT_FOR_STABILITY:
+        type: boolean
+        default: false
+    # secrets
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
+jobs:
+  Build:
+    uses: ./.github/workflows/reuse_ecs_build.yml
+    with:
+      region: ${{ inputs.region }}
+      working-directory: ${{ inputs.working-directory }}
+      environment: ${{ inputs.environment }}
+      ECS_SERVICE_NAME: ${{ inputs.ECS_SERVICE_NAME }}
+      ECR_REPOSITORY: ${{ inputs.ECR_REPOSITORY }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  Deploy:
+    uses: ./.github/workflows/reuse_ecs_deploy.yml
+    needs: Build
+    with:
+      region: ${{ inputs.region }}
+      working-directory: ${{ inputs.working-directory }}
+      environment: ${{ inputs.environment }}
+      ECS_SERVICE_NAME: ${{ inputs.ECS_SERVICE_NAME }}
+      ECS_TASK_DEF: ${{ inputs.ECS_TASK_DEF }}
+      ECS_WAIT_FOR_STABILITY: false
+      ECR_IMAGE: ${{ needs.Build.outputs.image }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
