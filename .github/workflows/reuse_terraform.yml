@@ -12,12 +12,12 @@ on:
       working-directory:
         required: true
         type: string
-      # vpc_id:
-      #   required: false
-      #   type: string
-      # subnets:
-      #   required: false
-      #   type: string
+      vpc_id:
+        required: false
+        type: string
+      subnets:
+        required: false
+        type: string
 
     secrets:
       AWS_ACCESS_KEY_ID:
@@ -44,8 +44,8 @@ on:
         required: false
       google_client_secret:
         required: false
-      # admin_email:
-      #   required: false
+      admin_email:
+        required: false
 
 jobs:
   Apply:
