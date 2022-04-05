@@ -1,4 +1,4 @@
-name: PUSH_T) Setup Build1
+name: PUSH_T) Setup Build
 
 on:
   push:
