@@ -51,17 +51,22 @@ export const activeGroup = (groupId: string) => async (dispatch: AppDispatch) =>
     })
   );
 
-/** 画面表示制御 */
-// export const show = (type: number, value: boolean) => (dispatch: Dispatch) => {
-//   dispatch(
-//     AppActions.DISPLAY_CONTROL({
-//       type,
-//       value,
-//     })
-//   );
-// };
-
 /** タブ変更 */
 export const activeTab = (index: number) => (dispatch: AppDispatch) => {
   dispatch(Actions.APP_TAB_INDEX(index));
+};
+
+/** close snackbar */
+export const closeSnackbar = () => (dispatch: AppDispatch) => {
+  dispatch(Actions.APP_CLOSE_SNACKBAR());
+};
+
+/** show success snackbar */
+export const showSuccess = (text: string) => (dispatch: AppDispatch) => {
+  dispatch(Actions.APP_SHOW_SUCCESS(text));
+};
+
+/** show success snackbar */
+export const showError = (text: string) => (dispatch: AppDispatch) => {
+  dispatch(Actions.APP_SHOW_ERROR(text));
 };

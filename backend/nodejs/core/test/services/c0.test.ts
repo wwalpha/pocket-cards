@@ -159,7 +159,7 @@ describe('C0', () => {
     // status code
     expect(res.statusCode).toBe(200);
     // found 2 records
-    const group = await client.get(Groups.get({ id: 'C005', userId: '84d95083-9ee8-4187-b6e7-8123558ef2c1' }));
+    const group = await client.get(Groups.get({ id: 'C005' }));
     const word = await client.get(Words.get({ id: 'C005-1', groupId: 'C005' }));
 
     expect(group).toEqual(C0.C005Except);

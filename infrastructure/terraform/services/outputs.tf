@@ -13,6 +13,22 @@ output "api_url" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# Cognito Identity Pool Arn - Admin
+# ----------------------------------------------------------------------------------------------
+output "cognito_identity_pool_arn_admin" {
+  sensitive = true
+  value     = aws_cognito_identity_pool.admin.arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# Cognito Identity Pool Arn - Users
+# ----------------------------------------------------------------------------------------------
+output "cognito_identity_pool_arn_users" {
+  sensitive = true
+  value     = aws_cognito_identity_pool.this.arn
+}
+
+# ----------------------------------------------------------------------------------------------
 # Cognito User Pool ID
 # ----------------------------------------------------------------------------------------------
 output "cognito_user_pool_id" {
@@ -76,8 +92,22 @@ output "ecs_cluster_name" {
 # ----------------------------------------------------------------------------------------------
 # ECS Service Name
 # ----------------------------------------------------------------------------------------------
-output "ecs_service_name" {
+output "ecs_service_name_backend" {
   value = aws_ecs_service.this.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service Name
+# ----------------------------------------------------------------------------------------------
+output "ecs_service_name_auth" {
+  value = aws_ecs_service.auth.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service Name
+# ----------------------------------------------------------------------------------------------
+output "ecs_service_name_users" {
+  value = aws_ecs_service.users.name
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -88,10 +118,17 @@ output "api_gateway_id" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# API Gateway Authorizer ID
+# API Gateway Authorizer ID - Cognito
 # ----------------------------------------------------------------------------------------------
-output "api_gateway_authorizer_id" {
+output "apigw_authorizer_id_cognito" {
   value = aws_apigatewayv2_authorizer.this.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# API Gateway Authorizer ID - Lambda
+# ----------------------------------------------------------------------------------------------
+output "apigw_authorizer_id_lambda" {
+  value = aws_apigatewayv2_authorizer.auth.id
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -108,10 +145,79 @@ output "api_gateway_authorizer_id_admin" {
   value = aws_apigatewayv2_authorizer.admin.id
 }
 
+# ----------------------------------------------------------------------------------------------
+# API Gateway Integration ID - Auth
+# ----------------------------------------------------------------------------------------------
+output "apigw_integration_id_auth" {
+  value = aws_apigatewayv2_integration.auth.id
+}
 
 # ----------------------------------------------------------------------------------------------
-# Repository URL (Batch)
+# API Gateway Integration ID - Backend
 # ----------------------------------------------------------------------------------------------
-output "ssm_repo_url_batch" {
-  value = aws_ssm_parameter.repo_url_batch.name
+output "apigw_integration_id_backend" {
+  value = aws_apigatewayv2_integration.backend.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# API Gateway Integration ID - Users
+# ----------------------------------------------------------------------------------------------
+output "apigw_integration_id_users" {
+  value = aws_apigatewayv2_integration.users.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service Auth Environment file bucket key
+# ----------------------------------------------------------------------------------------------
+output "ecs_service_env_key_auth" {
+  value = aws_s3_object.auth.key
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service Auth Environment file bucket key
+# ----------------------------------------------------------------------------------------------
+output "ecs_service_env_key_users" {
+  value = aws_s3_object.users.key
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Service Auth Environment file bucket key
+# ----------------------------------------------------------------------------------------------
+output "ecs_service_env_key_backend" {
+  value = aws_s3_object.backend.key
+}
+
+# ----------------------------------------------------------------------------------------------
+# CloudMap - Namespace
+# ----------------------------------------------------------------------------------------------
+output "cloudmap_namespace" {
+  value = aws_service_discovery_private_dns_namespace.this.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# CloudMap Service - Auth
+# ----------------------------------------------------------------------------------------------
+output "cloudmap_service_auth" {
+  value = aws_service_discovery_service.auth.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# CloudMap Service - Users
+# ----------------------------------------------------------------------------------------------
+output "cloudmap_service_users" {
+  value = aws_service_discovery_service.users.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda source key - Cognito Pre Signup
+# ----------------------------------------------------------------------------------------------
+output "lambda_source_key_cognito_post_signup" {
+  value = aws_s3_object.lambda_cognito.key
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda source key - API Gateway Authorizer
+# ----------------------------------------------------------------------------------------------
+output "lambda_source_key_authorizer" {
+  value = aws_s3_object.lambda_authorizer.key
 }

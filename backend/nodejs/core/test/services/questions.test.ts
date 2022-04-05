@@ -31,10 +31,8 @@ describe('d0', () => {
     expect(res.statusCode).toBe(200);
 
     const questions = await DBHelper().scan({ TableName: Environment.TABLE_NAME_QUESTIONS });
-    const learning = await DBHelper().scan({ TableName: Environment.TABLE_NAME_LEARNING });
 
     expect(questions.Items.length).toBe(2);
-    expect(learning.Items.length).toBe(2);
 
     // const learningItems = orderBy(learning.Items, 'qid');
     // const questionItems = orderBy(questions.Items, 'id');

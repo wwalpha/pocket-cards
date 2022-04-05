@@ -33,10 +33,10 @@ export const edit = (details: Group.Details) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // グループ編集API
-      await API.put(Consts.B004_URL(details.id), {
+      await API.put<void, APIs.GroupUpdateRequest>(Consts.GroupUpdate(details.id), {
         name: details.name,
         description: details.description,
-      } as APIs.B004Request);
+      });
 
       // グループ再取得
       await dispatch(Actions.GROUP_LIST()).unwrap();
@@ -59,17 +59,17 @@ export const regist = (details: Group.Details) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // グループ登録開始イベント
-      const res = await API.put<APIs.B001Response>(Consts.B001_URL(), {
+      const res = await API.put<APIs.GroupRegistResponse, APIs.GroupRegistRequest>(Consts.B001_URL(), {
         name: details.name,
         description: details.description,
         subject: details.subject,
-      } as APIs.B001Request);
+      });
 
       // データ保存
       dispatch(
         Actions.GROUP_REGIST({
           id: res.groupId,
-          userId: 'dummy',
+          subject: details.subject,
           count: 0,
           name: details.name,
           description: details.description,

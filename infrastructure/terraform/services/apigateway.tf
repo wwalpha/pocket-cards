@@ -42,6 +42,7 @@ resource "aws_apigatewayv2_stage" "this" {
     destination_arn = aws_cloudwatch_log_group.api.arn
     format = jsonencode(
       {
+        apiId          = "$context.apiId"
         httpMethod     = "$context.httpMethod"
         ip             = "$context.identity.sourceIp"
         protocol       = "$context.protocol"
@@ -50,6 +51,7 @@ resource "aws_apigatewayv2_stage" "this" {
         responseLength = "$context.responseLength"
         routeKey       = "$context.routeKey"
         status         = "$context.status"
+        error          = "$context.authorizer.error"
       }
     )
   }
@@ -85,19 +87,7 @@ resource "aws_apigatewayv2_api_mapping" "this" {
 resource "aws_apigatewayv2_vpc_link" "this" {
   name               = "${local.project_name}-link"
   security_group_ids = [aws_security_group.private_link.id]
-  subnet_ids         = local.subnets
-}
-
-# ---------------------------------------------------------------------------------------------
-# API Gateway Integration - VPC_LINK
-# ---------------------------------------------------------------------------------------------
-resource "aws_apigatewayv2_integration" "link" {
-  api_id             = aws_apigatewayv2_api.this.id
-  connection_type    = "VPC_LINK"
-  connection_id      = aws_apigatewayv2_vpc_link.this.id
-  integration_method = "ANY"
-  integration_type   = "HTTP_PROXY"
-  integration_uri    = aws_service_discovery_service.this.arn
+  subnet_ids         = local.vpc_subnets
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -162,45 +152,4 @@ resource "aws_apigatewayv2_authorizer" "admin" {
     audience = [aws_cognito_user_pool_client.this.id]
     issuer   = "https://${aws_cognito_user_pool.this.endpoint}"
   }
-}
-
-# ---------------------------------------------------------------------------------------------
-# API Gateway Route - Backend
-# ---------------------------------------------------------------------------------------------
-resource "aws_apigatewayv2_route" "backend_get" {
-  api_id             = aws_apigatewayv2_api.this.id
-  route_key          = "GET /{proxy+}"
-  target             = "integrations/${aws_apigatewayv2_integration.link.id}"
-  authorizer_id      = aws_apigatewayv2_authorizer.this.id
-  authorization_type = "JWT"
-}
-
-resource "aws_apigatewayv2_route" "backend_post" {
-  api_id             = aws_apigatewayv2_api.this.id
-  route_key          = "POST /{proxy+}"
-  target             = "integrations/${aws_apigatewayv2_integration.link.id}"
-  authorizer_id      = aws_apigatewayv2_authorizer.this.id
-  authorization_type = "JWT"
-}
-
-resource "aws_apigatewayv2_route" "backend_put" {
-  api_id             = aws_apigatewayv2_api.this.id
-  route_key          = "PUT /{proxy+}"
-  target             = "integrations/${aws_apigatewayv2_integration.link.id}"
-  authorizer_id      = aws_apigatewayv2_authorizer.this.id
-  authorization_type = "JWT"
-}
-
-resource "aws_apigatewayv2_route" "backend_delete" {
-  api_id             = aws_apigatewayv2_api.this.id
-  route_key          = "DELETE /{proxy+}"
-  target             = "integrations/${aws_apigatewayv2_integration.link.id}"
-  authorizer_id      = aws_apigatewayv2_authorizer.this.id
-  authorization_type = "JWT"
-}
-
-resource "aws_apigatewayv2_route" "backend_options" {
-  api_id    = aws_apigatewayv2_api.this.id
-  route_key = "OPTIONS /{proxy+}"
-  target    = "integrations/${aws_apigatewayv2_integration.link.id}"
 }

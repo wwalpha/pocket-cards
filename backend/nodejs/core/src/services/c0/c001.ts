@@ -63,7 +63,7 @@ const registWord = async (id: string, groupId: string, userId: string, userGroup
     await DBHelper().put(input);
 
     // count plus one
-    await DBHelper().update(Groups.update.addCount(groupId, userId, 1));
+    await DBHelper().update(Groups.update.addCount({ id: groupId }, 1));
   } catch (err) {
     if ((err as any).code !== 'ConditionalCheckFailedException') {
       console.log(err);

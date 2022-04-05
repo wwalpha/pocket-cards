@@ -3,8 +3,10 @@ import { Domains } from 'typings';
 import { Consts } from '@constants';
 
 const appState: Domains.AppState = {
+  activeSubject: Consts.SUBJECT.JAPANESE.toString(),
   tabIndex: 11,
   isLoading: false,
+  showSnackbar: false,
   status: Consts.SERVER_STATUS.STOPPED,
   displayCtrl: {},
 };
@@ -26,6 +28,30 @@ const slice = createSlice({
     // end loading
     APP_COM_01_FAILURE: (state, action: PayloadAction<Error>) => {
       state.isLoading = false;
+
+      if (action.payload.name === 'Error') {
+        state.showSnackbar = true;
+        state.severity = 'error';
+        state.message = action.payload.message;
+      }
+    },
+
+    APP_SHOW_SUCCESS: (state, action: PayloadAction<string>) => {
+      state.showSnackbar = true;
+      state.severity = 'success';
+      state.message = action.payload;
+    },
+
+    APP_SHOW_ERROR: (state, action: PayloadAction<string>) => {
+      state.showSnackbar = true;
+      state.severity = 'error';
+      state.message = action.payload;
+    },
+
+    APP_CLOSE_SNACKBAR: (state) => {
+      state.showSnackbar = false;
+      state.severity = undefined;
+      state.message = undefined;
     },
 
     // タブ変更
@@ -38,15 +64,9 @@ const slice = createSlice({
       state.status = payload;
     },
 
-    // グループ選択
-    // GROUP_SELECT: (state, { payload }: PayloadAction<string>) => {
-    //   state.groupId = payload;
-    // },
-
-    /** 画面表示制御 */
-    // DISPLAY_CONTROL: (state, { payload: { type, value } }: PayloadAction<Actions.ShowPayload>) => {
-    //   state.displayCtrl[type] = value;
-    // },
+    APP_ACTIVE_SUBJECT: (state, { payload }: PayloadAction<string>) => {
+      state.activeSubject = payload;
+    },
   },
 });
 

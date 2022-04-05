@@ -17,6 +17,9 @@ resource "aws_dynamodb_table" "users" {
     name = "id"
     type = "S"
   }
+  tags = {
+    Project = local.project_name_uc
+  }
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -26,21 +29,24 @@ resource "aws_dynamodb_table" "groups" {
   name         = local.dynamodb_name_groups
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
-  range_key    = "userId"
+
   attribute {
     name = "id"
     type = "S"
   }
   attribute {
-    name = "userId"
+    name = "subject"
     type = "S"
   }
 
   global_secondary_index {
     name            = "gsiIdx1"
-    hash_key        = "userId"
+    hash_key        = "subject"
     range_key       = "id"
     projection_type = "ALL"
+  }
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -75,18 +81,9 @@ resource "aws_dynamodb_table" "words" {
     projection_type = "ALL"
   }
 
-  # local_secondary_index {
-  #   name               = "lsiIdx1"
-  #   range_key          = "nextTime"
-  #   projection_type    = "INCLUDE"
-  #   non_key_attributes = ["times"]
-  # }
-
-  # local_secondary_index {
-  #   name            = "lsiIdx2"
-  #   range_key       = "lastTime"
-  #   projection_type = "KEYS_ONLY"
-  # }
+  tags = {
+    Project = local.project_name_uc
+  }
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -100,6 +97,10 @@ resource "aws_dynamodb_table" "word_master" {
   attribute {
     name = "id"
     type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -130,6 +131,10 @@ resource "aws_dynamodb_table" "traces" {
     range_key       = "timestamp"
     projection_type = "ALL"
   }
+
+  tags = {
+    Project = local.project_name_uc
+  }
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -140,6 +145,7 @@ resource "aws_dynamodb_table" "histories" {
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "userId"
   range_key    = "timestamp"
+
   attribute {
     name = "userId"
     type = "S"
@@ -147,6 +153,10 @@ resource "aws_dynamodb_table" "histories" {
   attribute {
     name = "timestamp"
     type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -167,6 +177,10 @@ resource "aws_dynamodb_table" "word_ignore" {
   attribute {
     name = "word"
     type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -194,7 +208,11 @@ resource "aws_dynamodb_table" "questions" {
     hash_key           = "groupId"
     range_key          = "id"
     projection_type    = "INCLUDE"
-    non_key_attributes = ["title", "subject"]
+    non_key_attributes = ["title", "answer", "subject"]
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }
 
@@ -205,6 +223,7 @@ resource "aws_dynamodb_table" "learning" {
   name         = local.dynamodb_name_learning
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "qid"
+  range_key    = "userId"
 
   attribute {
     name = "qid"
@@ -238,5 +257,63 @@ resource "aws_dynamodb_table" "learning" {
     hash_key        = "groupId"
     range_key       = "nextTime"
     projection_type = "ALL"
+  }
+
+  tags = {
+    Project = local.project_name_uc
+  }
+}
+
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Settings
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "settings" {
+  name         = local.dynamodb_name_settings
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Curriculums
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "curriculums" {
+  name         = local.dynamodb_name_curriculums
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  attribute {
+    name = "guardian"
+    type = "S"
+  }
+
+  attribute {
+    name = "groupId"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "gsiIdx1"
+    hash_key        = "guardian"
+    range_key       = "groupId"
+    projection_type = "ALL"
+  }
+
+  tags = {
+    Project = local.project_name_uc
   }
 }

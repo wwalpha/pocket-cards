@@ -33,7 +33,7 @@ export default async (req: Request<any, any, APIs.D003Request, any>): Promise<AP
             Delete: Words.del({ groupId: item.id, id: word }),
           },
           {
-            Update: Groups.update.minusCount(item.id, userId, 1),
+            Update: Groups.update.minusCount({ id: item.id }, 1),
           },
         ],
       });

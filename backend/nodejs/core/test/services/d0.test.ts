@@ -39,7 +39,7 @@ describe('d0', () => {
       })
     );
     const words = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WORDS });
-    const groups = await DBHelper().get<Tables.TGroups>(Groups.get({ id: 'G001', userId: userId }));
+    const groups = await DBHelper().get<Tables.TGroups>(Groups.get({ id: 'G001' }));
 
     expect(ignore?.Item).toEqual(D0.D003Expect01);
     expect(words.Items).toEqual(D0.D003Expect02);

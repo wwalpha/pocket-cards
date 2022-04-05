@@ -21,7 +21,6 @@ export const del = (key: Tables.GroupsKey): DynamoDB.DocumentClient.DeleteItemIn
   TableName: Environment.TABLE_NAME_GROUPS,
   Key: {
     id: key.id,
-    userId: key.userId,
   },
 });
 

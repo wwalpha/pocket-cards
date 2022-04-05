@@ -1,6 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import { Button, ButtonProps, CircularProgress, Box } from '@mui/material';
-import { green } from '@mui/material/colors';
+import { ButtonProps } from '@mui/material/Button/Button.d';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import green from '@mui/material/colors/green';
 
 const button: FunctionComponent<Props> = ({ isLoading, children, ...props }) => {
   return (

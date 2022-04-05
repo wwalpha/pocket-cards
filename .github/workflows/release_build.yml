@@ -13,30 +13,23 @@ env:
   WORKING_DIR_FRONTEND: frontend/react
   TF_WORKSPACE: prod
   TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-  TF_VAR_translation_api_url:  ${{ secrets.TRANSLATION_API_URL }}
-  TF_VAR_translation_api_key:  ${{ secrets.TRANSLATION_API_KEY }}
-  TF_VAR_ipa_api_url:  ${{ secrets.IPA_API_URL }}
-  TF_VAR_ipa_api_key:  ${{ secrets.IPA_API_KEY }}
-  TF_VAR_vision_api_url:  ${{ secrets.VISION_API_URL }}
-  TF_VAR_vision_api_key:  ${{ secrets.VISION_API_KEY }}
+  TF_VARS: ${{ secrets.TERRAFORM_VARS }}
   ECS_CLUSTER_NAME: pkc-cluster
-  ECS_SERVICE_NAME: backend
   ECS_TAKS_DEFINITION: pkc-backend
   ECS_TAKS_DEFINITION_FILE: task_definition.json
+  ECR_REPO_AUTH: pkc/auth
   ECR_REPO_BACKEND: pkc/backend
   ECR_REPO_BATCH: pkc/batch
+  ECR_REPO_USERS: pkc/users
   SSM_PARAMETER_NAME_ECR: /pkc/repository_url
   SSM_PARAMETER_NAME_FRONTEND: /pkc/frontend
+  S3_BUCKET: pkc-archive-af2a18
 
 jobs:
   Terraform:
     runs-on: ubuntu-latest
     environment:
       name: prod
-    env:
-      TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
-      TF_VAR_google_client_id:  ${{ secrets.GOOGLE_CLIENT_ID }}
-      TF_VAR_google_client_secret:  ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
     steps:
       # source checkout
@@ -56,7 +49,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.0.4
+          terraform_version: 1.1.7
           cli_config_credentials_hostname: app.terraform.io
           cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
 
@@ -64,7 +57,7 @@ jobs:
       - name: Terraform Setup
         working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/setup
         run: |
-          rm -rf local.auto.tfvars
+          echo $TF_VARS > local.auto.tfvars.json
           terraform init
           terraform plan
           terraform apply -auto-approve
@@ -73,13 +66,14 @@ jobs:
       - name: Terraform Service
         working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/services
         run: |
+          echo $TF_VARS > local.auto.tfvars.json
           terraform init
           terraform plan
           terraform apply -auto-approve
 
   # Backend
   Backend:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     environment:
       name: prod
     defaults:
@@ -118,13 +112,6 @@ jobs:
           yarn test
           docker-compose down
 
-      # Get latest task definition
-      - name: Update ecs task definition
-        id: filepath
-        run: |
-          aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
-          echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
-
       # ECR Login
       - name: Login to Amazon ECR
         id: login-ecr
@@ -145,11 +132,11 @@ jobs:
       # Update Repository URL
       - name: Update ecs repository url
         run: |
-          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/$ECS_SERVICE_NAME --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
+          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/backend --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
 
   # Batch
   Batch:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     environment:
       name: prod
     defaults:
@@ -210,9 +197,135 @@ jobs:
         run: |
           aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/batch --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
 
+  # Auth Manager
+  Auth_Manager:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/auth_manager
+
+    steps:
+      # Source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # Install, Build
+      - name: Build
+        run: |
+          yarn install
+          yarn build
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Unit Test
+      - name: Unit Test
+        run: |
+          docker-compose up -d --build
+          sleep 10
+          yarn test
+          docker-compose down
+
+      # ECR Login
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # docker build and push
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REPO_AUTH .
+          docker tag $ECR_REPO_AUTH $ECR_REGISTRY/$ECR_REPO_AUTH:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPO_AUTH:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPO_AUTH:$IMAGE_TAG"
+
+      # Update Repository URL
+      - name: Update ecs repository url
+        run: |
+          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/auth --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
+
+  # Users Manager
+  User_Manager:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/user_manager
+
+    steps:
+      # Source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # Install, Build
+      - name: Build
+        run: |
+          yarn install
+          yarn build
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Unit Test
+      - name: Unit Test
+        run: |
+          docker-compose up -d --build
+          sleep 10
+          yarn test
+          docker-compose down
+
+      # ECR Login
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # docker build and push
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REPO_USERS .
+          docker tag $ECR_REPO_USERS $ECR_REGISTRY/$ECR_REPO_USERS:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPO_USERS:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPO_USERS:$IMAGE_TAG"
+
+      # Update Repository URL
+      - name: Update ecs repository url
+        run: |
+          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/users --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
+
   # Lambda
   Lambda:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     concurrency: Lambda
     environment:
       name: prod
@@ -230,14 +343,6 @@ jobs:
         with:
           node-version: 14.x
 
-      # Install and Build
-      - name: Build
-        run: |
-          yarn build:cognito
-          yarn build:start
-          yarn build:status
-          yarn build:stop
-
       # AWS Credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -246,24 +351,45 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
-      # Install the latest version of Terraform CLI 
-      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.0.4
-          cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
-
-      # Backend init
-      - name: Terraform Backend
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/terraform
+      # Install and Build
+      - name: Authorizer
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
         run: |
-          terraform init
-          terraform plan
+          cd authorizer
+          yarn install
+          yarn build
+          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/authorizer.zip
+
+      # Install and Build
+      - name: Status
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
+        run: |
+          cd status
+          yarn install
+          yarn build
+          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/status.zip
+
+      # Install and Build
+      - name: Start
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
+        run: |
+          cd start
+          yarn install
+          yarn build
+          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/start.zip
+
+      # Install and Build
+      - name: Stop
+        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
+        run: |
+          cd stop
+          yarn install
+          yarn build
+          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/stop.zip
 
   # Frontend
   Frontend:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     concurrency: frontend
     environment:
       name: prod
@@ -320,14 +446,3 @@ jobs:
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
           yarn install --production=false
           yarn build
-
-      # Upload dist files
-      # - name: Upload files
-      #   env:
-      #     FILE_NAME: ${{ github.sha }}
-      #     BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
-      #   run: |
-      #     cd dist
-      #     zip -r $FILE_NAME.zip .
-      #     aws s3 cp $FILE_NAME.zip s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip
-      #     aws ssm put-parameter --name $SSM_PARAMETER_NAME_FRONTEND --type "String" --value s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip --overwrite

@@ -1,0 +1,36 @@
+import { CognitoIdentityServiceProvider } from 'aws-sdk';
+import { mocked } from 'ts-jest/utils';
+import request from 'supertest';
+import { Users } from 'typings';
+import Server from '../src/server';
+
+describe('user manager', () => {
+  test('get /users/health', async () => {
+    const response = await request(Server).get('/v1/users/health');
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual({
+      service: 'User Manager',
+      isAlive: true,
+    });
+  });
+
+  test.skip('get /users/admins', async () => {
+    mocked(CognitoIdentityServiceProvider).prototype.listUsers = jest.fn().mockImplementationOnce(() => ({
+      promise: () =>
+        Promise.resolve({
+          Users: [
+            { Attributes: [{ Name: 'name', Value: 'test001@test.com' }] },
+            { Attributes: [{ Name: 'name', Value: 'test002@test.com' }] },
+          ],
+        }),
+    }));
+
+    const response = await request(Server).get('/v1/users/admins');
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual({
+      users: ['test001@test.com', 'test002@test.com'],
+    } as Users.ListAdminUsersResponse);
+  });
+});

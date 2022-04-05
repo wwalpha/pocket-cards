@@ -1,157 +1,159 @@
-import React, { useState, useEffect } from 'react';
-import { Hub } from '@aws-amplify/core';
-import { Auth, CognitoUser, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Controller, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { makeStyles, createStyles } from '@mui/styles';
-import {
-  Container,
-  CssBaseline,
-  Avatar,
-  Typography,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Button,
-  Grid,
-  Theme,
-} from '@mui/material';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import MButton from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { UserActions } from '@actions';
-import { RootState } from 'typings';
-
-const useStyles = makeStyles(({ palette, spacing }: Theme) =>
-  createStyles({
-    '@global': {
-      body: {
-        backgroundColor: palette.common.white,
-      },
-    },
-    paper: {
-      marginTop: spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    avatar: {
-      margin: spacing(1),
-      backgroundColor: palette.secondary.main,
-    },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: spacing(1),
-    },
-    submit: {
-      margin: spacing(3, 0, 2),
-    },
-    button: {
-      padding: spacing(0),
-    },
-  })
-);
+import { Paths } from '@constants';
+import { RootState, SignInForm } from 'typings';
 
 const app = (state: RootState) => state.app;
+const defaultValues: SignInForm = {
+  username: '',
+  password: '',
+};
+
+const styles = {
+  '@global': {
+    body: {
+      bgcolor: 'common.white',
+    },
+  },
+  paper: {
+    mt: 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    m: 1,
+    bgcolor: 'secondary.main',
+  },
+  submit: { mb: 1 },
+  button: { p: 0 },
+};
 
 const SignIn = () => {
-  const classes = useStyles();
-  const [values, setValues] = useState({
-    username: '',
-    passwd: '',
+  const { isLoading } = useSelector(app);
+  const actions = bindActionCreators(UserActions, useDispatch());
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInForm>({ defaultValues });
+
+  // 編集
+  const onSubmit = handleSubmit((datas) => {
+    actions.signin(datas.username, datas.password);
   });
-
-  const handleAuth = ({ payload }: any) => {
-    switch (payload.event) {
-      case 'signIn':
-        break;
-      case 'signOut':
-        UserActions.logout();
-        break;
-      default:
-    }
-  };
-
-  useEffect(() => {
-    Auth.currentAuthenticatedUser().then(console.log).catch(console.error);
-
-    Hub.listen('auth', handleAuth);
-
-    return () => Hub.remove('auth', handleAuth);
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    try {
-      const user = (await Auth.signIn({
-        username: values.username,
-        password: values.passwd,
-      })) as CognitoUser;
-
-      UserActions.loggedIn(user);
-    } catch (err) {
-      console.log(err);
-
-      UserActions.logout();
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <Box sx={styles.paper}>
+        <Avatar sx={styles.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in to PocketCards
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Email Address"
+        <form noValidate onSubmit={onSubmit}>
+          <Controller
             name="username"
-            autoComplete="email"
-            autoFocus
-            value={values.username}
-            onChange={handleChange}
+            control={control}
+            rules={{
+              required: 'required',
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: 'Entered value does not match email format',
+              },
+            }}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                error={errors.username !== undefined}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                label="Email Address"
+                autoFocus
+                autoComplete="email"
+                value={value}
+                onChange={onChange}
+                helperText={errors.username?.message}
+              />
+            )}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="passwd"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={values.passwd}
-            onChange={handleChange}
+          <Controller
+            name="password"
+            control={control}
+            rules={{
+              required: 'required',
+            }}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                error={errors.password !== undefined}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                value={value}
+                onChange={onChange}
+                helperText={errors.password?.message}
+              />
+            )}
           />
           <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-          <Button type="submit" size="large" fullWidth variant="contained" color="primary" className={classes.submit}>
+          <LoadingButton
+            loading={isLoading}
+            type="submit"
+            size="large"
+            fullWidth
+            variant="contained"
+            color="primary"
+            sx={styles.submit}>
             Sign In
-          </Button>
-          <Button
+          </LoadingButton>
+          <MButton
+            sx={{ mt: 1 }}
+            size="large"
+            fullWidth
+            variant="contained"
+            color="secondary"
+            component={React.forwardRef((props: any, ref: any) => (
+              <Link to={Paths.PATHS_SIGN_UP} {...props} />
+            ))}>
+            Sign Up
+          </MButton>
+
+          {/* <Button
             type="button"
             variant="contained"
             color="primary"
             size="large"
-            className={classes.button}
+            sx={classes.button}
             onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })}>
             <img src="./img/btn_google_signin_dark_normal_web.png" />
-          </Button>
+          </Button> */}
           <Grid container>
             <Grid item xs></Grid>
           </Grid>
         </form>
-      </div>
+      </Box>
     </Container>
   );
 };

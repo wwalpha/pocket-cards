@@ -6,15 +6,17 @@ export namespace Tables {
 
   interface TUsers extends TUsersKey {
     // ユーザ名
-    name?: string;
+    username: string;
     // ユーザ ICon
     icon?: string;
     // メール
-    email?: string;
-    // // 前回ログイン
-    // lastLogin?: string;
-    // // 直近ログイン
-    // login?: string;
+    email: string;
+    // TENANT_ADMIN / TENANT_USER
+    role: string;
+    // 保護者・利用者・管理者
+    authority: string;
+    //
+    sub?: string;
   }
 
   interface TGroupsKey {
@@ -22,22 +24,15 @@ export namespace Tables {
     id: string;
   }
 
-  interface TGroupGSI1Key {
-    // グループID
-    id: string;
-    // ユーザID
-    userId: string;
-  }
-
-  interface TGroups extends TGroupsKey, TGroupGSI1Key {
+  interface TGroups extends TGroupsKey {
+    // 科目
+    subject: string;
     // グループ名
     name?: string;
     // 説明
     description?: string;
     // 単語数
     count?: number;
-    // 科目
-    subject?: string;
     // index
     index?: number;
   }
@@ -155,20 +150,7 @@ export namespace Tables {
   interface GroupsKey {
     // グループID
     id: string;
-    // ユーザID
-    userId?: string;
   }
-
-  // interface TGroups extends GroupsKey {
-  //   // グループ名
-  //   name?: string;
-  //   // 説明
-  //   description?: string;
-  //   // 単語数
-  //   count: number;
-  //   // 科目
-  //   subject?: string;
-  // }
 
   interface TracesKey {
     // 問題ID
@@ -203,5 +185,31 @@ export namespace Tables {
     japanese?: number;
     science?: number;
     society?: number;
+  }
+
+  interface TSettingsKey {
+    // ID
+    id: string;
+  }
+
+  interface TSettingsCognito extends TSettingsKey {
+    userPoolId: string;
+    clientId: string;
+    identityPoolId: string;
+  }
+
+  interface TCurriculumsKey {
+    id: string;
+  }
+
+  interface TCurriculums extends TCurriculumsKey {
+    guardian: string;
+    userId: string;
+    groupId: string;
+  }
+
+  interface TCurriculumsGSI1Key {
+    userId: string;
+    groupId: string;
   }
 }

@@ -1,40 +1,55 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Domains, Payloads, User } from 'typings';
+import { Consts } from '@constants';
+import { createSlice } from '@reduxjs/toolkit';
+import { Domains } from 'typings';
+import * as UserActions from './userActions';
 
 const userState: Domains.UserState = {
-  details: undefined,
-  remainingTest: 0,
-  remainingReview: 0,
-  daily: 0,
-  dailyNew: 0,
-  dailyReview: 0,
-  weekly: 0,
-  monthly: 0,
+  // login status: Not login
+  loginStatus: Consts.SIGN_STATUS.NOT_LOGIN,
+  // user name
+  username: '',
+  // curriculums
+  curriculums: [],
 };
 
 const slice = createSlice({
   name: 'user',
   initialState: userState,
   reducers: {
-    // Sign in
-    USER_SIGN_IN: (state, { payload }: PayloadAction<User.Details>) => {
-      state.details = payload;
-    },
-
     // Sign out
-    USER_SIGN_OUT: (state) => {
-      state.details = undefined;
+    SIGN_OUT: (state) => {
+      state.loginStatus = Consts.SIGN_STATUS.NOT_LOGIN;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(UserActions.USER_SIGN_IN.fulfilled, (state, { payload }) => {
+        // require mfa code
+        if (payload.mfaRequired) {
+          state.loginStatus = Consts.SIGN_STATUS.MFA_REQUIRED;
+        } else if (payload.newPasswordRequired) {
+          // require new password
+          state.loginStatus = Consts.SIGN_STATUS.NEW_PASSWORD_REQUIRED;
+        } else if (payload.success === 'true') {
+          state.loginStatus = Consts.SIGN_STATUS.LOGINED;
+        }
 
-    // USER_HISTORY: (state, { payload }: PayloadAction<Payloads.History>) => {
-    //   state.remainingReview = payload.remaining.review;
-    //   state.remainingTest = payload.remaining.test;
-    //   state.daily = payload.daily.total;
-    //   state.dailyNew = payload.daily.new;
-    //   state.dailyReview = payload.daily.review;
-    //   state.weekly = payload.weekly;
-    //   state.monthly = payload.monthly;
-    // },
+        state.username = payload.username;
+        state.password = payload.password;
+        state.authority = payload.authority;
+      })
+      .addCase(UserActions.USER_SIGN_UP.fulfilled, (state, { payload }) => {
+        console.log('SIGN UP Success');
+      })
+      .addCase(UserActions.USER_CURRICULUM_REGIST.fulfilled, (state, { payload }) => {
+        state.curriculums.push(payload);
+      })
+      .addCase(UserActions.USER_CURRICULUM_REMOVE.fulfilled, (state, { payload }) => {
+        state.curriculums = state.curriculums.filter((item) => item.id !== payload);
+      })
+      .addCase(UserActions.USER_CURRICULUM_LIST.fulfilled, (state, { payload }) => {
+        state.curriculums = payload.items;
+      });
   },
 });
 
