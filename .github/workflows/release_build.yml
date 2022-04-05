@@ -12,6 +12,7 @@ env:
   WORKING_DIR_BACKEND: backend
   WORKING_DIR_FRONTEND: frontend/react
   TF_WORKSPACE: prod
+  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
   TF_VARS: ${{ secrets.TERRAFORM_VARS }}
   ECS_CLUSTER_NAME: pkc-cluster
   ECS_TAKS_DEFINITION: pkc-backend
