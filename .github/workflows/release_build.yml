@@ -8,29 +8,14 @@ on:
 
 env:
   AWS_DEFAULT_REGION: us-east-1
-  WORKING_DIR_TERRAFORM: infrastructure/terraform
-  WORKING_DIR_BACKEND: backend
   WORKING_DIR_FRONTEND: frontend/react
-  TF_WORKSPACE: prod
-  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-  TF_VARS: ${{ secrets.TERRAFORM_VARS }}
-  ECS_CLUSTER_NAME: pkc-cluster
-  ECS_TAKS_DEFINITION: pkc-backend
-  ECS_TAKS_DEFINITION_FILE: task_definition.json
-  ECR_REPO_AUTH: pkc/auth
-  ECR_REPO_BACKEND: pkc/backend
-  ECR_REPO_BATCH: pkc/batch
-  ECR_REPO_USERS: pkc/users
-  SSM_PARAMETER_NAME_ECR: /pkc/repository_url
-  SSM_PARAMETER_NAME_FRONTEND: /pkc/frontend
-  S3_BUCKET: pkc-archive-af2a18
 
 jobs:
   #Terraform
   Terraform_Setup:
     uses: ./.github/workflows/reuse_terraform.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: infrastructure/terraform/setup
       environment: prod
     secrets:
@@ -40,10 +25,10 @@ jobs:
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
   Terraform_Service:
-    needs: Setup
+    needs: Terraform_Setup
     uses: ./.github/workflows/reuse_terraform.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: infrastructure/terraform/services
       environment: prod
     secrets:
@@ -56,7 +41,7 @@ jobs:
   Backend:
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: backend/nodejs/core
       environment: prod
       run-tests: false
@@ -70,7 +55,7 @@ jobs:
   Batch:
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: backend/nodejs/batch
       environment: prod
       run-tests: false
@@ -84,7 +69,7 @@ jobs:
   Auth_Manager:
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: backend/nodejs/auth_manager
       environment: prod
       ECS_SERVICE_NAME: auth_manager
@@ -97,7 +82,7 @@ jobs:
   Users_Manager:
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: backend/nodejs/user_manager
       environment: prod
       ECS_SERVICE_NAME: user_manager
@@ -110,7 +95,7 @@ jobs:
   Lambda_Cognito:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: backend/nodejs/lambda/cognito
       environment: prod
       outputs-bucket: pkc-archive-af2a18
@@ -122,7 +107,7 @@ jobs:
   Lambda_Authorizer:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: backend/nodejs/lambda/authorizer
       environment: prod
       outputs-bucket: pkc-archive-af2a18
@@ -134,7 +119,7 @@ jobs:
   Lambda_Status:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: backend/nodejs/lambda/status
       environment: prod
       outputs-bucket: pkc-archive-af2a18
@@ -146,7 +131,7 @@ jobs:
   Lambda_Start:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: backend/nodejs/lambda/start
       environment: prod
       outputs-bucket: pkc-archive-af2a18
@@ -158,7 +143,7 @@ jobs:
   Lambda_Stop:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: ap-northeast-1
+      region: us-east-1
       working-directory: backend/nodejs/lambda/stop
       environment: prod
       outputs-bucket: pkc-archive-af2a18
