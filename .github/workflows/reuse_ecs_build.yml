@@ -2,6 +2,7 @@ name: ECS Workflow
 
 on:
   workflow_call:
+    # inputs
     inputs:
       environment:
         required: true
@@ -18,7 +19,11 @@ on:
       ECS_SERVICE_NAME:
         required: true
         type: string
-
+    # outputs
+    outputs:
+      image:
+        value: ${{ jobs.ECS_BUILD.outputs.image }}
+    # secrets
     secrets:
       AWS_ACCESS_KEY_ID:
         required: true
@@ -66,12 +71,12 @@ jobs:
           mask-aws-account-id: 'no'
 
       # Unit Test
-      - name: Unit Test
-        run: |
-          docker-compose up -d --build
-          sleep 10
-          yarn test
-          docker-compose down
+      # - name: Unit Test
+      #   run: |
+      #     docker-compose up -d --build
+      #     sleep 10
+      #     yarn test
+      #     docker-compose down
 
       # ECR Login
       - name: Login to Amazon ECR
