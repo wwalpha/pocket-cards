@@ -11,45 +11,19 @@ on:
       - completed
 
 env:
-  AWS_DEFAULT_REGION: ap-northeast-1
+  AWS_REGION: ap-northeast-1
   WORKING_DIR: backend/terraform
-  TF_WORKSPACE: dev
-  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+  ENVIRONMENT: dev
 
 jobs:
   Terraform:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    environment:
-      name: dev
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR }}
-
-    steps:
-      # source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Install the latest version of Terraform CLI 
-      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.1.7
-          cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
-
-      # Backend init
-      - name: Terraform Backend
-        run: |
-          terraform init
-          terraform plan -out=backend
-          terraform apply "backend"
+    uses: ./.github/workflows/reuse_terraform.yml
+    with:
+      region: ${{ env.AWS_REGION }}
+      working-directory: ${{ env.WORKING_DIR }}
+      environment: ${{ env.ENVIRONMENT }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_VARS: ${{ secrets.TERRAFORM_VARS }}
