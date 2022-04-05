@@ -8,7 +8,7 @@ variable "vpc_id" {
 # ----------------------------------------------------------------------------------------------
 # Subnets
 # ----------------------------------------------------------------------------------------------
-variable "subnets" {
+variable "vpc_subnets" {
   type    = list(string)
   default = ["subnet-003cfdcdbaf257d95", "subnet-0221940ce594a9f84"]
 }
@@ -17,4 +17,5 @@ variable "subnets" {
 # System Admin Email
 # ----------------------------------------------------------------------------------------------
 variable "admin_email" {
+  default = "wwalpha@gmail.com"
 }
