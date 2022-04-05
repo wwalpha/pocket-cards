@@ -20,7 +20,7 @@ describe('d0', () => {
     await client.truncateAll(Environment.TABLE_NAME_LEARNING);
   });
 
-  test('Question01:問題一括登録', async () => {
+  test.skip('Question01:問題一括登録', async () => {
     await client.bulk(Environment.TABLE_NAME_GROUPS, QUESTIONS.REGIST001_DB_GROUP);
 
     const apiPath = '/v1/groups/G001/questions';
