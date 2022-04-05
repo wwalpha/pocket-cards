@@ -30,7 +30,7 @@ const styles = {
   paper: { mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' },
   avatar: { m: 1, backgroundColor: 'secondary.main' },
   form: { width: '100%', MimeType: 1 },
-  submit: { m: 3 },
+  submit: { mt: 1 },
   button: { p: 0 },
 };
 
