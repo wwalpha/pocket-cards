@@ -22,8 +22,8 @@ on:
         required: true
         type: string
       ECS_WAIT_FOR_STABILITY:
-        required: true
         type: boolean
+        default: false
       ECR_IMAGE:
         required: true
         type: string
@@ -35,7 +35,7 @@ on:
         required: true
 
 jobs:
-  Apply:
+  ECS_DEPLOY:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
