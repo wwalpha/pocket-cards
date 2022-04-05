@@ -13,7 +13,6 @@ on:
         required: true
         type: string
       ECS_CLUSTER_NAME:
-        required: true
         type: string
         default: pkc-cluster
       ECS_SERVICE_NAME:
