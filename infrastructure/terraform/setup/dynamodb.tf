@@ -223,6 +223,7 @@ resource "aws_dynamodb_table" "learning" {
   name         = local.dynamodb_name_learning
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "qid"
+  range_key    = "userId"
 
   attribute {
     name = "qid"
