@@ -6,8 +6,7 @@ on:
       - backend/nodejs/core/**
       - backend/nodejs/typings/**
       - .github/workflows/push_backend_core.yml
-      - .github/workflows/reuse_ecs_build.yml
-      - .github/workflows/reuse_ecs_deploy.yml
+      - .github/workflows/reuse_ecs_all.yml
     branches-ignore:
       - releases/**
 
