@@ -87,7 +87,7 @@ resource "aws_apigatewayv2_api_mapping" "this" {
 resource "aws_apigatewayv2_vpc_link" "this" {
   name               = "${local.project_name}-link"
   security_group_ids = [aws_security_group.private_link.id]
-  subnet_ids         = local.subnets
+  subnet_ids         = local.vpc_subnets
 }
 
 # ---------------------------------------------------------------------------------------------

@@ -33,7 +33,7 @@ resource "aws_ecs_service" "auth" {
 
   network_configuration {
     assign_public_ip = !local.is_dev
-    subnets          = local.subnets
+    subnets          = local.vpc_subnets
     security_groups  = [aws_security_group.ecs_default_sg.id]
   }
 

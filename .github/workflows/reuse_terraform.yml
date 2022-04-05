@@ -28,26 +28,6 @@ on:
         required: true
       TF_VARS:
         required: true
-      translation_api_url:
-        required: false
-      translation_api_key:
-        required: false
-      ipa_api_url:
-        required: false
-      ipa_api_key:
-        required: false
-      vision_api_url:
-        required: false
-      vision_api_key:
-        required: false
-      domain_name:
-        required: false
-      google_client_id:
-        required: false
-      google_client_secret:
-        required: false
-      admin_email:
-        required: false
 
 jobs:
   Apply:
@@ -56,19 +36,7 @@ jobs:
     env:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
       TF_WORKSPACE: ${{ inputs.environment }}
-      TF_VARS: ${{ inputs.TF_VARS }}
-      # TF_VAR_translation_api_url:  ${{ secrets.translation_api_url }}
-      # TF_VAR_translation_api_key:  ${{ secrets.translation_api_key }}
-      # TF_VAR_ipa_api_url:  ${{ secrets.ipa_api_url }}
-      # TF_VAR_ipa_api_key:  ${{ secrets.ipa_api_key }}
-      # TF_VAR_vision_api_url:  ${{ secrets.vision_api_url }}
-      # TF_VAR_vision_api_key:  ${{ secrets.vision_api_key }}
-      # TF_VAR_domain_name: ${{ secrets.domain_name }}
-      # TF_VAR_google_client_id:  ${{ secrets.google_client_id }}
-      # TF_VAR_google_client_secret:  ${{ secrets.google_client_secret }}
-      # TF_VAR_admin_email: ${{ secrets.ADMIN_EMAIL }}
-      # TF_VAR_vpc_id: ${{ secrets.vpc_id }}
-      # TF_VAR_subnets: ${{ secrets.vpc_subnets }}
+      TF_VARS: ${{ secrets.TF_VARS }}
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}

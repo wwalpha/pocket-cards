@@ -32,12 +32,3 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
-      # translation_api_url:  ${{ secrets.translation_api_url }}
-      # translation_api_key:  ${{ secrets.translation_api_key }}
-      # ipa_api_url:  ${{ secrets.ipa_api_url }}
-      # ipa_api_key:  ${{ secrets.ipa_api_key }}
-      # vision_api_url:  ${{ secrets.vision_api_url }}
-      # vision_api_key:  ${{ secrets.vision_api_key }}
-      # domain_name:  ${{ secrets.domain_name }}
-      # google_client_id:  ${{ secrets.google_client_id }}
-      # google_client_secret:  ${{ secrets.google_client_secret }}
