@@ -1,0 +1,80 @@
+name: ECS Workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+      region:
+        required: true
+      working-directory:
+        required: true
+      ECS_CLUSTER_NAME:
+        required: true
+        default: pkc-cluster
+      ECS_SERVICE_NAME:
+        required: true
+      ECS_TASK_DEF:
+        required: true
+      ECS_WAIT_FOR_STABILITY:
+        required: true
+        type: boolean
+      ECR_IMAGE:
+        required: true
+
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
+jobs:
+  Apply:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      AWS_DEFAULT_REGION: ${{ inputs.region }}
+      ECR_IMAGE: ${{ inputs.ECR_IMAGE }}
+      ECS_CLUSTER_NAME: ${{ inputs.ECS_CLUSTER_NAME }}
+      ECS_SERVICE_NAME: ${{ inputs.ECS_SERVICE_NAME }}
+      ECS_TAKS_DEFINITION: ${{ inputs.ECS_TASK_DEF }}
+      ECS_TAKS_DEFINITION_FILE: task_definition.json
+      ECS_WAIT_FOR_STABILITY: ${{ inputs.ECS_WAIT_FOR_STABILITY }}
+      SSM_PARAMETER_NAME: /pkc/repository_url
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+
+    steps:
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Get latest task definition
+      - name: Update ecs task definition
+        id: filepath
+        run: |
+          aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
+          echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
+
+      # update task definition
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: render-web-container
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.filepath.outputs.definition }}
+          container-name: ${{ env.ECS_TAKS_DEFINITION }}
+          image: ${{ env.ECR_IMAGE }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.render-web-container.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_NAME }}
+          cluster: ${{ env.ECS_CLUSTER_NAME }}
+          wait-for-service-stability: ${{ env.ECS_WAIT_FOR_STABILITY }}
+          force-new-deployment: true

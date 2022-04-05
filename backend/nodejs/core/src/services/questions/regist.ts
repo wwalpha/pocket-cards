@@ -38,16 +38,6 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
       answer: answer,
     };
 
-    // const lItem: Tables.TLearning = {
-    //   qid: id,
-    //   groupId: groupId,
-    //   userId: userId,
-    //   subject: groupInfo.subject,
-    //   nextTime: '19000101',
-    //   lastTime: '19000101',
-    //   times: 0,
-    // };
-
     // 登録成功
     await DBHelper().transactWrite({
       TransactItems: [{ Put: Questions.put(qItem) }],
