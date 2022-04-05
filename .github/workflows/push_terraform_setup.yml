@@ -15,6 +15,7 @@ on:
   workflow_run:
     workflows:
       - PUSH_B) Lambda Build
+      - PUSH_B) Batch Build
     branches:
       - master
     types:
