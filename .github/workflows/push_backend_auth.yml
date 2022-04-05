@@ -13,25 +13,13 @@ on:
 
 jobs:
   Build:
-    uses: ./.github/workflows/reuse_ecs_build.yml
+    uses: ./.github/workflows/reuse_ecs_all.yml
     with:
       region: ap-northeast-1
       working-directory: backend/nodejs/auth_manager
       environment: dev
       ECS_SERVICE_NAME: auth_manager
       ECR_REPOSITORY: pkc/auth
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-  Deploy:
-    uses: ./.github/workflows/reuse_ecs_deploy.yml
-    needs: Build
-    with:
-      region: ap-northeast-1
-      working-directory: backend/nodejs/auth_manager
-      environment: dev
-      ECS_SERVICE_NAME: auth_manager
       ECS_TASK_DEF: pkc-auth
       ECS_WAIT_FOR_STABILITY: false
       ECR_IMAGE: ${{ needs.Build.outputs.image }}
