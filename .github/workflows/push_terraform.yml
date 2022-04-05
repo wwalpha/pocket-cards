@@ -6,9 +6,7 @@ on:
       - infrastructure/terraform/setup/**
       - infrastructure/terraform/services/**
       - backend/terraform/**
-      - .github/workflows/push_terraform_setup.yml
-      - .github/workflows/push_terraform_services.yml
-      - .github/workflows/push_terraform_backend.yml
+      - .github/workflows/push_terraform.yml
       - .github/workflows/reuse_terraform.yml
     branches-ignore:
       - releases/**
