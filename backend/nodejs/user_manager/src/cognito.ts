@@ -221,3 +221,39 @@ export const adminSetUserPassword = async (UserPoolId: string, Username: string,
     })
     .promise();
 };
+
+export const createCognitoUserSilence = async (
+  UserPoolId: string,
+  Username: string
+): Promise<CognitoIdentityServiceProvider.Types.UserType> => {
+  const attributes: CognitoIdentityServiceProvider.Types.AttributeListType = [
+    { Name: 'name', Value: Username },
+    { Name: 'custom:role', Value: 'TENANT_USER' },
+  ];
+
+  const res = await provider
+    .adminCreateUser({
+      UserPoolId,
+      Username,
+      MessageAction: 'SUPPRESS',
+      ForceAliasCreation: true,
+      UserAttributes: attributes,
+    })
+    .promise();
+
+  if (!res.User) {
+    throw new Error(`Create cognito user failure. ${Username}`);
+  }
+
+  return res.User;
+};
+
+/** remove cognito user */
+export const adminDeleteUser = async (UserPoolId: string, Username: string) => {
+  await provider
+    .adminDeleteUser({
+      UserPoolId,
+      Username,
+    })
+    .promise();
+};

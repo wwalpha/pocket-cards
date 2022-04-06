@@ -28,3 +28,11 @@ content-type: application/json
 }
 
 GET http://localhost:8080/users/admins
+
+POST http://localhost:8080/v1/users/students
+content-type: application/json
+
+{
+  "username": "test015",
+  "password": "Session10+"
+}

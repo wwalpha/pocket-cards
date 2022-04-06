@@ -3,7 +3,14 @@ import express from 'express';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Users, Tables } from 'typings';
 import { Authority, Environments } from './consts';
-import { adminSetUserPassword, createNewUser, getUsers, lookupUserPoolData } from './cognito';
+import {
+  adminDeleteUser,
+  adminSetUserPassword,
+  createCognitoUserSilence,
+  createNewUser,
+  getUsers,
+  lookupUserPoolData,
+} from './cognito';
 import { Logger } from './utils';
 
 // update aws config
@@ -149,4 +156,59 @@ export const listAdminUsers = async (): Promise<Users.ListAdminUsersResponse> =>
   return {
     users,
   };
+};
+
+export const createStudent = async (
+  req: express.Request<any, any, Users.CreateStudentRequest>
+): Promise<Users.CreateStudentResponse> => {
+  const { username, password } = req.body;
+
+  const settings = await helper.get<Tables.TSettingsCognito>({
+    TableName: Environments.TABLE_NAME_SETTINGS,
+    Key: {
+      id: 'TENANT_USER',
+    } as Tables.TSettingsKey,
+  });
+
+  // data not found
+  if (!settings || !settings.Item) {
+    throw new Error('Cannot find cognito settings');
+  }
+
+  const userPoolId = settings.Item.userPoolId;
+
+  try {
+    // create user
+    const user = await createCognitoUserSilence(userPoolId, username);
+
+    // reset default password
+    await adminSetUserPassword(userPoolId, username, password);
+
+    const sub = user.Attributes ? user.Attributes[0].Value : undefined;
+
+    // add user
+    await helper.put<Tables.TUsers>({
+      TableName: Environments.TABLE_NAME_USERS,
+      Item: {
+        id: username,
+        authority: 'CHILD',
+        email: `${username}@${password}`,
+        role: 'TENANT_USER',
+        username: username,
+        sub,
+      },
+    });
+
+    // success
+    return { success: 'true' };
+  } catch (err) {
+    const error = err as AWSError;
+
+    if (error.code === 'InvalidPasswordException') {
+      await adminDeleteUser(userPoolId, username);
+    }
+  }
+
+  // failure
+  return { success: 'false' };
 };
