@@ -69,4 +69,13 @@ export namespace Users {
   interface ListAdminUsersResponse {
     users: string[];
   }
+
+  interface CreateStudentRequest {
+    username: string;
+    password: string;
+  }
+
+  interface CreateStudentResponse {
+    success: string;
+  }
 }
