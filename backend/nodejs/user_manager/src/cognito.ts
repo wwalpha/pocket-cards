@@ -153,7 +153,7 @@ export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers)
     .adminCreateUser({
       MessageAction: user.authority === Authority.STUDENT ? 'SUPPRESS' : undefined,
       UserPoolId: userPoolId,
-      Username: user.email,
+      Username: user.email as string,
       DesiredDeliveryMediums: ['EMAIL'],
       ForceAliasCreation: true,
       UserAttributes: attributes,

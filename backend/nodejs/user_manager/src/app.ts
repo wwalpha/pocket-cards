@@ -192,7 +192,6 @@ export const createStudent = async (
       Item: {
         id: username,
         authority: 'STUDENT',
-        email: `${username}@${password}`,
         role: 'TENANT_USER',
         username: username,
         sub,
@@ -222,8 +221,8 @@ export const getStudents = async (
   // get user id from token
   const userId = getUserId(req);
 
-  const result = await helper.get<Tables.TUsers>(UserQueries.get(userId));
-  const students = result?.Item?.students;
+  const result = await helper.query<Tables.TUsers>(UserQueries.query.byTeacher(userId));
+  const students = result.Items;
 
   // not exists
   if (!students || students.length === 0) {
@@ -234,14 +233,14 @@ export const getStudents = async (
   }
 
   // get all user infomartions
-  const tasks = students.map((item) => helper.get<Tables.TUsers>(UserQueries.get(item)));
+  const tasks = students.map((item) => helper.get<Tables.TUsers>(UserQueries.get(item.id)));
   const results = await Promise.all(tasks);
   const res = results
     .map((item) => item?.Item)
     .filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
 
   return {
-    count: 0,
+    count: res.length,
     items: res,
   };
 };
