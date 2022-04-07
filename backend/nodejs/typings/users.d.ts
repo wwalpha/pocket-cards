@@ -1,3 +1,5 @@
+import { Tables } from './tables';
+
 export namespace Users {
   interface CognitoInfos {
     Authority?: string;
@@ -77,5 +79,12 @@ export namespace Users {
 
   interface CreateStudentResponse {
     success: string;
+  }
+
+  interface GetStudentRequest {}
+
+  interface GetStudentResponse {
+    count: number;
+    items: Tables.TUsers[];
   }
 }

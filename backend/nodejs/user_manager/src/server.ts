@@ -1,7 +1,15 @@
 import express from 'express';
 import morgan from 'morgan';
 import { json, urlencoded } from 'body-parser';
-import { createUser, healthCheck, createAdminUser, lookupUser, listAdminUsers, createStudent } from './app';
+import {
+  createUser,
+  healthCheck,
+  createAdminUser,
+  lookupUser,
+  listAdminUsers,
+  createStudent,
+  getStudents,
+} from './app';
 import { common } from './utils';
 
 // instantiate application
@@ -29,6 +37,9 @@ app.post('/v1/users', async (req, res) => await common(req, res, createUser));
 
 // create student user
 app.post('/v1/users/students', async (req, res) => await common(req, res, createStudent));
+
+// get student list
+app.get('/v1/users/students', async (req, res) => await common(req, res, getStudents));
 
 // app._router.stack.forEach((r: any) => {
 //   if (r.route && r.route.path) {

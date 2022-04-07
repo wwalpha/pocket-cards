@@ -8,5 +8,5 @@ export const Environments = {
 
 export const Authority = {
   PARENT: 'PARENT',
-  CHILD: 'CHILD',
+  STUDENT: 'STUDENT',
 };

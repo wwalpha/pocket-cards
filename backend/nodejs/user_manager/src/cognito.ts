@@ -5,7 +5,7 @@ import { decode } from 'jsonwebtoken';
 import { Tables, Users } from 'typings';
 import { Environments, Authority } from './consts';
 
-const helper = new DynamodbHelper();
+const helper = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
 // init service provider
 const provider = new CognitoIdentityServiceProvider();
 
@@ -151,7 +151,7 @@ export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers)
   // create new user
   const result = await provider
     .adminCreateUser({
-      MessageAction: user.authority === Authority.CHILD ? 'SUPPRESS' : undefined,
+      MessageAction: user.authority === Authority.STUDENT ? 'SUPPRESS' : undefined,
       UserPoolId: userPoolId,
       Username: user.email,
       DesiredDeliveryMediums: ['EMAIL'],

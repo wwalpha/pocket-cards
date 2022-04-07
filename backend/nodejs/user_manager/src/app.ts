@@ -11,7 +11,8 @@ import {
   getUsers,
   lookupUserPoolData,
 } from './cognito';
-import { Logger } from './utils';
+import { getUserId, Logger } from './utils';
+import { Users as UserQueries } from './queries';
 
 // update aws config
 AWS.config.update({
@@ -19,7 +20,7 @@ AWS.config.update({
   dynamodb: { endpoint: Environments.AWS_ENDPOINT },
 });
 
-const helper = new DynamodbHelper();
+const helper = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
 
 // health check
 export const healthCheck = async () => ({ service: 'User Manager', isAlive: true });
@@ -76,7 +77,7 @@ export const createUser = async (
     const user = await createNewUser(req.body, userPoolId, 'TENANT_USER', authority);
 
     // force change user password
-    if (authority === Authority.CHILD) {
+    if (authority === Authority.STUDENT) {
       // required
       if (!password) {
         throw new Error('Required parameter: password');
@@ -180,10 +181,8 @@ export const createStudent = async (
   try {
     // create user
     const user = await createCognitoUserSilence(userPoolId, username);
-
     // reset default password
     await adminSetUserPassword(userPoolId, username, password);
-
     const sub = user.Attributes ? user.Attributes[0].Value : undefined;
 
     // add user
@@ -191,7 +190,7 @@ export const createStudent = async (
       TableName: Environments.TABLE_NAME_USERS,
       Item: {
         id: username,
-        authority: 'CHILD',
+        authority: 'STUDENT',
         email: `${username}@${password}`,
         role: 'TENANT_USER',
         username: username,
@@ -206,9 +205,41 @@ export const createStudent = async (
 
     if (error.code === 'InvalidPasswordException') {
       await adminDeleteUser(userPoolId, username);
+
+      // failure
+      return { success: 'false' };
     }
+
+    throw error;
+  }
+};
+
+export const getStudents = async (
+  req: express.Request<any, any, Users.GetStudentRequest>
+): Promise<Users.GetStudentResponse> => {
+  // get user id from token
+  const userId = getUserId(req);
+
+  const result = await helper.get<Tables.TUsers>(UserQueries.get(userId));
+  const students = result?.Item?.students;
+
+  // not exists
+  if (!students || students.length === 0) {
+    return {
+      count: 0,
+      items: [],
+    };
   }
 
-  // failure
-  return { success: 'false' };
+  // get all user infomartions
+  const tasks = students.map((item) => helper.get<Tables.TUsers>(UserQueries.get(item)));
+  const results = await Promise.all(tasks);
+  const res = results
+    .map((item) => item?.Item)
+    .filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
+
+  return {
+    count: 0,
+    items: res,
+  };
 };

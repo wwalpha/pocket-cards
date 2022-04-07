@@ -24,8 +24,8 @@ const setup = async () => {
       TableName: TABLE_NAME_SETTINGS,
       BillingMode: 'PROVISIONED',
       ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
-      KeySchema: [{ AttributeName: 'Id', KeyType: 'HASH' }],
-      AttributeDefinitions: [{ AttributeName: 'Id', AttributeType: 'S' }],
+      KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+      AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
     })
     .promise();
 
