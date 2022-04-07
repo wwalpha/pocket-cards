@@ -1,6 +1,7 @@
 import { DynamoDB } from 'aws-sdk';
 import { Environments } from '@utils';
 import { Tables } from 'typings';
+export * as query from './query';
 
 /** データ取得 */
 export const get = (id: string) =>
