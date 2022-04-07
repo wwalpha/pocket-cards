@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
@@ -10,6 +10,12 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
@@ -28,6 +34,9 @@ export default () => {
   const { groups } = useSelector(groupState);
   const { isLoading, activeSubject } = useSelector(appState);
   const { curriculums } = useSelector(userState);
+  const [open, setOpen] = useState(false);
+  const [curriculumId, setCurriculumId] = useState<string | undefined>(undefined);
+  const [groupId, setGroupId] = useState('');
 
   // get question list
   const handleApply = (groupId: string) => {
@@ -44,6 +53,18 @@ export default () => {
     adminActions.selectGroup(groupId);
     // 質問リスト取得
     actions.questionList();
+  };
+
+  const handleClose = () => setOpen(false);
+
+  const handleConfirm = () => {
+    if (curriculumId) {
+      handleCancel(curriculumId);
+    } else {
+      handleApply(groupId);
+    }
+
+    setOpen(false);
   };
 
   const displayGroups = groups.filter((item) => item.subject === activeSubject);
@@ -81,10 +102,8 @@ export default () => {
                       {(() => {
                         const item = curriculums.find((item) => item.groupId === dataRow.id);
                         const label = !item ? 'Apply' : 'Cancel';
-                        const func = !item ? handleApply : handleCancel;
                         const icon = !item ? <CheckCircleIcon /> : <HighlightOffIcon />;
                         const color = item ? 'info' : 'primary';
-                        const id = item ? item.id : dataRow.id;
 
                         return (
                           <LoadingButton
@@ -95,7 +114,9 @@ export default () => {
                             size="small"
                             sx={{ py: 0, mx: 0.5, width: 100 }}
                             onClick={() => {
-                              func(id);
+                              setGroupId(dataRow.id);
+                              setCurriculumId(item?.id);
+                              setOpen(true);
                             }}>
                             {label}
                           </LoadingButton>
@@ -111,6 +132,20 @@ export default () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <Dialog open={open} onClose={handleClose} maxWidth="md">
+          <DialogTitle id="alert-dialog-title">カリキュラム</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              カリキュラムを{curriculumId ? '解除' : '適用'}しますか？
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleConfirm} autoFocus>
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </Box>
   );
