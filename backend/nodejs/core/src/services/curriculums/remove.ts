@@ -8,7 +8,7 @@ export default async (
   req: Request<APIs.CurriculumRemoveParams, any, APIs.CurriculumRemoveRequest, any>
 ): Promise<APIs.CurriculumRemoveResponse> => {
   const curriculumId = req.params.curriculumId;
-console.log(curriculumId)
+
   const curriculum = await DBHelper().get<Tables.TCurriculums>(Curriculums.get({ id: curriculumId }));
 
   if (!curriculum?.Item) {
