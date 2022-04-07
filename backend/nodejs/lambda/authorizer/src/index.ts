@@ -124,7 +124,7 @@ const buildAuthPolicy = async (
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/curriculums/*');
 
       break;
-    case 'CHILD':
+    case 'STUDENT':
       policy.allowAllMethods();
       break;
     default:

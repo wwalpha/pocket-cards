@@ -17,6 +17,8 @@ export namespace Tables {
     authority: string;
     //
     sub?: string;
+    // 生徒一覧
+    students?: string[];
   }
 
   interface TGroupsKey {
