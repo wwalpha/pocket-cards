@@ -91,6 +91,11 @@ locals {
   # ----------------------------------------------------------------------------------------------
   cognito_identity_pool_arn_admin = local.remote_services.cognito_identity_pool_arn_admin
   cognito_identity_pool_arn_users = local.remote_services.cognito_identity_pool_arn_users
+
+  # ----------------------------------------------------------------------------------------------
+  # Route53
+  # ----------------------------------------------------------------------------------------------
+  domain_name = local.remote_setup.route53_zone_name
 }
 
 # ----------------------------------------------------------------------------------------------
