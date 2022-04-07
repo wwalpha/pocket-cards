@@ -163,6 +163,7 @@ export const createStudent = async (
   req: express.Request<any, any, Users.CreateStudentRequest>
 ): Promise<Users.CreateStudentResponse> => {
   const { username, password } = req.body;
+  const teacherId = getUserId(req);
 
   const settings = await helper.get<Tables.TSettingsCognito>({
     TableName: Environments.TABLE_NAME_SETTINGS,
@@ -195,6 +196,7 @@ export const createStudent = async (
         role: 'TENANT_USER',
         username: username,
         sub,
+        teacher: teacherId,
       },
     });
 

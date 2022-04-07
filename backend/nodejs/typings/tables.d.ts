@@ -19,6 +19,8 @@ export namespace Tables {
     sub?: string;
     // 生徒一覧
     students?: string[];
+    // 教師
+    teacher?: string;
   }
 
   interface TGroupsKey {
