@@ -13,13 +13,29 @@ resource "aws_dynamodb_table" "users" {
   name         = local.dynamodb_name_users
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
+
   attribute {
     name = "id"
     type = "S"
   }
+
+  attribute {
+    name = "teacher"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name               = "gsiIdx1"
+    hash_key           = "teacher"
+    range_key          = "id"
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["id"]
+  }
+
   tags = {
     Project = local.project_name_uc
   }
+
 }
 
 # ----------------------------------------------------------------------------------------------
