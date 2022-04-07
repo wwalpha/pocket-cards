@@ -53,6 +53,9 @@ export const CURRICULUM_LIST = () => `${API_VERSION}/curriculums`;
 export const CURRICULUM_REGIST = () => `${API_VERSION}/curriculums`;
 export const CURRICULUM_REMOVE = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}`;
 
+export const STUDENT_REGIST = () => `${API_VERSION}/users/students`;
+export const STUDENT_LIST = () => `${API_VERSION}/users/students`;
+
 export const VERSION = `${process.env.VERSION}`;
 
 export const MODES = {

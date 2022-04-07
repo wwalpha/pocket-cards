@@ -44,3 +44,14 @@ export const questionList = () => (dispatch: AppDispatch) =>
       dispatch(push(Paths.PATHS_GUARDIAN_QUESTIONS));
     })
   );
+
+/** 質問リスト */
+export const getStudentList = () => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // Get question lists
+      dispatch(Actions.USER_STUDENTS_LIST());
+
+      dispatch(push(Paths.PATHS_GUARDIAN_STUDENTS));
+    })
+  );

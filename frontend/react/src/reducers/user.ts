@@ -51,6 +51,9 @@ const slice = createSlice({
       })
       .addCase(UserActions.USER_CURRICULUM_LIST.fulfilled, (state, { payload }) => {
         state.curriculums = payload.items;
+      })
+      .addCase(UserActions.USER_STUDENTS_LIST.fulfilled, (state, { payload }) => {
+        state.students = payload.items;
       });
   },
 });
