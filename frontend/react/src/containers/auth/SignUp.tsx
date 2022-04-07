@@ -108,7 +108,7 @@ const SignUp = () => {
                 <InputLabel id="demo-simple-select-label">Role</InputLabel>
                 <Select value={value} label="Role" onChange={onChange}>
                   <MenuItem value="PARENT">保護者</MenuItem>
-                  <MenuItem value="CHILD">子供</MenuItem>
+                  <MenuItem value="STUDENT">生徒</MenuItem>
                 </Select>
               </FormControl>
             )}

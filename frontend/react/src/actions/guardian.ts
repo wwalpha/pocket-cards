@@ -41,6 +41,6 @@ export const questionList = () => (dispatch: AppDispatch) =>
       // Get question lists
       await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
 
-      dispatch(push(Paths.PATHS_GUARDIAN_GROUP_QUESTIONS));
+      dispatch(push(Paths.PATHS_GUARDIAN_QUESTIONS));
     })
   );

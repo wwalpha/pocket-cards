@@ -10,16 +10,23 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import BookIcon from '@mui/icons-material/Book';
+import PersonIcon from '@mui/icons-material/Person';
 import { GuardianActions } from '@actions';
-import { Consts } from '@constants';
+import { Consts, Paths } from '@constants';
 import { styles } from './DrawerLeft.style';
+import { push } from 'connected-react-router';
 
 export default () => {
   const location = useLocation();
-  const actions = bindActionCreators(GuardianActions, useDispatch());
+  const dispatch = useDispatch();
+  const actions = bindActionCreators(GuardianActions, dispatch);
 
   const handleClick = (subject: string) => {
     actions.selectSubject(subject, location.pathname);
+  };
+
+  const handleStudents = () => {
+    dispatch(push(Paths.PATHS_GUARDIAN_STUDENTS));
   };
 
   return (
@@ -73,6 +80,13 @@ export default () => {
             <BookIcon sx={{ color: '#b71927' }} />
           </ListItemIcon>
           <ListItemText primary="英 語" />
+        </ListItem>
+        <Divider />
+        <ListItem button key="Students" onClick={handleStudents}>
+          <ListItemIcon sx={styles.itemIcon}>
+            <PersonIcon sx={{ color: 'secondary.main' }} />
+          </ListItemIcon>
+          <ListItemText primary="生 徒" />
         </ListItem>
       </List>
     </Drawer>

@@ -75,7 +75,7 @@ export const SERVER_STATUS = {
 export const Authority = {
   ADMIN: 'TENANT_ADMIN',
   PARENT: 'PARENT',
-  CHILD: 'CHILD',
+  STUDENT: 'STUDENT',
 };
 
 export const HEADER_HEIGHT = 64;
