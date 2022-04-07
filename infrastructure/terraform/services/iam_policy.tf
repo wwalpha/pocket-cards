@@ -69,3 +69,23 @@ resource "aws_iam_policy" "cognito_admin" {
     ]
   })
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS IAM Policy - Cognito Admin
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_policy" "ses_basic" {
+  name = "${local.project_name_uc}_SESBasicPolicy"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ses:*",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
