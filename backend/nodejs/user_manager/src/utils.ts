@@ -1,7 +1,12 @@
+import { DynamodbHelper } from '@alphax/dynamodb';
+import { Environments } from '@consts';
 import express from 'express';
 import { decode } from 'jsonwebtoken';
 import { defaultTo } from 'lodash';
+import { Tables } from 'typings';
 import winston from 'winston';
+
+export const DBHelper = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
 
 export const Logger = winston.createLogger({
   level: 'info',
@@ -58,4 +63,20 @@ export const getUserInfo = (token: string) => {
     Logger.error(err);
     return null;
   }
+};
+
+export const getSettings = async (id: string = 'TENANT_USER') => {
+  const settings = await DBHelper.get<Tables.TSettingsCognito>({
+    TableName: Environments.TABLE_NAME_SETTINGS,
+    Key: { id: id } as Tables.TSettingsKey,
+  });
+
+  const item = settings?.Item;
+
+  // data not found
+  if (!item) {
+    throw new Error('Cannot find cognito settings');
+  }
+
+  return item;
 };
