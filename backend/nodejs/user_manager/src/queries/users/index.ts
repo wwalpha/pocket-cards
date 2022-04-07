@@ -2,6 +2,7 @@ import { DynamoDB } from 'aws-sdk';
 import { Environments } from '../../consts';
 import { Tables } from 'typings';
 import * as update from './update';
+import * as query from './query';
 
 /** データ取得 */
 export const get = (id: string) =>
@@ -19,4 +20,4 @@ export const put = (item: Tables.TUsers) =>
     Item: item,
   } as DynamoDB.DocumentClient.PutItemInput);
 
-export { update };
+export { update, query };
