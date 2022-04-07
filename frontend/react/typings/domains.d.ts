@@ -52,6 +52,8 @@ export namespace Domains {
     authority?: string;
     // curriculums
     curriculums: Tables.TCurriculums[];
+    // students
+    students: Tables.TUsers[];
   }
 
   interface StudyState {
