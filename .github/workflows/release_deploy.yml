@@ -64,8 +64,7 @@ jobs:
 
   Backend:
     runs-on: ubuntu-latest
-    needs:
-      - Terraform
+    needs: Terraform_Backend
     environment:
       name: prod
 
@@ -108,8 +107,7 @@ jobs:
   # Auth Manager
   Auth:
     runs-on: ubuntu-latest
-    needs:
-      - Terraform
+    needs: Terraform_Backend
     environment:
       name: prod
 
@@ -152,8 +150,7 @@ jobs:
   # Users Manager
   Users:
     runs-on: ubuntu-latest
-    needs:
-      - Terraform
+    needs: Terraform_Backend
     environment:
       name: prod
 
@@ -196,8 +193,7 @@ jobs:
   # [Frontend]
   Frontend:
     runs-on: ubuntu-18.04
-    needs:
-      - Terraform
+    needs: Terraform_Backend
     environment:
       name: prod
     defaults:
