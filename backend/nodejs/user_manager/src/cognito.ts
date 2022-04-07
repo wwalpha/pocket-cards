@@ -1,7 +1,8 @@
-import { DynamodbHelper } from '@alphax/dynamodb';
-import { CognitoIdentityServiceProvider, Credentials } from 'aws-sdk';
+import { CognitoIdentityServiceProvider } from 'aws-sdk';
 import express from 'express';
 import { decode } from 'jsonwebtoken';
+import { DynamodbHelper } from '@alphax/dynamodb';
+import { getSettings } from '@utils';
 import { Tables, Users } from 'typings';
 import { Environments, Authority } from './consts';
 
@@ -31,62 +32,15 @@ export const lookupUserPoolData = async (userId: string): Promise<Users.CognitoI
   }
 
   const role = results.Item.role;
-  const key: Tables.TSettingsKey = {
-    id: role,
-  };
-
-  const settings = await helper.get<Tables.TSettingsCognito>({
-    TableName: Environments.TABLE_NAME_SETTINGS,
-    Key: key,
-  });
+  const settings = await getSettings(role);
 
   // user founded
   return {
     Authority: results.Item.authority,
-    ClientId: settings?.Item?.clientId,
-    UserPoolId: settings?.Item?.userPoolId,
-    IdentityPoolId: settings?.Item?.identityPoolId,
+    ClientId: settings.clientId,
+    UserPoolId: settings.userPoolId,
+    IdentityPoolId: settings.identityPoolId,
   };
-};
-
-/**
- * Create a new user using the supplied credentials/user
- *
- * @param credentials The creds used for the user creation
- * @param userInfo the tenant admin regist request
- * @param cognito The cognito infomations
- */
-export const createNewUser = async (
-  userInfo: Users.TenantUser,
-  userPoolId: string,
-  role: 'TENANT_ADMIN' | 'TENANT_USER',
-  authority = 'TENANT_ADMIN'
-) => {
-  const userItem: Tables.TUsers = {
-    id: userInfo.email,
-    username: userInfo.userName,
-    email: userInfo.email,
-    role,
-    authority,
-  };
-
-  // create cognito user;
-  const user = await createCognitoUser(userPoolId, userItem);
-
-  // set sub
-  if (user.Attributes) {
-    userItem.sub = user.Attributes[0].Value;
-  }
-
-  const helper = new DynamodbHelper();
-
-  // add user
-  await helper.put({
-    TableName: Environments.TABLE_NAME_USERS,
-    Item: userItem,
-  });
-
-  return userItem;
 };
 
 /**
@@ -136,7 +90,6 @@ const decodeToken = (token?: string) => {
 /**
  * Create a new user
  *
- * @param credentials credentials
  * @param userPoolId user pool id
  * @param user user attributes
  *
@@ -144,16 +97,26 @@ const decodeToken = (token?: string) => {
 export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers) => {
   const attributes: CognitoIdentityServiceProvider.AttributeListType = [
     { Name: 'name', Value: user.username },
-    { Name: 'email', Value: user.email },
     { Name: 'custom:role', Value: user.role },
   ];
+
+  if (user.email) {
+    attributes.push({ Name: 'email', Value: user.email });
+  }
+
+  if (user.authority === Authority.PARENT && !user.email) {
+    throw new Error('Email is required.');
+  }
+
+  const action = user.authority === Authority.STUDENT ? 'SUPPRESS' : undefined;
+  const username = user.authority === Authority.STUDENT ? user.username : (user.email as string);
 
   // create new user
   const result = await provider
     .adminCreateUser({
-      MessageAction: user.authority === Authority.STUDENT ? 'SUPPRESS' : undefined,
+      MessageAction: action,
       UserPoolId: userPoolId,
-      Username: user.email as string,
+      Username: username,
       DesiredDeliveryMediums: ['EMAIL'],
       ForceAliasCreation: true,
       UserAttributes: attributes,
@@ -220,32 +183,6 @@ export const adminSetUserPassword = async (UserPoolId: string, Username: string,
       Permanent: true,
     })
     .promise();
-};
-
-export const createCognitoUserSilence = async (
-  UserPoolId: string,
-  Username: string
-): Promise<CognitoIdentityServiceProvider.Types.UserType> => {
-  const attributes: CognitoIdentityServiceProvider.Types.AttributeListType = [
-    { Name: 'name', Value: Username },
-    { Name: 'custom:role', Value: 'TENANT_USER' },
-  ];
-
-  const res = await provider
-    .adminCreateUser({
-      UserPoolId,
-      Username,
-      MessageAction: 'SUPPRESS',
-      ForceAliasCreation: true,
-      UserAttributes: attributes,
-    })
-    .promise();
-
-  if (!res.User) {
-    throw new Error(`Create cognito user failure. ${Username}`);
-  }
-
-  return res.User;
 };
 
 /** remove cognito user */

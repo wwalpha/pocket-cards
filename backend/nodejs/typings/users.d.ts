@@ -53,12 +53,7 @@ export namespace Users {
     identityPoolId?: string;
   }
 
-  interface CreateUserRequest extends TenantUser {
-    // authority
-    authority: string;
-    // password
-    password?: string;
-  }
+  interface CreateUserRequest extends TenantUser {}
 
   interface CreateUserResponse {
     success: boolean;

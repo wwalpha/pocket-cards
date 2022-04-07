@@ -2,14 +2,14 @@ import express from 'express';
 import morgan from 'morgan';
 import { json, urlencoded } from 'body-parser';
 import {
-  createUser,
-  healthCheck,
-  createAdminUser,
-  lookupUser,
-  listAdminUsers,
-  createStudent,
-  getStudents,
-} from './app';
+  CreateStudent,
+  CreateUser,
+  CreateAdminUser,
+  ListAdminUsers,
+  ListStudents,
+  LookupUser,
+  HealthCheck,
+} from '@api';
 import { common } from './utils';
 
 // instantiate application
@@ -21,25 +21,25 @@ app.use(urlencoded({ extended: false }));
 app.use(morgan('combined'));
 
 // health check
-app.get('/v1/users/health', async (req, res) => await common(req, res, healthCheck));
+app.get('/v1/users/health', async (req, res) => await common(req, res, HealthCheck));
 
 // create a admin user
-app.post('/v1/users/admins', async (req, res) => await common(req, res, createAdminUser));
+app.post('/v1/users/admins', async (req, res) => await common(req, res, CreateAdminUser));
 
 // list all admin users
-app.get('/v1/users/admins', async (req, res) => await common(req, res, listAdminUsers));
+app.get('/v1/users/admins', async (req, res) => await common(req, res, ListAdminUsers));
 
 // Lookup user pool for any user - no user data returned
-app.get('/v1/users/pool/:id', async (req, res) => await common(req, res, lookupUser));
+app.get('/v1/users/pool/:id', async (req, res) => await common(req, res, LookupUser));
 
 // create a normal user
-app.post('/v1/users', async (req, res) => await common(req, res, createUser));
+app.post('/v1/users', async (req, res) => await common(req, res, CreateUser));
 
 // create student user
-app.post('/v1/users/students', async (req, res) => await common(req, res, createStudent));
+app.post('/v1/users/students', async (req, res) => await common(req, res, CreateStudent));
 
 // get student list
-app.get('/v1/users/students', async (req, res) => await common(req, res, getStudents));
+app.get('/v1/users/students', async (req, res) => await common(req, res, ListStudents));
 
 // app._router.stack.forEach((r: any) => {
 //   if (r.route && r.route.path) {
