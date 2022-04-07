@@ -293,6 +293,14 @@ resource "aws_iam_role_policy_attachment" "ecs_task_users_cognito" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy - SES Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "ecs_task_users_ses" {
+  role       = aws_iam_role.ecs_task_users.name
+  policy_arn = aws_iam_policy.ses_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS ECS Task Role - Backup
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role" "backup" {
