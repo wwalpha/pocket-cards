@@ -9,7 +9,6 @@ on:
 env:
   AWS_DEFAULT_REGION: us-east-1
   WORKING_DIR_FRONTEND: frontend/react
-  TF_WORKSPACE: prod
 
 jobs:
   #Terraform
@@ -161,6 +160,7 @@ jobs:
       name: prod
     env:
       NODE_ENV: production
+      TF_WORKSPACE: prod
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR_FRONTEND }}
