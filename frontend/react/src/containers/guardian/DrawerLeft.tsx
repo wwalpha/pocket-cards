@@ -21,13 +21,9 @@ export default () => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(GuardianActions, dispatch);
 
-  const handleClick = (subject: string) => {
-    actions.selectSubject(subject, location.pathname);
-  };
+  const handleClick = (subject: string) => actions.selectSubject(subject, location.pathname);
 
-  const handleStudents = () => {
-    dispatch(push(Paths.PATHS_GUARDIAN_STUDENTS));
-  };
+  const handleStudents = () => actions.getStudentList();
 
   return (
     <Drawer sx={styles.drawer} variant="permanent" anchor="left">
