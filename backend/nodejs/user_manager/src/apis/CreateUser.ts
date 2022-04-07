@@ -55,9 +55,9 @@ export const CreateUser = async (
     };
   } catch (err) {
     // log
-    Logger.error(err);
-
     const error = err as AWSError;
+
+    Logger.error(error.message);
     let message = 'Unknown Error.';
 
     // user exists

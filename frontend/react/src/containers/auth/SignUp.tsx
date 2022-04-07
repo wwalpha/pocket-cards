@@ -19,7 +19,6 @@ import { RootState, SignUpForm } from 'typings';
 const app = (state: RootState) => state.app;
 const defaultValues: SignUpForm = {
   email: '',
-  authority: '',
   username: '',
 };
 
@@ -45,8 +44,8 @@ const SignUp = () => {
   } = useForm<SignUpForm>({ defaultValues });
 
   // 編集
-  const onSubmit = handleSubmit(({ email, authority, username }) => {
-    actions.signup(username, email, authority);
+  const onSubmit = handleSubmit(({ email, username }) => {
+    actions.signup(username, email);
   });
 
   return (
@@ -97,23 +96,6 @@ const SignUp = () => {
               />
             )}
           />
-          <Controller
-            name="authority"
-            control={control}
-            rules={{
-              required: 'required',
-            }}
-            render={({ field: { onChange, value } }) => (
-              <FormControl fullWidth sx={{ mt: 1 }}>
-                <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                <Select value={value} label="Role" onChange={onChange}>
-                  <MenuItem value="PARENT">保護者</MenuItem>
-                  <MenuItem value="STUDENT">生徒</MenuItem>
-                </Select>
-              </FormControl>
-            )}
-          />
-
           <Box sx={{ my: 2 }}>
             <Button
               isLoading={isLoading}

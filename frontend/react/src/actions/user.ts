@@ -37,7 +37,7 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
     })
   );
 
-export const signup = (username: string, email: string, authority: string) => (dispatch: AppDispatch) =>
+export const signup = (username: string, email: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // sign in
@@ -46,7 +46,6 @@ export const signup = (username: string, email: string, authority: string) => (d
           userId: email,
           userName: username,
           email: email,
-          authority: authority,
         })
       ).unwrap();
 
