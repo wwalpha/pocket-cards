@@ -24,6 +24,8 @@ export const ROUTE_PATH_INDEX: Record<string, number> = {
   AdminGroupDetails: 101,
   AdminGroupQuestions: 102,
   GuardianTop: 110,
+  GuardianQuestions: 111,
+  GuardianStudents: 112,
 };
 
 export const ROUTE_PATHS = {
@@ -51,7 +53,8 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.AdminGroupDetails]: '/admin/group',
   [ROUTE_PATH_INDEX.AdminGroupQuestions]: '/admin/questions',
   [ROUTE_PATH_INDEX.GuardianTop]: '/guardian',
-  [ROUTE_PATH_INDEX.GuardianGroupQuestions]: '/guardian/questions',
+  [ROUTE_PATH_INDEX.GuardianQuestions]: '/guardian/questions',
+  [ROUTE_PATH_INDEX.GuardianStudents]: '/guardian/students',
 };
 
 // admin
@@ -60,7 +63,8 @@ export const PATHS_ADMIN_GROUP_DETAILS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminGroup
 export const PATHS_ADMIN_GROUP_QUESTIONS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminGroupQuestions];
 
 export const PATHS_GUARDIAN_TOP = ROUTE_PATHS[ROUTE_PATH_INDEX.GuardianTop];
-export const PATHS_GUARDIAN_GROUP_QUESTIONS = ROUTE_PATHS[ROUTE_PATH_INDEX.GuardianGroupQuestions];
+export const PATHS_GUARDIAN_QUESTIONS = ROUTE_PATHS[ROUTE_PATH_INDEX.GuardianQuestions];
+export const PATHS_GUARDIAN_STUDENTS = ROUTE_PATHS[ROUTE_PATH_INDEX.GuardianStudents];
 
 // user auth
 export const PATHS_SIGN_UP = ROUTE_PATHS[ROUTE_PATH_INDEX.SignUp];

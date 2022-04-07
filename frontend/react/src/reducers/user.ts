@@ -10,6 +10,8 @@ const userState: Domains.UserState = {
   username: '',
   // curriculums
   curriculums: [],
+  // students
+  students: [],
 };
 
 const slice = createSlice({
