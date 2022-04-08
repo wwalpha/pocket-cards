@@ -1,18 +1,24 @@
 import { Theme } from '@mui/material/styles';
 import { SxProps } from '@mui/system';
 
-export const styles = {
+type Keys = 'root' | 'users' | 'infos' | 'tools';
+
+export const styles: Record<Keys, SxProps<Theme>> = {
   root: {
     display: 'flex',
     m: 2,
-  } as SxProps<Theme>,
+  },
   users: {
     display: 'flex',
-  } as SxProps<Theme>,
+    flexGrow: 1,
+  },
   infos: {
     display: 'flex',
-  } as SxProps<Theme>,
+    flexGrow: 1,
+    p: 4,
+    flexDirection: 'column',
+  },
   tools: {
     display: 'flex',
-  } as SxProps<Theme>,
+  },
 };

@@ -8,6 +8,8 @@ export namespace Domains {
     message?: string;
     // stack open flag
     showSnackbar: boolean;
+    // show user regist
+    showUserRegist: boolean;
     // tab index
     tabIndex: number;
     // loading

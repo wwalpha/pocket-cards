@@ -55,3 +55,15 @@ export const getStudentList = () => (dispatch: AppDispatch) =>
       dispatch(push(Paths.PATHS_GUARDIAN_STUDENTS));
     })
   );
+
+export const studentRegist = (username: string, password: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // Get question lists
+      await dispatch(Actions.USER_STUDENT_REGIST({ username, password })).unwrap();
+
+      dispatch(Actions.APP_SHOW_USER_REGIST(false));
+
+      getStudentList()(dispatch);
+    })
+  );
