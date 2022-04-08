@@ -1,15 +1,22 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom';
 import { Paths } from '@constants';
+import { AppActions } from '@actions';
 import { DrawerLeft, Mainboard, QuestionList, Students } from '.';
 
 export default () => {
   const { path } = useRouteMatch();
+  const { pathname } = useLocation();
+  const actions = bindActionCreators(AppActions, useDispatch());
+
+  const handleUserReigst = () => actions.showUserRegist();
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -34,14 +41,27 @@ export default () => {
             <Typography variant="h6" noWrap component="div">
               Guardian Dashboard
             </Typography>
-            <Box sx={{ ml: 2 }}>
-              <Button variant="outlined" color="inherit" sx={{ mx: 1, borderRadius: 0 }}>
-                ADD
-              </Button>
-              <Button variant="outlined" color="inherit" sx={{ mx: 1, borderRadius: 0 }}>
-                LOGOUT
-              </Button>
-            </Box>
+            {pathname === Paths.PATHS_GUARDIAN_TOP && (
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
+                <Button variant="outlined" color="inherit" sx={{ mx: 1, borderRadius: 0, width: 96 }}>
+                  LOGOUT
+                </Button>
+              </Box>
+            )}
+            {pathname === Paths.PATHS_GUARDIAN_STUDENTS && (
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                  onClick={handleUserReigst}>
+                  ADD
+                </Button>
+                <Button variant="outlined" color="inherit" sx={{ mx: 1, borderRadius: 0, width: 96 }}>
+                  LOGOUT
+                </Button>
+              </Box>
+            )}
           </Toolbar>
         </AppBar>
         <Toolbar />

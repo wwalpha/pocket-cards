@@ -21,3 +21,8 @@ export interface GroupEditForm {
   description: string;
   subject: string;
 }
+
+export interface UserForm {
+  username: string;
+  password: string;
+}

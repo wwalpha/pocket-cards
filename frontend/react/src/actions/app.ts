@@ -70,3 +70,11 @@ export const showSuccess = (text: string) => (dispatch: AppDispatch) => {
 export const showError = (text: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.APP_SHOW_ERROR(text));
 };
+
+export const showUserRegist = () => (dispatch: AppDispatch) => {
+  dispatch(Actions.APP_SHOW_USER_REGIST(true));
+};
+
+export const hideUserRegist = () => (dispatch: AppDispatch) => {
+  dispatch(Actions.APP_SHOW_USER_REGIST(false));
+};

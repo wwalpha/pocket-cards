@@ -9,18 +9,25 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import PageviewIcon from '@mui/icons-material/Pageview';
+import { UserRegist } from '@components/functions';
+import { AppActions, GuardianActions } from '@actions';
 import { styles } from './Students.style';
-import { RootState } from 'typings';
 import { StyledTableCell } from './Mainboard.style';
+import { RootState } from 'typings';
 
 const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
 
 export default () => {
   const { students } = useSelector(userState);
-  const { isLoading } = useSelector(appState);
+  const { isLoading, showUserRegist } = useSelector(appState);
+  const actions = bindActionCreators(GuardianActions, useDispatch());
+  const appActions = bindActionCreators(AppActions, useDispatch());
+
+  const handleClose = () => appActions.hideUserRegist();
 
   return (
     <Box sx={styles.root}>
@@ -57,7 +64,14 @@ export default () => {
           </Table>
         </TableContainer>
       </Box>
-      <Box sx={styles.infos}></Box>
+      {showUserRegist && (
+        <Box sx={styles.infos}>
+          <UserRegist loading={isLoading} regist={actions.studentRegist} />
+          <Button variant="contained" color="secondary" size="large" onClick={handleClose}>
+            Close
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };

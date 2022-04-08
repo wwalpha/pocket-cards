@@ -64,3 +64,10 @@ export const USER_STUDENTS_LIST = createAsyncThunk<Users.GetStudentResponse, voi
     return await API.get<Users.GetStudentResponse>(Consts.STUDENT_LIST());
   }
 );
+
+export const USER_STUDENT_REGIST = createAsyncThunk<Users.CreateStudentResponse, Users.CreateStudentRequest>(
+  'user/USER_STUDENT_REGIST',
+  async (request) => {
+    return await API.post<Users.CreateStudentRequest, Users.CreateStudentResponse>(Consts.STUDENT_REGIST(), request);
+  }
+);

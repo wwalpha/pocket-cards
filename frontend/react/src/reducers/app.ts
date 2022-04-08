@@ -7,6 +7,7 @@ const appState: Domains.AppState = {
   tabIndex: 11,
   isLoading: false,
   showSnackbar: false,
+  showUserRegist: false,
   status: Consts.SERVER_STATUS.STOPPED,
   displayCtrl: {},
 };
@@ -52,6 +53,10 @@ const slice = createSlice({
       state.showSnackbar = false;
       state.severity = undefined;
       state.message = undefined;
+    },
+
+    APP_SHOW_USER_REGIST: (state, action: PayloadAction<boolean>) => {
+      state.showUserRegist = action.payload;
     },
 
     // タブ変更

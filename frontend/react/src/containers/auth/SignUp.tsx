@@ -6,15 +6,12 @@ import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import Grid from '@mui/material/Grid';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
-import { Button } from '@components/buttons';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { UserActions } from '@actions';
+import { Paths } from '@constants';
 import { RootState, SignUpForm } from 'typings';
+import { push } from 'connected-react-router';
 
 const app = (state: RootState) => state.app;
 const defaultValues: SignUpForm = {
@@ -29,13 +26,14 @@ const styles = {
   paper: { mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' },
   avatar: { m: 1, backgroundColor: 'secondary.main' },
   form: { width: '100%', MimeType: 1 },
-  submit: { mt: 1 },
+  submit: { m: 1, flexGrow: 1 },
   button: { p: 0 },
 };
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const { isLoading } = useSelector(app);
-  const actions = bindActionCreators(UserActions, useDispatch());
+  const actions = bindActionCreators(UserActions, dispatch);
 
   const {
     control,
@@ -47,6 +45,8 @@ const SignUp = () => {
   const onSubmit = handleSubmit(({ email, username }) => {
     actions.signup(username, email);
   });
+
+  const onBack = () => dispatch(push(Paths.PATHS_SIGN_IN));
 
   return (
     <Container component="main" maxWidth="xs">
@@ -96,17 +96,25 @@ const SignUp = () => {
               />
             )}
           />
-          <Box sx={{ my: 2 }}>
-            <Button
-              isLoading={isLoading}
+          <Box sx={{ my: 2, display: 'flex' }}>
+            <LoadingButton
               type="submit"
               size="large"
-              fullWidth
+              variant="contained"
+              color="secondary"
+              sx={styles.submit}
+              onClick={onBack}>
+              Back
+            </LoadingButton>
+            <LoadingButton
+              loading={isLoading}
+              type="submit"
+              size="large"
               variant="contained"
               color="primary"
               sx={styles.submit}>
               Sign Up
-            </Button>
+            </LoadingButton>
           </Box>
           {/* <Button
             type="button"
