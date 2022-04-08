@@ -1,30 +1,43 @@
-import API from '@aws-amplify/api-rest';
-import { Consts } from '@constants';
+import axios from 'axios';
+import Credentials from './Credentials';
 
-export const get = async <Res = any>(path: string, headers?: any, name: string = Consts.API_NAME): Promise<Res> =>
-  await API.get(name, path, {
-    headers,
-  });
+axios.interceptors.request.use(
+  async (config) => {
+    return Credentials.getSession().then((value) => {
+      config.headers['Authorization'] = value?.idToken;
 
-export const put = async <Res = any, Req = any>(
-  path: string,
-  body?: Req,
-  name: string = Consts.API_NAME
-): Promise<Res> =>
-  await API.put(name, path, {
-    body,
-  });
+      return Promise.resolve(config);
+    });
+  },
+  () => {}
+);
 
-export const post = async <Res = any, Req = any>(
-  path: string,
-  body?: Res,
-  name: string = Consts.API_NAME
-): Promise<Req> =>
-  await API.post(name, path, {
-    body,
-  });
+axios.defaults.baseURL = process.env.API_URL;
 
-export const del = async <Res = any>(path: string, body?: any, name: string = Consts.API_NAME): Promise<Res> =>
-  await API.del(name, path, {
-    body,
-  });
+// get method
+export const get = async <Res = any>(path: string): Promise<Res> => {
+  const res = await axios.get(path);
+
+  return res.data;
+};
+
+// put method
+export const put = async <Res = any, Req = any>(path: string, data?: Req): Promise<Res> => {
+  const res = await axios.put(path, data);
+
+  return res.data;
+};
+
+// post method
+export const post = async <Res = any, Req = any>(path: string, data?: Req): Promise<Res> => {
+  const res = await axios.post(path, data);
+
+  return res.data;
+};
+
+// delete method
+export const del = async <Res = any>(path: string): Promise<Res> => {
+  const res = await axios.delete(path);
+
+  return res.data;
+};
