@@ -125,7 +125,7 @@ jobs:
         id: ecs
         run: |
           aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION_AUTH | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
-          image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_ECR/auth_manager --with-decryption | jq -r .Parameter.Value)
+          image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_ECR/$ECS_SERVICE_NAME_AUTH --with-decryption | jq -r .Parameter.Value)
           echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
           echo "::set-output name=image::$image"
 
@@ -168,7 +168,7 @@ jobs:
         id: ecs
         run: |
           aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION_USERS | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
-          image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_ECR/user_manager --with-decryption | jq -r .Parameter.Value)
+          image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_ECR/$ECS_SERVICE_NAME_USER --with-decryption | jq -r .Parameter.Value)
           echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
           echo "::set-output name=image::$image"
 

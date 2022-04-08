@@ -1,6 +1,8 @@
 import { withLoading } from '@actions';
 import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';
+import { createAction } from '@reduxjs/toolkit';
+import { Credentials } from '@utils';
 import { push } from 'connected-react-router';
 import { AppDispatch } from 'typings';
 
@@ -61,8 +63,3 @@ export const signup = (username: string, email: string) => (dispatch: AppDispatc
       }
     })
   );
-
-/** ログアウト */
-export const logout = () => async (dispatch: AppDispatch) => {
-  dispatch(Actions.SIGN_OUT);
-};

@@ -1,9 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { AnyAction, CombinedState, configureStore, Reducer } from '@reduxjs/toolkit';
 import { routerMiddleware } from 'connected-react-router';
 import { createHashHistory, createBrowserHistory } from 'history';
 import logger from 'redux-logger';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
+import { Domains } from 'typings';
 import reducers from '../reducers';
 
 // browser history
@@ -42,9 +43,17 @@ export const key = process.env.NODE_ENV === 'production' ? 'pkc' : 'pkc_dev';
 //   reducers(history)
 // );
 
+const rootReducer: Reducer<CombinedState<Domains.States>, AnyAction> = (state, action) => {
+  if (action.type === 'app/APP_LOGOUT') {
+    state = undefined;
+  }
+
+  return reducers(history)(state, action);
+};
+
 const store = configureStore({
   // reducer: persistedReducer,
-  reducer: reducers(history),
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) => {
     let middle = getDefaultMiddleware();
 

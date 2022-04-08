@@ -78,6 +78,16 @@ class CredentialManager {
     this.cacheTokens();
   };
 
+  clean = () => {
+    const idTokenKey = `${this.keyPrefix}.${this.username}.idToken`;
+    const accessTokenKey = `${this.keyPrefix}.${this.username}.accessToken`;
+    const refreshTokenKey = `${this.keyPrefix}.${this.username}.refreshToken`;
+
+    this.storage.removeItem(idTokenKey);
+    this.storage.removeItem(accessTokenKey);
+    this.storage.removeItem(refreshTokenKey);
+  };
+
   private cacheTokens = () => {
     const idTokenKey = `${this.keyPrefix}.${this.username}.idToken`;
     const accessTokenKey = `${this.keyPrefix}.${this.username}.accessToken`;
