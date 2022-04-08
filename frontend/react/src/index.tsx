@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import API from '@aws-amplify/api-rest';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from '@mui/material/styles';
 import { ConnectedRouter } from 'connected-react-router';
 import Authenticator from './containers/auth/Authenticator';
-import { Consts } from '@constants';
-import { Credentials } from '@utils';
 import store, { history } from './store';
 import theme from './Theme';
 
@@ -36,18 +33,18 @@ import theme from './Theme';
 //   },
 // });
 
-API.configure({
-  endpoints: [
-    {
-      name: Consts.API_NAME,
-      endpoint: Consts.API_URL,
-      region: process.env.AWS_REGION,
-      custom_header: async () => {
-        return { Authorization: (await Credentials.getSession())?.idToken };
-      },
-    },
-  ],
-});
+// API.configure({
+//   endpoints: [
+//     {
+//       name: Consts.API_NAME,
+//       endpoint: Consts.API_URL,
+//       region: process.env.AWS_REGION,
+//       custom_header: async () => {
+//         return { Authorization: (await Credentials.getSession())?.idToken };
+//       },
+//     },
+//   ],
+// });
 
 const persistor = persistStore(store);
 
@@ -66,8 +63,3 @@ const provider = (
 const root = document.getElementById('root');
 
 render(provider, root);
-
-// window.addEventListener('unhandledrejection', function (event) {
-//   console.log(event.promise);
-//   console.log(event.reason);
-// });
