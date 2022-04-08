@@ -3,11 +3,11 @@ import Credentials from './Credentials';
 
 axios.interceptors.request.use(
   async (config) => {
-    return Credentials.getSession().then((value) => {
-      config.headers['Authorization'] = value?.idToken;
+    const tokens = await Credentials.getSession();
 
-      return Promise.resolve(config);
-    });
+    config.headers['Authorization'] = tokens?.idToken;
+
+    return config;
   },
   () => {}
 );
