@@ -33,7 +33,8 @@ export const common = async (req: express.Request, res: express.Response, app: a
 
 // process login request
 export const login = async (
-  req: express.Request<any, any, Auth.SignInRequest>
+  req: express.Request<any, any, Auth.SignInRequest>,
+  res: express.Response<Auth.SignInRequest>
 ): Promise<Auth.SignInResponse | undefined> => {
   Logger.info({
     username: req.body.username,
@@ -78,6 +79,10 @@ export const login = async (
     const idToken = session.getIdToken().getJwtToken();
     const accessToken = session.getAccessToken().getJwtToken();
     const refreshToken = session.getRefreshToken().getToken();
+
+    res.cookie(`pkc.${request.username}11.idToken`, idToken, { httpOnly: true });
+    res.cookie(`pkc.${request.username}22.accessToken`, accessToken, { httpOnly: true });
+    res.cookie(`pkc.${request.username}33.refreshToken`, refreshToken, { httpOnly: true });
 
     return {
       success: 'true',
