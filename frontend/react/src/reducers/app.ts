@@ -16,6 +16,7 @@ const slice = createSlice({
   name: 'app',
   initialState: appState,
   reducers: {
+    APP_LOGOUT: () => {},
     // start loading
     APP_START_LOADING: (state) => {
       state.isLoading = true;

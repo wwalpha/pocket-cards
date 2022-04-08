@@ -17,6 +17,7 @@ export default () => {
   const actions = bindActionCreators(AppActions, useDispatch());
 
   const handleUserReigst = () => actions.showUserRegist();
+  const handleLogout = () => actions.logout();
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -43,7 +44,11 @@ export default () => {
             </Typography>
             {pathname === Paths.PATHS_GUARDIAN_TOP && (
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
-                <Button variant="outlined" color="inherit" sx={{ mx: 1, borderRadius: 0, width: 96 }}>
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                  onClick={handleLogout}>
                   LOGOUT
                 </Button>
               </Box>
@@ -57,7 +62,11 @@ export default () => {
                   onClick={handleUserReigst}>
                   ADD
                 </Button>
-                <Button variant="outlined" color="inherit" sx={{ mx: 1, borderRadius: 0, width: 96 }}>
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                  onClick={handleLogout}>
                   LOGOUT
                 </Button>
               </Box>

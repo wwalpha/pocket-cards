@@ -1,6 +1,7 @@
+import { push } from 'connected-react-router';
 import { withLoading } from '@actions';
-import { Consts } from '@constants';
-import { API } from '@utils';
+import { Consts, Paths } from '@constants';
+import { API, Credentials } from '@utils';
 import { Actions } from '@reducers';
 import { AppDispatch } from '@store';
 
@@ -77,4 +78,14 @@ export const showUserRegist = () => (dispatch: AppDispatch) => {
 
 export const hideUserRegist = () => (dispatch: AppDispatch) => {
   dispatch(Actions.APP_SHOW_USER_REGIST(false));
+};
+
+/** ログアウト */
+export const logout = () => (dispatch: AppDispatch) => {
+  // clean credentials
+  Credentials.clean();
+
+  dispatch(Actions.APP_LOGOUT());
+
+  dispatch(push(Paths.PATHS_SIGN_IN));
 };

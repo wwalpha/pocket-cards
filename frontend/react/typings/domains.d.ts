@@ -1,6 +1,14 @@
 import { APIs, Tables, App, Group } from '.';
 
 export namespace Domains {
+  interface States {
+    router: any;
+    app: AppState;
+    study: StudyState;
+    group: GroupState;
+    user: UserState;
+  }
+
   interface AppState {
     // message type
     severity?: 'success' | 'info' | 'warning' | 'error';
