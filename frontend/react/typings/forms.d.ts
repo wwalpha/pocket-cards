@@ -26,3 +26,8 @@ export interface UserForm {
   username: string;
   password: string;
 }
+
+export interface SettingsForm {
+  notification1: string;
+  notification2: string;
+}
