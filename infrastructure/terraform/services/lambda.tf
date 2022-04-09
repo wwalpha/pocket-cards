@@ -62,20 +62,6 @@ resource "aws_lambda_function" "authorizer" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Lambda Function Event Invoke Config - Authorizer
-# ----------------------------------------------------------------------------------------------
-resource "aws_lambda_function_event_invoke_config" "authorizer" {
-  function_name          = aws_lambda_function.authorizer.function_name
-  maximum_retry_attempts = 0
-
-  destination_config {
-    on_failure {
-      destination = aws_sns_topic.error_notify.arn
-    }
-  }
-}
-
-# ----------------------------------------------------------------------------------------------
 # Lambda Permission - Authorizer
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_permission" "authorizer" {

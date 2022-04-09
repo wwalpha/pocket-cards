@@ -237,14 +237,6 @@ resource "aws_iam_role_policy_attachment" "authorizer_dynamodb" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS Lambda Execution Policy - SNS Basic
-# ----------------------------------------------------------------------------------------------
-resource "aws_iam_role_policy_attachment" "authorizer_sns" {
-  role       = aws_iam_role.authorizer.name
-  policy_arn = aws_iam_policy.sns_basic.arn
-}
-
-# ----------------------------------------------------------------------------------------------
 # AWS Lambda Role - Cognito
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role" "cognito_post_signup" {
