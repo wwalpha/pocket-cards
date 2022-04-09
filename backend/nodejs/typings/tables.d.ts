@@ -21,6 +21,8 @@ export namespace Tables {
     students?: string[];
     // 教師
     teacher?: string;
+    // 通知先(教師のみ)
+    notification?: string[];
   }
 
   interface TGroupsKey {
