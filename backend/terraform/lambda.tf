@@ -121,7 +121,8 @@ resource "aws_lambda_function" "batch" {
 # Lambda Function Event Invoke Config - Batch
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function_event_invoke_config" "batch" {
-  function_name = aws_lambda_function.batch.function_name
+  function_name          = aws_lambda_function.batch.function_name
+  maximum_retry_attempts = 0
 
   destination_config {
     on_failure {
