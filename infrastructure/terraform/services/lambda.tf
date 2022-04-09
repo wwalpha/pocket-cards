@@ -81,13 +81,23 @@ resource "aws_lambda_function" "webhook" {
   s3_object_version = aws_s3_object.lambda_webhook.version_id
   handler           = local.lambda_handler
   runtime           = local.lambda_runtime
-  memory_size       = 1024
+  memory_size       = 128
   role              = aws_iam_role.authorizer.arn
   timeout           = 3
+
   environment {
     variables = {
-      AWS_NODEJS_CONNECTION_REUSE_ENABLED = "1"
+      WEBHOOK_URL = var.webhook_url
     }
   }
 }
 
+# ----------------------------------------------------------------------------------------------
+# Lambda Function Permission - Cognito Admin
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_permission" "webhook" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.webhook.arn
+  principal     = "sns.amazonaws.com"
+  source_arn    = aws_sns_topic.error_notify.arn
+}
