@@ -28,6 +28,14 @@ locals {
   ecs_service_env_key_users   = local.remote_services.ecs_service_env_key_users
 
   # ----------------------------------------------------------------------------------------------
+  # IAM Policy
+  # ----------------------------------------------------------------------------------------------
+  iam_policy_arn_cloudwatch_logs = local.remote_services.iam_policy_arn_cloudwatch_logs
+  iam_policy_arn_dynamodb        = local.remote_services.iam_policy_arn_dynamodb
+  iam_policy_arn_ses             = local.remote_services.iam_policy_arn_ses
+  iam_policy_arn_sns             = local.remote_services.iam_policy_arn_sns
+
+  # ----------------------------------------------------------------------------------------------
   # Lambda
   # ----------------------------------------------------------------------------------------------
   lambda_handler          = "index.handler"
@@ -96,6 +104,11 @@ locals {
   # Route53
   # ----------------------------------------------------------------------------------------------
   domain_name = local.remote_setup.route53_zone_name
+
+  # ----------------------------------------------------------------------------------------------
+  # SNS
+  # ----------------------------------------------------------------------------------------------
+  sns_arn_errors_notify = local.remote_services.sns_arn_errors_notify
 }
 
 # ----------------------------------------------------------------------------------------------

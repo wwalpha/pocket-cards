@@ -76,6 +76,21 @@ resource "aws_s3_object" "lambda_cognito" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda webhook module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_webhook" {
+  bucket = local.bucket_name_archive
+  key    = "lambda/webhook.zip"
+  source = data.archive_file.lambda_webhook.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
 # Archive file - Lambda default module
 # ----------------------------------------------------------------------------------------------
 data "archive_file" "lambda_default" {
@@ -121,6 +136,58 @@ exports.handler = async (event) => {
   }
   return response;
 };
+EOT
+    filename = "index.js"
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Archive file - Lambda webhook module
+# ----------------------------------------------------------------------------------------------
+data "archive_file" "lambda_webhook" {
+  type        = "zip"
+  output_path = "${path.module}/dist/webhook.zip"
+
+  source {
+    content  = <<EOT
+"use strict";
+exports.__esModule = true;
+exports.handler = void 0;
+var https = require("node:https");
+var handler = function () {
+    // const sns = event.Records[0].Sns;
+    var webhook = 'https://cscportal.webhook.office.com/webhookb2/43a8f040-c473-4303-9839-c8a95e21c206@93f33571-550f-43cf-b09f-cd331338d086/IncomingWebhook/9c39aad615cc448d891db13359a35ee6/9ffe4f1c-8f00-4045-ae62-4bd104a56098';
+    var datas = JSON.stringify({
+        type: 'message',
+        attachments: [
+            {
+                contentType: 'application/vnd.microsoft.card.adaptive',
+                contentUrl: null,
+                content: {
+                    $schema: 'http://adaptivecards.io/schemas/adaptive-card.json',
+                    type: 'AdaptiveCard',
+                    version: '1.2',
+                    body: [
+                        {
+                            type: 'TextBlock',
+                            text: 'For Samples and Templates, see [https://adaptivecards.io/samples](https://adaptivecards.io/samples)'
+                        },
+                    ]
+                }
+            },
+        ]
+    });
+    var request = https.request(webhook, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(datas)
+        }
+    });
+    request.write(datas);
+    request.end();
+};
+exports.handler = handler;
 EOT
     filename = "index.js"
   }
