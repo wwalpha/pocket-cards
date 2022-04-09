@@ -29,6 +29,7 @@ export const CreateUser = async (
       authority: Authority.PARENT,
       role: 'TENANT_USER',
       username: email,
+      notification: [email],
     };
 
     // create new user
