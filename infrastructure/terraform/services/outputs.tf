@@ -221,3 +221,43 @@ output "lambda_source_key_cognito_post_signup" {
 output "lambda_source_key_authorizer" {
   value = aws_s3_object.lambda_authorizer.key
 }
+
+# ----------------------------------------------------------------------------------------------
+# IAM Policy Arn - CloudWatch Logs
+# ----------------------------------------------------------------------------------------------
+output "iam_policy_arn_cloudwatch_logs" {
+  sensitive = true
+  value     = aws_iam_policy.cloudwatch_logs_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# IAM Policy Arn - DynamoDB
+# ----------------------------------------------------------------------------------------------
+output "iam_policy_arn_dynamodb" {
+  sensitive = true
+  value     = aws_iam_policy.dynamodb_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# IAM Policy Arn - SES
+# ----------------------------------------------------------------------------------------------
+output "iam_policy_arn_ses" {
+  sensitive = true
+  value     = aws_iam_policy.ses_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# IAM Policy Arn - SNS
+# ----------------------------------------------------------------------------------------------
+output "iam_policy_arn_sns" {
+  sensitive = true
+  value     = aws_iam_policy.sns_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# SNS - Errors Notify
+# ----------------------------------------------------------------------------------------------
+output "sns_arn_errors_notify" {
+  sensitive = true
+  value     = aws_sns_topic.error_notify.arn
+}

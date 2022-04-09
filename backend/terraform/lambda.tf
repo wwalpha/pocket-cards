@@ -116,3 +116,16 @@ resource "aws_lambda_function" "batch" {
     }
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Function Event Invoke Config - Batch
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_function_event_invoke_config" "batch" {
+  function_name = aws_lambda_function.batch.function_name
+
+  destination_config {
+    on_failure {
+      destination = local.sns_arn_errors_notify
+    }
+  }
+}
