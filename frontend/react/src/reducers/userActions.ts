@@ -6,7 +6,7 @@ import { Auth, Users, APIs } from 'typings';
 export const USER_SIGN_IN = createAsyncThunk<Auth.SignInResponse & Auth.SignInRequest, Auth.SignInRequest>(
   'user/USER_SIGN_IN',
   async (request) => {
-    const res = await API.post<Auth.SignInRequest, Auth.SignInResponse>(Consts.SIGN_IN(), request);
+    const res = await API.post<Auth.SignInResponse, Auth.SignInRequest>(Consts.SIGN_IN(), request);
 
     if (res.idToken && res.accessToken && res.refreshToken) {
       Credentials.setUsername(request.username);
@@ -28,7 +28,7 @@ export const USER_SIGN_IN = createAsyncThunk<Auth.SignInResponse & Auth.SignInRe
 export const USER_SIGN_UP = createAsyncThunk<Users.CreateUserResponse, Users.CreateUserRequest>(
   'user/USER_SIGN_UP',
   async (request) => {
-    return await API.post<Users.CreateUserRequest, Users.CreateUserResponse>(Consts.SIGN_UP(), request);
+    return await API.post<Users.CreateUserResponse, Users.CreateUserRequest>(Consts.SIGN_UP(), request);
   }
 );
 
@@ -68,6 +68,6 @@ export const USER_STUDENTS_LIST = createAsyncThunk<Users.GetStudentResponse, voi
 export const USER_STUDENT_REGIST = createAsyncThunk<Users.CreateStudentResponse, Users.CreateStudentRequest>(
   'user/USER_STUDENT_REGIST',
   async (request) => {
-    return await API.post<Users.CreateStudentRequest, Users.CreateStudentResponse>(Consts.STUDENT_REGIST(), request);
+    return await API.post<Users.CreateStudentResponse, Users.CreateStudentRequest>(Consts.STUDENT_REGIST(), request);
   }
 );
