@@ -194,7 +194,8 @@ resource "aws_iam_role_policy" "batch" {
           "dynamodb:PartiQL*",
           "dynamodb:PutItem",
           "dynamodb:DeleteItem",
-          "dynamodb:UpdateItem"
+          "dynamodb:UpdateItem",
+          "ses:SendEmail",
         ]
         Resource = "*"
       },
