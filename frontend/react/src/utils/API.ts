@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import Credentials from './Credentials';
 
 axios.interceptors.request.use(
@@ -13,24 +13,33 @@ axios.interceptors.request.use(
 );
 
 axios.defaults.baseURL = process.env.API_URL;
+// axios.defaults.withCredentials = true;
 
 // get method
-export const get = async <Res = any>(path: string): Promise<Res> => {
-  const res = await axios.get(path);
+export const get = async <Res = any>(path: string, config?: AxiosRequestConfig): Promise<Res> => {
+  const res = await axios.get(path, config);
 
   return res.data;
 };
 
 // put method
-export const put = async <Res = any, Req = any>(path: string, data?: Req): Promise<Res> => {
-  const res = await axios.put(path, data);
+export const put = async <Res = any, Req = any>(
+  path: string,
+  data?: Req,
+  config?: AxiosRequestConfig
+): Promise<Res> => {
+  const res = await axios.put(path, data, config);
 
   return res.data;
 };
 
 // post method
-export const post = async <Res = any, Req = any>(path: string, data?: Req): Promise<Res> => {
-  const res = await axios.post(path, data);
+export const post = async <Res = any, Req = any>(
+  path: string,
+  data?: Req,
+  config?: AxiosRequestConfig
+): Promise<Res> => {
+  const res = await axios.post(path, data, config);
 
   return res.data;
 };
