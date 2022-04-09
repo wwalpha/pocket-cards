@@ -229,11 +229,19 @@ resource "aws_iam_role_policy_attachment" "authorizer" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS Lambda Execution Policy - Dynamodb Basic Access
+# AWS Lambda Execution Policy - Dynamodb Basic
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "authorizer_dynamodb" {
   role       = aws_iam_role.authorizer.name
   policy_arn = aws_iam_policy.dynamodb_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Execution Policy - SNS Basic
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "authorizer_sns" {
+  role       = aws_iam_role.authorizer.name
+  policy_arn = aws_iam_policy.sns_basic.arn
 }
 
 # ----------------------------------------------------------------------------------------------
