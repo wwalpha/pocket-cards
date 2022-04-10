@@ -1,12 +1,11 @@
 import { Request } from 'express';
-import { Commons, DBHelper } from '@utils';
+import { DBHelper } from '@utils';
 import { Groups, Words } from '@queries';
 import { APIs } from 'typings';
 
 /** グループ単語削除 */
 export default async (req: Request<APIs.C005Params, any, any, any>): Promise<APIs.C005Response> => {
   const params = req.params;
-  const userId = Commons.getUserId(req);
 
   await DBHelper().transactWrite({
     TransactItems: [

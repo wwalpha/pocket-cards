@@ -1,9 +1,10 @@
 import { SNSHandler } from 'aws-lambda';
 import * as https from 'node:https';
 
-const WEBHOOK_URL = process.env.WEBHOOK_URL as string;
+const WEBHOOK_URL = process.env['WEBHOOK_URL'] as string;
 
 export const handler: SNSHandler = (event) => {
+  // @ts-ignore
   const sns = event.Records[0].Sns;
   const context = JSON.parse(sns.Message) as any;
   const payload = context.responsePayload;

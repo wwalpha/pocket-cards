@@ -18,17 +18,6 @@ export const withLoading = createAsyncThunk('app/Loading', async (func: Function
     dispatch(endLoading());
   }
 });
-// export const withLoading = async (dispatch: AppDispatch, func: Function) => {
-//   dispatch(startLoading());
-
-//   try {
-//     await func();
-//   } catch (err) {
-//     dispatch(defaultFailure(err));
-//   } finally {
-//     dispatch(endLoading());
-//   }
-// };
 
 export * as AppActions from './app';
 export * as GroupActions from './group';

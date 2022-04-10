@@ -26,15 +26,16 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   const tasks = input.questions.map(async (item) => {
     const items = item.split(',');
     const id = generate();
-    const title = items[0];
-    const answer = items[3];
+    const title = items[0] as string;
+    const answer = items[3] as string;
+    const choices = items[2] as string;
 
     const qItem: Tables.TQuestions = {
       id: id,
       groupId: groupId,
       title: title,
       description: !isEmpty(items[1]) ? item[1] : undefined,
-      choices: !isEmpty(items[2]) ? items[2].split('|') : undefined,
+      choices: !isEmpty(items[2]) ? choices.split('|') : undefined,
       answer: answer,
     };
 

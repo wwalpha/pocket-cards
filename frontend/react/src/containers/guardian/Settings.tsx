@@ -7,10 +7,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { UserActions } from '@actions';
-import { Paths } from '@constants';
 import { RootState, SettingsForm } from 'typings';
-import { push } from 'connected-react-router';
-import { info } from 'console';
 
 const app = (state: RootState) => state.app;
 const user = (state: RootState) => state.user;
