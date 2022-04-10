@@ -1,6 +1,5 @@
 import express from 'express';
 import morgan from 'morgan';
-import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
 import { A002 } from '@src/services/a0';
 import { GroupRegist, GroupList, GroupDescribe, GroupUpdate, GroupRemove, B006 } from '@src/services/b0';
@@ -18,7 +17,6 @@ const app = express();
 app.use(json({ limit: '50mb' }));
 app.use(urlencoded({ extended: true }));
 app.use(morgan('combined'));
-app.use(cors());
 
 app.options('*', (_, res) => res.sendStatus(200));
 // health check

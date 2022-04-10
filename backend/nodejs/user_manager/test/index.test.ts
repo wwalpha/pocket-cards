@@ -74,7 +74,7 @@ describe('user manager', () => {
 
     console.log(results);
     const username = 'test001';
-    const password = 'password001';
+    const password = 'code001code001';
 
     const response = await request(Server)
       .post('/v1/users/students')
