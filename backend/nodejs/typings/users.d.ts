@@ -90,4 +90,14 @@ export namespace Users {
   interface DescribeUserRequest {}
 
   type DescribeUserResponse = Tables.TUsers;
+
+  interface UpdateUserParameter {
+    userId: string;
+  }
+
+  interface UpdateUserRequest {
+    notifications?: string[];
+  }
+
+  type UpdateUserResponse = void;
 }
