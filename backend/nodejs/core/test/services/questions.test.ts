@@ -1,15 +1,14 @@
 import { DBHelper } from '@utils';
-import server from '@src/server';
+import server from '@src/app';
 import request from 'supertest';
 import * as QUESTIONS from '../datas/questions';
 import { HEADER_AUTH } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
-import { Tables, APIs } from 'typings';
-import { Learning, Questions } from '@queries';
-import orderBy from 'lodash/orderBy';
+import { APIs } from 'typings';
+import { Learning } from '@queries';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
 
 jest.setTimeout(10000);
 

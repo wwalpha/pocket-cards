@@ -44,8 +44,11 @@ const getRandom = (items: Tables.TWords[], maxItems: number): Tables.TWords[] =>
     const max = items.length - 1;
 
     const random = Math.floor(Math.random() * (max + 1 - min)) + min;
+    const item = items.splice(random, 1)[0];
 
-    results.push(items.splice(random, 1)[0]);
+    if (item) {
+      results.push(item);
+    }
   }
 
   return results;

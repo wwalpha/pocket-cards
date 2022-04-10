@@ -9,7 +9,7 @@ import { D001, D003, D004, D005, D006 } from '@src/services/d0';
 import { E001, E002 } from '@src/services/e0';
 import { QuestionRegist, QuestionStudy, QuestionExam, QuestionAnswer, QuestionList } from '@src/services/questions';
 import { DailyTasks, LearningProgress } from '@src/services/reports';
-import { CurriculumRegist, CurriculumList, CurriculumRemove, CurriculumDescirbe } from '@src/services/curriculums';
+import { CurriculumRegist, CurriculumList, CurriculumRemove } from '@src/services/curriculums';
 
 import entry from './entry';
 

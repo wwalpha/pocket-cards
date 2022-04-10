@@ -20,7 +20,7 @@ const setup = async () => {
   await helper
     .getClient()
     .createTable({
-      TableName: TABLE_NAME_SETTINGS as string,
+      TableName: TABLE_NAME_SETTINGS,
       BillingMode: 'PROVISIONED',
       ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
       KeySchema: [{ AttributeName: 'Id', KeyType: 'HASH' }],
