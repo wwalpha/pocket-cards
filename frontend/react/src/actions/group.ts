@@ -8,8 +8,6 @@ import { APIs, AppDispatch, Group } from 'typings';
 export const activeGroup = (id: string) => (dispatch: AppDispatch) => {
   // active group
   dispatch(Actions.GROUP_ACTIVE(id));
-  // get word list in active group
-  dispatch(Actions.GROUP_WORD_LIST(id));
 };
 
 export const cleanGroup = () => (dispatch: AppDispatch) => {
@@ -23,23 +21,6 @@ export const del = () => (dispatch: AppDispatch) =>
     withLoading(async () => {
       // グループ削除
       await dispatch(Actions.GROUP_DELETE()).unwrap();
-      // グループリスト画面に遷移する
-      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
-    })
-  );
-
-/** グループ編集 */
-export const edit = (details: Group.Details) => (dispatch: AppDispatch) =>
-  dispatch(
-    withLoading(async () => {
-      // グループ編集API
-      await API.put<void, APIs.GroupUpdateRequest>(Consts.GroupUpdate(details.id), {
-        name: details.name,
-        description: details.description,
-      });
-
-      // グループ再取得
-      await dispatch(Actions.GROUP_LIST()).unwrap();
       // グループリスト画面に遷移する
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
     })
@@ -99,3 +80,48 @@ export const status = () => (dispatch: AppDispatch) =>
       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyStatus]));
     })
   );
+
+// clear questions
+export const clearQuestions = () => (dispatch: AppDispatch) => {
+  dispatch(Actions.GROUP_QUESTION_CLEAR());
+};
+
+// group editable
+export const editable = (mode: Consts.EDIT_MODE) => (dispatch: AppDispatch) => {
+  // active group
+  dispatch(Actions.GROUP_EDITABLE(mode));
+};
+
+/** グループ編集 */
+export const edit = (details: Group.Details) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // グループ編集API
+      await API.put<void, APIs.GroupUpdateRequest>(Consts.GroupUpdate(details.id), {
+        name: details.name,
+        description: details.description,
+      });
+
+      // グループ再取得
+      await dispatch(Actions.GROUP_LIST()).unwrap();
+
+      dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
+    })
+  );
+
+/** グループ編集 */
+// export const edit = (details: Group.Details) => (dispatch: AppDispatch) =>
+//   dispatch(
+//     withLoading(async () => {
+//       // グループ編集API
+//       await API.put<void, APIs.GroupUpdateRequest>(Consts.GroupUpdate(details.id), {
+//         name: details.name,
+//         description: details.description,
+//       });
+
+//       // グループ再取得
+//       await dispatch(Actions.GROUP_LIST()).unwrap();
+//       // グループリスト画面に遷移する
+//       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
+//     })
+//   );

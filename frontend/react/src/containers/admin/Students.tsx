@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import { UserRegist } from '@components/functions';
-import { AppActions, GuardianActions } from '@actions';
+import { AppActions, AdminActions } from '@actions';
 import { styles } from './Students.style';
 import { StyledTableCell } from './Mainboard.style';
 import { RootState } from 'typings';
@@ -24,7 +24,7 @@ const userState = (state: RootState) => state.user;
 export default () => {
   const { students } = useSelector(userState);
   const { isLoading, showUserRegist } = useSelector(appState);
-  const actions = bindActionCreators(GuardianActions, useDispatch());
+  const actions = bindActionCreators(AdminActions, useDispatch());
   const appActions = bindActionCreators(AppActions, useDispatch());
 
   const handleClose = () => appActions.hideUserRegist();

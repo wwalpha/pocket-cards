@@ -22,15 +22,12 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
         return;
       }
 
+      dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
+      // initialize
+      dispatch(Actions.GROUP_LIST());
+
       // login success
-      if (res.authority === Consts.Authority.ADMIN) {
-        dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
-        // initialize
-        dispatch(Actions.GROUP_LIST());
-      } else if (res.authority === Consts.Authority.PARENT) {
-        dispatch(push(Paths.PATHS_GUARDIAN_TOP));
-        // initialize
-        dispatch(Actions.GROUP_LIST());
+      if (res.authority === Consts.Authority.PARENT) {
         // initialize
         dispatch(Actions.USER_CURRICULUM_LIST());
         // initialize

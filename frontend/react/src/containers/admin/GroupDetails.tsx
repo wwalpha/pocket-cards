@@ -5,14 +5,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Consts } from '@constants';
-import { AdminActions } from '@actions';
+import { GroupActions } from '@actions';
 import { RootState, GroupEditForm } from 'typings';
 
 const groupState = (state: RootState) => state.group;
@@ -20,7 +18,7 @@ const appState = (state: RootState) => state.app;
 
 export default () => {
   const history = useHistory();
-  const actions = bindActionCreators(AdminActions, useDispatch());
+  const actions = bindActionCreators(GroupActions, useDispatch());
   const { groups, activeGroup, editable } = useSelector(groupState);
   const { isLoading } = useSelector(appState);
 
@@ -85,20 +83,6 @@ export default () => {
             />
           )}
         />
-        {/* <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={age}
-            label="Age"
-            onChange={handleChange}>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl> */}
-
         <Controller
           name="subject"
           control={control}
