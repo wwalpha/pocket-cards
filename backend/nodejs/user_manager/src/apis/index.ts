@@ -7,6 +7,7 @@ export { CreateAdminUser } from './CreateAdminUser';
 export { ListAdminUsers } from './ListAdminUsers';
 export { ListStudents } from './ListStudents';
 export { LookupUser } from './LookupUser';
+export { DescribeUser } from './DescribeUser';
 
 // health check
 export const HealthCheck = async () => ({ service: 'User Manager', isAlive: true });
