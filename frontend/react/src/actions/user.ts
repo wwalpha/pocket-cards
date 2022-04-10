@@ -1,8 +1,6 @@
 import { withLoading } from '@actions';
 import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';
-import { createAction } from '@reduxjs/toolkit';
-import { Credentials } from '@utils';
 import { push } from 'connected-react-router';
 import { AppDispatch } from 'typings';
 
@@ -35,6 +33,8 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
         dispatch(Actions.GROUP_LIST());
         // initialize
         dispatch(Actions.USER_CURRICULUM_LIST());
+        // initialize
+        dispatch(Actions.USER_INFORMATIONS());
       }
     })
   );
@@ -63,3 +63,5 @@ export const signup = (username: string, email: string) => (dispatch: AppDispatc
       }
     })
   );
+
+export const getUserInfo = () => (dispatch: AppDispatch) => dispatch(Actions.USER_INFORMATIONS());

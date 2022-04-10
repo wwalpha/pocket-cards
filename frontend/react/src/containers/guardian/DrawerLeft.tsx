@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
+import { push } from 'connected-react-router';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,10 +12,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import BookIcon from '@mui/icons-material/Book';
 import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { GuardianActions } from '@actions';
 import { Consts, Paths } from '@constants';
 import { styles } from './DrawerLeft.style';
-import { push } from 'connected-react-router';
 
 export default () => {
   const location = useLocation();
@@ -24,6 +25,10 @@ export default () => {
   const handleClick = (subject: string) => actions.selectSubject(subject, location.pathname);
 
   const handleStudents = () => actions.getStudentList();
+  // settings click handler
+  const handleSettings = () => {
+    dispatch(push(Paths.PATHS_GUARDIAN_SETTINGS));
+  };
 
   return (
     <Drawer sx={styles.drawer} variant="permanent" anchor="left">
@@ -83,6 +88,13 @@ export default () => {
             <PersonIcon sx={{ color: 'secondary.main' }} />
           </ListItemIcon>
           <ListItemText primary="生 徒" />
+        </ListItem>
+        <Divider />
+        <ListItem button key="Settings" onClick={handleSettings}>
+          <ListItemIcon sx={styles.itemIcon}>
+            <SettingsIcon sx={{ color: 'secondary.main' }} />
+          </ListItemIcon>
+          <ListItemText primary="設 定" />
         </ListItem>
       </List>
     </Drawer>

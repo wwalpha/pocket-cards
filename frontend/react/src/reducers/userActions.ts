@@ -1,7 +1,7 @@
 import { Consts } from '@constants';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API, Credentials } from '@utils';
-import { Auth, Users, APIs } from 'typings';
+import { Auth, Users, APIs, RootState } from 'typings';
 
 export const USER_SIGN_IN = createAsyncThunk<Auth.SignInResponse & Auth.SignInRequest, Auth.SignInRequest>(
   'user/USER_SIGN_IN',
@@ -69,5 +69,14 @@ export const USER_STUDENT_REGIST = createAsyncThunk<Users.CreateStudentResponse,
   'user/USER_STUDENT_REGIST',
   async (request) => {
     return await API.post<Users.CreateStudentResponse, Users.CreateStudentRequest>(Consts.STUDENT_REGIST(), request);
+  }
+);
+
+export const USER_INFORMATIONS = createAsyncThunk<Users.DescribeUserResponse, void>(
+  'user/USER_INFORMATIONS',
+  async (_, { getState }) => {
+    const { username } = (getState() as RootState).user;
+
+    return await API.get<Users.DescribeUserResponse>(Consts.DESCRIBE_USER(username));
   }
 );
