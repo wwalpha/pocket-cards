@@ -82,4 +82,12 @@ export namespace Users {
     count: number;
     items: Tables.TUsers[];
   }
+
+  interface DescribeUserParameter {
+    userId: string;
+  }
+
+  interface DescribeUserRequest {}
+
+  type DescribeUserResponse = Tables.TUsers;
 }

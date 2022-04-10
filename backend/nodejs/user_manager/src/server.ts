@@ -9,6 +9,7 @@ import {
   ListStudents,
   LookupUser,
   HealthCheck,
+  DescribeUser,
 } from '@api';
 import { common } from './utils';
 
@@ -40,6 +41,9 @@ app.post('/v1/users/students', async (req, res) => await common(req, res, Create
 
 // get student list
 app.get('/v1/users/students', async (req, res) => await common(req, res, ListStudents));
+
+// describe user infomations
+app.get('/v1/users/:userId', async (req, res) => await common(req, res, DescribeUser));
 
 // app._router.stack.forEach((r: any) => {
 //   if (r.route && r.route.path) {
