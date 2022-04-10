@@ -4,3 +4,9 @@ export enum SUBJECT {
   SCIENCE,
   SOCIETY,
 }
+
+export const Authority = {
+  ADMIN: 'TENANT_ADMIN',
+  PARENT: 'PARENT',
+  STUDENT: 'STUDENT',
+};
