@@ -80,3 +80,15 @@ export const USER_INFORMATIONS = createAsyncThunk<Users.DescribeUserResponse, vo
     return await API.get<Users.DescribeUserResponse>(Consts.DESCRIBE_USER(username));
   }
 );
+
+export const USER_UPDATE_NOTIFICATIONS = createAsyncThunk<string[] | undefined, Users.UpdateUserRequest>(
+  'user/USER_UPDATE_NOTIFICATIONS',
+  async (request, { getState }) => {
+    const { username } = (getState() as RootState).user;
+
+    // update
+    await API.put<Users.UpdateUserResponse, Users.UpdateUserRequest>(Consts.UPDATE_USER(username), request);
+
+    return request.notifications;
+  }
+);

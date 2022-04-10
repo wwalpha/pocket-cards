@@ -65,3 +65,15 @@ export const signup = (username: string, email: string) => (dispatch: AppDispatc
   );
 
 export const getUserInfo = () => (dispatch: AppDispatch) => dispatch(Actions.USER_INFORMATIONS());
+
+export const updateNotifications = (notifications: string[]) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // sign in
+      dispatch(
+        Actions.USER_UPDATE_NOTIFICATIONS({
+          notifications,
+        })
+      );
+    })
+  );

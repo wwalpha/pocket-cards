@@ -37,13 +37,12 @@ export default () => {
   const { infos } = useSelector(user);
   const actions = bindActionCreators(UserActions, dispatch);
 
-  const getNotification = (index: number) => {
+  const getNotification = (index: number): string => {
     if (!infos) return '';
     if (!infos.notification) return '';
     if (infos.notification.length === 0) return '';
-    if (infos.notification.length > index) {
-      return infos.notification[index];
-    }
+
+    return infos.notification.length > index ? infos.notification[index] : '';
   };
 
   const {
@@ -59,7 +58,7 @@ export default () => {
 
   // 編集
   const onSubmit = handleSubmit(({ notification1, notification2 }) => {
-    console.log(notification1, notification2);
+    actions.updateNotifications([notification1, notification2]);
   });
 
   return (

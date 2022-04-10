@@ -57,6 +57,11 @@ const slice = createSlice({
       })
       .addCase(UserActions.USER_INFORMATIONS.fulfilled, (state, { payload }) => {
         state.infos = payload;
+      })
+      .addCase(UserActions.USER_UPDATE_NOTIFICATIONS.fulfilled, (state, { payload }) => {
+        if (state.infos) {
+          state.infos.notification = payload;
+        }
       });
   },
 });
