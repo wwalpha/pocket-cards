@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom';
 import { Paths } from '@constants';
 import { AppActions } from '@actions';
-import { DrawerLeft, Mainboard, QuestionList, Students } from '.';
+import { DrawerLeft, Mainboard, QuestionList, Students, Settings } from '.';
 
 export default () => {
   const { path } = useRouteMatch();
@@ -42,19 +42,8 @@ export default () => {
             <Typography variant="h6" noWrap component="div">
               Guardian Dashboard
             </Typography>
-            {pathname === Paths.PATHS_GUARDIAN_TOP && (
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                  onClick={handleLogout}>
-                  LOGOUT
-                </Button>
-              </Box>
-            )}
-            {pathname === Paths.PATHS_GUARDIAN_STUDENTS && (
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
+              {pathname === Paths.PATHS_GUARDIAN_STUDENTS && (
                 <Button
                   variant="outlined"
                   color="inherit"
@@ -62,15 +51,15 @@ export default () => {
                   onClick={handleUserReigst}>
                   ADD
                 </Button>
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                  onClick={handleLogout}>
-                  LOGOUT
-                </Button>
-              </Box>
-            )}
+              )}
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                onClick={handleLogout}>
+                LOGOUT
+              </Button>
+            </Box>
           </Toolbar>
         </AppBar>
         <Toolbar />
@@ -78,6 +67,7 @@ export default () => {
           <Route exact path={path} component={Mainboard} />
           <Route path={Paths.PATHS_GUARDIAN_QUESTIONS} component={QuestionList} />
           <Route path={Paths.PATHS_GUARDIAN_STUDENTS} component={Students} />
+          <Route path={Paths.PATHS_GUARDIAN_SETTINGS} component={Settings} />
         </Switch>
       </Box>
     </Box>
