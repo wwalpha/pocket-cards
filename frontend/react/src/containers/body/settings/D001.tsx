@@ -36,8 +36,7 @@ export default () => {
   // Logout
   const handleLogout = async () => {
     // await Auth.signOut();
-
-    usrActions.logout();
+    // usrActions.logout();
   };
 
   const handleRemoveWordChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
