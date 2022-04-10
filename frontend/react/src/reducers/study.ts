@@ -78,7 +78,6 @@ const slice = createSlice({
         state.rows = newArray;
         state.history = concat(state.history, added);
         state.current = state.current ? state.current : newArray[0];
-        state.index = state.index;
         state.mode = mode;
       })
       .addMatcher(isAnyOf(STUDY_CONTINUE.fulfilled), (state, { payload: { mode, items } }) => {
@@ -95,7 +94,6 @@ const slice = createSlice({
         state.rows = newArray;
         state.history = concat(state.history, added);
         state.current = state.current ? state.current : newArray[0];
-        state.index = state.index;
         state.mode = mode;
       })
       .addMatcher(isAnyOf(STUDY_IGNORE.fulfilled), (state, { payload }) => {

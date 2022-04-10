@@ -22,11 +22,9 @@ export const ROUTE_PATH_INDEX: Record<string, number> = {
   Todos: 71,
   AdminDashboard: 100,
   AdminGroupDetails: 101,
-  AdminGroupQuestions: 102,
-  GuardianTop: 110,
-  GuardianQuestions: 111,
-  GuardianStudents: 112,
-  GuardianSettings: 113,
+  AdminQuestions: 102,
+  GuardianStudents: 110,
+  GuardianSettings: 111,
 };
 
 export const ROUTE_PATHS = {
@@ -52,9 +50,7 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.Todos]: '/todos',
   [ROUTE_PATH_INDEX.AdminDashboard]: '/admin',
   [ROUTE_PATH_INDEX.AdminGroupDetails]: '/admin/group',
-  [ROUTE_PATH_INDEX.AdminGroupQuestions]: '/admin/questions',
-  [ROUTE_PATH_INDEX.GuardianTop]: '/guardian',
-  [ROUTE_PATH_INDEX.GuardianQuestions]: '/guardian/questions',
+  [ROUTE_PATH_INDEX.AdminQuestions]: '/admin/questions',
   [ROUTE_PATH_INDEX.GuardianStudents]: '/guardian/students',
   [ROUTE_PATH_INDEX.GuardianSettings]: '/guardian/settings',
 };
@@ -62,10 +58,8 @@ export const ROUTE_PATHS = {
 // admin
 export const PATHS_ADMIN_DASHBOARD = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminDashboard];
 export const PATHS_ADMIN_GROUP_DETAILS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminGroupDetails];
-export const PATHS_ADMIN_GROUP_QUESTIONS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminGroupQuestions];
+export const PATHS_ADMIN_QUESTIONS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminQuestions];
 
-export const PATHS_GUARDIAN_TOP = ROUTE_PATHS[ROUTE_PATH_INDEX.GuardianTop];
-export const PATHS_GUARDIAN_QUESTIONS = ROUTE_PATHS[ROUTE_PATH_INDEX.GuardianQuestions];
 export const PATHS_GUARDIAN_STUDENTS = ROUTE_PATHS[ROUTE_PATH_INDEX.GuardianStudents];
 export const PATHS_GUARDIAN_SETTINGS = ROUTE_PATHS[ROUTE_PATH_INDEX.GuardianSettings];
 

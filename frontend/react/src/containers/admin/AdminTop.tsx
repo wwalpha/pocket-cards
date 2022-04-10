@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom';
 import { Paths } from '@constants';
 import { AppActions } from '@actions';
-import { DrawerLeft, Mainboard, QuestionList, Students, Settings } from '.';
+import { DrawerLeft, Mainboard, QuestionList, Students, Settings, GroupDetails } from '.';
 
 export default () => {
   const { path } = useRouteMatch();
@@ -65,7 +65,8 @@ export default () => {
         <Toolbar />
         <Switch>
           <Route exact path={path} component={Mainboard} />
-          <Route path={Paths.PATHS_GUARDIAN_QUESTIONS} component={QuestionList} />
+          <Route path={Paths.PATHS_ADMIN_GROUP_DETAILS} component={GroupDetails} />
+          <Route path={Paths.PATHS_ADMIN_QUESTIONS} component={QuestionList} />
           <Route path={Paths.PATHS_GUARDIAN_STUDENTS} component={Students} />
           <Route path={Paths.PATHS_GUARDIAN_SETTINGS} component={Settings} />
         </Switch>
