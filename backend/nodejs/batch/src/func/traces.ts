@@ -11,8 +11,10 @@ export default async () => {
 
   // yesterday
   const timestamp = moment().add(-1, 'days').format('YYYYMMDD');
+  // only student
+  const targets = results.Items.filter((item) => item.authority === Consts.Authority.STUDENT);
 
-  const tasks = results.Items.map(async (item) => {
+  const tasks = targets.map(async (item) => {
     const traceResults = await DBHelper().query(Traces.query.byUserId(item.id, `${timestamp}999999`));
     const items = traceResults.Items;
 
