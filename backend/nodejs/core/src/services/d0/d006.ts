@@ -1,7 +1,7 @@
 import { Request } from 'express';
-import { Commons, DBHelper, Logger, QueryUtils } from '@utils';
+import { Commons, DBHelper, QueryUtils } from '@utils';
 import { Environment } from '@consts';
-import { Words, WordMaster, Groups } from '@queries';
+import { Words, Groups } from '@queries';
 import { APIs, Tables } from 'typings';
 
 /** 今日の復習 */
