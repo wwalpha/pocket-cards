@@ -10,6 +10,7 @@ import {
   LookupUser,
   HealthCheck,
   DescribeUser,
+  UpdateUser,
 } from '@api';
 import { common } from './utils';
 
@@ -44,6 +45,9 @@ app.get('/v1/users/students', async (req, res) => await common(req, res, ListStu
 
 // describe user infomations
 app.get('/v1/users/:userId', async (req, res) => await common(req, res, DescribeUser));
+
+// update user infomations
+app.put('/v1/users/:userId', async (req, res) => await common(req, res, UpdateUser));
 
 // app._router.stack.forEach((r: any) => {
 //   if (r.route && r.route.path) {
