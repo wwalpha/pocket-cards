@@ -38,11 +38,16 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
                 switch response.result {
                 case .success:
                     print("Successful")
+                    debugPrint("before", self.questions.count)
+
                     // remove updated question
                     self.questions.removeAll(where: { $0.id == id })
                     // reindex
                     guard let newIndex = self.questions.firstIndex(where: { $0.id == self.current?.id }) else { return }
                     self.index = newIndex
+
+                    debugPrint("after", self.questions.count)
+                    debugPrint(self.questions)
 
                     // add questions
                     if self.questions.count < 5 {

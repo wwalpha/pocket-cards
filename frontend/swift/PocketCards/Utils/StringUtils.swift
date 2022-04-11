@@ -27,7 +27,7 @@ class StringUtils {
 
 extension String {
     func removeImage() -> String {
-        return replacingOccurrences(
+        replacingOccurrences(
             of: #"\[.*\]"#,
             with: "",
             options: .regularExpression

@@ -33,12 +33,25 @@
 		9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD28D27D7394C0000A16B /* Colors.swift */; };
 		9A1FD2A527D7394C0000A16B /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD29027D7394C0000A16B /* Question.swift */; };
 		9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD29227D7394C0000A16B /* QuestionServices.swift */; };
+		9A276A7227EC4CC6005A716D /* TestChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7127EC4CC6005A716D /* TestChart.swift */; };
+		9A276A7427EC8F85005A716D /* DateValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7327EC8F85005A716D /* DateValueFormatter.swift */; };
+		9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7527ECA374005A716D /* DailyTasks.swift */; };
+		9A276A7827ECA3AF005A716D /* DailyTasksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7727ECA3AF005A716D /* DailyTasksService.swift */; };
+		9A3F50BF27EB2D9000D9A305 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50BE27EB2D9000D9A305 /* History.swift */; };
+		9A3F50C127EB2E3500D9A305 /* HistoryServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C027EB2E3500D9A305 /* HistoryServices.swift */; };
+		9A3F50C727EB2E9A00D9A305 /* DailyTasksContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C227EB2E9A00D9A305 /* DailyTasksContract.swift */; };
+		9A3F50C827EB2E9A00D9A305 /* DailyTasksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C327EB2E9A00D9A305 /* DailyTasksPresenter.swift */; };
+		9A3F50C927EB2E9A00D9A305 /* DailyTasksInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C427EB2E9A00D9A305 /* DailyTasksInteractor.swift */; };
+		9A3F50CA27EB2E9A00D9A305 /* DailyTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C527EB2E9A00D9A305 /* DailyTasksView.swift */; };
+		9A3F50CB27EB2E9A00D9A305 /* DailyTasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C627EB2E9A00D9A305 /* DailyTasksViewModel.swift */; };
+		9A3F50CE27EB326C00D9A305 /* Dailytasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50CD27EB326C00D9A305 /* Dailytasks.swift */; };
+		9A3F50D827EC401400D9A305 /* HistoriesChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50D727EC401400D9A305 /* HistoriesChart.swift */; };
+		9A3F50DF27EC412E00D9A305 /* HistoriesContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DA27EC412E00D9A305 /* HistoriesContract.swift */; };
+		9A3F50E027EC412E00D9A305 /* HistoriesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DB27EC412E00D9A305 /* HistoriesPresenter.swift */; };
+		9A3F50E127EC412E00D9A305 /* HistoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DC27EC412E00D9A305 /* HistoriesInteractor.swift */; };
+		9A3F50E227EC412E00D9A305 /* HistoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DD27EC412E00D9A305 /* HistoriesView.swift */; };
+		9A3F50E327EC412E00D9A305 /* HistoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DE27EC412E00D9A305 /* HistoriesViewModel.swift */; };
 		9A61EEA927E4684B002C73D0 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEA827E4684B002C73D0 /* TabBar.swift */; };
-		9A61EEAC27E46914002C73D0 /* ReportContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEAB27E46914002C73D0 /* ReportContract.swift */; };
-		9A61EEAE27E4691F002C73D0 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEAD27E4691F002C73D0 /* ReportView.swift */; };
-		9A61EEB027E46930002C73D0 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEAF27E46930002C73D0 /* ReportViewModel.swift */; };
-		9A61EEB227E46946002C73D0 /* ReportInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEB127E46946002C73D0 /* ReportInteractor.swift */; };
-		9A61EEB427E46952002C73D0 /* ReportPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEB327E46952002C73D0 /* ReportPresenter.swift */; };
 		9A61EEB827E481C1002C73D0 /* incorrect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9A61EEB727E481C1002C73D0 /* incorrect.mp3 */; };
 		9A61EEBA27E481C8002C73D0 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9A61EEB927E481C8002C73D0 /* correct.mp3 */; };
 		9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */; };
@@ -89,12 +102,25 @@
 		9A1FD29027D7394C0000A16B /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		9A1FD29227D7394C0000A16B /* QuestionServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionServices.swift; sourceTree = "<group>"; };
 		9A1FD2A727D7406B0000A16B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9A276A7127EC4CC6005A716D /* TestChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChart.swift; sourceTree = "<group>"; };
+		9A276A7327EC8F85005A716D /* DateValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValueFormatter.swift; sourceTree = "<group>"; };
+		9A276A7527ECA374005A716D /* DailyTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasks.swift; sourceTree = "<group>"; };
+		9A276A7727ECA3AF005A716D /* DailyTasksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksService.swift; sourceTree = "<group>"; };
+		9A3F50BE27EB2D9000D9A305 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		9A3F50C027EB2E3500D9A305 /* HistoryServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryServices.swift; sourceTree = "<group>"; };
+		9A3F50C227EB2E9A00D9A305 /* DailyTasksContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksContract.swift; sourceTree = "<group>"; };
+		9A3F50C327EB2E9A00D9A305 /* DailyTasksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksPresenter.swift; sourceTree = "<group>"; };
+		9A3F50C427EB2E9A00D9A305 /* DailyTasksInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksInteractor.swift; sourceTree = "<group>"; };
+		9A3F50C527EB2E9A00D9A305 /* DailyTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksView.swift; sourceTree = "<group>"; };
+		9A3F50C627EB2E9A00D9A305 /* DailyTasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksViewModel.swift; sourceTree = "<group>"; };
+		9A3F50CD27EB326C00D9A305 /* Dailytasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dailytasks.swift; sourceTree = "<group>"; };
+		9A3F50D727EC401400D9A305 /* HistoriesChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesChart.swift; sourceTree = "<group>"; };
+		9A3F50DA27EC412E00D9A305 /* HistoriesContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesContract.swift; sourceTree = "<group>"; };
+		9A3F50DB27EC412E00D9A305 /* HistoriesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesPresenter.swift; sourceTree = "<group>"; };
+		9A3F50DC27EC412E00D9A305 /* HistoriesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesInteractor.swift; sourceTree = "<group>"; };
+		9A3F50DD27EC412E00D9A305 /* HistoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesView.swift; sourceTree = "<group>"; };
+		9A3F50DE27EC412E00D9A305 /* HistoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesViewModel.swift; sourceTree = "<group>"; };
 		9A61EEA827E4684B002C73D0 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
-		9A61EEAB27E46914002C73D0 /* ReportContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContract.swift; sourceTree = "<group>"; };
-		9A61EEAD27E4691F002C73D0 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
-		9A61EEAF27E46930002C73D0 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
-		9A61EEB127E46946002C73D0 /* ReportInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportInteractor.swift; sourceTree = "<group>"; };
-		9A61EEB327E46952002C73D0 /* ReportPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPresenter.swift; sourceTree = "<group>"; };
 		9A61EEB727E481C1002C73D0 /* incorrect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = incorrect.mp3; sourceTree = "<group>"; };
 		9A61EEB927E481C8002C73D0 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
 		9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
@@ -187,6 +213,7 @@
 		9A1FD27127D7394C0000A16B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9A3F50CC27EB325100D9A305 /* Charts */,
 				9A1FD27227D7394C0000A16B /* Button */,
 				9A1FD27427D7394C0000A16B /* View */,
 				9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */,
@@ -216,7 +243,7 @@
 		9A1FD27627D7394C0000A16B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				9A61EEAA27E468FF002C73D0 /* Report */,
+				9A61EEAA27E468FF002C73D0 /* Charts */,
 				9A7F876F27D7600B00446E9D /* Society */,
 				9A7F876D27D75FEC00446E9D /* Science */,
 				9A1FD27827D7394C0000A16B /* Language */,
@@ -315,6 +342,8 @@
 			isa = PBXGroup;
 			children = (
 				9A1FD29027D7394C0000A16B /* Question.swift */,
+				9A3F50BE27EB2D9000D9A305 /* History.swift */,
+				9A276A7527ECA374005A716D /* DailyTasks.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -323,20 +352,54 @@
 			isa = PBXGroup;
 			children = (
 				9A1FD29227D7394C0000A16B /* QuestionServices.swift */,
+				9A3F50C027EB2E3500D9A305 /* HistoryServices.swift */,
+				9A276A7727ECA3AF005A716D /* DailyTasksService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		9A61EEAA27E468FF002C73D0 /* Report */ = {
+		9A3F50CC27EB325100D9A305 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
-				9A61EEAB27E46914002C73D0 /* ReportContract.swift */,
-				9A61EEAD27E4691F002C73D0 /* ReportView.swift */,
-				9A61EEAF27E46930002C73D0 /* ReportViewModel.swift */,
-				9A61EEB127E46946002C73D0 /* ReportInteractor.swift */,
-				9A61EEB327E46952002C73D0 /* ReportPresenter.swift */,
+				9A3F50CD27EB326C00D9A305 /* Dailytasks.swift */,
+				9A3F50D727EC401400D9A305 /* HistoriesChart.swift */,
+				9A276A7127EC4CC6005A716D /* TestChart.swift */,
+				9A276A7327EC8F85005A716D /* DateValueFormatter.swift */,
 			);
-			path = Report;
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		9A3F50D927EC411F00D9A305 /* Histories */ = {
+			isa = PBXGroup;
+			children = (
+				9A3F50DA27EC412E00D9A305 /* HistoriesContract.swift */,
+				9A3F50DB27EC412E00D9A305 /* HistoriesPresenter.swift */,
+				9A3F50DC27EC412E00D9A305 /* HistoriesInteractor.swift */,
+				9A3F50DD27EC412E00D9A305 /* HistoriesView.swift */,
+				9A3F50DE27EC412E00D9A305 /* HistoriesViewModel.swift */,
+			);
+			path = Histories;
+			sourceTree = "<group>";
+		};
+		9A3F50E527EC415D00D9A305 /* DailyTasks */ = {
+			isa = PBXGroup;
+			children = (
+				9A3F50C227EB2E9A00D9A305 /* DailyTasksContract.swift */,
+				9A3F50C327EB2E9A00D9A305 /* DailyTasksPresenter.swift */,
+				9A3F50C427EB2E9A00D9A305 /* DailyTasksInteractor.swift */,
+				9A3F50C527EB2E9A00D9A305 /* DailyTasksView.swift */,
+				9A3F50C627EB2E9A00D9A305 /* DailyTasksViewModel.swift */,
+			);
+			path = DailyTasks;
+			sourceTree = "<group>";
+		};
+		9A61EEAA27E468FF002C73D0 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				9A3F50E527EC415D00D9A305 /* DailyTasks */,
+				9A3F50D927EC411F00D9A305 /* Histories */,
+			);
+			path = Charts;
 			sourceTree = "<group>";
 		};
 		9A61EEB627E481B5002C73D0 /* Resources */ = {
@@ -402,8 +465,8 @@
 				9A1FD24527D7369B0000A16B /* Sources */,
 				9A1FD24627D7369B0000A16B /* Frameworks */,
 				9A1FD24727D7369B0000A16B /* Resources */,
-				5A0DF2CAA75DE5665A65862B /* [CP] Embed Pods Frameworks */,
 				9A039D4E27E6A0D70052FAF0 /* ShellScript */,
+				0E78151B7B0FB004A1DFF750 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -462,6 +525,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0E78151B7B0FB004A1DFF750 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1AFA513685F2ECC588516A83 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -482,23 +562,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5A0DF2CAA75DE5665A65862B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9A039D4E27E6A0D70052FAF0 /* ShellScript */ = {
@@ -525,36 +588,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A3F50CE27EB326C00D9A305 /* Dailytasks.swift in Sources */,
 				9AF57E7127D96624002B1F32 /* StringUtils.swift in Sources */,
+				9A3F50CB27EB2E9A00D9A305 /* DailyTasksViewModel.swift in Sources */,
 				9A1FD29B27D7394C0000A16B /* DailyStudyViewModel.swift in Sources */,
+				9A3F50D827EC401400D9A305 /* HistoriesChart.swift in Sources */,
+				9A276A7427EC8F85005A716D /* DateValueFormatter.swift in Sources */,
+				9A3F50CA27EB2E9A00D9A305 /* DailyTasksView.swift in Sources */,
 				9A1FD29727D7394C0000A16B /* RootRouter.swift in Sources */,
 				9A1FD29327D7394C0000A16B /* ChoiceButton.swift in Sources */,
 				9A1FD29527D7394C0000A16B /* LanguageHomeRouter.swift in Sources */,
-				9A61EEB427E46952002C73D0 /* ReportPresenter.swift in Sources */,
+				9A3F50C127EB2E3500D9A305 /* HistoryServices.swift in Sources */,
 				9A1FD26527D738CF0000A16B /* AppDelegate.swift in Sources */,
 				9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */,
+				9A3F50C827EB2E9A00D9A305 /* DailyTasksPresenter.swift in Sources */,
 				9A1FD2A027D7394C0000A16B /* Consts.swift in Sources */,
 				9A1FD2A327D7394C0000A16B /* Alamofire.swift in Sources */,
-				9A61EEB027E46930002C73D0 /* ReportViewModel.swift in Sources */,
 				9A1FD29E27D7394C0000A16B /* DailyStudyContract.swift in Sources */,
 				9A6E044F27DC3682005D87EE /* CardButton.swift in Sources */,
+				9A276A7827ECA3AF005A716D /* DailyTasksService.swift in Sources */,
 				9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */,
 				9ADD155827DF83AD00C9CE64 /* Commons.swift in Sources */,
 				9A1FD2A227D7394C0000A16B /* TokenManager.swift in Sources */,
 				9A1FD2A527D7394C0000A16B /* Question.swift in Sources */,
-				9A61EEB227E46946002C73D0 /* ReportInteractor.swift in Sources */,
+				9A3F50E027EC412E00D9A305 /* HistoriesPresenter.swift in Sources */,
 				9AF57E6F27D962A0002B1F32 /* DailyTestContract.swift in Sources */,
+				9A3F50BF27EB2D9000D9A305 /* History.swift in Sources */,
 				9A1FD29427D7394C0000A16B /* ChoiceQuestion.swift in Sources */,
 				9A61EEA927E4684B002C73D0 /* TabBar.swift in Sources */,
 				9AF57E6927D8DC6F002B1F32 /* DailyTestViewModel.swift in Sources */,
+				9A3F50E227EC412E00D9A305 /* HistoriesView.swift in Sources */,
+				9A276A7227EC4CC6005A716D /* TestChart.swift in Sources */,
 				9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */,
 				9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */,
 				9A1FD29827D7394C0000A16B /* RootView.swift in Sources */,
 				9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */,
 				9A7F877427D7603300446E9D /* ScienceHomeView.swift in Sources */,
+				9A3F50DF27EC412E00D9A305 /* HistoriesContract.swift in Sources */,
+				9A3F50E327EC412E00D9A305 /* HistoriesViewModel.swift in Sources */,
 				9AF57E6B27D96288002B1F32 /* DailyTestInteractor.swift in Sources */,
 				9A1FD29C27D7394C0000A16B /* DailyStudyInteractor.swift in Sources */,
-				9A61EEAC27E46914002C73D0 /* ReportContract.swift in Sources */,
 				9A1FD2A127D7394C0000A16B /* Authencation.swift in Sources */,
 				9A7F877227D7602500446E9D /* ScienceHomeRouter.swift in Sources */,
 				9A1FD29627D7394C0000A16B /* LanguageHomeView.swift in Sources */,
@@ -565,11 +638,14 @@
 				9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */,
 				9A1FD29D27D7394C0000A16B /* DailyStudyPresenter.swift in Sources */,
 				9A1FD29A27D7394C0000A16B /* DailyStudyView.swift in Sources */,
-				9A61EEAE27E4691F002C73D0 /* ReportView.swift in Sources */,
 				9A1FD24D27D7369B0000A16B /* PocketCardsApp.swift in Sources */,
 				9A1FD29F27D7394C0000A16B /* LoginView.swift in Sources */,
 				9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */,
 				9AF57E6D27D96292002B1F32 /* DailyTestPresenter.swift in Sources */,
+				9A3F50C927EB2E9A00D9A305 /* DailyTasksInteractor.swift in Sources */,
+				9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */,
+				9A3F50E127EC412E00D9A305 /* HistoriesInteractor.swift in Sources */,
+				9A3F50C727EB2E9A00D9A305 /* DailyTasksContract.swift in Sources */,
 				9A1FD29927D7394C0000A16B /* RootContract.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

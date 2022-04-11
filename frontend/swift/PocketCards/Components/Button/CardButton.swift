@@ -8,13 +8,27 @@
 import SwiftUI
 
 struct CardButton: View {
+    var text: String
+    var backgroudColor: Color = .primaryColor
+    var foregroundColor: Color = .black
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button {
+            self.onClick()
+        } label: {
+            Text(self.text)
+//                .frame(maxWidth: .infinity, maxHeight: 32, alignment: .leading)
+                .frame(height: 64, alignment: .center)
+                .background(backgroudColor)
+                .foregroundColor(foregroundColor)
+        }
     }
+
+    let onClick: () -> Void
 }
 
 struct CardButton_Previews: PreviewProvider {
     static var previews: some View {
-        CardButton()
+        CardButton(text: "国語") {}
     }
 }

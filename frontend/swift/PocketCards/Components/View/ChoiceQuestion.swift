@@ -27,7 +27,7 @@ struct ChoiceQuestion: View {
             .padding(.bottom, 32)
             .padding(.top, 32)
 
-            ForEach(0 ..< choices.count) { idx in
+            ForEach(0 ..< choices.count, id: \.self) { idx in
                 let item = choices[idx]
                 let index = String(idx + 1)
                 let isError: Bool = !self.isShowError.isEmpty ? self.isShowError == index : false
