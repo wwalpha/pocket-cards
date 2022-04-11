@@ -12,7 +12,6 @@ import { RootState } from 'typings';
 
 const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
-const userState = (state: RootState) => state.user;
 
 export default () => {
   const dispatch = useDispatch();
