@@ -6,5 +6,5 @@ AWS.config.update({
   region: Environments.AWS_REGION,
 });
 
-export { default as TraceCount } from './traces';
+export { default as CreateReports } from './reports';
 export { default as Scheduler } from './scheduler';
