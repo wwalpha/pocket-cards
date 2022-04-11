@@ -154,29 +154,6 @@ resource "aws_dynamodb_table" "traces" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Dynamodb Table - Histories
-# ----------------------------------------------------------------------------------------------
-resource "aws_dynamodb_table" "histories" {
-  name         = local.dynamodb_name_histories
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "userId"
-  range_key    = "timestamp"
-
-  attribute {
-    name = "userId"
-    type = "S"
-  }
-  attribute {
-    name = "timestamp"
-    type = "S"
-  }
-
-  tags = {
-    Project = local.project_name_uc
-  }
-}
-
-# ----------------------------------------------------------------------------------------------
 # Dynamodb Table - Word Ignore
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "word_ignore" {

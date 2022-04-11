@@ -180,19 +180,6 @@ export namespace Tables {
     subject?: string;
   }
 
-  interface THistoriesKey {
-    // ユーザID
-    userId: string;
-    // Timestamp
-    timestamp: string;
-  }
-
-  interface THistories extends THistoriesKey {
-    japanese?: number;
-    science?: number;
-    society?: number;
-  }
-
   interface TSettingsKey {
     // ID
     id: string;
