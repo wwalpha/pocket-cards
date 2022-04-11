@@ -31,7 +31,7 @@ export default () => {
   const handleStudents = () => actions.getStudentList();
   // settings click handler
   const handleSettings = () => {
-    dispatch(push(Paths.PATHS_GUARDIAN_SETTINGS));
+    dispatch(push(Paths.PATHS_ADMIN_SETTINGS));
   };
 
   return (
