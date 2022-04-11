@@ -98,6 +98,7 @@ export default () => {
                 <TableCell>
                   <Box sx={{ display: 'flex' }}>
                     <LoadingButton
+                      disabled={dataRow.count === 0}
                       loading={isLoading}
                       variant="contained"
                       color="secondary"
