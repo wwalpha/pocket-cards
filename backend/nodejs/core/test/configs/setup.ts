@@ -14,7 +14,6 @@ const TABLE_NAME_GROUPS = process.env['TABLE_NAME_GROUPS'] as string;
 const TABLE_NAME_WORDS = process.env['TABLE_NAME_WORDS'] as string;
 const TABLE_NAME_WORD_MASTER = process.env['TABLE_NAME_WORD_MASTER'] as string;
 const TABLE_NAME_WORD_IGNORE = process.env['TABLE_NAME_WORD_IGNORE'] as string;
-const TABLE_NAME_HISTORIES = process.env['TABLE_NAME_HISTORIES'] as string;
 const TABLE_NAME_QUESTIONS = process.env['TABLE_NAME_QUESTIONS'] as string;
 const TABLE_NAME_LEARNING = process.env['TABLE_NAME_LEARNING'] as string;
 const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;
@@ -173,21 +172,6 @@ const setup = async () => {
             Projection: { ProjectionType: 'ALL' },
             ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
           },
-        ],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_HISTORIES,
-        BillingMode: 'PROVISIONED',
-        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
-        KeySchema: [
-          { AttributeName: 'userId', KeyType: 'HASH' },
-          { AttributeName: 'timestamp', KeyType: 'RANGE' },
-        ],
-        AttributeDefinitions: [
-          { AttributeName: 'userId', AttributeType: 'S' },
-          { AttributeName: 'timestamp', AttributeType: 'S' },
         ],
       })
       .promise(),
