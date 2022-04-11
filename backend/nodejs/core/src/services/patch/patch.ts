@@ -1,7 +1,7 @@
-import { Questions } from '@queries';
+import { Questions, Reports } from '@queries';
 import { DBHelper } from '@utils';
 import { Tables } from 'typings';
-import { Environment } from '@consts';
+import { Consts, Environment } from '@consts';
 
 export default async (): Promise<void> => {
   const groups = await DBHelper().scan<Tables.TGroups>({ TableName: Environment.TABLE_NAME_GROUPS });
@@ -19,4 +19,20 @@ export default async (): Promise<void> => {
 
   // update all datas
   await DBHelper().bulk(Environment.TABLE_NAME_GROUPS, results);
+
+  const histories = await DBHelper().scan<Tables.THistories>({ TableName: Environment.TABLE_NAME_HISTORIES });
+
+  const historiesTask = histories.Items.map((item) =>
+    DBHelper().put(
+      Reports.put({
+        userId: item.userId,
+        typeDate: `${Consts.REPORT_TYPE.DAILY_PROGRESS}_${item.timestamp}`,
+        japanese: item.japanese,
+        science: item.science,
+        society: item.society,
+      })
+    )
+  );
+
+  await Promise.all(historiesTask);
 };

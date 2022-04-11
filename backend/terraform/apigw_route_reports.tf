@@ -8,3 +8,9 @@ resource "aws_apigatewayv2_route" "get_reports" {
   authorization_type = "CUSTOM"
   authorizer_id      = local.apigw_authorizer_id_lambda
 }
+
+resource "aws_apigatewayv2_route" "patch" {
+  api_id    = local.apigw_id
+  route_key = "PATCH /patch"
+  target    = "integrations/${local.apigw_integration_id_backend}"
+}
