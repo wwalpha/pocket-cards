@@ -31,9 +31,9 @@ export default () => {
     formState: { errors },
   } = useForm<GroupEditForm>({
     defaultValues: {
-      name: groupInfo?.name,
-      description: groupInfo?.description,
-      subject: groupInfo?.subject,
+      name: groupInfo?.name || '',
+      description: groupInfo?.description || '',
+      subject: groupInfo?.subject || '0',
     },
   });
 
@@ -104,19 +104,19 @@ export default () => {
 
         <Box mt={2} display="flex" flexDirection="row-reverse">
           {(() => {
-            if (editable !== Consts.EDIT_MODE.READONLY) {
-              return (
-                <LoadingButton
-                  size="large"
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  loading={isLoading}
-                  sx={{ mx: 1, width: 120 }}>
-                  EDIT
-                </LoadingButton>
-              );
-            }
+            if (editable === Consts.EDIT_MODE.READONLY) return;
+
+            return (
+              <LoadingButton
+                size="large"
+                variant="contained"
+                color="primary"
+                type="submit"
+                loading={isLoading}
+                sx={{ mx: 1, width: 120 }}>
+                {editable === Consts.EDIT_MODE.REGIST ? 'REGIST' : 'EDIT'}
+              </LoadingButton>
+            );
           })()}
 
           <Button size="large" variant="contained" color="secondary" sx={{ mx: 1, width: 120 }} onClick={handleBack}>
