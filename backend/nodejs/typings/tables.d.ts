@@ -38,7 +38,7 @@ export namespace Tables {
     // 説明
     description?: string;
     // 単語数
-    count?: number;
+    count: number;
     // index
     index?: number;
   }

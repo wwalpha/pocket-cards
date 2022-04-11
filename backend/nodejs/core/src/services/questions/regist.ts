@@ -50,7 +50,16 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
     await createVoices(id, title, answer);
   });
 
+  // regist all questions
   await Promise.all(tasks);
+
+  // update question count
+  await DBHelper().put(
+    Groups.put({
+      ...groupInfo.Item,
+      count: input.questions.length,
+    })
+  );
 };
 
 const createImages = async (qid: string, title: string, answer: string): Promise<void> => {
