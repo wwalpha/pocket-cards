@@ -89,7 +89,10 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, string>(
   async (texts, { getState }) => {
     // request parameter
     const { activeGroup } = (getState() as RootState).group;
-    const questions = texts.split('\n');
+    const strLf = '\n';
+    const strRfLf = '\r\n';
+    const newLine = texts.split(strRfLf).length === 1 ? strLf : strRfLf;
+    const questions = texts.split(newLine);
 
     const jsonQuestions = questions
       .filter((item) => item !== '')
