@@ -58,7 +58,7 @@ export const getStudentList = () => (dispatch: AppDispatch) =>
       // Get question lists
       dispatch(Actions.USER_STUDENTS_LIST());
 
-      dispatch(push(Paths.PATHS_GUARDIAN_STUDENTS));
+      dispatch(push(Paths.PATHS_ADMIN_STUDENTS));
     })
   );
 
