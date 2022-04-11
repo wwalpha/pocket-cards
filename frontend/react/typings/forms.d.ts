@@ -6,7 +6,6 @@ export interface SignInForm {
 }
 
 export interface SignUpForm {
-  authority: string;
   email: string;
   username: string;
 }
@@ -21,4 +20,14 @@ export interface GroupEditForm {
   name: string;
   description: string;
   subject: string;
+}
+
+export interface UserForm {
+  username: string;
+  password: string;
+}
+
+export interface SettingsForm {
+  notification1: string;
+  notification2: string;
 }

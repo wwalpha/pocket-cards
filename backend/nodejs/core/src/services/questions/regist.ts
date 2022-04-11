@@ -26,27 +26,18 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   const tasks = input.questions.map(async (item) => {
     const items = item.split(',');
     const id = generate();
-    const title = items[0];
-    const answer = items[3];
+    const title = items[0] as string;
+    const answer = items[3] as string;
+    const choices = items[2] as string;
 
     const qItem: Tables.TQuestions = {
       id: id,
       groupId: groupId,
       title: title,
       description: !isEmpty(items[1]) ? item[1] : undefined,
-      choices: !isEmpty(items[2]) ? items[2].split('|') : undefined,
+      choices: !isEmpty(items[2]) ? choices.split('|') : undefined,
       answer: answer,
     };
-
-    // const lItem: Tables.TLearning = {
-    //   qid: id,
-    //   groupId: groupId,
-    //   userId: userId,
-    //   subject: groupInfo.subject,
-    //   nextTime: '19000101',
-    //   lastTime: '19000101',
-    //   times: 0,
-    // };
 
     // 登録成功
     await DBHelper().transactWrite({
@@ -59,7 +50,16 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
     await createVoices(id, title, answer);
   });
 
+  // regist all questions
   await Promise.all(tasks);
+
+  // update question count
+  await DBHelper().put(
+    Groups.put({
+      ...groupInfo.Item,
+      count: input.questions.length,
+    })
+  );
 };
 
 const createImages = async (qid: string, title: string, answer: string): Promise<void> => {

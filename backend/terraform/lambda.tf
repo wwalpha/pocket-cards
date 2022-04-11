@@ -101,16 +101,32 @@ resource "aws_lambda_function" "batch" {
   function_name = "${local.project_name}-batch"
   package_type  = "Image"
   image_uri     = data.aws_ssm_parameter.repo_url_batch.value
-  memory_size   = 256
+  memory_size   = 1024
   role          = aws_iam_role.batch.arn
-  timeout       = 300
+  timeout       = 900
 
   environment {
     variables = {
       TABLE_NAME_USERS     = local.dynamodb_name_users
       TABLE_NAME_TRACES    = local.dynamodb_name_traces
-      TABLE_NAME_HISTORIES = local.dynamodb_name_histories
+      TABLE_NAME_LEARNING  = local.dynamodb_name_learning
+      TABLE_NAME_REPORTS   = local.dynamodb_name_reports
+      MASTER_EMAIL_ADDRESS = "master@${local.domain_name}"
       TZ                   = "Asia/Tokyo"
+    }
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Function Event Invoke Config - Batch
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_function_event_invoke_config" "batch" {
+  function_name          = aws_lambda_function.batch.function_name
+  maximum_retry_attempts = 0
+
+  destination_config {
+    on_failure {
+      destination = local.sns_arn_errors_notify
     }
   }
 }

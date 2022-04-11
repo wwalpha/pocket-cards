@@ -6,10 +6,9 @@ import {
 } from 'amazon-cognito-identity-js';
 import axios from 'axios';
 import winston from 'winston';
-import { JwtPayload } from 'jsonwebtoken';
-import { Auth, Users } from 'typings';
+import { JwtPayload, decode } from 'jsonwebtoken';
 import { API_URLs } from './consts';
-import { decode } from 'jsonwebtoken';
+import { Auth, Users } from 'typings';
 
 export const Logger = winston.createLogger({
   level: 'info',

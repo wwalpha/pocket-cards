@@ -1,6 +1,6 @@
 import { Groups, WordIgnore } from '@queries';
 import { DBHelper } from '@utils';
-import server from '@src/server';
+import server from '@src/app';
 import request from 'supertest';
 import * as D0 from '../datas/d0';
 import { HEADER_AUTH } from '@test/Commons';
@@ -8,7 +8,7 @@ import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 import { Tables } from 'typings';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
 
 jest.setTimeout(10000);
 
@@ -53,7 +53,6 @@ describe('d0', () => {
 
     const apiPath = '/v1/today/test';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
-    const userId = '84d95083-9ee8-4187-b6e7-8123558ef2c1';
 
     console.log(res.body);
     console.log(res.statusCode);

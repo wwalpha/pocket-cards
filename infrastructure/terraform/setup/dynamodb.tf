@@ -13,13 +13,29 @@ resource "aws_dynamodb_table" "users" {
   name         = local.dynamodb_name_users
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
+
   attribute {
     name = "id"
     type = "S"
   }
+
+  attribute {
+    name = "teacher"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name               = "gsiIdx1"
+    hash_key           = "teacher"
+    range_key          = "id"
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["id"]
+  }
+
   tags = {
     Project = local.project_name_uc
   }
+
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -130,29 +146,6 @@ resource "aws_dynamodb_table" "traces" {
     hash_key        = "userId"
     range_key       = "timestamp"
     projection_type = "ALL"
-  }
-
-  tags = {
-    Project = local.project_name_uc
-  }
-}
-
-# ----------------------------------------------------------------------------------------------
-# Dynamodb Table - Histories
-# ----------------------------------------------------------------------------------------------
-resource "aws_dynamodb_table" "histories" {
-  name         = local.dynamodb_name_histories
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "userId"
-  range_key    = "timestamp"
-
-  attribute {
-    name = "userId"
-    type = "S"
-  }
-  attribute {
-    name = "timestamp"
-    type = "S"
   }
 
   tags = {
@@ -311,6 +304,30 @@ resource "aws_dynamodb_table" "curriculums" {
     hash_key        = "guardian"
     range_key       = "groupId"
     projection_type = "ALL"
+  }
+
+  tags = {
+    Project = local.project_name_uc
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Reports
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "reports" {
+  name         = local.dynamodb_name_reports
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "userId"
+  range_key    = "typeDate"
+
+  attribute {
+    name = "userId"
+    type = "S"
+  }
+
+  attribute {
+    name = "typeDate"
+    type = "S"
   }
 
   tags = {

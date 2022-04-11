@@ -7,6 +7,7 @@ const appState: Domains.AppState = {
   tabIndex: 11,
   isLoading: false,
   showSnackbar: false,
+  showUserRegist: false,
   status: Consts.SERVER_STATUS.STOPPED,
   displayCtrl: {},
 };
@@ -15,6 +16,7 @@ const slice = createSlice({
   name: 'app',
   initialState: appState,
   reducers: {
+    APP_LOGOUT: () => {},
     // start loading
     APP_START_LOADING: (state) => {
       state.isLoading = true;
@@ -54,6 +56,10 @@ const slice = createSlice({
       state.message = undefined;
     },
 
+    APP_SHOW_USER_REGIST: (state, action: PayloadAction<boolean>) => {
+      state.showUserRegist = action.payload;
+    },
+
     // タブ変更
     APP_TAB_INDEX: (state, { payload }: PayloadAction<number>) => {
       state.tabIndex = payload;
@@ -66,6 +72,10 @@ const slice = createSlice({
 
     APP_ACTIVE_SUBJECT: (state, { payload }: PayloadAction<string>) => {
       state.activeSubject = payload;
+    },
+
+    APP_SET_AUTHORITY: (state, { payload }: PayloadAction<string | undefined>) => {
+      state.authority = payload;
     },
   },
 });

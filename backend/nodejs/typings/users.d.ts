@@ -1,3 +1,5 @@
+import { Tables } from './tables';
+
 export namespace Users {
   interface CognitoInfos {
     Authority?: string;
@@ -51,12 +53,7 @@ export namespace Users {
     identityPoolId?: string;
   }
 
-  interface CreateUserRequest extends TenantUser {
-    // authority
-    authority: string;
-    // password
-    password?: string;
-  }
+  interface CreateUserRequest extends TenantUser {}
 
   interface CreateUserResponse {
     success: boolean;
@@ -69,4 +66,38 @@ export namespace Users {
   interface ListAdminUsersResponse {
     users: string[];
   }
+
+  interface CreateStudentRequest {
+    username: string;
+    password: string;
+  }
+
+  interface CreateStudentResponse {
+    success: string;
+  }
+
+  interface GetStudentRequest {}
+
+  interface GetStudentResponse {
+    count: number;
+    items: Tables.TUsers[];
+  }
+
+  interface DescribeUserParameter {
+    userId: string;
+  }
+
+  interface DescribeUserRequest {}
+
+  type DescribeUserResponse = Tables.TUsers;
+
+  interface UpdateUserParameter {
+    userId: string;
+  }
+
+  interface UpdateUserRequest {
+    notifications?: string[];
+  }
+
+  type UpdateUserResponse = void;
 }

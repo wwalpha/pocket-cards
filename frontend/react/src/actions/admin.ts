@@ -1,16 +1,17 @@
+import { push } from 'connected-react-router';
 import { withLoading } from '@actions';
 import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';
-import { API } from '@utils';
-import { push } from 'connected-react-router';
-import { APIs, AppDispatch, Group } from 'typings';
+import { AppDispatch } from 'typings';
+import { GroupActions } from '.';
 
 export const selectGroup = (id: string) => (dispatch: AppDispatch) => {
   // active group
   dispatch(Actions.GROUP_ACTIVE(id));
 };
 
-export const selectSubject = (id: string, pathname: string) => (dispatch: AppDispatch) => {
+/** switch menu */
+export const switchSubject = (id: string, pathname: string) => (dispatch: AppDispatch) => {
   // active group
   dispatch(Actions.APP_ACTIVE_SUBJECT(id));
   // move to top page
@@ -19,25 +20,24 @@ export const selectSubject = (id: string, pathname: string) => (dispatch: AppDis
   }
 };
 
-export const editable = (mode: Consts.EDIT_MODE) => (dispatch: AppDispatch) => {
-  // active group
-  dispatch(Actions.GROUP_EDITABLE(mode));
-};
-
-/** グループ編集 */
-export const edit = (details: Group.Details) => (dispatch: AppDispatch) =>
+export const curriculumRegist = (groupId: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
-      // グループ編集API
-      await API.put<void, APIs.GroupUpdateRequest>(Consts.GroupUpdate(details.id), {
-        name: details.name,
-        description: details.description,
-      });
+      // Get question lists
+      dispatch(
+        Actions.USER_CURRICULUM_REGIST({
+          userId: 'Google_109439805128280065775',
+          groupId: groupId,
+        })
+      );
+    })
+  );
 
-      // グループ再取得
-      await dispatch(Actions.GROUP_LIST()).unwrap();
-
-      dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
+export const curriculumRemove = (id: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // Get question lists
+      dispatch(Actions.USER_CURRICULUM_REMOVE(id));
     })
   );
 
@@ -48,16 +48,30 @@ export const questionList = () => (dispatch: AppDispatch) =>
       // Get question lists
       await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
 
-      dispatch(push(Paths.PATHS_ADMIN_GROUP_QUESTIONS));
+      dispatch(push(Paths.PATHS_ADMIN_QUESTIONS));
     })
   );
 
 /** 質問リスト */
-export const clearQuestions = () => (dispatch: AppDispatch) =>
+export const getStudentList = () => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
-      // clear questions
-      dispatch(Actions.GROUP_QUESTION_CLEAR());
+      // Get question lists
+      dispatch(Actions.USER_STUDENTS_LIST());
+
+      dispatch(push(Paths.PATHS_ADMIN_STUDENTS));
+    })
+  );
+
+export const studentRegist = (username: string, password: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // Get question lists
+      await dispatch(Actions.USER_STUDENT_REGIST({ username, password })).unwrap();
+
+      dispatch(Actions.APP_SHOW_USER_REGIST(false));
+
+      getStudentList()(dispatch);
     })
   );
 
@@ -72,3 +86,12 @@ export const uploadQuestions = (texts: string) => (dispatch: AppDispatch) =>
       await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
     })
   );
+
+export const transitToGroupRegist = () => (dispatch: AppDispatch) => {
+  // enable group regist
+  GroupActions.editable(Consts.EDIT_MODE.REGIST)(dispatch);
+  // remove active group
+  GroupActions.activeGroup('')(dispatch);
+  // transit to group detail
+  dispatch(push(Paths.PATHS_ADMIN_GROUP_DETAILS));
+};

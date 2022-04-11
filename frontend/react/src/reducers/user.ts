@@ -10,6 +10,8 @@ const userState: Domains.UserState = {
   username: '',
   // curriculums
   curriculums: [],
+  // students
+  students: [],
 };
 
 const slice = createSlice({
@@ -36,7 +38,6 @@ const slice = createSlice({
 
         state.username = payload.username;
         state.password = payload.password;
-        state.authority = payload.authority;
       })
       .addCase(UserActions.USER_SIGN_UP.fulfilled, (state, { payload }) => {
         console.log('SIGN UP Success');
@@ -49,6 +50,17 @@ const slice = createSlice({
       })
       .addCase(UserActions.USER_CURRICULUM_LIST.fulfilled, (state, { payload }) => {
         state.curriculums = payload.items;
+      })
+      .addCase(UserActions.USER_STUDENTS_LIST.fulfilled, (state, { payload }) => {
+        state.students = payload.items;
+      })
+      .addCase(UserActions.USER_INFORMATIONS.fulfilled, (state, { payload }) => {
+        state.infos = payload;
+      })
+      .addCase(UserActions.USER_UPDATE_NOTIFICATIONS.fulfilled, (state, { payload }) => {
+        if (state.infos) {
+          state.infos.notification = payload;
+        }
       });
   },
 });

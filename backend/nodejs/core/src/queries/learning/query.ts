@@ -89,7 +89,7 @@ export const current = (userId: string, lastTime: string): DynamoDB.DocumentClie
 
 export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid',
+  ProjectionExpression: 'qid, userId',
   KeyConditionExpression: '#groupId = :groupId',
   ExpressionAttributeNames: {
     '#groupId': 'groupId',

@@ -132,7 +132,7 @@ class WebCamera extends React.Component<Props, State, any> {
 
     return (
       <Box>
-        <video className={classes.video} muted autoPlay playsInline style={{ display: isShow }} />
+        <video muted autoPlay playsInline style={{ display: isShow }} />
         <Box display="flex" justifyContent="center" margin={2}>
           <Fab
             style={{ display: isShow }}

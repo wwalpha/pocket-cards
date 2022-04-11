@@ -23,7 +23,7 @@ export const dynamoDB = (
 
   // 初期化する
   return new AWS.DynamoDB.DocumentClient({
-    region: process.env.DEFAULT_REGION,
+    region: process.env['DEFAULT_REGION'],
   });
 };
 
@@ -36,7 +36,7 @@ export const polly = (options?: Polly.ClientConfiguration): Polly => {
   if (options) return new AWS.Polly(options);
 
   return new AWS.Polly({
-    region: process.env.DEFAULT_REGION,
+    region: process.env['DEFAULT_REGION'],
   });
 };
 
@@ -50,8 +50,8 @@ export const s3 = (options?: S3.ClientConfiguration): S3 => {
 
   // 初期化設定なし
   return new AWS.S3({
-    region: process.env.DEFAULT_REGION,
-    endpoint: process.env.AWS_ENDPOINT,
+    region: process.env['DEFAULT_REGION'],
+    endpoint: process.env['AWS_ENDPOINT'],
   });
 };
 
@@ -65,7 +65,7 @@ export const translate = (options?: Translate.ClientConfiguration): Translate =>
 
   // 初期化設定なし
   return new AWS.Translate({
-    region: process.env.DEFAULT_REGION,
+    region: process.env['DEFAULT_REGION'],
   });
 };
 
@@ -79,7 +79,7 @@ export const ssm = (options?: SSM.ClientConfiguration): SSM => {
 
   // 初期化設定なし
   return new AWS.SSM({
-    region: process.env.DEFAULT_REGION,
+    region: process.env['DEFAULT_REGION'],
   });
 };
 
@@ -92,6 +92,6 @@ export const lambda = (options?: Lambda.ClientConfiguration): Lambda => {
 
   // 初期化設定なし
   return new AWS.Lambda({
-    region: process.env.DEFAULT_REGION,
+    region: process.env['DEFAULT_REGION'],
   });
 };

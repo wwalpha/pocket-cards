@@ -85,7 +85,7 @@ export const uploadImage = (image: string) => (dispatch: AppDispatch) =>
 
       const imageSrc = image.replace(/^.*,/, '');
 
-      const res = await API.post<APIs.D001Request, APIs.D001Response>(Consts.D001_URL(), {
+      const res = await API.post<APIs.D001Response, APIs.D001Request>(Consts.D001_URL(), {
         language: 'en',
         content: imageSrc,
       });

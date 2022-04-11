@@ -1,15 +1,17 @@
-// import { Theme, makeStyles, createStyles } from '@mui/material/styles';
+const drawerWidth = 200;
 
-// export default makeStyles(({ palette, spacing }: Theme) =>
-//   createStyles({
-//     japanese: {
-//       color: '',
-//     },
-//     science: {
-//       color: '',
-//     },
-//     society: {
-//       color: '',
-//     },
-//   })
-// );
+export const styles = {
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    '& .MuiDrawer-paper': {
+      width: drawerWidth,
+      boxSizing: 'border-box',
+    },
+    bgcolor: 'primary.main',
+  },
+  list: {},
+  itemIcon: {
+    minWidth: 32,
+  },
+};

@@ -28,6 +28,14 @@ locals {
   ecs_service_env_key_users   = local.remote_services.ecs_service_env_key_users
 
   # ----------------------------------------------------------------------------------------------
+  # IAM Policy
+  # ----------------------------------------------------------------------------------------------
+  iam_policy_arn_cloudwatch_logs = local.remote_services.iam_policy_arn_cloudwatch_logs
+  iam_policy_arn_dynamodb        = local.remote_services.iam_policy_arn_dynamodb
+  iam_policy_arn_ses             = local.remote_services.iam_policy_arn_ses
+  iam_policy_arn_sns             = local.remote_services.iam_policy_arn_sns
+
+  # ----------------------------------------------------------------------------------------------
   # Lambda
   # ----------------------------------------------------------------------------------------------
   lambda_handler          = "index.handler"
@@ -42,12 +50,12 @@ locals {
   dynamodb_name_words       = local.remote_setup.dynamodb_name_words
   dynamodb_name_word_master = local.remote_setup.dynamodb_name_word_master
   dynamodb_name_word_ignore = local.remote_setup.dynamodb_name_word_ignore
-  dynamodb_name_histories   = local.remote_setup.dynamodb_name_histories
   dynamodb_name_questions   = local.remote_setup.dynamodb_name_questions
   dynamodb_name_learning    = local.remote_setup.dynamodb_name_learning
   dynamodb_name_traces      = local.remote_setup.dynamodb_name_traces
   dynamodb_name_settings    = local.remote_setup.dynamodb_name_settings
   dynamodb_name_curriculums = local.remote_setup.dynamodb_name_curriculums
+  dynamodb_name_reports     = local.remote_setup.dynamodb_name_reports
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -91,6 +99,16 @@ locals {
   # ----------------------------------------------------------------------------------------------
   cognito_identity_pool_arn_admin = local.remote_services.cognito_identity_pool_arn_admin
   cognito_identity_pool_arn_users = local.remote_services.cognito_identity_pool_arn_users
+
+  # ----------------------------------------------------------------------------------------------
+  # Route53
+  # ----------------------------------------------------------------------------------------------
+  domain_name = local.remote_setup.route53_zone_name
+
+  # ----------------------------------------------------------------------------------------------
+  # SNS
+  # ----------------------------------------------------------------------------------------------
+  sns_arn_errors_notify = local.remote_services.sns_arn_errors_notify
 }
 
 # ----------------------------------------------------------------------------------------------

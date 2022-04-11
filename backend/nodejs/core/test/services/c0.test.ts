@@ -1,17 +1,15 @@
 import { DynamodbHelper } from '@alphax/dynamodb';
-import axios, { AxiosStatic } from 'axios';
 import request from 'supertest';
 import { Groups, Words } from '@queries';
 import { Environment } from '@consts';
 import { DateUtils } from '@utils';
-import server from '@src/server';
+import server from '@src/app';
 import * as C0 from '../datas/c0';
 import { HEADER_AUTH } from '@test/Commons';
 
 jest.mock('axios');
-const api = axios as jest.Mocked<AxiosStatic>;
 
-const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
 
 describe('C0', () => {
   afterEach(async () => {
@@ -90,7 +88,6 @@ describe('C0', () => {
       .expect(200);
 
     const wordItem = (await client.get(Words.get({ id: 'WORD-4', groupId: 'C004' })))?.Item;
-    const historyItem = await (await client.scan({ TableName: Environment.TABLE_NAME_TRACES })).Items[0];
 
     const expectWord = C0.C004Res01_Word;
     // @ts-ignore
@@ -100,7 +97,6 @@ describe('C0', () => {
 
     // found 2 records
     expect(wordItem).toEqual(expectWord);
-    // expect(historyItem).toMatchObject(C0.C004Res01_History);
   });
 
   test('C004_002:学習失敗', async () => {
@@ -113,7 +109,6 @@ describe('C0', () => {
       .expect(200);
 
     const wordItem = (await client.get(Words.get({ id: 'WORD-4', groupId: 'C004' })))?.Item;
-    const historyItem = (await client.scan({ TableName: Environment.TABLE_NAME_TRACES })).Items[0];
 
     const expectWord = C0.C004Res02_Word;
     // @ts-ignore
@@ -122,7 +117,6 @@ describe('C0', () => {
     expectWord.nextTime = DateUtils.getNow();
 
     expect(wordItem).toEqual(expectWord);
-    // expect(historyItem).toMatchObject(C0.C004Res02_History);
   });
 
   test('C004_003:単語情報更新_既存単語あり', async () => {

@@ -1,6 +1,6 @@
-import { Groups, Words } from '@queries';
-import { Commons, DBHelper } from '@utils';
-import server from '@src/server';
+import { Groups } from '@queries';
+import { DBHelper } from '@utils';
+import server from '@src/app';
 import request from 'supertest';
 import * as B0 from '../datas/b0';
 import { APIs } from 'typings';
@@ -8,8 +8,8 @@ import { HEADER_AUTH } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { TABLE_NAME_WORDS } from '@src/consts/Environment';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
-const TABLE_NAME_GROUPS = process.env.TABLE_NAME_GROUPS as string;
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
+const TABLE_NAME_GROUPS = process.env['TABLE_NAME_GROUPS'] as string;
 
 describe('b0', () => {
   afterEach(async () => {
@@ -24,7 +24,6 @@ describe('b0', () => {
     expect(res.statusCode).toBe(200);
 
     const { groupId } = res.body as APIs.GroupRegistResponse;
-    const userId = Commons.getUserInfo(HEADER_AUTH);
     const result = await DBHelper().get(Groups.get({ id: groupId }));
 
     expect(result?.Item).toMatchObject(B0.B001Res);
@@ -86,7 +85,6 @@ describe('b0', () => {
     const res = await request(server).delete('/v1/groups/B005').set('authorization', HEADER_AUTH).send(B0.B004Req01);
 
     // database
-    const userId = Commons.getUserInfo(HEADER_AUTH);
     const result = await DBHelper().get(Groups.get({ id: 'B005' }));
 
     // status code
