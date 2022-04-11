@@ -9,10 +9,10 @@ import SwiftUI
 
 class SocietyHomeRouter {
     func makeStudyiew() -> some View {
-        return DailyStudyView(subject: SUBJECT.SOCIETY).configureView()
+        DailyStudyView(subject: SUBJECT.SOCIETY).configureView()
     }
 
     func makeTestView() -> some View {
-        return DailyTestView(subject: SUBJECT.SOCIETY).configureView()
+        DailyTestView(subject: SUBJECT.SOCIETY).configureView()
     }
 }

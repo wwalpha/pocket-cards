@@ -5,12 +5,12 @@
 //  Created by macmini on 2022/03/07.
 //
 
-import SwiftUI
 import Amplify
+import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var auth: Authentication
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -24,7 +24,7 @@ struct LoginView: View {
                         .foregroundColor(Color.white)
                         .background(Color.society)
                 }
-                
+
                 Button {
                     auth.signOut()
                 } label: {
@@ -37,6 +37,5 @@ struct LoginView: View {
                 }
             }
         }
-        
     }
 }

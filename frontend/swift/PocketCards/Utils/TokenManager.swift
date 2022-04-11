@@ -26,10 +26,10 @@ class TokenManager {
     }
 
     func getIdToken() -> String {
-        return idToken
+        idToken
     }
 
     func getAccessToken() -> String {
-        return accessToken
+        accessToken
     }
 }

@@ -35,5 +35,9 @@ struct NavigationBarModifier: ViewModifier {
 extension View {
     func navigationBarColor(_ backgroundColor: UIColor, _ foregroundColor: UIColor = UIColor.white) -> some View {
         modifier(NavigationBarModifier(backgroundColor: backgroundColor, foregroundColor: foregroundColor))
+
+//        modifier(NavigationBarModifier(
+//            backgroundColor: LinearGradient(colors: [backgroundColor, backgroundColor.withAlphaComponent(0.2)], startPoint: .bottomTrailing, endPoint: .topLeading),
+//            foregroundColor: foregroundColor))
     }
 }

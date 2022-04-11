@@ -12,8 +12,11 @@ class URLs {
     static let STUDY = "\(HOST)/v1/questions/study"
     static let TEST = "\(HOST)/v1/questions/test"
 
+    static let PROGRESS = "\(HOST)/v1/reports/progress"
+    static let DAILY_TASKS = "\(HOST)/v1/reports/dailytasks"
+
     static func ANSWER(id: String) -> String {
-        return "\(HOST)/v1/questions/\(id)/answer"
+        "\(HOST)/v1/questions/\(id)/answer"
     }
 
     static let REPORT_DAILY = "\(HOST)/v1/reports/daily"
@@ -35,6 +38,6 @@ enum Correct {
     private static let uncorrect = "0"
 
     static func convert(value: Bool) -> String {
-        return value ? correct : uncorrect
+        value ? correct : uncorrect
     }
 }

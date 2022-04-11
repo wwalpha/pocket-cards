@@ -16,6 +16,7 @@ struct PocketCardsApp: App {
             ContentView().onAppear {
                 Auth.initialize()
             }.environmentObject(Auth)
+//            SwiftUIView2()
         }
     }
 }
