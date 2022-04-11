@@ -6,6 +6,5 @@ export * as WordIgnore from './wordIgnore';
 export * as Users from './users';
 export * as Questions from './questions';
 export * as Learning from './learning';
-export * as Histories from './histories';
 export * as Curriculums from './curriculums';
 export * as Reports from './reports';
