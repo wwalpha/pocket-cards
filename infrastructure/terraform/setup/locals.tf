@@ -43,6 +43,7 @@ locals {
   dynamodb_name_traces      = "${var.project_name}-traces-${local.suffix}"
   dynamodb_name_settings    = "${var.project_name}-settings-${local.suffix}"
   dynamodb_name_curriculums = "${var.project_name}-curriculums-${local.suffix}"
+  dynamodb_name_reports     = "${var.project_name}-reports-${local.suffix}"
 }
 
 # ----------------------------------------------------------------------------------------------

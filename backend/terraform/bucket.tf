@@ -22,6 +22,7 @@ TABLE_NAME_QUESTIONS=${local.dynamodb_name_questions}
 TABLE_NAME_LEARNING=${local.dynamodb_name_learning}
 TABLE_NAME_TRACES=${local.dynamodb_name_traces}
 TABLE_NAME_CURRICULUMS=${local.dynamodb_name_curriculums}
+TABLE_NAME_REPORTS=${local.dynamodb_name_reports}
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
 BUCKET_NAME_MATERAILS=${local.bucket_name_materials}
 PATH_PATTERN=audio

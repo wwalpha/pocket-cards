@@ -333,3 +333,27 @@ resource "aws_dynamodb_table" "curriculums" {
     Project = local.project_name_uc
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Reports
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "reports" {
+  name         = local.dynamodb_name_reports
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "userId"
+  range_key    = "typeDate"
+
+  attribute {
+    name = "userId"
+    type = "S"
+  }
+
+  attribute {
+    name = "typeDate"
+    type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
+  }
+}

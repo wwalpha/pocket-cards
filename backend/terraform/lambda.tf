@@ -111,6 +111,7 @@ resource "aws_lambda_function" "batch" {
       TABLE_NAME_TRACES    = local.dynamodb_name_traces
       TABLE_NAME_HISTORIES = local.dynamodb_name_histories
       TABLE_NAME_LEARNING  = local.dynamodb_name_learning
+      TABLE_NAME_REPORTS   = local.dynamodb_name_reports
       MASTER_EMAIL_ADDRESS = "master@${local.domain_name}"
       TZ                   = "Asia/Tokyo"
     }
