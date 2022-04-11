@@ -43,7 +43,16 @@ export default () => {
               Guardian Dashboard
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
-              {pathname === Paths.PATHS_GUARDIAN_STUDENTS && (
+              {pathname === Paths.PATHS_ADMIN_STUDENTS && (
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                  onClick={handleUserReigst}>
+                  ADD
+                </Button>
+              )}
+              {pathname === Paths.PATHS_ADMIN_GROUP_DETAILS && (
                 <Button
                   variant="outlined"
                   color="inherit"
@@ -67,8 +76,8 @@ export default () => {
           <Route exact path={path} component={Mainboard} />
           <Route path={Paths.PATHS_ADMIN_GROUP_DETAILS} component={GroupDetails} />
           <Route path={Paths.PATHS_ADMIN_QUESTIONS} component={QuestionList} />
-          <Route path={Paths.PATHS_GUARDIAN_STUDENTS} component={Students} />
-          <Route path={Paths.PATHS_GUARDIAN_SETTINGS} component={Settings} />
+          <Route path={Paths.PATHS_ADMIN_STUDENTS} component={Students} />
+          <Route path={Paths.PATHS_ADMIN_SETTINGS} component={Settings} />
         </Switch>
       </Box>
     </Box>

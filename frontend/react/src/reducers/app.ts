@@ -73,6 +73,10 @@ const slice = createSlice({
     APP_ACTIVE_SUBJECT: (state, { payload }: PayloadAction<string>) => {
       state.activeSubject = payload;
     },
+
+    APP_SET_AUTHORITY: (state, { payload }: PayloadAction<string | undefined>) => {
+      state.authority = payload;
+    },
   },
 });
 

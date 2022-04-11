@@ -25,6 +25,7 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
       dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
       // initialize
       dispatch(Actions.GROUP_LIST());
+      dispatch(Actions.APP_SET_AUTHORITY(res.authority));
 
       // login success
       if (res.authority === Consts.Authority.PARENT) {
