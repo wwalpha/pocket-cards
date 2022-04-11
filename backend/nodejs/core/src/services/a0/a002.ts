@@ -63,7 +63,13 @@ const queryRemaining = async (userId: string) => {
 
   // グループごと検索する
   for (let idx = 0; idx < userInfo.Items.length; idx = idx + 1) {
-    const groupId = userInfo.Items[idx].id;
+    const item = userInfo.Items[idx];
+
+    // not exists to continue
+    if (!item) continue;
+
+    // group id
+    const groupId = item.id;
 
     // 件数検索
     let result = await DBHelper().query(Words.query.queryByDate(groupId, DateUtils.getNow()));

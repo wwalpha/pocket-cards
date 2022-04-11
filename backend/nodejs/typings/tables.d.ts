@@ -10,13 +10,19 @@ export namespace Tables {
     // ユーザ ICon
     icon?: string;
     // メール
-    email: string;
+    email?: string;
     // TENANT_ADMIN / TENANT_USER
     role: string;
     // 保護者・利用者・管理者
     authority: string;
     //
     sub?: string;
+    // 生徒一覧
+    students?: string[];
+    // 教師
+    teacher?: string;
+    // 通知先(教師のみ)
+    notification?: string[];
   }
 
   interface TGroupsKey {
@@ -32,7 +38,7 @@ export namespace Tables {
     // 説明
     description?: string;
     // 単語数
-    count?: number;
+    count: number;
     // index
     index?: number;
   }
@@ -76,11 +82,11 @@ export namespace Tables {
   interface TLearningKey {
     // 問題ID
     qid: string;
+    // ユーザID
+    userId: string;
   }
 
   interface TLearning extends TLearningKey {
-    // ユーザID
-    userId: string;
     // グループID
     groupId: string;
     // 次回の学習時間
@@ -174,19 +180,6 @@ export namespace Tables {
     subject?: string;
   }
 
-  interface THistoriesKey {
-    // ユーザID
-    userId: string;
-    // Timestamp
-    timestamp: string;
-  }
-
-  interface THistories extends THistoriesKey {
-    japanese?: number;
-    science?: number;
-    society?: number;
-  }
-
   interface TSettingsKey {
     // ID
     id: string;
@@ -211,5 +204,29 @@ export namespace Tables {
   interface TCurriculumsGSI1Key {
     userId: string;
     groupId: string;
+  }
+
+  interface TReportsKey {
+    // ID
+    userId: string;
+    // Timestamp
+    typeDate: string;
+  }
+
+  interface TReports extends TReportsKey, DailyProgressReport {
+    times?: OverallTimesReport[];
+  }
+
+  interface DailyProgressReport {
+    japanese?: number;
+    science?: number;
+    society?: number;
+  }
+
+  interface OverallTimesReport {
+    times: number;
+    japanese?: number;
+    science?: number;
+    society?: number;
   }
 }

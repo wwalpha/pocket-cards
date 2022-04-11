@@ -70,3 +70,34 @@ resource "aws_lambda_permission" "authorizer" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.this.execution_arn}/authorizers/${aws_apigatewayv2_authorizer.auth.id}"
 }
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Function - Webhook
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_function" "webhook" {
+  function_name     = "${local.project_name}-errors-webhook"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = aws_s3_object.lambda_webhook.key
+  s3_object_version = aws_s3_object.lambda_webhook.version_id
+  handler           = local.lambda_handler
+  runtime           = local.lambda_runtime
+  memory_size       = 128
+  role              = aws_iam_role.authorizer.arn
+  timeout           = 3
+
+  environment {
+    variables = {
+      WEBHOOK_URL = var.webhook_url
+    }
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Function Permission - Cognito Admin
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_permission" "webhook" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.webhook.arn
+  principal     = "sns.amazonaws.com"
+  source_arn    = aws_sns_topic.error_notify.arn
+}

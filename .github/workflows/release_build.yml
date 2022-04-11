@@ -8,384 +8,149 @@ on:
 
 env:
   AWS_DEFAULT_REGION: us-east-1
-  WORKING_DIR_TERRAFORM: infrastructure/terraform
-  WORKING_DIR_BACKEND: backend
   WORKING_DIR_FRONTEND: frontend/react
-  TF_WORKSPACE: prod
-  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-  TF_VARS: ${{ secrets.TERRAFORM_VARS }}
-  ECS_CLUSTER_NAME: pkc-cluster
-  ECS_TAKS_DEFINITION: pkc-backend
-  ECS_TAKS_DEFINITION_FILE: task_definition.json
-  ECR_REPO_AUTH: pkc/auth
-  ECR_REPO_BACKEND: pkc/backend
-  ECR_REPO_BATCH: pkc/batch
-  ECR_REPO_USERS: pkc/users
-  SSM_PARAMETER_NAME_ECR: /pkc/repository_url
-  SSM_PARAMETER_NAME_FRONTEND: /pkc/frontend
-  S3_BUCKET: pkc-archive-af2a18
 
 jobs:
-  Terraform:
-    runs-on: ubuntu-latest
-    environment:
-      name: prod
+  #Terraform
+  Terraform_Setup:
+    uses: ./.github/workflows/reuse_terraform.yml
+    with:
+      region: us-east-1
+      working-directory: infrastructure/terraform/setup
+      environment: prod
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
-    steps:
-      # source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Install the latest version of Terraform CLI 
-      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.1.7
-          cli_config_credentials_hostname: app.terraform.io
-          cli_config_credentials_token: ${{ env.TF_API_TOKEN }}
-
-      # Terraform Setup
-      - name: Terraform Setup
-        working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/setup
-        run: |
-          echo $TF_VARS > local.auto.tfvars.json
-          terraform init
-          terraform plan
-          terraform apply -auto-approve
-
-      # Terraform Service
-      - name: Terraform Service
-        working-directory: ${{ env.WORKING_DIR_TERRAFORM }}/services
-        run: |
-          echo $TF_VARS > local.auto.tfvars.json
-          terraform init
-          terraform plan
-          terraform apply -auto-approve
+  Terraform_Service:
+    needs: Terraform_Setup
+    uses: ./.github/workflows/reuse_terraform.yml
+    with:
+      region: us-east-1
+      working-directory: infrastructure/terraform/services
+      environment: prod
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
   # Backend
   Backend:
-    runs-on: ubuntu-latest
-    environment:
-      name: prod
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/core
-
-    steps:
-      # Source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # Install, Build
-      - name: Build
-        run: |
-          yarn install
-          yarn build
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Unit Test
-      - name: Unit Test
-        run: |
-          docker-compose up -d --build
-          sleep 10
-          yarn test
-          docker-compose down
-
-      # ECR Login
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      # docker build and push
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REPO_BACKEND .
-          docker tag $ECR_REPO_BACKEND $ECR_REGISTRY/$ECR_REPO_BACKEND:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPO_BACKEND:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPO_BACKEND:$IMAGE_TAG"
-
-      # Update Repository URL
-      - name: Update ecs repository url
-        run: |
-          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/backend --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
+    uses: ./.github/workflows/reuse_ecs_build.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/core
+      environment: prod
+      run-tests: false
+      ECS_SERVICE_NAME: backend
+      ECR_REPOSITORY: pkc/backend
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Batch
   Batch:
-    runs-on: ubuntu-latest
-    environment:
-      name: prod
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/batch
-
-    steps:
-      # Source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # Install, Build
-      - name: Build
-        run: |
-          yarn install
-          yarn build
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Unit Test
-      # - name: Unit Test
-      #   run: |
-      #     docker-compose up -d --build
-      #     sleep 10
-      #     yarn test
-      #     docker-compose down
-
-      # ECR Login
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      # docker build and push
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REPO_BATCH .
-          docker tag $ECR_REPO_BATCH $ECR_REGISTRY/$ECR_REPO_BATCH:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPO_BATCH:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPO_BATCH:$IMAGE_TAG"
-
-      # Update Repository URL
-      - name: Update ecs repository url
-        run: |
-          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/batch --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
+    uses: ./.github/workflows/reuse_ecs_build.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/batch
+      environment: prod
+      run-tests: false
+      ECS_SERVICE_NAME: batch
+      ECR_REPOSITORY: pkc/batch
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Auth Manager
   Auth_Manager:
-    runs-on: ubuntu-latest
-    environment:
-      name: prod
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/auth_manager
-
-    steps:
-      # Source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # Install, Build
-      - name: Build
-        run: |
-          yarn install
-          yarn build
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Unit Test
-      - name: Unit Test
-        run: |
-          docker-compose up -d --build
-          sleep 10
-          yarn test
-          docker-compose down
-
-      # ECR Login
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      # docker build and push
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REPO_AUTH .
-          docker tag $ECR_REPO_AUTH $ECR_REGISTRY/$ECR_REPO_AUTH:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPO_AUTH:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPO_AUTH:$IMAGE_TAG"
-
-      # Update Repository URL
-      - name: Update ecs repository url
-        run: |
-          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/auth --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
+    uses: ./.github/workflows/reuse_ecs_build.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/auth_manager
+      environment: prod
+      ECS_SERVICE_NAME: auth_manager
+      ECR_REPOSITORY: pkc/auth
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Users Manager
-  User_Manager:
-    runs-on: ubuntu-latest
-    environment:
-      name: prod
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/user_manager
-
-    steps:
-      # Source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # Install, Build
-      - name: Build
-        run: |
-          yarn install
-          yarn build
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Unit Test
-      - name: Unit Test
-        run: |
-          docker-compose up -d --build
-          sleep 10
-          yarn test
-          docker-compose down
-
-      # ECR Login
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      # docker build and push
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REPO_USERS .
-          docker tag $ECR_REPO_USERS $ECR_REGISTRY/$ECR_REPO_USERS:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPO_USERS:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPO_USERS:$IMAGE_TAG"
-
-      # Update Repository URL
-      - name: Update ecs repository url
-        run: |
-          aws ssm put-parameter --name $SSM_PARAMETER_NAME_ECR/users --type "String" --value ${{ steps.build-image.outputs.image }} --overwrite
+  Users_Manager:
+    uses: ./.github/workflows/reuse_ecs_build.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/user_manager
+      environment: prod
+      ECS_SERVICE_NAME: user_manager
+      ECR_REPOSITORY: pkc/users
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Lambda
-  Lambda:
-    runs-on: ubuntu-latest
-    concurrency: Lambda
-    environment:
-      name: prod
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
+  Lambda_Cognito:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/lambda/cognito
+      environment: prod
+      outputs-bucket: pkc-archive-af2a18
+      function-name: cognito
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-    steps:
-      # Source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
+  Lambda_Authorizer:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/lambda/authorizer
+      environment: prod
+      outputs-bucket: pkc-archive-af2a18
+      function-name: authorizer
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
+  Lambda_Status:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/lambda/status
+      environment: prod
+      outputs-bucket: pkc-archive-af2a18
+      function-name: status
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+  Lambda_Start:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/lambda/start
+      environment: prod
+      outputs-bucket: pkc-archive-af2a18
+      function-name: start
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # Install and Build
-      - name: Authorizer
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
-        run: |
-          cd authorizer
-          yarn install
-          yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/authorizer.zip
-
-      # Install and Build
-      - name: Status
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
-        run: |
-          cd status
-          yarn install
-          yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/status.zip
-
-      # Install and Build
-      - name: Start
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
-        run: |
-          cd start
-          yarn install
-          yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/start.zip
-
-      # Install and Build
-      - name: Stop
-        working-directory: ${{ env.WORKING_DIR_BACKEND }}/nodejs/lambda
-        run: |
-          cd stop
-          yarn install
-          yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/stop.zip
+  Lambda_Stop:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/lambda/stop
+      environment: prod
+      outputs-bucket: pkc-archive-af2a18
+      function-name: stop
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Frontend
   Frontend:
@@ -395,6 +160,7 @@ jobs:
       name: prod
     env:
       NODE_ENV: production
+      TF_WORKSPACE: prod
     defaults:
       run:
         working-directory: ${{ env.WORKING_DIR_FRONTEND }}
@@ -414,7 +180,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.0.4
+          terraform_version: 1.1.7
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
           terraform_wrapper: false
 

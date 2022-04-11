@@ -221,7 +221,7 @@ resource "aws_iam_role" "authorizer" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS Lambda Execution Policy - CloudWatch Full Access
+# AWS Lambda Execution Policy - Lambda Basic Policy
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "authorizer" {
   role       = aws_iam_role.authorizer.name
@@ -229,7 +229,7 @@ resource "aws_iam_role_policy_attachment" "authorizer" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS Lambda Execution Policy - Dynamodb Basic Access
+# AWS Lambda Execution Policy - Dynamodb Basic
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "authorizer_dynamodb" {
   role       = aws_iam_role.authorizer.name
@@ -253,7 +253,7 @@ resource "aws_iam_role" "cognito_post_signup" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "cognito_post_signup_cloudwatch_logs" {
   role       = aws_iam_role.cognito_post_signup.name
-  policy_arn = local.lambda_basic_policy_arn
+  policy_arn = aws_iam_policy.cloudwatch_logs_basic.arn
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -293,6 +293,14 @@ resource "aws_iam_role_policy_attachment" "ecs_task_users_cognito" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy - SES Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "ecs_task_users_ses" {
+  role       = aws_iam_role.ecs_task_users.name
+  policy_arn = aws_iam_policy.ses_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS ECS Task Role - Backup
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role" "backup" {
@@ -311,4 +319,24 @@ resource "aws_iam_role" "backup" {
 resource "aws_iam_role_policy_attachment" "backup" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
   role       = aws_iam_role.backup.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - Webhook
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "webhook" {
+  name               = "${local.project_name_uc}_WebhookRole"
+  assume_role_policy = data.aws_iam_policy_document.lambda.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Execution Policy - CloudWatch Full Access
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "webhook_policy" {
+  role       = aws_iam_role.webhook.name
+  policy_arn = local.lambda_basic_policy_arn
 }

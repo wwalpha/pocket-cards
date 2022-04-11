@@ -7,6 +7,7 @@ export const Environments = {
 };
 
 export const Authority = {
+  ADMIN: 'TENANT_ADMIN',
   PARENT: 'PARENT',
-  CHILD: 'CHILD',
+  STUDENT: 'STUDENT',
 };

@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { defaultTo } from 'lodash';
-import { DateUtils, DBHelper } from '@utils';
+import { Commons, DateUtils, DBHelper } from '@utils';
 import { Traces, Learning } from '@queries';
 import { APIs, Tables } from 'typings';
 
@@ -8,9 +8,10 @@ export default async (
   req: Request<APIs.QuestionAnswerParams, any, APIs.QuestionAnswerRequest, any>
 ): Promise<APIs.QuestionAnswerResponse> => {
   const input = req.body;
+  const userId = Commons.getUserId(req);
   const { questionId } = req.params;
 
-  const result = await DBHelper().get<Tables.TLearning>(Learning.get({ qid: questionId }));
+  const result = await DBHelper().get<Tables.TLearning>(Learning.get({ qid: questionId, userId: userId }));
   const question = result?.Item;
 
   if (!question) {

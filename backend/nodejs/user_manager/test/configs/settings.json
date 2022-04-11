@@ -1,8 +1,14 @@
 [
   {
-    "Id": "TENANT_ADMIN",
-    "ClientId": "3ufbckbi3hhe0rkf2j5v937599",
-    "IdentityPoolId": "us-east-1:c487b042-a392-4da3-826a-99999999999",
-    "UserPoolId": "us-east-1_9999999999"
+    "id": "TENANT_ADMIN",
+    "identityPoolId": "ap-northeast-1:213c8a6f-616f-438d-9067-05a1ba1bf42d",
+    "clientId": "5i60pbdfn6cauls2uobr9j2dpj",
+    "userPoolId": "ap-northeast-1_AxCCRks3R"
+  },
+  {
+    "id": "TENANT_USER",
+    "identityPoolId": "ap-northeast-1:58cf19ae-8444-45fa-941d-a99a8074de4e",
+    "clientId": "503leveidc92dss87gf1e3sm9i",
+    "userPoolId": "ap-northeast-1_xnk5dRyF1"
   }
 ]

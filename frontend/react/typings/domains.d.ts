@@ -1,6 +1,14 @@
 import { APIs, Tables, App, Group } from '.';
 
 export namespace Domains {
+  interface States {
+    router: any;
+    app: AppState;
+    study: StudyState;
+    group: GroupState;
+    user: UserState;
+  }
+
   interface AppState {
     // message type
     severity?: 'success' | 'info' | 'warning' | 'error';
@@ -8,6 +16,8 @@ export namespace Domains {
     message?: string;
     // stack open flag
     showSnackbar: boolean;
+    // show user regist
+    showUserRegist: boolean;
     // tab index
     tabIndex: number;
     // loading
@@ -18,6 +28,8 @@ export namespace Domains {
     displayCtrl: Record<number, boolean>;
     // active subject
     activeSubject: string;
+    // authority
+    authority?: string;
   }
 
   interface GroupState {
@@ -48,10 +60,12 @@ export namespace Domains {
     username: string;
     // password
     password?: string;
-    // authority
-    authority?: string;
     // curriculums
     curriculums: Tables.TCurriculums[];
+    // students
+    students: Tables.TUsers[];
+    // user informations
+    infos?: Tables.TUsers;
   }
 
   interface StudyState {

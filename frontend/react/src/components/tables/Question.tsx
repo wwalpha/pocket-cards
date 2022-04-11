@@ -19,6 +19,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
+const styles = {
+  tableCell: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: 45 / 100,
+  },
+};
 const table: FunctionComponent<QuestionTable> = ({ datas }) => {
   return (
     <TableContainer component={Paper}>
@@ -34,8 +42,8 @@ const table: FunctionComponent<QuestionTable> = ({ datas }) => {
           {datas.map((item) => (
             <TableRow hover key={item.id}>
               <TableCell>{item.id}</TableCell>
-              <TableCell>{item.title}</TableCell>
-              <TableCell>{item.answer}</TableCell>
+              <TableCell sx={styles.tableCell}>{item.title}</TableCell>
+              <TableCell sx={styles.tableCell}>{item.answer}</TableCell>
             </TableRow>
           ))}
         </TableBody>

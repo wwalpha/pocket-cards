@@ -22,22 +22,22 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
         return;
       }
 
+      dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
+      // initialize
+      dispatch(Actions.GROUP_LIST());
+      dispatch(Actions.APP_SET_AUTHORITY(res.authority));
+
       // login success
-      if (res.authority === Consts.Authority.ADMIN) {
-        dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
-        // initialize
-        dispatch(Actions.GROUP_LIST());
-      } else if (res.authority === Consts.Authority.PARENT) {
-        dispatch(push(Paths.PATHS_GUARDIAN_TOP));
-        // initialize
-        dispatch(Actions.GROUP_LIST());
+      if (res.authority === Consts.Authority.PARENT) {
         // initialize
         dispatch(Actions.USER_CURRICULUM_LIST());
+        // initialize
+        dispatch(Actions.USER_INFORMATIONS());
       }
     })
   );
 
-export const signup = (username: string, email: string, authority: string) => (dispatch: AppDispatch) =>
+export const signup = (username: string, email: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // sign in
@@ -46,7 +46,6 @@ export const signup = (username: string, email: string, authority: string) => (d
           userId: email,
           userName: username,
           email: email,
-          authority: authority,
         })
       ).unwrap();
 
@@ -63,7 +62,16 @@ export const signup = (username: string, email: string, authority: string) => (d
     })
   );
 
-/** ログアウト */
-export const logout = () => async (dispatch: AppDispatch) => {
-  dispatch(Actions.SIGN_OUT);
-};
+export const getUserInfo = () => (dispatch: AppDispatch) => dispatch(Actions.USER_INFORMATIONS());
+
+export const updateNotifications = (notifications: string[]) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // sign in
+      dispatch(
+        Actions.USER_UPDATE_NOTIFICATIONS({
+          notifications,
+        })
+      );
+    })
+  );

@@ -1,6 +1,6 @@
 import winston, { format, transports } from 'winston';
 
-const loggerLevel = process.env.LOGGER_LEVEL ? process.env.LOGGER_LEVEL : 'info';
+const loggerLevel = process.env['LOGGER_LEVEL'] ? process.env['LOGGER_LEVEL'] : 'info';
 
 const Logger = winston.createLogger({
   level: loggerLevel,

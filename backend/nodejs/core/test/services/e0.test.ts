@@ -1,7 +1,7 @@
 import axios, { AxiosStatic } from 'axios';
 import request from 'supertest';
 import { DynamodbHelper } from '@alphax/dynamodb';
-import server from '@src/server';
+import server from '@src/app';
 import { WordMaster } from '@queries';
 import { DBHelper } from '@utils';
 import { HEADER_AUTH } from '@test/Commons';
@@ -11,7 +11,7 @@ import { Environment } from '@consts';
 jest.mock('axios');
 
 const api = axios as jest.Mocked<AxiosStatic>;
-const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
 
 describe.skip('e0', () => {
   afterEach(async () => {

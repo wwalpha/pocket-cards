@@ -49,7 +49,7 @@ describe('auth manager', () => {
       .post('/v1/auth/login')
       .send({
         username: 'test001',
-        password: 'password001',
+        password: 'code001code001',
       } as Auth.SignInRequest);
 
     expect(response.statusCode).toBe(200);

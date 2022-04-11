@@ -53,6 +53,12 @@ export const CURRICULUM_LIST = () => `${API_VERSION}/curriculums`;
 export const CURRICULUM_REGIST = () => `${API_VERSION}/curriculums`;
 export const CURRICULUM_REMOVE = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}`;
 
+export const STUDENT_REGIST = () => `${API_VERSION}/users/students`;
+export const STUDENT_LIST = () => `${API_VERSION}/users/students`;
+
+export const DESCRIBE_USER = (userId: string) => `${API_VERSION}/users/${userId}`;
+export const UPDATE_USER = (userId: string) => `${API_VERSION}/users/${userId}`;
+
 export const VERSION = `${process.env.VERSION}`;
 
 export const MODES = {
@@ -75,7 +81,7 @@ export const SERVER_STATUS = {
 export const Authority = {
   ADMIN: 'TENANT_ADMIN',
   PARENT: 'PARENT',
-  CHILD: 'CHILD',
+  STUDENT: 'STUDENT',
 };
 
 export const HEADER_HEIGHT = 64;

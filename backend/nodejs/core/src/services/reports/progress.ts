@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Histories } from '@queries';
+import { Reports } from '@queries';
 import { DBHelper, Commons } from '@utils';
 import { APIs, Tables } from 'typings';
 import * as _ from 'lodash';
@@ -10,11 +10,16 @@ export default async (
   const userId = Commons.getUserId(req);
 
   // 問題一覧
-  const results = await DBHelper().query<Tables.THistories>(Histories.query.byUserId(userId));
+  const results = await DBHelper().query<Tables.TReports>(Reports.query.byDailyProgress(userId));
 
-  const items = _.orderBy(results.Items, ['timestamp', 'asc']);
+  const items = _.orderBy(results.Items, ['typeDate', 'asc']);
 
   return {
-    histories: items.map((item) => _.omit(item, ['userId'])),
+    histories: items.map((item) => ({
+      timestamp: item.typeDate.split('_')[2] as string,
+      japanese: item.japanese,
+      science: item.science,
+      society: item.society,
+    })),
   };
 };

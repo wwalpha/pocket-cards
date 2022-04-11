@@ -76,6 +76,22 @@ resource "aws_s3_object" "lambda_cognito" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda webhook module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_webhook" {
+  bucket      = local.bucket_name_archive
+  key         = "lambda/webhook.zip"
+  source      = data.archive_file.lambda_webhook.output_path
+  source_hash = data.archive_file.lambda_webhook.output_sha
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
 # Archive file - Lambda default module
 # ----------------------------------------------------------------------------------------------
 data "archive_file" "lambda_default" {
@@ -121,6 +137,67 @@ exports.handler = async (event) => {
   }
   return response;
 };
+EOT
+    filename = "index.js"
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Archive file - Lambda webhook module
+# ----------------------------------------------------------------------------------------------
+data "archive_file" "lambda_webhook" {
+  type        = "zip"
+  output_path = "${path.module}/dist/webhook.zip"
+
+  source {
+    content  = <<EOT
+'use strict';
+exports.__esModule = true;
+exports.handler = void 0;
+var https = require('node:https');
+var WEBHOOK_URL = process.env.WEBHOOK_URL;
+var handler = function (event) {
+  var sns = event.Records[0].Sns;
+  var context = JSON.parse(sns.Message);
+  var payload = context.responsePayload;
+  var datas = JSON.stringify({
+    type: 'message',
+    attachments: [
+      {
+        contentType: 'application/vnd.microsoft.card.adaptive',
+        content: {
+          $schema: 'http://adaptivecards.io/schemas/adaptive-card.json',
+          type: 'AdaptiveCard',
+          version: '1.2',
+          body: [
+            {
+              type: 'TextBlock',
+              text: payload.errorType,
+              size: 'Large',
+              weight: 'Bolder',
+              spacing: 'None',
+            },
+            {
+              type: 'TextBlock',
+              text: payload.errorMessage,
+              wrap: true,
+            },
+          ],
+        },
+      },
+    ],
+  });
+  var request = https.request(WEBHOOK_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(datas),
+    },
+  });
+  request.write(datas);
+  request.end();
+};
+exports.handler = handler;
 EOT
     filename = "index.js"
   }

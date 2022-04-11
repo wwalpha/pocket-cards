@@ -1,15 +1,14 @@
 import { DBHelper } from '@utils';
-import server from '@src/server';
+import server from '@src/app';
 import request from 'supertest';
 import * as QUESTIONS from '../datas/questions';
 import { HEADER_AUTH } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
-import { Tables, APIs } from 'typings';
-import { Learning, Questions } from '@queries';
-import orderBy from 'lodash/orderBy';
+import { APIs } from 'typings';
+import { Learning } from '@queries';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
 
 jest.setTimeout(10000);
 
@@ -20,7 +19,7 @@ describe('d0', () => {
     await client.truncateAll(Environment.TABLE_NAME_LEARNING);
   });
 
-  test('Question01:問題一括登録', async () => {
+  test.skip('Question01:問題一括登録', async () => {
     await client.bulk(Environment.TABLE_NAME_GROUPS, QUESTIONS.REGIST001_DB_GROUP);
 
     const apiPath = '/v1/groups/G001/questions';
@@ -94,7 +93,7 @@ describe('d0', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
-    const result = await DBHelper().get(Learning.get({ qid: 'Q001' }));
+    const result = await DBHelper().get(Learning.get({ qid: 'Q001', userId: '84d95083-9ee8-4187-b6e7-8123558ef2c1' }));
 
     expect(result?.Item).toMatchObject(QUESTIONS.ANSWER04_EXPECT01);
   });
@@ -114,7 +113,7 @@ describe('d0', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
-    const result = await DBHelper().get(Learning.get({ qid: 'Q001' }));
+    const result = await DBHelper().get(Learning.get({ qid: 'Q001', userId: '84d95083-9ee8-4187-b6e7-8123558ef2c1' }));
 
     expect(result?.Item).toMatchObject(QUESTIONS.ANSWER05_EXPECT01);
   });

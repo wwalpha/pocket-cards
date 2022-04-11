@@ -8,9 +8,10 @@ import User from './user';
 import * as GroupActions from './groupActions';
 import * as StudyActions from './studyActions';
 import * as UserActions from './userActions';
+import { Domains } from 'typings';
 
 export default (history: History<any>) =>
-  combineReducers({
+  combineReducers<Domains.States>({
     router: connectRouter(history),
     app: App.reducer,
     study: Study.reducer,

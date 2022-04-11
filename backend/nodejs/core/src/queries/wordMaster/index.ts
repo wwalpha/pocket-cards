@@ -1,6 +1,6 @@
 import { DynamoDB } from 'aws-sdk';
 import { Environment } from '@consts';
-import { APIs, Tables } from 'typings';
+import { Tables } from 'typings';
 
 /** データ取得 */
 export const get = (id: string) =>
