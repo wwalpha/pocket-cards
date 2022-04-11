@@ -218,4 +218,28 @@ export namespace Tables {
     userId: string;
     groupId: string;
   }
+
+  interface TReportsKey {
+    // ID
+    userId: string;
+    // Timestamp
+    typeDate: string;
+  }
+
+  interface TReports extends TReportsKey, DailyProgressReport {
+    times?: OverallTimesReport[];
+  }
+
+  interface DailyProgressReport {
+    japanese?: number;
+    science?: number;
+    society?: number;
+  }
+
+  interface OverallTimesReport {
+    times: number;
+    japanese?: number;
+    science?: number;
+    society?: number;
+  }
 }
