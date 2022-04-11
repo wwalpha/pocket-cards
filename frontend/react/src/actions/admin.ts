@@ -1,8 +1,9 @@
 import { push } from 'connected-react-router';
 import { withLoading } from '@actions';
-import { Paths } from '@constants';
+import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';
 import { AppDispatch } from 'typings';
+import { GroupActions } from '.';
 
 export const selectGroup = (id: string) => (dispatch: AppDispatch) => {
   // active group
@@ -85,3 +86,12 @@ export const uploadQuestions = (texts: string) => (dispatch: AppDispatch) =>
       await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
     })
   );
+
+export const transitToGroupRegist = () => (dispatch: AppDispatch) => {
+  // enable group regist
+  GroupActions.editable(Consts.EDIT_MODE.REGIST)(dispatch);
+  // remove active group
+  GroupActions.activeGroup('')(dispatch);
+  // transit to group detail
+  dispatch(push(Paths.PATHS_ADMIN_GROUP_DETAILS));
+};

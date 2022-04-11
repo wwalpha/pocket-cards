@@ -18,9 +18,8 @@ export default () => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(AdminActions, dispatch);
   const grpActions = bindActionCreators(GroupActions, dispatch);
-  const { isLoading } = useSelector(appState);
+  const { isLoading, authority } = useSelector(appState);
   const { questions } = useSelector(groupState);
-  const { authority } = useSelector(userState);
 
   const handleHistoryBack = () => {
     // go to top

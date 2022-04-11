@@ -18,13 +18,13 @@ import { Consts, Paths } from '@constants';
 import { styles } from './DrawerLeft.style';
 import { RootState } from 'typings';
 
-const userState = (state: RootState) => state.user;
+const appState = (state: RootState) => state.app;
 
 export default () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const actions = bindActionCreators(AdminActions, dispatch);
-  const { authority } = useSelector(userState);
+  const { authority } = useSelector(appState);
 
   const handleClick = (subject: string) => actions.switchSubject(subject, location.pathname);
 
