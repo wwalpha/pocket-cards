@@ -28,6 +28,8 @@ export namespace Domains {
     displayCtrl: Record<number, boolean>;
     // active subject
     activeSubject: string;
+    // authority
+    authority?: string;
   }
 
   interface GroupState {
@@ -58,8 +60,6 @@ export namespace Domains {
     username: string;
     // password
     password?: string;
-    // authority
-    authority?: string;
     // curriculums
     curriculums: Tables.TCurriculums[];
     // students

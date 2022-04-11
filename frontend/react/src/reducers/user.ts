@@ -38,7 +38,6 @@ const slice = createSlice({
 
         state.username = payload.username;
         state.password = payload.password;
-        state.authority = payload.authority;
       })
       .addCase(UserActions.USER_SIGN_UP.fulfilled, (state, { payload }) => {
         console.log('SIGN UP Success');
