@@ -2,8 +2,9 @@ import { Request } from 'express';
 import { generate } from 'short-uuid';
 import isEmpty from 'lodash/isEmpty';
 import { Commons, DBHelper } from '@utils';
-import { Groups, Questions } from '@queries';
+import { Curriculums, Groups, Questions } from '@queries';
 import { APIs, Tables } from 'typings';
+import { Environment } from '@consts';
 
 /** 問題カード一括追加 */
 export default async (req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>): Promise<void> => {
@@ -22,15 +23,15 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
     throw new Error(`Group id is not exist. ${groupId}`);
   }
 
-  // regist
-  const tasks = input.questions.map(async (item) => {
+  // create question
+  const questions = input.questions.map<Tables.TQuestions>((item) => {
     const items = item.split(',');
     const id = generate();
     const title = items[0] as string;
     const answer = items[3] as string;
     const choices = items[2] as string;
 
-    const qItem: Tables.TQuestions = {
+    return {
       id: id,
       groupId: groupId,
       title: title,
@@ -38,28 +39,49 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
       choices: !isEmpty(items[2]) ? choices.split('|') : undefined,
       answer: answer,
     };
+  });
 
+  // regist question
+  const tasks = questions.map(async (item) => {
     // 登録成功
     await DBHelper().transactWrite({
-      TransactItems: [{ Put: Questions.put(qItem) }],
+      TransactItems: [{ Put: Questions.put(item) }],
     });
 
     // create image file if needed
-    await createImages(id, title, answer);
+    await createImages(item.id, item.title, item.answer);
     // create voice of text
-    await createVoices(id, title, answer);
+    await createVoices(item.id, item.title, item.answer);
   });
 
   // regist all questions
   await Promise.all(tasks);
 
   // update question count
-  await DBHelper().put(
-    Groups.put({
-      ...groupInfo.Item,
-      count: input.questions.length,
-    })
-  );
+  await DBHelper().update(Groups.update.addCount({ id: groupId }, questions.length));
+
+  const curriculumInfos = await DBHelper().query<Tables.TCurriculums>(Curriculums.query.byGroupId(groupId));
+
+  // 学習対象がない
+  if (curriculumInfos.Items.length === 0) {
+    return;
+  }
+
+  const lTasks = curriculumInfos.Items.map(async (item) => {
+    const dataRows = questions.map<Tables.TLearning>((q) => ({
+      qid: q.id,
+      userId: item.guardian,
+      groupId: item.groupId,
+      subject: groupInfo.Item?.subject,
+      lastTime: '19900101',
+      nextTime: '19900101',
+      times: 0,
+    }));
+
+    return DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
+  });
+
+  await Promise.all(lTasks);
 };
 
 const createImages = async (qid: string, title: string, answer: string): Promise<void> => {
