@@ -306,6 +306,12 @@ resource "aws_dynamodb_table" "curriculums" {
     projection_type = "ALL"
   }
 
+  global_secondary_index {
+    name            = "gsiIdx2"
+    hash_key        = "groupId"
+    projection_type = "ALL"
+  }
+
   tags = {
     Project = local.project_name_uc
   }
