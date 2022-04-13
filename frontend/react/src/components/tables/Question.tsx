@@ -24,7 +24,7 @@ const styles = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    width: 45 / 100,
+    width: 40 / 100,
   },
 };
 const table: FunctionComponent<QuestionTable> = ({ datas }) => {
@@ -33,14 +33,16 @@ const table: FunctionComponent<QuestionTable> = ({ datas }) => {
       <Table aria-label="customized table" size="small">
         <TableHead>
           <TableRow>
+            <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
             <StyledTableCell sx={{ width: 80 }}>ID</StyledTableCell>
             <StyledTableCell>Title</StyledTableCell>
             <StyledTableCell>Answer</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {datas.map((item) => (
+          {datas.map((item, idx) => (
             <TableRow hover key={item.id}>
+              <TableCell>{idx + 1}</TableCell>
               <TableCell>{item.id}</TableCell>
               <TableCell sx={styles.tableCell}>{item.title}</TableCell>
               <TableCell sx={styles.tableCell}>{item.answer}</TableCell>
