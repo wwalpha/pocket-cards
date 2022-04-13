@@ -371,6 +371,21 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
+  // Question Update
+  // ------------------------------------------------------------
+  interface QuestionUpdateParams {
+    groupId: string;
+    questionId: string;
+  }
+
+  interface QuestionUpdateRequest {
+    title: string;
+    answer: string;
+  }
+
+  type QuestionUpdateResponse = Tables.TQuestions;
+
+  // ------------------------------------------------------------
   // Reports - Daily Tasks
   // ------------------------------------------------------------
   interface DailyTasksResquest {}
