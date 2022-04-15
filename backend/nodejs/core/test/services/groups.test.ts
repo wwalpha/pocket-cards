@@ -18,7 +18,7 @@ describe('b0', () => {
   });
 
   test('b001', async () => {
-    const res = await request(server).put('/v1/groups').set('authorization', HEADER_AUTH).send(B0.B001Req);
+    const res = await request(server).post('/v1/groups').set('authorization', HEADER_AUTH).send(B0.B001Req);
 
     // status code
     expect(res.statusCode).toBe(200);
