@@ -51,6 +51,8 @@ export namespace Domains {
     status?: Group.Status;
     /** Questions */
     questions: Group.Question[];
+    /** Upload Questions */
+    uploads: Omit<Group.Question, 'id'>[];
   }
 
   interface UserState {

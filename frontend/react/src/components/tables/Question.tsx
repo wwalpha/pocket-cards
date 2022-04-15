@@ -5,6 +5,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { Group } from 'typings';
@@ -20,16 +21,21 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const styles = {
+  container: {
+    width: 'calc(100vw - 200px)',
+  },
   tableCell: {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    width: 40 / 100,
+    display: 'inline-block',
+    width: 95 / 100,
   },
 };
+
 const table: FunctionComponent<QuestionTable> = ({ datas }) => {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={styles.container}>
       <Table aria-label="customized table" size="small">
         <TableHead>
           <TableRow>
@@ -41,11 +47,19 @@ const table: FunctionComponent<QuestionTable> = ({ datas }) => {
         </TableHead>
         <TableBody>
           {datas.map((item, idx) => (
-            <TableRow hover key={item.id}>
+            <TableRow hover key={idx}>
               <TableCell>{idx + 1}</TableCell>
               <TableCell>{item.id}</TableCell>
-              <TableCell sx={styles.tableCell}>{item.title}</TableCell>
-              <TableCell sx={styles.tableCell}>{item.answer}</TableCell>
+              <TableCell>
+                <Box component="span" sx={styles.tableCell}>
+                  {item.title}
+                </Box>
+              </TableCell>
+              <TableCell>
+                <Box component="span" sx={styles.tableCell}>
+                  {item.answer}
+                </Box>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -55,7 +69,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas }) => {
 };
 
 interface QuestionTable {
-  datas: Group.Question[];
+  datas: Partial<Group.Question>[];
 }
 
 export default table;

@@ -23,6 +23,7 @@ export const ROUTE_PATH_INDEX: Record<string, number> = {
   AdminDashboard: 100,
   AdminGroupDetails: 101,
   AdminQuestions: 102,
+  AdminQuestionsConfirm: 103,
   AdminStudents: 110,
   AdminSettings: 111,
 };
@@ -51,6 +52,7 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.AdminDashboard]: '/admin',
   [ROUTE_PATH_INDEX.AdminGroupDetails]: '/admin/group',
   [ROUTE_PATH_INDEX.AdminQuestions]: '/admin/questions',
+  [ROUTE_PATH_INDEX.AdminQuestionsConfirm]: '/admin/questions/confirm',
   [ROUTE_PATH_INDEX.AdminStudents]: '/admin/students',
   [ROUTE_PATH_INDEX.AdminSettings]: '/admin/settings',
 };
@@ -59,6 +61,7 @@ export const ROUTE_PATHS = {
 export const PATHS_ADMIN_DASHBOARD = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminDashboard];
 export const PATHS_ADMIN_GROUP_DETAILS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminGroupDetails];
 export const PATHS_ADMIN_QUESTIONS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminQuestions];
+export const PATHS_ADMIN_QUESTIONS_CONFIRM = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminQuestionsConfirm];
 
 export const PATHS_ADMIN_STUDENTS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminStudents];
 export const PATHS_ADMIN_SETTINGS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminSettings];

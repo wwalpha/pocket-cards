@@ -21,6 +21,7 @@ const grpState: Domains.GroupState = {
   status: undefined,
   editable: -1,
   questions: [],
+  uploads: [],
 };
 
 const slice = createSlice({
@@ -115,7 +116,27 @@ const slice = createSlice({
 
     // 単語登録一覧をクリア
     GROUP_QUESTION_CLEAR: (state) => {
-      state.questions = [];
+      state.uploads = [];
+    },
+
+    // アップロード一覧を保存する
+    GROUP_QUESTION_UPLOADS: (state, { payload }: PayloadAction<string>) => {
+      const strLf = '\n';
+      const strRfLf = '\r\n';
+      const newLine = payload.split(strRfLf).length === 1 ? strLf : strRfLf;
+      const questions = payload.split(newLine);
+
+      const jsonQuestions = questions
+        .filter((item) => item !== '')
+        .map((item) => {
+          const line = item.split('|');
+          return {
+            title: line[0],
+            answer: line[1],
+          };
+        });
+
+      state.uploads = jsonQuestions;
     },
   },
   extraReducers: (builder) => {

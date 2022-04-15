@@ -84,26 +84,15 @@ export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], void>(
 );
 
 /** Question List */
-export const GROUP_QUESTION_REGIST = createAsyncThunk<void, string>(
+export const GROUP_QUESTION_REGIST = createAsyncThunk<void, void>(
   'group/GROUP_QUESTION_REGIST',
-  async (texts, { getState }) => {
+  async (_, { getState }) => {
     // request parameter
-    const { activeGroup } = (getState() as RootState).group;
-    const strLf = '\n';
-    const strRfLf = '\r\n';
-    const newLine = texts.split(strRfLf).length === 1 ? strLf : strRfLf;
-    const questions = texts.split(newLine);
-
-    const jsonQuestions = questions
-      .filter((item) => item !== '')
-      .map((item) => {
-        const line = item.split('|');
-        return `${line[0]},,,${line[1]}`;
-      });
+    const { activeGroup, uploads } = (getState() as RootState).group;
 
     // request
     await API.post<APIs.QuestionRegistRequest, APIs.QuestionRegistResponse>(Consts.QUESTION_REGIST(activeGroup), {
-      questions: jsonQuestions,
+      questions: uploads.map(({ title, answer }) => `${title},,,${answer}`),
     });
   }
 );
