@@ -36,28 +36,28 @@ export const list = () => (dispatch: AppDispatch) =>
   );
 
 /** グループ登録 */
-export const regist = (details: Group.Details) => (dispatch: AppDispatch) =>
+export const regist = (datas: Group.Regist) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // グループ登録開始イベント
-      const res = await API.put<APIs.GroupRegistResponse, APIs.GroupRegistRequest>(Consts.B001_URL(), {
-        name: details.name,
-        description: details.description,
-        subject: details.subject,
+      const res = await API.post<APIs.GroupRegistResponse, APIs.GroupRegistRequest>(Consts.GroupRegist(), {
+        name: datas.name,
+        description: datas.description,
+        subject: datas.subject,
       });
 
       // データ保存
       dispatch(
         Actions.GROUP_REGIST({
           id: res.groupId,
-          subject: details.subject,
+          subject: datas.subject,
           count: 0,
-          name: details.name,
-          description: details.description,
+          name: datas.name,
+          description: datas.description,
         })
       );
 
-      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
+      dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
     })
   );
 
@@ -93,7 +93,7 @@ export const editable = (mode: Consts.EDIT_MODE) => (dispatch: AppDispatch) => {
 };
 
 /** グループ編集 */
-export const edit = (details: Group.Details) => (dispatch: AppDispatch) =>
+export const edit = (details: Omit<Group.Details, 'subject'>) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // グループ編集API

@@ -11,10 +11,22 @@ resource "aws_apigatewayv2_route" "get_groups" {
 
 # ---------------------------------------------------------------------------------------------
 # API Gateway Route - Group Functions
+# @deprecated
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_route" "put_groups" {
   api_id             = local.apigw_id
   route_key          = "PUT /groups"
+  target             = "integrations/${local.apigw_integration_id_backend}"
+  authorization_type = "CUSTOM"
+  authorizer_id      = local.apigw_authorizer_id_lambda
+}
+
+# ---------------------------------------------------------------------------------------------
+# API Gateway Route - Group Functions
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_route" "post_groups" {
+  api_id             = local.apigw_id
+  route_key          = "POST /groups"
   target             = "integrations/${local.apigw_integration_id_backend}"
   authorization_type = "CUSTOM"
   authorizer_id      = local.apigw_authorizer_id_lambda
