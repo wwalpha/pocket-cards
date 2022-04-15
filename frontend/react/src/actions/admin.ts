@@ -76,14 +76,25 @@ export const studentRegist = (username: string, password: string) => (dispatch: 
   );
 
 /** 質問リスト */
-export const uploadQuestions = (texts: string) => (dispatch: AppDispatch) =>
+export const uploadConfirm = (texts: string) => (dispatch: AppDispatch) => {
+  dispatch(Actions.GROUP_QUESTION_UPLOADS(texts));
+
+  // transit to upload confirm
+  dispatch(push(Paths.PATHS_ADMIN_QUESTIONS_CONFIRM));
+};
+
+/** 質問リスト */
+export const uploadQuestions = () => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // regist questions
-      await dispatch(Actions.GROUP_QUESTION_REGIST(texts)).unwrap();
+      await dispatch(Actions.GROUP_QUESTION_REGIST()).unwrap();
 
       // Get question lists
       await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
+
+      // transit to upload confirm
+      dispatch(push(Paths.PATHS_ADMIN_QUESTIONS));
     })
   );
 
