@@ -11,12 +11,8 @@ import { QuestionMain } from '@containers/questions';
 import { AdminHeader } from '@containers/com';
 import { RootState } from 'typings';
 
-const appState = (state: RootState) => state.app;
-
 export default () => {
   const { path } = useRouteMatch();
-  const actions = bindActionCreators(AppActions, useDispatch());
-  const adminActions = bindActionCreators(AdminActions, useDispatch());
 
   return (
     <Box sx={{ display: 'flex' }}>

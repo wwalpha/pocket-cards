@@ -20,6 +20,8 @@ export const B002_URL = () => `${API_VERSION}/groups`;
 // グループ情報取得
 export const B003_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 // グループ情報変更
+export const GroupRegist = () => `${API_VERSION}/groups`;
+// グループ情報変更
 export const GroupUpdate = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 // グループ情報削除
 export const B005_URL = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
