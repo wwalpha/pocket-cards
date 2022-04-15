@@ -34,7 +34,7 @@ app.get('/v1/backend', (_, res) => res.send('v3.1.0'));
 app.get('/v1/history', express.json(), (req, res) => entry(req, res, A002));
 
 // グループ新規
-app.put('/v1/groups', express.json(), (req, res) => entry(req, res, GroupRegist));
+app.post('/v1/groups', express.json(), (req, res) => entry(req, res, GroupRegist));
 // グループ一覧
 app.get('/v1/groups', express.json(), (req, res) => entry(req, res, GroupList));
 // グループ一覧

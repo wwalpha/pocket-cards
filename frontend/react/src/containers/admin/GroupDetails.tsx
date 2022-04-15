@@ -39,12 +39,19 @@ export default () => {
 
   // 編集
   const onSubmit = handleSubmit((datas) => {
-    actions.edit({
-      id: activeGroup,
-      name: datas.name,
-      description: datas.description,
-      subject: datas.subject,
-    });
+    if (editable === Consts.EDIT_MODE.EDIT) {
+      actions.edit({
+        id: activeGroup,
+        name: datas.name,
+        description: datas.description,
+      });
+    } else if (editable === Consts.EDIT_MODE.REGIST) {
+      actions.regist({
+        name: datas.name,
+        description: datas.description,
+        subject: datas.subject,
+      });
+    }
   });
 
   const handleBack = () => history.goBack();

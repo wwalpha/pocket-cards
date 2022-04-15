@@ -62,7 +62,7 @@ export default () => {
           {(() => {
             if (authority !== Consts.Authority.ADMIN) return;
 
-            if (pathname === Paths.PATHS_ADMIN_STUDENTS) {
+            if (pathname === Paths.PATHS_ADMIN_DASHBOARD) {
               return (
                 <Button
                   variant="outlined"
