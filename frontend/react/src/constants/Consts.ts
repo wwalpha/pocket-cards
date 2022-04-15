@@ -51,6 +51,9 @@ export const E002_URL = (word: string) => `${API_VERSION}/words/${word}`;
 export const QUESTION_LIST = (groupId: string) => `${API_VERSION}/groups/${groupId}/questions`;
 export const QUESTION_REGIST = (groupId: string) => `${API_VERSION}/groups/${groupId}/questions`;
 
+export const QUESTION_UPDATE = (groupId: string, questionId: string) =>
+  `${API_VERSION}/groups/${groupId}/questions/${questionId}`;
+
 export const CURRICULUM_LIST = () => `${API_VERSION}/curriculums`;
 export const CURRICULUM_REGIST = () => `${API_VERSION}/curriculums`;
 export const CURRICULUM_REMOVE = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}`;

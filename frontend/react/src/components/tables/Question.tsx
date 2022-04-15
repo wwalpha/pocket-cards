@@ -22,7 +22,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const styles = {
   container: {
-    width: 'calc(100vw - 200px)',
+    width: 'calc(100vw - 232px)',
   },
   tableCell: {
     whiteSpace: 'nowrap',
@@ -33,13 +33,14 @@ const styles = {
   },
 };
 
-const table: FunctionComponent<QuestionTable> = ({ datas }) => {
+const table: FunctionComponent<QuestionTable> = ({ datas, onEdit }) => {
   return (
     <TableContainer component={Paper} sx={styles.container}>
       <Table aria-label="customized table" size="small">
         <TableHead>
           <TableRow>
             <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
+            {onEdit && <StyledTableCell></StyledTableCell>}
             <StyledTableCell sx={{ width: 80 }}>ID</StyledTableCell>
             <StyledTableCell>Title</StyledTableCell>
             <StyledTableCell>Answer</StyledTableCell>
@@ -49,6 +50,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas }) => {
           {datas.map((item, idx) => (
             <TableRow hover key={idx}>
               <TableCell>{idx + 1}</TableCell>
+              {onEdit && <StyledTableCell></StyledTableCell>}
               <TableCell>{item.id}</TableCell>
               <TableCell>
                 <Box component="span" sx={styles.tableCell}>
@@ -70,6 +72,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas }) => {
 
 interface QuestionTable {
   datas: Partial<Group.Question>[];
+  onEdit?: () => void;
 }
 
 export default table;

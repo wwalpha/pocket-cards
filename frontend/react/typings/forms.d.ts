@@ -31,3 +31,9 @@ export interface SettingsForm {
   notification1: string;
   notification2: string;
 }
+
+export interface QuestionForm {
+  id?: string;
+  title: string;
+  answer: string;
+}
