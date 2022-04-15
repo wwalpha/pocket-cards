@@ -46,6 +46,12 @@ export namespace User {
 }
 
 export namespace Group {
+  interface Regist {
+    name: string;
+    description?: string;
+    subject: string;
+  }
+
   interface Details {
     id: string;
     name: string;
