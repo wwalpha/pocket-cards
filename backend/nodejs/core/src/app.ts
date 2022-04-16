@@ -89,7 +89,7 @@ app.put('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) 
 // 問題集詳細取得
 app.get('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionList));
 // 問題集削除
-app.delete('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionList));
+app.delete('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionDelete));
 
 // 今日の学習
 app.get('/v1/questions/study', express.json(), (req, res) => entry(req, res, QuestionStudy));
