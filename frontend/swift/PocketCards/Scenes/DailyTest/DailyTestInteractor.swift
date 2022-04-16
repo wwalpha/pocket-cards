@@ -16,6 +16,7 @@ class DailyTestInteractor {
     private var maxCount = 10
 
     var questions: [Question] = []
+    var answered: [String?] = []
 
     init(subject: String) {
         self.subject = subject
@@ -24,7 +25,7 @@ class DailyTestInteractor {
 
 extension DailyTestInteractor: DailyTestBusinessLogic {
     // update answer
-    func updateAnswer(id: String, correct: Bool) {
+    func updateAnswer(id _: String, correct: Bool) {
         guard let id = current?.id else { return }
 
         let params = [
@@ -33,21 +34,15 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
 
         print("updateAnswer", id, correct)
 
+        // remove updated question
+        questions.removeAll(where: { $0.id == current?.id })
+        answered.append(current?.id)
+
         API.request(URLs.ANSWER(id: id), method: .post, parameters: params)
             .response { response in
                 switch response.result {
                 case .success:
                     print("Successful")
-                    debugPrint("before", self.questions.count)
-
-                    // remove updated question
-                    self.questions.removeAll(where: { $0.id == id })
-                    // reindex
-                    guard let newIndex = self.questions.firstIndex(where: { $0.id == self.current?.id }) else { return }
-                    self.index = newIndex
-
-                    debugPrint("after", self.questions.count)
-                    debugPrint(self.questions)
 
                     // add questions
                     if self.questions.count < 5 {
@@ -62,21 +57,6 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
     func loadQuestion() {
         let params = ["subject": subject]
 
-//        print("Token", TokenManager.shared.getIdToken())
-//        let headers:HTTPHeaders = [.authorization(TokenManager.shared.getIdToken())]
-//        AF.request(URLs.STUDY,method: .get, parameters: params,  headers: headers)
-//            .responseData { response in
-//
-//                switch (response).result {
-//                case .success(let Value):
-//                    print("success \(String(data:Value,encoding: .utf8))")
-//                case .failure(let Error):
-//                    print("222222")
-//
-//                    print(Error)
-//                }
-//            }
-
         API.request(URLs.TEST, method: .get, parameters: params)
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: QuestionServiceEnum.LoadQuestion.Response.self) { response in
@@ -85,13 +65,23 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
                 print("==HUB== \(res)")
 
                 for q in res.questions {
+                    // current question
                     if self.current?.id == q.id {
                         continue
                     }
 
-                    if !self.questions.contains(where: { $0.id == q.id }) {
-                        self.questions.append(q)
+                    // unanswer question
+                    if self.questions.contains(where: { $0.id == q.id }) {
+                        continue
                     }
+
+                    // answered question
+                    if self.answered.contains(q.id) {
+                        continue
+                    }
+
+                    // add new question
+                    self.questions.append(q)
                 }
 
                 // initialize
