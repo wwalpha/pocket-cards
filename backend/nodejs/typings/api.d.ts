@@ -430,6 +430,17 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
+  // Reports - Leaning Overall
+  // ------------------------------------------------------------
+  interface LearningOverallRequest {}
+
+  interface LearningOverallResponse {
+    language: _.Dictionary<number>;
+    science: _.Dictionary<number>;
+    society: _.Dictionary<number>;
+  }
+
+  // ------------------------------------------------------------
   // Curriculums - Curriculum Regist
   // ------------------------------------------------------------
   interface CurriculumRegistRequest {
