@@ -307,7 +307,7 @@ export namespace APIs {
   type E002Response = Tables.TWordMaster;
 
   // ------------------------------------------------------------
-  // Question
+  // Question Regist
   // ------------------------------------------------------------
   interface QuestionRegistParams {
     groupId: string;
@@ -317,7 +317,17 @@ export namespace APIs {
     questions: string[];
   }
 
-  interface QuestionRegistResponse {}
+  // ------------------------------------------------------------
+  // Question Delete
+  // ------------------------------------------------------------
+  interface QuestionDeleteParams {
+    groupId: string;
+    questionId: string;
+  }
+
+  interface QuestionDeleteRequest {}
+
+  type QuestionDeleteResponse = void;
 
   // Study
   interface QuestionStudyRequest {}
