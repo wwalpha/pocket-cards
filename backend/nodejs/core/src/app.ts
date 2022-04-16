@@ -13,6 +13,7 @@ import {
   QuestionAnswer,
   QuestionList,
   QuestionUpdate,
+  QuestionDelete,
 } from '@src/services/questions';
 import { DailyTasks, LearningProgress } from '@src/services/reports';
 import { CurriculumRegist, CurriculumList, CurriculumRemove } from '@src/services/curriculums';
@@ -43,6 +44,7 @@ app.get('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, Gro
 app.put('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupUpdate));
 // グループ削除
 app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupRemove));
+
 // グループ学習状態
 app.get('/v1/groups/:groupId/status', express.json(), (req, res) => entry(req, res, B006 as any));
 // 単語一括登録
@@ -86,6 +88,8 @@ app.get('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req
 app.put('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionUpdate));
 // 問題集詳細取得
 app.get('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionList));
+// 問題集削除
+app.delete('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionList));
 
 // 今日の学習
 app.get('/v1/questions/study', express.json(), (req, res) => entry(req, res, QuestionStudy));

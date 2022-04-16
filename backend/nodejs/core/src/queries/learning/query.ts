@@ -99,3 +99,15 @@ export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput =
   },
   IndexName: 'gsiIdx2',
 });
+
+export const byQuestionId = (questionId: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#qid = :qid',
+  ExpressionAttributeNames: {
+    '#qid': 'qid',
+  },
+  ExpressionAttributeValues: {
+    ':qid': questionId,
+  },
+});
