@@ -111,3 +111,16 @@ export const byQuestionId = (questionId: string): DynamoDB.DocumentClient.QueryI
     ':qid': questionId,
   },
 });
+
+export const byUserId = (userId: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid, subject, times, lastTime',
+  KeyConditionExpression: '#userId = :userId',
+  ExpressionAttributeNames: {
+    '#userId': 'userId',
+  },
+  ExpressionAttributeValues: {
+    ':userId': userId,
+  },
+  IndexName: 'gsiIdx1',
+});
