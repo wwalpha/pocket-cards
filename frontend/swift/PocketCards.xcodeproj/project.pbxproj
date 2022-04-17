@@ -63,6 +63,12 @@
 		9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877527D7604D00446E9D /* SocietyHomeView.swift */; };
 		9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */; };
 		9A7F877A27D8269600446E9D /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877927D8269600446E9D /* Environments.swift */; };
+		9AB63BB028043AD60001F15C /* OverallTimesContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */; };
+		9AB63BB128043AD60001F15C /* OverallTimesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */; };
+		9AB63BB228043AD60001F15C /* OverallTimesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */; };
+		9AB63BB328043AD60001F15C /* OverallTimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAE28043AD60001F15C /* OverallTimesView.swift */; };
+		9AB63BB428043AD60001F15C /* OverallTimesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAF28043AD60001F15C /* OverallTimesViewModel.swift */; };
+		9AB63BB628043EED0001F15C /* OverallTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BB528043EED0001F15C /* OverallTimes.swift */; };
 		9ADD155827DF83AD00C9CE64 /* Commons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADD155727DF83AD00C9CE64 /* Commons.swift */; };
 		9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */; };
 		9AF57E6727D8DC60002B1F32 /* DailyTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */; };
@@ -132,6 +138,12 @@
 		9A7F877527D7604D00446E9D /* SocietyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeView.swift; sourceTree = "<group>"; };
 		9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeRouter.swift; sourceTree = "<group>"; };
 		9A7F877927D8269600446E9D /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
+		9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesContract.swift; sourceTree = "<group>"; };
+		9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesPresenter.swift; sourceTree = "<group>"; };
+		9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesInteractor.swift; sourceTree = "<group>"; };
+		9AB63BAE28043AD60001F15C /* OverallTimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesView.swift; sourceTree = "<group>"; };
+		9AB63BAF28043AD60001F15C /* OverallTimesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesViewModel.swift; sourceTree = "<group>"; };
+		9AB63BB528043EED0001F15C /* OverallTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimes.swift; sourceTree = "<group>"; };
 		9ADD155727DF83AD00C9CE64 /* Commons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commons.swift; sourceTree = "<group>"; };
 		9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestView.swift; sourceTree = "<group>"; };
@@ -341,9 +353,8 @@
 		9A1FD28F27D7394C0000A16B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9AB63BB728043EF10001F15C /* Reports */,
 				9A1FD29027D7394C0000A16B /* Question.swift */,
-				9A3F50BE27EB2D9000D9A305 /* History.swift */,
-				9A276A7527ECA374005A716D /* DailyTasks.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -351,6 +362,7 @@
 		9A1FD29127D7394C0000A16B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9AB63BB828043F040001F15C /* Reports */,
 				9A1FD29227D7394C0000A16B /* QuestionServices.swift */,
 				9A3F50C027EB2E3500D9A305 /* HistoryServices.swift */,
 				9A276A7727ECA3AF005A716D /* DailyTasksService.swift */,
@@ -396,6 +408,7 @@
 		9A61EEAA27E468FF002C73D0 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
+				9AB63BAA28043AC00001F15C /* OverallTimes */,
 				9A3F50E527EC415D00D9A305 /* DailyTasks */,
 				9A3F50D927EC411F00D9A305 /* Histories */,
 			);
@@ -443,6 +456,35 @@
 				9A7F877527D7604D00446E9D /* SocietyHomeView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		9AB63BAA28043AC00001F15C /* OverallTimes */ = {
+			isa = PBXGroup;
+			children = (
+				9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */,
+				9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */,
+				9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */,
+				9AB63BAE28043AD60001F15C /* OverallTimesView.swift */,
+				9AB63BAF28043AD60001F15C /* OverallTimesViewModel.swift */,
+			);
+			path = OverallTimes;
+			sourceTree = "<group>";
+		};
+		9AB63BB728043EF10001F15C /* Reports */ = {
+			isa = PBXGroup;
+			children = (
+				9AB63BB528043EED0001F15C /* OverallTimes.swift */,
+				9A276A7527ECA374005A716D /* DailyTasks.swift */,
+				9A3F50BE27EB2D9000D9A305 /* History.swift */,
+			);
+			path = Reports;
+			sourceTree = "<group>";
+		};
+		9AB63BB828043F040001F15C /* Reports */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Reports;
 			sourceTree = "<group>";
 		};
 		B09FBC9FFFA9B5A600498F48 /* Pods */ = {
@@ -600,8 +642,10 @@
 				9A1FD29527D7394C0000A16B /* LanguageHomeRouter.swift in Sources */,
 				9A3F50C127EB2E3500D9A305 /* HistoryServices.swift in Sources */,
 				9A1FD26527D738CF0000A16B /* AppDelegate.swift in Sources */,
+				9AB63BB328043AD60001F15C /* OverallTimesView.swift in Sources */,
 				9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */,
 				9A3F50C827EB2E9A00D9A305 /* DailyTasksPresenter.swift in Sources */,
+				9AB63BB028043AD60001F15C /* OverallTimesContract.swift in Sources */,
 				9A1FD2A027D7394C0000A16B /* Consts.swift in Sources */,
 				9A1FD2A327D7394C0000A16B /* Alamofire.swift in Sources */,
 				9A1FD29E27D7394C0000A16B /* DailyStudyContract.swift in Sources */,
@@ -611,6 +655,7 @@
 				9ADD155827DF83AD00C9CE64 /* Commons.swift in Sources */,
 				9A1FD2A227D7394C0000A16B /* TokenManager.swift in Sources */,
 				9A1FD2A527D7394C0000A16B /* Question.swift in Sources */,
+				9AB63BB428043AD60001F15C /* OverallTimesViewModel.swift in Sources */,
 				9A3F50E027EC412E00D9A305 /* HistoriesPresenter.swift in Sources */,
 				9AF57E6F27D962A0002B1F32 /* DailyTestContract.swift in Sources */,
 				9A3F50BF27EB2D9000D9A305 /* History.swift in Sources */,
@@ -620,6 +665,7 @@
 				9A3F50E227EC412E00D9A305 /* HistoriesView.swift in Sources */,
 				9A276A7227EC4CC6005A716D /* TestChart.swift in Sources */,
 				9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */,
+				9AB63BB228043AD60001F15C /* OverallTimesInteractor.swift in Sources */,
 				9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */,
 				9A1FD29827D7394C0000A16B /* RootView.swift in Sources */,
 				9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */,
@@ -638,12 +684,14 @@
 				9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */,
 				9A1FD29D27D7394C0000A16B /* DailyStudyPresenter.swift in Sources */,
 				9A1FD29A27D7394C0000A16B /* DailyStudyView.swift in Sources */,
+				9AB63BB628043EED0001F15C /* OverallTimes.swift in Sources */,
 				9A1FD24D27D7369B0000A16B /* PocketCardsApp.swift in Sources */,
 				9A1FD29F27D7394C0000A16B /* LoginView.swift in Sources */,
 				9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */,
 				9AF57E6D27D96292002B1F32 /* DailyTestPresenter.swift in Sources */,
 				9A3F50C927EB2E9A00D9A305 /* DailyTasksInteractor.swift in Sources */,
 				9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */,
+				9AB63BB128043AD60001F15C /* OverallTimesPresenter.swift in Sources */,
 				9A3F50E127EC412E00D9A305 /* HistoriesInteractor.swift in Sources */,
 				9A3F50C727EB2E9A00D9A305 /* DailyTasksContract.swift in Sources */,
 				9A1FD29927D7394C0000A16B /* RootContract.swift in Sources */,
