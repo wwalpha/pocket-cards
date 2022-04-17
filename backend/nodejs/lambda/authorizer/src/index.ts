@@ -112,7 +112,7 @@ const buildAuthPolicy = async (
     case 'TENANT_ADMIN':
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/admin/*');
       policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups');
-      policy.allowMethod(AuthPolicy.HttpVerb.PUT, '/groups');
+      policy.allowMethod(AuthPolicy.HttpVerb.POST, '/groups');
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/groups/*');
 
       break;
