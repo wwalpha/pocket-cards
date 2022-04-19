@@ -30,7 +30,7 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
 
   const items = results.Items;
   // 時間順
-  const sorted = orderBy(items, 'lastTime');
+  const sorted = orderBy(items, 'nextTime', 'desc');
   // 時間順で上位N件を対象とします
   const targets = items.length > Environment.WORDS_LIMIT ? sorted.slice(0, Environment.WORDS_LIMIT) : items;
 
