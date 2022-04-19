@@ -31,6 +31,7 @@ export default () => {
     formState: { errors },
   } = useForm<GroupEditForm>({
     defaultValues: {
+      id: groupInfo?.id,
       name: groupInfo?.name || '',
       description: groupInfo?.description || '',
       subject: groupInfo?.subject || '0',
@@ -59,6 +60,15 @@ export default () => {
   return (
     <form onSubmit={onSubmit}>
       <Box margin={2}>
+        {editable !== Consts.EDIT_MODE.REGIST && (
+          <Controller
+            name="id"
+            control={control}
+            render={({ field: { value } }) => (
+              <TextField disabled={true} variant="outlined" margin="normal" fullWidth label="Group ID" value={value} />
+            )}
+          />
+        )}
         <Controller
           name="name"
           control={control}

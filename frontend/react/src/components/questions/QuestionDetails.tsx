@@ -39,7 +39,13 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
   return (
     <form onSubmit={onSubmit}>
       <Box margin={2}>
-        <input id="id" {...register('id')} style={{ display: 'none' }} />
+        <Controller
+          name="id"
+          control={control}
+          render={({ field: { value } }) => (
+            <TextField disabled={true} variant="outlined" margin="normal" fullWidth label="ID" value={value} />
+          )}
+        />
         <Controller
           name="title"
           control={control}
@@ -72,7 +78,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
           )}
         />
       </Box>
-      <Box mt={2} display="flex" justifyContent="flex-end">
+      <Box mt={4} display="flex" justifyContent="flex-end">
         <Button size="large" variant="contained" color="secondary" sx={{ mx: 1, width: 120 }} onClick={onClose}>
           CLOSE
         </Button>
