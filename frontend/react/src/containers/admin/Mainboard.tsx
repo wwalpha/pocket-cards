@@ -87,7 +87,6 @@ export default () => {
           <TableHead>
             <TableRow>
               <StyledTableCell sx={{ width: 100 }}></StyledTableCell>
-              <StyledTableCell sx={{ maxWidth: 200 }}>ID</StyledTableCell>
               <StyledTableCell>Title</StyledTableCell>
               <StyledTableCell>Description</StyledTableCell>
             </TableRow>
@@ -153,7 +152,6 @@ export default () => {
                     )}
                   </Box>
                 </TableCell>
-                <TableCell sx={styles.tableCell}>{dataRow.id}</TableCell>
                 <TableCell sx={styles.tableCell}>{dataRow.name}</TableCell>
                 <TableCell sx={styles.tableCell}>{dataRow.description}</TableCell>
               </TableRow>
