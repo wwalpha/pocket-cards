@@ -96,3 +96,18 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, void>(
     });
   }
 );
+
+/** Question Update */
+export const GROUP_QUESTION_UPDATE = createAsyncThunk<
+  APIs.QuestionUpdateResponse,
+  APIs.QuestionUpdateRequest & { questionId: string }
+>('group/GROUP_QUESTION_UPDATE', async (request, { getState }) => {
+  // request parameter
+  const { activeGroup } = (getState() as RootState).group;
+
+  // 質問更新
+  return await API.put<APIs.QuestionUpdateResponse, APIs.QuestionUpdateRequest>(
+    Consts.QUESTION_UPDATE(activeGroup, request.questionId),
+    request
+  );
+});

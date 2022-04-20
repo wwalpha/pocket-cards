@@ -1,17 +1,17 @@
 import { withLoading } from '@actions';
-import { Consts } from '@constants';
-import { API } from '@utils';
+import { Actions } from '@reducers';
 import { APIs, AppDispatch } from 'typings';
 
 /** グループ登録 */
-export const update =
-  (groupId: string, questionId: string, request: APIs.QuestionUpdateRequest) => (dispatch: AppDispatch) =>
-    dispatch(
-      withLoading(async () => {
-        // グループ登録開始イベント
-        await API.put<APIs.QuestionUpdateResponse, APIs.QuestionUpdateRequest>(
-          Consts.QUESTION_UPDATE(groupId, questionId),
-          request
-        );
-      })
-    );
+export const update = (questionId: string, request: APIs.QuestionUpdateRequest) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      dispatch(
+        Actions.GROUP_QUESTION_UPDATE({
+          questionId: questionId,
+          title: request.title,
+          answer: request.answer,
+        })
+      );
+    })
+  );

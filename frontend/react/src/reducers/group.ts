@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Domains, Payloads, Tables } from 'typings';
+import { APIs, Domains, Payloads, Tables } from 'typings';
 import { Consts } from '@constants';
 import {
   GROUP_DELETE,
   GROUP_LIST,
   GROUP_QUESTION_LIST,
+  GROUP_QUESTION_UPDATE,
   GROUP_STATUS,
   GROUP_WORD_DETAILS,
   GROUP_WORD_LIST,
@@ -169,6 +170,15 @@ const slice = createSlice({
       })
       .addCase(GROUP_QUESTION_LIST.fulfilled, (state, { payload }) => {
         state.questions = payload;
+      })
+      .addCase(GROUP_QUESTION_UPDATE.fulfilled, (state, { payload }) => {
+        const question = state.questions.find((item) => item.id === payload.id);
+
+        // 存在しない場合は更新しない
+        if (!question) return;
+
+        question.title = payload.title;
+        question.answer = payload.answer;
       });
   },
 });

@@ -317,6 +317,8 @@ export namespace APIs {
     questions: string[];
   }
 
+  interface QuestionRegistResponse {}
+
   // ------------------------------------------------------------
   // Question Delete
   // ------------------------------------------------------------
