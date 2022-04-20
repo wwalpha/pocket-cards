@@ -40,7 +40,7 @@ export default () => {
       id: activeGroup,
       name: datas.name,
       description: datas.description,
-      subject: datas.subject,
+      // subject: datas.subject,
     });
   });
 
