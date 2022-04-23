@@ -4,34 +4,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
+import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { UserActions } from '@actions';
 import { RootState, SettingsForm } from 'typings';
+import { styles } from './Settings.style';
 
 const app = (state: RootState) => state.app;
 const user = (state: RootState) => state.user;
 
-const defaultValues: SettingsForm = {
-  notification1: '',
-  notification2: '',
-};
-
-const styles = {
-  '@global': {
-    body: { bgcolor: 'common.white' },
-  },
-  paper: { mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' },
-  avatar: { m: 1, backgroundColor: 'secondary.main' },
-  form: { width: '100%', MimeType: 1 },
-  submit: { m: 1, flexGrow: 1 },
-  button: { p: 0 },
-};
-
 export default () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector(app);
-  const { infos } = useSelector(user);
+  const { infos, students, activeStudent } = useSelector(user);
   const actions = bindActionCreators(UserActions, dispatch);
 
   const getNotification = (index: number): string => {
@@ -50,18 +41,22 @@ export default () => {
     defaultValues: {
       notification1: getNotification(0),
       notification2: getNotification(1),
+      activeStudent: activeStudent,
     },
   });
 
   // 編集
-  const onSubmit = handleSubmit(({ notification1, notification2 }) => {
+  const onSubmit = handleSubmit(({ notification1, notification2, activeStudent }) => {
     actions.updateNotifications([notification1, notification2]);
+    actions.setActiveStudent(activeStudent);
   });
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main">
       <Box sx={styles.paper}>
-        <form noValidate onSubmit={onSubmit}>
+        <form noValidate onSubmit={onSubmit} style={{ width: '100%' }}>
+          <Typography variant="h4">Notification</Typography>
+          <Divider sx={{ borderBottomWidth: 3, mb: 2 }} color="black" />
           <Controller
             name="notification1"
             control={control}
@@ -105,13 +100,36 @@ export default () => {
               />
             )}
           />
-          <Box sx={{ my: 2, display: 'flex' }}>
+          <Typography variant="h4" sx={{ mt: 2 }}>
+            Active User
+          </Typography>
+          <Divider sx={{ borderBottomWidth: 3, mb: 2 }} color="black" />
+          <Controller
+            name="activeStudent"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, value } }) => (
+              <FormControl sx={{ my: 2 }} fullWidth>
+                <InputLabel>Active Student *</InputLabel>
+                <Select label="Active Student *" value={value} onChange={onChange} disabled={students.length === 0}>
+                  {(() => {
+                    return students.map((item) => (
+                      <MenuItem key={item.id} value={item.id}>
+                        {item.username}
+                      </MenuItem>
+                    ));
+                  })()}
+                </Select>
+              </FormControl>
+            )}
+          />
+          <Box sx={{ my: 2, display: 'flex', justifyContent: 'flex-end' }}>
             <LoadingButton
               loading={isLoading}
               type="submit"
               size="large"
               variant="contained"
-              color="primary"
+              color="secondary"
               sx={styles.submit}>
               Save
             </LoadingButton>

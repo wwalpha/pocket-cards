@@ -31,6 +31,7 @@ export interface UserForm {
 export interface SettingsForm {
   notification1: string;
   notification2: string;
+  activeStudent: string;
 }
 
 export interface QuestionForm {
