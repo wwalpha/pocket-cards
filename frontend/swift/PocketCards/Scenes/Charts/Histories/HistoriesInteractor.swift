@@ -10,16 +10,12 @@ import Foundation
 
 class HistoriesInteractor {
     var presenter: HistoriesPresentationLogic?
-
-    init() {
-        load()
-    }
 }
 
 extension HistoriesInteractor: HistoriesBusinessLogic {
     // load data
     func load() {
-        API.request(URLs.PROGRESS, method: .get)
+        API.request(URLs.REPORTS_PROGRESS, method: .get)
             .validate()
             .responseDecodable(of: ReportService.LearningProgress.Response.self) { response in
 

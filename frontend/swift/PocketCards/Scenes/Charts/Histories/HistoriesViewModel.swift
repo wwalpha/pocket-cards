@@ -9,5 +9,7 @@
 import SwiftUI
 
 class HistoriesViewModel: ObservableObject {
-    @Published var histories: [History] = []
+    @Published var isLoaded = false
+
+    var histories: [History] = []
 }

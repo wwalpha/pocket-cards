@@ -6,10 +6,14 @@
 //
 //
 
-import Foundation
+import Charts
 
 // View logic
-protocol OverallTimesDisplayLogic {}
+protocol OverallTimesDisplayLogic {
+    func setOveralls(res: ReportService.OverallTimes.Response)
+
+    func getBarChartData() -> [BarChartDataEntry]
+}
 
 // Interactor logic
 protocol OverallTimesBusinessLogic {
@@ -17,4 +21,6 @@ protocol OverallTimesBusinessLogic {
 }
 
 // Presenter logic
-protocol OverallTimesPresentationLogic {}
+protocol OverallTimesPresentationLogic {
+    func show(res: ReportService.OverallTimes.Response)
+}

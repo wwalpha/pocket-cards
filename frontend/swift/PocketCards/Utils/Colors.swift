@@ -11,9 +11,13 @@ extension Color {
     static let language = Color("Language")
     static let languageLight = Color("LanguageLight")
     static let languageMiddle = Color("LanguageMiddle")
-
     static let society = Color("Society")
     static let science = Color("Science")
+
+    static let language_ui = UIColor(red: 190 / 255, green: 32 / 255, blue: 47 / 255, alpha: 1)
+    static let society_ui = UIColor(red: 44 / 255, green: 143 / 255, blue: 67 / 255, alpha: 1)
+    static let science_ui = UIColor(red: 224 / 255, green: 108 / 255, blue: 39 / 255, alpha: 1)
+
     static let grey50 = Color("Grey50")
     static let grey100 = Color("Grey100")
     static let systemYellow = Color("Yellow")

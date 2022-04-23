@@ -19,11 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let configuration = try JSONDecoder().decode(AmplifyConfiguration.self, from: data)
             try Amplify.configure(configuration)
 
-            print("Amplify configured with auth plugin")
-
-            // listen
-            Auth.eventListen()
-
+            #if CAT
+                debugPrint(123_456)
+                // listen
+                Auth.eventListen()
+            #endif
         } catch {
             print("Failed to initialize Amplify with \(error)")
         }

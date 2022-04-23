@@ -11,9 +11,11 @@ class URLs {
     private static let HOST = API_URL
     static let STUDY = "\(HOST)/v1/questions/study"
     static let TEST = "\(HOST)/v1/questions/test"
+    static let SIGN_IN = "\(HOST)/v1/auth/login"
 
-    static let PROGRESS = "\(HOST)/v1/reports/progress"
-    static let DAILY_TASKS = "\(HOST)/v1/reports/dailytasks"
+    static let REPORTS_PROGRESS = "\(HOST)/v1/reports/progress"
+    static let REPORTS_OVERALL = "\(HOST)/v1/reports/overall"
+    static let REPORTS_DAILY_TASKS = "\(HOST)/v1/reports/dailytasks"
 
     static func ANSWER(id: String) -> String {
         "\(HOST)/v1/questions/\(id)/answer"

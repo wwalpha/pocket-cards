@@ -8,4 +8,9 @@
 
 import SwiftUI
 
-class OverallTimesViewModel: ObservableObject {}
+class OverallTimesViewModel: ObservableObject {
+    var language: [String: Int] = [:]
+    var science: [String: Int] = [:]
+    var society: [String: Int] = [:]
+    @Published var isLoaded = false
+}

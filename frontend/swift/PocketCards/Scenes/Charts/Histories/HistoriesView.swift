@@ -15,9 +15,7 @@ struct HistoriesView: View {
     @ObservedObject var viewModel = HistoriesViewModel()
 
     var body: some View {
-        if viewModel.histories.count == 0 {
-            Text("Loading....")
-        } else {
+        if viewModel.isLoaded {
             VStack {
                 HistoriesChart(
                     japaneseVals: getJapaneseEntry(),
@@ -26,6 +24,13 @@ struct HistoriesView: View {
                     xLabels: getXLabels()
                 )
             }.padding(32)
+                .onDisappear {
+                    viewModel.isLoaded = false
+                }
+        } else {
+            Text("Loading....").onAppear {
+                interactor?.load()
+            }
         }
     }
 }
@@ -33,6 +38,7 @@ struct HistoriesView: View {
 extension HistoriesView: HistoriesDisplayLogic {
     func setHistories(items: [History]) {
         viewModel.histories = items
+        viewModel.isLoaded = true
     }
 
     func getXLabels() -> [String] {

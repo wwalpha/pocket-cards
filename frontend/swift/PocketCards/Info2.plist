@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIconName</key>
-	<string>AppIconCat</string>
+	<string>AppIconDog</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

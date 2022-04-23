@@ -33,8 +33,10 @@ class AudioPlayer {
     private func playLocal(url: String) {
         let path = Bundle.main.path(forResource: url, ofType: "mp3")
         let url = URL(fileURLWithPath: path!)
-        let audioPlayer = try! AVAudioPlayer(contentsOf: url)
 
-        audioPlayer.play()
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.play()
+        } catch {}
     }
 }
