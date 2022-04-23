@@ -1,5 +1,5 @@
 import { Consts } from '@constants';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains } from 'typings';
 import * as UserActions from './userActions';
 
@@ -12,6 +12,8 @@ const userState: Domains.UserState = {
   curriculums: [],
   // students
   students: [],
+  // selected student
+  activeStudent: '',
 };
 
 const slice = createSlice({
@@ -21,6 +23,10 @@ const slice = createSlice({
     // Sign out
     SIGN_OUT: (state) => {
       state.loginStatus = Consts.SIGN_STATUS.NOT_LOGIN;
+    },
+    // Sign out
+    USER_ACTIVE_STUDENT: (state, { payload }: PayloadAction<string>) => {
+      state.activeStudent = payload;
     },
   },
   extraReducers: (builder) => {
@@ -53,6 +59,13 @@ const slice = createSlice({
       })
       .addCase(UserActions.USER_STUDENTS_LIST.fulfilled, (state, { payload }) => {
         state.students = payload.items;
+
+        // 初期化済み
+        if (state.activeStudent !== '') return;
+        // 生徒なし
+        if (payload.items.length === 0) return;
+
+        state.activeStudent = payload.items[0].id;
       })
       .addCase(UserActions.USER_INFORMATIONS.fulfilled, (state, { payload }) => {
         state.infos = payload;
