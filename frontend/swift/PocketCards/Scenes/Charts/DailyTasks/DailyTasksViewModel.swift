@@ -15,4 +15,5 @@ class DailyTasksViewModel: ObservableObject {
     @Published var socTarget: Double = 0
     @Published var sciArchive: Double = 0
     @Published var sciTarget: Double = 0
+    @Published var isLoaded = false
 }

@@ -10,15 +10,11 @@ import Foundation
 
 class DailyTasksInteractor {
     var presenter: DailyTasksPresentationLogic?
-
-    init() {
-        load()
-    }
 }
 
 extension DailyTasksInteractor: DailyTasksBusinessLogic {
     func load() {
-        API.request(URLs.DAILY_TASKS, method: .get)
+        API.request(URLs.REPORTS_DAILY_TASKS, method: .get)
             .validate()
             .responseDecodable(of: ReportService.DailyTasks.Response.self) { response in
 

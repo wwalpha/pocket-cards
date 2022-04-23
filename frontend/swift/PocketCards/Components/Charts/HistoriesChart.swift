@@ -17,21 +17,21 @@ struct HistoriesChart: UIViewRepresentable {
     func makeUIView(context _: Context) -> LineChartView {
         // japanese set
         let set1 = LineChartDataSet(entries: japaneseVals, label: "国 語")
-        set1.setColor(UIColor(red: 190 / 255, green: 32 / 255, blue: 47 / 255, alpha: 1))
+        set1.setColor(Color.language_ui)
         set1.valueFont = .systemFont(ofSize: 16)
         set1.lineWidth = 3
         set1.drawCirclesEnabled = false
         set1.valueFormatter = DefaultValueFormatter(decimals: 0)
 
         let set2 = LineChartDataSet(entries: scienceVals, label: "理 科")
-        set2.setColor(UIColor(red: 224 / 255, green: 108 / 255, blue: 39 / 255, alpha: 1))
+        set2.setColor(Color.science_ui)
         set2.valueFont = .systemFont(ofSize: 16)
         set2.lineWidth = 3
         set2.drawCirclesEnabled = false
         set2.valueFormatter = DefaultValueFormatter(decimals: 0)
 
         let set3 = LineChartDataSet(entries: societyVals, label: "社 会")
-        set3.setColor(UIColor(red: 44 / 255, green: 143 / 255, blue: 67 / 255, alpha: 1))
+        set3.setColor(Color.society_ui)
         set3.valueFont = .systemFont(ofSize: 16)
         set3.lineWidth = 3
         set3.drawCirclesEnabled = false

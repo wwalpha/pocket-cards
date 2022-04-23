@@ -14,45 +14,55 @@ struct DailyTasksView: View {
     @ObservedObject var viewModel = DailyTasksViewModel()
 
     var body: some View {
-        GeometryReader { geo in
-            VStack(spacing: 20) {
-                Spacer()
+        if viewModel.isLoaded {
+            GeometryReader { geo in
+                VStack(spacing: 20) {
+                    Spacer()
 
-                Text("理科")
-                    .padding()
-                    .padding(.leading, 32)
-                    .font(.system(size: 28))
-                    .frame(width: geo.size.width, height: 48, alignment: .leading)
-                    .background(Color.science)
-                    .foregroundColor(Color.white)
+                    Text("理科")
+                        .padding()
+                        .padding(.leading, 32)
+                        .font(.system(size: 28))
+                        .frame(width: geo.size.width, height: 48, alignment: .leading)
+                        .background(Color.science)
+                        .foregroundColor(Color.white)
 
-                Dailytasks(target: viewModel.sciTarget, completed: viewModel.sciArchive)
-                    .padding(.leading, 32)
+                    Dailytasks(target: viewModel.sciTarget, completed: viewModel.sciArchive)
+                        .padding(.leading, 32)
 
-                Text("社会")
-                    .padding()
-                    .padding(.leading, 32)
-                    .font(.system(size: 28))
-                    .frame(width: geo.size.width, height: 48, alignment: .leading)
-                    .background(Color.society)
-                    .foregroundColor(Color.white)
+                    Text("社会")
+                        .padding()
+                        .padding(.leading, 32)
+                        .font(.system(size: 28))
+                        .frame(width: geo.size.width, height: 48, alignment: .leading)
+                        .background(Color.society)
+                        .foregroundColor(Color.white)
 
-                Dailytasks(target: viewModel.socTarget, completed: viewModel.socArchive)
-                    .padding(.leading, 32)
+                    Dailytasks(target: viewModel.socTarget, completed: viewModel.socArchive)
+                        .padding(.leading, 32)
 
-                Text("国語")
-                    .padding()
-                    .padding(.leading, 32)
-                    .font(.system(size: 28))
-                    .frame(width: geo.size.width, height: 48, alignment: .leading)
-                    .background(Color.language)
-                    .foregroundColor(Color.white)
+                    Text("国語")
+                        .padding()
+                        .padding(.leading, 32)
+                        .font(.system(size: 28))
+                        .frame(width: geo.size.width, height: 48, alignment: .leading)
+                        .background(Color.language)
+                        .foregroundColor(Color.white)
 
-                Dailytasks(target: viewModel.lanTarget, completed: viewModel.lanArchive)
-                    .padding(.leading, 32)
+                    Dailytasks(target: viewModel.lanTarget, completed: viewModel.lanArchive)
+                        .padding(.leading, 32)
 
-                Spacer()
+                    Spacer()
+                }
             }
+            .onDisappear {
+                viewModel.isLoaded = false
+            }
+        } else {
+            Text("Loading...")
+                .onAppear {
+                    interactor?.load()
+                }
         }
     }
 }
@@ -65,6 +75,7 @@ extension DailyTasksView: DailyTasksDisplayLogic {
         viewModel.sciArchive = model.sciArchive
         viewModel.socTarget = model.socTarget
         viewModel.socArchive = model.socArchive
+        viewModel.isLoaded = true
     }
 }
 

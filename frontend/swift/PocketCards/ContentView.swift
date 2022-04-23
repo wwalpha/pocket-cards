@@ -5,10 +5,12 @@
 //  Created by macmini on 2022/03/08.
 //
 
+import AVFAudio
 import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var auth: Authentication
+    @State private var selection = 0
 
     init() {
         UITabBar.appearance().backgroundColor = UIColor(Color.grey100)
@@ -17,7 +19,7 @@ struct ContentView: View {
     var body: some View {
         if auth.isSignedIn {
             VStack {
-                TabView {
+                TabView(selection: $selection) {
                     NavigationView {
                         RootView().configureView()
                     }
@@ -25,16 +27,25 @@ struct ContentView: View {
                     .tabItem {
                         Image(systemName: "house")
                     }
+                    .tag(0)
 
                     DailyTasksView().configureView()
                         .tabItem {
                             Image(systemName: "gear")
                         }
+                        .tag(1)
+
+                    OverallTimesView().configureView()
+                        .tabItem {
+                            Image(systemName: "eyes")
+                        }
+                        .tag(2)
 
                     HistoriesView().configureView()
                         .tabItem {
                             Image(systemName: "chart.bar")
                         }
+                        .tag(3)
                 }
                 .onAppear {
                     let standardAppearance = UITabBarAppearance()
@@ -53,7 +64,13 @@ struct ContentView: View {
                 }
             }.edgesIgnoringSafeArea(.bottom)
         } else {
-            LoginView()
+            #if CAT
+                LoginSamlView()
+            #endif
+
+            #if DOG
+                LoginView().configureView()
+            #endif
         }
     }
 }
