@@ -64,7 +64,6 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) =
             <TableRow>
               <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
               {onSubmit && <StyledTableCell></StyledTableCell>}
-              <StyledTableCell sx={{ width: 80 }}>ID</StyledTableCell>
               <StyledTableCell>Title</StyledTableCell>
               <StyledTableCell>Answer</StyledTableCell>
             </TableRow>
@@ -85,7 +84,6 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) =
                     </Button>
                   </StyledTableCell>
                 )}
-                <TableCell>{item.id}</TableCell>
                 <TableCell>
                   <Box component="span" sx={styles.tableCell}>
                     {item.title}

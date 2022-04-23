@@ -17,6 +17,7 @@ export interface NewPasswordForm {
 }
 
 export interface GroupEditForm {
+  id?: string;
   name: string;
   description: string;
   subject: string;
@@ -30,6 +31,7 @@ export interface UserForm {
 export interface SettingsForm {
   notification1: string;
   notification2: string;
+  activeStudent: string;
 }
 
 export interface QuestionForm {

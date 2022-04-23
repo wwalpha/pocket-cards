@@ -75,3 +75,7 @@ export const updateNotifications = (notifications: string[]) => (dispatch: AppDi
       );
     })
   );
+
+export const setActiveStudent = (id: string) => (dispatch: AppDispatch) => {
+  dispatch(Actions.USER_ACTIVE_STUDENT(id));
+};

@@ -68,6 +68,8 @@ export namespace Domains {
     students: Tables.TUsers[];
     // user informations
     infos?: Tables.TUsers;
+    // selected student
+    activeStudent: string;
   }
 
   interface StudyState {

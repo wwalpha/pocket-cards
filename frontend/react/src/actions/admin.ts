@@ -24,12 +24,7 @@ export const curriculumRegist = (groupId: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // Get question lists
-      dispatch(
-        Actions.USER_CURRICULUM_REGIST({
-          userId: 'Google_109439805128280065775',
-          groupId: groupId,
-        })
-      );
+      dispatch(Actions.USER_CURRICULUM_REGIST(groupId));
     })
   );
 
