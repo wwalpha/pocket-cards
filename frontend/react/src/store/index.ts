@@ -5,7 +5,6 @@ import logger from 'redux-logger';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
 import { Domains } from 'typings';
-import reducers from '../reducers';
 
 // browser history
 export const history = process.env.NODE_ENV === 'production' ? createBrowserHistory() : createHashHistory();
@@ -48,7 +47,9 @@ const rootReducer: Reducer<CombinedState<Domains.States>, AnyAction> = (state, a
     state = undefined;
   }
 
-  return reducers(history)(state, action);
+  const reducers = require('../reducers');
+
+  return reducers.default(history)(state, action);
 };
 
 const store = configureStore({
@@ -68,7 +69,7 @@ const store = configureStore({
 });
 
 if (module.hot) {
-  module.hot.accept('../reducers', () => store.replaceReducer(reducers(history)));
+  module.hot.accept('../reducers', () => store.replaceReducer(rootReducer));
   // module.hot.accept('../reducers', () => store.replaceReducer(persistedReducer));
 }
 

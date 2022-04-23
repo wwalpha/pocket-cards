@@ -61,7 +61,6 @@ export default () => {
 
   const onSubmit = handleSubmit((datas) => {
     actions.regist({
-      id: '',
       name: datas.name,
       description: datas.description,
       subject: datas.subject,

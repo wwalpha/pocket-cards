@@ -32,13 +32,15 @@ export const USER_SIGN_UP = createAsyncThunk<Users.CreateUserResponse, Users.Cre
   }
 );
 
-export const USER_CURRICULUM_REGIST = createAsyncThunk<APIs.CurriculumRegistResponse, APIs.CurriculumRegistRequest>(
+export const USER_CURRICULUM_REGIST = createAsyncThunk<APIs.CurriculumRegistResponse, string>(
   'user/USER_CURRICULUM_REGIST',
-  async (request) => {
-    return await API.put<APIs.CurriculumRegistResponse, APIs.CurriculumRegistRequest>(
-      Consts.CURRICULUM_REGIST(),
-      request
-    );
+  async (groupId, { getState }) => {
+    const { activeStudent } = (getState() as RootState).user;
+
+    return await API.put<APIs.CurriculumRegistResponse, APIs.CurriculumRegistRequest>(Consts.CURRICULUM_REGIST(), {
+      groupId: groupId,
+      userId: activeStudent,
+    });
   }
 );
 

@@ -36,7 +36,7 @@ export default () => {
 
   const { groups } = useSelector(groupState);
   const { isLoading, activeSubject, authority } = useSelector(appState);
-  const { curriculums } = useSelector(userState);
+  const { curriculums, activeStudent } = useSelector(userState);
   const [open, setOpen] = useState(false);
   const [curriculumId, setCurriculumId] = useState<string | undefined>(undefined);
   const [groupId, setGroupId] = useState('');
@@ -79,6 +79,7 @@ export default () => {
   };
 
   const displayGroups = groups.filter((item) => item.subject === activeSubject);
+  const curriculumItems = curriculums.filter((item) => item.userId === activeStudent);
 
   return (
     <Box sx={styles.root}>
@@ -87,7 +88,6 @@ export default () => {
           <TableHead>
             <TableRow>
               <StyledTableCell sx={{ width: 100 }}></StyledTableCell>
-              <StyledTableCell sx={{ maxWidth: 200 }}>ID</StyledTableCell>
               <StyledTableCell>Title</StyledTableCell>
               <StyledTableCell>Description</StyledTableCell>
             </TableRow>
@@ -113,7 +113,7 @@ export default () => {
                     {(() => {
                       if (authority !== Consts.Authority.PARENT) return;
 
-                      const item = curriculums.find((item) => item.groupId === dataRow.id);
+                      const item = curriculumItems.find((item) => item.groupId === dataRow.id);
                       const label = !item ? 'Apply' : 'Cancel';
                       const icon = !item ? <CheckCircleIcon /> : <HighlightOffIcon />;
                       const color = item ? 'info' : 'primary';
@@ -153,7 +153,6 @@ export default () => {
                     )}
                   </Box>
                 </TableCell>
-                <TableCell sx={styles.tableCell}>{dataRow.id}</TableCell>
                 <TableCell sx={styles.tableCell}>{dataRow.name}</TableCell>
                 <TableCell sx={styles.tableCell}>{dataRow.description}</TableCell>
               </TableRow>
