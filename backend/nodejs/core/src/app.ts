@@ -17,6 +17,8 @@ import {
 } from '@src/services/questions';
 import { DailyTasks, LearningProgress, LearningOverall } from '@src/services/reports';
 import { CurriculumRegist, CurriculumList, CurriculumRemove } from '@src/services/curriculums';
+import { WeeklyTestRegist, WeeklyTestList, WeeklyTestAnswer } from '@src/services/weekly';
+
 import { Patchs } from '@src/services/patch';
 
 import entry from './entry';
@@ -95,6 +97,12 @@ app.delete('/v1/groups/:groupId/questions/:questionId', express.json(), (req, re
 app.get('/v1/questions/study', express.json(), (req, res) => entry(req, res, QuestionStudy));
 // 今日のテスト
 app.get('/v1/questions/test', express.json(), (req, res) => entry(req, res, QuestionExam));
+// 週テスト
+app.post('/v1/questions/weekly', express.json(), (req, res) => entry(req, res, WeeklyTestRegist));
+// 週テスト問題集一覧
+app.get('/v1/questions/weekly', express.json(), (req, res) => entry(req, res, WeeklyTestList));
+// 週テスト問題の回答
+app.put('/v1/questions/weekly/:questionId', express.json(), (req, res) => entry(req, res, WeeklyTestAnswer));
 
 // 問題情報更新
 app.post('/v1/questions/:questionId/answer', express.json(), (req, res) => entry(req, res, QuestionAnswer as any));
