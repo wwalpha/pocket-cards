@@ -398,6 +398,40 @@ export namespace APIs {
   type QuestionUpdateResponse = Tables.TQuestions;
 
   // ------------------------------------------------------------
+  // Weekly Test Regist
+  // ------------------------------------------------------------
+  interface WeeklyTestRegistRequest {
+    groupIds?: string[];
+  }
+
+  type WeeklyTestRegistResponse = void;
+
+  // ------------------------------------------------------------
+  // Weekly Test List
+  // ------------------------------------------------------------
+  interface WeeklyTestListRequest {
+    subject: string;
+  }
+
+  interface WeeklyTestListResponse {
+    count: number;
+    questions: Tables.TQuestions[];
+  }
+
+  // ------------------------------------------------------------
+  // Weekly Test Answer
+  // ------------------------------------------------------------
+  interface WeeklyTestAnswerParameter {
+    qid: string;
+  }
+
+  interface WeeklyTestAnswerRequest {
+    subject: string;
+    correct?: string;
+  }
+
+  type WeeklyTestAnswerResponse = void;
+  // ------------------------------------------------------------
   // Reports - Daily Tasks
   // ------------------------------------------------------------
   interface DailyTasksResquest {}

@@ -1,5 +1,5 @@
 import { SNSHandler } from 'aws-lambda';
-import * as https from 'node:https';
+import * as https from 'https';
 
 const WEBHOOK_URL = process.env['WEBHOOK_URL'] as string;
 

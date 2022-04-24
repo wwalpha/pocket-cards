@@ -1,4 +1,7 @@
 export namespace Tables {
+  // ------------------------------------------------------------
+  // User
+  // ------------------------------------------------------------
   interface TUsersKey {
     // ユーザID
     id: string;
@@ -25,6 +28,9 @@ export namespace Tables {
     notification?: string[];
   }
 
+  // ------------------------------------------------------------
+  // Group
+  // ------------------------------------------------------------
   interface TGroupsKey {
     // グループID
     id: string;
@@ -43,6 +49,9 @@ export namespace Tables {
     index?: number;
   }
 
+  // ------------------------------------------------------------
+  // Question
+  // ------------------------------------------------------------
   interface TQuestionsKey {
     id: string;
   }
@@ -79,6 +88,9 @@ export namespace Tables {
 
   interface TQuestionsGSI1Projection {}
 
+  // ------------------------------------------------------------
+  // Learning
+  // ------------------------------------------------------------
   interface TLearningKey {
     // 問題ID
     qid: string;
@@ -111,6 +123,9 @@ export namespace Tables {
     qid: string;
   }
 
+  // ------------------------------------------------------------
+  // Words
+  // ------------------------------------------------------------
   interface TWordsKey {
     // 単語
     id: string;
@@ -129,6 +144,9 @@ export namespace Tables {
     vocabulary?: string;
   }
 
+  // ------------------------------------------------------------
+  // Word Master
+  // ------------------------------------------------------------
   export interface TWordMaster {
     // 単語
     id: string;
@@ -144,6 +162,9 @@ export namespace Tables {
     mp3?: string;
   }
 
+  // ------------------------------------------------------------
+  // Word Ignore
+  // ------------------------------------------------------------
   export interface WordIgnoreKey {
     // ユーザID
     id: string;
@@ -153,11 +174,9 @@ export namespace Tables {
 
   export interface TWordIgnore extends WordIgnoreKey {}
 
-  interface GroupsKey {
-    // グループID
-    id: string;
-  }
-
+  // ------------------------------------------------------------
+  // Trace
+  // ------------------------------------------------------------
   interface TracesKey {
     // 問題ID
     qid: string;
@@ -180,6 +199,9 @@ export namespace Tables {
     subject?: string;
   }
 
+  // ------------------------------------------------------------
+  // Settings
+  // ------------------------------------------------------------
   interface TSettingsKey {
     // ID
     id: string;
@@ -191,6 +213,9 @@ export namespace Tables {
     identityPoolId: string;
   }
 
+  // ------------------------------------------------------------
+  // Curriculums
+  // ------------------------------------------------------------
   interface TCurriculumsKey {
     id: string;
   }
@@ -206,6 +231,9 @@ export namespace Tables {
     groupId: string;
   }
 
+  // ------------------------------------------------------------
+  // Reports
+  // ------------------------------------------------------------
   interface TReportsKey {
     // ID
     userId: string;
@@ -228,5 +256,19 @@ export namespace Tables {
     japanese?: number;
     science?: number;
     society?: number;
+  }
+
+  // ------------------------------------------------------------
+  // Weekly Test
+  // ------------------------------------------------------------
+  interface TWeeklyTestKey {
+    // UserId
+    userId: string;
+    // Subject_Qid
+    subjectQid: string;
+  }
+
+  interface TweeklyTest extends TWeeklyTestKey {
+    times: number;
   }
 }
