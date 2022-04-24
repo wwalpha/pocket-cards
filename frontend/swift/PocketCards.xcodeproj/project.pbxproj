@@ -61,6 +61,8 @@
 		9A56399A28143494006D6C96 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399228143494006D6C96 /* LoginInteractor.swift */; };
 		9A56399B28143494006D6C96 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399328143494006D6C96 /* LoginView.swift */; };
 		9A56399C28143494006D6C96 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399328143494006D6C96 /* LoginView.swift */; };
+		9A5639A02814D86E006D6C96 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399F2814D86E006D6C96 /* UserServices.swift */; };
+		9A5639A12814D86E006D6C96 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399F2814D86E006D6C96 /* UserServices.swift */; };
 		9A61EEA927E4684B002C73D0 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEA827E4684B002C73D0 /* TabBar.swift */; };
 		9A61EEB827E481C1002C73D0 /* incorrect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9A61EEB727E481C1002C73D0 /* incorrect.mp3 */; };
 		9A61EEBA27E481C8002C73D0 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9A61EEB927E481C8002C73D0 /* correct.mp3 */; };
@@ -215,6 +217,7 @@
 		9A56399128143494006D6C96 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		9A56399228143494006D6C96 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
 		9A56399328143494006D6C96 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		9A56399F2814D86E006D6C96 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		9A61EEA827E4684B002C73D0 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		9A61EEB727E481C1002C73D0 /* incorrect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = incorrect.mp3; sourceTree = "<group>"; };
 		9A61EEB927E481C8002C73D0 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
@@ -472,6 +475,7 @@
 			children = (
 				9A3F50C027EB2E3500D9A305 /* ReportServices.swift */,
 				9A1FD29227D7394C0000A16B /* QuestionServices.swift */,
+				9A56399F2814D86E006D6C96 /* UserServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -811,6 +815,7 @@
 				9A3F50CA27EB2E9A00D9A305 /* DailyTasksView.swift in Sources */,
 				9A1FD29727D7394C0000A16B /* RootRouter.swift in Sources */,
 				9A09A151280AD4D3001500EB /* OverallFormatter.swift in Sources */,
+				9A5639A02814D86E006D6C96 /* UserServices.swift in Sources */,
 				9A1FD29327D7394C0000A16B /* ChoiceButton.swift in Sources */,
 				9A1FD29527D7394C0000A16B /* LanguageHomeRouter.swift in Sources */,
 				9A3F50C127EB2E3500D9A305 /* ReportServices.swift in Sources */,
@@ -888,6 +893,7 @@
 				9AF2ACA02814273300F80DB4 /* DailyTasksView.swift in Sources */,
 				9AF2ACA12814273300F80DB4 /* RootRouter.swift in Sources */,
 				9AF2ACA22814273300F80DB4 /* OverallFormatter.swift in Sources */,
+				9A5639A12814D86E006D6C96 /* UserServices.swift in Sources */,
 				9AF2ACA32814273300F80DB4 /* ChoiceButton.swift in Sources */,
 				9AF2ACA42814273300F80DB4 /* LanguageHomeRouter.swift in Sources */,
 				9AF2ACA52814273300F80DB4 /* ReportServices.swift in Sources */,
@@ -1014,7 +1020,7 @@
 		9A09A1A6281410C4001500EB /* ReleaseDog */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1164,7 +1170,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 95A78849440A1C13E377131F /* Pods-PocketCards.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1197,7 +1203,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 380DCEE95344EFD397A0E57A /* Pods-PocketCards.releasecat.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

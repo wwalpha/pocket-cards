@@ -5,6 +5,7 @@
 //  Created by macmini on 2022/03/07.
 //
 
+import Alamofire
 import Amplify
 import AmplifyPlugins
 import AWSPluginsCore
@@ -105,5 +106,22 @@ class Authentication: ObservableObject {
                 print("Signout failed with \(error)")
             }
         }
+    }
+
+    func signInWithUser(username: String, password: String) {
+        let params = [
+            "username": username,
+            "password": password,
+        ]
+
+        API.request(URLs.SIGN_IN, method: .post, parameters: params)
+            .validate()
+            .responseDecodable(of: UserServiceEnum.SignIn.Response.self) { response in
+                guard let res = response.value else { return }
+
+                // save token
+                TokenManager.shared.updateToken(idToken: res.idToken)
+                self.isSignedIn = true
+            }
     }
 }

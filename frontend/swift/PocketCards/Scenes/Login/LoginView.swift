@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LoginView: View {
     var interactor: LoginBusinessLogic?
-    @State private var username = "kakuto"
+    @State private var username = "max2020"
     @State private var password = "Session10+"
 
     var body: some View {
