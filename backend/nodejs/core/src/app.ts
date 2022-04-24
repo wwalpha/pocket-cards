@@ -102,7 +102,7 @@ app.post('/v1/questions/weekly', express.json(), (req, res) => entry(req, res, W
 // 週テスト問題集一覧
 app.get('/v1/questions/weekly', express.json(), (req, res) => entry(req, res, WeeklyTestList));
 // 週テスト問題の回答
-app.put('/v1/questions/weekly/:questionId', express.json(), (req, res) => entry(req, res, WeeklyTestAnswer));
+app.put('/v1/questions/weekly/:qid', express.json(), (req, res) => entry(req, res, WeeklyTestAnswer));
 
 // 問題情報更新
 app.post('/v1/questions/:questionId/answer', express.json(), (req, res) => entry(req, res, QuestionAnswer as any));

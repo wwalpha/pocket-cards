@@ -409,9 +409,11 @@ export namespace APIs {
   // ------------------------------------------------------------
   // Weekly Test List
   // ------------------------------------------------------------
-  interface WeeklyTestListRequest {
+  interface WeeklyTestListQuery {
     subject: string;
   }
+
+  interface WeeklyTestListRequest {}
 
   interface WeeklyTestListResponse {
     count: number;

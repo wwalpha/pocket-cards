@@ -6,10 +6,10 @@ import { minBy } from 'lodash';
 
 /** 今日のテスト */
 export default async (
-  req: Request<any, any, APIs.WeeklyTestListRequest, any>
+  req: Request<any, any, APIs.WeeklyTestListRequest, APIs.WeeklyTestListQuery>
 ): Promise<APIs.WeeklyTestListResponse> => {
   // subject
-  const { subject } = req.body;
+  const { subject } = req.query;
   const userId = Commons.getUserId(req);
 
   // get test questions
