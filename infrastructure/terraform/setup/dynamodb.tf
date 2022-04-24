@@ -340,3 +340,27 @@ resource "aws_dynamodb_table" "reports" {
     Project = local.project_name_uc
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - WeeklyTest
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "weekly_test" {
+  name         = local.dynamodb_name_reports
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "userId"
+  range_key    = "subjectQid"
+
+  attribute {
+    name = "userId"
+    type = "S"
+  }
+
+  attribute {
+    name = "subjectQid"
+    type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
+  }
+}
