@@ -345,7 +345,7 @@ resource "aws_dynamodb_table" "reports" {
 # Dynamodb Table - WeeklyTest
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "weekly_test" {
-  name         = local.dynamodb_name_reports
+  name         = local.dynamodb_name_weekly_test
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "userId"
   range_key    = "subjectQid"

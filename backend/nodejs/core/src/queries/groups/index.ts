@@ -5,7 +5,7 @@ import * as query from './query';
 import * as update from './update';
 
 /** データ取得 */
-export const get = (key: Tables.GroupsKey): DynamoDB.DocumentClient.GetItemInput => ({
+export const get = (key: Tables.TGroupsKey): DynamoDB.DocumentClient.GetItemInput => ({
   TableName: Environment.TABLE_NAME_GROUPS,
   Key: key,
 });
@@ -17,7 +17,7 @@ export const put = (item: Tables.TGroups): DynamoDB.DocumentClient.PutItemInput 
 });
 
 /** データ削除 */
-export const del = (key: Tables.GroupsKey): DynamoDB.DocumentClient.DeleteItemInput => ({
+export const del = (key: Tables.TGroupsKey): DynamoDB.DocumentClient.DeleteItemInput => ({
   TableName: Environment.TABLE_NAME_GROUPS,
   Key: {
     id: key.id,
