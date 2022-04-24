@@ -7,14 +7,14 @@ import { Environment } from '@consts';
 export const bySubject = (userId: string, subject: string) =>
   ({
     TableName: Environment.TABLE_NAME_WEEKLY_TEST,
-    ProjectionExpression: 'subjectQid, times',
-    KeyConditionExpression: '#userId = :userId and begins_with(#subjectQid, :subject)',
+    ProjectionExpression: '#subjectQid, times',
+    KeyConditionExpression: '#userId = :userId and begins_with(#subjectQid, :subjectQid)',
     ExpressionAttributeNames: {
       '#userId': 'userId',
-      '#subject': 'subject',
+      '#subjectQid': 'subjectQid',
     },
     ExpressionAttributeValues: {
       ':userId': userId,
-      ':subject': subject,
+      ':subjectQid': subject,
     },
   } as DynamoDB.DocumentClient.QueryInput);
