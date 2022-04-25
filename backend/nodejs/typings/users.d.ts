@@ -91,6 +91,19 @@ export namespace Users {
 
   type DescribeUserResponse = Tables.TUsers;
 
+  interface GetUserCurriculumsParameter {
+    userId: string;
+  }
+
+  interface GetUserCurriculumsRequest {}
+
+  interface GetUserCurriculumsResponse {
+    count: number;
+    items: (Tables.TCurriculums & {
+      groupName: string | undefined;
+    })[];
+  }
+
   interface UpdateUserParameter {
     userId: string;
   }

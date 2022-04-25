@@ -7,6 +7,7 @@ import {
   CreateAdminUser,
   ListAdminUsers,
   ListStudents,
+  ListCurriculums,
   LookupUser,
   HealthCheck,
   DescribeUser,
@@ -48,6 +49,9 @@ app.get('/v1/users/:userId', async (req, res) => await common(req, res, Describe
 
 // update user infomations
 app.put('/v1/users/:userId', async (req, res) => await common(req, res, UpdateUser));
+
+// get user curriculums
+app.get('/v1/users/:userId/curriculums', async (req, res) => await common(req, res, ListCurriculums));
 
 // app._router.stack.forEach((r: any) => {
 //   if (r.route && r.route.path) {

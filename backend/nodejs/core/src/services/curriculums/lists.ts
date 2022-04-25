@@ -1,9 +1,9 @@
 import { Request } from 'express';
+import axios from 'axios';
 import { Curriculums } from '@queries';
+import { Consts } from '@consts';
 import { Commons, DBHelper } from '@utils';
 import { APIs, Tables, Users } from 'typings';
-import axios from 'axios';
-import { Consts } from '@consts';
 
 export default async (
   req: Request<any, any, APIs.CurriculumListsRequest, APIs.CurriculumListsQuery>

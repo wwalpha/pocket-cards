@@ -42,6 +42,7 @@ resource "aws_s3_object" "users" {
 TABLE_NAME_USERS=${local.dynamodb_name_users}
 TABLE_NAME_SETTINGS=${local.dynamodb_name_settings}
 TABLE_NAME_CURRICULUMS=${local.dynamodb_name_curriculums}
+TABLE_NAME_GROUPS=${local.dynamodb_name_groups}
 TZ=Asia/Tokyo
 AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
 EOT
