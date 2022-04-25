@@ -19,7 +19,7 @@ export const REPORT_TYPE = {
 };
 
 export const API_URLs = {
-  describeUser: (userId: string) => `${Environment.ENDPOINT_USERS_SERVICE}/v1/users/${userId}`,
+  describeUser: (userId: string) => `${Environment.ENDPOINT_USERS_SERVICE}/users/${userId}`,
 };
 
 export const Authority = {
