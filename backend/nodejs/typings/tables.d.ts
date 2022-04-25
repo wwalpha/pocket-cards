@@ -224,6 +224,7 @@ export namespace Tables {
     guardian: string;
     userId: string;
     groupId: string;
+    subject: string;
   }
 
   interface TCurriculumsGSI1Key {
