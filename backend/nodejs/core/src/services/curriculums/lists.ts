@@ -10,7 +10,7 @@ export default async (
 ): Promise<APIs.CurriculumListsResponse> => {
   const subject = req.query.subject;
   const userId = Commons.getUserId(req);
-  const userInfo = await getUserInfo(userId);
+  const userInfo = await getUserInfo(userId, req.headers['authorization']);
 
   // 保護者の場合
   if (userInfo.authority === Consts.Authority.PARENT) {
@@ -48,9 +48,13 @@ export default async (
   };
 };
 
-const getUserInfo = async (userId: string) => {
+const getUserInfo = async (userId: string, token?: string) => {
   // get user information
-  const response = await axios.get<Users.DescribeUserResponse>(Consts.API_URLs.describeUser(userId));
+  const response = await axios.get<Users.DescribeUserResponse>(Consts.API_URLs.describeUser(userId), {
+    headers: {
+      authorization: token,
+    },
+  });
 
   // user not found
   if (response.status !== 200) {
