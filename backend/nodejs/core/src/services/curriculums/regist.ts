@@ -52,10 +52,12 @@ export default async (
 
   const item: Tables.TCurriculums = {
     id: generate(),
+    subject: groupInfo.subject,
     guardian: guardian,
     userId: userId,
     groupId: groupId,
   };
+
   // add new curriculum
   await DBHelper().put(Curriculums.put(item));
 

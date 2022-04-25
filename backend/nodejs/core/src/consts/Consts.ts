@@ -1,3 +1,5 @@
+import { Environment } from '@consts';
+
 export const SUBJECT = {
   LANGUAGE: '1',
   SCIENCE: '2',
@@ -14,4 +16,14 @@ export const REPORT_TYPE = {
   DAILY_PROGRESS: 'DAILY_PROGRESS',
   // 前回学習進捗
   OVERALL_TIMES: 'OVERALL_TIMES',
+};
+
+export const API_URLs = {
+  describeUser: (userId: string) => `${Environment.ENDPOINT_USERS_SERVICE}/v1/users/${userId}`,
+};
+
+export const Authority = {
+  ADMIN: 'TENANT_ADMIN',
+  PARENT: 'PARENT',
+  STUDENT: 'STUDENT',
 };

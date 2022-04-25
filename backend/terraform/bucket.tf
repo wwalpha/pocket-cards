@@ -28,6 +28,7 @@ BUCKET_NAME_MATERAILS=${local.bucket_name_materials}
 PATH_PATTERN=audio
 TZ=Asia/Tokyo
 AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
+ENDPOINT_USERS_SERVICE=http://${local.cloudmap_service_users}.${local.cloudmap_namespace}:8080/v1
 EOT
 }
 

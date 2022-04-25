@@ -509,6 +509,10 @@ export namespace APIs {
   // ------------------------------------------------------------
   // Curriculums - Curriculum Lists
   // ------------------------------------------------------------
+  interface CurriculumListsQuery {
+    subject?: string;
+  }
+
   interface CurriculumListsRequest {}
 
   interface CurriculumListsResponse {

@@ -26,3 +26,5 @@ export const TRANSLATION_API_URL = process.env['TRANSLATION_API_URL'] as string;
 export const TRANSLATION_API_KEY = process.env['TRANSLATION_API_KEY'] as string;
 export const VISION_API_URL = process.env['VISION_API_URL'] as string;
 export const VISION_API_KEY = process.env['VISION_API_KEY'] as string;
+
+export const ENDPOINT_USERS_SERVICE = process.env['ENDPOINT_USERS_SERVICE'] as string;
