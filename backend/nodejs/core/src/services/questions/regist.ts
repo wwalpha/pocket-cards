@@ -12,14 +12,15 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   const groupId = req.params.groupId;
 
   // ユーザのグループID 一覧
-  const groupInfo = await DBHelper().get<Tables.TGroups>(
+  const result = await DBHelper().get<Tables.TGroups>(
     Groups.get({
       id: groupId,
     })
   );
 
+  const groupInfo = result?.Item;
   // group not users
-  if (!groupInfo?.Item) {
+  if (!groupInfo) {
     throw new Error(`Group id is not exist. ${groupId}`);
   }
 
@@ -33,6 +34,7 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
 
     return {
       id: id,
+      subject: groupInfo.subject,
       groupId: groupId,
       title: title,
       description: !isEmpty(items[1]) ? item[1] : undefined,
@@ -72,7 +74,7 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
       qid: q.id,
       userId: item.guardian,
       groupId: item.groupId,
-      subject: groupInfo.Item?.subject,
+      subject: result.Item?.subject,
       lastTime: '19900101',
       nextTime: '19900101',
       times: 0,
