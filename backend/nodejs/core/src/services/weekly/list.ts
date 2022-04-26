@@ -2,7 +2,6 @@ import { Request } from 'express';
 import { DBHelper, Commons } from '@utils';
 import { Questions, WeeklyTest } from '@queries';
 import { APIs, Tables } from 'typings';
-import { minBy } from 'lodash';
 
 /** 今日のテスト */
 export default async (
@@ -23,12 +22,12 @@ export default async (
     };
   }
 
-  // calculate min times
-  const times = minBy(tests.Items, 'times')?.times || 0;
-  // get min times question
-  const questions = tests.Items.filter((item) => item.times === times);
+  // // calculate min times
+  // const times = minBy(tests.Items, 'times')?.times || 0;
+  // // get min times question
+  // const questions = tests.Items.filter((item) => item.times === times);
   // get question details
-  const tasks = questions.map((item) =>
+  const tasks = tests.Items.map((item) =>
     DBHelper().get<Tables.TQuestions>(Questions.get({ id: item.subjectQid.split('_')[1] || '' }))
   );
 
