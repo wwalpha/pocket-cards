@@ -17,7 +17,7 @@ import {
 } from '@src/services/questions';
 import { DailyTasks, LearningProgress, LearningOverall } from '@src/services/reports';
 import { CurriculumRegist, CurriculumList, CurriculumRemove } from '@src/services/curriculums';
-import { WeeklyTestRegist, WeeklyTestList, WeeklyTestAnswer } from '@src/services/weekly';
+import { WeeklyTestList, WeeklyTestAnswer, WeeklyTestRegist } from '@src/services/weekly';
 
 import { Patchs } from '@src/services/patch';
 

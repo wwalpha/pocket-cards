@@ -398,10 +398,19 @@ export namespace APIs {
   type QuestionUpdateResponse = Tables.TQuestions;
 
   // ------------------------------------------------------------
+  // Weekly Test Regist All
+  // ------------------------------------------------------------
+  interface WeeklyTestRegistAllRequest {
+    groupIds?: string[];
+  }
+
+  type WeeklyTestRegistAllResponse = void;
+
+  // ------------------------------------------------------------
   // Weekly Test Regist
   // ------------------------------------------------------------
   interface WeeklyTestRegistRequest {
-    groupIds?: string[];
+    qid: string;
   }
 
   type WeeklyTestRegistResponse = void;
