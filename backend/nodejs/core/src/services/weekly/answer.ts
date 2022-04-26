@@ -13,7 +13,7 @@ export default async (
   const { qid } = req.params;
   const { subject, correct } = req.body;
 
-  const result = await DBHelper().get<Tables.TweeklyTest>(
+  const result = await DBHelper().get<Tables.TWeeklyTest>(
     WeeklyTest.get({
       userId: userId,
       subjectQid: `${subject}_${qid}`,

@@ -57,6 +57,8 @@ export namespace Tables {
   }
 
   interface TQuestions extends TQuestionsKey, TQuestionsGSI1Key {
+    // 科目
+    subject: string;
     // グループID
     groupId: string;
     // 問題
@@ -269,7 +271,7 @@ export namespace Tables {
     subjectQid: string;
   }
 
-  interface TweeklyTest extends TWeeklyTestKey {
+  interface TWeeklyTest extends TWeeklyTestKey {
     times: number;
   }
 }

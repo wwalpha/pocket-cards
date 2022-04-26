@@ -10,7 +10,7 @@ export const get = (key: Tables.TWeeklyTestKey): DynamoDB.DocumentClient.GetItem
 });
 
 /** データ登録 */
-export const put = (item: Tables.TweeklyTest) =>
+export const put = (item: Tables.TWeeklyTest) =>
   ({
     TableName: Environment.TABLE_NAME_WEEKLY_TEST,
     Item: item,

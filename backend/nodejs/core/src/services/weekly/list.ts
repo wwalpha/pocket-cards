@@ -13,7 +13,7 @@ export default async (
   const userId = Commons.getUserId(req);
 
   // get test questions
-  const tests = await DBHelper().query<Tables.TweeklyTest>(WeeklyTest.query.bySubject(userId, subject));
+  const tests = await DBHelper().query<Tables.TWeeklyTest>(WeeklyTest.query.bySubject(userId, subject));
 
   // no questions
   if (tests.Items.length === 0) {
