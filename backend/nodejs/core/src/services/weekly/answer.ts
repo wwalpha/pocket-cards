@@ -29,7 +29,7 @@ export default async (
   // 正解の場合
   const times = correct === '1' ? question.times + 1 : question.times;
 
-  if (times === 5) {
+  if (times === 3) {
     await DBHelper().delete(WeeklyTest.del({ userId, subjectQid: `${subject}_${qid}` }));
   } else {
     await DBHelper().put(
