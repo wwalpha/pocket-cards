@@ -60,7 +60,7 @@ export const USER_CURRICULUM_LIST = createAsyncThunk<APIs.CurriculumListsRespons
   }
 );
 
-export const USER_STUDENTS_LIST = createAsyncThunk<Users.GetStudentResponse, void>(
+export const USER_STUDENT_LIST = createAsyncThunk<Users.GetStudentResponse, void>(
   'user/USER_STUDENTS_LIST',
   async () => {
     return await API.get<Users.GetStudentResponse>(Consts.STUDENT_LIST());

@@ -29,7 +29,7 @@ const styles = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     display: 'inline-block',
-    width: 95 / 100,
+    maxWidth: '450px',
   },
 };
 
@@ -40,9 +40,9 @@ const table: FunctionComponent<QuestionTable> = ({ datas, onEdit }) => {
         <TableHead>
           <TableRow>
             <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
-            {onEdit && <StyledTableCell></StyledTableCell>}
-            <StyledTableCell sx={{ width: 80 }}>ID</StyledTableCell>
+            {onEdit && <StyledTableCell sx={{ width: 80 }}></StyledTableCell>}
             <StyledTableCell>Title</StyledTableCell>
+            <StyledTableCell>Choices</StyledTableCell>
             <StyledTableCell>Answer</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -51,10 +51,14 @@ const table: FunctionComponent<QuestionTable> = ({ datas, onEdit }) => {
             <TableRow hover key={idx}>
               <TableCell>{idx + 1}</TableCell>
               {onEdit && <StyledTableCell></StyledTableCell>}
-              <TableCell>{item.id}</TableCell>
               <TableCell>
                 <Box component="span" sx={styles.tableCell}>
                   {item.title}
+                </Box>
+              </TableCell>
+              <TableCell>
+                <Box component="span" sx={styles.tableCell}>
+                  {item.choices?.join('|')}
                 </Box>
               </TableCell>
               <TableCell>

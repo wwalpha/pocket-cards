@@ -33,6 +33,8 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
         dispatch(Actions.USER_CURRICULUM_LIST());
         // initialize
         dispatch(Actions.USER_INFORMATIONS());
+        // initialize
+        dispatch(Actions.USER_STUDENT_LIST());
       }
     })
   );

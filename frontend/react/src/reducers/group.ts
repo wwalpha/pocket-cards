@@ -130,10 +130,22 @@ const slice = createSlice({
       const jsonQuestions = questions
         .filter((item) => item !== '')
         .map((item) => {
-          const line = item.split('|');
+          let items = item.split(',');
+
+          if (items.length === 4) {
+            return {
+              title: items[0],
+              description: items[1],
+              choices: items[2].split('|'),
+              answer: items[3],
+            };
+          }
+
+          items = item.split('|');
+
           return {
-            title: line[0],
-            answer: line[1],
+            title: items[0],
+            answer: items[1],
           };
         });
 
