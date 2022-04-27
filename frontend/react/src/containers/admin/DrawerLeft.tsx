@@ -10,6 +10,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
 import BookIcon from '@mui/icons-material/Book';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -36,7 +37,11 @@ export default () => {
 
   return (
     <Drawer sx={styles.drawer} variant="permanent" anchor="left">
-      <Toolbar>VER.0.5.1</Toolbar>
+      <Toolbar>
+        <Typography variant="h6" noWrap component="div">
+          VER.0.5.1
+        </Typography>
+      </Toolbar>
       <Divider />
       <List sx={styles.list}>
         <ListItem
