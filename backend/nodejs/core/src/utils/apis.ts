@@ -60,7 +60,7 @@ export const getImage = async (url: string): Promise<Buffer | undefined> => {
       break;
   }
 
-  const res = await axios.get<Buffer>(url, {
+  const res = await axios.get<Buffer>(encodeURIComponent(url), {
     headers: {
       'Content-Type': contentType,
     },
