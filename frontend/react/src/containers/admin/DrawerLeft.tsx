@@ -36,7 +36,7 @@ export default () => {
 
   return (
     <Drawer sx={styles.drawer} variant="permanent" anchor="left">
-      <Toolbar />
+      <Toolbar>VER.0.5.1</Toolbar>
       <Divider />
       <List sx={styles.list}>
         <ListItem
