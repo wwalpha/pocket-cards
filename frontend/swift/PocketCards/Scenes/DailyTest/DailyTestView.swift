@@ -37,13 +37,6 @@ struct DailyTestView: View {
 //                )
             } else {
                 // Society or Science
-//                FlashCard(
-//                    question: viewModel.title,
-//                    answer: viewModel.answer,
-//                    action: interactor!.onAction,
-//                    onPlay: interactor!.onPlay
-//                )
-
                 FlashCard(question: viewModel.question!, action: interactor!.onAction)
             }
         }
@@ -57,6 +50,7 @@ extension DailyTestView: DailyTestDisplayLogic {
     }
 
     func showNothing() {
+        viewModel.isLoading = false
         viewModel.isFinish = true
     }
 }

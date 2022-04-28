@@ -82,11 +82,6 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
 
                     // add new question
                     self.questions.append(q)
-
-//                    DownloadManager.default.downloadFile(path: q.voiceTitle)
-//                    DownloadManager.default.downloadFile(path: q.voiceAnswer)
-//                    DownloadManager.default.downloadFile(path: q.title.getImage())
-//                    DownloadManager.default.downloadFile(path: q.answer.getImage())
                 }
 
                 // initialize

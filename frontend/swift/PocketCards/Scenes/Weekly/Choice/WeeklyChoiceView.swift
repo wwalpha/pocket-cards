@@ -32,7 +32,6 @@ struct WeeklyChoiceView: View {
 extension WeeklyChoiceView: WeeklyChoiceDisplayLogic {
     func showGroups(model: WeeklyChoiceViewModel) {
         viewModel.dataRows = model.dataRows
-        viewModel.isLoading = false
     }
 }
 
