@@ -30,6 +30,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
       id: dataRow.id,
       title: dataRow.title || '',
       answer: dataRow.answer || '',
+      choices: dataRow.choices?.join('|'),
     },
   });
 
@@ -57,6 +58,21 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
               margin="normal"
               fullWidth
               label="Title"
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        />
+        <Controller
+          name="choices"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              disabled={!onClick}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="Choices"
               value={value}
               onChange={onChange}
             />
