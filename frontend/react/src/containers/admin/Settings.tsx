@@ -54,7 +54,7 @@ export default () => {
   return (
     <Container component="main">
       <Box sx={styles.paper}>
-        <form noValidate onSubmit={onSubmit} style={{ width: '100%' }}>
+        <form onSubmit={onSubmit} style={{ width: '100%' }}>
           <Typography variant="h4">Notification</Typography>
           <Divider sx={{ borderBottomWidth: 3, mb: 2 }} color="black" />
           <Controller
