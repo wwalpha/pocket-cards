@@ -72,6 +72,11 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
 
                     if !self.questions.contains(where: { $0.id == q.id }) {
                         self.questions.append(q)
+
+//                        DownloadManager.default.downloadFile(path: q.voiceTitle)
+//                        DownloadManager.default.downloadFile(path: q.voiceAnswer)
+//                        DownloadManager.default.downloadFile(path: q.title.getImage())
+//                        DownloadManager.default.downloadFile(path: q.answer.getImage())
                     }
                 }
 
@@ -84,12 +89,6 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
                     }
                 }
             }
-    }
-
-    func onPlay(front: Bool) {
-        guard let thisURL = front ? current?.voiceTitle : current?.voiceAnswer else { return }
-
-        Audio.play(url: DOMAIN_HOST + thisURL)
     }
 
     func onAction(correct: Bool) {

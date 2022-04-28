@@ -55,3 +55,7 @@ final class RequestInterceptor: Alamofire.RequestInterceptor {
 //        }
     }
 }
+
+extension Session {
+    func downloadFile(filename _: String) {}
+}

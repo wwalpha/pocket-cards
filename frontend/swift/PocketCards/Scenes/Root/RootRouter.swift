@@ -31,4 +31,12 @@ class RootRouter {
     func makeSocietyTestView() -> some View {
         DailyTestView(subject: SUBJECT.SOCIETY).configureView()
     }
+
+    func makeScienceWeeklyTestView() -> some View {
+        WeeklyRootView().configureView(subject: SUBJECT.SCIENCE)
+    }
+
+    func makeSocietyWeeklyTestView() -> some View {
+        WeeklyRootView().configureView(subject: SUBJECT.SOCIETY)
+    }
 }

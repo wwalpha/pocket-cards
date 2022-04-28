@@ -20,7 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try Amplify.configure(configuration)
 
             #if CAT
-                debugPrint(123_456)
+                // listen
+                Auth.eventListen()
+            #endif
+
+            #if DEBUG
                 // listen
                 Auth.eventListen()
             #endif

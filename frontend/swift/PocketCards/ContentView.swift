@@ -64,6 +64,10 @@ struct ContentView: View {
                 }
             }.edgesIgnoringSafeArea(.bottom)
         } else {
+            #if DEBUG
+                LoginSamlView()
+            #endif
+
             #if CAT
                 LoginSamlView()
             #endif

@@ -11,17 +11,15 @@ struct FlashCard: View {
     @State private var flipped = false
     @State private var angle: Double = 0
 
-    var question: String
-    var answer: String
+    var question: Question
     var action: (_: Bool) -> Void
-    var onPlay: (_ front: Bool) -> Void
 
     var body: some View {
         GeometryReader { geo in
             VStack {
                 ZStack {
                     Button {
-                        self.onPlay(!flipped)
+                        onPlay(front: !flipped)
                     } label: {
                         HStack {
                             Image(systemName: "speaker.wave.3")
@@ -30,19 +28,20 @@ struct FlashCard: View {
                         .border(Color.blue, width: 2)
                     }
                     .frame(width: 120, height: 48, alignment: .center)
-                    .position(x: geo.size.width - 220, y: 72)
+                    .position(x: geo.size.width - 92, y: 56)
                     .zIndex(100)
 
                     VStack {
-                        Text(question.removeImage())
+                        Text(question.title.removeImage())
 
-                        if !question.getImage().isEmpty {
-                            KFImage(URL(string: DOMAIN_HOST + question.getImage())!)
+                        if !question.title.getImage().isEmpty {
+//                            Image(uiImage: FileManager.default.loadImage(fileName: question.title.getImage())!)
+                            KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         }
                     }
-                    .frame(width: geo.size.width * 0.8, height: geo.size.height * 0.6, alignment: .center)
+                    .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.7, alignment: .center)
                     .font(.system(size: 64, design: .default))
                     .padding()
                     .border(Color.purple, width: 5)
@@ -50,15 +49,20 @@ struct FlashCard: View {
                     .opacity(flipped ? 0.0 : 1.0)
 
                     VStack {
-                        Text(answer.removeImage())
+                        Text(question.answer.removeImage())
 
-                        if !answer.getImage().isEmpty {
-                            KFImage(URL(string: DOMAIN_HOST + answer.getImage())!)
+//                        Image(uiImage: answerImage)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+
+                        if !question.answer.getImage().isEmpty {
+//                            Image(uiImage: FileManager.default.loadImage(fileName: question.answer.getImage())!)
+                            KFImage(URL(string: DOMAIN_HOST + question.answer.getImage())!)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         }
                     }
-                    .frame(width: geo.size.width * 0.8, height: geo.size.height * 0.6, alignment: .center)
+                    .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.7, alignment: .center)
                     .font(.system(size: 64, design: .default))
                     .padding()
                     .border(Color.purple, width: 5)
@@ -76,8 +80,17 @@ struct FlashCard: View {
                         }
                     }
                 }
-                .padding(.horizontal, 64)
-                .padding(.vertical, 32)
+                .padding(0)
+//                .task {
+//                    async let request1 = DownloadManager.default.downloadRequest(path: question.title)
+//                    async let request2 = DownloadManager.default.downloadRequest(path: question.answer)
+//
+//                    _ = await (request1?.serializingDownloadedFileURL(), request2?.serializingDownloadedFileURL())
+//
+////                        answerImage = FileManager.default.loadImage(fileName: question.answer.getImage())
+//                }
+//                .padding(.horizontal, 32)
+//                .padding(.vertical, 32)
 
                 HStack {
                     Spacer()
@@ -110,11 +123,26 @@ struct FlashCard: View {
 
                     Spacer()
                 }
-                .padding()
+                .padding(.top)
 
                 Spacer()
             }
+            .padding(.vertical, 16)
             .background(Color.grey50)
+        }
+    }
+
+    func onPlay(front: Bool) {
+        let url = front ? question.voiceTitle : question.voiceAnswer
+
+        // download file if not exist
+        let request = DownloadManager.default.downloadRequest(path: url)
+
+        Task {
+            _ = await request?.serializingDownloadedFileURL().response
+
+            // play audio
+            Audio.play(url: FileManager.default.getFileUrl(fileName: url))
         }
     }
 }
@@ -151,10 +179,11 @@ struct FlipEffect: GeometryEffect {
 
 struct FlashCard_Previews: PreviewProvider {
     static var previews: some View {
-        FlashCard(question: "Front Side", answer: "Back Side") { correct in
-            print(correct)
-        } onPlay: { front in
-            print(front)
+        let q = Question(id: "", groupId: "", title: "Front Side Front Side Front Side Front Side Front Side Front SideFront SideFront SideFront SideFront SideFront SideFront SideFront SideFront SideFront SideFront ", answer: "Back Side")
+
+        FlashCard(question: q) { action in
+            debugPrint(action)
         }
+        .previewInterfaceOrientation(.landscapeLeft)
     }
 }
