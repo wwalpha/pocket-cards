@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum UserServiceEnum {
+enum UserServices {
     enum SignIn {
         struct Request: Codable {
             var username: String
@@ -32,6 +32,18 @@ enum UserServiceEnum {
                 case idToken
                 case accessToken
                 case refreshToken
+            }
+        }
+    }
+
+    enum CurriculumList {
+        struct Response: Codable {
+            var count: Int
+            var items: [Curriculum]
+
+            private enum CodingKeys: String, CodingKey {
+                case count
+                case items
             }
         }
     }

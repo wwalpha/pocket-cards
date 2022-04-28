@@ -17,31 +17,32 @@ struct DailyStudyView: View {
     }
 
     var body: some View {
-        if viewModel.title.isEmpty {
+        if viewModel.isLoading {
             Text("Loading....")
                 .onAppear {
                     interactor?.loadQuestion()
                 }
-        } else if viewModel.title == "Nothing" {
+        } else if viewModel.isFinish {
             Text("今日の学習は終わりました")
                 .font(.system(size: 64, design: .default))
         } else {
             // Language
             if subject == SUBJECT.LANGUAGE {
-                ChoiceQuestion(
-                    question: viewModel.title,
-                    choices: viewModel.choices,
-                    isShowError: viewModel.isShowError,
-                    onChoice: interactor!.onChoice
-                )
+//                ChoiceQuestion(
+//                    question: viewModel.title,
+//                    choices: viewModel.choices,
+//                    isShowError: viewModel.isShowError,
+//                    onChoice: interactor!.onChoice
+//                )
             } else {
                 // Society or Science
-                FlashCard(
-                    question: viewModel.title,
-                    answer: viewModel.answer,
-                    action: interactor!.onAction,
-                    onPlay: interactor!.onPlay
-                )
+//                FlashCard(
+//                    question: viewModel.,
+//                    answer: viewModel.answer,
+//                    action: interactor!.onAction,
+//                    onPlay: interactor!.onPlay
+//                )
+                FlashCard(question: viewModel.question!, action: interactor!.onAction)
             }
         }
     }
@@ -52,15 +53,11 @@ extension DailyStudyView: DailyStudyDisplayLogic {
         viewModel.isShowError = index
     }
 
-    func showNext(title: String, answer: String, choices: [String]?) {
-        viewModel.title = title
-        viewModel.choices = choices != nil ? choices! : []
-        viewModel.answer = answer
-        viewModel.isShowError = ""
-    }
-
-    func showNothing() {
-        viewModel.title = "Nothing"
+    func showNext(model: DailyStudyViewModel) {
+        viewModel.isLoading = model.isLoading
+        viewModel.isFinish = model.isFinish
+        viewModel.question = model.question
+        viewModel.isShowError = model.isShowError
     }
 }
 
@@ -73,6 +70,8 @@ extension DailyStudyView {
         view.interactor = interactor
         interactor.presenter = presenter
         presenter.view = view
+
+        view.viewModel.isLoading = true
 
         return view
     }

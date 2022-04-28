@@ -82,6 +82,11 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
 
                     // add new question
                     self.questions.append(q)
+
+//                    DownloadManager.default.downloadFile(path: q.voiceTitle)
+//                    DownloadManager.default.downloadFile(path: q.voiceAnswer)
+//                    DownloadManager.default.downloadFile(path: q.title.getImage())
+//                    DownloadManager.default.downloadFile(path: q.answer.getImage())
                 }
 
                 // initialize
@@ -93,12 +98,6 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
                     }
                 }
             }
-    }
-
-    func onPlay(front: Bool) {
-        guard let thisURL = front ? current?.voiceTitle : current?.voiceAnswer else { return }
-
-        Audio.play(url: DOMAIN_HOST + thisURL)
     }
 
     func onAction(correct: Bool) {

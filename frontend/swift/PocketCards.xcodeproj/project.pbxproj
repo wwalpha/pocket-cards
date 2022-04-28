@@ -75,6 +75,62 @@
 		9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877527D7604D00446E9D /* SocietyHomeView.swift */; };
 		9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */; };
 		9A7F877A27D8269600446E9D /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877927D8269600446E9D /* Environments.swift */; };
+		9A9E575528154E210025C74F /* WeeklyTestContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575028154E210025C74F /* WeeklyTestContract.swift */; };
+		9A9E575628154E210025C74F /* WeeklyTestContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575028154E210025C74F /* WeeklyTestContract.swift */; };
+		9A9E575728154E210025C74F /* WeeklyTestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575128154E210025C74F /* WeeklyTestPresenter.swift */; };
+		9A9E575828154E210025C74F /* WeeklyTestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575128154E210025C74F /* WeeklyTestPresenter.swift */; };
+		9A9E575928154E210025C74F /* WeeklyTestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575228154E210025C74F /* WeeklyTestInteractor.swift */; };
+		9A9E575A28154E210025C74F /* WeeklyTestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575228154E210025C74F /* WeeklyTestInteractor.swift */; };
+		9A9E575B28154E210025C74F /* WeeklyTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575328154E210025C74F /* WeeklyTestView.swift */; };
+		9A9E575C28154E210025C74F /* WeeklyTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575328154E210025C74F /* WeeklyTestView.swift */; };
+		9A9E575D28154E210025C74F /* WeeklyTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575428154E210025C74F /* WeeklyTestViewModel.swift */; };
+		9A9E575E28154E210025C74F /* WeeklyTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575428154E210025C74F /* WeeklyTestViewModel.swift */; };
+		9A9E5765281554000025C74F /* WeeklyChoiceContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5760281554000025C74F /* WeeklyChoiceContract.swift */; };
+		9A9E5766281554000025C74F /* WeeklyChoiceContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5760281554000025C74F /* WeeklyChoiceContract.swift */; };
+		9A9E5767281554000025C74F /* WeeklyChoicePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5761281554000025C74F /* WeeklyChoicePresenter.swift */; };
+		9A9E5768281554000025C74F /* WeeklyChoicePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5761281554000025C74F /* WeeklyChoicePresenter.swift */; };
+		9A9E5769281554000025C74F /* WeeklyChoiceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5762281554000025C74F /* WeeklyChoiceInteractor.swift */; };
+		9A9E576A281554000025C74F /* WeeklyChoiceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5762281554000025C74F /* WeeklyChoiceInteractor.swift */; };
+		9A9E576B281554000025C74F /* WeeklyChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5763281554000025C74F /* WeeklyChoiceView.swift */; };
+		9A9E576C281554000025C74F /* WeeklyChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5763281554000025C74F /* WeeklyChoiceView.swift */; };
+		9A9E576D281554000025C74F /* WeeklyChoiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5764281554000025C74F /* WeeklyChoiceViewModel.swift */; };
+		9A9E576E281554000025C74F /* WeeklyChoiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5764281554000025C74F /* WeeklyChoiceViewModel.swift */; };
+		9A9E5776281598860025C74F /* WeeklyRootContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5771281598860025C74F /* WeeklyRootContract.swift */; };
+		9A9E5777281598860025C74F /* WeeklyRootContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5771281598860025C74F /* WeeklyRootContract.swift */; };
+		9A9E5778281598860025C74F /* WeeklyRootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5772281598860025C74F /* WeeklyRootPresenter.swift */; };
+		9A9E5779281598860025C74F /* WeeklyRootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5772281598860025C74F /* WeeklyRootPresenter.swift */; };
+		9A9E577A281598860025C74F /* WeeklyRootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5773281598860025C74F /* WeeklyRootInteractor.swift */; };
+		9A9E577B281598860025C74F /* WeeklyRootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5773281598860025C74F /* WeeklyRootInteractor.swift */; };
+		9A9E577C281598860025C74F /* WeeklyRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5774281598860025C74F /* WeeklyRootView.swift */; };
+		9A9E577D281598860025C74F /* WeeklyRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5774281598860025C74F /* WeeklyRootView.swift */; };
+		9A9E577E281598860025C74F /* WeeklyRootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5775281598860025C74F /* WeeklyRootViewModel.swift */; };
+		9A9E577F281598860025C74F /* WeeklyRootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5775281598860025C74F /* WeeklyRootViewModel.swift */; };
+		9A9E5781281599930025C74F /* WeeklyRootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5780281599930025C74F /* WeeklyRootRouter.swift */; };
+		9A9E5782281599930025C74F /* WeeklyRootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5780281599930025C74F /* WeeklyRootRouter.swift */; };
+		9A9E57852816316A0025C74F /* GroupServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57842816316A0025C74F /* GroupServices.swift */; };
+		9A9E57862816316A0025C74F /* GroupServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57842816316A0025C74F /* GroupServices.swift */; };
+		9A9E5788281631D50025C74F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5787281631D50025C74F /* Group.swift */; };
+		9A9E5789281631D50025C74F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E5787281631D50025C74F /* Group.swift */; };
+		9A9E579028165F000025C74F /* WeeklyPracticeContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E578B28165F000025C74F /* WeeklyPracticeContract.swift */; };
+		9A9E579128165F000025C74F /* WeeklyPracticeContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E578B28165F000025C74F /* WeeklyPracticeContract.swift */; };
+		9A9E579228165F000025C74F /* WeeklyPracticePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E578C28165F000025C74F /* WeeklyPracticePresenter.swift */; };
+		9A9E579328165F000025C74F /* WeeklyPracticePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E578C28165F000025C74F /* WeeklyPracticePresenter.swift */; };
+		9A9E579428165F000025C74F /* WeeklyPracticeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E578D28165F000025C74F /* WeeklyPracticeInteractor.swift */; };
+		9A9E579528165F000025C74F /* WeeklyPracticeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E578D28165F000025C74F /* WeeklyPracticeInteractor.swift */; };
+		9A9E579628165F000025C74F /* WeeklyPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E578E28165F000025C74F /* WeeklyPracticeView.swift */; };
+		9A9E579728165F000025C74F /* WeeklyPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E578E28165F000025C74F /* WeeklyPracticeView.swift */; };
+		9A9E579828165F000025C74F /* WeeklyPracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E578F28165F000025C74F /* WeeklyPracticeViewModel.swift */; };
+		9A9E579928165F000025C74F /* WeeklyPracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E578F28165F000025C74F /* WeeklyPracticeViewModel.swift */; };
+		9A9E579B2817781C0025C74F /* UserAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E579A2817781C0025C74F /* UserAttributes.swift */; };
+		9A9E579C2817781C0025C74F /* UserAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E579A2817781C0025C74F /* UserAttributes.swift */; };
+		9A9E579E2817B6470025C74F /* Curriculum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E579D2817B6470025C74F /* Curriculum.swift */; };
+		9A9E579F2817B6470025C74F /* Curriculum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E579D2817B6470025C74F /* Curriculum.swift */; };
+		9A9E57A22817D0C90025C74F /* WeeklyChoiceRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57A12817D0C90025C74F /* WeeklyChoiceRouter.swift */; };
+		9A9E57A32817D0C90025C74F /* WeeklyChoiceRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57A12817D0C90025C74F /* WeeklyChoiceRouter.swift */; };
+		9A9E57A6281A03C90025C74F /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57A5281A03C90025C74F /* DownloadManager.swift */; };
+		9A9E57A7281A03C90025C74F /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57A5281A03C90025C74F /* DownloadManager.swift */; };
+		9A9E57A9281A0A0F0025C74F /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57A8281A0A0F0025C74F /* FileManager.swift */; };
+		9A9E57AA281A0A0F0025C74F /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57A8281A0A0F0025C74F /* FileManager.swift */; };
 		9AB63BB028043AD60001F15C /* OverallTimesContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */; };
 		9AB63BB128043AD60001F15C /* OverallTimesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */; };
 		9AB63BB228043AD60001F15C /* OverallTimesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */; };
@@ -230,6 +286,34 @@
 		9A7F877527D7604D00446E9D /* SocietyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeView.swift; sourceTree = "<group>"; };
 		9A7F877727D7606800446E9D /* SocietyHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocietyHomeRouter.swift; sourceTree = "<group>"; };
 		9A7F877927D8269600446E9D /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
+		9A9E575028154E210025C74F /* WeeklyTestContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTestContract.swift; sourceTree = "<group>"; };
+		9A9E575128154E210025C74F /* WeeklyTestPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTestPresenter.swift; sourceTree = "<group>"; };
+		9A9E575228154E210025C74F /* WeeklyTestInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTestInteractor.swift; sourceTree = "<group>"; };
+		9A9E575328154E210025C74F /* WeeklyTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTestView.swift; sourceTree = "<group>"; };
+		9A9E575428154E210025C74F /* WeeklyTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTestViewModel.swift; sourceTree = "<group>"; };
+		9A9E5760281554000025C74F /* WeeklyChoiceContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChoiceContract.swift; sourceTree = "<group>"; };
+		9A9E5761281554000025C74F /* WeeklyChoicePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChoicePresenter.swift; sourceTree = "<group>"; };
+		9A9E5762281554000025C74F /* WeeklyChoiceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChoiceInteractor.swift; sourceTree = "<group>"; };
+		9A9E5763281554000025C74F /* WeeklyChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChoiceView.swift; sourceTree = "<group>"; };
+		9A9E5764281554000025C74F /* WeeklyChoiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChoiceViewModel.swift; sourceTree = "<group>"; };
+		9A9E5771281598860025C74F /* WeeklyRootContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRootContract.swift; sourceTree = "<group>"; };
+		9A9E5772281598860025C74F /* WeeklyRootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRootPresenter.swift; sourceTree = "<group>"; };
+		9A9E5773281598860025C74F /* WeeklyRootInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRootInteractor.swift; sourceTree = "<group>"; };
+		9A9E5774281598860025C74F /* WeeklyRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRootView.swift; sourceTree = "<group>"; };
+		9A9E5775281598860025C74F /* WeeklyRootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRootViewModel.swift; sourceTree = "<group>"; };
+		9A9E5780281599930025C74F /* WeeklyRootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyRootRouter.swift; sourceTree = "<group>"; };
+		9A9E57842816316A0025C74F /* GroupServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupServices.swift; sourceTree = "<group>"; };
+		9A9E5787281631D50025C74F /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		9A9E578B28165F000025C74F /* WeeklyPracticeContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyPracticeContract.swift; sourceTree = "<group>"; };
+		9A9E578C28165F000025C74F /* WeeklyPracticePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyPracticePresenter.swift; sourceTree = "<group>"; };
+		9A9E578D28165F000025C74F /* WeeklyPracticeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyPracticeInteractor.swift; sourceTree = "<group>"; };
+		9A9E578E28165F000025C74F /* WeeklyPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyPracticeView.swift; sourceTree = "<group>"; };
+		9A9E578F28165F000025C74F /* WeeklyPracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyPracticeViewModel.swift; sourceTree = "<group>"; };
+		9A9E579A2817781C0025C74F /* UserAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAttributes.swift; sourceTree = "<group>"; };
+		9A9E579D2817B6470025C74F /* Curriculum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Curriculum.swift; sourceTree = "<group>"; };
+		9A9E57A12817D0C90025C74F /* WeeklyChoiceRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChoiceRouter.swift; sourceTree = "<group>"; };
+		9A9E57A5281A03C90025C74F /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		9A9E57A8281A0A0F0025C74F /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesContract.swift; sourceTree = "<group>"; };
 		9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesPresenter.swift; sourceTree = "<group>"; };
 		9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesInteractor.swift; sourceTree = "<group>"; };
@@ -367,6 +451,7 @@
 				9A7F876D27D75FEC00446E9D /* Science */,
 				9A1FD27827D7394C0000A16B /* Language */,
 				9A1FD27C27D7394C0000A16B /* Root */,
+				9A9E576F281554140025C74F /* Weekly */,
 				9A1FD27727D7394C0000A16B /* DailyTest */,
 				9A1FD28027D7394C0000A16B /* DailyStudy */,
 				9A1FD28627D7394C0000A16B /* Login */,
@@ -448,6 +533,8 @@
 				9A7F877927D8269600446E9D /* Environments.swift */,
 				9AF57E7027D96624002B1F32 /* StringUtils.swift */,
 				9ADD155727DF83AD00C9CE64 /* Commons.swift */,
+				9A9E57A5281A03C90025C74F /* DownloadManager.swift */,
+				9A9E57A8281A0A0F0025C74F /* FileManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -466,6 +553,9 @@
 			children = (
 				9AB63BB728043EF10001F15C /* Reports */,
 				9A1FD29027D7394C0000A16B /* Question.swift */,
+				9A9E5787281631D50025C74F /* Group.swift */,
+				9A9E579A2817781C0025C74F /* UserAttributes.swift */,
+				9A9E579D2817B6470025C74F /* Curriculum.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -476,6 +566,7 @@
 				9A3F50C027EB2E3500D9A305 /* ReportServices.swift */,
 				9A1FD29227D7394C0000A16B /* QuestionServices.swift */,
 				9A56399F2814D86E006D6C96 /* UserServices.swift */,
+				9A9E57842816316A0025C74F /* GroupServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -568,6 +659,67 @@
 				9A7F877527D7604D00446E9D /* SocietyHomeView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		9A9E574F28154BA20025C74F /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				9A9E575028154E210025C74F /* WeeklyTestContract.swift */,
+				9A9E575128154E210025C74F /* WeeklyTestPresenter.swift */,
+				9A9E575228154E210025C74F /* WeeklyTestInteractor.swift */,
+				9A9E575328154E210025C74F /* WeeklyTestView.swift */,
+				9A9E575428154E210025C74F /* WeeklyTestViewModel.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		9A9E575F281553510025C74F /* Choice */ = {
+			isa = PBXGroup;
+			children = (
+				9A9E5760281554000025C74F /* WeeklyChoiceContract.swift */,
+				9A9E5761281554000025C74F /* WeeklyChoicePresenter.swift */,
+				9A9E5762281554000025C74F /* WeeklyChoiceInteractor.swift */,
+				9A9E5763281554000025C74F /* WeeklyChoiceView.swift */,
+				9A9E5764281554000025C74F /* WeeklyChoiceViewModel.swift */,
+				9A9E57A12817D0C90025C74F /* WeeklyChoiceRouter.swift */,
+			);
+			path = Choice;
+			sourceTree = "<group>";
+		};
+		9A9E576F281554140025C74F /* Weekly */ = {
+			isa = PBXGroup;
+			children = (
+				9A9E5770281598730025C74F /* Root */,
+				9A9E575F281553510025C74F /* Choice */,
+				9A9E578A28165ED20025C74F /* Practice */,
+				9A9E574F28154BA20025C74F /* Test */,
+			);
+			path = Weekly;
+			sourceTree = "<group>";
+		};
+		9A9E5770281598730025C74F /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				9A9E5771281598860025C74F /* WeeklyRootContract.swift */,
+				9A9E5772281598860025C74F /* WeeklyRootPresenter.swift */,
+				9A9E5773281598860025C74F /* WeeklyRootInteractor.swift */,
+				9A9E5774281598860025C74F /* WeeklyRootView.swift */,
+				9A9E5775281598860025C74F /* WeeklyRootViewModel.swift */,
+				9A9E5780281599930025C74F /* WeeklyRootRouter.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		9A9E578A28165ED20025C74F /* Practice */ = {
+			isa = PBXGroup;
+			children = (
+				9A9E578B28165F000025C74F /* WeeklyPracticeContract.swift */,
+				9A9E578C28165F000025C74F /* WeeklyPracticePresenter.swift */,
+				9A9E578D28165F000025C74F /* WeeklyPracticeInteractor.swift */,
+				9A9E578E28165F000025C74F /* WeeklyPracticeView.swift */,
+				9A9E578F28165F000025C74F /* WeeklyPracticeViewModel.swift */,
+			);
+			path = Practice;
 			sourceTree = "<group>";
 		};
 		9AB63BAA28043AC00001F15C /* OverallTimes */ = {
@@ -812,49 +964,73 @@
 				9A1FD29B27D7394C0000A16B /* DailyStudyViewModel.swift in Sources */,
 				9A3F50D827EC401400D9A305 /* HistoriesChart.swift in Sources */,
 				9A276A7427EC8F85005A716D /* DateValueFormatter.swift in Sources */,
+				9A9E57A22817D0C90025C74F /* WeeklyChoiceRouter.swift in Sources */,
 				9A3F50CA27EB2E9A00D9A305 /* DailyTasksView.swift in Sources */,
 				9A1FD29727D7394C0000A16B /* RootRouter.swift in Sources */,
 				9A09A151280AD4D3001500EB /* OverallFormatter.swift in Sources */,
 				9A5639A02814D86E006D6C96 /* UserServices.swift in Sources */,
 				9A1FD29327D7394C0000A16B /* ChoiceButton.swift in Sources */,
 				9A1FD29527D7394C0000A16B /* LanguageHomeRouter.swift in Sources */,
+				9A9E5765281554000025C74F /* WeeklyChoiceContract.swift in Sources */,
 				9A3F50C127EB2E3500D9A305 /* ReportServices.swift in Sources */,
+				9A9E5767281554000025C74F /* WeeklyChoicePresenter.swift in Sources */,
 				9A1FD26527D738CF0000A16B /* AppDelegate.swift in Sources */,
 				9AB63BB328043AD60001F15C /* OverallTimesView.swift in Sources */,
 				9A7F877827D7606800446E9D /* SocietyHomeRouter.swift in Sources */,
 				9A3F50C827EB2E9A00D9A305 /* DailyTasksPresenter.swift in Sources */,
+				9A9E575D28154E210025C74F /* WeeklyTestViewModel.swift in Sources */,
+				9A9E5788281631D50025C74F /* Group.swift in Sources */,
 				9AB63BB028043AD60001F15C /* OverallTimesContract.swift in Sources */,
+				9A9E577A281598860025C74F /* WeeklyRootInteractor.swift in Sources */,
 				9A1FD2A027D7394C0000A16B /* Consts.swift in Sources */,
 				9A1FD2A327D7394C0000A16B /* Alamofire.swift in Sources */,
+				9A9E576D281554000025C74F /* WeeklyChoiceViewModel.swift in Sources */,
+				9A9E5778281598860025C74F /* WeeklyRootPresenter.swift in Sources */,
 				9A1FD29E27D7394C0000A16B /* DailyStudyContract.swift in Sources */,
+				9A9E579428165F000025C74F /* WeeklyPracticeInteractor.swift in Sources */,
+				9A9E576B281554000025C74F /* WeeklyChoiceView.swift in Sources */,
 				9A6E044F27DC3682005D87EE /* CardButton.swift in Sources */,
 				9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */,
 				9ADD155827DF83AD00C9CE64 /* Commons.swift in Sources */,
+				9A9E5769281554000025C74F /* WeeklyChoiceInteractor.swift in Sources */,
 				9A1FD2A227D7394C0000A16B /* TokenManager.swift in Sources */,
 				9A56399528143494006D6C96 /* LoginContract.swift in Sources */,
 				9A1FD2A527D7394C0000A16B /* Question.swift in Sources */,
+				9A9E579B2817781C0025C74F /* UserAttributes.swift in Sources */,
 				9AB63BB428043AD60001F15C /* OverallTimesViewModel.swift in Sources */,
 				9A3F50E027EC412E00D9A305 /* HistoriesPresenter.swift in Sources */,
 				9AF57E6F27D962A0002B1F32 /* DailyTestContract.swift in Sources */,
+				9A9E579828165F000025C74F /* WeeklyPracticeViewModel.swift in Sources */,
 				9A3F50BF27EB2D9000D9A305 /* History.swift in Sources */,
+				9A9E579228165F000025C74F /* WeeklyPracticePresenter.swift in Sources */,
+				9A9E577E281598860025C74F /* WeeklyRootViewModel.swift in Sources */,
 				9A56399B28143494006D6C96 /* LoginView.swift in Sources */,
+				9A9E5776281598860025C74F /* WeeklyRootContract.swift in Sources */,
 				9A1FD29427D7394C0000A16B /* ChoiceQuestion.swift in Sources */,
 				9A61EEA927E4684B002C73D0 /* TabBar.swift in Sources */,
 				9AF57E6927D8DC6F002B1F32 /* DailyTestViewModel.swift in Sources */,
+				9A9E57A9281A0A0F0025C74F /* FileManager.swift in Sources */,
 				9A3F50E227EC412E00D9A305 /* HistoriesView.swift in Sources */,
+				9A9E579628165F000025C74F /* WeeklyPracticeView.swift in Sources */,
 				9A276A7227EC4CC6005A716D /* TestChart.swift in Sources */,
+				9A9E575B28154E210025C74F /* WeeklyTestView.swift in Sources */,
+				9A9E579E2817B6470025C74F /* Curriculum.swift in Sources */,
 				9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */,
 				9AB63BB228043AD60001F15C /* OverallTimesInteractor.swift in Sources */,
 				9A7F877627D7604D00446E9D /* SocietyHomeView.swift in Sources */,
 				9A1FD29827D7394C0000A16B /* RootView.swift in Sources */,
 				9A56399728143494006D6C96 /* LoginPresenter.swift in Sources */,
+				9A9E575528154E210025C74F /* WeeklyTestContract.swift in Sources */,
 				9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */,
 				9A7F877427D7603300446E9D /* ScienceHomeView.swift in Sources */,
 				9A3F50DF27EC412E00D9A305 /* HistoriesContract.swift in Sources */,
 				9A3F50E327EC412E00D9A305 /* HistoriesViewModel.swift in Sources */,
+				9A9E579028165F000025C74F /* WeeklyPracticeContract.swift in Sources */,
 				9AF57E6B27D96288002B1F32 /* DailyTestInteractor.swift in Sources */,
 				9A1FD29C27D7394C0000A16B /* DailyStudyInteractor.swift in Sources */,
+				9A9E577C281598860025C74F /* WeeklyRootView.swift in Sources */,
 				9A1FD2A127D7394C0000A16B /* Authencation.swift in Sources */,
+				9A9E5781281599930025C74F /* WeeklyRootRouter.swift in Sources */,
 				9A7F877227D7602500446E9D /* ScienceHomeRouter.swift in Sources */,
 				9A1FD29627D7394C0000A16B /* LanguageHomeView.swift in Sources */,
 				9A1FD24F27D7369B0000A16B /* ContentView.swift in Sources */,
@@ -866,13 +1042,17 @@
 				9A09A14D280AA770001500EB /* OverallChart.swift in Sources */,
 				9A1FD29A27D7394C0000A16B /* DailyStudyView.swift in Sources */,
 				9AB63BB628043EED0001F15C /* Overalls.swift in Sources */,
+				9A9E57A6281A03C90025C74F /* DownloadManager.swift in Sources */,
+				9A9E575728154E210025C74F /* WeeklyTestPresenter.swift in Sources */,
 				9A1FD24D27D7369B0000A16B /* PocketCardsApp.swift in Sources */,
 				9A1FD29F27D7394C0000A16B /* LoginSamlView.swift in Sources */,
 				9A56399928143494006D6C96 /* LoginInteractor.swift in Sources */,
 				9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */,
+				9A9E57852816316A0025C74F /* GroupServices.swift in Sources */,
 				9AF57E6D27D96292002B1F32 /* DailyTestPresenter.swift in Sources */,
 				9A3F50C927EB2E9A00D9A305 /* DailyTasksInteractor.swift in Sources */,
 				9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */,
+				9A9E575928154E210025C74F /* WeeklyTestInteractor.swift in Sources */,
 				9AB63BB128043AD60001F15C /* OverallTimesPresenter.swift in Sources */,
 				9A3F50E127EC412E00D9A305 /* HistoriesInteractor.swift in Sources */,
 				9A3F50C727EB2E9A00D9A305 /* DailyTasksContract.swift in Sources */,
@@ -890,49 +1070,73 @@
 				9AF2AC9D2814273300F80DB4 /* DailyStudyViewModel.swift in Sources */,
 				9AF2AC9E2814273300F80DB4 /* HistoriesChart.swift in Sources */,
 				9AF2AC9F2814273300F80DB4 /* DateValueFormatter.swift in Sources */,
+				9A9E57A32817D0C90025C74F /* WeeklyChoiceRouter.swift in Sources */,
 				9AF2ACA02814273300F80DB4 /* DailyTasksView.swift in Sources */,
 				9AF2ACA12814273300F80DB4 /* RootRouter.swift in Sources */,
 				9AF2ACA22814273300F80DB4 /* OverallFormatter.swift in Sources */,
 				9A5639A12814D86E006D6C96 /* UserServices.swift in Sources */,
 				9AF2ACA32814273300F80DB4 /* ChoiceButton.swift in Sources */,
 				9AF2ACA42814273300F80DB4 /* LanguageHomeRouter.swift in Sources */,
+				9A9E5766281554000025C74F /* WeeklyChoiceContract.swift in Sources */,
 				9AF2ACA52814273300F80DB4 /* ReportServices.swift in Sources */,
+				9A9E5768281554000025C74F /* WeeklyChoicePresenter.swift in Sources */,
 				9AF2ACA62814273300F80DB4 /* AppDelegate.swift in Sources */,
 				9AF2ACA72814273300F80DB4 /* OverallTimesView.swift in Sources */,
 				9AF2ACA82814273300F80DB4 /* SocietyHomeRouter.swift in Sources */,
 				9AF2ACA92814273300F80DB4 /* DailyTasksPresenter.swift in Sources */,
+				9A9E575E28154E210025C74F /* WeeklyTestViewModel.swift in Sources */,
+				9A9E5789281631D50025C74F /* Group.swift in Sources */,
 				9AF2ACAA2814273300F80DB4 /* OverallTimesContract.swift in Sources */,
+				9A9E577B281598860025C74F /* WeeklyRootInteractor.swift in Sources */,
 				9AF2ACAB2814273300F80DB4 /* Consts.swift in Sources */,
 				9AF2ACAC2814273300F80DB4 /* Alamofire.swift in Sources */,
+				9A9E576E281554000025C74F /* WeeklyChoiceViewModel.swift in Sources */,
+				9A9E5779281598860025C74F /* WeeklyRootPresenter.swift in Sources */,
 				9AF2ACAD2814273300F80DB4 /* DailyStudyContract.swift in Sources */,
+				9A9E579528165F000025C74F /* WeeklyPracticeInteractor.swift in Sources */,
+				9A9E576C281554000025C74F /* WeeklyChoiceView.swift in Sources */,
 				9AF2ACAE2814273300F80DB4 /* CardButton.swift in Sources */,
 				9AF2ACAF2814273300F80DB4 /* NavigationBarModifier.swift in Sources */,
 				9AF2ACB02814273300F80DB4 /* Commons.swift in Sources */,
+				9A9E576A281554000025C74F /* WeeklyChoiceInteractor.swift in Sources */,
 				9A56399628143494006D6C96 /* LoginContract.swift in Sources */,
 				9AF2ACB12814273300F80DB4 /* TokenManager.swift in Sources */,
 				9AF2ACB22814273300F80DB4 /* Question.swift in Sources */,
+				9A9E579C2817781C0025C74F /* UserAttributes.swift in Sources */,
 				9AF2ACB32814273300F80DB4 /* OverallTimesViewModel.swift in Sources */,
 				9AF2ACB42814273300F80DB4 /* HistoriesPresenter.swift in Sources */,
 				9AF2ACB52814273300F80DB4 /* DailyTestContract.swift in Sources */,
+				9A9E579928165F000025C74F /* WeeklyPracticeViewModel.swift in Sources */,
 				9A56399C28143494006D6C96 /* LoginView.swift in Sources */,
+				9A9E579328165F000025C74F /* WeeklyPracticePresenter.swift in Sources */,
+				9A9E577F281598860025C74F /* WeeklyRootViewModel.swift in Sources */,
 				9AF2ACB62814273300F80DB4 /* History.swift in Sources */,
+				9A9E5777281598860025C74F /* WeeklyRootContract.swift in Sources */,
 				9AF2ACB72814273300F80DB4 /* ChoiceQuestion.swift in Sources */,
 				9AF2ACB82814273300F80DB4 /* TabBar.swift in Sources */,
 				9AF2ACB92814273300F80DB4 /* DailyTestViewModel.swift in Sources */,
+				9A9E57AA281A0A0F0025C74F /* FileManager.swift in Sources */,
 				9AF2ACBA2814273300F80DB4 /* HistoriesView.swift in Sources */,
+				9A9E579728165F000025C74F /* WeeklyPracticeView.swift in Sources */,
 				9AF2ACBB2814273300F80DB4 /* TestChart.swift in Sources */,
+				9A9E575C28154E210025C74F /* WeeklyTestView.swift in Sources */,
+				9A9E579F2817B6470025C74F /* Curriculum.swift in Sources */,
 				9AF2ACBC2814273300F80DB4 /* Colors.swift in Sources */,
 				9AF2ACBD2814273300F80DB4 /* OverallTimesInteractor.swift in Sources */,
 				9AF2ACBE2814273300F80DB4 /* SocietyHomeView.swift in Sources */,
 				9A56399828143494006D6C96 /* LoginPresenter.swift in Sources */,
 				9AF2ACBF2814273300F80DB4 /* RootView.swift in Sources */,
+				9A9E575628154E210025C74F /* WeeklyTestContract.swift in Sources */,
 				9AF2ACC02814273300F80DB4 /* QuestionServices.swift in Sources */,
 				9AF2ACC12814273300F80DB4 /* ScienceHomeView.swift in Sources */,
 				9AF2ACC22814273300F80DB4 /* HistoriesContract.swift in Sources */,
 				9AF2ACC32814273300F80DB4 /* HistoriesViewModel.swift in Sources */,
+				9A9E579128165F000025C74F /* WeeklyPracticeContract.swift in Sources */,
 				9AF2ACC42814273300F80DB4 /* DailyTestInteractor.swift in Sources */,
 				9AF2ACC52814273300F80DB4 /* DailyStudyInteractor.swift in Sources */,
+				9A9E577D281598860025C74F /* WeeklyRootView.swift in Sources */,
 				9AF2ACC62814273300F80DB4 /* Authencation.swift in Sources */,
+				9A9E5782281599930025C74F /* WeeklyRootRouter.swift in Sources */,
 				9AF2ACC72814273300F80DB4 /* ScienceHomeRouter.swift in Sources */,
 				9AF2ACC82814273300F80DB4 /* LanguageHomeView.swift in Sources */,
 				9AF2ACC92814273300F80DB4 /* ContentView.swift in Sources */,
@@ -944,13 +1148,17 @@
 				9AF2ACCF2814273300F80DB4 /* OverallChart.swift in Sources */,
 				9AF2ACD02814273300F80DB4 /* DailyStudyView.swift in Sources */,
 				9AF2ACD12814273300F80DB4 /* Overalls.swift in Sources */,
+				9A9E57A7281A03C90025C74F /* DownloadManager.swift in Sources */,
+				9A9E575828154E210025C74F /* WeeklyTestPresenter.swift in Sources */,
 				9AF2ACD22814273300F80DB4 /* PocketCardsApp.swift in Sources */,
 				9AF2ACD32814273300F80DB4 /* LoginSamlView.swift in Sources */,
 				9A56399A28143494006D6C96 /* LoginInteractor.swift in Sources */,
 				9AF2ACD42814273300F80DB4 /* SwiftUIView.swift in Sources */,
+				9A9E57862816316A0025C74F /* GroupServices.swift in Sources */,
 				9AF2ACD52814273300F80DB4 /* DailyTestPresenter.swift in Sources */,
 				9AF2ACD62814273300F80DB4 /* DailyTasksInteractor.swift in Sources */,
 				9AF2ACD72814273300F80DB4 /* DailyTasks.swift in Sources */,
+				9A9E575A28154E210025C74F /* WeeklyTestInteractor.swift in Sources */,
 				9AF2ACD82814273300F80DB4 /* OverallTimesPresenter.swift in Sources */,
 				9AF2ACD92814273300F80DB4 /* HistoriesInteractor.swift in Sources */,
 				9AF2ACDA2814273300F80DB4 /* DailyTasksContract.swift in Sources */,

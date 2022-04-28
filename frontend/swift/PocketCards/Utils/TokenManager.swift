@@ -17,6 +17,8 @@ class TokenManager {
         accessToken = tokens.accessToken
         idToken = tokens.idToken
         refreshToken = tokens.refreshToken
+
+        print(idToken)
     }
 
     func updateToken(idToken: String) {
