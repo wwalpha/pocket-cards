@@ -45,13 +45,6 @@ extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
 
             self.questions = results
             self.current = question
-
-//            results.forEach { q in
-//                DownloadManager.default.downloadFile(path: q.voiceTitle)
-//                DownloadManager.default.downloadFile(path: q.voiceAnswer)
-//                DownloadManager.default.downloadFile(path: q.title.getImage())
-//                DownloadManager.default.downloadFile(path: q.answer.getImage())
-//            }
         }
     }
 
