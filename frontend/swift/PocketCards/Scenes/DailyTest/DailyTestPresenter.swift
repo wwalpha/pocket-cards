@@ -13,8 +13,6 @@ class DailyTestPresenter {
 
 extension DailyTestPresenter: DailyTestPresentationLogic {
     func showNext(q: Question) {
-//        let title = q.description == nil ? q.title : "\(q.title)\n\n\(q.description!)"
-
         view?.showNext(q: q)
     }
 

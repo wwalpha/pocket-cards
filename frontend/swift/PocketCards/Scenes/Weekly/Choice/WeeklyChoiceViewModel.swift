@@ -9,7 +9,6 @@
 import SwiftUI
 
 class WeeklyChoiceViewModel: ObservableObject {
-    @Published var isLoading = true
     @Published var dataRows: [Curriculum] = []
     @Published var selection = Set<String>()
     var subject: String = ""

@@ -53,6 +53,7 @@ extension WeeklyPracticeView {
         presenter.view = view
 
         view.viewModel.subject = subject
+        view.viewModel.isLoading = true
 
         return view
     }

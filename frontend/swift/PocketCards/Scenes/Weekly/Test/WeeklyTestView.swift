@@ -37,6 +37,7 @@ struct WeeklyTestView: View {
 //                onPlay: interactor!.onPlay
 //            )
 //            }
+
             FlashCard(question: viewModel.question!, action: interactor!.onAction)
         }
     }
@@ -44,11 +45,15 @@ struct WeeklyTestView: View {
 
 extension WeeklyTestView: WeeklyTestDisplayLogic {
     func showNext(model: WeeklyTestViewModel) {
-        viewModel.isLoading = false
+        DispatchQueue.main.async {
+            viewModel.isLoading = false
+        }
+
         viewModel.question = model.question
     }
 
     func showNothing() {
+        viewModel.isLoading = false
         viewModel.isFinish = true
     }
 }

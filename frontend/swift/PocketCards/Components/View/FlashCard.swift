@@ -10,11 +10,16 @@ import SwiftUI
 struct FlashCard: View {
     @State private var flipped = false
     @State private var angle: Double = 0
+    @State private var frontImage: Image?
+    @State private var backImage: Image?
 
     var question: Question
     var action: (_: Bool) -> Void
 
     var body: some View {
+        let qImage = question.title.getImage()
+        let aImage = question.answer.getImage()
+
         GeometryReader { geo in
             VStack {
                 ZStack {
@@ -34,11 +39,20 @@ struct FlashCard: View {
                     VStack {
                         Text(question.title.removeImage())
 
-                        if !question.title.getImage().isEmpty {
-//                            Image(uiImage: FileManager.default.loadImage(fileName: question.title.getImage())!)
-                            KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
+                        if !qImage.isEmpty {
+                            // if file locally exist
+                            if FileManager.default.fileExists(fileName: qImage) {
+                                Image(uiImage: FileManager.default.loadImage(fileName: qImage)!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } else {
+                                // download image
+                                let _ = DownloadManager.default.downloadFile(path: qImage)
+
+                                KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            }
                         }
                     }
                     .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.7, alignment: .center)
@@ -51,15 +65,20 @@ struct FlashCard: View {
                     VStack {
                         Text(question.answer.removeImage())
 
-//                        Image(uiImage: answerImage)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
+                        if !aImage.isEmpty {
+                            // if file locally exist
+                            if FileManager.default.fileExists(fileName: aImage) {
+                                Image(uiImage: FileManager.default.loadImage(fileName: aImage)!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } else {
+                                // download image
+                                let _ = DownloadManager.default.downloadFile(path: aImage)
 
-                        if !question.answer.getImage().isEmpty {
-//                            Image(uiImage: FileManager.default.loadImage(fileName: question.answer.getImage())!)
-                            KFImage(URL(string: DOMAIN_HOST + question.answer.getImage())!)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
+                                KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            }
                         }
                     }
                     .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.7, alignment: .center)
@@ -81,16 +100,6 @@ struct FlashCard: View {
                     }
                 }
                 .padding(0)
-//                .task {
-//                    async let request1 = DownloadManager.default.downloadRequest(path: question.title)
-//                    async let request2 = DownloadManager.default.downloadRequest(path: question.answer)
-//
-//                    _ = await (request1?.serializingDownloadedFileURL(), request2?.serializingDownloadedFileURL())
-//
-////                        answerImage = FileManager.default.loadImage(fileName: question.answer.getImage())
-//                }
-//                .padding(.horizontal, 32)
-//                .padding(.vertical, 32)
 
                 HStack {
                     Spacer()
