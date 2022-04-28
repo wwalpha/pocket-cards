@@ -35,15 +35,16 @@ const slice = createSlice({
         // require mfa code
         if (payload.mfaRequired) {
           state.loginStatus = Consts.SIGN_STATUS.MFA_REQUIRED;
+          state.username = payload.username;
+          state.password = payload.password;
         } else if (payload.newPasswordRequired) {
           // require new password
           state.loginStatus = Consts.SIGN_STATUS.NEW_PASSWORD_REQUIRED;
+          state.username = payload.username;
+          state.password = payload.password;
         } else if (payload.success === 'true') {
           state.loginStatus = Consts.SIGN_STATUS.LOGINED;
         }
-
-        state.username = payload.username;
-        state.password = payload.password;
       })
       .addCase(UserActions.USER_SIGN_UP.fulfilled, (state, { payload }) => {
         console.log('SIGN UP Success');
