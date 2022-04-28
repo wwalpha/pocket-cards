@@ -86,12 +86,6 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
             }
     }
 
-    func onPlay(front: Bool) {
-        guard let thisURL = front ? current?.voiceTitle : current?.voiceAnswer else { return }
-
-        Audio.play(url: DOMAIN_HOST + thisURL)
-    }
-
     func onAction(correct: Bool) {
         // wrong answer
         if correct {

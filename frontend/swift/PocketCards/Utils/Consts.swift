@@ -12,13 +12,30 @@ class URLs {
     static let STUDY = "\(HOST)/v1/questions/study"
     static let TEST = "\(HOST)/v1/questions/test"
     static let SIGN_IN = "\(HOST)/v1/auth/login"
+    static let WEEKLY_TEST = "\(HOST)/v1/questions/weekly"
+    static let WEEKLY_PRACTICE = "\(HOST)/v1/questions/weekly"
+
+    static let GROUP_LIST = "\(HOST)/v1/groups"
+    static let CURRICULUM_LIST = "\(HOST)/v1/curriculums"
 
     static let REPORTS_PROGRESS = "\(HOST)/v1/reports/progress"
     static let REPORTS_OVERALL = "\(HOST)/v1/reports/overall"
     static let REPORTS_DAILY_TASKS = "\(HOST)/v1/reports/dailytasks"
 
+    static func QUESTION_LIST(groupId: String) -> String {
+        "\(HOST)/v1/groups/\(groupId)/questions"
+    }
+
     static func ANSWER(id: String) -> String {
         "\(HOST)/v1/questions/\(id)/answer"
+    }
+
+    static func USER_CURRICULUM_LIST(userId: String) -> String {
+        "\(HOST)/v1/users/\(userId)/curriculums"
+    }
+
+    static func WEEKLY_ANSWER(id: String) -> String {
+        "\(HOST)/v1/questions/weekly/\(id)"
     }
 
     static let REPORT_DAILY = "\(HOST)/v1/reports/daily"

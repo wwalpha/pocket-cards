@@ -18,45 +18,40 @@ struct DailyTestView: View {
     }
 
     var body: some View {
-        if viewModel.title.isEmpty {
+        if viewModel.isLoading {
             Text("Loading....")
                 .onAppear {
                     interactor?.loadQuestion()
                 }
-        } else if viewModel.title == "Nothing" {
+        } else if viewModel.isFinish {
             Text("今日のテストは終わりました")
                 .font(.system(size: 64, design: .default))
         } else {
             // Language
             if subject == SUBJECT.LANGUAGE {
-                ChoiceQuestion(
-                    question: viewModel.title,
-                    choices: viewModel.choices,
-                    isShowError: "",
-                    onChoice: interactor!.onChoice
-                )
+//                ChoiceQuestion(
+//                    question: viewModel.title,
+//                    choices: viewModel.choices,
+//                    isShowError: "",
+//                    onChoice: interactor!.onChoice
+//                )
             } else {
                 // Society or Science
-                FlashCard(
-                    question: viewModel.title,
-                    answer: viewModel.answer,
-                    action: interactor!.onAction,
-                    onPlay: interactor!.onPlay
-                )
+                FlashCard(question: viewModel.question!, action: interactor!.onAction)
             }
         }
     }
 }
 
 extension DailyTestView: DailyTestDisplayLogic {
-    func showNext(title: String, answer: String, choices: [String]?) {
-        viewModel.title = title
-        viewModel.answer = answer
-        viewModel.choices = choices != nil ? choices! : []
+    func showNext(q: Question) {
+        viewModel.question = q
+        viewModel.isLoading = false
     }
 
     func showNothing() {
-        viewModel.title = "Nothing"
+        viewModel.isLoading = false
+        viewModel.isFinish = true
     }
 }
 
@@ -69,6 +64,9 @@ extension DailyTestView {
         view.interactor = interactor
         interactor.presenter = presenter
         presenter.view = view
+
+        // initialize
+        view.viewModel.isLoading = true
 
         return view
     }

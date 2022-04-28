@@ -13,9 +13,13 @@ class DailyStudyPresenter {
 
 extension DailyStudyPresenter: DailyStudyPresentationLogic {
     func showNext(q: Question) {
-        let title = q.description == nil ? q.title : "\(q.title)\n\n\(q.description!)"
+        let model = DailyStudyViewModel()
+        model.question = q
+        model.isFinish = false
+        model.isLoading = false
+        model.question?.title = q.description == nil ? q.title : "\(q.title)\n\n\(q.description!)"
 
-        view?.showNext(title: title, answer: q.answer, choices: q.choices)
+        view?.showNext(model: model)
     }
 
     func showError(index: String) {
@@ -23,6 +27,9 @@ extension DailyStudyPresenter: DailyStudyPresentationLogic {
     }
 
     func showNothing() {
-        view?.showNothing()
+        let model = DailyStudyViewModel()
+        model.isFinish = true
+
+        view?.showNext(model: model)
     }
 }

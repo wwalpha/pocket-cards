@@ -35,7 +35,6 @@ extension String {
     }
 
     func getImage() -> String {
-//        let pattern = #"\[https?://.*\]"#
         let pattern = #"\[.*\]"#
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
 
