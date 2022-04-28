@@ -9,11 +9,13 @@ import Alamofire
 import Amplify
 import AmplifyPlugins
 import AWSPluginsCore
+import Combine
 
 let Auth = Authentication()
 
 class Authentication: ObservableObject {
     @Published var isSignedIn: Bool = false
+    var userId: String = ""
 
     func eventListen() {
         _ = Amplify.Hub.listen(to: .auth) { payload in
@@ -35,9 +37,32 @@ class Authentication: ObservableObject {
                 }
             //                self.initialize()
             case HubPayload.EventName.Auth.fetchSessionAPI:
-                print("==HUB== Session expired, show sign in aui")
+                print("==HUB== fetchSessionAPI")
             case HubPayload.EventName.Auth.fetchUserAttributesAPI:
-                self.initialize()
+                print("==HUB== fetchUserAttributesAPI")
+                guard let results = payload.data as? Swift.Result<[AuthUserAttribute], AuthError> else { return }
+
+                switch results {
+                case let .success(attributes):
+                    let identities = attributes.first(where: { $0.key == AuthUserAttributeKey.unknown("identities") })
+                    guard let value = identities?.value else { return }
+                    guard let datas = value.data(using: .utf8) else { return }
+
+                    do {
+                        let decoder = JSONDecoder()
+
+                        let attr = try decoder.decode([UserAttributes].self, from: datas)
+
+                        DispatchQueue.main.async {
+                            self.userId = "\(attr[0].providerName)_\(attr[0].userId)"
+                        }
+                    } catch {}
+
+                case let .failure(error):
+                    print("Fetching user attributes failed with error \(error)")
+                }
+
+                print("==HUB== fetchUserAttributesAPI2")
             default:
                 print("==HUB== \(payload)")
             }
@@ -49,8 +74,6 @@ class Authentication: ObservableObject {
             do {
                 let session = try result.get()
 
-                print("fetchAuthSession", session)
-
                 DispatchQueue.main.async {
                     self.isSignedIn = session.isSignedIn
                 }
@@ -58,13 +81,24 @@ class Authentication: ObservableObject {
                 if let cognitoTokenProvider = session as? AuthCognitoTokensProvider {
                     let tokens = try cognitoTokenProvider.getCognitoTokens().get()
 
-                    print("updateTokens", tokens)
-
                     TokenManager.shared.updateTokens(tokens: tokens)
+
+                    _ = Amplify.Auth.fetchUserAttributes()
                 }
 
             } catch {
                 print("Fetch auth session failed with error - \(error)")
+            }
+        }
+    }
+
+    func fetchAttributes() {
+        Amplify.Auth.fetchUserAttributes { result in
+            switch result {
+            case let .success(attributes):
+                print("User attributes - \(attributes)")
+            case let .failure(error):
+                print("Fetching user attributes failed with error \(error)")
             }
         }
     }
@@ -79,15 +113,6 @@ class Authentication: ObservableObject {
             case let .success(result):
                 print(result)
 
-                // fetch user details
-                _ = Amplify.Auth.fetchUserAttributes { result in
-                    switch result {
-                    case let .success(session):
-                        print(session)
-                    case let .failure(error):
-                        print(error)
-                    }
-                }
             case let .failure(error):
                 print("Can not signin \(error)")
             }
@@ -116,7 +141,7 @@ class Authentication: ObservableObject {
 
         API.request(URLs.SIGN_IN, method: .post, parameters: params)
             .validate()
-            .responseDecodable(of: UserServiceEnum.SignIn.Response.self) { response in
+            .responseDecodable(of: UserServices.SignIn.Response.self) { response in
                 guard let res = response.value else { return }
 
                 // save token

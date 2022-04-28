@@ -21,4 +21,18 @@ enum QuestionServiceEnum {
             }
         }
     }
+
+    enum Weekly {
+        struct Request {}
+
+        struct Response: Codable {
+            var count: Int
+            var questions: [Question]
+
+            private enum CodingKeys: String, CodingKey {
+                case count
+                case questions
+            }
+        }
+    }
 }

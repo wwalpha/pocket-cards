@@ -13,9 +13,7 @@ class DailyTestPresenter {
 
 extension DailyTestPresenter: DailyTestPresentationLogic {
     func showNext(q: Question) {
-        let title = q.description == nil ? q.title : "\(q.title)\n\n\(q.description!)"
-
-        view?.showNext(title: title, answer: q.answer, choices: q.choices)
+        view?.showNext(q: q)
     }
 
     func showNothing() {

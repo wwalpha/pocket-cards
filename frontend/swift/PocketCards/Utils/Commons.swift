@@ -22,6 +22,15 @@ class AudioPlayer {
         player?.play()
     }
 
+    func play(url: URL?) {
+        guard let thisURL = url else { return }
+
+        let item = AVPlayerItem(url: thisURL)
+        player = AVPlayer(playerItem: item)
+        player?.volume = 1.0
+        player?.play()
+    }
+
     func playCorrect() {
         playLocal(url: "correct")
     }

@@ -23,6 +23,11 @@ struct RootView: View {
             startPoint: .topTrailing,
             endPoint: .bottomLeading
         )
+        let gradient3 = LinearGradient(
+            colors: [Color(hex: 0x5D26C1), Color(hex: 0xA17FE0)],
+            startPoint: .topTrailing,
+            endPoint: .bottomLeading
+        )
 
         VStack(alignment: .leading, spacing: 32) {
             Spacer()
@@ -32,6 +37,20 @@ struct RootView: View {
                     .frame(height: 120, alignment: .topLeading)
                     .font(.system(size: 32))
                     .padding(.trailing, 64)
+
+//                Button {
+//                    _ = FileManager.default.allRecordedData()
+//                } label: {
+//                    Text("日々の演習")
+//                        .font(.system(size: 24, design: .default))
+//                        .fontWeight(.bold)
+//                        .frame(width: 200, height: 96, alignment: .center)
+//                        .background(gradient1)
+//                        .foregroundColor(Color.white)
+//                }
+//                .padding(.trailing, 32)
+//                .clipped()
+//                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
 
                 NavigationLink(destination: router?.makeLanguageStudyiew()) {
                     Text("日々の演習")
@@ -53,7 +72,19 @@ struct RootView: View {
                         .background(gradient2)
                         .foregroundColor(Color.white)
                 }
-                .padding(.leading, 32)
+                .padding(.trailing, 32)
+                .clipped()
+                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+
+                NavigationLink(destination: router?.makeScienceWeeklyTestView()) {
+                    Text("週テスト対策")
+                        .font(.system(size: 24, design: .default))
+                        .fontWeight(.bold)
+                        .frame(width: 200, height: 96, alignment: .center)
+                        .background(gradient3)
+                        .foregroundColor(Color.white)
+                }
+                .padding(.trailing, 32)
                 .clipped()
                 .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
 
@@ -96,7 +127,19 @@ struct RootView: View {
                         .background(gradient2)
                         .foregroundColor(Color.white)
                 }
-                .padding(.leading, 32)
+                .padding(.trailing, 32)
+                .clipped()
+                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+
+                NavigationLink(destination: router?.makeSocietyWeeklyTestView()) {
+                    Text("週テスト対策")
+                        .font(.system(size: 24, design: .default))
+                        .fontWeight(.bold)
+                        .frame(width: 200, height: 96, alignment: .center)
+                        .background(gradient3)
+                        .foregroundColor(Color.white)
+                }
+                .padding(.trailing, 32)
                 .clipped()
                 .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
 
@@ -139,7 +182,19 @@ struct RootView: View {
                         .background(gradient2)
                         .foregroundColor(Color.white)
                 }
-                .padding(.leading, 32)
+                .padding(.trailing, 32)
+                .clipped()
+                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+
+                NavigationLink(destination: router?.makeScienceWeeklyTestView()) {
+                    Text("週テスト対策")
+                        .font(.system(size: 24, design: .default))
+                        .fontWeight(.bold)
+                        .frame(width: 200, height: 96, alignment: .center)
+                        .background(gradient3)
+                        .foregroundColor(Color.white)
+                }
+                .padding(.trailing, 32)
                 .clipped()
                 .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
 

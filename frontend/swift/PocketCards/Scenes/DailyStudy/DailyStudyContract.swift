@@ -8,11 +8,9 @@
 import Foundation
 
 protocol DailyStudyDisplayLogic {
-    func showNext(title: String, answer: String, choices: [String]?)
+    func showNext(model: DailyStudyViewModel)
 
     func showError(index: String)
-
-    func showNothing()
 }
 
 protocol DailyStudyBusinessLogic {
@@ -23,8 +21,6 @@ protocol DailyStudyBusinessLogic {
     func onChoice(choice: String)
 
     func onAction(correct: Bool)
-
-    func onPlay(front: Bool)
 }
 
 protocol DailyStudyPresentationLogic {

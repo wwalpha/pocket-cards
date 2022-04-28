@@ -7,7 +7,7 @@
 import Foundation
 
 protocol DailyTestDisplayLogic {
-    func showNext(title: String, answer: String, choices: [String]?)
+    func showNext(q: Question)
 
     func showNothing()
 }
@@ -20,8 +20,6 @@ protocol DailyTestBusinessLogic {
     func onChoice(choice: String)
 
     func onAction(correct: Bool)
-
-    func onPlay(front: Bool)
 }
 
 protocol DailyTestPresentationLogic {
