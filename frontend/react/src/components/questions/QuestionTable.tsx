@@ -34,7 +34,7 @@ const styles = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     display: 'inline-block',
-    width: 95 / 100,
+    width: '350px',
   },
 };
 
@@ -65,6 +65,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) =
               <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
               {onSubmit && <StyledTableCell></StyledTableCell>}
               <StyledTableCell>Title</StyledTableCell>
+              <StyledTableCell>Choices</StyledTableCell>
               <StyledTableCell>Answer</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -87,6 +88,11 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) =
                 <TableCell>
                   <Box component="span" sx={styles.tableCell}>
                     {item.title}
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  <Box component="span" sx={styles.tableCell}>
+                    {item.choices?.join('|')}
                   </Box>
                 </TableCell>
                 <TableCell>

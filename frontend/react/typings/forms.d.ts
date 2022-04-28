@@ -38,4 +38,5 @@ export interface QuestionForm {
   id?: string;
   title: string;
   answer: string;
+  choices?: string;
 }

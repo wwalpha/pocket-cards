@@ -79,6 +79,8 @@ export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], void>(
       id: item.id,
       title: item.title,
       answer: item.answer,
+      description: item.description,
+      choices: item.choices,
     }));
   }
 );
