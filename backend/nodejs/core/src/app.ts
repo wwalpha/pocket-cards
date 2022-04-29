@@ -17,7 +17,12 @@ import {
 } from '@src/services/questions';
 import { DailyTasks, LearningProgress, LearningOverall } from '@src/services/reports';
 import { CurriculumRegist, CurriculumList, CurriculumRemove } from '@src/services/curriculums';
-import { WeeklyTestList, WeeklyTestAnswer, WeeklyTestRegist } from '@src/services/weekly';
+import {
+  WeeklyAbilityRegist,
+  WeeklyAbilityList,
+  WeeklyAbilityAnswer,
+  WeeklyPracticeAnswer,
+} from '@src/services/weekly';
 
 import { Patchs } from '@src/services/patch';
 
@@ -97,15 +102,9 @@ app.delete('/v1/groups/:groupId/questions/:questionId', express.json(), (req, re
 app.get('/v1/questions/study', express.json(), (req, res) => entry(req, res, QuestionStudy));
 // 今日のテスト
 app.get('/v1/questions/test', express.json(), (req, res) => entry(req, res, QuestionExam));
-// 週テスト
-app.post('/v1/questions/weekly', express.json(), (req, res) => entry(req, res, WeeklyTestRegist));
-// 週テスト問題集一覧
-app.get('/v1/questions/weekly', express.json(), (req, res) => entry(req, res, WeeklyTestList));
-// 週テスト問題の回答
-app.put('/v1/questions/weekly/:qid', express.json(), (req, res) => entry(req, res, WeeklyTestAnswer));
 
 // 問題情報更新
-app.post('/v1/questions/:questionId/answer', express.json(), (req, res) => entry(req, res, QuestionAnswer as any));
+app.post('/v1/questions/:questionId/answer', express.json(), (req, res) => entry(req, res, QuestionAnswer));
 
 // Report daily
 app.get('/v1/reports/dailytasks', express.json(), (req, res) => entry(req, res, DailyTasks as any));
@@ -120,6 +119,15 @@ app.put('/v1/curriculums', express.json(), (req, res) => entry(req, res, Curricu
 app.get('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumList));
 // カリキュラム削除
 app.delete('/v1/curriculums/:curriculumId', express.json(), (req, res) => entry(req, res, CurriculumRemove));
+
+// 週テスト対策の問題一覧
+app.get('/v1/groups/:groupId/weekly', express.json(), (req, res) => entry(req, res, WeeklyAbilityList));
+// 週テスト対策の問題登録
+app.post('/v1/weekly/abilitytest', express.json(), (req, res) => entry(req, res, WeeklyAbilityRegist));
+// 週テスト対策の実力テストの回答
+app.post('/v1/groups/:groupId/ability/:qid', express.json(), (req, res) => entry(req, res, WeeklyAbilityAnswer));
+// 週テスト対策の練習問題の回答
+app.post('/v1/groups/:groupId/practice/:qid', express.json(), (req, res) => entry(req, res, WeeklyPracticeAnswer));
 
 // patch
 app.patch('/v1/patch', express.json(), (req, res) => entry(req, res, Patchs));

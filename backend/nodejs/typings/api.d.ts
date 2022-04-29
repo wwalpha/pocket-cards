@@ -404,30 +404,23 @@ export namespace APIs {
     groupIds?: string[];
   }
 
-  type WeeklyAbilityRegistResponse = void;
-
-  // ------------------------------------------------------------
-  // Weekly Test Regist
-  // ------------------------------------------------------------
-  interface WeeklyTestRegistRequest {
-    qid: string;
-  }
-
-  type WeeklyTestRegistResponse = void;
-
-  // ------------------------------------------------------------
-  // Weekly Ability Practice List
-  // ------------------------------------------------------------
-  interface WeeklyAbilityPracticeListParameter {
+  interface WeeklyAbilityRegistResponse {
     groupId: string;
   }
 
-  interface WeeklyAbilityPracticeListRequest {}
-
-  interface WeeklyAbilityPracticeListResponse {
-    count: number;
-    questions: Tables.TQuestions[];
+  // ------------------------------------------------------------
+  // Weekly Practice Answer
+  // ------------------------------------------------------------
+  interface WeeklyAbilityPracticeAnswerParameter {
+    qid: string;
+    groupId: string;
   }
+
+  interface WeeklyAbilityPracticeAnswerRequest {
+    correct: string;
+  }
+
+  type WeeklyAbilityPracticeAnswerResponse = void;
 
   // ------------------------------------------------------------
   // Weekly Test List
@@ -448,6 +441,7 @@ export namespace APIs {
   // ------------------------------------------------------------
   interface WeeklyAbilityAnswerParameter {
     qid: string;
+    groupId: string;
   }
 
   interface WeeklyAbilityAnswerRequest {

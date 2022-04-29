@@ -39,3 +39,6 @@ export const Authority = {
   PARENT: 'PARENT',
   STUDENT: 'STUDENT',
 };
+
+export const ANSWER_CORRECT = '1';
+export const ANSWER_INCORRECT = '0';
