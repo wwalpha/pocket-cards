@@ -131,6 +131,8 @@
 		9A9E57A7281A03C90025C74F /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57A5281A03C90025C74F /* DownloadManager.swift */; };
 		9A9E57A9281A0A0F0025C74F /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57A8281A0A0F0025C74F /* FileManager.swift */; };
 		9A9E57AA281A0A0F0025C74F /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57A8281A0A0F0025C74F /* FileManager.swift */; };
+		9A9E57AF281C15940025C74F /* WeeklyServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57AE281C15940025C74F /* WeeklyServices.swift */; };
+		9A9E57B0281C15940025C74F /* WeeklyServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57AE281C15940025C74F /* WeeklyServices.swift */; };
 		9AB63BB028043AD60001F15C /* OverallTimesContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */; };
 		9AB63BB128043AD60001F15C /* OverallTimesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */; };
 		9AB63BB228043AD60001F15C /* OverallTimesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */; };
@@ -314,6 +316,7 @@
 		9A9E57A12817D0C90025C74F /* WeeklyChoiceRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChoiceRouter.swift; sourceTree = "<group>"; };
 		9A9E57A5281A03C90025C74F /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		9A9E57A8281A0A0F0025C74F /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		9A9E57AE281C15940025C74F /* WeeklyServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyServices.swift; sourceTree = "<group>"; };
 		9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesContract.swift; sourceTree = "<group>"; };
 		9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesPresenter.swift; sourceTree = "<group>"; };
 		9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesInteractor.swift; sourceTree = "<group>"; };
@@ -567,6 +570,7 @@
 				9A1FD29227D7394C0000A16B /* QuestionServices.swift */,
 				9A56399F2814D86E006D6C96 /* UserServices.swift */,
 				9A9E57842816316A0025C74F /* GroupServices.swift */,
+				9A9E57AE281C15940025C74F /* WeeklyServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1014,6 +1018,7 @@
 				9A9E579628165F000025C74F /* WeeklyPracticeView.swift in Sources */,
 				9A276A7227EC4CC6005A716D /* TestChart.swift in Sources */,
 				9A9E575B28154E210025C74F /* WeeklyTestView.swift in Sources */,
+				9A9E57AF281C15940025C74F /* WeeklyServices.swift in Sources */,
 				9A9E579E2817B6470025C74F /* Curriculum.swift in Sources */,
 				9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */,
 				9AB63BB228043AD60001F15C /* OverallTimesInteractor.swift in Sources */,
@@ -1120,6 +1125,7 @@
 				9A9E579728165F000025C74F /* WeeklyPracticeView.swift in Sources */,
 				9AF2ACBB2814273300F80DB4 /* TestChart.swift in Sources */,
 				9A9E575C28154E210025C74F /* WeeklyTestView.swift in Sources */,
+				9A9E57B0281C15940025C74F /* WeeklyServices.swift in Sources */,
 				9A9E579F2817B6470025C74F /* Curriculum.swift in Sources */,
 				9AF2ACBC2814273300F80DB4 /* Colors.swift in Sources */,
 				9AF2ACBD2814273300F80DB4 /* OverallTimesInteractor.swift in Sources */,

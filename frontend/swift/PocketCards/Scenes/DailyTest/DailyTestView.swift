@@ -27,14 +27,12 @@ struct DailyTestView: View {
             Text("今日のテストは終わりました")
                 .font(.system(size: 64, design: .default))
         } else {
-            // Language
-            if subject == SUBJECT.LANGUAGE {
-//                ChoiceQuestion(
-//                    question: viewModel.title,
-//                    choices: viewModel.choices,
-//                    isShowError: "",
-//                    onChoice: interactor!.onChoice
-//                )
+            if viewModel.question?.choices != nil {
+                ChoiceQuestion(
+                    question: viewModel.question!,
+                    isShowError: "",
+                    onChoice: interactor!.onChoice
+                )
             } else {
                 // Society or Science
                 FlashCard(question: viewModel.question!, action: interactor!.onAction)

@@ -23,37 +23,51 @@ struct WeeklyPracticeView: View {
             Text("学習は終わりました")
                 .font(.system(size: 64, design: .default))
         } else {
-            FlashCard(question: viewModel.question!, action: interactor!.onAction)
-//            FlashCard(
-//                question: viewModel.title,
-//                answer: viewModel.answer,
-//                action: interactor!.onAction,
-//                onPlay: interactor!.onPlay
-//            )
+            if viewModel.question?.choices != nil {
+                ChoiceQuestion(
+                    question: viewModel.question!,
+                    isShowError: viewModel.isShowError,
+                    onChoice: interactor!.onChoice
+                )
+            } else {
+                // Society or Science
+                FlashCard(question: viewModel.question!, action: interactor!.onAction)
+            }
         }
     }
 }
 
 extension WeeklyPracticeView: WeeklyPracticeDisplayLogic {
+    func showError(index: String) {
+        DispatchQueue.main.async {
+            viewModel.isShowError = index
+        }
+    }
+
     func showNext(model: WeeklyPracticeViewModel) {
+        DispatchQueue.main.async {
+            viewModel.isLoading = model.isLoading
+            viewModel.isFinish = model.isFinish
+            viewModel.isShowError = model.isShowError
+        }
+
         viewModel.question = model.question
-        viewModel.isLoading = model.isLoading
-        viewModel.isFinish = model.isFinish
     }
 }
 
 extension WeeklyPracticeView {
-    func configureView(subject: String) -> some View {
+    func configureView(groupId: String) -> some View {
         var view = self
-        let interactor = WeeklyPracticeInteractor(subject: subject)
+        let interactor = WeeklyPracticeInteractor(groupId: groupId)
         let presenter = WeeklyPracticePresenter()
 
         view.interactor = interactor
         interactor.presenter = presenter
         presenter.view = view
 
-        view.viewModel.subject = subject
         view.viewModel.isLoading = true
+
+        interactor.loadQuestions()
 
         return view
     }

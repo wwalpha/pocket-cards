@@ -13,7 +13,7 @@ class OverallTimesPresenter {
 }
 
 extension OverallTimesPresenter: OverallTimesPresentationLogic {
-    func show(res: ReportService.OverallTimes.Response) {
+    func show(res: ReportServices.OverallTimes.Response) {
         view?.setOveralls(res: res)
     }
 }

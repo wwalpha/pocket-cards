@@ -59,7 +59,7 @@ extension DailyTestInteractor: DailyTestBusinessLogic {
 
         API.request(URLs.TEST, method: .get, parameters: params)
             .validate(statusCode: 200 ..< 300)
-            .responseDecodable(of: QuestionServiceEnum.LoadQuestion.Response.self) { response in
+            .responseDecodable(of: QuestionServices.LoadQuestion.Response.self) { response in
                 guard let res = response.value else { return }
 
                 print("==HUB== \(res)")

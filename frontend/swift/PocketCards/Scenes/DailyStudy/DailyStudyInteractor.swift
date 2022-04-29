@@ -59,7 +59,7 @@ extension DailyStudyInteractor: DailyStudyBusinessLogic {
 
         API.request(URLs.STUDY, method: .get, parameters: params)
             .validate()
-            .responseDecodable(of: QuestionServiceEnum.LoadQuestion.Response.self) { response in
+            .responseDecodable(of: QuestionServices.LoadQuestion.Response.self) { response in
 
                 guard let res = response.value else { return }
 

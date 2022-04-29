@@ -13,20 +13,50 @@ class WeeklyPracticeInteractor {
 
     private var questions: [Question] = []
     private var current: Question?
-    private var subject: String
+    private var isAnswered: Bool = false
+    private var groupId: String = ""
 
-    init(subject: String) {
-        self.subject = subject
+    init(groupId: String) {
+        self.groupId = groupId
     }
 }
 
 extension WeeklyPracticeInteractor: WeeklyPracticeBusinessLogic {
+    func onChoice(choice: String) {
+        if choice == current?.answer {
+            // correct sound
+            Audio.playCorrect()
+
+            if !isAnswered {
+                // update to known
+                updateAnswer(id: current!.id)
+            }
+
+            // next question
+            nextQuestion()
+
+            isAnswered = false
+        } else {
+            // incorrect sound
+            Audio.playInCorrect()
+
+            isAnswered = true
+
+            presenter?.showError(index: current!.answer)
+        }
+    }
+
     func onAction(correct: Bool) {
         // 成功の場合、更新する
         if correct {
             updateAnswer(id: current!.id)
         }
 
+        // show next question
+        nextQuestion()
+    }
+
+    private func nextQuestion() {
         // no questions
         if questions.count == 0 {
             // show loading status
@@ -47,23 +77,23 @@ extension WeeklyPracticeInteractor: WeeklyPracticeBusinessLogic {
     }
 
     private func updateAnswer(id: String) {
+        guard let groupId = current?.groupId,
+              let qid = current?.id else { return }
+
         let params = [
             "correct": "1",
-            "subject": subject,
         ]
 
         // update answer times
-        _ = API.request(URLs.WEEKLY_ANSWER(id: id), method: .put, parameters: params).response { response in
+        _ = API.request(URLs.WEEKLY_PRACTICE(groupId: groupId, qid: qid), method: .put, parameters: params).response { response in
             debugPrint(id, response.response!.statusCode)
         }
     }
 
     func loadQuestions() {
-        let params = ["subject": subject]
-
-        API.request(URLs.WEEKLY_TEST, method: .get, parameters: params)
+        API.request(URLs.WEEKLY_LIST(id: groupId), method: .get)
             .validate()
-            .responseDecodable(of: QuestionServiceEnum.Weekly.Response.self) { response in
+            .responseDecodable(of: QuestionServices.Weekly.Response.self) { response in
                 guard let res = response.value else { return }
 
                 if res.questions.count == 0 {

@@ -11,11 +11,15 @@ import Foundation
 // View logic
 protocol WeeklyPracticeDisplayLogic {
     func showNext(model: WeeklyPracticeViewModel)
+
+    func showError(index: String)
 }
 
 // Interactor logic
 protocol WeeklyPracticeBusinessLogic {
     func loadQuestions()
+
+    func onChoice(choice: String)
 
     func onAction(correct: Bool)
 }
@@ -27,4 +31,6 @@ protocol WeeklyPracticePresentationLogic {
     func showFinish()
 
     func showLoading()
+
+    func showError(index: String)
 }

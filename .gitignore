@@ -13,5 +13,5 @@ coverage
 awsconfiguration.json
 amplifyconfiguration.json
 Pods
-xcuserdata/**/*
+frontend/swift/**/xcuserdata/**/*
 UserInterfaceState.xcuserstate

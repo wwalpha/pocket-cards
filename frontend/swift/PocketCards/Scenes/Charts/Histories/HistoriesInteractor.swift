@@ -17,7 +17,7 @@ extension HistoriesInteractor: HistoriesBusinessLogic {
     func load() {
         API.request(URLs.REPORTS_PROGRESS, method: .get)
             .validate()
-            .responseDecodable(of: ReportService.LearningProgress.Response.self) { response in
+            .responseDecodable(of: ReportServices.LearningProgress.Response.self) { response in
 
                 guard let res = response.value else { return }
 

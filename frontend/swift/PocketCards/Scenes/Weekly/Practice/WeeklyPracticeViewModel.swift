@@ -9,15 +9,10 @@
 import SwiftUI
 
 class WeeklyPracticeViewModel: ObservableObject {
-//    @Published var isLoading = true
-//    @Published var title: String = ""
-//
-    var subject: String = ""
-//    var answer: String = ""
-//    var choices: [String] = []
-
     @Published var isLoading = false
     @Published var isFinish = false
+    @Published var isShowError: String = ""
 
     var question: Question?
+    var subject: String = ""
 }

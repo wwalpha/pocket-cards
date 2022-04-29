@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ReportService {
+enum ReportServices {
     enum LearningProgress {
         struct Request {}
 

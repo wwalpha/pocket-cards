@@ -9,12 +9,9 @@
 import SwiftUI
 
 class WeeklyTestViewModel: ObservableObject {
-//    @Published var title: String = ""
-//    var answer: String = ""
-//    var choices: [String] = []
-
     @Published var isLoading = false
     @Published var isFinish = false
+    @Published var isShowError: String = ""
 
     var question: Question?
 }
