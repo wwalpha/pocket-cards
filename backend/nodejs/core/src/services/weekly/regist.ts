@@ -60,7 +60,12 @@ export default async (
     times: 0,
   }));
 
+  // bulk insert
   await DBHelper().bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, dataRows);
+
+  return {
+    groupId: newGroup.id,
+  };
 };
 
 const createNewGroup = async (item: Omit<Tables.TGroups, 'id'>) => {
