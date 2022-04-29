@@ -13,6 +13,7 @@ export const TABLE_NAME_LEARNING = process.env['TABLE_NAME_LEARNING'] as string;
 export const TABLE_NAME_CURRICULUMS = process.env['TABLE_NAME_CURRICULUMS'] as string;
 export const TABLE_NAME_REPORTS = process.env['TABLE_NAME_REPORTS'] as string;
 export const TABLE_NAME_WEEKLY_TEST = process.env['TABLE_NAME_WEEKLY_TEST'] as string;
+export const TABLE_NAME_WEEKLY_ABILITY = process.env['TABLE_NAME_WEEKLY_ABILITY'] as string;
 
 // 最大単語数、default 10件
 export const WORDS_LIMIT = process.env['WORDS_LIMIT'] ? Number(process.env['WORDS_LIMIT']) : 10;
