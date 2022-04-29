@@ -9,10 +9,10 @@ import SwiftUI
 
 class WeeklyRootRouter {
     func makeTest(subject: String) -> some View {
-        WeeklyChoiceView().configureView(subject: subject)
+        WeeklyChoiceView().configureView(subject: subject, mode: MODE.WEEKLY_ABILITY)
     }
 
     func makePractice(subject: String) -> some View {
-        WeeklyPracticeView().configureView(subject: subject)
+        WeeklyChoiceView().configureView(subject: "10" + subject, mode: MODE.WEEKLY_PRACTICE)
     }
 }

@@ -32,7 +32,7 @@ struct OverallTimesView: View {
 }
 
 extension OverallTimesView: OverallTimesDisplayLogic {
-    func setOveralls(res: ReportService.OverallTimes.Response) {
+    func setOveralls(res: ReportServices.OverallTimes.Response) {
         viewModel.science = res.science
         viewModel.society = res.society
         viewModel.language = res.language

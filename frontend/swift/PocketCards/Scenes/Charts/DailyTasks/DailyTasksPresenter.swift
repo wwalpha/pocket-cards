@@ -13,7 +13,7 @@ class DailyTasksPresenter {
 }
 
 extension DailyTasksPresenter: DailyTasksPresentationLogic {
-    func show(res: ReportService.DailyTasks.Response) {
+    func show(res: ReportServices.DailyTasks.Response) {
         let model = DailyTasksViewModel()
 
         model.lanTarget = Double(res.language.target)

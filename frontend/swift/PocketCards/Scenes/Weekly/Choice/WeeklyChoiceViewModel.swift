@@ -9,9 +9,16 @@
 import SwiftUI
 
 class WeeklyChoiceViewModel: ObservableObject {
-    @Published var dataRows: [Curriculum] = []
     @Published var selection = Set<String>()
-    var subject: String = ""
+    @Published var isLoading = false
 
-    @Published var editMode = EditMode.inactive
+    var subject: String = ""
+    var dataRows: [Curriculum] = []
+    var mode: String = ""
+
+    func selectedRows() -> [Curriculum] {
+        dataRows.filter { dataRow in
+            selection.contains(dataRow.groupId)
+        }
+    }
 }

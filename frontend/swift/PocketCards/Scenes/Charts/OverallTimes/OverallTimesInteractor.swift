@@ -16,7 +16,7 @@ extension OverallTimesInteractor: OverallTimesBusinessLogic {
     func load() {
         API.request(URLs.REPORTS_OVERALL, method: .get)
             .validate()
-            .responseDecodable(of: ReportService.OverallTimes.Response.self) { response in
+            .responseDecodable(of: ReportServices.OverallTimes.Response.self) { response in
 
                 guard let res = response.value else { return }
 

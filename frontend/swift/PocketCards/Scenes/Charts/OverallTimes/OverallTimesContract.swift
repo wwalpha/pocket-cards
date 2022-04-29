@@ -10,7 +10,7 @@ import Charts
 
 // View logic
 protocol OverallTimesDisplayLogic {
-    func setOveralls(res: ReportService.OverallTimes.Response)
+    func setOveralls(res: ReportServices.OverallTimes.Response)
 
     func getBarChartData() -> [BarChartDataEntry]
 }
@@ -22,5 +22,5 @@ protocol OverallTimesBusinessLogic {
 
 // Presenter logic
 protocol OverallTimesPresentationLogic {
-    func show(res: ReportService.OverallTimes.Response)
+    func show(res: ReportServices.OverallTimes.Response)
 }

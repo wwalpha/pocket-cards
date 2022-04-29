@@ -20,5 +20,5 @@ protocol DailyTasksBusinessLogic {
 
 // Presenter logic
 protocol DailyTasksPresentationLogic {
-    func show(res: ReportService.DailyTasks.Response)
+    func show(res: ReportServices.DailyTasks.Response)
 }

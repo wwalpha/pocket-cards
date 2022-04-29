@@ -13,6 +13,10 @@ class WeeklyPracticePresenter {
 }
 
 extension WeeklyPracticePresenter: WeeklyPracticePresentationLogic {
+    func showError(index: String) {
+        view?.showError(index: index)
+    }
+
     func showLoading() {
         let model = WeeklyPracticeViewModel()
         model.isLoading = true

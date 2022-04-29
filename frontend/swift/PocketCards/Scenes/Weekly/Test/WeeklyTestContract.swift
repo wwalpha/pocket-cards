@@ -12,12 +12,12 @@ import Foundation
 protocol WeeklyTestDisplayLogic {
     func showNext(model: WeeklyTestViewModel)
 
-    func showNothing()
+    func showError(index: String)
 }
 
 // Interactor logic
 protocol WeeklyTestBusinessLogic {
-    func loadQuestion(groupIds: [String])
+    func loadQuestion(selected: [Curriculum])
 
     func onChoice(choice: String)
 
@@ -28,5 +28,9 @@ protocol WeeklyTestBusinessLogic {
 protocol WeeklyTestPresentationLogic {
     func showNext(q: Question)
 
-    func showNothing()
+    func showFinish()
+
+    func showLoading()
+
+    func showError(index: String)
 }

@@ -20,46 +20,40 @@ struct WeeklyTestView: View {
             Text("テストは終わりました")
                 .font(.system(size: 64, design: .default))
         } else {
-            // Language
-//            if viewModel.subject == SUBJECT.LANGUAGE {
-//                ChoiceQuestion(
-//                    question: viewModel.title,
-//                    choices: viewModel.choices,
-//                    isShowError: "",
-//                    onChoice: interactor!.onChoice
-//                )
-//            } else {
-            // Society or Science
-//            FlashCard(
-//                question: viewModel.title,
-//                answer: viewModel.answer,
-//                action: interactor!.onAction,
-//                onPlay: interactor!.onPlay
-//            )
-//            }
-
-            FlashCard(question: viewModel.question!, action: interactor!.onAction)
+            if viewModel.question?.choices != nil {
+                ChoiceQuestion(
+                    question: viewModel.question!,
+                    isShowError: viewModel.isShowError,
+                    onChoice: interactor!.onChoice
+                )
+            } else {
+                // Society or Science
+                FlashCard(question: viewModel.question!, action: interactor!.onAction)
+            }
         }
     }
 }
 
 extension WeeklyTestView: WeeklyTestDisplayLogic {
+    func showError(index: String) {
+        DispatchQueue.main.async {
+            viewModel.isShowError = index
+        }
+    }
+
     func showNext(model: WeeklyTestViewModel) {
         DispatchQueue.main.async {
-            viewModel.isLoading = false
+            viewModel.isLoading = model.isLoading
+            viewModel.isFinish = model.isFinish
+            viewModel.isShowError = model.isShowError
         }
 
         viewModel.question = model.question
     }
-
-    func showNothing() {
-        viewModel.isLoading = false
-        viewModel.isFinish = true
-    }
 }
 
 extension WeeklyTestView {
-    func configureView(groupIds: [String]) -> some View {
+    func configureView(selected: [Curriculum]) -> some View {
         var view = self
         let interactor = WeeklyTestInteractor()
         let presenter = WeeklyTestPresenter()
@@ -68,7 +62,7 @@ extension WeeklyTestView {
         interactor.presenter = presenter
         presenter.view = view
 
-        interactor.loadQuestion(groupIds: groupIds)
+        interactor.loadQuestion(selected: selected)
 
         view.viewModel.isLoading = true
 

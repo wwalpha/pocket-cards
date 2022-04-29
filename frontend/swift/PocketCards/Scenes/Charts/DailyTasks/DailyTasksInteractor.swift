@@ -16,7 +16,7 @@ extension DailyTasksInteractor: DailyTasksBusinessLogic {
     func load() {
         API.request(URLs.REPORTS_DAILY_TASKS, method: .get)
             .validate()
-            .responseDecodable(of: ReportService.DailyTasks.Response.self) { response in
+            .responseDecodable(of: ReportServices.DailyTasks.Response.self) { response in
 
                 guard let res = response.value else { return }
 

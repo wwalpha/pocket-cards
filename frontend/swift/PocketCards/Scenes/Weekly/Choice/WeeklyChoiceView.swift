@@ -10,6 +10,8 @@ import SwiftUI
 
 struct WeeklyChoiceView: View {
     var interactor: WeeklyChoiceBusinessLogic?
+    var router: WeeklyChoiceRouter = .init()
+
     @Environment(\.editMode) var editMode
     @ObservedObject var viewModel = WeeklyChoiceViewModel()
 
@@ -24,19 +26,28 @@ struct WeeklyChoiceView: View {
                 }
             }.padding()
         } else {
-            WeeklyTestView().configureView(groupIds: Array(viewModel.selection))
+            if viewModel.mode == MODE.WEEKLY_ABILITY {
+                router.makeTest(selected: viewModel.selectedRows())
+            }
+            if viewModel.mode == MODE.WEEKLY_PRACTICE {
+                router.makePractice(groupIds: viewModel.selection)
+            }
         }
     }
 }
 
 extension WeeklyChoiceView: WeeklyChoiceDisplayLogic {
     func showGroups(model: WeeklyChoiceViewModel) {
+        DispatchQueue.main.async {
+            viewModel.isLoading = model.isLoading
+        }
+
         viewModel.dataRows = model.dataRows
     }
 }
 
 extension WeeklyChoiceView {
-    func configureView(subject: String) -> some View {
+    func configureView(subject: String, mode: String) -> some View {
         var view = self
         let interactor = WeeklyChoiceInteractor()
         let presenter = WeeklyChoicePresenter()
@@ -46,6 +57,8 @@ extension WeeklyChoiceView {
         presenter.view = view
 
         view.viewModel.subject = subject
+        view.viewModel.mode = mode
+        view.viewModel.isLoading = true
 
         interactor.loadGroups(subject: subject)
 
