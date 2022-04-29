@@ -1,9 +1,10 @@
 import { Request } from 'express';
 import { DBHelper, Commons, DateUtils } from '@utils';
-import { Groups, Questions } from '@queries';
+import { Curriculums, Groups, Questions } from '@queries';
 import { Consts, Environment } from '@consts';
-import { APIs, Tables } from 'typings';
+import { APIs, Tables, Users } from 'typings';
 import { generate } from 'short-uuid';
+import axios from 'axios';
 
 /** 週テスト対策問題登録 */
 export default async (
@@ -12,6 +13,7 @@ export default async (
   // next study date
   const { groupIds } = req.body;
   const userId = Commons.getUserId(req);
+  const userInfo = await getUserInfo(userId, req.headers['authorization']);
 
   if (!groupIds || groupIds.length === 0) {
     throw new Error('Group ids is required.');
@@ -52,6 +54,13 @@ export default async (
     name: `実力テスト_${DateUtils.getNow()}_${DateUtils.getTimestamp().substring(8)}`,
   });
 
+  await createCurriculums({
+    groupId: newGroup.id,
+    guardian: userInfo.teacher ?? '',
+    subject: newGroup.subject,
+    userId: userId,
+  });
+
   const dataRows = questions.map<Tables.TWeeklyAbility>((item) => ({
     id: newGroup.id,
     qid: item.id,
@@ -80,6 +89,18 @@ const createNewGroup = async (item: Omit<Tables.TGroups, 'id'>) => {
   return dataRow;
 };
 
+const createCurriculums = async (item: Omit<Tables.TCurriculums, 'id'>) => {
+  const dataRow: Tables.TCurriculums = {
+    id: generate(),
+    ...item,
+  };
+
+  // データ登録
+  await DBHelper().put(Curriculums.put(dataRow));
+
+  return dataRow;
+};
+
 const getAbilitySubject = (subject: string) => {
   switch (subject) {
     case Consts.SUBJECT.ENGLISH:
@@ -93,4 +114,20 @@ const getAbilitySubject = (subject: string) => {
     default:
       return '';
   }
+};
+
+const getUserInfo = async (userId: string, token?: string) => {
+  // get user information
+  const response = await axios.get<Users.DescribeUserResponse>(Consts.API_URLs.describeUser(userId), {
+    headers: {
+      authorization: token,
+    },
+  });
+
+  // user not found
+  if (response.status !== 200) {
+    throw new Error('User not found.');
+  }
+
+  return response.data;
 };
