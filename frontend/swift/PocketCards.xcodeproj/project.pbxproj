@@ -133,6 +133,8 @@
 		9A9E57AA281A0A0F0025C74F /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57A8281A0A0F0025C74F /* FileManager.swift */; };
 		9A9E57AF281C15940025C74F /* WeeklyServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57AE281C15940025C74F /* WeeklyServices.swift */; };
 		9A9E57B0281C15940025C74F /* WeeklyServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57AE281C15940025C74F /* WeeklyServices.swift */; };
+		9A9E57B6281D054A0025C74F /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57B5281D054A0025C74F /* CheckList.swift */; };
+		9A9E57B7281D054A0025C74F /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57B5281D054A0025C74F /* CheckList.swift */; };
 		9AB63BB028043AD60001F15C /* OverallTimesContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */; };
 		9AB63BB128043AD60001F15C /* OverallTimesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */; };
 		9AB63BB228043AD60001F15C /* OverallTimesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */; };
@@ -317,6 +319,7 @@
 		9A9E57A5281A03C90025C74F /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		9A9E57A8281A0A0F0025C74F /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		9A9E57AE281C15940025C74F /* WeeklyServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyServices.swift; sourceTree = "<group>"; };
+		9A9E57B5281D054A0025C74F /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 		9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesContract.swift; sourceTree = "<group>"; };
 		9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesPresenter.swift; sourceTree = "<group>"; };
 		9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesInteractor.swift; sourceTree = "<group>"; };
@@ -419,6 +422,7 @@
 		9A1FD27127D7394C0000A16B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9A9E57B1281D04F30025C74F /* Checks */,
 				9A3F50CC27EB325100D9A305 /* Charts */,
 				9A1FD27227D7394C0000A16B /* Button */,
 				9A1FD27427D7394C0000A16B /* View */,
@@ -724,6 +728,14 @@
 				9A9E578F28165F000025C74F /* WeeklyPracticeViewModel.swift */,
 			);
 			path = Practice;
+			sourceTree = "<group>";
+		};
+		9A9E57B1281D04F30025C74F /* Checks */ = {
+			isa = PBXGroup;
+			children = (
+				9A9E57B5281D054A0025C74F /* CheckList.swift */,
+			);
+			path = Checks;
 			sourceTree = "<group>";
 		};
 		9AB63BAA28043AC00001F15C /* OverallTimes */ = {
@@ -1038,6 +1050,7 @@
 				9A9E5781281599930025C74F /* WeeklyRootRouter.swift in Sources */,
 				9A7F877227D7602500446E9D /* ScienceHomeRouter.swift in Sources */,
 				9A1FD29627D7394C0000A16B /* LanguageHomeView.swift in Sources */,
+				9A9E57B6281D054A0025C74F /* CheckList.swift in Sources */,
 				9A1FD24F27D7369B0000A16B /* ContentView.swift in Sources */,
 				9A7F876A27D747C800446E9D /* FlashCard.swift in Sources */,
 				9A7F877A27D8269600446E9D /* Environments.swift in Sources */,
@@ -1145,6 +1158,7 @@
 				9A9E5782281599930025C74F /* WeeklyRootRouter.swift in Sources */,
 				9AF2ACC72814273300F80DB4 /* ScienceHomeRouter.swift in Sources */,
 				9AF2ACC82814273300F80DB4 /* LanguageHomeView.swift in Sources */,
+				9A9E57B7281D054A0025C74F /* CheckList.swift in Sources */,
 				9AF2ACC92814273300F80DB4 /* ContentView.swift in Sources */,
 				9AF2ACCA2814273300F80DB4 /* FlashCard.swift in Sources */,
 				9AF2ACCB2814273300F80DB4 /* Environments.swift in Sources */,
