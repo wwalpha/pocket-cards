@@ -47,7 +47,7 @@ extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
             let question = questions.removeFirst()
 
             // show card
-            presenter?.showNext(q: question)
+            presenter?.showNext(q: question, count: questions.count)
 
             self.questions = questions
             self.current = question
@@ -107,7 +107,7 @@ extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
 
         // show next question
         let question = questions.removeFirst()
-        presenter?.showNext(q: question)
+        presenter?.showNext(q: question, count: questions.count)
 
         // save
         current = question

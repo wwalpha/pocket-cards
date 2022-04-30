@@ -14,21 +14,30 @@ struct WeeklyTestView: View {
     @ObservedObject var viewModel = WeeklyTestViewModel()
 
     var body: some View {
-        if viewModel.isLoading {
-            Text("Loading....")
-        } else if viewModel.isFinish {
-            Text("テストは終わりました")
-                .font(.system(size: 64, design: .default))
-        } else {
-            if viewModel.question?.choices != nil {
-                ChoiceQuestion(
-                    question: viewModel.question!,
-                    isShowError: viewModel.isShowError,
-                    onChoice: interactor!.onChoice
-                )
+        VStack {
+            if viewModel.isLoading {
+                Text("Loading....")
+            } else if viewModel.isFinish {
+                Text("テストは終わりました")
+                    .font(.system(size: 64, design: .default))
             } else {
-                // Society or Science
-                FlashCard(question: viewModel.question!, action: interactor!.onAction)
+                if viewModel.question?.choices != nil {
+                    ChoiceQuestion(
+                        question: viewModel.question!,
+                        isShowError: viewModel.isShowError,
+                        onChoice: interactor!.onChoice
+                    )
+                } else {
+                    // Society or Science
+                    FlashCard(question: viewModel.question!, action: interactor!.onAction)
+                }
+            }
+        }.toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("残問題数：" + viewModel.count)
+                    .font(.largeTitle.bold())
+                    .frame(width: 300, height: 20, alignment: .center)
+                    .accessibilityAddTraits(.isHeader)
             }
         }
     }
@@ -46,8 +55,9 @@ extension WeeklyTestView: WeeklyTestDisplayLogic {
             viewModel.isLoading = model.isLoading
             viewModel.isFinish = model.isFinish
             viewModel.isShowError = model.isShowError
+            viewModel.count = model.count
         }
-
+        debugPrint(model.count)
         viewModel.question = model.question
     }
 }

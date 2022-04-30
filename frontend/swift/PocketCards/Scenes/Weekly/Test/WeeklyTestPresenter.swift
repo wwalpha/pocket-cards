@@ -33,10 +33,11 @@ extension WeeklyTestPresenter: WeeklyTestPresentationLogic {
         view?.showError(index: index)
     }
 
-    func showNext(q: Question) {
+    func showNext(q: Question, count: Int) {
         let model = WeeklyTestViewModel()
         model.question = q
         model.isLoading = false
+        model.count = String(count)
 
         view?.showNext(model: model)
     }
