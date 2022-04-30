@@ -2,6 +2,7 @@ import { DynamoDB } from 'aws-sdk';
 import { Environment } from '@consts';
 import { Tables } from 'typings';
 export * as query from './query';
+export * as update from './update';
 
 /** データ取得 */
 export const get = (key: Tables.TWeeklyAbilityKey): DynamoDB.DocumentClient.GetItemInput => ({
