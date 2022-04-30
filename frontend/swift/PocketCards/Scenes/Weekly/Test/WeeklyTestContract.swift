@@ -26,7 +26,7 @@ protocol WeeklyTestBusinessLogic {
 
 // Presenter logic
 protocol WeeklyTestPresentationLogic {
-    func showNext(q: Question)
+    func showNext(q: Question, count: Int)
 
     func showFinish()
 
