@@ -39,7 +39,7 @@ export default () => {
     <Drawer sx={styles.drawer} variant="permanent" anchor="left">
       <Toolbar>
         <Typography variant="h6" noWrap component="div">
-          VER.0.5.1
+          VER.0.5.4
         </Typography>
       </Toolbar>
       <Divider />

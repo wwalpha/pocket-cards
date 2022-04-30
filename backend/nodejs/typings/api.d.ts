@@ -398,22 +398,29 @@ export namespace APIs {
   type QuestionUpdateResponse = Tables.TQuestions;
 
   // ------------------------------------------------------------
-  // Weekly Test Regist All
+  // Weekly Ability Regist
   // ------------------------------------------------------------
-  interface WeeklyTestRegistAllRequest {
+  interface WeeklyAbilityRegistRequest {
     groupIds?: string[];
   }
 
-  type WeeklyTestRegistAllResponse = void;
-
-  // ------------------------------------------------------------
-  // Weekly Test Regist
-  // ------------------------------------------------------------
-  interface WeeklyTestRegistRequest {
-    qid: string;
+  interface WeeklyAbilityRegistResponse {
+    groupId: string;
   }
 
-  type WeeklyTestRegistResponse = void;
+  // ------------------------------------------------------------
+  // Weekly Practice Answer
+  // ------------------------------------------------------------
+  interface WeeklyAbilityPracticeAnswerParameter {
+    qid: string;
+    groupId: string;
+  }
+
+  interface WeeklyAbilityPracticeAnswerRequest {
+    correct: string;
+  }
+
+  type WeeklyAbilityPracticeAnswerResponse = void;
 
   // ------------------------------------------------------------
   // Weekly Test List
@@ -432,16 +439,17 @@ export namespace APIs {
   // ------------------------------------------------------------
   // Weekly Test Answer
   // ------------------------------------------------------------
-  interface WeeklyTestAnswerParameter {
+  interface WeeklyAbilityAnswerParameter {
     qid: string;
+    groupId: string;
   }
 
-  interface WeeklyTestAnswerRequest {
+  interface WeeklyAbilityAnswerRequest {
     subject: string;
     correct?: string;
   }
 
-  type WeeklyTestAnswerResponse = void;
+  type WeeklyAbilityAnswerResponse = void;
   // ------------------------------------------------------------
   // Reports - Daily Tasks
   // ------------------------------------------------------------
