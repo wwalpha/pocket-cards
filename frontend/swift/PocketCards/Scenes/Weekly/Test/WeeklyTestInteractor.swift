@@ -40,7 +40,8 @@ extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
                 groupId = selected[0].groupId
             }
 
-            let response = try await API.request(URLs.WEEKLY_LIST(id: groupId), method: .get)
+            let parameters = ["reset": "1"]
+            let response = try await API.request(URLs.WEEKLY_LIST(id: groupId), method: .get, parameters: parameters)
                 .serializingDecodable(WeeklyServices.List.Response.self).value
 
             var questions = response.questions
