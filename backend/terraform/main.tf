@@ -15,6 +15,13 @@ terraform {
       prefix = "pocket-cards-backend-"
     }
   }
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "4.11"
+    }
+  }
 }
 
 # ----------------------------------------------------------------------------------------------

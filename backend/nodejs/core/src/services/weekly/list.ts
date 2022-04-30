@@ -1,35 +1,28 @@
 import { Request } from 'express';
-import { DBHelper, Commons } from '@utils';
-import { Questions, WeeklyTest } from '@queries';
+import { DBHelper } from '@utils';
+import { Questions, WeeklyAbility } from '@queries';
 import { APIs, Tables } from 'typings';
 
 /** 今日のテスト */
 export default async (
   req: Request<any, any, APIs.WeeklyTestListRequest, APIs.WeeklyTestListQuery>
 ): Promise<APIs.WeeklyTestListResponse> => {
-  // subject
-  const { subject } = req.query;
-  const userId = Commons.getUserId(req);
+  // parameters
+  const { groupId } = req.params;
 
-  // get test questions
-  const tests = await DBHelper().query<Tables.TWeeklyTest>(WeeklyTest.query.bySubject(userId, subject));
+  // results
+  const results = await DBHelper().query<Tables.TWeeklyAbility>(WeeklyAbility.query.byKey(groupId));
 
   // no questions
-  if (tests.Items.length === 0) {
+  if (results.Items.length === 0) {
     return {
       count: 0,
       questions: [],
     };
   }
 
-  // // calculate min times
-  // const times = minBy(tests.Items, 'times')?.times || 0;
-  // // get min times question
-  // const questions = tests.Items.filter((item) => item.times === times);
   // get question details
-  const tasks = tests.Items.map((item) =>
-    DBHelper().get<Tables.TQuestions>(Questions.get({ id: item.subjectQid.split('_')[1] || '' }))
-  );
+  const tasks = results.Items.map((item) => DBHelper().get<Tables.TQuestions>(Questions.get({ id: item.qid })));
 
   const details = await Promise.all(tasks);
 

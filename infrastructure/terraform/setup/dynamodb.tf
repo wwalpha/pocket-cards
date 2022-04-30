@@ -363,3 +363,27 @@ resource "aws_dynamodb_table" "weekly_test" {
     Project = local.project_name_uc
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Weekly Ability
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "weekly_ability" {
+  name         = local.dynamodb_name_weekly_ability
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+  range_key    = "qid"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  attribute {
+    name = "qid"
+    type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
+  }
+}
