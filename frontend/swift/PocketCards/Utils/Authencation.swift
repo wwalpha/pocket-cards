@@ -90,7 +90,6 @@ class Authentication: ObservableObject {
         }
     }
 
-
     func signIn() {
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
