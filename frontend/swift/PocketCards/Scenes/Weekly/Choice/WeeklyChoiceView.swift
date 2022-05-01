@@ -29,6 +29,9 @@ struct WeeklyChoiceView: View {
         VStack {
             if viewModel.isLoading {
                 Text("Loading....")
+                    .onAppear {
+                        interactor?.loadGroups(subject: viewModel.subject)
+                    }
             } else if !viewModel.isConfirmed {
                 VStack {
                     CheckList(datas: viewModel.checkList(), selection: $selection)
@@ -59,6 +62,7 @@ struct WeeklyChoiceView: View {
             }
         }.onDisappear {
             viewModel.isConfirmed = false
+            viewModel.isLoading = true
             self.selection = Set<String>()
         }
     }
@@ -91,8 +95,6 @@ extension WeeklyChoiceView {
         view.viewModel.subject = subject
         view.viewModel.mode = mode
         view.viewModel.isLoading = true
-
-        interactor.loadGroups(subject: subject)
 
         return view
     }

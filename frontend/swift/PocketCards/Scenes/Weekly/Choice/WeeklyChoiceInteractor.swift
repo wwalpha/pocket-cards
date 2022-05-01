@@ -39,6 +39,7 @@ extension WeeklyChoiceInteractor: WeeklyChoiceBusinessLogic {
         Task {
             var responses: [UserServices.CurriculumList.Response] = []
 
+            debugPrint("subject", subject)
             if subject.count == 1 {
                 let params2 = ["subject": "10" + subject]
 

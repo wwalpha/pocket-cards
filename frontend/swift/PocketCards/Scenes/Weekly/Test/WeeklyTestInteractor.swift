@@ -13,6 +13,8 @@ class WeeklyTestInteractor {
 
     private var questions: [Question] = []
     private var current: Question?
+    private var groupId: String = ""
+    private var isAnswered: Bool = false
 }
 
 extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
@@ -52,6 +54,7 @@ extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
 
             self.questions = questions
             self.current = question
+            self.groupId = groupId
         }
 
 //        Task {
@@ -86,16 +89,27 @@ extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
     }
 
     func onChoice(choice: String) {
+        // update times if correct
         if choice == current?.answer {
             // correct sound
             Audio.playCorrect()
+
+            if !isAnswered {
+                // update to known
+                updateAnswer(correct: true)
+            }
+
             // next question
             nextQuestion()
+
+            isAnswered = false
         } else {
             // incorrect sound
             Audio.playInCorrect()
-
+            // show error message
             presenter?.showError(index: current!.answer)
+
+            isAnswered = true
         }
     }
 
@@ -127,8 +141,7 @@ extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
     }
 
     private func updateAnswer(correct: Bool) {
-        guard let groupId = current?.groupId,
-              let qid = current?.id else { return }
+        guard let qid = current?.id else { return }
 
         let params = [
             "correct": Correct.convert(value: correct),
