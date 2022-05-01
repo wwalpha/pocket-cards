@@ -118,7 +118,7 @@ extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
         debugPrint("correct", correct)
 
         // update times if correct
-        if !correct {
+        if correct {
             // update answer
             updateAnswer(correct: correct)
         }
