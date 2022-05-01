@@ -22,9 +22,9 @@ class Authentication: ObservableObject {
             switch payload.eventName {
             case HubPayload.EventName.Auth.signedIn:
                 print("==HUB== User signed In, update UI")
-                DispatchQueue.main.async {
-                    self.isSignedIn = true
-                }
+//                DispatchQueue.main.async {
+//                    self.isSignedIn = true
+//                }
             case HubPayload.EventName.Auth.signedOut:
                 print("==HUB== User signed Out, update UI")
                 DispatchQueue.main.async {
@@ -55,7 +55,9 @@ class Authentication: ObservableObject {
 
                         DispatchQueue.main.async {
                             self.userId = "\(attr[0].providerName)_\(attr[0].userId)"
+                            self.isSignedIn = true
                         }
+
                     } catch {}
 
                 case let .failure(error):
@@ -74,10 +76,6 @@ class Authentication: ObservableObject {
             do {
                 let session = try result.get()
 
-                DispatchQueue.main.async {
-                    self.isSignedIn = session.isSignedIn
-                }
-
                 if let cognitoTokenProvider = session as? AuthCognitoTokensProvider {
                     let tokens = try cognitoTokenProvider.getCognitoTokens().get()
 
@@ -92,16 +90,6 @@ class Authentication: ObservableObject {
         }
     }
 
-    func fetchAttributes() {
-        Amplify.Auth.fetchUserAttributes { result in
-            switch result {
-            case let .success(attributes):
-                print("User attributes - \(attributes)")
-            case let .failure(error):
-                print("Fetching user attributes failed with error \(error)")
-            }
-        }
-    }
 
     func signIn() {
         let scenes = UIApplication.shared.connectedScenes
@@ -112,7 +100,7 @@ class Authentication: ObservableObject {
             switch result {
             case let .success(result):
                 print(result)
-
+                _ = Amplify.Auth.fetchUserAttributes()
             case let .failure(error):
                 print("Can not signin \(error)")
             }
