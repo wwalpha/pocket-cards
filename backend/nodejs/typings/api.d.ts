@@ -425,8 +425,12 @@ export namespace APIs {
   // ------------------------------------------------------------
   // Weekly Test List
   // ------------------------------------------------------------
+  interface WeeklyTestListParameter {
+    groupId: string;
+  }
+
   interface WeeklyTestListQuery {
-    subject: string;
+    reset?: string;
   }
 
   interface WeeklyTestListRequest {}
@@ -437,7 +441,7 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
-  // Weekly Test Answer
+  // Weekly Ability Answer
   // ------------------------------------------------------------
   interface WeeklyAbilityAnswerParameter {
     qid: string;

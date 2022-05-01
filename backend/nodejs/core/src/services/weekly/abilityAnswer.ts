@@ -8,8 +8,6 @@ import { APIs } from 'typings';
 export default async (
   req: Request<APIs.WeeklyAbilityAnswerParameter, any, APIs.WeeklyAbilityAnswerRequest, any>
 ): Promise<APIs.WeeklyAbilityAnswerResponse> => {
-  console.log(req.params, req.body);
-
   const { groupId, qid } = req.params;
   const { correct } = req.body;
 
