@@ -39,7 +39,8 @@ export default async (
   // make response
   const response = details
     .map((item) => item?.Item)
-    .filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
+    .filter((item): item is Exclude<typeof item, undefined> => item !== undefined)
+    .map((item) => ({ ...item, groupId: groupId }));
 
   return {
     count: response.length,
