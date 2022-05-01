@@ -31,15 +31,11 @@ struct CheckList: View {
                         .onTapGesture {
                             datas[index].isChecked.toggle()
 
-                            debugPrint(1111, selection)
                             if datas[index].isChecked {
-                                debugPrint(4444, selection)
                                 selection.insert(datas[index].key)
                             } else {
-                                debugPrint(5555, selection)
                                 selection.remove(datas[index].key)
                             }
-                            debugPrint(2222, selection)
                         }
                     Text(datas[index].name)
                         .onTapGesture {
