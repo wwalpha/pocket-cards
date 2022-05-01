@@ -24,7 +24,7 @@ export const test = (userId: string, nextTime: string, subject: string): DynamoD
   },
   IndexName: 'gsiIdx1',
   ScanIndexForward: false,
-  Limit: 50,
+  Limit: 1000,
 });
 
 /**

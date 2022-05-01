@@ -2,36 +2,35 @@ import { AnyAction, CombinedState, configureStore, Reducer } from '@reduxjs/tool
 import { routerMiddleware } from 'connected-react-router';
 import { createHashHistory, createBrowserHistory } from 'history';
 import logger from 'redux-logger';
+import { API, Credentials } from '@utils';
+import { Consts } from '@constants';
+import { Auth, Domains } from 'typings';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
-import { Domains } from 'typings';
 
 // browser history
 export const history = process.env.NODE_ENV === 'production' ? createBrowserHistory() : createHashHistory();
 // storage key
 export const key = process.env.NODE_ENV === 'production' ? 'pkc' : 'pkc_dev';
 
-// Credentials.refreshSession = async (accessToken?: string, refreshToken?: string) => {
-//   if (!refreshToken) return;
+Credentials.refreshSession = async (accessToken?: string, refreshToken?: string) => {
+  if (!refreshToken || !accessToken) return;
 
-//   const res = await axios.post<Auth.InitiateAuthResponse>(
-//     `${Environments.BACKEND_API_URL}${Consts.API_URLs.InitiateAuth}`,
-//     {
-//       accessToken,
-//       refreshToken,
-//     } as Auth.InitiateAuthRequest
-//   );
+  const res = await API.post<Auth.InitiateAuthResponse, Auth.InitiateAuthRequest>(Consts.REFRESH_TOKEN(), {
+    accessToken: accessToken,
+    refreshToken: refreshToken,
+  });
 
-//   // error check
-//   if (!res.data.idToken || !res.data.accessToken) {
-//     throw new Error('Refresh tokens failed.');
-//   }
+  // error check
+  if (!res.idToken || !res.accessToken) {
+    throw new Error('Refresh tokens failed.');
+  }
 
-//   return {
-//     idToken: res.data.idToken,
-//     accessToken: res.data.accessToken,
-//   };
-// };
+  return {
+    idToken: res.idToken,
+    accessToken: res.accessToken,
+  };
+};
 
 // const persistedReducer = persistReducer(
 //   {

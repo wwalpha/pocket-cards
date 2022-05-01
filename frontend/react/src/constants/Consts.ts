@@ -10,6 +10,7 @@ export const SERVER_STATUS_URL = () => '/admin/status';
 
 export const SIGN_IN = () => `${API_VERSION}/auth/login`;
 export const SIGN_UP = () => `${API_VERSION}/users`;
+export const REFRESH_TOKEN = () => `${API_VERSION}/auth/refresh`;
 
 export const A002_URL = () => `${API_VERSION}/history`;
 
