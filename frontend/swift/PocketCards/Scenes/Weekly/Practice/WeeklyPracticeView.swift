@@ -14,25 +14,29 @@ struct WeeklyPracticeView: View {
     @ObservedObject var viewModel = WeeklyPracticeViewModel()
 
     var body: some View {
-        if viewModel.isLoading {
-            Text("Loading....")
-                .onAppear {
-                    interactor?.loadQuestions()
-                }
-        } else if viewModel.isFinish {
-            Text("学習は終わりました")
-                .font(.system(size: 64, design: .default))
-        } else {
-            if viewModel.question?.choices != nil {
-                ChoiceQuestion(
-                    question: viewModel.question!,
-                    isShowError: viewModel.isShowError,
-                    onChoice: interactor!.onChoice
-                )
+        VStack {
+            if viewModel.isLoading {
+                Text("Loading....")
+                    .onAppear {
+                        interactor?.loadQuestions()
+                    }
+            } else if viewModel.isFinish {
+                Text("学習は終わりました")
+                    .font(.system(size: 64, design: .default))
             } else {
-                // Society or Science
-                FlashCard(question: viewModel.question!, action: interactor!.onAction)
+                if viewModel.question?.choices != nil {
+                    ChoiceQuestion(
+                        question: viewModel.question!,
+                        isShowError: viewModel.isShowError,
+                        onChoice: interactor!.onChoice
+                    )
+                } else {
+                    // Society or Science
+                    FlashCard(question: viewModel.question!, action: interactor!.onAction)
+                }
             }
+        }.onDisappear {
+            viewModel.isLoading = true
         }
     }
 }
@@ -66,8 +70,6 @@ extension WeeklyPracticeView {
         presenter.view = view
 
         view.viewModel.isLoading = true
-
-        interactor.loadQuestions()
 
         return view
     }

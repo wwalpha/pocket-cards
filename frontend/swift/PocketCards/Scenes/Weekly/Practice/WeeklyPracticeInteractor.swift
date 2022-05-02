@@ -77,15 +77,14 @@ extension WeeklyPracticeInteractor: WeeklyPracticeBusinessLogic {
     }
 
     private func updateAnswer(id: String) {
-        guard let groupId = current?.groupId,
-              let qid = current?.id else { return }
+        guard let qid = current?.id else { return }
 
         let params = [
             "correct": "1",
         ]
 
         // update answer times
-        _ = API.request(URLs.WEEKLY_PRACTICE(groupId: groupId, qid: qid), method: .put, parameters: params).response { response in
+        _ = API.request(URLs.WEEKLY_PRACTICE(groupId: groupId, qid: qid), method: .post, parameters: params).response { response in
             debugPrint(id, response.response!.statusCode)
         }
     }

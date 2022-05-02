@@ -13,6 +13,10 @@ class WeeklyChoicePresenter {
 }
 
 extension WeeklyChoicePresenter: WeeklyChoicePresentationLogic {
+    func validateResult(result: Bool) {
+        view?.validation(result: result)
+    }
+
     func showGroups(res: [UserServices.CurriculumList.Response]) {
         let model = WeeklyChoiceViewModel()
         var dataRows: [Curriculum] = []

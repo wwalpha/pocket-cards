@@ -16,7 +16,9 @@ struct WeeklyTestView: View {
     var body: some View {
         VStack {
             if viewModel.isLoading {
-                Text("Loading....")
+                Text("Loading....").onAppear {
+                    interactor?.loadQuestion(selected: viewModel.selected)
+                }
             } else if viewModel.isFinish {
                 Text("テストは終わりました")
                     .font(.system(size: 64, design: .default))
@@ -39,6 +41,8 @@ struct WeeklyTestView: View {
                     .frame(width: 300, height: 20, alignment: .center)
                     .accessibilityAddTraits(.isHeader)
             }
+        }.onDisappear {
+            viewModel.isLoading = true
         }
     }
 }
@@ -57,7 +61,7 @@ extension WeeklyTestView: WeeklyTestDisplayLogic {
             viewModel.isShowError = model.isShowError
             viewModel.count = model.count
         }
-        debugPrint(model.count)
+
         viewModel.question = model.question
     }
 }
@@ -72,9 +76,8 @@ extension WeeklyTestView {
         interactor.presenter = presenter
         presenter.view = view
 
-        interactor.loadQuestion(selected: selected)
-
         view.viewModel.isLoading = true
+        view.viewModel.selected = selected
 
         return view
     }
