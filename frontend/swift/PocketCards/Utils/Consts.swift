@@ -21,6 +21,7 @@ class URLs {
     static let REPORTS_PROGRESS = "\(HOST)/v1/reports/progress"
     static let REPORTS_OVERALL = "\(HOST)/v1/reports/overall"
     static let REPORTS_DAILY_TASKS = "\(HOST)/v1/reports/dailytasks"
+    static let REPORTS_INQUIRY = "\(HOST)/v1/reports/inquiry"
 
     static func QUESTION_LIST(groupId: String) -> String {
         "\(HOST)/v1/groups/\(groupId)/questions"
