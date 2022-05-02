@@ -32,6 +32,7 @@ export const REPORT_TYPE = {
 
 export const API_URLs = {
   describeUser: (userId: string) => `${Environment.ENDPOINT_USERS_SERVICE}/users/${userId}`,
+  listAdmins: () => `${Environment.ENDPOINT_USERS_SERVICE}/users/admins`,
 };
 
 export const Authority = {
