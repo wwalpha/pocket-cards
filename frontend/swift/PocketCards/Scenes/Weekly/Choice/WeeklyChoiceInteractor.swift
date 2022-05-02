@@ -13,10 +13,33 @@ class WeeklyChoiceInteractor {
 }
 
 extension WeeklyChoiceInteractor: WeeklyChoiceBusinessLogic {
+    func validation(selected: [Curriculum]) {
+        let normalCount = selected.filter { item in
+            item.subject.count == 1
+        }.count
+
+        let abilityCount = selected.filter { item in
+            item.subject.count == 3
+        }.count
+
+        if normalCount == selected.count {
+            presenter?.validateResult(result: true)
+            return
+        }
+
+        if abilityCount == selected.count {
+            presenter?.validateResult(result: true)
+            return
+        }
+
+        presenter?.validateResult(result: false)
+    }
+
     func loadGroups(subject: String) {
         Task {
             var responses: [UserServices.CurriculumList.Response] = []
 
+            debugPrint("subject", subject)
             if subject.count == 1 {
                 let params2 = ["subject": "10" + subject]
 

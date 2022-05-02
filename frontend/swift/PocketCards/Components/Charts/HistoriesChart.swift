@@ -21,21 +21,24 @@ struct HistoriesChart: UIViewRepresentable {
         set1.valueFont = .systemFont(ofSize: 16)
         set1.lineWidth = 3
         set1.drawCirclesEnabled = false
-        set1.valueFormatter = DefaultValueFormatter(decimals: 0)
+//        set1.valueFormatter = DefaultValueFormatter(decimals: 0)
+        set1.drawValuesEnabled = false
 
         let set2 = LineChartDataSet(entries: scienceVals, label: "理 科")
         set2.setColor(Color.science_ui)
         set2.valueFont = .systemFont(ofSize: 16)
         set2.lineWidth = 3
         set2.drawCirclesEnabled = false
-        set2.valueFormatter = DefaultValueFormatter(decimals: 0)
+//        set2.valueFormatter = DefaultValueFormatter(decimals: 0)
+        set2.drawValuesEnabled = false
 
         let set3 = LineChartDataSet(entries: societyVals, label: "社 会")
         set3.setColor(Color.society_ui)
         set3.valueFont = .systemFont(ofSize: 16)
         set3.lineWidth = 3
         set3.drawCirclesEnabled = false
-        set3.valueFormatter = DefaultValueFormatter(decimals: 0)
+//        set3.valueFormatter = DefaultValueFormatter(decimals: 0)
+        set3.drawValuesEnabled = false
 
         let data = LineChartData(dataSets: [set1, set2, set3])
         data.setValueFont(.systemFont(ofSize: 16))
@@ -70,6 +73,8 @@ struct HistoriesChart: UIViewRepresentable {
         xAxis.enabled = false
         xAxis.axisMinimum = 1
         xAxis.axisMaximum = getXMaxAxis()
+        xAxis.labelCount = 15
+
 //        xAxis.valueFormatter = IndexAxisValueFormatter(values: ["03/21", "03/22", "03/23", "03/24"])
 //        xAxis.labelPosition = .bottom
 
