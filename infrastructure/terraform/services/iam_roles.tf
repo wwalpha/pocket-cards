@@ -100,6 +100,14 @@ resource "aws_iam_role_policy_attachment" "ecs_task_exec_ssm" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy - SES Access
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "ecs_task_exec_ses" {
+  role       = aws_iam_role.ecs_task_exec.name
+  policy_arn = aws_iam_policy.ses_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS ECS Task Role Policy
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy" "ecs_task_exec" {

@@ -26,6 +26,7 @@ TABLE_NAME_WEEKLY_TEST=${local.dynamodb_name_weekly_test}
 TABLE_NAME_WEEKLY_ABILITY=${local.dynamodb_name_weekly_ability}
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
 BUCKET_NAME_MATERAILS=${local.bucket_name_materials}
+MASTER_EMAIL_ADDRESS=master@${local.domain_name}
 PATH_PATTERN=audio
 TZ=Asia/Tokyo
 AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
