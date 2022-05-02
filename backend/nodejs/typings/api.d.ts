@@ -500,6 +500,15 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
+  // Reports - Inquiry
+  // ------------------------------------------------------------
+  interface InquiryResquest {
+    id: string;
+  }
+
+  type InquiryResponse = void;
+
+  // ------------------------------------------------------------
   // Curriculums - Curriculum Regist
   // ------------------------------------------------------------
   interface CurriculumRegistRequest {
