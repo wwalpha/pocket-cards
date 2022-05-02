@@ -1,24 +1,16 @@
 import { SES } from 'aws-sdk';
 import { Request } from 'express';
-import { Commons, DBHelper } from '@utils';
-import { Users } from '@queries';
-import { Environment } from '@consts';
-import { APIs, Tables } from 'typings';
+import { Consts, Environment } from '@consts';
+import { APIs, Users } from 'typings';
+import axios, { AxiosResponse } from 'axios';
 
 export default async (req: Request<any, any, APIs.InquiryResquest, any>): Promise<APIs.InquiryResponse> => {
-  const userId = Commons.getUserId(req);
   const id = req.body.id;
 
-  const results = await DBHelper().get<Tables.TUsers>(Users.get(userId));
+  const adminUser = await getAdminUser();
 
-  if (!results?.Item) {
-    return;
-  }
-
-  const guardian = results.Item.teacher;
-
-  if (guardian) {
-    await sendmail(id, guardian);
+  if (adminUser) {
+    await sendmail(id, adminUser);
   }
 };
 
@@ -45,4 +37,18 @@ const sendmail = async (id: string, email: string) => {
       },
     })
     .promise();
+};
+
+const getAdminUser = async () => {
+  // get user information
+  const response = await axios.get<Users.ListAdminUsersRequest, AxiosResponse<Users.ListAdminUsersResponse>>(
+    Consts.API_URLs.listAdmins()
+  );
+
+  // user not found
+  if (response.status !== 200) {
+    throw new Error('User not found.');
+  }
+
+  return response.data.users[0];
 };
