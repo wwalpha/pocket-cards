@@ -7,11 +7,9 @@ import axios, { AxiosResponse } from 'axios';
 export default async (req: Request<any, any, APIs.InquiryResquest, any>): Promise<APIs.InquiryResponse> => {
   const id = req.body.id;
 
-  const adminUser = await getAdminUser();
+  // const adminUser = await getAdminUser();
 
-  if (adminUser) {
-    await sendmail(id, adminUser);
-  }
+  await sendmail(id, 'wwalpha@gmail.com');
 };
 
 const sendmail = async (id: string, email: string) => {
