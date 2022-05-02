@@ -1,8 +1,7 @@
 import { SES } from 'aws-sdk';
 import { Request } from 'express';
-import { Consts, Environment } from '@consts';
-import { APIs, Users } from 'typings';
-import axios, { AxiosResponse } from 'axios';
+import { Environment } from '@consts';
+import { APIs } from 'typings';
 
 export default async (req: Request<any, any, APIs.InquiryResquest, any>): Promise<APIs.InquiryResponse> => {
   const id = req.body.id;
@@ -37,16 +36,16 @@ const sendmail = async (id: string, email: string) => {
     .promise();
 };
 
-const getAdminUser = async () => {
-  // get user information
-  const response = await axios.get<Users.ListAdminUsersRequest, AxiosResponse<Users.ListAdminUsersResponse>>(
-    Consts.API_URLs.listAdmins()
-  );
+// const getAdminUser = async () => {
+//   // get user information
+//   const response = await axios.get<Users.ListAdminUsersRequest, AxiosResponse<Users.ListAdminUsersResponse>>(
+//     Consts.API_URLs.listAdmins()
+//   );
 
-  // user not found
-  if (response.status !== 200) {
-    throw new Error('User not found.');
-  }
+//   // user not found
+//   if (response.status !== 200) {
+//     throw new Error('User not found.');
+//   }
 
-  return response.data.users[0];
-};
+//   return response.data.users[0];
+// };
