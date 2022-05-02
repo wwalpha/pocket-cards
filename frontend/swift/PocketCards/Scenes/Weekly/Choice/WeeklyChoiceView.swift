@@ -45,7 +45,7 @@ struct WeeklyChoiceView: View {
                             .font(.system(size: 24, design: .default))
                             .fontWeight(.bold)
                             .frame(width: 200, height: 48, alignment: .center)
-                            .background(Color.primaryDarkColor)
+                            .background(Color.secondaryColor)
                             .foregroundColor(Color.white)
                     }
                     .padding(.trailing, 32)

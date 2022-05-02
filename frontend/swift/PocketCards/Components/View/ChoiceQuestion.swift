@@ -9,6 +9,8 @@ import Kingfisher
 import SwiftUI
 
 struct ChoiceQuestion: View {
+    @State private var showingAlert = false
+    @State private var showingConfirm = false
     var question: Question
     var isShowError: String
     var onChoice: (_: String) -> Void
@@ -59,6 +61,34 @@ struct ChoiceQuestion: View {
         }
         .padding(.horizontal, 32)
         .padding(.vertical, 16)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    self.showingAlert = true
+                } label: {
+                    Text("通報")
+                        .frame(width: 96, height: 36, alignment: .center)
+                        .background(Color.secondaryColor)
+                        .foregroundColor(Color.white)
+                        .cornerRadius(2)
+                        .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                }.alert("警告", isPresented: $showingAlert) {
+                    Button("確定", role: .destructive) {
+                        report()
+                    }
+                } message: {
+                    Text("問題の内容が間違ってます。\n通報しますか？")
+                }.alert("ありがとうございます。", isPresented: $showingConfirm) {}
+            }
+        }
+    }
+
+    func report() {
+        let params = ["id": question.id]
+
+        API.request(URLs.REPORTS_INQUIRY, method: .post, parameters: params).response { _ in
+            showingConfirm = true
+        }
     }
 }
 

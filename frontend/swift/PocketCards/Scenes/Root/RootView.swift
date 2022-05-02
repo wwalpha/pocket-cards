@@ -220,6 +220,7 @@ struct RootView: View {
                     Text("Home")
                         .font(.largeTitle.bold())
                         .accessibilityAddTraits(.isHeader)
+                        .foregroundColor(Color.white)
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -228,7 +229,7 @@ struct RootView: View {
                     } label: {
                         Text("Sign Out")
                             .frame(width: 120, height: 36, alignment: .center)
-                            .foregroundColor(Color.black)
+                            .foregroundColor(Color.white)
 //                            .foregroundColor(Color.white)
 //                            .background(Color.accent1)
                     }
