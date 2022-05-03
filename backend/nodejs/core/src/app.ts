@@ -36,7 +36,7 @@ app.use(morgan('combined'));
 
 app.options('*', (_, res) => res.sendStatus(200));
 // health check
-app.get('/v1/backend', (_, res) => res.send('v3.1.0'));
+app.get('/v1/health', (_, res) => res.send('backend'));
 
 // ユーザ学習履歴
 app.get('/v1/history', express.json(), (req, res) => entry(req, res, A002));

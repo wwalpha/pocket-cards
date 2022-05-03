@@ -15,6 +15,11 @@
         "protocol": "tcp"
       }
     ],
+    "healthCheck": {
+        "command": [
+          "CMD-SHELL, curl -f http://localhost:8080/v1/health || exit 1"
+        ]
+    },
     "logConfiguration": {
       "logDriver": "awslogs",
       "secretOptions": null,
