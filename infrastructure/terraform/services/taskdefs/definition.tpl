@@ -19,7 +19,8 @@
         "command": [
           "CMD-SHELL",
           "${healthCheck}"
-        ]
+        ],
+        "startPeriod": 180
     },
     "logConfiguration": {
       "logDriver": "awslogs",
