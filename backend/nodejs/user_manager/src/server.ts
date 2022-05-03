@@ -24,8 +24,6 @@ app.use(urlencoded({ extended: false }));
 app.use(morgan('combined'));
 
 // health check
-app.get('/v1/health', async (req, res) => await common(req, res, HealthCheck));
-
 app.get('/v1/users/health', async (req, res) => await common(req, res, HealthCheck));
 
 // create a admin user

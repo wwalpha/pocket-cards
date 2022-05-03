@@ -77,6 +77,7 @@ resource "aws_ecs_task_definition" "auth" {
       container_image = "${local.repo_url_auth}:latest"
       container_port  = 8080
       env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.auth.key}"
+      healthCheck     = "CMD-SHELL, curl -f http://localhost:8080/v1/auth/health || exit 1"
     }
   )
 
