@@ -12,6 +12,8 @@ app.use(urlencoded({ extended: false }));
 app.use(morgan('combined'));
 
 // health check
+app.get('/v1/health', async (req, res) => await common(req, res, healthCheck));
+
 app.get('/v1/auth/health', async (req, res) => await common(req, res, healthCheck));
 
 // process login request
