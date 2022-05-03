@@ -17,6 +17,7 @@
     ],
     "healthCheck": {
         "command": [
+          "CMD-SHELL",
           "${healthCheck}"
         ]
     },
