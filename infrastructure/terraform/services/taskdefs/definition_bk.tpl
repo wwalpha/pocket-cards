@@ -15,6 +15,13 @@
         "protocol": "tcp"
       }
     ],
+    "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "${healthCheck}"
+        ],
+        "startPeriod": 180
+    },
     "logConfiguration": {
       "logDriver": "awslogs",
       "secretOptions": null,
