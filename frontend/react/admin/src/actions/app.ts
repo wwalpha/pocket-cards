@@ -1,5 +1,5 @@
 import { push } from 'connected-react-router';
-import { ROUTE_PATHS } from '@constants';
+import { Consts, ROUTE_PATHS } from '@constants';
 import { Credentials } from '@utils';
 import { Actions } from '@reducers';
 import { AppDispatch } from '@store';
@@ -38,12 +38,25 @@ export const logout = () => (dispatch: AppDispatch) => {
 };
 
 /** selected subject */
-export const activeSubject = (id: string, pathname: string) => (dispatch: AppDispatch) => {
+export const activeSubject = (id: string) => (dispatch: AppDispatch) => {
   // active group
   dispatch(Actions.APP_ACTIVE_SUBJECT(id));
-  // move to top page
-  if (pathname !== ROUTE_PATHS.ROOT) {
-    dispatch(push(ROUTE_PATHS.ROOT));
+
+  switch (id) {
+    case Consts.SUBJECT.JAPANESE.toString():
+      dispatch(push(ROUTE_PATHS.ROOT_LANGUAGE));
+      break;
+    case Consts.SUBJECT.SCIENCE.toString():
+      dispatch(push(ROUTE_PATHS.ROOT_SCIENCE));
+      break;
+    case Consts.SUBJECT.SOCIETY.toString():
+      dispatch(push(ROUTE_PATHS.ROOT_SOCIETY));
+      break;
+    case Consts.SUBJECT.ENGLISH.toString():
+      dispatch(push(ROUTE_PATHS.ROOT_ENGLISH));
+      break;
+    default:
+      dispatch(push(ROUTE_PATHS.ROOT));
   }
 };
 

@@ -29,7 +29,7 @@ export default () => {
 
   const { authority } = useSelector(appState);
 
-  const handleClick = (subject: string) => actions.activeSubject(subject, location.pathname);
+  const handleClick = (subject: string) => actions.activeSubject(subject);
 
   const handleStudents = () => usrActions.getStudentList();
   // settings click handler

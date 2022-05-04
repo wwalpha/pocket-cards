@@ -1,5 +1,9 @@
 export type RouteKeys =
   | 'ROOT'
+  | 'ROOT_LANGUAGE'
+  | 'ROOT_SCIENCE'
+  | 'ROOT_SOCIETY'
+  | 'ROOT_ENGLISH'
   | 'SIGN_IN'
   | 'SIGN_UP'
   | 'NEW_PASSWORD'
@@ -11,6 +15,10 @@ export type RouteKeys =
 
 export const ROUTE_PATHS: Record<RouteKeys, string> = {
   ROOT: '/',
+  ROOT_LANGUAGE: '/language',
+  ROOT_SCIENCE: '/science',
+  ROOT_SOCIETY: '/society',
+  ROOT_ENGLISH: '/english',
   SIGN_IN: '/',
   SIGN_UP: '/auth/signup',
   NEW_PASSWORD: '/auth/newpassword',
