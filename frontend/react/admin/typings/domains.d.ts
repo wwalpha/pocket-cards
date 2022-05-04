@@ -19,8 +19,6 @@ export namespace Domains {
     showUserRegist: boolean;
     // loading
     isLoading: boolean;
-    // server status
-    status: string;
     // active subject
     activeSubject: string;
     // active group

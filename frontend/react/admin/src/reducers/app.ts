@@ -8,7 +8,6 @@ const appState: Domains.AppState = {
   isLoading: false,
   showSnackbar: false,
   showUserRegist: false,
-  status: Consts.SERVER_STATUS.STOPPED,
 };
 
 const slice = createSlice({
