@@ -20,6 +20,7 @@ const TABLE_NAME_WORD_IGNORE = process.env['TABLE_NAME_WORD_IGNORE'] as string;
 const TABLE_NAME_QUESTIONS = process.env['TABLE_NAME_QUESTIONS'] as string;
 const TABLE_NAME_LEARNING = process.env['TABLE_NAME_LEARNING'] as string;
 const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;
+const TABLE_NAME_WEEKLY_ABILITY = process.env['TABLE_NAME_WEEKLY_ABILITY'] as string;
 
 const BUCKET_NAME_MATERAILS = process.env['BUCKET_NAME_MATERAILS'] as string;
 
@@ -44,6 +45,7 @@ const teardown = async () => {
   await dbClient.deleteTable({ TableName: TABLE_NAME_QUESTIONS }).promise();
   await dbClient.deleteTable({ TableName: TABLE_NAME_LEARNING }).promise();
   await dbClient.deleteTable({ TableName: TABLE_NAME_TRACES }).promise();
+  await dbClient.deleteTable({ TableName: TABLE_NAME_WEEKLY_ABILITY }).promise();
 
   console.log('jest teardown end...');
 };

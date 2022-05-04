@@ -17,6 +17,7 @@ const TABLE_NAME_WORD_IGNORE = process.env['TABLE_NAME_WORD_IGNORE'] as string;
 const TABLE_NAME_QUESTIONS = process.env['TABLE_NAME_QUESTIONS'] as string;
 const TABLE_NAME_LEARNING = process.env['TABLE_NAME_LEARNING'] as string;
 const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;
+const TABLE_NAME_WEEKLY_ABILITY = process.env['TABLE_NAME_WEEKLY_ABILITY'] as string;
 
 const setup = async () => {
   console.log('jest setup start...');
@@ -145,6 +146,21 @@ const setup = async () => {
             Projection: { ProjectionType: 'ALL' },
             ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
           },
+        ],
+      })
+      .promise(),
+    dbClient
+      .createTable({
+        TableName: TABLE_NAME_WEEKLY_ABILITY,
+        BillingMode: 'PROVISIONED',
+        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        KeySchema: [
+          { AttributeName: 'id', KeyType: 'HASH' },
+          { AttributeName: 'qid', KeyType: 'RANGE' },
+        ],
+        AttributeDefinitions: [
+          { AttributeName: 'id', AttributeType: 'S' },
+          { AttributeName: 'qid', AttributeType: 'S' },
         ],
       })
       .promise(),
