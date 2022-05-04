@@ -56,6 +56,7 @@ resource "aws_iam_role_policy" "ecs_task" {
         Action = [
           "polly:SynthesizeSpeech",
           "s3:PutObject",
+          "cognito-idp:AdminInitiateAuth"
         ]
         Effect   = "Allow"
         Resource = "*"
