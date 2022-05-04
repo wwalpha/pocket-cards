@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_DEFAULT_REGION: us-east-1
-  WORKING_DIR_FRONTEND: frontend/react
+  WORKING_DIR_FRONTEND: frontend/react/admin
 
 jobs:
   #Terraform

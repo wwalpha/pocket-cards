@@ -12,7 +12,7 @@ on:
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
   TF_WORKSPACE: dev
-  WORKING_DIR: frontend/react
+  WORKING_DIR: frontend/react/admin
   NODE_ENV: production
   SSM_PARAMETER_NAME: /pkc/frontend
 
