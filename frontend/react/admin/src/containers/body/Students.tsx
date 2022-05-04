@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import { UserRegist } from '@components/functions';
-import { AppActions, AdminActions } from '@actions';
+import { AppActions, UserActions } from '@actions';
 import { styles } from './Students.style';
 import { StyledTableCell } from './Mainboard.style';
 import { RootState } from 'typings';
@@ -24,10 +24,10 @@ const userState = (state: RootState) => state.user;
 export default () => {
   const { students } = useSelector(userState);
   const { isLoading, showUserRegist } = useSelector(appState);
-  const actions = bindActionCreators(AdminActions, useDispatch());
-  const appActions = bindActionCreators(AppActions, useDispatch());
+  const actions = bindActionCreators(AppActions, useDispatch());
+  const usrActions = bindActionCreators(UserActions, useDispatch());
 
-  const handleClose = () => appActions.hideUserRegist();
+  const handleClose = () => actions.hideUserRegist();
 
   return (
     <Box sx={styles.root}>
@@ -66,7 +66,7 @@ export default () => {
       </Box>
       {showUserRegist && (
         <Box sx={styles.infos}>
-          <UserRegist loading={isLoading} regist={actions.studentRegist} />
+          <UserRegist loading={isLoading} regist={usrActions.studentRegist} />
           <Button variant="contained" color="secondary" size="large" onClick={handleClose}>
             Close
           </Button>

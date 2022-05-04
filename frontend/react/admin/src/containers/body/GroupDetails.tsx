@@ -19,7 +19,8 @@ const appState = (state: RootState) => state.app;
 export default () => {
   const history = useHistory();
   const actions = bindActionCreators(GroupActions, useDispatch());
-  const { groups, activeGroup, editable } = useSelector(groupState);
+  const { groups, editable } = useSelector(groupState);
+  const { activeGroup } = useSelector(appState);
   const { isLoading } = useSelector(appState);
 
   // 選択中のGroup情報取得

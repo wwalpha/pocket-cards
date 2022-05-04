@@ -1,263 +1,141 @@
-import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useHistory } from 'react-router-dom';
+import React from 'react';
 import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { push } from 'connected-react-router';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
-// import MenuIcon from '@mui/icons-material/Menu';
-// import ExitToApp from '@mui/icons-material/ExitToApp';
-// import AddCircleOutline from '@mui/icons-material/AddCircleOutline';
-import AddIcon from '@mui/icons-material/Add';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import ReplayIcon from '@mui/icons-material/Replay';
-import ArrowBackIcon from '@mui/icons-material/ArrowBackIos';
-import SearchIcon from '@mui/icons-material/Search';
+import { useLocation } from 'react-router-dom';
 import { Paths, Consts } from '@constants';
-import { GroupActions } from '@actions';
+import { AppActions, GroupActions } from '@actions';
 import { RootState } from 'typings';
-import { Groups } from '@mui/icons-material';
+import { UploadButton } from '@components/buttons';
 
-const audioRef = React.createRef<HTMLAudioElement>();
-
-const studyState = (state: RootState) => state.study;
-const groupState = (state: RootState) => state.group;
-
-const Search = styled('div')(({ theme: { shape, palette, spacing } }) => ({
-  position: 'relative',
-  borderRadius: shape.borderRadius,
-  backgroundColor: alpha(palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(palette.common.white, 0.25),
-  },
-  marginRight: spacing(2),
-  marginLeft: 0,
-  width: '100%',
-}));
-
-const SearchIconWrapper = styled('div')(({ theme: { spacing } }) => ({
-  padding: spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+const appState = (state: RootState) => state.app;
 
 export default () => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const actions = bindActionCreators(GroupActions, dispatch);
   const { pathname } = useLocation();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { current } = useSelector(studyState);
-  const { searchWord, groups, activeGroup } = useSelector(groupState);
+  const actions = bindActionCreators(AppActions, dispatch);
+  const grpActions = bindActionCreators(GroupActions, dispatch);
 
-  const isMenuOpen = Boolean(anchorEl);
+  const { authority, isLoading } = useSelector(appState);
 
-  // Left Icon action
-  const handleOnGoback = () => history.goBack();
+  const handleUserReigst = () => actions.showUserRegist();
+  const handleLogout = () => actions.logout();
+  const handleGroupAdd = () => grpActions.transitToGroupRegist();
 
-  // switch group regist screen
-  const handleOnClickAdd = () => dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]));
-
-  // group delete
-  const handleOnGroupDelete = () => {
-    // close dialog
-    handleMenuClose();
-    // delete group
-    actions.del();
-  };
-
-  const handleOnGroupEdit = () => {
-    // close dialog
-    handleMenuClose();
-    // switch to group edit
-    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupEdit]));
-  };
-
-  // Menu Open
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
-  // Menu Close
-  const handleMenuClose = () => setAnchorEl(null);
-
-  const handleOnSearch = (e: React.SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    actions.search(e.currentTarget.value);
-  };
-
-  /** 音声再生 */
-  const handleReply = () => {
-    if (!window.location.hostname.startsWith('localhost')) {
-      audioRef.current?.play();
+  const handleAdminBack = () => {
+    if (pathname === Paths.PATHS_QUESTION_LIST) {
+      // go to top
+      dispatch(push(Paths.PATHS_ROOT));
+      // clear questions
+      grpActions.clearQuestions();
+    }
+    if (pathname === Paths.PATHS_QUESTION_CONFIRM) {
+      // go to top
+      dispatch(push(Paths.PATHS_QUESTION_LIST));
+      // clear questions
+      grpActions.clearQuestions();
     }
   };
 
-  // 表示中画面情報
-  const screen = Paths.ROUTE_INFO[pathname];
-
   return (
-    <React.Fragment>
-      <AppBar
-        position="static"
-        sx={{
-          boxShadow: 'none',
-          height: ({ spacing }) => spacing(8),
-          bgcolor: 'primary.dark',
-          userSelect: 'none',
-        }}>
-        <Toolbar sx={{ minHeight: ({ spacing }) => spacing(8) }}>
+    <AppBar
+      position="fixed"
+      sx={{
+        boxShadow: 'none',
+        height: ({ spacing }) => spacing(8),
+        bgcolor: 'primary.main',
+        userSelect: 'none',
+        width: { sm: `calc(100% - 200px)` },
+        ml: { sm: `200px` },
+      }}>
+      <Toolbar>
+        <Typography variant="h6" noWrap component="div">
+          Guardian Dashboard
+        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', flexGrow: 1 }}>
           {(() => {
-            return pathname.split('/').length <= 2 ? null : (
-              <IconButton sx={{ p: 0.5 }} onClick={handleOnGoback}>
-                <ArrowBackIcon sx={{ color: 'common.white', fontSize: ({ spacing }) => spacing(4) }} />
-              </IconButton>
-            );
-          })()}
-          <Typography
-            variant="h5"
-            color="inherit"
-            sx={{
-              flexGrow: 1,
-              fontWeight: 600,
-              textAlign: 'center',
-              letterSpacing: ({ spacing }) => spacing(0.25),
-              color: 'common.white',
-            }}>
-            {(() => {
-              if (pathname === Paths.PATHS_STUDY) {
-                return (
-                  <Search>
-                    <SearchIconWrapper>
-                      <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                      placeholder="Search…"
-                      inputProps={{ 'aria-label': 'search' }}
-                      value={searchWord}
-                      onChange={handleOnSearch}
-                    />
-                  </Search>
-                );
-              }
+            if (authority !== Consts.Authority.ADMIN) return;
 
-              if (pathname === Paths.PATHS_STUDY_CARD) {
-                return groups.find((item) => item.id === activeGroup)?.name;
-              }
-
-              return screen?.title;
-            })()}
-          </Typography>
-          {(() => {
-            if (pathname === Paths.PATHS_SETTINGS) {
-              return <Button color="inherit">{Consts.VERSION}</Button>;
-            }
-
-            return null;
-          })()}
-          {(() => {
-            if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]) {
+            if (pathname === Paths.PATHS_ROOT) {
               return (
-                <IconButton
-                  sx={{ position: 'absolute', right: ({ spacing }) => spacing(1) }}
+                <Button
+                  variant="outlined"
                   color="inherit"
-                  aria-label="Add"
-                  onClick={handleOnClickAdd}>
-                  <AddIcon fontSize="large" />
-                </IconButton>
+                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                  onClick={handleGroupAdd}>
+                  ADD
+                </Button>
               );
             }
 
-            if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
-              return [
-                <IconButton
-                  key={`studyMore`}
-                  aria-label="display more actions"
-                  edge="end"
+            <Button
+              variant="outlined"
+              color="inherit"
+              sx={{ mx: 1, borderRadius: 0, width: 96 }}
+              onClick={handleAdminBack}>
+              BACK
+            </Button>;
+
+            if (pathname === Paths.PATHS_QUESTION_LIST) {
+              return (
+                <UploadButton
+                  loading={isLoading}
+                  variant="outlined"
                   color="inherit"
-                  onClick={handleMenuOpen}>
-                  <MoreIcon fontSize="large" />
-                </IconButton>,
-              ];
+                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                  readAsText={(texts: string) => {
+                    grpActions.uploadConfirm(texts);
+                  }}>
+                  Upload
+                </UploadButton>
+              );
             }
 
-            if (pathname === Paths.PATHS_STUDY_CARD) {
-              const draw = [
-                <IconButton key="replyIcon" sx={{ p: 0.5 }} onClick={handleReply}>
-                  <ReplayIcon sx={{ color: 'common.white', fontSize: ({ spacing }) => spacing(4) }} />
-                </IconButton>,
-              ];
-
-              if (current) {
-                draw.push(<audio key="replyAudio" ref={audioRef} src={`/${current.mp3}`} />);
-              }
-
-              return draw;
+            if (pathname === Paths.PATHS_QUESTION_CONFIRM) {
+              return (
+                <LoadingButton
+                  loading={isLoading}
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                  onClick={() => {
+                    grpActions.uploadQuestions();
+                  }}>
+                  REGIST
+                </LoadingButton>
+              );
             }
+
+            return;
           })()}
-        </Toolbar>
-      </AppBar>
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        keepMounted
-        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={isMenuOpen}
-        onClose={handleMenuClose}>
-        {/* <MenuItem
-          sx={{
-            '&:hover': {
-              bgcolor: 'primary.light',
-              '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                color: 'common.white',
-              },
-            },
-          }}
-          onClick={handleOnGroupDelete}>
-          <ListItemIcon sx={{ minWidth: ({ spacing }) => spacing(4) }}>
-            <DeleteIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="フォルダ削除" />
-        </MenuItem> */}
-        <MenuItem
-          sx={{
-            '&:hover': {
-              bgcolor: 'primary.light',
-              '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                color: 'common.white',
-              },
-            },
-          }}
-          onClick={handleOnGroupEdit}>
-          <ListItemIcon sx={{ minWidth: ({ spacing }) => spacing(4) }}>
-            <EditIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="フォルダ編集" />
-        </MenuItem>
-      </Menu>
-    </React.Fragment>
+          {(() => {
+            if (pathname !== Paths.PATHS_STUDENTS) return;
+            if (authority !== Consts.Authority.PARENT) return;
+
+            return (
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                onClick={handleUserReigst}>
+                ADD
+              </Button>
+            );
+          })()}
+          <Button variant="outlined" color="inherit" sx={{ mx: 1, borderRadius: 0, width: 96 }} onClick={handleLogout}>
+            LOGOUT
+          </Button>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
+}

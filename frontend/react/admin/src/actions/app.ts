@@ -1,61 +1,8 @@
 import { push } from 'connected-react-router';
-import { withLoading } from '@actions';
-import { Consts, Paths } from '@constants';
-import { API, Credentials } from '@utils';
+import { Paths } from '@constants';
+import { Credentials } from '@utils';
 import { Actions } from '@reducers';
 import { AppDispatch } from '@store';
-
-/** サーバー開始 */
-export const start = () => (dispatch: AppDispatch) =>
-  dispatch(
-    withLoading(async () => {
-      const res = await API.post(Consts.SERVER_START_URL());
-
-      dispatch(Actions.SERVER_STATUS(res.status));
-    })
-  );
-
-/** サーバー停止 */
-export const stop = () => (dispatch: AppDispatch) =>
-  dispatch(
-    withLoading(async () => {
-      // サーバ停止
-      const res = await API.post(Consts.SERVER_STOP_URL());
-
-      dispatch(Actions.SERVER_STATUS(res.status));
-    })
-  );
-
-/** サーバーステータス */
-export const status = () => (dispatch: AppDispatch) =>
-  dispatch(
-    withLoading(async () => {
-      // サーバ停止
-      const res = await API.get(Consts.SERVER_STATUS_URL());
-      // update server status
-      dispatch(Actions.SERVER_STATUS(res.status));
-      // get group list
-      if (res.status === Consts.SERVER_STATUS.RUNNING) {
-        dispatch(Actions.GROUP_LIST());
-      }
-    })
-  );
-
-/** グループ選択 */
-export const activeGroup = (groupId: string) => async (dispatch: AppDispatch) =>
-  dispatch(
-    withLoading(async () => {
-      // set selected group
-      dispatch(Actions.GROUP_ACTIVE(groupId));
-
-      dispatch(Actions.GROUP_WORD_LIST(groupId));
-    })
-  );
-
-/** タブ変更 */
-export const activeTab = (index: number) => (dispatch: AppDispatch) => {
-  dispatch(Actions.APP_TAB_INDEX(index));
-};
 
 /** close snackbar */
 export const closeSnackbar = () => (dispatch: AppDispatch) => {
@@ -88,4 +35,20 @@ export const logout = () => (dispatch: AppDispatch) => {
   dispatch(Actions.APP_LOGOUT());
 
   dispatch(push(Paths.PATHS_SIGN_IN));
+};
+
+/** selected subject */
+export const activeSubject = (id: string, pathname: string) => (dispatch: AppDispatch) => {
+  // active group
+  dispatch(Actions.APP_ACTIVE_SUBJECT(id));
+  // move to top page
+  if (pathname !== Paths.PATHS_ROOT) {
+    dispatch(push(Paths.PATHS_ROOT));
+  }
+};
+
+/** selected group */
+export const activeGroup = (id: string) => (dispatch: AppDispatch) => {
+  // active group
+  dispatch(Actions.APP_ACTIVE_GROUP(id));
 };

@@ -10,12 +10,6 @@ export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST',
   return res.items;
 });
 
-export const GROUP_DELETE = createAsyncThunk<void, void>('group/GROUP_DELETE', async (_, { getState }) => {
-  const { activeGroup } = (getState() as RootState).group;
-
-  await API.del(Consts.B005_URL(activeGroup));
-});
-
 export const GROUP_WORD_LIST = createAsyncThunk<Payloads.GroupWordList, string>(
   'group/GROUP_WORD_LIST',
   async (groupId) => {
@@ -58,19 +52,11 @@ export const GROUP_WORD_DETAILS = createAsyncThunk<Group.WordDetails, Group.Word
   }
 );
 
-export const GROUP_STATUS = createAsyncThunk<Group.Status, void>('group/GROUP_STATUS', async (_, { getState }) => {
-  const { activeGroup } = (getState() as RootState).group;
-
-  const res = await API.get<APIs.B006Response>(Consts.B006_URL(activeGroup));
-
-  return res;
-});
-
 /** Question List */
 export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], void>(
   'group/GROUP_QUESTION_LIST',
   async (_, { getState }) => {
-    const { activeGroup } = (getState() as RootState).group;
+    const { activeGroup } = (getState() as RootState).app;
     // request
     const res = await API.get<APIs.QuestionListResponse>(Consts.QUESTION_LIST(activeGroup));
 
@@ -90,7 +76,8 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, void>(
   'group/GROUP_QUESTION_REGIST',
   async (_, { getState }) => {
     // request parameter
-    const { activeGroup, uploads } = (getState() as RootState).group;
+    const { activeGroup } = (getState() as RootState).app;
+    const { uploads } = (getState() as RootState).group;
 
     // request
     await API.post<APIs.QuestionRegistRequest, APIs.QuestionRegistResponse>(Consts.QUESTION_REGIST(activeGroup), {
@@ -108,7 +95,7 @@ export const GROUP_QUESTION_UPDATE = createAsyncThunk<
   APIs.QuestionUpdateRequest & { questionId: string }
 >('group/GROUP_QUESTION_UPDATE', async (request, { getState }) => {
   // request parameter
-  const { activeGroup } = (getState() as RootState).group;
+  const { activeGroup } = (getState() as RootState).app;
 
   // 質問更新
   return await API.put<APIs.QuestionUpdateResponse, APIs.QuestionUpdateRequest>(

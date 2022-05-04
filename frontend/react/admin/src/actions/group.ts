@@ -1,30 +1,9 @@
 import { push } from 'connected-react-router';
-import { withLoading } from '@actions';
+import { AppActions, withLoading } from '@actions';
 import { Consts, Paths } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
 import { APIs, AppDispatch, Group } from 'typings';
-
-export const activeGroup = (id: string) => (dispatch: AppDispatch) => {
-  // active group
-  dispatch(Actions.GROUP_ACTIVE(id));
-};
-
-export const cleanGroup = () => (dispatch: AppDispatch) => {
-  // group clean
-  dispatch(Actions.GROUP_CLEAN());
-};
-
-/** グループ削除 */
-export const del = () => (dispatch: AppDispatch) =>
-  dispatch(
-    withLoading(async () => {
-      // グループ削除
-      await dispatch(Actions.GROUP_DELETE()).unwrap();
-      // グループリスト画面に遷移する
-      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
-    })
-  );
 
 /** グループリスト */
 export const list = () => (dispatch: AppDispatch) =>
@@ -57,27 +36,7 @@ export const regist = (datas: Group.Regist) => (dispatch: AppDispatch) =>
         })
       );
 
-      dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
-    })
-  );
-
-/** グループリスト */
-export const search = (word: string) => (dispatch: AppDispatch) =>
-  dispatch(
-    withLoading(async () => {
-      // グループ一覧
-      dispatch(Actions.GROUP_WORD_SEARCH(word));
-    })
-  );
-
-/** グループ学習状態 */
-export const status = () => (dispatch: AppDispatch) =>
-  dispatch(
-    withLoading(async () => {
-      // グループ一覧
-      dispatch(Actions.GROUP_STATUS()).unwrap();
-
-      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyStatus]));
+      dispatch(push(Paths.PATHS_ROOT));
     })
   );
 
@@ -105,23 +64,63 @@ export const edit = (details: Omit<Group.Details, 'subject'>) => (dispatch: AppD
       // グループ再取得
       await dispatch(Actions.GROUP_LIST()).unwrap();
 
-      dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
+      dispatch(push(Paths.PATHS_ROOT));
     })
   );
 
-/** グループ編集 */
-// export const edit = (details: Group.Details) => (dispatch: AppDispatch) =>
-//   dispatch(
-//     withLoading(async () => {
-//       // グループ編集API
-//       await API.put<void, APIs.GroupUpdateRequest>(Consts.GroupUpdate(details.id), {
-//         name: details.name,
-//         description: details.description,
-//       });
+export const transitToGroupRegist = () => (dispatch: AppDispatch) => {
+  // enable group regist
+  editable(Consts.EDIT_MODE.REGIST)(dispatch);
+  // remove active group
+  AppActions.activeGroup('')(dispatch);
+  // transit to group detail
+  dispatch(push(Paths.PATHS_GROUP_LIST));
+};
 
-//       // グループ再取得
-//       await dispatch(Actions.GROUP_LIST()).unwrap();
-//       // グループリスト画面に遷移する
-//       dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
-//     })
-//   );
+/** 問題集更新 */
+export const questionUpdate = (questionId: string, request: APIs.QuestionUpdateRequest) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      dispatch(
+        Actions.GROUP_QUESTION_UPDATE({
+          questionId: questionId,
+          title: request.title,
+          answer: request.answer,
+        })
+      );
+    })
+  );
+
+/** 質問リスト */
+export const questionList = () => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // Get question lists
+      await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
+
+      dispatch(push(Paths.PATHS_QUESTION_LIST));
+    })
+  );
+
+/** 質問リスト */
+export const uploadConfirm = (texts: string) => (dispatch: AppDispatch) => {
+  dispatch(Actions.GROUP_QUESTION_UPLOADS(texts));
+
+  // transit to upload confirm
+  dispatch(push(Paths.PATHS_QUESTION_CONFIRM));
+};
+
+/** 質問リスト */
+export const uploadQuestions = () => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // regist questions
+      await dispatch(Actions.GROUP_QUESTION_REGIST()).unwrap();
+
+      // Get question lists
+      await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
+
+      // transit to upload confirm
+      dispatch(push(Paths.PATHS_QUESTION_LIST));
+    })
+  );

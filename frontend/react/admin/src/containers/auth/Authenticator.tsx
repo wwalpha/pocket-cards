@@ -7,8 +7,6 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { SignIn, SignUp, NewPassword } from '.';
 import { AppActions } from '@actions';
 import { Consts, Paths } from '@constants';
-import { AdminTop } from '@containers/admin';
-
 import { RootState } from 'typings';
 import App from '../../App';
 
@@ -34,16 +32,17 @@ const Authenticator: React.FunctionComponent = () => {
     return <NewPassword />;
   }
 
+  if (loginStatus === Consts.SIGN_STATUS.LOGINED) {
+    return <App />;
+  }
+
   return (
     <React.Fragment>
       <Switch>
-        <Route exact path="/">
-          {loginStatus === Consts.SIGN_STATUS.LOGINED ? <App /> : <SignIn />}
+        <Route exact path={Paths.PATHS_ROOT}>
+          <SignIn />
         </Route>
         <Route path={Paths.PATHS_SIGN_UP} component={SignUp} />
-        <Route path={Paths.PATHS_ADMIN_DASHBOARD}>
-          {loginStatus === Consts.SIGN_STATUS.LOGINED ? <AdminTop /> : <SignIn />}
-        </Route>
         <Route>
           <Redirect to={Paths.PATHS_SIGN_IN} />
         </Route>

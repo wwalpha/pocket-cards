@@ -68,6 +68,7 @@ const SignUp = () => {
                 margin="normal"
                 fullWidth
                 label="Username"
+                autoFocus
                 value={value}
                 onChange={onChange}
               />
@@ -89,7 +90,6 @@ const SignUp = () => {
                 margin="normal"
                 fullWidth
                 label="Email Address"
-                autoFocus
                 autoComplete="email"
                 value={value}
                 onChange={onChange}
