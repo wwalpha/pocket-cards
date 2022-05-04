@@ -23,3 +23,14 @@ export { default as WEEKLY06_DB_WEEKLY_ABILITY } from './006_db_weekly_ability.j
 export { default as WEEKLY06_DB_GROUP } from './006_db_group.json';
 export { default as WEEKLY06_EXPECT_WEEKLY_ABILITY } from './006_expect_weekly_ability.json';
 export { default as WEEKLY06_EXPECT_GROUPS } from './006_expect_groups.json';
+
+export { default as WEEKLY07_DB_WEEKLY_ABILITY } from './007_db_weekly_ability.json';
+export { default as WEEKLY07_EXPECT_WEEKLY_ABILITY } from './007_expect_weekly_ability.json';
+
+export { default as WEEKLY08_DB_WEEKLY_ABILITY } from './008_db_weekly_ability.json';
+export { default as WEEKLY08_EXPECT_WEEKLY_ABILITY } from './008_expect_weekly_ability.json';
+
+export { default as WEEKLY09_DB_WEEKLY_ABILITY } from './009_db_weekly_ability.json';
+export { default as WEEKLY09_EXPECT_WEEKLY_ABILITY } from './009_expect_weekly_ability.json';
+
+export { default as WEEKLY10_DB_WEEKLY_ABILITY } from './010_db_weekly_ability.json';

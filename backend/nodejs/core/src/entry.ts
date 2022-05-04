@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Logger } from '@utils';
+import { Logger, ValidationError } from '@utils';
 import { APIs } from 'typings';
 
 export default async (req: Request, res: Response, callback: APIs.Callback) => {
@@ -18,6 +18,12 @@ export default async (req: Request, res: Response, callback: APIs.Callback) => {
     // エラーログ
     Logger.error('Error', error);
 
-    res.status(500).send((error as any).message);
+    if ((error as Error).name === 'ValidationError') {
+      const vError = error as ValidationError;
+
+      res.status(400).send(vError.message);
+    } else {
+      res.status(500).send((error as any).message);
+    }
   }
 };
