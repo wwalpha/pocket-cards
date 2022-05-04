@@ -1,9 +1,9 @@
 import { Request } from 'express';
-import { DBHelper } from '@utils';
+import { DBHelper, ValidationError } from '@utils';
 import { WeeklyAbility } from '@queries';
 import { APIs, Tables } from 'typings';
 
-/** 週テスト対策の問題一覧 */
+/** 週テスト対策の練習問題の回答 */
 export default async (
   req: Request<APIs.WeeklyAbilityPracticeAnswerParameter, any, APIs.WeeklyAbilityPracticeAnswerRequest, any>
 ): Promise<APIs.WeeklyAbilityPracticeAnswerResponse> => {
@@ -14,7 +14,7 @@ export default async (
   const question = result?.Item;
 
   if (!question) {
-    throw new Error(`Question not found. ${qid}`);
+    throw new ValidationError(`Question not found. ${qid}`);
   }
 
   // 正解の場合

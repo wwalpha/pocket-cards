@@ -5,3 +5,10 @@ export * as DateUtils from './dateUtils';
 export * as ClientUtils from './clientUtils';
 export * as QueryUtils from './queryUtils';
 export * as API from './apis';
+
+export class ValidationError extends Error {
+  constructor(message: any) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}

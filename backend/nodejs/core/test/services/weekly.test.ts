@@ -104,94 +104,64 @@ describe('weekly', () => {
     expect(groups.Items).toEqual(DATAS.WEEKLY06_EXPECT_GROUPS);
   });
 
-  // test.skip('Question02:学習問題一覧', async () => {
-  //   await client.bulk(Environment.TABLE_NAME_DATAS, DATAS.STUDY002_DB_DATAS);
-  //   await client.bulk(Environment.TABLE_NAME_LEARNING, DATAS.STUDY002_DB_LEARNING);
+  test('007_週テスト対策の練習問題の回答:Yes, 3回未満', async () => {
+    await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY07_DB_WEEKLY_ABILITY);
 
-  //   const apiPath = '/v1/DATAS/study';
+    const apiPath = '/v1/groups/G001/practice/87fu6UiJNECBPebKGJcxh1';
+    const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
+      subject: '103',
+      correct: '1',
+    });
 
-  //   const res = await request(server)
-  //     .get(apiPath)
-  //     .query({
-  //       subject: '2',
-  //     })
-  //     .set('authorization', HEADER_AUTH);
+    const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
 
-  //   // status code
-  //   expect(res.statusCode).toBe(200);
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(ability.Items).toEqual(DATAS.WEEKLY07_EXPECT_WEEKLY_ABILITY);
+  });
 
-  //   expect(res.body).toEqual(DATAS.STUDY002_EXPECT01);
-  // });
+  test('008_週テスト対策の練習問題の回答:Yes, 3回', async () => {
+    await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY08_DB_WEEKLY_ABILITY);
 
-  // test.skip('Question03:テスト問題一覧', async () => {
-  //   await client.bulk(Environment.TABLE_NAME_DATAS, DATAS.TEST003_DB_DATAS);
-  //   await client.bulk(Environment.TABLE_NAME_LEARNING, DATAS.TEST003_DB_LEARNING);
+    const apiPath = '/v1/groups/G001/practice/87fu6UiJNECBPebKGJcxh1';
+    const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
+      subject: '103',
+      correct: '1',
+    });
 
-  //   const apiPath = '/v1/DATAS/test';
+    const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
 
-  //   const res = await request(server)
-  //     .get(apiPath)
-  //     .query({
-  //       subject: '2',
-  //     })
-  //     .set('authorization', HEADER_AUTH);
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(ability.Items).toEqual(DATAS.WEEKLY08_EXPECT_WEEKLY_ABILITY);
+  });
 
-  //   // status code
-  //   expect(res.statusCode).toBe(200);
+  test('009_週テスト対策の練習問題の回答:No', async () => {
+    await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY09_DB_WEEKLY_ABILITY);
 
-  //   expect(res.body).toEqual(DATAS.TEST003_EXPECT01);
-  // });
+    const apiPath = '/v1/groups/G001/practice/87fu6UiJNECBPebKGJcxh1';
+    const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
+      subject: '103',
+      correct: '0',
+    });
 
-  // test.skip('Question04:問題回答_正解', async () => {
-  //   await client.bulk(Environment.TABLE_NAME_LEARNING, DATAS.ANSWER04_DB_LEARNING);
+    const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
 
-  //   const apiPath = '/v1/DATAS/Q001/answer';
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(ability.Items).toEqual(DATAS.WEEKLY09_EXPECT_WEEKLY_ABILITY);
+  });
 
-  //   const res = await request(server)
-  //     .post(apiPath)
-  //     .set('authorization', HEADER_AUTH)
-  //     .send({
-  //       correct: '1',
-  //     } as APIs.QuestionAnswerRequest);
+  test('010_週テスト対策の練習問題の回答:問題存在しない', async () => {
+    await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY10_DB_WEEKLY_ABILITY);
 
-  //   // status code
-  //   expect(res.statusCode).toBe(200);
+    const apiPath = '/v1/groups/G001/practice/97fu6UiJNECBPebKGJcxh1';
+    const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
+      subject: '103',
+      correct: '0',
+    });
 
-  //   const result = await DBHelper().get(Learning.get({ qid: 'Q001', userId: '84d95083-9ee8-4187-b6e7-8123558ef2c1' }));
-
-  //   expect(result?.Item).toMatchObject(DATAS.ANSWER04_EXPECT01);
-  // });
-
-  // test.skip('Question05:問題回答_不正解', async () => {
-  //   await client.bulk(Environment.TABLE_NAME_LEARNING, DATAS.ANSWER05_DB_LEARNING);
-
-  //   const apiPath = '/v1/DATAS/Q001/answer';
-
-  //   const res = await request(server)
-  //     .post(apiPath)
-  //     .set('authorization', HEADER_AUTH)
-  //     .send({
-  //       correct: '0',
-  //     } as APIs.QuestionAnswerRequest);
-
-  //   // status code
-  //   expect(res.statusCode).toBe(200);
-
-  //   const result = await DBHelper().get(Learning.get({ qid: 'Q001', userId: '84d95083-9ee8-4187-b6e7-8123558ef2c1' }));
-
-  //   expect(result?.Item).toMatchObject(DATAS.ANSWER05_EXPECT01);
-  // });
-
-  // test.skip('Question06:質問一覧', async () => {
-  //   await client.bulk(Environment.TABLE_NAME_DATAS, DATAS.DETAILS05_DB_DATAS);
-
-  //   const apiPath = '/v1/groups/G001/DATAS';
-
-  //   const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
-
-  //   // status code
-  //   expect(res.statusCode).toBe(200);
-
-  //   expect(res.body).toEqual(DATAS.DETAILS05_EXPECT01);
-  // });
+    // status code
+    expect(res.statusCode).toBe(400);
+  });
 });
