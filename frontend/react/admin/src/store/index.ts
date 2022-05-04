@@ -4,7 +4,7 @@ import { routerMiddleware } from 'connected-react-router';
 import { createHashHistory, createBrowserHistory } from 'history';
 import logger from 'redux-logger';
 import { Credentials } from '@utils';
-import { Consts } from '@constants';
+import { URLs } from '@constants';
 import { Auth, Domains } from 'typings';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
@@ -17,7 +17,7 @@ export const key = process.env.NODE_ENV === 'production' ? 'pkc' : 'pkc_dev';
 Credentials.refreshSession = async (accessToken?: string, refreshToken?: string) => {
   if (!refreshToken || !accessToken) return;
 
-  const res = await axios.create().post<Auth.InitiateAuthResponse>(Consts.REFRESH_TOKEN(), {
+  const res = await axios.create().post<Auth.InitiateAuthResponse>(URLs.REFRESH_TOKEN(), {
     accessToken: accessToken,
     refreshToken: refreshToken,
   });

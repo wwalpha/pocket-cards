@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { AppActions, withLoading } from '@actions';
-import { Consts, Paths } from '@constants';
+import { Consts, Paths, URLs } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
 import { APIs, AppDispatch, Group } from 'typings';
@@ -19,7 +19,7 @@ export const regist = (datas: Group.Regist) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // グループ登録開始イベント
-      const res = await API.post<APIs.GroupRegistResponse, APIs.GroupRegistRequest>(Consts.GroupRegist(), {
+      const res = await API.post<APIs.GroupRegistResponse, APIs.GroupRegistRequest>(URLs.GroupRegist(), {
         name: datas.name,
         description: datas.description,
         subject: datas.subject,
@@ -56,7 +56,7 @@ export const edit = (details: Omit<Group.Details, 'subject'>) => (dispatch: AppD
   dispatch(
     withLoading(async () => {
       // グループ編集API
-      await API.put<void, APIs.GroupUpdateRequest>(Consts.GroupUpdate(details.id), {
+      await API.put<void, APIs.GroupUpdateRequest>(URLs.GroupUpdate(details.id), {
         name: details.name,
         description: details.description,
       });

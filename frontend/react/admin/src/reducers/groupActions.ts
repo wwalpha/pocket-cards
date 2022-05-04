@@ -1,56 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Consts } from '@constants';
+import { URLs } from '@constants';
 import { RootState } from '@store';
 import { API } from '@utils';
-import { Tables, APIs, Payloads, Group } from 'typings';
+import { Tables, APIs, Group } from 'typings';
 
 export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST', async () => {
-  const res = await API.get<APIs.GroupListResponse>(Consts.B002_URL());
+  const res = await API.get<APIs.GroupListResponse>(URLs.GroupList());
 
   return res.items;
 });
-
-export const GROUP_WORD_LIST = createAsyncThunk<Payloads.GroupWordList, string>(
-  'group/GROUP_WORD_LIST',
-  async (groupId) => {
-    const res = await API.get<APIs.C002Response>(Consts.C002_URL(groupId));
-
-    return {
-      id: groupId,
-      items: res.items.map((item) => ({
-        id: item.id,
-        groupId: groupId,
-        vocabulary: item.vocabulary,
-      })),
-    };
-  }
-);
-
-export const GROUP_WORD_DETAILS = createAsyncThunk<Group.WordDetails, Group.WordSimple>(
-  'group/GROUP_WORD_DETAILS',
-  async (details, { rejectWithValue }) => {
-    try {
-      const res = await API.get<APIs.E001Response>(Consts.E001_URL(details.id));
-
-      if (!res.item) {
-        return rejectWithValue(`Cannot found word: ${details.id}`);
-      }
-
-      return {
-        id: details.id,
-        groupId: details.groupId,
-        original: res.item.original,
-        mp3: res.item?.mp3,
-        pronounce: res.item?.pronounce,
-        vocabulary: res.item?.vocJpn,
-        vocChn: res.item?.vocChn,
-        vocJpn: res.item?.vocJpn,
-      };
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
 
 /** Question List */
 export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], void>(
@@ -58,7 +16,7 @@ export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], void>(
   async (_, { getState }) => {
     const { activeGroup } = (getState() as RootState).app;
     // request
-    const res = await API.get<APIs.QuestionListResponse>(Consts.QUESTION_LIST(activeGroup));
+    const res = await API.get<APIs.QuestionListResponse>(URLs.QUESTION_LIST(activeGroup));
 
     // response
     return res.questions.map((item) => ({
@@ -80,7 +38,7 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, void>(
     const { uploads } = (getState() as RootState).group;
 
     // request
-    await API.post<APIs.QuestionRegistRequest, APIs.QuestionRegistResponse>(Consts.QUESTION_REGIST(activeGroup), {
+    await API.post<APIs.QuestionRegistRequest, APIs.QuestionRegistResponse>(URLs.QUESTION_REGIST(activeGroup), {
       questions: uploads.map(
         ({ title, answer, description, choices }) =>
           `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer}`
@@ -99,7 +57,7 @@ export const GROUP_QUESTION_UPDATE = createAsyncThunk<
 
   // 質問更新
   return await API.put<APIs.QuestionUpdateResponse, APIs.QuestionUpdateRequest>(
-    Consts.QUESTION_UPDATE(activeGroup, request.questionId),
+    URLs.QUESTION_UPDATE(activeGroup, request.questionId),
     request
   );
 });
