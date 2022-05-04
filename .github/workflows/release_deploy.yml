@@ -9,7 +9,7 @@ env:
   AWS_DEFAULT_REGION: us-east-1
   WORKING_DIR_TERRAFORM: infrastructure/terraform
   WORKING_DIR_BACKEND: backend
-  WORKING_DIR_FRONTEND: frontend/react
+  WORKING_DIR_FRONTEND_ADMIN: frontend/react/admin
   TF_WORKSPACE: prod
   ECS_CLUSTER_NAME: pkc-cluster
   ECS_SERVICE_NAME_BACKEND: backend
@@ -198,7 +198,7 @@ jobs:
       name: prod
     defaults:
       run:
-        working-directory: ${{ env.WORKING_DIR_FRONTEND }}
+        working-directory: ${{ env.WORKING_DIR_FRONTEND_ADMIN }}
 
     steps:
       # Source checkout
@@ -233,6 +233,12 @@ jobs:
           echo ::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)
           echo ::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)
           echo ::set-output name=source_tag::${GITHUB_REF#refs/tags/}
+
+      # Pre Install
+      - name: PreInstall
+        run: |
+          cd ..
+          yarn install
 
       # Install and Build
       - name: Build
