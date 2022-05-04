@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
 import { useLocation } from 'react-router-dom';
-import { Paths, Consts } from '@constants';
+import { ROUTE_PATHS, Consts } from '@constants';
 import { AppActions, GroupActions } from '@actions';
 import { RootState } from 'typings';
 import { UploadButton } from '@components/buttons';
@@ -29,15 +29,15 @@ export default () => {
   const handleGroupAdd = () => grpActions.transitToGroupRegist();
 
   const handleAdminBack = () => {
-    if (pathname === Paths.PATHS_QUESTION_LIST) {
+    if (pathname === ROUTE_PATHS.QUESTION_LIST) {
       // go to top
-      dispatch(push(Paths.PATHS_ROOT));
+      dispatch(push(ROUTE_PATHS.ROOT));
       // clear questions
       grpActions.clearQuestions();
     }
-    if (pathname === Paths.PATHS_QUESTION_CONFIRM) {
+    if (pathname === ROUTE_PATHS.QUESTION_CONFIRM) {
       // go to top
-      dispatch(push(Paths.PATHS_QUESTION_LIST));
+      dispatch(push(ROUTE_PATHS.QUESTION_LIST));
       // clear questions
       grpActions.clearQuestions();
     }
@@ -62,7 +62,7 @@ export default () => {
           {(() => {
             if (authority !== Consts.Authority.ADMIN) return;
 
-            if (pathname === Paths.PATHS_ROOT) {
+            if (pathname === ROUTE_PATHS.ROOT) {
               return (
                 <Button
                   variant="outlined"
@@ -82,7 +82,7 @@ export default () => {
               BACK
             </Button>;
 
-            if (pathname === Paths.PATHS_QUESTION_LIST) {
+            if (pathname === ROUTE_PATHS.QUESTION_LIST) {
               return (
                 <UploadButton
                   loading={isLoading}
@@ -97,7 +97,7 @@ export default () => {
               );
             }
 
-            if (pathname === Paths.PATHS_QUESTION_CONFIRM) {
+            if (pathname === ROUTE_PATHS.QUESTION_CONFIRM) {
               return (
                 <LoadingButton
                   loading={isLoading}
@@ -115,7 +115,7 @@ export default () => {
             return;
           })()}
           {(() => {
-            if (pathname !== Paths.PATHS_STUDENTS) return;
+            if (pathname !== ROUTE_PATHS.STUDENTS) return;
             if (authority !== Consts.Authority.PARENT) return;
 
             return (
@@ -136,6 +136,3 @@ export default () => {
     </AppBar>
   );
 };
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}

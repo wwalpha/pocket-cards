@@ -15,7 +15,7 @@ import BookIcon from '@mui/icons-material/Book';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { AppActions, UserActions } from '@actions';
-import { Consts, Paths } from '@constants';
+import { Consts, ROUTE_PATHS } from '@constants';
 import { styles } from './MainMenu.style';
 import { RootState } from 'typings';
 
@@ -34,7 +34,7 @@ export default () => {
   const handleStudents = () => usrActions.getStudentList();
   // settings click handler
   const handleSettings = () => {
-    dispatch(push(Paths.PATHS_SETTINGS));
+    dispatch(push(ROUTE_PATHS.SETTINGS));
   };
 
   return (

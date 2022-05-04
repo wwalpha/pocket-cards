@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { AppActions, withLoading } from '@actions';
-import { Consts, Paths, URLs } from '@constants';
+import { Consts, ROUTE_PATHS, URLs } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
 import { APIs, AppDispatch, Group } from 'typings';
@@ -36,7 +36,7 @@ export const regist = (datas: Group.Regist) => (dispatch: AppDispatch) =>
         })
       );
 
-      dispatch(push(Paths.PATHS_ROOT));
+      dispatch(push(ROUTE_PATHS.ROOT));
     })
   );
 
@@ -64,7 +64,7 @@ export const edit = (details: Omit<Group.Details, 'subject'>) => (dispatch: AppD
       // グループ再取得
       await dispatch(Actions.GROUP_LIST()).unwrap();
 
-      dispatch(push(Paths.PATHS_ROOT));
+      dispatch(push(ROUTE_PATHS.ROOT));
     })
   );
 
@@ -74,7 +74,7 @@ export const transitToGroupRegist = () => (dispatch: AppDispatch) => {
   // remove active group
   AppActions.activeGroup('')(dispatch);
   // transit to group detail
-  dispatch(push(Paths.PATHS_GROUP_LIST));
+  dispatch(push(ROUTE_PATHS.GROUP_LIST));
 };
 
 /** 問題集更新 */
@@ -98,7 +98,7 @@ export const questionList = () => (dispatch: AppDispatch) =>
       // Get question lists
       await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
 
-      dispatch(push(Paths.PATHS_QUESTION_LIST));
+      dispatch(push(ROUTE_PATHS.QUESTION_LIST));
     })
   );
 
@@ -107,7 +107,7 @@ export const uploadConfirm = (texts: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.GROUP_QUESTION_UPLOADS(texts));
 
   // transit to upload confirm
-  dispatch(push(Paths.PATHS_QUESTION_CONFIRM));
+  dispatch(push(ROUTE_PATHS.QUESTION_CONFIRM));
 };
 
 /** 質問リスト */
@@ -121,6 +121,6 @@ export const uploadQuestions = () => (dispatch: AppDispatch) =>
       await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
 
       // transit to upload confirm
-      dispatch(push(Paths.PATHS_QUESTION_LIST));
+      dispatch(push(ROUTE_PATHS.QUESTION_LIST));
     })
   );

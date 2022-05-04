@@ -6,7 +6,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { SignIn, SignUp, NewPassword } from '.';
 import { AppActions } from '@actions';
-import { Consts, Paths } from '@constants';
+import { Consts, ROUTE_PATHS } from '@constants';
 import { RootState } from 'typings';
 import App from '../../App';
 
@@ -39,12 +39,12 @@ const Authenticator: React.FunctionComponent = () => {
   return (
     <React.Fragment>
       <Switch>
-        <Route exact path={Paths.PATHS_ROOT}>
+        <Route exact path={ROUTE_PATHS.ROOT}>
           <SignIn />
         </Route>
-        <Route path={Paths.PATHS_SIGN_UP} component={SignUp} />
+        <Route path={ROUTE_PATHS.SIGN_UP} component={SignUp} />
         <Route>
-          <Redirect to={Paths.PATHS_SIGN_IN} />
+          <Redirect to={ROUTE_PATHS.SIGN_IN} />
         </Route>
       </Switch>
       <Snackbar
