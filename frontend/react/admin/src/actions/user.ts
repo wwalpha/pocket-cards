@@ -54,7 +54,7 @@ export const signup = (username: string, email: string) => (dispatch: AppDispatc
 
       if (res.success == true) {
         // Sign In
-        dispatch(push(Paths.PATHS_SIGN_IN));
+        dispatch(push(ROUTE_PATHS.SIGN_IN));
 
         // success
         dispatch(Actions.APP_SHOW_SUCCESS('User regist success.'));
