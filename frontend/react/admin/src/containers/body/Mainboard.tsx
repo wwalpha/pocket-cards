@@ -20,7 +20,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { AdminActions, GroupActions } from '@actions';
+import { AppActions, GroupActions, UserActions } from '@actions';
 import { Paths, Consts } from '@constants';
 import { RootState } from 'typings';
 import { StyledTableCell, styles } from './Mainboard.style';
@@ -31,8 +31,9 @@ const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
 
 export default () => {
-  const actions = bindActionCreators(AdminActions, useDispatch());
+  const actions = bindActionCreators(AppActions, useDispatch());
   const grpActions = bindActionCreators(GroupActions, useDispatch());
+  const usrActions = bindActionCreators(UserActions, useDispatch());
 
   const { groups } = useSelector(groupState);
   const { isLoading, activeSubject, authority } = useSelector(appState);
@@ -43,19 +44,19 @@ export default () => {
 
   // get question list
   const handleApply = (groupId: string) => {
-    actions.curriculumRegist(groupId);
+    usrActions.curriculumRegist(groupId);
   };
   // get question list
   const handleCancel = (id: string) => {
-    actions.curriculumRemove(id);
+    usrActions.curriculumRemove(id);
   };
 
   // get question list
   const handleQuestions = (groupId: string) => {
     // select group
-    grpActions.activeGroup(groupId);
+    actions.activeGroup(groupId);
     // 質問リスト取得
-    actions.questionList();
+    grpActions.questionList();
   };
 
   const handleClose = () => setOpen(false);
@@ -73,7 +74,7 @@ export default () => {
   // Folder click
   const handleEdit = (groupId: string, editable: Consts.EDIT_MODE) => {
     // 選択値を保存する
-    grpActions.activeGroup(groupId);
+    actions.activeGroup(groupId);
     // 編集モード
     grpActions.editable(editable);
   };
@@ -146,7 +147,7 @@ export default () => {
                           handleEdit(dataRow.id, Consts.EDIT_MODE.EDIT);
                         }}
                         component={React.forwardRef((props: any, ref: any) => (
-                          <Link to={Paths.PATHS_ADMIN_GROUP_DETAILS} {...props} />
+                          <Link to={Paths.PATHS_GROUP_LIST} {...props} />
                         ))}>
                         Edit
                       </Button>

@@ -4,7 +4,7 @@ import { Actions } from '@reducers';
 import { push } from 'connected-react-router';
 import { AppDispatch } from 'typings';
 
-/** ログイン */
+/** サインイン */
 export const signin = (username: string, passwd: string, newPassword?: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
@@ -22,7 +22,7 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
         return;
       }
 
-      dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
+      dispatch(push(Paths.PATHS_ROOT));
       // initialize
       dispatch(Actions.GROUP_LIST());
       dispatch(Actions.APP_SET_AUTHORITY(res.authority));
@@ -39,6 +39,7 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
     })
   );
 
+/** サインアウト */
 export const signup = (username: string, email: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
@@ -64,8 +65,10 @@ export const signup = (username: string, email: string) => (dispatch: AppDispatc
     })
   );
 
+/** ユーザ情報取得 */
 export const getUserInfo = () => (dispatch: AppDispatch) => dispatch(Actions.USER_INFORMATIONS());
 
+/** 連絡先更新 */
 export const updateNotifications = (notifications: string[]) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
@@ -78,6 +81,49 @@ export const updateNotifications = (notifications: string[]) => (dispatch: AppDi
     })
   );
 
+/** 生徒切替 */
 export const setActiveStudent = (id: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.USER_ACTIVE_STUDENT(id));
 };
+
+/** カリキュラム登録 */
+export const curriculumRegist = (groupId: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // Get question lists
+      dispatch(Actions.USER_CURRICULUM_REGIST(groupId));
+    })
+  );
+
+/** カリキュラム削除 */
+export const curriculumRemove = (id: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // Get question lists
+      dispatch(Actions.USER_CURRICULUM_REMOVE(id));
+    })
+  );
+
+/** 生徒一覧 */
+export const getStudentList = () => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // Get question lists
+      dispatch(Actions.USER_STUDENT_LIST());
+
+      dispatch(push(Paths.PATHS_STUDENTS));
+    })
+  );
+
+/** 生徒登録 */
+export const studentRegist = (username: string, password: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // Get question lists
+      await dispatch(Actions.USER_STUDENT_REGIST({ username, password })).unwrap();
+
+      dispatch(Actions.APP_SHOW_USER_REGIST(false));
+
+      getStudentList()(dispatch);
+    })
+  );

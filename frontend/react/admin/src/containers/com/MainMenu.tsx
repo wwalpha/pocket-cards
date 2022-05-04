@@ -14,9 +14,9 @@ import Typography from '@mui/material/Typography';
 import BookIcon from '@mui/icons-material/Book';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { AdminActions } from '@actions';
+import { AppActions, UserActions } from '@actions';
 import { Consts, Paths } from '@constants';
-import { styles } from './DrawerLeft.style';
+import { styles } from './MainMenu.style';
 import { RootState } from 'typings';
 
 const appState = (state: RootState) => state.app;
@@ -24,15 +24,17 @@ const appState = (state: RootState) => state.app;
 export default () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const actions = bindActionCreators(AdminActions, dispatch);
+  const actions = bindActionCreators(AppActions, dispatch);
+  const usrActions = bindActionCreators(UserActions, dispatch);
+
   const { authority } = useSelector(appState);
 
-  const handleClick = (subject: string) => actions.switchSubject(subject, location.pathname);
+  const handleClick = (subject: string) => actions.activeSubject(subject, location.pathname);
 
-  const handleStudents = () => actions.getStudentList();
+  const handleStudents = () => usrActions.getStudentList();
   // settings click handler
   const handleSettings = () => {
-    dispatch(push(Paths.PATHS_ADMIN_SETTINGS));
+    dispatch(push(Paths.PATHS_SETTINGS));
   };
 
   return (

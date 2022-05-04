@@ -9,7 +9,7 @@ export default () => {
   return (
     <Switch>
       <Route exact path={path} component={QuestionList} />
-      <Route path={Paths.PATHS_ADMIN_QUESTIONS_CONFIRM} component={QuestionConfirm} />
+      <Route path={Paths.PATHS_QUESTION_CONFIRM} component={QuestionConfirm} />
     </Switch>
   );
 };
