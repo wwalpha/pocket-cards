@@ -4,7 +4,7 @@ import { Questions, WeeklyAbility } from '@queries';
 import { APIs, Tables } from 'typings';
 import { Environment } from '@consts';
 
-/** 今日のテスト */
+/** 週テスト対策問題一括取得 */
 export default async (
   req: Request<APIs.WeeklyTestListParameter, any, APIs.WeeklyTestListRequest, APIs.WeeklyTestListQuery>
 ): Promise<APIs.WeeklyTestListResponse> => {
