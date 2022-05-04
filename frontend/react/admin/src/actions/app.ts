@@ -1,5 +1,5 @@
 import { push } from 'connected-react-router';
-import { Paths } from '@constants';
+import { ROUTE_PATHS } from '@constants';
 import { Credentials } from '@utils';
 import { Actions } from '@reducers';
 import { AppDispatch } from '@store';
@@ -34,7 +34,7 @@ export const logout = () => (dispatch: AppDispatch) => {
 
   dispatch(Actions.APP_LOGOUT());
 
-  dispatch(push(Paths.PATHS_SIGN_IN));
+  dispatch(push(ROUTE_PATHS.SIGN_IN));
 };
 
 /** selected subject */
@@ -42,8 +42,8 @@ export const activeSubject = (id: string, pathname: string) => (dispatch: AppDis
   // active group
   dispatch(Actions.APP_ACTIVE_SUBJECT(id));
   // move to top page
-  if (pathname !== Paths.PATHS_ROOT) {
-    dispatch(push(Paths.PATHS_ROOT));
+  if (pathname !== ROUTE_PATHS.ROOT) {
+    dispatch(push(ROUTE_PATHS.ROOT));
   }
 };
 

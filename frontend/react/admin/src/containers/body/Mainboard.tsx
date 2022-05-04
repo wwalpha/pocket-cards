@@ -21,7 +21,7 @@ import PageviewIcon from '@mui/icons-material/Pageview';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { AppActions, GroupActions, UserActions } from '@actions';
-import { Paths, Consts } from '@constants';
+import { ROUTE_PATHS, Consts } from '@constants';
 import { RootState } from 'typings';
 import { StyledTableCell, styles } from './Mainboard.style';
 import { Link } from 'react-router-dom';
@@ -147,7 +147,7 @@ export default () => {
                           handleEdit(dataRow.id, Consts.EDIT_MODE.EDIT);
                         }}
                         component={React.forwardRef((props: any, ref: any) => (
-                          <Link to={Paths.PATHS_GROUP_LIST} {...props} />
+                          <Link to={ROUTE_PATHS.GROUP_LIST} {...props} />
                         ))}>
                         Edit
                       </Button>

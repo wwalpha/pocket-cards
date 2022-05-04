@@ -1,5 +1,5 @@
 import { withLoading } from '@actions';
-import { Consts, Paths } from '@constants';
+import { Consts, ROUTE_PATHS } from '@constants';
 import { Actions } from '@reducers';
 import { push } from 'connected-react-router';
 import { AppDispatch } from 'typings';
@@ -22,7 +22,7 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
         return;
       }
 
-      dispatch(push(Paths.PATHS_ROOT));
+      dispatch(push(ROUTE_PATHS.ROOT));
       // initialize
       dispatch(Actions.GROUP_LIST());
       dispatch(Actions.APP_SET_AUTHORITY(res.authority));
@@ -111,7 +111,7 @@ export const getStudentList = () => (dispatch: AppDispatch) =>
       // Get question lists
       dispatch(Actions.USER_STUDENT_LIST());
 
-      dispatch(push(Paths.PATHS_STUDENTS));
+      dispatch(push(ROUTE_PATHS.STUDENTS));
     })
   );
 
