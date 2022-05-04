@@ -54,7 +54,7 @@ resource "aws_ecs_task_definition" "this" {
       container_image = "${local.repo_url_backend}:latest"
       container_port  = 8080
       env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.backend.key}"
-      healthCheck     = "curl -f http://127.0.0.1:8080/v1/health || exit 1"
+      # healthCheck     = "curl -f http://127.0.0.1:8080/v1/health || exit 1"
     }
   )
 
