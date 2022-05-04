@@ -39,7 +39,7 @@ export default () => {
     <Drawer sx={styles.drawer} variant="permanent" anchor="left">
       <Toolbar>
         <Typography variant="h6" noWrap component="div">
-          VER.0.5.5
+          {Consts.VERSION}
         </Typography>
       </Toolbar>
       <Divider />
@@ -93,6 +93,13 @@ export default () => {
         </ListItem>
         {authority === Consts.Authority.PARENT && (
           <React.Fragment>
+            {/* <Divider />
+            <ListItem button key="weekly" onClick={handleStudents}>
+              <ListItemIcon sx={styles.itemIcon}>
+                <BookIcon sx={{ color: 'secondary.main' }} />
+              </ListItemIcon>
+              <ListItemText primary="週テスト対策" />
+            </ListItem> */}
             <Divider />
             <ListItem button key="Students" onClick={handleStudents}>
               <ListItemIcon sx={styles.itemIcon}>

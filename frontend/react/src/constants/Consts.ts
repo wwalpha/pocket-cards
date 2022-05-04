@@ -2,6 +2,7 @@
 export const API_URL = process.env.API_URL as string;
 export const API_NAME = 'api';
 export const API_VERSION = '/v1';
+export const VERSION = `${process.env.VERSION}`;
 
 // サーバー
 export const SERVER_START_URL = () => '/admin/start';
@@ -64,8 +65,6 @@ export const STUDENT_LIST = () => `${API_VERSION}/users/students`;
 
 export const DESCRIBE_USER = (userId: string) => `${API_VERSION}/users/${userId}`;
 export const UPDATE_USER = (userId: string) => `${API_VERSION}/users/${userId}`;
-
-export const VERSION = `${process.env.VERSION}`;
 
 export const MODES = {
   New: '1',
