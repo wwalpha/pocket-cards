@@ -33,6 +33,7 @@ const app = express();
 app.use(json({ limit: '50mb' }));
 app.use(urlencoded({ extended: true }));
 app.use(morgan('combined'));
+app.disable('x-powered-by');
 
 app.options('*', (_, res) => res.sendStatus(200));
 // health check
