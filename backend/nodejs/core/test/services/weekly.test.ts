@@ -48,8 +48,6 @@ describe('weekly', () => {
 
     const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
 
-    // console.log(JSON.stringify(res.body));
-
     // status code
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(DATAS.WEEKLY03_RESPONSE);
@@ -66,6 +64,44 @@ describe('weekly', () => {
     // status code
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(DATAS.WEEKLY04_RESPONSE);
+  });
+
+  test('005_週テスト対策の実力テストの回答:Yes', async () => {
+    await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY05_DB_WEEKLY_ABILITY);
+    await client.bulk(Environment.TABLE_NAME_GROUPS, DATAS.WEEKLY05_DB_GROUP);
+
+    const apiPath = '/v1/groups/G001/ability/gr4RJGXne2p68Q6oyYcwoN';
+    const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
+      subject: '103',
+      correct: '1',
+    });
+
+    const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
+    const groups = await DBHelper().scan({ TableName: Environment.TABLE_NAME_GROUPS });
+
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(ability.Items).toEqual(DATAS.WEEKLY05_EXPECT_WEEKLY_ABILITY);
+    expect(groups.Items).toEqual(DATAS.WEEKLY05_EXPECT_GROUPS);
+  });
+
+  test('006_週テスト対策の実力テストの回答:No', async () => {
+    await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY06_DB_WEEKLY_ABILITY);
+    await client.bulk(Environment.TABLE_NAME_QUESTIONS, DATAS.WEEKLY06_DB_GROUP);
+
+    const apiPath = '/v1/groups/G001/ability/gr4RJGXne2p68Q6oyYcwoN';
+    const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
+      subject: '103',
+      correct: '0',
+    });
+
+    const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
+    const groups = await DBHelper().scan({ TableName: Environment.TABLE_NAME_GROUPS });
+
+    // status code
+    expect(res.statusCode).toBe(200);
+    expect(ability.Items).toEqual(DATAS.WEEKLY06_EXPECT_WEEKLY_ABILITY);
+    expect(groups.Items).toEqual(DATAS.WEEKLY06_EXPECT_GROUPS);
   });
 
   // test.skip('Question02:学習問題一覧', async () => {
