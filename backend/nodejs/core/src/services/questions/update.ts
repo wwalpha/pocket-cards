@@ -28,51 +28,8 @@ export default async (
     answer,
   };
 
-  // create image file if needed
-  await updateImage(item);
-  // create voice of text
-  await updateVoice(item);
-  // update record
-  await DBHelper().put(Questions.put(item));
+  // 音声、画像情報を更新する
+  await Commons.updateQuestion([item]);
 
   return item;
-};
-
-const updateImage = async (question: Tables.TQuestions): Promise<void> => {
-  const newTitle = await getS3Key(question.title);
-  const newAnswer = await getS3Key(question.answer);
-
-  // not changed
-  if (newTitle === question.title && newAnswer === question.answer) {
-    return;
-  }
-
-  // update value
-  question.title = newTitle;
-  question.answer = newAnswer;
-};
-
-const updateVoice = async (question: Tables.TQuestions): Promise<void> => {
-  const newTitle = question.title.replace(/\[http(s?):\/\/.*\]$/, '');
-  const newAnswer = question.answer.replace(/\[http(s?):\/\/.*\]$/, '');
-  const titleKey = await Commons.createJapaneseVoice(newTitle);
-  const answerKey = await Commons.createJapaneseVoice(newAnswer);
-
-  // update value
-  question.voiceTitle = titleKey;
-  question.voiceAnswer = answerKey;
-};
-
-const getS3Key = async (text: string): Promise<string> => {
-  if (!text.match(/\[http(s?):\/\/.*\]$/)) {
-    return text;
-  }
-
-  const startIdx = text.indexOf('[http');
-  const endIdx = text.indexOf(']');
-  const url = text.substring(startIdx + 1, endIdx);
-
-  const s3Key = await Commons.generateImage(url);
-
-  return text.replace(/\[http(s?):\/\/.*\]$/, `[${s3Key}]`);
 };

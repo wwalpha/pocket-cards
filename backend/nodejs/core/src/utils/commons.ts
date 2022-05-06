@@ -4,11 +4,12 @@ import { Request } from 'express';
 import { decode } from 'jsonwebtoken';
 import { GetItemOutput } from '@alphax/dynamodb';
 import pLimit from 'p-limit';
-import { ClientUtils, DateUtils, Logger } from '@utils';
+import { ClientUtils, DateUtils, DBHelper, Logger } from '@utils';
 import { ssm } from './clientUtils';
 import { Environment, Consts } from '@consts';
 import { getImage } from './apis';
 import { Tables } from 'typings';
+import { Questions } from '@queries';
 
 // Sleep
 export const sleep = (timeout: number) => new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
@@ -154,7 +155,7 @@ export const createJapaneseVoice = async (text: string, s3Key?: string) => {
 };
 
 export const updateQuestion = async (q: Tables.TQuestions[]) => {
-  const limit = pLimit(50);
+  const limit = pLimit(25);
 
   const tasks = q.map((item) =>
     limit(async () => {
@@ -169,6 +170,8 @@ export const updateQuestion = async (q: Tables.TQuestions[]) => {
       item.voiceAnswer = results[1];
       item.title = results[2];
       item.answer = results[3];
+
+      await DBHelper().put(Questions.put(item));
     })
   );
 
@@ -181,7 +184,7 @@ const createQuestionVoice = async (question: Tables.TQuestions) => {
 
   if (newTitle.length === 0) return undefined;
 
-  return await createJapaneseVoice(newTitle);
+  return await createJapaneseVoice(newTitle, question.voiceTitle);
 };
 
 const createAnswerVoice = async (question: Tables.TQuestions) => {
@@ -193,7 +196,7 @@ const createAnswerVoice = async (question: Tables.TQuestions) => {
 
   if (newAnswer.length === 0) return undefined;
 
-  return await createJapaneseVoice(newAnswer);
+  return await createJapaneseVoice(newAnswer, question.voiceAnswer);
 };
 
 const createImage = async (text: string): Promise<string> => {
