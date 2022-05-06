@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { DBHelper, Commons, DateUtils } from '@utils';
+import { DBHelper, Commons, DateUtils, ValidationError } from '@utils';
 import { Curriculums, Groups, Questions } from '@queries';
 import { Consts, Environment } from '@consts';
 import { APIs, Tables, Users } from 'typings';
@@ -16,7 +16,7 @@ export default async (
   const userInfo = await getUserInfo(userId, req.headers['authorization']);
 
   if (!groupIds || groupIds.length === 0) {
-    throw new Error('Group ids is required.');
+    throw new ValidationError('Group ids is required.');
   }
 
   // get all group infomations
