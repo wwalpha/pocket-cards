@@ -20,6 +20,7 @@ export default () => {
       actions.questionUpdate(datas.id, {
         title: datas.title,
         answer: datas.answer,
+        choices: datas.choices,
       });
     }
   };

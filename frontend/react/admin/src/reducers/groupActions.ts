@@ -3,6 +3,7 @@ import { URLs } from '@constants';
 import { RootState } from '@store';
 import { API } from '@utils';
 import { Tables, APIs, Group } from 'typings';
+import omit from 'lodash/omit';
 
 export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST', async () => {
   const res = await API.get<APIs.GroupListResponse>(URLs.GroupList());
@@ -54,10 +55,12 @@ export const GROUP_QUESTION_UPDATE = createAsyncThunk<
 >('group/GROUP_QUESTION_UPDATE', async (request, { getState }) => {
   // request parameter
   const { activeGroup } = (getState() as RootState).app;
+  const questionId = request.questionId;
+  const req = omit(request, 'questionId');
 
   // 質問更新
   return await API.put<APIs.QuestionUpdateResponse, APIs.QuestionUpdateRequest>(
-    URLs.QUESTION_UPDATE(activeGroup, request.questionId),
-    request
+    URLs.QUESTION_UPDATE(activeGroup, questionId),
+    req
   );
 });

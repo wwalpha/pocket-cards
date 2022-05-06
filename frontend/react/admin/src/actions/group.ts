@@ -86,6 +86,7 @@ export const questionUpdate = (questionId: string, request: APIs.QuestionUpdateR
           questionId: questionId,
           title: request.title,
           answer: request.answer,
+          choices: request.choices,
         })
       );
     })
