@@ -392,6 +392,7 @@ export namespace APIs {
 
   interface QuestionUpdateRequest {
     title: string;
+    choices?: string;
     answer: string;
   }
 
