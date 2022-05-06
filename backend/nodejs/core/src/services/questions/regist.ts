@@ -51,6 +51,9 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   // update question count
   await DBHelper().update(Groups.update.addCount({ id: groupId }, questions.length));
 
+  // 質問の情報を更新する
+  Commons.updateQuestion(questions);
+
   const curriculumInfos = await DBHelper().query<Tables.TCurriculums>(Curriculums.query.byGroupId(groupId));
 
   // 学習対象がない
@@ -73,7 +76,4 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   });
 
   await Promise.all(lTasks);
-
-  // 質問の情報を更新する
-  Commons.updateQuestion(questions);
 };
