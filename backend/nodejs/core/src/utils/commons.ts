@@ -189,7 +189,7 @@ const createQuestionVoice = async (question: Tables.TQuestions) => {
 
 const createAnswerVoice = async (question: Tables.TQuestions) => {
   // 選択問題の回答音声不要
-  if (!question.choices) return undefined;
+  if (question.choices) return undefined;
 
   // URL を取り除く
   const newAnswer = question.answer.replace(/\[http(s?):\/\/.*\]$/, '');
