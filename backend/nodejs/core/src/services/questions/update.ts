@@ -7,7 +7,7 @@ import { APIs, Tables } from 'typings';
 export default async (
   req: Request<APIs.QuestionUpdateParams, any, APIs.QuestionUpdateRequest, any>
 ): Promise<APIs.QuestionUpdateResponse> => {
-  const { title, answer } = req.body;
+  const { title, answer, choices } = req.body;
   const { questionId } = req.params;
 
   // ユーザのグループID 一覧
@@ -26,6 +26,7 @@ export default async (
     ...questionInfo.Item,
     title,
     answer,
+    choices: choices?.split('|'),
   };
 
   // 音声、画像情報を更新する
