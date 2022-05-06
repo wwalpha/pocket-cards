@@ -58,13 +58,19 @@ export const listObject = async (token?: string): Promise<S3.Object[]> => {
     })
     .promise();
 
+  let contents: S3.ObjectList = [];
+
+  if (results.Contents) {
+    contents = results.Contents;
+  }
+
   if (results.NextContinuationToken) {
     const subList = await listObject(results.NextContinuationToken);
 
-    return [...(results.Contents ??= []), ...subList];
+    return [...contents, ...subList];
   }
 
-  return (results.Contents ??= []);
+  return contents;
 };
 
 export default teardown;
