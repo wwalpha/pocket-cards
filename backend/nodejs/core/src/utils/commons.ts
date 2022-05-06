@@ -106,7 +106,7 @@ export const isEmpty = (item?: GetItemOutput) => {
 
 export const isNotEmpty = (item?: GetItemOutput) => !isEmpty(item);
 
-export const generateImage = async (url: string): Promise<string> => {
+const generateImage = async (url: string): Promise<string> => {
   const filename: string = `${short.generate()}`;
   const filedata: Buffer | undefined = await getImage(url);
   const extension: string | undefined = url.split('.').pop();
@@ -124,7 +124,7 @@ export const generateImage = async (url: string): Promise<string> => {
   return key;
 };
 
-export const createJapaneseVoice = async (text: string, s3Key?: string) => {
+const createJapaneseVoice = async (text: string, s3Key?: string) => {
   const client = ClientUtils.polly();
 
   const request: Polly.SynthesizeSpeechInput = {
