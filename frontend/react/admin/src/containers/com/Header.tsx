@@ -62,7 +62,15 @@ export default () => {
           {(() => {
             if (authority !== Consts.Authority.ADMIN) return;
 
-            if (pathname === ROUTE_PATHS.ROOT) {
+            if (
+              [
+                ROUTE_PATHS.ROOT,
+                ROUTE_PATHS.ROOT_ENGLISH,
+                ROUTE_PATHS.ROOT_LANGUAGE,
+                ROUTE_PATHS.ROOT_SCIENCE,
+                ROUTE_PATHS.ROOT_SOCIETY,
+              ].includes(pathname)
+            ) {
               return (
                 <Button
                   variant="outlined"
