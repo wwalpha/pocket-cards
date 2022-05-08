@@ -14,6 +14,8 @@ export const history = process.env.NODE_ENV === 'production' ? createBrowserHist
 // storage key
 export const key = process.env.NODE_ENV === 'production' ? 'pkc' : 'pkc_dev';
 
+axios.defaults.baseURL = process.env.API_URL;
+
 Credentials.refreshSession = async (accessToken?: string, refreshToken?: string) => {
   if (!refreshToken || !accessToken) return;
 

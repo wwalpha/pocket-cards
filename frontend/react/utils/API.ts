@@ -1,8 +1,13 @@
+import { URLs } from '@constants';
 import axios, { AxiosRequestConfig } from 'axios';
 import Credentials from './Credentials';
 
 axios.interceptors.request.use(
   async (config) => {
+    if (config.url === URLs.SIGN_IN()) {
+      return config;
+    }
+
     const tokens = await Credentials.getSession();
 
     if (config.headers && tokens?.idToken) {
