@@ -56,7 +56,7 @@ export default async (
   };
 
   // add new curriculum
-  await CurriculumService.create(item);
+  await CurriculumService.regist(item);
 
   return item;
 };

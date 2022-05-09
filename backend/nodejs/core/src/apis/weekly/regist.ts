@@ -94,7 +94,7 @@ const createCurriculums = async (item: Omit<Tables.TCurriculums, 'id'>) => {
   };
 
   // データ登録
-  await CurriculumService.create(dataRow);
+  await CurriculumService.regist(dataRow);
 
   return dataRow;
 };

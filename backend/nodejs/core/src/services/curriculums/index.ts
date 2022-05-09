@@ -14,7 +14,7 @@ export const describe = async (curriculumId: string): Promise<Tables.TCurriculum
 };
 
 /** 内容更新 */
-export const create = async (item: Tables.TCurriculums): Promise<void> => {
+export const regist = async (item: Tables.TCurriculums): Promise<void> => {
   await DBHelper().put(Queries.put(item));
 };
 
