@@ -2,10 +2,9 @@ import { Request } from 'express';
 import { generate } from 'short-uuid';
 import isEmpty from 'lodash/isEmpty';
 import { Commons, DBHelper } from '@utils';
-import { Questions } from '@queries';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
-import { CurriculumService, GroupService } from '@src/services';
+import { CurriculumService, GroupService, QuestionService } from '@src/services';
 
 /** 問題カード一括追加 */
 export default async (req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>): Promise<void> => {
@@ -40,7 +39,7 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   });
 
   // regist question
-  const tasks = questions.map(async (item) => DBHelper().put(Questions.put(item)));
+  const tasks = questions.map(async (item) => QuestionService.regist(item));
 
   // regist all questions
   await Promise.all(tasks);

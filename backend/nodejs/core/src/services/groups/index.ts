@@ -24,7 +24,7 @@ export const update = async (item: Tables.TGroups): Promise<void> => {
 
   // if exists
   if (!groupInfo) {
-    throw new Error(`Curriculum not exists. ${item.id}`);
+    throw new Error(`Group not exists. ${item.id}`);
   }
 
   await DBHelper().put(Queries.put(item));
@@ -40,7 +40,7 @@ export const remove = async (id: string): Promise<void> => {
 };
 
 /** ユーザグループ一覧 */
-export const getGroupsByUserId = async (userId: string): Promise<Tables.TGroups[]> => {
+export const listGroupsByUserId = async (userId: string): Promise<Tables.TGroups[]> => {
   const results = await DBHelper().query<Tables.TGroups>(Queries.byUserId(userId));
 
   return results.Items;

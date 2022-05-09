@@ -1,7 +1,7 @@
 import { Request } from 'express';
-import { Commons, DBHelper } from '@utils';
-import { Questions } from '@queries';
+import { Commons } from '@utils';
 import { APIs, Tables } from 'typings';
+import { QuestionService } from '@services';
 
 /** 問題カード一括追加 */
 export default async (
@@ -11,19 +11,15 @@ export default async (
   const { questionId } = req.params;
 
   // ユーザのグループID 一覧
-  const questionInfo = await DBHelper().get<Tables.TQuestions>(
-    Questions.get({
-      id: questionId,
-    })
-  );
+  const questionInfo = await QuestionService.describe(questionId);
 
   // question not found
-  if (!questionInfo?.Item) {
+  if (!questionInfo) {
     throw new Error(`Question is not exist. ${questionId}`);
   }
 
   const item: Tables.TQuestions = {
-    ...questionInfo.Item,
+    ...questionInfo,
     title,
     answer,
     choices: choices?.split('|'),

@@ -1,10 +1,9 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
-import { Questions } from '@queries';
 import { Commons, DBHelper } from '@utils';
 import { APIs, Tables } from 'typings';
 import { Environment } from '@consts';
-import { CurriculumService, GroupService } from '@services';
+import { CurriculumService, GroupService, QuestionService } from '@services';
 
 export default async (
   req: Request<any, any, APIs.CurriculumRegistRequest, any>
@@ -18,15 +17,12 @@ export default async (
 
   // get group info
   // get all questions in group
-  const results = await Promise.all([
-    GroupService.describe(groupId),
-    DBHelper().query<Tables.TQuestions>(Questions.query.byGroupId(groupId)),
-  ]);
+  const results = await Promise.all([GroupService.describe(groupId), QuestionService.listQuestionsByGroup(groupId)]);
 
   // group info
   const groupInfo = results[0];
   // all questions in group
-  const questions = results[1].Items;
+  const questions = results[1];
 
   // group not exsits or no question in group
   if (!groupInfo) {

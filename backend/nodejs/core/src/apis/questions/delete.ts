@@ -1,8 +1,8 @@
 import { Request } from 'express';
 import { DBHelper } from '@utils';
-import { Learning, Questions } from '@queries';
+import { Learning } from '@queries';
 import { APIs, Tables } from 'typings';
-import { GroupService } from '@services';
+import { GroupService, QuestionService } from '@services';
 
 /** 問題削除 */
 export default async (
@@ -19,12 +19,7 @@ export default async (
   await Promise.all(tasks);
 
   // delete question
-  await DBHelper().delete(
-    Questions.del({
-      id: questionId,
-    })
-  );
-
+  await QuestionService.remove(questionId);
   // minus question count
   await GroupService.minusCount(groupId, 1);
 };
