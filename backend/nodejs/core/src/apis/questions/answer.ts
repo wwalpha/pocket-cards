@@ -1,8 +1,9 @@
 import { Request } from 'express';
 import { defaultTo } from 'lodash';
 import { Commons, DateUtils, DBHelper } from '@utils';
-import { Traces, Learning } from '@queries';
-import { APIs, Tables } from 'typings';
+import { Traces } from '@queries';
+import { APIs } from 'typings';
+import { LearningService } from '@services';
 
 export default async (
   req: Request<APIs.QuestionAnswerParams, any, APIs.QuestionAnswerRequest, any>
@@ -11,8 +12,9 @@ export default async (
   const userId = Commons.getUserId(req);
   const { questionId } = req.params;
 
-  const result = await DBHelper().get<Tables.TLearning>(Learning.get({ qid: questionId, userId: userId }));
-  const question = result?.Item;
+  const result = await LearningService.describe(questionId, userId);
+
+  const question = result;
 
   if (!question) {
     throw new Error(`Question not found. ${questionId}`);
@@ -22,18 +24,17 @@ export default async (
   const times = input.correct === '1' ? defaultTo(question.times, 0) + 1 : 0;
   const nextTime = input.correct === '1' ? DateUtils.getNextTime(times) : DateUtils.getNextTime(0);
 
+  // 学習情報更新
+  await LearningService.update({
+    ...question,
+    times: times,
+    nextTime: nextTime,
+    lastTime: DateUtils.getNow(),
+  });
+
   // 登録実行
   await DBHelper().transactWrite({
     TransactItems: [
-      {
-        // 問題情報更新
-        Put: Learning.put({
-          ...question,
-          times: times,
-          nextTime: nextTime,
-          lastTime: DateUtils.getNow(),
-        }),
-      },
       {
         // 履歴登録
         Put: Traces.put({
