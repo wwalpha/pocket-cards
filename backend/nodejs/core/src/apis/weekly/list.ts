@@ -1,8 +1,9 @@
 import { Request } from 'express';
 import { DBHelper } from '@utils';
-import { Questions, WeeklyAbility } from '@queries';
+import { WeeklyAbility } from '@queries';
 import { APIs, Tables } from 'typings';
 import { Environment } from '@consts';
+import { QuestionService } from '@services';
 
 /** 週テスト対策問題一括取得 */
 export default async (
@@ -32,13 +33,12 @@ export default async (
   questions = questions.filter((item) => item.times >= 0);
 
   // get question details
-  const tasks = questions.map((item) => DBHelper().get<Tables.TQuestions>(Questions.get({ id: item.qid })));
+  const tasks = questions.map((item) => QuestionService.describe(item.qid));
 
   const details = await Promise.all(tasks);
 
   // make response
   const response = details
-    .map((item) => item?.Item)
     .filter((item): item is Exclude<typeof item, undefined> => item !== undefined)
     .map((item) => ({ ...item, groupId: groupId }));
 

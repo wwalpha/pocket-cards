@@ -4,12 +4,12 @@ import { Request } from 'express';
 import { decode } from 'jsonwebtoken';
 import { GetItemOutput } from '@alphax/dynamodb';
 import pLimit from 'p-limit';
-import { ClientUtils, DateUtils, DBHelper, Logger } from '@utils';
+import { ClientUtils, DateUtils, Logger } from '@utils';
 import { ssm } from './clientUtils';
 import { Environment, Consts } from '@consts';
 import { getImage } from './apis';
 import { Tables } from 'typings';
-import { Questions } from '@queries';
+import { QuestionService } from '@services';
 
 // Sleep
 export const sleep = (timeout: number) => new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
@@ -166,12 +166,41 @@ export const updateQuestion = async (q: Tables.TQuestions[]) => {
         createImage(item.answer),
       ]);
 
+      // const info = await DBHelper().get<Tables.TQuestions>(
+      //   Questions.get({
+      //     id: item.id,
+      //   })
+      // );
+
+      // if (!info?.Item) return;
+
+      // const tasks: Promise<void>[] = [
+      //   async () => {
+      //     if (info.Item?.title === item.title) return;
+
+      //     item.voiceTitle = await createQuestionVoice(item);
+      //   },
+      // ];
+
+      // if (info.Item.title !== item.title) {
+      //   tasks.push(createQuestionVoice(item));
+      // }
+
+      // if (info.Item.answer !== item.answer) {
+      //   tasks.push(createAnswerVoice(item));
+      // }
+
+      // tasks.push(createImage(item.title));
+      // tasks.push(createImage(item.answer));
+
+      // const results = await Promise.all(tasks);
+
       item.voiceTitle = results[0];
       item.voiceAnswer = results[1];
       item.title = results[2];
       item.answer = results[3];
 
-      await DBHelper().put(Questions.put(item));
+      await QuestionService.update(item);
     })
   );
 

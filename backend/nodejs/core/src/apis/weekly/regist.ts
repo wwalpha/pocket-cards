@@ -1,11 +1,10 @@
 import { Request } from 'express';
 import { DBHelper, Commons, DateUtils, ValidationError } from '@utils';
-import { Questions } from '@queries';
 import { Consts, Environment } from '@consts';
 import { APIs, Tables, Users } from 'typings';
 import { generate } from 'short-uuid';
 import axios from 'axios';
-import { CurriculumService, GroupService } from '@src/services';
+import { CurriculumService, GroupService, QuestionService } from '@src/services';
 
 /** 週テスト対策問題登録 */
 export default async (
@@ -39,12 +38,12 @@ export default async (
   }
 
   const subject = groups[0]!.subject;
-  const qTasks = groups.map((item) => DBHelper().query<Tables.TQuestions>(Questions.query.byGroupId(item.id)));
+  const qTasks = groups.map((item) => QuestionService.listQuestionsByGroup(item.id));
   const qResults = await Promise.all(qTasks);
   const questions: Tables.TQuestions[] = [];
 
   qResults.forEach((items) => {
-    items.Items.forEach((item) => questions.push(item));
+    items.forEach((item) => questions.push(item));
   });
 
   const newGroup = await createNewGroup({
