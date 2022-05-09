@@ -1,9 +1,7 @@
 import { Request } from 'express';
-import { DBHelper } from '@utils';
 import { Consts } from '@consts';
-import { WeeklyAbility } from '@queries';
+import { AbilityService, GroupService } from '@services';
 import { APIs } from 'typings';
-import { GroupService } from '@services';
 
 /** 週テスト対策の実力テストの回答 */
 export default async (
@@ -13,18 +11,7 @@ export default async (
   const { correct } = req.body;
 
   if (correct === Consts.ANSWER_CORRECT) {
-    await DBHelper().transactWrite({
-      TransactItems: [
-        {
-          Delete: WeeklyAbility.del({
-            id: groupId,
-            qid: qid,
-          }),
-        },
-        {
-          Update: GroupService.minusCountQuery(groupId, 1),
-        },
-      ],
-    });
+    await AbilityService.remove(groupId, qid);
+    await GroupService.minusCount(groupId, 1);
   }
 };
