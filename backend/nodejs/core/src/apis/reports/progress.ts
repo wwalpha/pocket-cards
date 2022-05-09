@@ -1,8 +1,8 @@
 import { Request } from 'express';
-import { Reports } from '@queries';
-import { DBHelper, Commons } from '@utils';
-import { APIs, Tables } from 'typings';
+import { Commons } from '@utils';
+import { APIs } from 'typings';
 import * as _ from 'lodash';
+import { ReportService } from '@services';
 
 export default async (
   req: Request<any, any, APIs.LearningProgressRequest, any>
@@ -10,9 +10,9 @@ export default async (
   const userId = Commons.getUserId(req);
 
   // 問題一覧
-  const results = await DBHelper().query<Tables.TReports>(Reports.query.byDailyProgress(userId));
+  const results = await ReportService.dailyProgress(userId);
 
-  const items = _.orderBy(results.Items, ['typeDate', 'asc']);
+  const items = _.orderBy(results, ['typeDate', 'asc']);
 
   return {
     histories: items.map((item) => ({
