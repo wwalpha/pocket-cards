@@ -1,9 +1,9 @@
 import { Request } from 'express';
 import axios from 'axios';
-import { Curriculums } from '@queries';
+import { CurriculumService } from '@services';
 import { Consts } from '@consts';
-import { Commons, DBHelper } from '@utils';
-import { APIs, Tables, Users } from 'typings';
+import { Commons } from '@utils';
+import { APIs, Users } from 'typings';
 
 export default async (
   req: Request<any, any, APIs.CurriculumListsRequest, APIs.CurriculumListsQuery>
@@ -15,17 +15,11 @@ export default async (
   // 保護者の場合
   if (userInfo.authority === Consts.Authority.PARENT) {
     // カリキュラム一覧取得
-    const results = await DBHelper().query<Tables.TCurriculums>(Curriculums.query.byGuardian(userId));
-    // 科目を絞る
-    const response = results.Items.filter((item) => {
-      if (!subject) return true;
-
-      return item.subject === subject;
-    });
+    const results = await CurriculumService.getListByGuardian(userId, subject);
 
     return {
-      count: response.length,
-      items: response,
+      count: results.length,
+      items: results,
     };
   }
 
@@ -34,17 +28,11 @@ export default async (
   }
 
   // 全生徒のカリキュラム一覧
-  const results = await DBHelper().query<Tables.TCurriculums>(Curriculums.query.byGuardian(userInfo.teacher));
-  //　生徒、科目を絞る
-  const response = results.Items.filter((item) => item.userId === userId).filter((item) => {
-    if (!subject) return true;
-
-    return item.subject === subject;
-  });
+  const results = await CurriculumService.getListByGuardian(userId, subject);
 
   return {
-    count: response.length,
-    items: response,
+    count: results.length,
+    items: results,
   };
 };
 
