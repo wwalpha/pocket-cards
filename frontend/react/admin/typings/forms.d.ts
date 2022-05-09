@@ -40,3 +40,10 @@ export interface QuestionForm {
   answer: string;
   choices?: string;
 }
+
+export interface AbilityForm {
+  name: string;
+  student: string;
+  subject: string;
+  groupIds: string[];
+}

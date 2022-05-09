@@ -43,16 +43,16 @@ export const activeSubject = (id: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.APP_ACTIVE_SUBJECT(id));
 
   switch (id) {
-    case Consts.SUBJECT.JAPANESE.toString():
+    case Consts.SUBJECT.LANGUAGE:
       dispatch(push(ROUTE_PATHS.ROOT_LANGUAGE));
       break;
-    case Consts.SUBJECT.SCIENCE.toString():
+    case Consts.SUBJECT.SCIENCE:
       dispatch(push(ROUTE_PATHS.ROOT_SCIENCE));
       break;
-    case Consts.SUBJECT.SOCIETY.toString():
+    case Consts.SUBJECT.SOCIETY:
       dispatch(push(ROUTE_PATHS.ROOT_SOCIETY));
       break;
-    case Consts.SUBJECT.ENGLISH.toString():
+    case Consts.SUBJECT.ENGLISH:
       dispatch(push(ROUTE_PATHS.ROOT_ENGLISH));
       break;
     default:

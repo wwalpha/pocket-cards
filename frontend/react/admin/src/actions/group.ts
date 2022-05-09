@@ -125,3 +125,14 @@ export const uploadQuestions = () => (dispatch: AppDispatch) =>
       dispatch(push(ROUTE_PATHS.QUESTION_LIST));
     })
   );
+
+export const registAbility = (request: APIs.WeeklyAbilityRegistRequest) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // regist questions
+      await dispatch(Actions.GROUP_ABILITY_REGIST(request)).unwrap();
+
+      // transit to upload confirm
+      dispatch(push(ROUTE_PATHS.QUESTION_LIST));
+    })
+  );

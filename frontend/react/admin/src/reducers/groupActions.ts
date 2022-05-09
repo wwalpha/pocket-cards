@@ -64,3 +64,15 @@ export const GROUP_QUESTION_UPDATE = createAsyncThunk<
     req
   );
 });
+
+/** Question Update */
+export const GROUP_ABILITY_REGIST = createAsyncThunk<APIs.WeeklyAbilityRegistResponse, APIs.WeeklyAbilityRegistRequest>(
+  'group/GROUP_ABILITY_REGIST',
+  async (request) => {
+    // 質問更新
+    return await API.post<APIs.WeeklyAbilityRegistResponse, APIs.WeeklyAbilityRegistRequest>(
+      URLs.ABILITY_REGIST(),
+      request
+    );
+  }
+);
