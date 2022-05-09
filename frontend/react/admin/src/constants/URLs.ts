@@ -39,4 +39,4 @@ export const DESCRIBE_USER = (userId: string) => `${API_VERSION}/users/${userId}
 export const UPDATE_USER = (userId: string) => `${API_VERSION}/users/${userId}`;
 
 // 問題集情報更新
-export const ABILITY_REGIST = () => `${API_VERSION}/weekly/abilitytest`;
+export const STUDY_WEEKLY_REGIST = () => `${API_VERSION}/study/weekly`;
