@@ -12,7 +12,6 @@ export const get = (key: Tables.TCurriculumsKey): DynamoDB.DocumentClient.GetIte
 export const put = (item: Tables.TCurriculums): DynamoDB.DocumentClient.PutItemInput => ({
   TableName: Environment.TABLE_NAME_CURRICULUMS,
   Item: item,
-  ReturnValues: 'UPDATED_NEW',
 });
 
 /** データ削除 */
