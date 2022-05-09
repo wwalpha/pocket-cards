@@ -2,7 +2,8 @@ import { Request } from 'express';
 import moment from 'moment';
 import { APIs, Tables } from 'typings';
 import { DBHelper, DateUtils, Commons } from '@utils';
-import { Traces, Groups, Words } from '@queries';
+import { Traces, Words } from '@queries';
+import { GroupService } from '@services';
 
 // 環境変数
 const TIMESTAMP_ENDFIX = '000000000';
@@ -54,16 +55,16 @@ const queryRemaining = async (userId: string) => {
   let review = 0;
 
   // ユーザのグループ一覧を取得する
-  const userInfo = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
+  const userInfo = await GroupService.getGroupsByUserId(userId);
 
   // 検索失敗
-  if (!userInfo.Items) {
+  if (!userInfo) {
     return { test, review };
   }
 
   // グループごと検索する
-  for (let idx = 0; idx < userInfo.Items.length; idx = idx + 1) {
-    const item = userInfo.Items[idx];
+  for (let idx = 0; idx < userInfo.length; idx = idx + 1) {
+    const item = userInfo[idx];
 
     // not exists to continue
     if (!item) continue;

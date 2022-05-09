@@ -1,11 +1,12 @@
 import { DynamodbHelper } from '@alphax/dynamodb';
 import request from 'supertest';
-import { Groups, Words } from '@queries';
+import { Words } from '@queries';
 import { Environment } from '@consts';
 import { DateUtils } from '@utils';
 import server from '@src/app';
 import * as C0 from '../datas/c0';
 import { HEADER_AUTH } from '@test/Commons';
+import { GroupService } from '@services';
 
 jest.mock('axios');
 
@@ -153,7 +154,7 @@ describe('C0', () => {
     // status code
     expect(res.statusCode).toBe(200);
     // found 2 records
-    const group = await client.get(Groups.get({ id: 'C005' }));
+    const group = await GroupService.describe('C005');
     const word = await client.get(Words.get({ id: 'C005-1', groupId: 'C005' }));
 
     expect(group).toEqual(C0.C005Except);

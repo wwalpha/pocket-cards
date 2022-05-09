@@ -2,9 +2,8 @@ import { Request } from 'express';
 import { generate } from 'short-uuid';
 import pickBy from 'lodash/pickBy';
 import isEmpty from 'lodash/isEmpty';
-import { DBHelper } from '@utils';
 import { APIs } from 'typings';
-import { Groups } from '@queries';
+import { GroupService } from '@services';
 
 /**
  * グループ情報変更
@@ -19,14 +18,12 @@ export default async (req: Request<any, any, APIs.GroupRegistRequest, any>): Pro
   });
 
   // データ更新
-  await DBHelper().put(
-    Groups.put({
-      id: uuid,
-      subject: item.subject,
-      count: 0,
-      ...values,
-    })
-  );
+  await GroupService.update({
+    id: uuid,
+    subject: item.subject,
+    count: 0,
+    ...values,
+  });
 
   return {
     groupId: uuid,

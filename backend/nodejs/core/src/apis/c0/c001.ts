@@ -1,7 +1,8 @@
 import { Request } from 'express';
 import { API, Commons, DateUtils, DBHelper, Logger } from '@utils';
-import { WordMaster, Groups, Words, WordIgnore } from '@queries';
+import { WordMaster, Words, WordIgnore } from '@queries';
 import { APIs, Tables } from 'typings';
+import { GroupService } from '@services';
 
 /** グループ単語新規追加 */
 export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>): Promise<void> => {
@@ -11,8 +12,8 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
   const userId = Commons.getUserId(req);
 
   // ユーザのグループID 一覧
-  const userGroups = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
-  const groupIds = userGroups.Items.map((item) => item.id);
+  const userGroups = await GroupService.getGroupsByUserId(userId);
+  const groupIds = userGroups.map((item) => item.id);
 
   // 既存単語マスタを検索する
   const tasks = words.map((item) => registWord(item, groupId, userId, groupIds));
@@ -63,7 +64,7 @@ const registWord = async (id: string, groupId: string, userId: string, userGroup
     await DBHelper().put(input);
 
     // count plus one
-    await DBHelper().update(Groups.update.addCount({ id: groupId }, 1));
+    await GroupService.plusCount(groupId, 1);
   } catch (err) {
     if ((err as any).code !== 'ConditionalCheckFailedException') {
       console.log(err);

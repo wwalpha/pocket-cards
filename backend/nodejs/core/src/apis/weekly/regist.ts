@@ -1,10 +1,11 @@
 import { Request } from 'express';
 import { DBHelper, Commons, DateUtils, ValidationError } from '@utils';
-import { Curriculums, Groups, Questions } from '@queries';
+import { Questions } from '@queries';
 import { Consts, Environment } from '@consts';
 import { APIs, Tables, Users } from 'typings';
 import { generate } from 'short-uuid';
 import axios from 'axios';
+import { CurriculumService, GroupService } from '@src/services';
 
 /** 週テスト対策問題登録 */
 export default async (
@@ -20,12 +21,10 @@ export default async (
   }
 
   // get all group infomations
-  const tasks = groupIds.map(async (item) => DBHelper().get<Tables.TGroups>(Groups.get({ id: item })));
+  const tasks = groupIds.map(async (item) => GroupService.describe(item));
 
   const groupResults = await Promise.all(tasks);
-  const groups = groupResults
-    .map((group) => group?.Item)
-    .filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
+  const groups = groupResults.filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
 
   const normalCount = groups.filter((item) => Consts.SUBJECT_NORMAL.includes(item.subject)).length;
 
@@ -84,7 +83,7 @@ const createNewGroup = async (item: Omit<Tables.TGroups, 'id'>) => {
   };
 
   // データ更新
-  await DBHelper().put(Groups.put(dataRow));
+  await GroupService.update(dataRow);
 
   return dataRow;
 };
@@ -96,7 +95,7 @@ const createCurriculums = async (item: Omit<Tables.TCurriculums, 'id'>) => {
   };
 
   // データ登録
-  await DBHelper().put(Curriculums.put(dataRow));
+  await CurriculumService.create(dataRow);
 
   return dataRow;
 };

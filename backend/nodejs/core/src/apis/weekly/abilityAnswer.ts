@@ -1,8 +1,9 @@
 import { Request } from 'express';
 import { DBHelper } from '@utils';
 import { Consts } from '@consts';
-import { WeeklyAbility, Groups } from '@queries';
+import { WeeklyAbility } from '@queries';
 import { APIs } from 'typings';
+import { GroupService } from '@services';
 
 /** 週テスト対策の実力テストの回答 */
 export default async (
@@ -21,12 +22,7 @@ export default async (
           }),
         },
         {
-          Update: Groups.update.minusCount(
-            {
-              id: groupId,
-            },
-            1
-          ),
+          Update: GroupService.minusCountQuery(groupId, 1),
         },
       ],
     });

@@ -1,4 +1,3 @@
-export * as Groups from './groups';
 export * as Traces from './traces';
 export * as Words from './words';
 export * as WordMaster from './wordMaster';

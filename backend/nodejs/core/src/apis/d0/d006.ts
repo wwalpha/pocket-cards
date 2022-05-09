@@ -1,17 +1,16 @@
 import { Request } from 'express';
 import { Commons, DBHelper, QueryUtils } from '@utils';
 import { Environment } from '@consts';
-import { Words, Groups } from '@queries';
+import { Words } from '@queries';
 import { APIs, Tables } from 'typings';
+import { GroupService } from '@services';
 
 /** 今日の復習 */
 export default async (req: Request): Promise<APIs.D006Response> => {
   // ユーザID
   const userId = Commons.getUserId(req);
   // ユーザのグループ一覧を取得する
-  const userInfo = await DBHelper().query<Tables.TGroups>(Groups.query.byUserId(userId));
-
-  const groups = userInfo.Items;
+  const groups = await GroupService.getGroupsByUserId(userId);
 
   // グループ存在しない
   if (!groups || groups.length === 0) {
