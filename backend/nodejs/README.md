@@ -20,13 +20,13 @@
 | OK     | /curriculums                                 | POST        | CurriculumRegist    | カリキュラム新規登録   |
 | OK     | /curriculums                                 | GET         | CurriculumList      | カリキュラム一覧取得   |
 | OK     | /curriculums/:curriculumId                   | DELETE      | CurriculumRemove    | カリキュラム削除       |
-| NG     | /patch                                       | PATCH       | Patchs              | パッチ                 |
-| NG     | /study/daily/practice/questions              | GET         | QuestionStudy       | 日次練習問題           |
-| NG     | /study/daily/test/questions                  | GET         | QuestionExam        | 日次テスト問題         |
-| NG     | /study/daily/test/questions/:questionId      | POST        | QuestionAnswer      | 日次テスト回答         |
-| NG     | /study/weekly/:groupId                       | POST        | WeeklyAbilityRegist | 週テスト対策の問題登録 |
-| NG     | /study/weekly/:groupId/questions             | GET         | WeeklyAbilityList   | 週テスト対策の問題一覧 |
-| NG     | /study/weekly/:groupId/questions/:questionId | POST        | WeeklyAbilityAnswer | 週テスト問題の回答     |
+| OK     | /patch                                       | PATCH       | Patchs              | パッチ                 |
+| OK     | /study/daily/practice/questions              | GET         | QuestionStudy       | 日次練習問題           |
+| OK     | /study/daily/test/questions                  | GET         | QuestionExam        | 日次テスト問題         |
+| OK     | /study/daily/test/questions/:questionId      | POST        | QuestionAnswer      | 日次テスト回答         |
+| OK     | /study/weekly                                | POST        | WeeklyAbilityRegist | 週テスト対策の問題登録 |
+| OK     | /study/weekly/:groupId/questions             | GET         | WeeklyAbilityList   | 週テスト対策の問題一覧 |
+| OK     | /study/weekly/:groupId/questions/:questionId | POST        | WeeklyAbilityAnswer | 週テスト問題の回答     |
 
 ## Users
 

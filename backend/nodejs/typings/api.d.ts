@@ -413,20 +413,6 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
-  // Weekly Practice Answer
-  // ------------------------------------------------------------
-  interface WeeklyAbilityPracticeAnswerParameter {
-    qid: string;
-    groupId: string;
-  }
-
-  interface WeeklyAbilityPracticeAnswerRequest {
-    correct: string;
-  }
-
-  type WeeklyAbilityPracticeAnswerResponse = void;
-
-  // ------------------------------------------------------------
   // Weekly Test List
   // ------------------------------------------------------------
   interface WeeklyTestListParameter {
@@ -448,12 +434,12 @@ export namespace APIs {
   // Weekly Ability Answer
   // ------------------------------------------------------------
   interface WeeklyAbilityAnswerParameter {
-    qid: string;
+    questionId: string;
     groupId: string;
   }
 
   interface WeeklyAbilityAnswerRequest {
-    subject: string;
+    mode: string;
     correct?: string;
   }
 

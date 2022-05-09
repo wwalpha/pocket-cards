@@ -14,8 +14,7 @@ import {
 } from '@src/apis/questions';
 import { DailyTasks, LearningProgress, LearningOverall, Inquiry } from '@src/apis/reports';
 import { CurriculumRegist, CurriculumList, CurriculumRemove } from '@src/apis/curriculums';
-import { WeeklyAbilityRegist, WeeklyAbilityList, WeeklyAbilityAnswer, WeeklyPracticeAnswer } from '@src/apis/weekly';
-
+import { WeeklyAbilityRegist, WeeklyAbilityList, WeeklyAbilityAnswer } from '@src/apis/weekly';
 import { Patchs } from '@src/apis/patch';
 
 import entry from './entry';
