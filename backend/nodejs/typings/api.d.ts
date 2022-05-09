@@ -402,11 +402,14 @@ export namespace APIs {
   // Weekly Ability Regist
   // ------------------------------------------------------------
   interface WeeklyAbilityRegistRequest {
+    name: string;
+    subject: string;
+    student: string;
     groupIds?: string[];
   }
 
   interface WeeklyAbilityRegistResponse {
-    groupId: string;
+    item: Tables.TGroups;
   }
 
   // ------------------------------------------------------------

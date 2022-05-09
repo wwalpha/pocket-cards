@@ -1,19 +1,17 @@
-import { Request } from 'express';
-import { DBHelper, Commons, DateUtils, ValidationError } from '@utils';
-import { Consts, Environment } from '@consts';
-import { APIs, Tables, Users } from 'typings';
 import { generate } from 'short-uuid';
-import axios from 'axios';
-import { CurriculumService, GroupService, QuestionService } from '@src/services';
+import { Request } from 'express';
+import { CurriculumService, GroupService, QuestionService } from '@services';
+import { DBHelper, Commons, ValidationError } from '@utils';
+import { Consts, Environment } from '@consts';
+import { APIs, Tables } from 'typings';
 
 /** 週テスト対策問題登録 */
 export default async (
   req: Request<any, any, APIs.WeeklyAbilityRegistRequest, any>
 ): Promise<APIs.WeeklyAbilityRegistResponse> => {
   // next study date
-  const { groupIds } = req.body;
-  const userId = Commons.getUserId(req);
-  const userInfo = await getUserInfo(userId, req.headers['authorization']);
+  const { groupIds, name, subject, student } = req.body;
+  const guardian = Commons.getUserId(req);
 
   if (!groupIds || groupIds.length === 0) {
     throw new ValidationError('Group ids is required.');
@@ -37,8 +35,7 @@ export default async (
     throw new Error('Base group can not use ability group.');
   }
 
-  const subject = groups[0]!.subject;
-  const qTasks = groups.map((item) => QuestionService.listQuestionsByGroup(item.id));
+  const qTasks = groups.map((item) => QuestionService.listByGroup(item.id));
   const qResults = await Promise.all(qTasks);
   const questions: Tables.TQuestions[] = [];
 
@@ -49,21 +46,21 @@ export default async (
   const newGroup = await createNewGroup({
     count: questions.length,
     subject: getAbilitySubject(subject),
-    name: `実力テスト_${DateUtils.getNow()}_${DateUtils.getTimestamp().substring(8)}`,
+    name: name,
   });
 
   await createCurriculums({
     groupId: newGroup.id,
-    guardian: userInfo.teacher ?? '',
+    guardian: guardian,
     subject: newGroup.subject,
-    userId: userId,
+    userId: student,
   });
 
   const dataRows = questions.map<Tables.TWeeklyAbility>((item) => ({
     id: newGroup.id,
     qid: item.id,
     subject: newGroup.subject,
-    userId: userId,
+    userId: student,
     times: 0,
   }));
 
@@ -71,7 +68,7 @@ export default async (
   await DBHelper().bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, dataRows);
 
   return {
-    groupId: newGroup.id,
+    item: newGroup,
   };
 };
 
@@ -82,7 +79,7 @@ const createNewGroup = async (item: Omit<Tables.TGroups, 'id'>) => {
   };
 
   // データ更新
-  await GroupService.update(dataRow);
+  await GroupService.regist(dataRow);
 
   return dataRow;
 };
@@ -114,18 +111,18 @@ const getAbilitySubject = (subject: string) => {
   }
 };
 
-const getUserInfo = async (userId: string, token?: string) => {
-  // get user information
-  const response = await axios.get<Users.DescribeUserResponse>(Consts.API_URLs.describeUser(userId), {
-    headers: {
-      authorization: token,
-    },
-  });
+// const getUserInfo = async (userId: string, token?: string) => {
+//   // get user information
+//   const response = await axios.get<Users.DescribeUserResponse>(Consts.API_URLs.describeUser(userId), {
+//     headers: {
+//       authorization: token,
+//     },
+//   });
 
-  // user not found
-  if (response.status !== 200) {
-    throw new Error('User not found.');
-  }
+//   // user not found
+//   if (response.status !== 200) {
+//     throw new Error('User not found.');
+//   }
 
-  return response.data;
-};
+//   return response.data;
+// };

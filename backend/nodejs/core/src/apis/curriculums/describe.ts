@@ -7,7 +7,7 @@ export default async (
 ): Promise<APIs.QuestionListResponse> => {
   const groupId = req.params.groupId;
 
-  const results = await QuestionService.listQuestionsByGroup(groupId);
+  const results = await QuestionService.listByGroup(groupId);
 
   return {
     count: results.length,

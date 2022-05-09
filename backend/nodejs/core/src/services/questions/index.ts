@@ -40,7 +40,7 @@ export const remove = async (id: string): Promise<void> => {
 };
 
 /** グループの問題一覧取得 */
-export const listQuestionsByGroup = async (groupId: string): Promise<Tables.TQuestions[]> => {
+export const listByGroup = async (groupId: string): Promise<Tables.TQuestions[]> => {
   const results = await DBHelper().query<Tables.TQuestions>(Queries.byGroupId(groupId));
 
   return results.Items;

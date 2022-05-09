@@ -17,7 +17,7 @@ export default async (
 
   // get group info
   // get all questions in group
-  const results = await Promise.all([GroupService.describe(groupId), QuestionService.listQuestionsByGroup(groupId)]);
+  const results = await Promise.all([GroupService.describe(groupId), QuestionService.listByGroup(groupId)]);
 
   // group info
   const groupInfo = results[0];
