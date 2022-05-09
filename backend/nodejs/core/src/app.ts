@@ -1,11 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import { json, urlencoded } from 'body-parser';
-import { A002 } from '@src/services/a0';
-import { GroupRegist, GroupList, GroupDescribe, GroupUpdate, GroupRemove, B006 } from '@src/services/b0';
-import { C001, C002, C003, C004, C005, C006, C007, C008 } from '@src/services/c0';
-import { D001, D003, D004, D005, D006 } from '@src/services/d0';
-import { E001, E002 } from '@src/services/e0';
+import { A002 } from '@src/apis/a0';
+import { GroupRegist, GroupList, GroupDescribe, GroupUpdate, GroupRemove } from '@src/apis/b0';
 import {
   QuestionRegist,
   QuestionStudy,
@@ -14,17 +11,12 @@ import {
   QuestionList,
   QuestionUpdate,
   QuestionDelete,
-} from '@src/services/questions';
-import { DailyTasks, LearningProgress, LearningOverall, Inquiry } from '@src/services/reports';
-import { CurriculumRegist, CurriculumList, CurriculumRemove } from '@src/services/curriculums';
-import {
-  WeeklyAbilityRegist,
-  WeeklyAbilityList,
-  WeeklyAbilityAnswer,
-  WeeklyPracticeAnswer,
-} from '@src/services/weekly';
+} from '@src/apis/questions';
+import { DailyTasks, LearningProgress, LearningOverall, Inquiry } from '@src/apis/reports';
+import { CurriculumRegist, CurriculumList, CurriculumRemove } from '@src/apis/curriculums';
+import { WeeklyAbilityRegist, WeeklyAbilityList, WeeklyAbilityAnswer, WeeklyPracticeAnswer } from '@src/apis/weekly';
 
-import { Patchs } from '@src/services/patch';
+import { Patchs } from '@src/apis/patch';
 
 import entry from './entry';
 

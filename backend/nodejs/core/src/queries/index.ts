@@ -6,7 +6,5 @@ export * as WordIgnore from './wordIgnore';
 export * as Users from './users';
 export * as Questions from './questions';
 export * as Learning from './learning';
-export * as Curriculums from './curriculums';
 export * as Reports from './reports';
-export * as WeeklyTest from './weeklytest';
 export * as WeeklyAbility from './ability';
