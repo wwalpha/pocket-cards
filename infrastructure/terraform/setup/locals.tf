@@ -43,7 +43,6 @@ locals {
   dynamodb_name_settings       = "${var.project_name}-settings-${local.suffix}"
   dynamodb_name_curriculums    = "${var.project_name}-curriculums-${local.suffix}"
   dynamodb_name_reports        = "${var.project_name}-reports-${local.suffix}"
-  dynamodb_name_weekly_test    = "${var.project_name}-weeklytest-${local.suffix}"
   dynamodb_name_weekly_ability = "${var.project_name}-weeklyability-${local.suffix}"
 
 }
