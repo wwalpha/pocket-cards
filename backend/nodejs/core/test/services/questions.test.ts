@@ -44,7 +44,7 @@ describe('d0', () => {
     await client.bulk(Environment.TABLE_NAME_QUESTIONS, QUESTIONS.STUDY002_DB_QUESTIONS);
     await client.bulk(Environment.TABLE_NAME_LEARNING, QUESTIONS.STUDY002_DB_LEARNING);
 
-    const apiPath = '/v1/questions/study';
+    const apiPath = '/v1/study/daily/practice/questions';
 
     const res = await request(server)
       .get(apiPath)
@@ -63,7 +63,7 @@ describe('d0', () => {
     await client.bulk(Environment.TABLE_NAME_QUESTIONS, QUESTIONS.TEST003_DB_QUESTIONS);
     await client.bulk(Environment.TABLE_NAME_LEARNING, QUESTIONS.TEST003_DB_LEARNING);
 
-    const apiPath = '/v1/questions/test';
+    const apiPath = '/v1/study/daily/test/questions';
 
     const res = await request(server)
       .get(apiPath)
@@ -81,7 +81,7 @@ describe('d0', () => {
   test('Question04:問題回答_正解', async () => {
     await client.bulk(Environment.TABLE_NAME_LEARNING, QUESTIONS.ANSWER04_DB_LEARNING);
 
-    const apiPath = '/v1/questions/Q001/answer';
+    const apiPath = '/v1/study/daily/test/questions/Q001';
 
     const res = await request(server)
       .post(apiPath)
@@ -101,7 +101,7 @@ describe('d0', () => {
   test('Question05:問題回答_不正解', async () => {
     await client.bulk(Environment.TABLE_NAME_LEARNING, QUESTIONS.ANSWER05_DB_LEARNING);
 
-    const apiPath = '/v1/questions/Q001/answer';
+    const apiPath = '/v1/study/daily/test/questions/Q001';
 
     const res = await request(server)
       .post(apiPath)

@@ -71,7 +71,7 @@ export const GROUP_ABILITY_REGIST = createAsyncThunk<APIs.WeeklyAbilityRegistRes
   async (request) => {
     // 質問更新
     return await API.post<APIs.WeeklyAbilityRegistResponse, APIs.WeeklyAbilityRegistRequest>(
-      URLs.ABILITY_REGIST(),
+      URLs.STUDY_WEEKLY_REGIST(),
       request
     );
   }
