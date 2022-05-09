@@ -2,9 +2,10 @@ import { Request } from 'express';
 import { generate } from 'short-uuid';
 import isEmpty from 'lodash/isEmpty';
 import { Commons, DBHelper } from '@utils';
-import { Curriculums, Groups, Questions } from '@queries';
+import { Groups, Questions } from '@queries';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
+import { CurriculumService } from '@src/services';
 
 /** 問題カード一括追加 */
 export default async (req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>): Promise<void> => {
@@ -54,14 +55,14 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   // 質問の情報を更新する
   Commons.updateQuestion(questions);
 
-  const curriculumInfos = await DBHelper().query<Tables.TCurriculums>(Curriculums.query.byGroupId(groupId));
+  const curriculumInfos = await CurriculumService.getListByGroup(groupId);
 
   // 学習対象がない
-  if (curriculumInfos.Items.length === 0) {
+  if (curriculumInfos.length === 0) {
     return;
   }
 
-  const lTasks = curriculumInfos.Items.map(async (item) => {
+  const lTasks = curriculumInfos.map(async (item) => {
     const dataRows = questions.map<Tables.TLearning>((q) => ({
       qid: q.id,
       userId: item.guardian,
