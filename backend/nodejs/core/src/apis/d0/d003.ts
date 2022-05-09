@@ -16,7 +16,7 @@ export default async (req: Request<any, any, APIs.D003Request, any>): Promise<AP
   await DBHelper().put(WordIgnore.put({ id: userId, word: word }));
 
   // query groups from user
-  const results = await GroupService.getGroupsByUserId(userId);
+  const results = await GroupService.listGroupsByUserId(userId);
 
   // remove word from all groups
   const tasks = results.map(async (item) => {

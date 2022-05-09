@@ -11,7 +11,7 @@ export default async (req: Request): Promise<APIs.D005Response> => {
   // ユーザID
   const userId = Commons.getUserId(req);
   // ユーザのグループ一覧を取得する
-  const groups = await GroupService.getGroupsByUserId(userId);
+  const groups = await GroupService.listGroupsByUserId(userId);
 
   // グループ存在しない
   if (!groups || groups.length === 0) {

@@ -12,7 +12,7 @@ export default async (req: Request<APIs.C001Params, any, APIs.C001Request, any>)
   const userId = Commons.getUserId(req);
 
   // ユーザのグループID 一覧
-  const userGroups = await GroupService.getGroupsByUserId(userId);
+  const userGroups = await GroupService.listGroupsByUserId(userId);
   const groupIds = userGroups.map((item) => item.id);
 
   // 既存単語マスタを検索する
