@@ -1,6 +1,24 @@
-import { DynamoDB } from 'aws-sdk';
 import { Environment } from '@consts';
+import { DynamoDB } from 'aws-sdk';
+import { Tables } from 'typings';
 
+/** データ取得 */
+export const get = (key: Tables.TLearningKey): DynamoDB.DocumentClient.GetItemInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  Key: key,
+});
+
+/** データ登録 */
+export const put = (item: Tables.TLearning): DynamoDB.DocumentClient.PutItemInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  Item: item,
+});
+
+/** データ削除 */
+export const del = (key: Tables.TLearningKey): DynamoDB.DocumentClient.DeleteItemInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  Key: key,
+});
 /**
  * 問題一覧を取得する
  * 対象: Times <> 0, NextTime <= now, NextTime DESC, Top 10
@@ -31,7 +49,7 @@ export const test = (userId: string, nextTime: string, subject: string): DynamoD
  *
  * 対象：Times = 0, NextTime <= now, NextTime DESC, Top 10
  */
-export const study = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
+export const practice = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',

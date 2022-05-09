@@ -1,8 +1,8 @@
 import { Request } from 'express';
-import { Learning } from '@queries';
-import { DBHelper, DateUtils, Commons } from '@utils';
+import { DateUtils, Commons } from '@utils';
 import { APIs, Tables } from 'typings';
 import { Consts } from '@consts';
+import { LearningService } from '@services';
 
 export default async (req: Request<any, any, APIs.DailyTasksResquest, any>): Promise<APIs.DailyTasksResponse> => {
   const userId = Commons.getUserId(req);
@@ -10,21 +10,21 @@ export default async (req: Request<any, any, APIs.DailyTasksResquest, any>): Pro
   // next study date
   const date = DateUtils.getNow();
   // 問題一覧
-  const pastResults = await DBHelper().query<Tables.TLearning>(Learning.query.past(userId, date));
-  const currentResults = await DBHelper().query<Tables.TLearning>(Learning.query.current(userId, date));
+  const pastResults = await LearningService.dailyPastTasks(userId, date);
+  const currentResults = await LearningService.dailyCurrentTasks(userId, date);
 
   return {
     language: {
-      archive: getArchive(currentResults.Items, Consts.SUBJECT.LANGUAGE),
-      target: getTarget(pastResults.Items, currentResults.Items, Consts.SUBJECT.LANGUAGE),
+      archive: getArchive(currentResults, Consts.SUBJECT.LANGUAGE),
+      target: getTarget(pastResults, currentResults, Consts.SUBJECT.LANGUAGE),
     },
     science: {
-      archive: getArchive(currentResults.Items, Consts.SUBJECT.SCIENCE),
-      target: getTarget(pastResults.Items, currentResults.Items, Consts.SUBJECT.SCIENCE),
+      archive: getArchive(currentResults, Consts.SUBJECT.SCIENCE),
+      target: getTarget(pastResults, currentResults, Consts.SUBJECT.SCIENCE),
     },
     society: {
-      archive: getArchive(currentResults.Items, Consts.SUBJECT.SOCIETY),
-      target: getTarget(pastResults.Items, currentResults.Items, Consts.SUBJECT.SOCIETY),
+      archive: getArchive(currentResults, Consts.SUBJECT.SOCIETY),
+      target: getTarget(pastResults, currentResults, Consts.SUBJECT.SOCIETY),
     },
   };
 };

@@ -1,9 +1,8 @@
 import { Request } from 'express';
-import { CurriculumService } from '@services';
-import { Learning } from '@queries';
+import { CurriculumService, LearningService } from '@services';
 import { DBHelper } from '@utils';
 import { Environment } from '@consts';
-import { APIs, Tables } from 'typings';
+import { APIs } from 'typings';
 
 export default async (
   req: Request<APIs.CurriculumRemoveParams, any, APIs.CurriculumRemoveRequest, any>
@@ -19,12 +18,12 @@ export default async (
   // group id
   const groupId = curriculum.groupId;
   // get all learning datas
-  const learning = await DBHelper().query<Tables.TLearning>(Learning.query.byGroupId(groupId));
+  const learning = await LearningService.listByGroup(groupId);
 
   // execute all
   await Promise.all([
     // remove all learning records
-    DBHelper().truncate(Environment.TABLE_NAME_LEARNING, learning.Items),
+    DBHelper().truncate(Environment.TABLE_NAME_LEARNING, learning),
     // remove curriculum
     CurriculumService.remove(curriculumId),
   ]);

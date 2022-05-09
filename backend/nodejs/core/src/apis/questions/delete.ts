@@ -1,8 +1,6 @@
 import { Request } from 'express';
-import { DBHelper } from '@utils';
-import { Learning } from '@queries';
-import { APIs, Tables } from 'typings';
-import { GroupService, QuestionService } from '@services';
+import { APIs } from 'typings';
+import { GroupService, LearningService, QuestionService } from '@services';
 
 /** 問題削除 */
 export default async (
@@ -11,10 +9,10 @@ export default async (
   const { questionId, groupId } = req.params;
 
   // get all learning user
-  const results = await DBHelper().query<Tables.TLearning>(Learning.query.byQuestionId(questionId));
+  const results = await LearningService.listByQuestion(questionId);
 
   // delete all records
-  const tasks = results.Items.map((item) => DBHelper().delete(Learning.del({ qid: item.qid, userId: item.userId })));
+  const tasks = results.map((item) => LearningService.remove(item.qid, item.userId));
 
   await Promise.all(tasks);
 
