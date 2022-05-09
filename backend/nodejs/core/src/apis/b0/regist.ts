@@ -18,7 +18,7 @@ export default async (req: Request<any, any, APIs.GroupRegistRequest, any>): Pro
   });
 
   // データ更新
-  await GroupService.update({
+  await GroupService.regist({
     id: uuid,
     subject: item.subject,
     count: 0,

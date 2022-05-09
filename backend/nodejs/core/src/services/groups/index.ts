@@ -14,7 +14,7 @@ export const describe = async (groupId: string): Promise<Tables.TGroups | undefi
 };
 
 /** 内容更新 */
-export const create = async (item: Tables.TGroups): Promise<void> => {
+export const regist = async (item: Tables.TGroups): Promise<void> => {
   await DBHelper().put(Queries.put(item));
 };
 
