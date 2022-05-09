@@ -19,7 +19,7 @@ describe('weekly', () => {
   test('001_週テスト対策問題一括取得:データなし、resetなし', async () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY01_DB_WEEKLY_ABILITY);
 
-    const apiPath = '/v1/groups/G001/weekly';
+    const apiPath = '/v1/study/weekly/G001/questions';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH2);
 
     // status code
@@ -31,7 +31,7 @@ describe('weekly', () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY02_DB_WEEKLY_ABILITY);
     await client.bulk(Environment.TABLE_NAME_QUESTIONS, DATAS.WEEKLY02_DB_QUESTIONS);
 
-    const apiPath = '/v1/groups/G001/weekly';
+    const apiPath = '/v1/study/weekly/G001/questions';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH2);
 
     // status code
@@ -43,7 +43,7 @@ describe('weekly', () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY03_DB_WEEKLY_ABILITY);
     await client.bulk(Environment.TABLE_NAME_QUESTIONS, DATAS.WEEKLY03_DB_QUESTIONS);
 
-    const apiPath = '/v1/groups/G001/weekly?reset=1';
+    const apiPath = '/v1/study/weekly/G001/questions?reset=1';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH2);
 
     const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
@@ -58,7 +58,7 @@ describe('weekly', () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY04_DB_WEEKLY_ABILITY);
     await client.bulk(Environment.TABLE_NAME_QUESTIONS, DATAS.WEEKLY04_DB_QUESTIONS);
 
-    const apiPath = '/v1/groups/G001/weekly';
+    const apiPath = '/v1/study/weekly/G001/questions';
     const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH2);
 
     // status code
@@ -70,10 +70,10 @@ describe('weekly', () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY05_DB_WEEKLY_ABILITY);
     await client.bulk(Environment.TABLE_NAME_GROUPS, DATAS.WEEKLY05_DB_GROUP);
 
-    const apiPath = '/v1/groups/G001/ability/gr4RJGXne2p68Q6oyYcwoN';
+    const apiPath = '/v1/study/weekly/G001/questions/gr4RJGXne2p68Q6oyYcwoN';
     const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
-      subject: '103',
       correct: '1',
+      mode: 'test',
     });
 
     const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
@@ -89,10 +89,11 @@ describe('weekly', () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY06_DB_WEEKLY_ABILITY);
     await client.bulk(Environment.TABLE_NAME_QUESTIONS, DATAS.WEEKLY06_DB_GROUP);
 
-    const apiPath = '/v1/groups/G001/ability/gr4RJGXne2p68Q6oyYcwoN';
+    const apiPath = '/v1/study/weekly/G001/questions/gr4RJGXne2p68Q6oyYcwoN';
+
     const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
-      subject: '103',
       correct: '0',
+      mode: 'test',
     });
 
     const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
@@ -107,10 +108,11 @@ describe('weekly', () => {
   test('007_週テスト対策の練習問題の回答:Yes, 3回未満', async () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY07_DB_WEEKLY_ABILITY);
 
-    const apiPath = '/v1/groups/G001/practice/87fu6UiJNECBPebKGJcxh1';
+    const apiPath = '/v1/study/weekly/G001/questions/87fu6UiJNECBPebKGJcxh1';
+
     const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
-      subject: '103',
       correct: '1',
+      mode: 'practice',
     });
 
     const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
@@ -123,10 +125,11 @@ describe('weekly', () => {
   test('008_週テスト対策の練習問題の回答:Yes, 3回', async () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY08_DB_WEEKLY_ABILITY);
 
-    const apiPath = '/v1/groups/G001/practice/87fu6UiJNECBPebKGJcxh1';
+    const apiPath = '/v1/study/weekly/G001/questions/87fu6UiJNECBPebKGJcxh1';
+
     const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
-      subject: '103',
       correct: '1',
+      mode: 'practice',
     });
 
     const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
@@ -139,10 +142,11 @@ describe('weekly', () => {
   test('009_週テスト対策の練習問題の回答:No', async () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY09_DB_WEEKLY_ABILITY);
 
-    const apiPath = '/v1/groups/G001/practice/87fu6UiJNECBPebKGJcxh1';
+    const apiPath = '/v1/study/weekly/G001/questions/87fu6UiJNECBPebKGJcxh1';
+
     const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
-      subject: '103',
       correct: '0',
+      mode: 'practice',
     });
 
     const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
@@ -155,10 +159,11 @@ describe('weekly', () => {
   test('010_週テスト対策の練習問題の回答:問題存在しない', async () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY10_DB_WEEKLY_ABILITY);
 
-    const apiPath = '/v1/groups/G001/practice/97fu6UiJNECBPebKGJcxh1';
+    const apiPath = '/v1/study/weekly/G001/questions/97fu6UiJNECBPebKGJcxh1';
+
     const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH2).send({
-      subject: '103',
       correct: '0',
+      mode: 'practice',
     });
 
     // status code
