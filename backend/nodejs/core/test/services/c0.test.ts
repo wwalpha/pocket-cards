@@ -12,7 +12,7 @@ jest.mock('axios');
 
 const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
 
-describe('C0', () => {
+describe.skip('C0', () => {
   afterEach(async () => {
     await client.truncateAll(Environment.TABLE_NAME_WORDS);
     await client.truncateAll(Environment.TABLE_NAME_WORD_MASTER);

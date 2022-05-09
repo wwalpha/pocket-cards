@@ -92,7 +92,7 @@ describe('b0', () => {
     expect(result).toBeUndefined();
   });
 
-  test('b006', async () => {
+  test.skip('b006', async () => {
     // initialize table
     await client.bulk(TABLE_NAME_WORDS, B0.B006DB_WORDS);
 
