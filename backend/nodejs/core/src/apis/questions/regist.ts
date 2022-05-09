@@ -2,10 +2,10 @@ import { Request } from 'express';
 import { generate } from 'short-uuid';
 import isEmpty from 'lodash/isEmpty';
 import { Commons, DBHelper } from '@utils';
-import { Groups, Questions } from '@queries';
+import { Questions } from '@queries';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
-import { CurriculumService } from '@src/services';
+import { CurriculumService, GroupService } from '@src/services';
 
 /** 問題カード一括追加 */
 export default async (req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>): Promise<void> => {
@@ -13,13 +13,8 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   const groupId = req.params.groupId;
 
   // ユーザのグループID 一覧
-  const result = await DBHelper().get<Tables.TGroups>(
-    Groups.get({
-      id: groupId,
-    })
-  );
+  const groupInfo = await GroupService.describe(groupId);
 
-  const groupInfo = result?.Item;
   // group not users
   if (!groupInfo) {
     throw new Error(`Group id is not exist. ${groupId}`);
@@ -50,7 +45,7 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   // regist all questions
   await Promise.all(tasks);
   // update question count
-  await DBHelper().update(Groups.update.addCount({ id: groupId }, questions.length));
+  await GroupService.plusCount(groupId, questions.length);
 
   // 質問の情報を更新する
   Commons.updateQuestion(questions);
@@ -67,7 +62,7 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
       qid: q.id,
       userId: item.guardian,
       groupId: item.groupId,
-      subject: result.Item?.subject,
+      subject: groupInfo.subject,
       lastTime: '19900101',
       nextTime: '19900101',
       times: 0,

@@ -1,7 +1,6 @@
 import { Request } from 'express';
-import { DBHelper } from '@utils';
-import { Groups } from '@queries';
 import { APIs } from 'typings';
+import { GroupService } from '@services';
 
 /**
  * グループ情報変更
@@ -11,11 +10,7 @@ export default async (req: Request<APIs.GroupRemoveParams, void, any, any>): Pro
   const groupId = req.params.groupId;
 
   // データ更新
-  await DBHelper().delete(
-    Groups.del({
-      id: groupId,
-    })
-  );
+  await GroupService.remove(groupId);
 
   // const groupWords = await DBHelper().query(Words.query.listByGroup(groupId));
 

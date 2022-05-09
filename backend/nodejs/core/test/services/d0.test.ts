@@ -1,4 +1,4 @@
-import { Groups, WordIgnore } from '@queries';
+import { WordIgnore } from '@queries';
 import { DBHelper } from '@utils';
 import server from '@src/app';
 import request from 'supertest';
@@ -6,7 +6,7 @@ import * as D0 from '../datas/d0';
 import { HEADER_AUTH } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
-import { Tables } from 'typings';
+import { GroupService } from '@services';
 
 const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
 
@@ -39,11 +39,11 @@ describe('d0', () => {
       })
     );
     const words = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WORDS });
-    const groups = await DBHelper().get<Tables.TGroups>(Groups.get({ id: 'G001' }));
+    const groups = await GroupService.describe('G001');
 
     expect(ignore?.Item).toEqual(D0.D003Expect01);
     expect(words.Items).toEqual(D0.D003Expect02);
-    expect(groups?.Item?.count).toBe(0);
+    expect(groups?.count).toBe(0);
   });
 
   test.skip('D004:今日のテスト', async () => {

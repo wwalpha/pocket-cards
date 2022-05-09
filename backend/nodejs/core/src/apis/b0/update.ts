@@ -1,7 +1,6 @@
 import { Request } from 'express';
-import { DBHelper } from '@utils';
-import { APIs, Tables } from 'typings';
-import { Groups } from '@queries';
+import { APIs } from 'typings';
+import { GroupService } from '@services';
 
 /**
  * グループ情報変更
@@ -11,20 +10,16 @@ export default async (req: Request<APIs.GroupUpdateParams, void, APIs.GroupUpdat
   const groupId = req.params.groupId;
   const item = req.body;
 
-  const result = await DBHelper().get<Tables.TGroups>(
-    Groups.get({
-      id: groupId,
-    })
-  );
+  // 詳細情報取得
+  const result = await GroupService.describe(groupId);
 
-  if (result?.Item) {
+  // if exists
+  if (result) {
     // データ更新
-    await DBHelper().put(
-      Groups.put({
-        ...result.Item,
-        name: item.name,
-        description: item.description,
-      })
-    );
+    await GroupService.update({
+      ...result,
+      name: item.name,
+      description: item.description,
+    });
   }
 };

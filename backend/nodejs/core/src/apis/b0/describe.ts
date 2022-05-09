@@ -1,7 +1,6 @@
 import { Request } from 'express';
-import { DBHelper } from '@utils';
-import { Groups } from '@queries';
-import { APIs, Tables } from 'typings';
+import { APIs } from 'typings';
+import { GroupService } from '@services';
 
 /**
  * グループ情報検索
@@ -14,9 +13,9 @@ export default async (
   const groupId = req.params.groupId;
 
   // 検索
-  const results = await DBHelper().get<Tables.TGroups>(Groups.get({ id: groupId }));
+  const result = await GroupService.describe(groupId);
 
   return {
-    item: results?.Item,
+    item: result,
   };
 };

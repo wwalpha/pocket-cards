@@ -1,7 +1,8 @@
 import { Request } from 'express';
 import { DBHelper } from '@utils';
-import { Groups, Learning, Questions } from '@queries';
+import { Learning, Questions } from '@queries';
 import { APIs, Tables } from 'typings';
+import { GroupService } from '@services';
 
 /** 問題削除 */
 export default async (
@@ -25,5 +26,5 @@ export default async (
   );
 
   // minus question count
-  await DBHelper().update(Groups.update.minusCount({ id: groupId }, 1));
+  await GroupService.minusCount(groupId, 1);
 };

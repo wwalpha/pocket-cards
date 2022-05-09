@@ -1,9 +1,10 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
-import { Curriculums, Groups, Questions } from '@queries';
+import { Questions } from '@queries';
 import { Commons, DBHelper } from '@utils';
 import { APIs, Tables } from 'typings';
 import { Environment } from '@consts';
+import { CurriculumService, GroupService } from '@services';
 
 export default async (
   req: Request<any, any, APIs.CurriculumRegistRequest, any>
@@ -18,12 +19,12 @@ export default async (
   // get group info
   // get all questions in group
   const results = await Promise.all([
-    DBHelper().get<Tables.TGroups>(Groups.get({ id: groupId })),
+    GroupService.describe(groupId),
     DBHelper().query<Tables.TQuestions>(Questions.query.byGroupId(groupId)),
   ]);
 
   // group info
-  const groupInfo = results[0]?.Item;
+  const groupInfo = results[0];
   // all questions in group
   const questions = results[1].Items;
 
@@ -59,7 +60,7 @@ export default async (
   };
 
   // add new curriculum
-  await DBHelper().put(Curriculums.put(item));
+  await CurriculumService.create(item);
 
   return item;
 };
