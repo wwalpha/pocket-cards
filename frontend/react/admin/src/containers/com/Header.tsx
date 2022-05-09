@@ -27,6 +27,10 @@ export default () => {
   const handleUserReigst = () => actions.showUserRegist();
   const handleLogout = () => actions.logout();
   const handleGroupAdd = () => grpActions.transitToGroupRegist();
+  const handleAbilityRegist = () => {
+    // go to top
+    dispatch(push(ROUTE_PATHS.ABILITIES_REGIST));
+  };
 
   const handleAdminBack = () => {
     if (pathname === ROUTE_PATHS.QUESTION_LIST) {
@@ -123,18 +127,31 @@ export default () => {
             return;
           })()}
           {(() => {
-            if (pathname !== ROUTE_PATHS.STUDENTS) return;
             if (authority !== Consts.Authority.PARENT) return;
 
-            return (
-              <Button
-                variant="outlined"
-                color="inherit"
-                sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                onClick={handleUserReigst}>
-                ADD
-              </Button>
-            );
+            if (pathname === ROUTE_PATHS.STUDENTS) {
+              return (
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                  onClick={handleUserReigst}>
+                  ADD
+                </Button>
+              );
+            }
+
+            if (pathname === ROUTE_PATHS.ABILITIES) {
+              return (
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                  onClick={handleAbilityRegist}>
+                  ADD
+                </Button>
+              );
+            }
           })()}
           <Button variant="outlined" color="inherit" sx={{ mx: 1, borderRadius: 0, width: 96 }} onClick={handleLogout}>
             LOGOUT

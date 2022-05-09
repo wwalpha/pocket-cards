@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import { ROUTE_PATHS } from '@constants';
+import { AbilityRouter } from '@containers/ability';
 import { Mainboard, Students, Settings, GroupDetails } from '@containers/body';
 import { QuestionMain } from '@containers/questions';
 import { Header, MainMenu } from '@containers/com';
@@ -29,6 +30,7 @@ export default () => {
           <Route path={ROUTE_PATHS.STUDENTS} component={Students} />
           <Route path={ROUTE_PATHS.SETTINGS} component={Settings} />
           <Route path={ROUTE_PATHS.QUESTION_LIST} component={QuestionMain} />
+          <Route path={ROUTE_PATHS.ABILITIES} component={AbilityRouter} />
         </Switch>
       </Box>
     </Box>

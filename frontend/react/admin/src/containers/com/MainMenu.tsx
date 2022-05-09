@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import BookIcon from '@mui/icons-material/Book';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { AppActions, UserActions } from '@actions';
 import { Consts, ROUTE_PATHS } from '@constants';
 import { styles } from './MainMenu.style';
@@ -36,6 +37,10 @@ export default () => {
   const handleSettings = () => {
     dispatch(push(ROUTE_PATHS.SETTINGS));
   };
+  // ability click handler
+  const handleAbility = () => {
+    dispatch(push(ROUTE_PATHS.ABILITIES));
+  };
 
   return (
     <Drawer sx={styles.drawer} variant="permanent" anchor="left">
@@ -50,7 +55,7 @@ export default () => {
           button
           key="Japanese"
           onClick={() => {
-            handleClick(Consts.SUBJECT.JAPANESE.toString());
+            handleClick(Consts.SUBJECT.LANGUAGE);
           }}>
           <ListItemIcon sx={styles.itemIcon}>
             <BookIcon sx={{ color: '#b71927' }} />
@@ -95,13 +100,13 @@ export default () => {
         </ListItem>
         {authority === Consts.Authority.PARENT && (
           <React.Fragment>
-            {/* <Divider />
-            <ListItem button key="weekly" onClick={handleStudents}>
+            <Divider />
+            <ListItem button key="weekly" onClick={handleAbility}>
               <ListItemIcon sx={styles.itemIcon}>
-                <BookIcon sx={{ color: 'secondary.main' }} />
+                <LocalFireDepartmentIcon sx={{ color: 'secondary.main' }} />
               </ListItemIcon>
               <ListItemText primary="週テスト対策" />
-            </ListItem> */}
+            </ListItem>
             <Divider />
             <ListItem button key="Students" onClick={handleStudents}>
               <ListItemIcon sx={styles.itemIcon}>

@@ -37,3 +37,6 @@ export const STUDENT_LIST = () => `${API_VERSION}/users/students`;
 export const DESCRIBE_USER = (userId: string) => `${API_VERSION}/users/${userId}`;
 // 保護者情報更新
 export const UPDATE_USER = (userId: string) => `${API_VERSION}/users/${userId}`;
+
+// 問題集情報更新
+export const ABILITY_REGIST = () => `${API_VERSION}/weekly/abilitytest`;

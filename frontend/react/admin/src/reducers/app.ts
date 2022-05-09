@@ -3,7 +3,7 @@ import { Domains } from 'typings';
 import { Consts } from '@constants';
 
 const appState: Domains.AppState = {
-  activeSubject: Consts.SUBJECT.JAPANESE.toString(),
+  activeSubject: Consts.SUBJECT.LANGUAGE,
   activeGroup: '',
   isLoading: false,
   showSnackbar: false,
