@@ -1,9 +1,8 @@
 import { Request } from 'express';
 import { DBHelper } from '@utils';
-import { WeeklyAbility } from '@queries';
 import { APIs, Tables } from 'typings';
 import { Environment } from '@consts';
-import { QuestionService } from '@services';
+import { AbilityService, QuestionService } from '@services';
 
 /** 週テスト対策問題一括取得 */
 export default async (
@@ -49,9 +48,9 @@ export default async (
 };
 
 const getQuestions = async (groupId: string): Promise<Tables.TWeeklyAbility[]> => {
-  const results = await DBHelper().query<Tables.TWeeklyAbility>(WeeklyAbility.query.byKey(groupId));
+  const results = await AbilityService.listByKey(groupId);
 
-  return results.Items.map((item) => item);
+  return results.map((item) => item);
 };
 
 const resetTimes = async (questions: Tables.TWeeklyAbility[]) => {

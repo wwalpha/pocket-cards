@@ -30,7 +30,7 @@ export const update = async (item: Tables.TGroups): Promise<void> => {
   await DBHelper().put(Queries.put(item));
 };
 
-/** カリキュラム削除 */
+/** グループ削除 */
 export const remove = async (id: string): Promise<void> => {
   await DBHelper().delete(
     Queries.del({

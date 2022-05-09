@@ -1,7 +1,7 @@
 import { Request } from 'express';
-import { DBHelper, ValidationError } from '@utils';
-import { WeeklyAbility } from '@queries';
-import { APIs, Tables } from 'typings';
+import { ValidationError } from '@utils';
+import { APIs } from 'typings';
+import { AbilityService } from '@services';
 
 /** 週テスト対策の練習問題の回答 */
 export default async (
@@ -10,8 +10,7 @@ export default async (
   const { groupId, qid } = req.params;
   const { correct } = req.body;
 
-  const result = await DBHelper().get<Tables.TWeeklyAbility>(WeeklyAbility.get({ id: groupId, qid: qid }));
-  const question = result?.Item;
+  const question = await AbilityService.describe(groupId, qid);
 
   if (!question) {
     throw new ValidationError(`Question not found. ${qid}`);
@@ -21,18 +20,14 @@ export default async (
   const times = correct === '1' ? question.times + 1 : question.times;
 
   if (times === 3) {
-    await DBHelper().put(
-      WeeklyAbility.put({
-        ...question,
-        times: -1,
-      })
-    );
+    await AbilityService.update({
+      ...question,
+      times: -1,
+    });
   } else {
-    await DBHelper().put(
-      WeeklyAbility.put({
-        ...question,
-        times,
-      })
-    );
+    await AbilityService.update({
+      ...question,
+      times,
+    });
   }
 };
