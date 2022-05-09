@@ -55,7 +55,7 @@ const queryRemaining = async (userId: string) => {
   let review = 0;
 
   // ユーザのグループ一覧を取得する
-  const userInfo = await GroupService.getGroupsByUserId(userId);
+  const userInfo = await GroupService.listGroupsByUserId(userId);
 
   // 検索失敗
   if (!userInfo) {
