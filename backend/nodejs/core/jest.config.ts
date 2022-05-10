@@ -7,6 +7,7 @@ const config: Config.InitialOptions = {
     '@src/(.*)': '<rootDir>/src/$1',
     '@queries': '<rootDir>/src/queries/index.ts',
     '@consts': '<rootDir>/src/consts/index.ts',
+    '@services': '<rootDir>/src/services/index.ts',
     '@utils': '<rootDir>/src/utils/index.ts',
     'test/(.*)': '<rootDir>/test/$1',
   },

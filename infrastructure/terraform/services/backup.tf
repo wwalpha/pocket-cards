@@ -25,6 +25,20 @@ resource "aws_backup_plan" "dynamodb" {
       delete_after       = 7
     }
   }
+
+  rule {
+    rule_name                = "weekly"
+    schedule                 = "cron(0 17 ? * 2 *)"
+    target_vault_name        = aws_backup_vault.dynamodb.name
+    enable_continuous_backup = false
+    start_window             = 60
+    completion_window        = 120
+
+    lifecycle {
+      cold_storage_after = 0
+      delete_after       = 168
+    }
+  }
 }
 
 # ---------------------------------------------------------------------------------------------

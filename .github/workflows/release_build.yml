@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_DEFAULT_REGION: us-east-1
-  WORKING_DIR_FRONTEND: frontend/react
+  WORKING_DIR_FRONTEND: frontend/react/admin
 
 jobs:
   #Terraform
@@ -203,12 +203,21 @@ jobs:
           BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
           echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
           echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
+          echo "::set-output name=source_tag::${GITHUB_REF#refs/tags/}"
+
+      # Pre Install
+      - name: PreInstall
+        run: |
+          cd ..
+          yarn install
 
       # Install and Build
       - name: Build
         env:
           BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
+          VERSION: ${{ steps.terraform.outputs.source_tag }}
         run: |
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
+          echo VERSION=$VERSION >> frontend.env
           yarn install --production=false
           yarn build
