@@ -17,7 +17,7 @@ struct WeeklyTestView: View {
         VStack {
             if viewModel.isLoading {
                 Text("Loading....").onAppear {
-                    interactor?.loadQuestion(selected: viewModel.selected)
+                    interactor?.loadQuestions()
                 }
             } else if viewModel.isFinish {
                 Text("テストは終わりました")
@@ -48,6 +48,12 @@ struct WeeklyTestView: View {
 }
 
 extension WeeklyTestView: WeeklyTestDisplayLogic {
+    func showCount(model: WeeklyTestViewModel) {
+        DispatchQueue.main.async {
+            viewModel.count = model.count
+        }
+    }
+
     func showError(index: String) {
         DispatchQueue.main.async {
             viewModel.isShowError = index
@@ -60,16 +66,15 @@ extension WeeklyTestView: WeeklyTestDisplayLogic {
             viewModel.isFinish = model.isFinish
             viewModel.isShowError = model.isShowError
             viewModel.count = model.count
+            viewModel.question = model.question
         }
-
-        viewModel.question = model.question
     }
 }
 
 extension WeeklyTestView {
-    func configureView(selected: [Curriculum]) -> some View {
+    func configureView(groupId: String) -> some View {
         var view = self
-        let interactor = WeeklyTestInteractor()
+        let interactor = WeeklyTestInteractor(groupId: groupId)
         let presenter = WeeklyTestPresenter()
 
         view.interactor = interactor
@@ -77,7 +82,6 @@ extension WeeklyTestView {
         presenter.view = view
 
         view.viewModel.isLoading = true
-        view.viewModel.selected = selected
 
         return view
     }

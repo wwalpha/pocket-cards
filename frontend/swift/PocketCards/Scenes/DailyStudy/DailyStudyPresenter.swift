@@ -12,23 +12,32 @@ class DailyStudyPresenter {
 }
 
 extension DailyStudyPresenter: DailyStudyPresentationLogic {
-    func showNext(q: Question) {
+    func showNext(q: Question, count _: Int? = 0) {
         let model = DailyStudyViewModel()
         model.question = q
         model.isFinish = false
         model.isLoading = false
         model.question?.title = q.description == nil ? q.title : "\(q.title)\n\n\(q.description!)"
 
+        debugPrint(q.id)
+
         view?.showNext(model: model)
     }
 
     func showError(index: String) {
-        view?.showError(index: index)
+        let model = DailyStudyViewModel()
+
+        model.isShowError = index
+        model.isFinish = false
+        model.isLoading = false
+
+        view?.showError(model: model)
     }
 
     func showNothing() {
         let model = DailyStudyViewModel()
         model.isFinish = true
+        model.isLoading = false
 
         view?.showNext(model: model)
     }

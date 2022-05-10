@@ -8,19 +8,13 @@ import SwiftUI
 
 struct DailyStudyView: View {
     var interactor: DailyStudyBusinessLogic?
-    private var subject: String
-
     @ObservedObject var viewModel = DailyStudyViewModel()
-
-    init(subject: String) {
-        self.subject = subject
-    }
 
     var body: some View {
         if viewModel.isLoading {
             Text("Loading....")
                 .onAppear {
-                    interactor?.loadQuestion()
+                    interactor?.loadQuestions()
                 }
         } else if viewModel.isFinish {
             Text("今日の学習は終わりました")
@@ -41,20 +35,27 @@ struct DailyStudyView: View {
 }
 
 extension DailyStudyView: DailyStudyDisplayLogic {
-    func showError(index: String) {
-        viewModel.isShowError = index
+    func showError(model: DailyStudyViewModel) {
+        DispatchQueue.main.async {
+            viewModel.isLoading = model.isLoading
+            viewModel.isFinish = model.isFinish
+            viewModel.isShowError = model.isShowError
+        }
     }
 
     func showNext(model: DailyStudyViewModel) {
-        viewModel.isLoading = model.isLoading
-        viewModel.isFinish = model.isFinish
+        DispatchQueue.main.async {
+            viewModel.isLoading = model.isLoading
+            viewModel.isFinish = model.isFinish
+            viewModel.isShowError = model.isShowError
+        }
+
         viewModel.question = model.question
-        viewModel.isShowError = model.isShowError
     }
 }
 
 extension DailyStudyView {
-    func configureView() -> some View {
+    func configureView(subject: String) -> some View {
         var view = self
         let interactor = DailyStudyInteractor(subject: subject)
         let presenter = DailyStudyPresenter()
@@ -71,6 +72,6 @@ extension DailyStudyView {
 
 struct DailyStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyStudyView(subject: SUBJECT.LANGUAGE)
+        DailyStudyView().configureView(subject: SUBJECT.LANGUAGE)
     }
 }

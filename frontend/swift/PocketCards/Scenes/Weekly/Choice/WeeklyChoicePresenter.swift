@@ -17,15 +17,10 @@ extension WeeklyChoicePresenter: WeeklyChoicePresentationLogic {
         view?.validation(result: result)
     }
 
-    func showGroups(res: [UserServices.CurriculumList.Response]) {
+    func showGroups(res: [Curriculum]) {
         let model = WeeklyChoiceViewModel()
-        var dataRows: [Curriculum] = []
 
-        res.forEach { response in
-            dataRows.append(contentsOf: response.items)
-        }
-
-        model.dataRows = dataRows
+        model.dataRows = res
         model.isLoading = false
 
         view?.showGroups(model: model)

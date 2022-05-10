@@ -53,7 +53,6 @@ extension HistoriesView: HistoriesDisplayLogic {
         labels.insert(" ", at: 0)
         labels.append(" ")
 
-        debugPrint(labels)
         return labels
     }
 

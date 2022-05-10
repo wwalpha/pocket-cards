@@ -21,7 +21,7 @@ struct DailyTestView: View {
         if viewModel.isLoading {
             Text("Loading....")
                 .onAppear {
-                    interactor?.loadQuestion()
+                    interactor?.loadQuestions()
                 }
         } else if viewModel.isFinish {
             Text("今日のテストは終わりました")
@@ -42,14 +42,10 @@ struct DailyTestView: View {
 }
 
 extension DailyTestView: DailyTestDisplayLogic {
-    func showNext(q: Question) {
-        viewModel.question = q
-        viewModel.isLoading = false
-    }
-
-    func showNothing() {
-        viewModel.isLoading = false
-        viewModel.isFinish = true
+    func showNext(model: DailyTestViewModel) {
+        viewModel.isLoading = model.isLoading
+        viewModel.isFinish = model.isFinish
+        viewModel.question = model.question
     }
 }
 

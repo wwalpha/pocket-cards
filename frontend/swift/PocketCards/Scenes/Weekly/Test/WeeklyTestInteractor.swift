@@ -8,53 +8,29 @@
 
 import Alamofire
 
-class WeeklyTestInteractor {
-    var presenter: WeeklyTestPresentationLogic?
+class WeeklyTestInteractor: TestInteractor {
+    private var groupId: String
 
-    private var questions: [Question] = []
-    private var current: Question?
-    private var groupId: String = ""
-    private var isAnswered: Bool = false
-}
+    init(groupId: String) {
+        self.groupId = groupId
+        super.init(subject: "")
+    }
 
-extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
-    func loadQuestion(selected: [Curriculum]) {
+    override func removeQuestion(id: String) {
+        // remove updated question
+        questions.removeAll(where: { $0.id == id })
+        // record answered questions
+        answered.append(id)
+    }
+
+    override func loadQuestions() {
         Task {
-            var groupId = ""
-
-            let results = selected.filter { item in
-                item.subject == SUBJECT.SCIENCE || item.subject == SUBJECT.SOCIETY
-            }
-
-            if results.count == selected.count {
-                // create new group
-                let groupIds = selected.map { item in
-                    item.groupId
-                }
-
-                let parameters = ["groupIds": groupIds]
-                let response = try! await API.request(URLs.WEEKLY_REGIST, method: .post, parameters: parameters).serializingDecodable(WeeklyServices.Regist.Response.self).value
-
-                groupId = response.groupId
-            }
-
-            if results.count == 0 {
-                groupId = selected[0].groupId
-            }
-
             let parameters = ["reset": "1"]
-            let response = try await API.request(URLs.WEEKLY_LIST(id: groupId), method: .get, parameters: parameters)
+
+            let response = try await API.request(URLs.STUDY_WEEKLY_QUESTIONS(id: groupId), method: .get, parameters: parameters)
                 .serializingDecodable(WeeklyServices.List.Response.self).value
 
-            var questions = response.questions
-            let question = questions.removeFirst()
-
-            // show card
-            presenter?.showNext(q: question, count: questions.count)
-
-            self.questions = questions
-            self.current = question
-            self.groupId = groupId
+            self.addQuestions(questions: response.questions)
         }
 
 //        Task {
@@ -88,67 +64,22 @@ extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
 //        }
     }
 
-    func onChoice(choice: String) {
-        // update times if correct
-        if choice == current?.answer {
-            // correct sound
-            Audio.playCorrect()
+    override func updateAnswer(id: String?, correct: Bool) {
+        guard let qid = id else { return }
 
-            if !isAnswered {
-                // update to known
-                updateAnswer(correct: true)
-            }
+        // remove answered question
+        removeQuestion(id: qid)
 
-            // next question
-            nextQuestion()
+        Task {
+            let params = [
+                "correct": Correct.convert(value: correct),
+                "mode": "test",
+            ]
 
-            isAnswered = false
-        } else {
-            // incorrect sound
-            Audio.playInCorrect()
-            // show error message
-            presenter?.showError(index: current!.answer)
-
-            isAnswered = true
-        }
-    }
-
-    private func nextQuestion() {
-        // no questions
-        if questions.count == 0 {
-            presenter?.showFinish()
-            return
-        }
-
-        // show next question
-        let question = questions.removeFirst()
-        presenter?.showNext(q: question, count: questions.count)
-
-        // save
-        current = question
-    }
-
-    func onAction(correct: Bool) {
-        debugPrint("correct", correct)
-
-        // update times if correct
-        if correct {
             // update answer
-            updateAnswer(correct: correct)
-        }
-
-        nextQuestion()
-    }
-
-    private func updateAnswer(correct: Bool) {
-        guard let qid = current?.id else { return }
-
-        let params = [
-            "correct": Correct.convert(value: correct),
-        ]
-
-        _ = API.request(URLs.WEEKLY_ABILITY(groupId: groupId, qid: qid), method: .post, parameters: params).response { response in
-            debugPrint(qid, response.response!.statusCode)
+            _ = await API.request(URLs.STUDY_WEEKLY_ANSWER(id: groupId, qid: qid), method: .post, parameters: params).serializingString().response
         }
     }
 }
+
+extension WeeklyTestInteractor: WeeklyTestBusinessLogic {}

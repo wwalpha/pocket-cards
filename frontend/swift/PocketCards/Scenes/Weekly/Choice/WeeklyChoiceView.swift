@@ -54,10 +54,10 @@ struct WeeklyChoiceView: View {
                 }.padding()
             } else if viewModel.isConfirmed {
                 if viewModel.mode == MODE.WEEKLY_ABILITY {
-                    router.makeTest(selected: viewModel.selectedRows(selection: selection))
+                    router.makeTest(groupId: viewModel.groupId(selection: selection))
                 }
                 if viewModel.mode == MODE.WEEKLY_PRACTICE {
-                    router.makePractice(groupIds: selection)
+                    router.makePractice(groupId: viewModel.groupId(selection: selection))
                 }
             }
         }.onDisappear {

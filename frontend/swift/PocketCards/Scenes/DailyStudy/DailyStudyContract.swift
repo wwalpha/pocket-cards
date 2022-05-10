@@ -10,23 +10,9 @@ import Foundation
 protocol DailyStudyDisplayLogic {
     func showNext(model: DailyStudyViewModel)
 
-    func showError(index: String)
+    func showError(model: DailyStudyViewModel)
 }
 
-protocol DailyStudyBusinessLogic {
-    func loadQuestion()
+protocol DailyStudyBusinessLogic: StudyBusinessLogic {}
 
-    func updateAnswer(id: String, correct: Bool)
-
-    func onChoice(choice: String)
-
-    func onAction(correct: Bool)
-}
-
-protocol DailyStudyPresentationLogic {
-    func showNext(q: Question)
-
-    func showError(index: String)
-
-    func showNothing()
-}
+protocol DailyStudyPresentationLogic: StudyPresentationLogic {}

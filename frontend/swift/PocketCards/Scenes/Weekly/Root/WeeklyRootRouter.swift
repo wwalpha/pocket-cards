@@ -13,6 +13,6 @@ class WeeklyRootRouter {
     }
 
     func makePractice(subject: String) -> some View {
-        WeeklyChoiceView().configureView(subject: "10" + subject, mode: MODE.WEEKLY_PRACTICE)
+        WeeklyChoiceView().configureView(subject: subject, mode: MODE.WEEKLY_PRACTICE)
     }
 }

@@ -16,21 +16,7 @@ protocol WeeklyPracticeDisplayLogic {
 }
 
 // Interactor logic
-protocol WeeklyPracticeBusinessLogic {
-    func loadQuestions()
-
-    func onChoice(choice: String)
-
-    func onAction(correct: Bool)
-}
+protocol WeeklyPracticeBusinessLogic: StudyBusinessLogic {}
 
 // Presenter logic
-protocol WeeklyPracticePresentationLogic {
-    func showNext(q: Question)
-
-    func showFinish()
-
-    func showLoading()
-
-    func showError(index: String)
-}
+protocol WeeklyPracticePresentationLogic: StudyPresentationLogic {}

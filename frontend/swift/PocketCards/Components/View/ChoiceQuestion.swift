@@ -5,12 +5,15 @@
 //  Created by macmini on 2022/03/07.
 //
 
+import Alamofire
 import Kingfisher
 import SwiftUI
 
 struct ChoiceQuestion: View {
     @State private var showingAlert = false
     @State private var showingConfirm = false
+    @State private var isPresented = false
+
     var question: Question
     var isShowError: String
     var onChoice: (_: String) -> Void
@@ -19,8 +22,22 @@ struct ChoiceQuestion: View {
         let qImage = question.title.getImage()
 
         VStack {
-            HStack {
-                GeometryReader { _ in
+            ZStack {
+                GeometryReader { geo in
+                    Button {
+                        onPlay()
+                    } label: {
+                        HStack {
+                            Image(systemName: "speaker.wave.3")
+                        }
+                        .padding()
+                        .border(Color.blue, width: 2)
+                    }
+                    .frame(width: 120, height: 48, alignment: .center)
+                    .position(x: geo.size.width - 48, y: 48)
+                    .zIndex(100)
+                }
+                HStack {
                     VStack {
                         Text(question.title.removeImage())
 
@@ -30,6 +47,12 @@ struct ChoiceQuestion: View {
                                 Image(uiImage: FileManager.default.loadImage(fileName: qImage)!)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
+                                    .onTapGesture {
+                                        isPresented = true
+                                    }
+                                    .fullScreenCover(isPresented: $isPresented) {
+                                        ImageViewer(isShowing: $isPresented, name: qImage)
+                                    }
                             } else {
                                 // download image
                                 let _ = DownloadManager.default.downloadFile(path: qImage)
@@ -37,6 +60,12 @@ struct ChoiceQuestion: View {
                                 KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
+                                    .onTapGesture {
+                                        isPresented = true
+                                    }
+                                    .fullScreenCover(isPresented: $isPresented) {
+                                        ImageViewer(isShowing: $isPresented, name: qImage)
+                                    }
                             }
                         }
                     }
@@ -45,16 +74,16 @@ struct ChoiceQuestion: View {
                     .padding(.leading, 32)
                     .border(Color.purple, width: 5)
                 }
+                .padding(.bottom, 8)
+                .padding(.top, 8)
             }
-            .padding(.bottom, 8)
-            .padding(.top, 8)
 
             ForEach(0 ..< question.choices!.count, id: \.self) { idx in
                 let item = question.choices![idx]
                 let index = String(idx + 1)
                 let isError: Bool = !self.isShowError.isEmpty ? self.isShowError == index : false
 
-                ChoiceButton(text: item, isError: isError) {
+                ChoiceButton(text: item, index: index, isError: isError) {
                     self.onChoice(index)
                 }
             }
@@ -83,10 +112,28 @@ struct ChoiceQuestion: View {
         }
     }
 
+    func onPlay() {
+        let url = question.voiceTitle
+
+        // download file if not exist
+        let request = DownloadManager.default.downloadRequest(path: url)
+
+        Task {
+            _ = await request?.serializingDownloadedFileURL().response
+
+            // play audio
+            Audio.play(url: FileManager.default.getFileUrl(fileName: url))
+        }
+    }
+
     func report() {
         let params = ["id": question.id]
 
-        API.request(URLs.REPORTS_INQUIRY, method: .post, parameters: params).response { _ in
+        API.request(URLs.REPORTS_INQUIRY, method: .post, parameters: params).response { res in
+            if let status = res.response?.statusCode {
+                debugPrint(question.id, status)
+            }
+
             showingConfirm = true
         }
     }

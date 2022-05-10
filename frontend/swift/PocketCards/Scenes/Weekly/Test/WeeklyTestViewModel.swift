@@ -14,6 +14,5 @@ class WeeklyTestViewModel: ObservableObject {
     @Published var isShowError: String = ""
     @Published var count: String = "0"
 
-    var selected: [Curriculum] = []
     var question: Question?
 }

@@ -9,12 +9,21 @@ import Foundation
 
 class URLs {
     private static let HOST = API_URL
-    static let STUDY = "\(HOST)/v1/questions/study"
-    static let TEST = "\(HOST)/v1/questions/test"
-    static let SIGN_IN = "\(HOST)/v1/auth/login"
-    static let WEEKLY_PRACTICE = "\(HOST)/v1/questions/weekly"
-    static let WEEKLY_REGIST = "\(HOST)/v1/weekly/abilitytest"
+    static let STUDY_DAILY_PRACTICE = "\(HOST)/v1/study/daily/practice/questions"
+    static let STUDY_DAILY_TEST = "\(HOST)/v1/study/daily/test/questions"
+    static func STUDY_DAILY_ANSWER(id: String) -> String {
+        "\(HOST)/v1/study/daily/test/questions/\(id)"
+    }
 
+    static func STUDY_WEEKLY_QUESTIONS(id: String) -> String {
+        "\(HOST)/v1/study/weekly/\(id)/questions"
+    }
+
+    static func STUDY_WEEKLY_ANSWER(id: String, qid: String) -> String {
+        "\(HOST)/v1/study/weekly/\(id)/questions/\(qid)"
+    }
+
+    static let SIGN_IN = "\(HOST)/v1/auth/login"
     static let GROUP_LIST = "\(HOST)/v1/groups"
     static let CURRICULUM_LIST = "\(HOST)/v1/curriculums"
 
@@ -27,28 +36,8 @@ class URLs {
         "\(HOST)/v1/groups/\(groupId)/questions"
     }
 
-    static func ANSWER(id: String) -> String {
-        "\(HOST)/v1/questions/\(id)/answer"
-    }
-
     static func USER_CURRICULUM_LIST(userId: String) -> String {
         "\(HOST)/v1/users/\(userId)/curriculums"
-    }
-
-    static func WEEKLY_ANSWER(id: String) -> String {
-        "\(HOST)/v1/questions/weekly/\(id)"
-    }
-
-    static func WEEKLY_LIST(id: String) -> String {
-        "\(HOST)/v1/groups/\(id)/weekly"
-    }
-
-    static func WEEKLY_ABILITY(groupId: String, qid: String) -> String {
-        "\(HOST)/v1/groups/\(groupId)/ability/\(qid)"
-    }
-
-    static func WEEKLY_PRACTICE(groupId: String, qid: String) -> String {
-        "\(HOST)/v1/groups/\(groupId)/practice/\(qid)"
     }
 
     static let REPORT_DAILY = "\(HOST)/v1/reports/daily"
