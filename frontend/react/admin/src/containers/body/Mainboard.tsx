@@ -115,7 +115,7 @@ export default () => {
                       if (authority !== Consts.Authority.PARENT) return;
 
                       const item = curriculumItems.find((item) => item.groupId === dataRow.id);
-                      const label = !item ? 'Apply' : 'Cancel';
+                      const label = !item ? 'Study' : 'Cancel';
                       const icon = !item ? <CheckCircleIcon /> : <HighlightOffIcon />;
                       const color = item ? 'info' : 'primary';
 

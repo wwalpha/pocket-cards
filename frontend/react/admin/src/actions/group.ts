@@ -133,6 +133,6 @@ export const registAbility = (request: APIs.WeeklyAbilityRegistRequest) => (disp
       await dispatch(Actions.GROUP_ABILITY_REGIST(request)).unwrap();
 
       // transit to upload confirm
-      dispatch(push(ROUTE_PATHS.QUESTION_LIST));
+      dispatch(push(ROUTE_PATHS.ABILITIES));
     })
   );
