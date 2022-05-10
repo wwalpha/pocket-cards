@@ -392,6 +392,7 @@ export namespace APIs {
 
   interface QuestionUpdateRequest {
     title: string;
+    choices?: string;
     answer: string;
   }
 
@@ -401,26 +402,15 @@ export namespace APIs {
   // Weekly Ability Regist
   // ------------------------------------------------------------
   interface WeeklyAbilityRegistRequest {
+    name: string;
+    subject: string;
+    student: string;
     groupIds?: string[];
   }
 
   interface WeeklyAbilityRegistResponse {
-    groupId: string;
+    item: Tables.TGroups;
   }
-
-  // ------------------------------------------------------------
-  // Weekly Practice Answer
-  // ------------------------------------------------------------
-  interface WeeklyAbilityPracticeAnswerParameter {
-    qid: string;
-    groupId: string;
-  }
-
-  interface WeeklyAbilityPracticeAnswerRequest {
-    correct: string;
-  }
-
-  type WeeklyAbilityPracticeAnswerResponse = void;
 
   // ------------------------------------------------------------
   // Weekly Test List
@@ -444,12 +434,12 @@ export namespace APIs {
   // Weekly Ability Answer
   // ------------------------------------------------------------
   interface WeeklyAbilityAnswerParameter {
-    qid: string;
+    questionId: string;
     groupId: string;
   }
 
   interface WeeklyAbilityAnswerRequest {
-    subject: string;
+    mode: string;
     correct?: string;
   }
 

@@ -1,12 +1,15 @@
+import { Polly, S3 } from 'aws-sdk';
 import * as short from 'short-uuid';
 import { Request } from 'express';
 import { decode } from 'jsonwebtoken';
+import { GetItemOutput } from '@alphax/dynamodb';
+import pLimit from 'p-limit';
 import { ClientUtils, DateUtils, Logger } from '@utils';
 import { ssm } from './clientUtils';
-import { Polly, S3 } from 'aws-sdk';
 import { Environment, Consts } from '@consts';
-import { GetItemOutput } from '@alphax/dynamodb';
 import { getImage } from './apis';
+import { Tables } from 'typings';
+import { QuestionService } from '@services';
 
 // Sleep
 export const sleep = (timeout: number) => new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
@@ -103,7 +106,7 @@ export const isEmpty = (item?: GetItemOutput) => {
 
 export const isNotEmpty = (item?: GetItemOutput) => !isEmpty(item);
 
-export const generateImage = async (url: string): Promise<string> => {
+const generateImage = async (url: string): Promise<string> => {
   const filename: string = `${short.generate()}`;
   const filedata: Buffer | undefined = await getImage(url);
   const extension: string | undefined = url.split('.').pop();
@@ -121,7 +124,7 @@ export const generateImage = async (url: string): Promise<string> => {
   return key;
 };
 
-export const createJapaneseVoice = async (text: string) => {
+const createJapaneseVoice = async (text: string, s3Key?: string) => {
   const client = ClientUtils.polly();
 
   const request: Polly.SynthesizeSpeechInput = {
@@ -135,8 +138,7 @@ export const createJapaneseVoice = async (text: string) => {
   const response = await client.synthesizeSpeech(request).promise();
 
   // ファイル名
-  const filename: string = `${short.generate()}.mp3`;
-  const key: string = `${Consts.PATH_VOICE}/${filename}`;
+  const key: string = s3Key ?? `${Consts.PATH_VOICE}/${short.generate()}.mp3`;
 
   const putRequest: S3.Types.PutObjectRequest = {
     Bucket: Environment.BUCKET_NAME_MATERAILS,
@@ -150,4 +152,92 @@ export const createJapaneseVoice = async (text: string) => {
   await s3Client.putObject(putRequest).promise();
 
   return key;
+};
+
+export const updateQuestion = async (q: Tables.TQuestions[]) => {
+  const limit = pLimit(25);
+
+  const tasks = q.map((item) =>
+    limit(async () => {
+      const results = await Promise.all([
+        createQuestionVoice(item),
+        createAnswerVoice(item),
+        createImage(item.title),
+        createImage(item.answer),
+      ]);
+
+      // const info = await DBHelper().get<Tables.TQuestions>(
+      //   Questions.get({
+      //     id: item.id,
+      //   })
+      // );
+
+      // if (!info?.Item) return;
+
+      // const tasks: Promise<void>[] = [
+      //   async () => {
+      //     if (info.Item?.title === item.title) return;
+
+      //     item.voiceTitle = await createQuestionVoice(item);
+      //   },
+      // ];
+
+      // if (info.Item.title !== item.title) {
+      //   tasks.push(createQuestionVoice(item));
+      // }
+
+      // if (info.Item.answer !== item.answer) {
+      //   tasks.push(createAnswerVoice(item));
+      // }
+
+      // tasks.push(createImage(item.title));
+      // tasks.push(createImage(item.answer));
+
+      // const results = await Promise.all(tasks);
+
+      item.voiceTitle = results[0];
+      item.voiceAnswer = results[1];
+      item.title = results[2];
+      item.answer = results[3];
+
+      await QuestionService.update(item);
+    })
+  );
+
+  // 非同期一括実行する
+  Promise.all(tasks);
+};
+
+const createQuestionVoice = async (question: Tables.TQuestions) => {
+  const newTitle = question.title.replace(/\[http(s?):\/\/.*\]$/, '');
+
+  if (newTitle.length === 0) return undefined;
+
+  return await createJapaneseVoice(newTitle, question.voiceTitle);
+};
+
+const createAnswerVoice = async (question: Tables.TQuestions) => {
+  // 選択問題の回答音声不要
+  if (question.choices) return undefined;
+
+  // URL を取り除く
+  const newAnswer = question.answer.replace(/\[http(s?):\/\/.*\]$/, '');
+
+  if (newAnswer.length === 0) return undefined;
+
+  return await createJapaneseVoice(newAnswer, question.voiceAnswer);
+};
+
+const createImage = async (text: string): Promise<string> => {
+  if (!text.match(/\[http(s?):\/\/.*\]$/)) {
+    return text;
+  }
+
+  const startIdx = text.indexOf('[http');
+  const endIdx = text.indexOf(']');
+  const url = text.substring(startIdx + 1, endIdx);
+
+  const s3Key = await generateImage(url);
+
+  return text.replace(/\[http(s?):\/\/.*\]$/, `[${s3Key}]`);
 };

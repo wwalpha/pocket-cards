@@ -123,7 +123,8 @@ const buildAuthPolicy = async (
       policy.allowMethod(AuthPolicy.HttpVerb.PUT, '/curriculums');
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/curriculums/*');
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/users/*');
-
+      policy.allowMethod(AuthPolicy.HttpVerb.POST, '/study/weekly');
+      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/study/weekly/*');
       break;
     case 'STUDENT':
       policy.allowAllMethods();

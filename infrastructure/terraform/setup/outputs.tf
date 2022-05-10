@@ -61,9 +61,6 @@ output "dynamodb_name_curriculums" {
 output "dynamodb_name_reports" {
   value = aws_dynamodb_table.reports.name
 }
-output "dynamodb_name_weekly_test" {
-  value = aws_dynamodb_table.weekly_test.name
-}
 output "dynamodb_name_weekly_ability" {
   value = aws_dynamodb_table.weekly_ability.name
 }

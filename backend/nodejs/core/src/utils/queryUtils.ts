@@ -1,4 +1,5 @@
-import { Questions, WordMaster } from '@queries';
+import { WordMaster } from '@queries';
+import { QuestionService } from '@services';
 import { DBHelper, Logger } from '@utils';
 import { APIs, Tables } from 'typings';
 
@@ -37,17 +38,11 @@ export const getWordDetails = async (words: Tables.TWords[]) => {
 
 export const getQuestionDetails = async (ids: Tables.TLearningKey[]) => {
   // 単語明細情報を取得する
-  const tasks = ids.map((item) =>
-    DBHelper().get<Tables.TQuestions>(
-      Questions.get({
-        id: item.qid,
-      })
-    )
-  );
+  const tasks = ids.map((item) => QuestionService.describe(item.qid));
 
-  const details = (await Promise.all(tasks))
-    .map((item) => item?.Item)
-    .filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
+  const details = (await Promise.all(tasks)).filter(
+    (item): item is Exclude<typeof item, undefined> => item !== undefined
+  );
 
   Logger.info('検索結果', details);
 

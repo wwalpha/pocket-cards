@@ -1,30 +1,32 @@
 # pocket-cards-backend
 
-| Status         | Path                           | Http Method | Function ID | Comment                  | Implemented |
-| -------------- | ------------------------------ | ----------- | ----------- | ------------------------ | ----------- |
-| **descripted** | /users/{userId}                | GET         | A001        | ユーザ情報取得           |
-|                | /history                       | GET         | A002        | 学習履歴取得             |
-|                |                                |             | A003        | 最後の学習時間を計算する |
-|                | /groups                        | PUT         | B001        | グループ新規作成         | ✓           |
-|                | /groups                        | GET         | B002        | グループ一覧取得         | ✓           |
-|                | /groups/{groupId}              | GET         | B003        | グループ情報取得         | ✓           |
-|                | /groups/{groupId}/status       | GET         | B006        | グループ学習状況取得     | ✓           |
-|                | /groups/{groupId}              | PUT         | B004        | グループ情報変更         | ✓           |
-|                | /groups/{groupId}              | DELETE      | B005        | グループ情報削除         | ✓           |
-|                | /groups/{groupId}/words        | POST        | C001        | 単語一括登録             | ✓           |
-|                | /groups/{groupId}/words        | GET         | C002        | 単語一覧取得             | ✓           |
-|                | /groups/{groupId}/words/{word} | GET         | C003        | 単語情報取得             | ✓           |
-|                | /groups/{groupId}/words/{word} | PUT         | C004        | 単語情報更新             | ✓           |
-|                | /groups/{groupId}/words/{word} | DELETE      | C005        | 単語情報削除             | ✓           |
-|                | /groups/{groupId}/new          | GET         | C006        | 新規学習モード単語一覧   | ✓           |
-|                | /groups/{groupId}/test         | GET         | C007        | テストモード単語一覧     | ✓           |
-|                | /groups/{groupId}/review       | GET         | C008        | 復習モード単語一覧       | ✓           |
-|                | /image2text                    | POST        | D001        | 画像から単語に変換する   | ✓           |
-|                | /image2line                    | POST        | D002        | 画像から行に変換する     |
-|                | /user/wordignore               | POST        | D003        | 単語無視                 | ✓           |
-|                | /words/{word}                  | GET         | E001        | 単語詳細情報取得         | ✓           |
-|                | /words/{word}                  | PUT         | E002        | 単語詳細情報更新         | ✓           |
-|                | Cognito Sync Trigger           |             | S002        |                          |
+| Status | Path                                         | Http Method | Function ID         | Comment                |
+| ------ | -------------------------------------------- | ----------- | ------------------- | ---------------------- |
+| OK     | /health                                      | GET         |                     | ヘルスチェック         |
+| OK     | /groups                                      | POST        | GroupRegist         | グループ新規登録       |
+| OK     | /groups                                      | GET         | GroupList           | グループ一覧取得       |
+| OK     | /groups/:groupId                             | GET         | GroupDescribe       | グループ詳細取得       |
+| OK     | /groups/:groupId                             | PUT         | GroupUpdate         | グループ情報更新       |
+| NG     | /groups/:groupId                             | DELETE      | GroupRemove         | グループ削除           |
+| OK     | /groups/:groupId/questions                   | POST        | QuestionRegist      | 問題集一括登録         |
+| OK     | /groups/:groupId/questions                   | GET         | QuestionList        | 問題集一括取得         |
+| OK     | /groups/:groupId/questions/:questionId       | PUT         | QuestionUpdate      | 問題集詳細更新         |
+| NG     | /groups/:groupId/questions/:questionId       | GET         |                     | 問題集詳細取得         |
+| NG     | /groups/:groupId/questions/:questionId       | DELETE      | QuestionDelete      | 問題削除               |
+| OK     | /reports/dailytasks                          | GET         | DailyTasks          | 日次タスク数           |
+| OK     | /reports/progress                            | GET         | LearningProgress    | 学習進捗               |
+| OK     | /reports/overall                             | GET         | LearningOverall     | 全体学習進捗           |
+| OK     | /reports/inquiry                             | POST        | Inquiry             | お問い合わせ           |
+| OK     | /curriculums                                 | POST        | CurriculumRegist    | カリキュラム新規登録   |
+| OK     | /curriculums                                 | GET         | CurriculumList      | カリキュラム一覧取得   |
+| OK     | /curriculums/:curriculumId                   | DELETE      | CurriculumRemove    | カリキュラム削除       |
+| OK     | /patch                                       | PATCH       | Patchs              | パッチ                 |
+| OK     | /study/daily/practice/questions              | GET         | QuestionStudy       | 日次練習問題           |
+| OK     | /study/daily/test/questions                  | GET         | QuestionExam        | 日次テスト問題         |
+| OK     | /study/daily/test/questions/:questionId      | POST        | QuestionAnswer      | 日次テスト回答         |
+| OK     | /study/weekly                                | POST        | WeeklyAbilityRegist | 週テスト対策の問題登録 |
+| OK     | /study/weekly/:groupId/questions             | GET         | WeeklyAbilityList   | 週テスト対策の問題一覧 |
+| OK     | /study/weekly/:groupId/questions/:questionId | POST        | WeeklyAbilityAnswer | 週テスト問題の回答     |
 
 ## Users
 

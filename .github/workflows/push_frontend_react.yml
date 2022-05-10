@@ -12,7 +12,7 @@ on:
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
   TF_WORKSPACE: dev
-  WORKING_DIR: frontend/react
+  WORKING_DIR: frontend/react/admin
   NODE_ENV: production
   SSM_PARAMETER_NAME: /pkc/frontend
 
@@ -65,6 +65,12 @@ jobs:
           echo ::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)
           echo ::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)
           echo ::set-output name=source_tag::${GITHUB_REF#refs/tags/}
+
+      # Pre Install
+      - name: PreInstall
+        run: |
+          cd ..
+          yarn install
 
       # Install and Build
       - name: Build

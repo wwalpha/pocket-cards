@@ -56,7 +56,6 @@ locals {
   dynamodb_name_settings       = local.remote_setup.dynamodb_name_settings
   dynamodb_name_curriculums    = local.remote_setup.dynamodb_name_curriculums
   dynamodb_name_reports        = local.remote_setup.dynamodb_name_reports
-  dynamodb_name_weekly_test    = local.remote_setup.dynamodb_name_weekly_test
   dynamodb_name_weekly_ability = local.remote_setup.dynamodb_name_weekly_ability
 
   # ----------------------------------------------------------------------------------------------
