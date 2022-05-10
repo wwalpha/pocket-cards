@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -9,23 +9,38 @@ import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import PageviewIcon from '@mui/icons-material/Pageview';
+import EditIcon from '@mui/icons-material/Edit';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { StyledTableCell, styles } from './Main.style';
 import { Consts } from '@constants';
 import { GroupActions } from '@actions';
 import { RootState, GroupEditForm } from 'typings';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import { StyledTableCell, styles } from './Main.style';
 
 const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
+const userState = (state: RootState) => state.user;
 
 export default () => {
   const history = useHistory();
   const actions = bindActionCreators(GroupActions, useDispatch());
   const { groups, editable } = useSelector(groupState);
-  const { activeGroup } = useSelector(appState);
-  const { isLoading } = useSelector(appState);
+  const { curriculums, activeStudent } = useSelector(userState);
+  const { activeGroup, isLoading, authority } = useSelector(appState);
+
+  const [open, setOpen] = useState(false);
+  const [curriculumId, setCurriculumId] = useState<string | undefined>(undefined);
+  const [groupId, setGroupId] = useState('');
 
   // 選択中のGroup情報取得
   const groupInfo = groups.find((item) => item.id === activeGroup);
@@ -62,7 +77,29 @@ export default () => {
 
   const handleBack = () => history.goBack();
 
+  // get question list
+  const handleApply = (groupId: string) => {
+    usrActions.curriculumRegist(groupId);
+  };
+  // get question list
+  const handleCancel = (id: string) => {
+    usrActions.curriculumRemove(id);
+  };
+
+  const handleClose = () => setOpen(false);
+
+  const handleConfirm = () => {
+    if (curriculumId) {
+      handleCancel(curriculumId);
+    } else {
+      handleApply(groupId);
+    }
+
+    setOpen(false);
+  };
+
   const displayGroups = groups.filter((item) => item.subject.length === 3);
+  const curriculumItems = curriculums.filter((item) => item.userId === activeStudent);
 
   return (
     <Box sx={styles.root}>
@@ -89,6 +126,31 @@ export default () => {
                       sx={{ py: 0, mx: 0.5 }}>
                       View
                     </LoadingButton>
+                    {(() => {
+                      if (authority !== Consts.Authority.PARENT) return;
+
+                      const item = curriculumItems.find((item) => item.groupId === dataRow.id);
+                      const label = !item ? 'Study' : 'Cancel';
+                      const icon = !item ? <CheckCircleIcon /> : <HighlightOffIcon />;
+                      const color = item ? 'info' : 'primary';
+
+                      return (
+                        <LoadingButton
+                          loading={isLoading}
+                          variant="contained"
+                          color={color}
+                          startIcon={icon}
+                          size="small"
+                          sx={{ py: 0, mx: 0.5, width: 100 }}
+                          onClick={() => {
+                            setGroupId(dataRow.id);
+                            setCurriculumId(item?.id);
+                            setOpen(true);
+                          }}>
+                          {label}
+                        </LoadingButton>
+                      );
+                    })()}
                   </Box>
                 </TableCell>
                 <TableCell sx={styles.tableCell}>
@@ -104,6 +166,20 @@ export default () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Dialog open={open} onClose={handleClose} maxWidth="md">
+        <DialogTitle id="alert-dialog-title">カリキュラム</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            カリキュラムを{curriculumId ? '解除' : '適用'}しますか？
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleConfirm} autoFocus>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
