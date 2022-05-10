@@ -8,11 +8,11 @@
 import SwiftUI
 
 class WeeklyChoiceRouter {
-    func makeTest(selected: [Curriculum]) -> some View {
-        WeeklyTestView().configureView(selected: selected)
+    func makeTest(groupId: String) -> some View {
+        WeeklyTestView().configureView(groupId: groupId)
     }
 
-    func makePractice(groupIds: Set<String>) -> some View {
-        WeeklyPracticeView().configureView(groupId: Array(groupIds)[0])
+    func makePractice(groupId: String) -> some View {
+        WeeklyPracticeView().configureView(groupId: groupId)
     }
 }

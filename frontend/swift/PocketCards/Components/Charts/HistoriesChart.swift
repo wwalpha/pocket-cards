@@ -78,7 +78,6 @@ struct HistoriesChart: UIViewRepresentable {
 //        xAxis.valueFormatter = IndexAxisValueFormatter(values: ["03/21", "03/22", "03/23", "03/24"])
 //        xAxis.labelPosition = .bottom
 
-        debugPrint("getmaxaxis", getXMaxAxis())
         let leftAxis = chartView.leftAxis
         leftAxis.labelFont = .systemFont(ofSize: 14)
         leftAxis.axisMaximum = getLeftMaxAxis()

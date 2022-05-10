@@ -13,24 +13,12 @@ protocol WeeklyTestDisplayLogic {
     func showNext(model: WeeklyTestViewModel)
 
     func showError(index: String)
+
+    func showCount(model: WeeklyTestViewModel)
 }
 
 // Interactor logic
-protocol WeeklyTestBusinessLogic {
-    func loadQuestion(selected: [Curriculum])
-
-    func onChoice(choice: String)
-
-    func onAction(correct: Bool)
-}
+protocol WeeklyTestBusinessLogic: StudyBusinessLogic {}
 
 // Presenter logic
-protocol WeeklyTestPresentationLogic {
-    func showNext(q: Question, count: Int)
-
-    func showFinish()
-
-    func showLoading()
-
-    func showError(index: String)
-}
+protocol WeeklyTestPresentationLogic: StudyPresentationLogic {}

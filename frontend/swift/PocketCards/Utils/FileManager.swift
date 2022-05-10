@@ -19,8 +19,6 @@ extension FileManager {
             do {
                 let directoryContents = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil)
 
-                debugPrint(directoryContents)
-
                 return directoryContents
             } catch {
                 return nil
@@ -41,20 +39,6 @@ extension FileManager {
     }
 
     func loadImage(fileName: String) -> UIImage? {
-//        Task {
-//            debugPrint(111)
-//            if !fileExists(fileName: fileName) {
-//                debugPrint(222)
-        ////                DownloadManager.default.downloadFile(path: fileName)
-//                let request = DownloadManager.default.downloadRequest(path: fileName)
-//
-//                _ = await request?.serializingDownloadedFileURL().response
-//
-//                debugPrint(333)
-        ////                _ = await DownloadManager.default.downloadRequest(path: fileName)?.response
-//            }
-//        }
-
         let url = getFileUrl(fileName: fileName)
         guard let fileURL = url else { return nil }
 

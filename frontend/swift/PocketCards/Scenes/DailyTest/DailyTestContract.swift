@@ -7,23 +7,9 @@
 import Foundation
 
 protocol DailyTestDisplayLogic {
-    func showNext(q: Question)
-
-    func showNothing()
+    func showNext(model: DailyTestViewModel)
 }
 
-protocol DailyTestBusinessLogic {
-    func loadQuestion()
+protocol DailyTestBusinessLogic: StudyBusinessLogic {}
 
-    func updateAnswer(id: String, correct: Bool)
-
-    func onChoice(choice: String)
-
-    func onAction(correct: Bool)
-}
-
-protocol DailyTestPresentationLogic {
-    func showNext(q: Question)
-
-    func showNothing()
-}
+protocol DailyTestPresentationLogic: StudyPresentationLogic {}

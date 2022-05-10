@@ -16,6 +16,7 @@ struct Question: Codable {
     var answer: String
     var voiceTitle: String?
     var voiceAnswer: String?
+    var isAnswered: Bool?
 
     private enum CodingKeys: String, CodingKey {
         case id
@@ -26,5 +27,6 @@ struct Question: Codable {
         case answer
         case voiceTitle
         case voiceAnswer
+        case isAnswered
     }
 }

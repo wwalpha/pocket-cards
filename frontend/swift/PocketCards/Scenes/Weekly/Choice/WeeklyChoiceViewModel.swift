@@ -22,8 +22,6 @@ class WeeklyChoiceViewModel: ObservableObject {
             selection.contains(dataRow.groupId)
         }
 
-        debugPrint(results, selection, dataRows, 123_457)
-
         return results
     }
 
@@ -31,5 +29,19 @@ class WeeklyChoiceViewModel: ObservableObject {
         dataRows.map { item in
             CheckListItem(key: item.groupId, name: item.groupName ?? "dummy")
         }
+    }
+
+    func groupId(selection: Set<String>) -> String {
+        let id = Array(selection)[0]
+
+        let results = dataRows.filter { dataRow in
+            dataRow.groupId == id
+        }
+
+        if results.count == 0 {
+            return ""
+        }
+
+        return results[0].groupId
     }
 }

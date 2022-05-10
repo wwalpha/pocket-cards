@@ -24,7 +24,7 @@ protocol WeeklyChoiceBusinessLogic {
 
 // Presenter logic
 protocol WeeklyChoicePresentationLogic {
-    func showGroups(res: [UserServices.CurriculumList.Response])
+    func showGroups(res: [Curriculum])
 
     func validateResult(result: Bool)
 }

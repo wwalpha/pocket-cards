@@ -4,6 +4,7 @@
 //
 //  Created by macmini on 2022/03/08.
 //
+import Alamofire
 import Kingfisher
 import SwiftUI
 
@@ -14,6 +15,7 @@ struct FlashCard: View {
     @State private var backImage: Image?
     @State private var showingAlert = false
     @State private var showingConfirm = false
+    @State private var isPresented = false
 
     var question: Question
     var action: (_: Bool) -> Void
@@ -47,6 +49,12 @@ struct FlashCard: View {
                                 Image(uiImage: FileManager.default.loadImage(fileName: qImage)!)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
+                                    .onTapGesture {
+                                        isPresented = true
+                                    }
+                                    .fullScreenCover(isPresented: $isPresented) {
+                                        ImageViewer(isShowing: $isPresented, name: qImage)
+                                    }
                             } else {
                                 // download image
                                 let _ = DownloadManager.default.downloadFile(path: qImage)
@@ -54,6 +62,12 @@ struct FlashCard: View {
                                 KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
+                                    .onTapGesture {
+                                        isPresented = true
+                                    }
+                                    .fullScreenCover(isPresented: $isPresented) {
+                                        ImageViewer(isShowing: $isPresented, name: qImage)
+                                    }
                             }
                         }
                     }
@@ -73,6 +87,12 @@ struct FlashCard: View {
                                 Image(uiImage: FileManager.default.loadImage(fileName: aImage)!)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
+                                    .onTapGesture {
+                                        isPresented = true
+                                    }
+                                    .fullScreenCover(isPresented: $isPresented) {
+                                        ImageViewer(isShowing: $isPresented, name: aImage)
+                                    }
                             } else {
                                 // download image
                                 let _ = DownloadManager.default.downloadFile(path: aImage)
@@ -80,6 +100,12 @@ struct FlashCard: View {
                                 KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
+                                    .onTapGesture {
+                                        isPresented = true
+                                    }
+                                    .fullScreenCover(isPresented: $isPresented) {
+                                        ImageViewer(isShowing: $isPresented, name: aImage)
+                                    }
                             }
                         }
                     }
@@ -180,7 +206,11 @@ struct FlashCard: View {
     func report() {
         let params = ["id": question.id]
 
-        API.request(URLs.REPORTS_INQUIRY, method: .post, parameters: params).response { _ in
+        API.request(URLs.REPORTS_INQUIRY, method: .post, parameters: params).response { res in
+            if let status = res.response?.statusCode {
+                debugPrint(question.id, status)
+            }
+
             showingConfirm = true
         }
     }

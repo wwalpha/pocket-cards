@@ -9,9 +9,10 @@ import AVFoundation
 
 let Audio = AudioPlayer()
 
+var audioPlayer: AVAudioPlayer?
+
 class AudioPlayer {
     var player: AVPlayer?
-    var audioPlayer: AVAudioPlayer?
 
     func play(url: String) {
         guard let thisURL = URL(string: url) else { return }
@@ -45,6 +46,7 @@ class AudioPlayer {
 
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.prepareToPlay()
             audioPlayer?.play()
         } catch {}
     }
