@@ -97,7 +97,6 @@ export default () => {
                     <LoadingIconButton
                       loading={isLoading}
                       sx={{ p: 0.5 }}
-                      disabled={authority !== Consts.Authority.ADMIN && dataRow.count === 0}
                       onClick={() => {
                         handleQuestions(dataRow.id);
                       }}>
