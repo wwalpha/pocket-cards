@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { AbilityService, CurriculumService, LearningService } from '@services';
+import { CurriculumService, LearningService } from '@services';
 import { DBHelper } from '@utils';
 import { Consts, Environment } from '@consts';
 import { APIs } from 'typings';
@@ -35,14 +35,7 @@ export default async (
 
   // 実力テストグループ
   if (Consts.SUBJECT_ABILITY.includes(curriculum.subject)) {
-    const ability = await AbilityService.listByKey(groupId);
-
-    // execute all
-    await Promise.all([
-      // remove all learning records
-      DBHelper().truncate(Environment.TABLE_NAME_WEEKLY_ABILITY, ability),
-      // remove curriculum
-      CurriculumService.remove(curriculumId),
-    ]);
+    // remove curriculum
+    await CurriculumService.remove(curriculumId);
   }
 };
