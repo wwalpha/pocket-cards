@@ -541,4 +541,15 @@ export namespace APIs {
     count: number;
     items: Tables.TCurriculums[];
   }
+
+  interface CurriculumQuestionsParams {
+    curriculumId: string;
+  }
+
+  interface CurriculumQuestionsRequest {}
+
+  interface CurriculumQuestionsResponse {
+    count: number;
+    items: Tables.TQuestions[];
+  }
 }

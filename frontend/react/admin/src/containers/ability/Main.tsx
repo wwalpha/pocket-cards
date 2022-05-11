@@ -15,7 +15,7 @@ import PageviewIcon from '@mui/icons-material/Pageview';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { StyledTableCell, styles } from './Main.style';
 import { Consts } from '@constants';
-import { GroupActions, UserActions } from '@actions';
+import { AppActions, GroupActions, UserActions } from '@actions';
 import { RootState } from 'typings';
 import { LoadingIconButton } from '@components/buttons';
 import ConfirmDialog from '@components/dialogs/ConfirmDialog';
@@ -25,7 +25,8 @@ const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
 
 export default () => {
-  const actions = bindActionCreators(UserActions, useDispatch());
+  const appActions = bindActionCreators(AppActions, useDispatch());
+  const usrActions = bindActionCreators(UserActions, useDispatch());
   const grpActions = bindActionCreators(GroupActions, useDispatch());
   const { groups, editable } = useSelector(groupState);
   const { curriculums, activeStudent } = useSelector(userState);
@@ -38,11 +39,11 @@ export default () => {
 
   // get question list
   const handleApply = (groupId: string) => {
-    actions.curriculumRegist(groupId);
+    usrActions.curriculumRegist(groupId);
   };
   // get question list
   const handleCancel = (id: string) => {
-    actions.curriculumRemove(id);
+    usrActions.curriculumRemove(id);
   };
 
   const handleClose = () => setOpen(false);
@@ -62,7 +63,12 @@ export default () => {
     setOpen(true);
   };
 
-  const handleOnView = () => setOpen(true);
+  const handleOnView = (groupId: string) => {
+    // select group
+    appActions.activeGroup(groupId);
+    // 質問リスト取得
+    grpActions.questionList();
+  };
 
   const handleGroupDelete = () => {
     grpActions.remove(groupId);
@@ -117,7 +123,12 @@ export default () => {
                       if (editable !== Consts.EDIT_MODE.EDIT) {
                         return (
                           <React.Fragment>
-                            <LoadingIconButton loading={isLoading} sx={{ p: 0.5 }} onClick={handleOnView}>
+                            <LoadingIconButton
+                              loading={isLoading}
+                              sx={{ p: 0.5 }}
+                              onClick={() => {
+                                handleOnView(dataRow.id);
+                              }}>
                               <PageviewIcon sx={{ fontSize: 32 }} />
                             </LoadingIconButton>
                             <LoadingIconButton
