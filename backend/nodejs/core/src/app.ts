@@ -13,7 +13,7 @@ import {
   QuestionDelete,
 } from '@src/apis/questions';
 import { DailyTasks, LearningProgress, LearningOverall, Inquiry } from '@src/apis/reports';
-import { CurriculumRegist, CurriculumList, CurriculumRemove } from '@src/apis/curriculums';
+import { CurriculumRegist, CurriculumList, CurriculumRemove, CurriculumQuestions } from '@src/apis/curriculums';
 import { WeeklyAbilityRegist, WeeklyAbilityList, WeeklyAbilityAnswer } from '@src/apis/weekly';
 import { Patchs } from '@src/apis/patch';
 
@@ -105,6 +105,8 @@ app.post('/v1/curriculums', express.json(), (req, res) => entry(req, res, Curric
 app.get('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumList));
 // カリキュラム削除
 app.delete('/v1/curriculums/:curriculumId', express.json(), (req, res) => entry(req, res, CurriculumRemove));
+// カリキュラムの問題集一覧
+app.get('/v1/curriculums/:curriculumId/questions', express.json(), (req, res) => entry(req, res, CurriculumQuestions));
 
 // 週テスト対策の問題登録
 app.post('/v1/study/weekly', express.json(), (req, res) => entry(req, res, WeeklyAbilityRegist));
