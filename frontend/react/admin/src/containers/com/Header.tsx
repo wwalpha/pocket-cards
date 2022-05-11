@@ -15,6 +15,7 @@ import { RootState } from 'typings';
 import { UploadButton } from '@components/buttons';
 
 const appState = (state: RootState) => state.app;
+const groupState = (state: RootState) => state.group;
 
 export default () => {
   const dispatch = useDispatch();
@@ -23,14 +24,20 @@ export default () => {
   const grpActions = bindActionCreators(GroupActions, dispatch);
 
   const { authority, isLoading } = useSelector(appState);
+  const { editable } = useSelector(groupState);
 
   const handleUserReigst = () => actions.showUserRegist();
   const handleLogout = () => actions.logout();
   const handleGroupAdd = () => grpActions.transitToGroupRegist();
-  const handleAbilityRegist = () => {
-    // go to top
-    dispatch(push(ROUTE_PATHS.ABILITIES_REGIST));
+  const handleGroupEdit = () => {
+    if (editable === Consts.EDIT_MODE.EDIT) {
+      grpActions.editable(Consts.EDIT_MODE.REGIST);
+    } else {
+      grpActions.editable(Consts.EDIT_MODE.EDIT);
+    }
   };
+
+  const handleAbilityRegist = () => dispatch(push(ROUTE_PATHS.ABILITIES_REGIST));
 
   const handleAdminBack = () => {
     if (pathname === ROUTE_PATHS.QUESTION_LIST) {
@@ -143,13 +150,24 @@ export default () => {
 
             if (pathname === ROUTE_PATHS.ABILITIES) {
               return (
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                  onClick={handleAbilityRegist}>
-                  ADD
-                </Button>
+                <React.Fragment>
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                    onClick={handleGroupEdit}>
+                    {editable === Consts.EDIT_MODE.EDIT ? 'CANCEL' : 'EDIT'}
+                  </Button>
+                  {editable !== Consts.EDIT_MODE.EDIT && (
+                    <Button
+                      variant="outlined"
+                      color="inherit"
+                      sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                      onClick={handleAbilityRegist}>
+                      ADD
+                    </Button>
+                  )}
+                </React.Fragment>
               );
             }
           })()}

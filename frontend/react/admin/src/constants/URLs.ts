@@ -11,7 +11,9 @@ export const GroupList = () => `${API_VERSION}/groups`;
 // グループ情報登録
 export const GroupRegist = () => `${API_VERSION}/groups`;
 // グループ情報変更
-export const GroupUpdate = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
+export const GROUP_UPDATE = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
+// グループ情報削除
+export const GROUP_REMOVE = (groupId: string) => `${API_VERSION}/groups/${groupId}`;
 
 // 問題集一覧取得
 export const QUESTION_LIST = (groupId: string) => `${API_VERSION}/groups/${groupId}/questions`;

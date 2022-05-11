@@ -11,6 +11,13 @@ export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST',
   return res.items;
 });
 
+export const GROUP_REMOVE = createAsyncThunk<string, string>('group/GROUP_REMOVE', async (id) => {
+  // グループ削除
+  await API.del(URLs.GROUP_REMOVE(id));
+
+  return id;
+});
+
 /** Question List */
 export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], void>(
   'group/GROUP_QUESTION_LIST',

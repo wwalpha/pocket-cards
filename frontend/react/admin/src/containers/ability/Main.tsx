@@ -15,7 +15,7 @@ import PageviewIcon from '@mui/icons-material/Pageview';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { StyledTableCell, styles } from './Main.style';
 import { Consts } from '@constants';
-import { UserActions } from '@actions';
+import { GroupActions, UserActions } from '@actions';
 import { RootState } from 'typings';
 import { LoadingIconButton } from '@components/buttons';
 import ConfirmDialog from '@components/dialogs/ConfirmDialog';
@@ -26,11 +26,13 @@ const userState = (state: RootState) => state.user;
 
 export default () => {
   const actions = bindActionCreators(UserActions, useDispatch());
+  const grpActions = bindActionCreators(GroupActions, useDispatch());
   const { groups, editable } = useSelector(groupState);
   const { curriculums, activeStudent } = useSelector(userState);
   const { isLoading, authority } = useSelector(appState);
 
   const [open, setOpen] = useState(false);
+
   const [curriculumId, setCurriculumId] = useState<string | undefined>(undefined);
   const [groupId, setGroupId] = useState('');
 
@@ -55,6 +57,19 @@ export default () => {
     setOpen(false);
   };
 
+  const handleOnDelete = (id: string) => {
+    setGroupId(id);
+    setOpen(true);
+  };
+
+  const handleOnView = () => setOpen(true);
+
+  const handleGroupDelete = () => {
+    grpActions.remove(groupId);
+    // grpActions
+    setOpen(false);
+  };
+
   const displayGroups = groups.filter((item) => item.subject.length === 3);
   const curriculumItems = curriculums.filter((item) => item.userId === activeStudent);
 
@@ -75,15 +90,7 @@ export default () => {
               <TableRow key={dataRow.id}>
                 <TableCell>
                   <Box sx={{ display: 'flex' }}>
-                    {/* <LoadingIconButton loading={isLoading} sx={{ p: 0.5 }} color="error">
-                      <DeleteIcon sx={{ fontSize: 32 }} />
-                    </LoadingIconButton> */}
-                    <LoadingIconButton loading={isLoading} sx={{ p: 0.5 }}>
-                      <PageviewIcon sx={{ fontSize: 32 }} />
-                    </LoadingIconButton>
                     {(() => {
-                      if (authority !== Consts.Authority.PARENT) return;
-
                       const item = curriculumItems.find((item) => item.groupId === dataRow.id);
                       const icon = !item ? (
                         <CheckCircleIcon sx={{ fontSize: 32 }} />
@@ -92,19 +99,41 @@ export default () => {
                       );
                       const color = item ? 'error' : 'success';
 
-                      return (
-                        <LoadingIconButton
-                          sx={{ p: 0.5 }}
-                          loading={isLoading}
-                          color={color}
-                          onClick={() => {
-                            setGroupId(dataRow.id);
-                            setCurriculumId(item?.id);
-                            setOpen(true);
-                          }}>
-                          {icon}
-                        </LoadingIconButton>
-                      );
+                      if (editable === Consts.EDIT_MODE.EDIT) {
+                        return (
+                          <LoadingIconButton
+                            disabled={item !== undefined}
+                            loading={isLoading}
+                            sx={{ p: 0.5 }}
+                            color="error"
+                            onClick={() => {
+                              handleOnDelete(dataRow.id);
+                            }}>
+                            <DeleteIcon sx={{ fontSize: 32 }} />
+                          </LoadingIconButton>
+                        );
+                      }
+
+                      if (editable !== Consts.EDIT_MODE.EDIT) {
+                        return (
+                          <React.Fragment>
+                            <LoadingIconButton loading={isLoading} sx={{ p: 0.5 }} onClick={handleOnView}>
+                              <PageviewIcon sx={{ fontSize: 32 }} />
+                            </LoadingIconButton>
+                            <LoadingIconButton
+                              sx={{ p: 0.5 }}
+                              loading={isLoading}
+                              color={color}
+                              onClick={() => {
+                                setGroupId(dataRow.id);
+                                setCurriculumId(item?.id);
+                                setOpen(true);
+                              }}>
+                              {icon}
+                            </LoadingIconButton>
+                          </React.Fragment>
+                        );
+                      }
                     })()}
                   </Box>
                 </TableCell>
@@ -121,25 +150,24 @@ export default () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <ConfirmDialog
-        open={open}
-        message={`カリキュラムを${curriculumId ? '解除' : '適用'}しますか？`}
-        onClose={handleClose}
-        onConfirm={handleConfirm}
-        maxWidth="md"
-      />
-      {/* <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle id="alert-dialog-title">カリキュラム</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description"></DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleConfirm} autoFocus>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog> */}
+
+      {editable === Consts.EDIT_MODE.EDIT ? (
+        <ConfirmDialog
+          open={open}
+          message="削除しますか？"
+          onClose={handleClose}
+          onConfirm={handleGroupDelete}
+          maxWidth="md"
+        />
+      ) : (
+        <ConfirmDialog
+          open={open}
+          message={`カリキュラムを${curriculumId ? '解除' : '適用'}しますか？`}
+          onClose={handleClose}
+          onConfirm={handleConfirm}
+          maxWidth="md"
+        />
+      )}
     </Box>
   );
 };

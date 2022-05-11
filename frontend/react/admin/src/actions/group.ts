@@ -40,6 +40,14 @@ export const regist = (datas: Group.Regist) => (dispatch: AppDispatch) =>
     })
   );
 
+/** グループ登録 */
+export const remove = (id: string) => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      dispatch(Actions.GROUP_REMOVE(id));
+    })
+  );
+
 // clear questions
 export const clearQuestions = () => (dispatch: AppDispatch) => {
   dispatch(Actions.GROUP_QUESTION_CLEAR());
@@ -56,7 +64,7 @@ export const edit = (details: Omit<Group.Details, 'subject'>) => (dispatch: AppD
   dispatch(
     withLoading(async () => {
       // グループ編集API
-      await API.put<void, APIs.GroupUpdateRequest>(URLs.GroupUpdate(details.id), {
+      await API.put<void, APIs.GroupUpdateRequest>(URLs.GROUP_UPDATE(details.id), {
         name: details.name,
         description: details.description,
       });
