@@ -12,14 +12,14 @@ export const button: FunctionComponent<LoadingIconButtonProps> = ({ color = 'sec
         aria-label="view"
         color={color}
         onClick={props.onClick}
-        disabled={props.loading}
+        disabled={props.disabled || props.loading}
         sx={{
           p: 0,
           px: 0.5,
           border: 1,
           borderRadius: 1,
           '&.Mui-disabled': {
-            color: 'grey.400',
+            color: props.disabled ? 'grey.700' : 'grey.400',
             backgroundColor: 'grey.400',
           },
           '&:hover': {
@@ -53,6 +53,7 @@ interface LoadingIconButtonProps {
   >;
   onClick?: MouseEventHandler;
   sx?: SxProps<Theme>;
+  disabled?: boolean;
 }
 
 export default button;
