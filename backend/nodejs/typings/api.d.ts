@@ -103,11 +103,13 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
-  // B005
+  // Group Remove
   // ------------------------------------------------------------
-  interface GroupRemoveParams {
+  interface GroupRemoveRequest {
     groupId: string;
   }
+
+  type GroupRemoveResponse = void;
 
   // ------------------------------------------------------------
   // B006
