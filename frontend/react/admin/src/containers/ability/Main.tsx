@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
@@ -19,21 +18,18 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import PageviewIcon from '@mui/icons-material/Pageview';
-import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { StyledTableCell, styles } from './Main.style';
 import { Consts } from '@constants';
-import { GroupActions } from '@actions';
-import { RootState, GroupEditForm } from 'typings';
+import { UserActions } from '@actions';
+import { RootState } from 'typings';
 
 const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
 
 export default () => {
-  const history = useHistory();
-  const actions = bindActionCreators(GroupActions, useDispatch());
+  const actions = bindActionCreators(UserActions, useDispatch());
   const { groups, editable } = useSelector(groupState);
   const { curriculums, activeStudent } = useSelector(userState);
   const { activeGroup, isLoading, authority } = useSelector(appState);
@@ -42,48 +38,13 @@ export default () => {
   const [curriculumId, setCurriculumId] = useState<string | undefined>(undefined);
   const [groupId, setGroupId] = useState('');
 
-  // 選択中のGroup情報取得
-  const groupInfo = groups.find((item) => item.id === activeGroup);
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<GroupEditForm>({
-    defaultValues: {
-      id: groupInfo?.id,
-      name: groupInfo?.name || '',
-      description: groupInfo?.description || '',
-      subject: groupInfo?.subject || '0',
-    },
-  });
-
-  // 編集
-  const onSubmit = handleSubmit((datas) => {
-    if (editable === Consts.EDIT_MODE.EDIT) {
-      actions.edit({
-        id: activeGroup,
-        name: datas.name,
-        description: datas.description,
-      });
-    } else if (editable === Consts.EDIT_MODE.REGIST) {
-      actions.regist({
-        name: datas.name,
-        description: datas.description,
-        subject: datas.subject,
-      });
-    }
-  });
-
-  const handleBack = () => history.goBack();
-
   // get question list
   const handleApply = (groupId: string) => {
-    usrActions.curriculumRegist(groupId);
+    actions.curriculumRegist(groupId);
   };
   // get question list
   const handleCancel = (id: string) => {
-    usrActions.curriculumRemove(id);
+    actions.curriculumRemove(id);
   };
 
   const handleClose = () => setOpen(false);

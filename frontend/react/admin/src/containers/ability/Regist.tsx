@@ -4,20 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import Checkbox from '@mui/material/Checkbox';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Consts } from '@constants';
 import { GroupActions } from '@actions';
 import { RootState, AbilityForm } from 'typings';
-import FormHelperText from '@mui/material/FormHelperText';
+import Paper from '@mui/material/Paper';
 
 const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
@@ -48,7 +51,6 @@ export default () => {
 
   // 編集
   const onSubmit = handleSubmit((datas) => {
-    console.log(datas);
     actions.registAbility({
       name: datas.name,
       student: datas.student,
@@ -58,6 +60,17 @@ export default () => {
   });
 
   const handleBack = () => history.goBack();
+
+  const handleToggle = (id: string, values: string[]) => {
+    if (values.includes(id)) {
+      const index = values.findIndex((v) => v === id);
+      values.splice(index, 1);
+    } else {
+      values.push(id);
+    }
+  };
+
+  const groupIds = watch('groupIds');
 
   return (
     <form onSubmit={onSubmit}>
@@ -121,34 +134,50 @@ export default () => {
           name="groupIds"
           rules={{ required: 'required' }}
           control={control}
-          render={({ field: { value } }) => {
+          render={({ field: { value, onChange } }) => {
             const dataRows = groups
               .filter((item) => item.subject === subject)
-              .map((item) => (
-                <FormControlLabel
-                  key={item.id}
-                  label={item.name}
-                  control={
-                    <Checkbox
-                      sx={{ mx: 2 }}
-                      value={item.id}
-                      onChange={(_, checked) => {
-                        if (checked === true) {
-                          value.push(item.id);
-                        } else {
-                          const index = value.findIndex((v) => v === item.id);
-                          value.splice(index, 1);
-                        }
+              .map((item) => {
+                const labelId = `checkbox-list-label-${item.id}`;
+
+                return (
+                  <ListItem key={item.id} disablePadding sx={{ width: '50%' }}>
+                    <ListItemButton
+                      role={undefined}
+                      onClick={() => {
+                        handleToggle(item.id, value);
+                        onChange(value);
                       }}
-                    />
-                  }
-                />
-              ));
+                      dense>
+                      <ListItemIcon>
+                        <Checkbox
+                          edge="start"
+                          value={item.id}
+                          checked={groupIds.includes(item.id)}
+                          tabIndex={-1}
+                          disableRipple
+                          onChange={(_, checked) => {
+                            if (checked === true) {
+                              value.push(item.id);
+                            } else {
+                              const index = value.findIndex((v) => v === item.id);
+                              value.splice(index, 1);
+                            }
+                            onChange(value);
+                          }}
+                          inputProps={{ 'aria-labelledby': labelId }}
+                        />
+                      </ListItemIcon>
+                      <ListItemText id={labelId} primary={item.name} />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              });
 
             return (
-              <FormGroup sx={{ border: 1, mt: 2, height: 'calc(100vh - 340px)', borderColor: 'grey' }}>
-                {dataRows}
-              </FormGroup>
+              <Paper sx={{ maxHeight: 400, overflow: 'auto', my: 1 }}>
+                <Box sx={{ display: 'flex', flexFlow: 'wrap', p: 0 }}>{dataRows}</Box>
+              </Paper>
             );
           }}
         />
