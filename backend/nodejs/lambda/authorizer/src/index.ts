@@ -118,6 +118,7 @@ const buildAuthPolicy = async (
       break;
     case 'PARENT':
       policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups');
+      policy.allowMethod(AuthPolicy.HttpVerb.DELETE, '/groups/*');
       policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups/*/questions');
       policy.allowMethod(AuthPolicy.HttpVerb.GET, '/curriculums');
       policy.allowMethod(AuthPolicy.HttpVerb.PUT, '/curriculums');
