@@ -25,7 +25,7 @@ const theme = createTheme({
       paper: '#FEF4E8',
     },
     success: {
-      main: '#6ECB63',
+      main: '#2FB390',
       contrastText: 'white',
     },
     warning: {

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
@@ -16,13 +15,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import LoadingButton from '@mui/lab/LoadingButton';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import CancelIcon from '@mui/icons-material/Cancel';
+import PageviewIcon from '@mui/icons-material/Pageview';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { StyledTableCell, styles } from './Main.style';
 import { Consts } from '@constants';
 import { UserActions } from '@actions';
 import { RootState } from 'typings';
+import { LoadingIconButton } from '@components/buttons';
+import ConfirmDialog from '@components/dialogs/ConfirmDialog';
 
 const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
@@ -32,7 +34,7 @@ export default () => {
   const actions = bindActionCreators(UserActions, useDispatch());
   const { groups, editable } = useSelector(groupState);
   const { curriculums, activeStudent } = useSelector(userState);
-  const { activeGroup, isLoading, authority } = useSelector(appState);
+  const { isLoading, authority } = useSelector(appState);
 
   const [open, setOpen] = useState(false);
   const [curriculumId, setCurriculumId] = useState<string | undefined>(undefined);
@@ -79,37 +81,35 @@ export default () => {
               <TableRow key={dataRow.id}>
                 <TableCell>
                   <Box sx={{ display: 'flex' }}>
-                    <LoadingButton
-                      loading={isLoading}
-                      variant="contained"
-                      color="secondary"
-                      size="small"
-                      sx={{ py: 0, mx: 0.5 }}>
-                      View
-                    </LoadingButton>
+                    {/* <LoadingIconButton loading={isLoading} sx={{ p: 0.5 }} color="error">
+                      <DeleteIcon sx={{ fontSize: 32 }} />
+                    </LoadingIconButton> */}
+                    <LoadingIconButton loading={isLoading} sx={{ p: 0.5 }}>
+                      <PageviewIcon sx={{ fontSize: 32 }} />
+                    </LoadingIconButton>
                     {(() => {
                       if (authority !== Consts.Authority.PARENT) return;
 
                       const item = curriculumItems.find((item) => item.groupId === dataRow.id);
-                      const label = !item ? 'Study' : 'Cancel';
-                      const icon = !item ? <CheckCircleIcon /> : <HighlightOffIcon />;
-                      const color = item ? 'info' : 'primary';
+                      const icon = !item ? (
+                        <CheckCircleIcon sx={{ fontSize: 32 }} />
+                      ) : (
+                        <CancelIcon sx={{ fontSize: 32 }} />
+                      );
+                      const color = item ? 'error' : 'success';
 
                       return (
-                        <LoadingButton
+                        <LoadingIconButton
+                          sx={{ p: 0.5 }}
                           loading={isLoading}
-                          variant="contained"
                           color={color}
-                          startIcon={icon}
-                          size="small"
-                          sx={{ py: 0, mx: 0.5, width: 100 }}
                           onClick={() => {
                             setGroupId(dataRow.id);
                             setCurriculumId(item?.id);
                             setOpen(true);
                           }}>
-                          {label}
-                        </LoadingButton>
+                          {icon}
+                        </LoadingIconButton>
                       );
                     })()}
                   </Box>
@@ -127,12 +127,17 @@ export default () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Dialog open={open} onClose={handleClose} maxWidth="md">
+      <ConfirmDialog
+        open={open}
+        message={`カリキュラムを${curriculumId ? '解除' : '適用'}しますか？`}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+        maxWidth="md"
+      />
+      {/* <Dialog open={open} onClose={handleClose} maxWidth="md">
         <DialogTitle id="alert-dialog-title">カリキュラム</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            カリキュラムを{curriculumId ? '解除' : '適用'}しますか？
-          </DialogContentText>
+          <DialogContentText id="alert-dialog-description"></DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
@@ -140,7 +145,7 @@ export default () => {
             OK
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </Box>
   );
 };
