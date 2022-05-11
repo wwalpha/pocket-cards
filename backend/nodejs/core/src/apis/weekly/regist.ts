@@ -1,7 +1,7 @@
 import { generate } from 'short-uuid';
 import { Request } from 'express';
-import { CurriculumService, GroupService, QuestionService } from '@services';
-import { DBHelper, Commons, ValidationError } from '@utils';
+import { GroupService, QuestionService } from '@services';
+import { DBHelper, ValidationError } from '@utils';
 import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 
@@ -11,7 +11,6 @@ export default async (
 ): Promise<APIs.WeeklyAbilityRegistResponse> => {
   // next study date
   const { groupIds, name, subject, student } = req.body;
-  const guardian = Commons.getUserId(req);
 
   if (!groupIds || groupIds.length === 0) {
     throw new ValidationError('Group ids is required.');
@@ -49,13 +48,6 @@ export default async (
     name: name,
   });
 
-  await createCurriculums({
-    groupId: newGroup.id,
-    guardian: guardian,
-    subject: newGroup.subject,
-    userId: student,
-  });
-
   const dataRows = questions.map<Tables.TWeeklyAbility>((item) => ({
     id: newGroup.id,
     qid: item.id,
@@ -84,18 +76,6 @@ const createNewGroup = async (item: Omit<Tables.TGroups, 'id'>) => {
   return dataRow;
 };
 
-const createCurriculums = async (item: Omit<Tables.TCurriculums, 'id'>) => {
-  const dataRow: Tables.TCurriculums = {
-    id: generate(),
-    ...item,
-  };
-
-  // データ登録
-  await CurriculumService.regist(dataRow);
-
-  return dataRow;
-};
-
 const getAbilitySubject = (subject: string) => {
   switch (subject) {
     case Consts.SUBJECT.ENGLISH:
@@ -110,19 +90,3 @@ const getAbilitySubject = (subject: string) => {
       return '';
   }
 };
-
-// const getUserInfo = async (userId: string, token?: string) => {
-//   // get user information
-//   const response = await axios.get<Users.DescribeUserResponse>(Consts.API_URLs.describeUser(userId), {
-//     headers: {
-//       authorization: token,
-//     },
-//   });
-
-//   // user not found
-//   if (response.status !== 200) {
-//     throw new Error('User not found.');
-//   }
-
-//   return response.data;
-// };

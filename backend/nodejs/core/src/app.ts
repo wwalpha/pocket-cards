@@ -122,11 +122,6 @@ app.get('/v1/study/daily/test/questions', express.json(), (req, res) => entry(re
 // テスト問題更新
 app.post('/v1/study/daily/test/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionAnswer));
 
-// // 週テスト対策の実力テストの回答
-// app.post('/v1/groups/:groupId/ability/:qid', express.json(), (req, res) => entry(req, res, WeeklyAbilityAnswer));
-// // 週テスト対策の練習問題の回答
-// app.post('/v1/groups/:groupId/practice/:qid', express.json(), (req, res) => entry(req, res, WeeklyPracticeAnswer));
-
 // patch
 app.patch('/v1/patch', express.json(), (req, res) => entry(req, res, Patchs));
 
