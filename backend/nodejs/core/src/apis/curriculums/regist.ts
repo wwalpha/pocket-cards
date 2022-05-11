@@ -7,7 +7,7 @@ import { AbilityService, CurriculumService, GroupService, QuestionService } from
 
 export default async (
   req: Request<any, any, APIs.CurriculumRegistRequest, any>
-): Promise<APIs.CurriculumRegistResponse | undefined> => {
+): Promise<APIs.CurriculumRegistResponse | void> => {
   const { groupId, userId } = req.body;
   const guardian = Commons.getUserId(req);
 
@@ -20,8 +20,6 @@ export default async (
   if (!groupInfo) {
     throw new Error('Group informations not found.');
   }
-
-  let response: Tables.TCurriculums | undefined;
 
   // 普通グループ
   if (Consts.SUBJECT_NORMAL.includes(groupInfo.subject)) {
@@ -55,6 +53,8 @@ export default async (
 
     // add new curriculum
     await CurriculumService.regist(response);
+
+    return response;
   }
 
   // 実力テストグループ
@@ -84,7 +84,7 @@ export default async (
 
     // add new curriculum
     await CurriculumService.regist(response);
-  }
 
-  return response;
+    return response;
+  }
 };
