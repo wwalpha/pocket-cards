@@ -100,7 +100,7 @@ app.get('/v1/reports/overall', express.json(), (req, res) => entry(req, res, Lea
 app.post('/v1/reports/inquiry', express.json(), (req, res) => entry(req, res, Inquiry));
 
 // カリキュラム登録
-app.put('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumRegist));
+app.post('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumRegist));
 // カリキュラム一覧
 app.get('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumList));
 // カリキュラム削除
