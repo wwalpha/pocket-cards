@@ -8,9 +8,10 @@ import { DBHelper } from '@utils';
  * グループ情報削除
  * DELETE /groups/:groupId
  */
-export default async (req: Request<any, APIs.GroupRemoveRequest, any, any>): Promise<APIs.GroupRemoveResponse> => {
-  const { groupId } = req.body;
+export default async (req: Request<APIs.GroupRemoveParams, any, any, any>): Promise<APIs.GroupRemoveResponse> => {
+  const { groupId } = req.params;
 
+  // describe
   const groupInfo = await GroupService.describe(groupId);
 
   // not exists

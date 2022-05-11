@@ -105,7 +105,7 @@ export namespace APIs {
   // ------------------------------------------------------------
   // Group Remove
   // ------------------------------------------------------------
-  interface GroupRemoveRequest {
+  interface GroupRemoveParams {
     groupId: string;
   }
 
