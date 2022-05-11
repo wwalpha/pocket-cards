@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { AbilityService, CurriculumService, GroupService, LearningService } from '@services';
+import { AbilityService, CurriculumService, LearningService } from '@services';
 import { DBHelper } from '@utils';
 import { Consts, Environment } from '@consts';
 import { APIs } from 'typings';
@@ -43,8 +43,6 @@ export default async (
       DBHelper().truncate(Environment.TABLE_NAME_WEEKLY_ABILITY, ability),
       // remove curriculum
       CurriculumService.remove(curriculumId),
-      // remove template group
-      GroupService.remove(groupId),
     ]);
   }
 };
