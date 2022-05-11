@@ -10,16 +10,13 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
 import LoadingButton from '@mui/lab/LoadingButton';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import EditIcon from '@mui/icons-material/Edit';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import CancelIcon from '@mui/icons-material/Cancel';
+import ConfirmDialog from '@components/dialogs/ConfirmDialog';
+import { LoadingIconButton } from '@components/buttons';
 import { AppActions, GroupActions, UserActions } from '@actions';
 import { ROUTE_PATHS, Consts } from '@constants';
 import { RootState } from 'typings';
@@ -98,42 +95,40 @@ export default () => {
               <TableRow key={dataRow.id}>
                 <TableCell>
                   <Box sx={{ display: 'flex' }}>
-                    <LoadingButton
-                      disabled={authority !== Consts.Authority.ADMIN && dataRow.count === 0}
+                    <LoadingIconButton
                       loading={isLoading}
-                      variant="contained"
-                      color="secondary"
-                      startIcon={<PageviewIcon />}
-                      size="small"
-                      sx={{ py: 0, mx: 0.5 }}
+                      sx={{ p: 0.5 }}
+                      disabled={authority !== Consts.Authority.ADMIN && dataRow.count === 0}
                       onClick={() => {
                         handleQuestions(dataRow.id);
                       }}>
-                      View
-                    </LoadingButton>
+                      <PageviewIcon sx={{ fontSize: 32 }} />
+                    </LoadingIconButton>
                     {(() => {
                       if (authority !== Consts.Authority.PARENT) return;
 
                       const item = curriculumItems.find((item) => item.groupId === dataRow.id);
                       const label = !item ? 'Study' : 'Cancel';
-                      const icon = !item ? <CheckCircleIcon /> : <HighlightOffIcon />;
-                      const color = item ? 'info' : 'primary';
+                      const icon = !item ? (
+                        <CheckCircleIcon sx={{ fontSize: 32 }} />
+                      ) : (
+                        <CancelIcon sx={{ fontSize: 32 }} />
+                      );
+                      const color = item ? 'error' : 'success';
 
                       return (
-                        <LoadingButton
+                        <LoadingIconButton
+                          sx={{ p: 0.5 }}
                           loading={isLoading}
-                          variant="contained"
                           color={color}
-                          startIcon={icon}
-                          size="small"
-                          sx={{ py: 0, mx: 0.5, width: 100 }}
+                          disabled={authority !== Consts.Authority.ADMIN && dataRow.count === 0}
                           onClick={() => {
                             setGroupId(dataRow.id);
                             setCurriculumId(item?.id);
                             setOpen(true);
                           }}>
-                          {label}
-                        </LoadingButton>
+                          {icon}
+                        </LoadingIconButton>
                       );
                     })()}
                     {authority === Consts.Authority.ADMIN && (
@@ -161,20 +156,13 @@ export default () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle id="alert-dialog-title">カリキュラム</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            カリキュラムを{curriculumId ? '解除' : '適用'}しますか？
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleConfirm} autoFocus>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ConfirmDialog
+        open={open}
+        maxWidth="md"
+        message={`カリキュラムを${curriculumId ? '解除' : '適用'}しますか？`}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+      />
     </Box>
   );
 };
