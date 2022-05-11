@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import { json, urlencoded } from 'body-parser';
 import { A002 } from '@src/apis/a0';
-import { GroupRegist, GroupList, GroupDescribe, GroupUpdate, GroupRemove } from '@src/apis/b0';
+import { GroupRegist, GroupList, GroupDescribe, GroupUpdate, GroupRemove } from '@src/apis/groups';
 import {
   QuestionRegist,
   QuestionStudy,
