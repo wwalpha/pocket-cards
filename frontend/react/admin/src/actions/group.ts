@@ -76,11 +76,11 @@ export const questionUpdate = (param: QuestionUpdateParameter) => (dispatch: App
 };
 
 /** 質問リスト */
-export const questionList = (subject: string, groupId: string) => async (dispatch: AppDispatch) => {
+export const questionList = (groupId: string, routePath: string) => async (dispatch: AppDispatch) => {
   // Get question lists
   await dispatch(Actions.GROUP_QUESTION_LIST(groupId)).unwrap();
-  // move to page
-  dispatch(push(ROUTE_PATHS.GROUP_QUESTIONS(subject, groupId)));
+
+  dispatch(push(routePath));
 };
 
 /** 質問リスト */

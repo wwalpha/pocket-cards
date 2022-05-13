@@ -9,7 +9,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import EditIcon from '@mui/icons-material/Edit';
@@ -27,7 +26,6 @@ const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
 
 export default () => {
-  const actions = bindActionCreators(AppActions, useDispatch());
   const grpActions = bindActionCreators(GroupActions, useDispatch());
   const usrActions = bindActionCreators(UserActions, useDispatch());
 
@@ -50,8 +48,9 @@ export default () => {
 
   // get question list
   const handleQuestions = (groupId: string) => {
+    const path = ROUTE_PATHS.GROUP_QUESTIONS(subject, groupId);
     // 質問リスト取得
-    grpActions.questionList(subject, groupId);
+    grpActions.questionList(groupId, path);
   };
 
   const handleClose = () => setOpen(false);
