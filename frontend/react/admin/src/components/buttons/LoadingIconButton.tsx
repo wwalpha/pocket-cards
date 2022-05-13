@@ -7,7 +7,7 @@ import type { OverridableStringUnion } from '@mui/types';
 
 export const button: FunctionComponent<LoadingIconButtonProps> = ({ color = 'secondary', ...props }) => {
   return (
-    <Box sx={{ m: 0, p: 0, position: 'relative', ...props.sx }}>
+    <Box sx={{ m: 0, p: 0, position: 'relative', ...props.sx }} component={props.component}>
       <IconButton
         aria-label="view"
         color={color}
@@ -54,6 +54,7 @@ interface LoadingIconButtonProps {
   onClick?: MouseEventHandler;
   sx?: SxProps<Theme>;
   disabled?: boolean;
+  component?: React.ElementType;
 }
 
 export default button;

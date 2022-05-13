@@ -3,8 +3,6 @@ import { Domains } from 'typings';
 import { Consts } from '@constants';
 
 const appState: Domains.AppState = {
-  activeSubject: Consts.SUBJECT.LANGUAGE,
-  activeGroup: '',
   isLoading: false,
   showSnackbar: false,
   showUserRegist: false,
@@ -56,14 +54,6 @@ const slice = createSlice({
 
     APP_SHOW_USER_REGIST: (state, action: PayloadAction<boolean>) => {
       state.showUserRegist = action.payload;
-    },
-
-    APP_ACTIVE_SUBJECT: (state, { payload }: PayloadAction<string>) => {
-      state.activeSubject = payload;
-    },
-
-    APP_ACTIVE_GROUP: (state, { payload }: PayloadAction<string>) => {
-      state.activeGroup = payload;
     },
 
     APP_SET_AUTHORITY: (state, { payload }: PayloadAction<string | undefined>) => {

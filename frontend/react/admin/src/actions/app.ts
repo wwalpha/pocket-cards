@@ -38,30 +38,7 @@ export const logout = () => (dispatch: AppDispatch) => {
 };
 
 /** selected subject */
-export const activeSubject = (id: string) => (dispatch: AppDispatch) => {
-  // active group
-  dispatch(Actions.APP_ACTIVE_SUBJECT(id));
-
-  switch (id) {
-    case Consts.SUBJECT.LANGUAGE:
-      dispatch(push(ROUTE_PATHS.ROOT_LANGUAGE));
-      break;
-    case Consts.SUBJECT.SCIENCE:
-      dispatch(push(ROUTE_PATHS.ROOT_SCIENCE));
-      break;
-    case Consts.SUBJECT.SOCIETY:
-      dispatch(push(ROUTE_PATHS.ROOT_SOCIETY));
-      break;
-    case Consts.SUBJECT.ENGLISH:
-      dispatch(push(ROUTE_PATHS.ROOT_ENGLISH));
-      break;
-    default:
-      dispatch(push(ROUTE_PATHS.ROOT));
-  }
-};
-
-/** selected group */
-export const activeGroup = (id: string) => (dispatch: AppDispatch) => {
-  // active group
-  dispatch(Actions.APP_ACTIVE_GROUP(id));
+export const activeSubject = (subject: string) => (dispatch: AppDispatch) => {
+  // move to page
+  dispatch(push(ROUTE_PATHS.GROUP_ROOT(subject)));
 };
