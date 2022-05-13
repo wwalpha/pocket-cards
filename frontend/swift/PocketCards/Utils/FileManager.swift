@@ -53,8 +53,8 @@ extension FileManager {
     func fileExists(fileName: String) -> Bool {
         let destinationUrl = directoryUrl()?.appendingPathComponent(fileName)
 
-        if let destinationUrl = destinationUrl {
-            if FileManager().fileExists(atPath: destinationUrl.path) {
+        if let url = destinationUrl {
+            if FileManager().fileExists(atPath: url.path) {
                 return true
             }
         }

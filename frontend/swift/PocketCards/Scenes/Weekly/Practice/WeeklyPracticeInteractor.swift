@@ -30,17 +30,22 @@ class WeeklyPracticeInteractor: PracticeInteractor {
 
             // update answer
             _ = await API.request(URLs.STUDY_WEEKLY_ANSWER(id: groupId, qid: qid), method: .post, parameters: params).serializingString().response
+
+            // add questions
+            if questions.count < 5 {
+                await loadQuestions()
+            }
         }
     }
 
-    override func loadQuestions() {
-        API.request(URLs.STUDY_WEEKLY_QUESTIONS(id: groupId), method: .get)
-            .validate()
-            .responseDecodable(of: QuestionServices.Weekly.Response.self) { response in
-                guard let res = response.value else { return }
+    override func loadQuestions() async {
+        do {
+            let res = try await API.request(URLs.STUDY_WEEKLY_QUESTIONS(id: groupId), method: .get).serializingDecodable(QuestionServices.Weekly.Response.self).value
 
-                self.addQuestions(questions: res.questions)
-            }
+            addQuestions(questions: res.questions)
+        } catch {
+            debugPrint(error)
+        }
     }
 }
 

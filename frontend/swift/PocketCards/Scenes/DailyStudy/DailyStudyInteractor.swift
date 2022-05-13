@@ -25,19 +25,19 @@ class DailyStudyInteractor: PracticeInteractor {
         }
     }
 
-    override func loadQuestions() {
-        let params = ["subject": subject]
+    override func loadQuestions() async {
+        do {
+            let params = ["subject": subject]
 
-        API.request(URLs.STUDY_DAILY_PRACTICE, method: .get, parameters: params)
-            .validate()
-            .responseDecodable(of: QuestionServices.LoadQuestion.Response.self) { response in
-                guard let res = response.value else { return }
+            let res = try await API.request(URLs.STUDY_DAILY_PRACTICE, method: .get, parameters: params).serializingDecodable(QuestionServices.LoadQuestion.Response.self).value
 
-                print("==HUB== \(res)")
+            print("==HUB== \(res.questions)")
 
-                // add new questions
-                self.addQuestions(questions: res.questions)
-            }
+            // add new questions
+            addQuestions(questions: res.questions)
+        } catch {
+            debugPrint(error)
+        }
     }
 }
 

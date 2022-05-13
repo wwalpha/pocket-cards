@@ -17,7 +17,9 @@ struct WeeklyTestView: View {
         VStack {
             if viewModel.isLoading {
                 Text("Loading....").onAppear {
-                    interactor?.loadQuestions()
+                    Task {
+                        await interactor?.loadQuestions()
+                    }
                 }
             } else if viewModel.isFinish {
                 Text("テストは終わりました")

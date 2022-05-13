@@ -13,8 +13,7 @@ class WeeklyPracticePresenter {
 }
 
 extension WeeklyPracticePresenter: WeeklyPracticePresentationLogic {
-    func showNext(q: Question, count: Int? = 0) {
-        debugPrint(1111, count)
+    func showNext(q: Question, count _: Int? = 0) {
         let model = WeeklyPracticeViewModel()
         model.question = q
         model.isLoading = false

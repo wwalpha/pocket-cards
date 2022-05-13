@@ -21,7 +21,9 @@ struct DailyTestView: View {
         if viewModel.isLoading {
             Text("Loading....")
                 .onAppear {
-                    interactor?.loadQuestions()
+                    Task {
+                        await interactor?.loadQuestions()
+                    }
                 }
         } else if viewModel.isFinish {
             Text("今日のテストは終わりました")
