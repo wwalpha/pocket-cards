@@ -22,5 +22,4 @@ export const SETTINGS = '/settings';
 
 export const ABILITIES = '/abilities';
 export const ABILITIES_REGIST = '/abilities/regist';
-export const ABILITIES_QUESTIONS = (subject: string = ':subject', groupId: string = ':groupId') =>
-  `/abilities/${subject}/groups/${groupId}/regist`;
+export const ABILITIES_QUESTIONS = (groupId: string = ':groupId') => `/abilities/groups/${groupId}/questions`;
