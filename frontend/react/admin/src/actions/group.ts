@@ -1,9 +1,9 @@
 import { push } from 'connected-react-router';
-import { AppActions, withLoading } from '@actions';
+import { withLoading } from '@actions';
 import { Consts, ROUTE_PATHS, URLs } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
-import { APIs, AppDispatch, Group } from 'typings';
+import { APIs, AppDispatch, Group, QuestionUpdateParameter } from 'typings';
 
 /** グループリスト */
 export const list = () => (dispatch: AppDispatch) =>
@@ -36,7 +36,7 @@ export const regist = (datas: Group.Regist) => (dispatch: AppDispatch) =>
         })
       );
 
-      dispatch(push(ROUTE_PATHS.ROOT));
+      dispatch(push(ROUTE_PATHS.GROUP_ROOT(datas.subject)));
     })
   );
 
@@ -60,7 +60,7 @@ export const editable = (mode: Consts.EDIT_MODE) => (dispatch: AppDispatch) => {
 };
 
 /** グループ編集 */
-export const edit = (details: Omit<Group.Details, 'subject'>) => (dispatch: AppDispatch) =>
+export const edit = (details: Group.Details) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // グループ編集API
@@ -72,42 +72,33 @@ export const edit = (details: Omit<Group.Details, 'subject'>) => (dispatch: AppD
       // グループ再取得
       await dispatch(Actions.GROUP_LIST()).unwrap();
 
-      dispatch(push(ROUTE_PATHS.ROOT));
+      dispatch(push(ROUTE_PATHS.GROUP_ROOT(details.subject)));
     })
   );
 
-export const transitToGroupRegist = () => (dispatch: AppDispatch) => {
+export const transitToGroupRegist = (subject: string) => (dispatch: AppDispatch) => {
   // enable group regist
   editable(Consts.EDIT_MODE.REGIST)(dispatch);
-  // remove active group
-  AppActions.activeGroup('')(dispatch);
   // transit to group detail
-  dispatch(push(ROUTE_PATHS.GROUP_LIST));
+  dispatch(push(ROUTE_PATHS.GROUP_REGIST(subject)));
 };
 
 /** 問題集更新 */
-export const questionUpdate = (questionId: string, request: APIs.QuestionUpdateRequest) => (dispatch: AppDispatch) =>
+export const questionUpdate = (param: QuestionUpdateParameter) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
-      dispatch(
-        Actions.GROUP_QUESTION_UPDATE({
-          questionId: questionId,
-          title: request.title,
-          answer: request.answer,
-          choices: request.choices,
-        })
-      );
+      dispatch(Actions.GROUP_QUESTION_UPDATE(param));
     })
   );
 
 /** 質問リスト */
-export const questionList = () => (dispatch: AppDispatch) =>
+export const questionList = (subject: string, groupId: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // Get question lists
-      await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
-
-      dispatch(push(ROUTE_PATHS.QUESTION_LIST));
+      await dispatch(Actions.GROUP_QUESTION_LIST(groupId)).unwrap();
+      // move to page
+      dispatch(push(ROUTE_PATHS.GROUP_QUESTIONS(subject, groupId)));
     })
   );
 
@@ -120,17 +111,17 @@ export const uploadConfirm = (texts: string) => (dispatch: AppDispatch) => {
 };
 
 /** 質問リスト */
-export const uploadQuestions = () => (dispatch: AppDispatch) =>
+export const uploadQuestions = (subject: string, groupId: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // regist questions
-      await dispatch(Actions.GROUP_QUESTION_REGIST()).unwrap();
+      await dispatch(Actions.GROUP_QUESTION_REGIST(groupId)).unwrap();
 
       // Get question lists
-      await dispatch(Actions.GROUP_QUESTION_LIST()).unwrap();
+      await dispatch(Actions.GROUP_QUESTION_LIST(groupId)).unwrap();
 
       // transit to upload confirm
-      dispatch(push(ROUTE_PATHS.QUESTION_LIST));
+      dispatch(push(ROUTE_PATHS.GROUP_QUESTIONS(subject, groupId)));
     })
   );
 

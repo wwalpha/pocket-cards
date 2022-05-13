@@ -18,9 +18,9 @@ import ConfirmDialog from '@components/dialogs/ConfirmDialog';
 import { LoadingIconButton } from '@components/buttons';
 import { AppActions, GroupActions, UserActions } from '@actions';
 import { ROUTE_PATHS, Consts } from '@constants';
-import { RootState } from 'typings';
+import { GroupParams, RootState } from 'typings';
 import { StyledTableCell, styles } from './Mainboard.style';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
@@ -31,8 +31,9 @@ export default () => {
   const grpActions = bindActionCreators(GroupActions, useDispatch());
   const usrActions = bindActionCreators(UserActions, useDispatch());
 
+  const { subject = Consts.SUBJECT.LANGUAGE } = useParams<GroupParams>();
   const { groups } = useSelector(groupState);
-  const { isLoading, activeSubject, authority } = useSelector(appState);
+  const { isLoading, authority } = useSelector(appState);
   const { curriculums, activeStudent } = useSelector(userState);
   const [open, setOpen] = useState(false);
   const [curriculumId, setCurriculumId] = useState<string | undefined>(undefined);
@@ -49,10 +50,8 @@ export default () => {
 
   // get question list
   const handleQuestions = (groupId: string) => {
-    // select group
-    actions.activeGroup(groupId);
     // 質問リスト取得
-    grpActions.questionList();
+    grpActions.questionList(subject, groupId);
   };
 
   const handleClose = () => setOpen(false);
@@ -69,13 +68,11 @@ export default () => {
 
   // Folder click
   const handleEdit = (groupId: string, editable: Consts.EDIT_MODE) => {
-    // 選択値を保存する
-    actions.activeGroup(groupId);
     // 編集モード
     grpActions.editable(editable);
   };
 
-  const displayGroups = groups.filter((item) => item.subject === activeSubject);
+  const displayGroups = groups.filter((item) => item.subject === subject);
   const curriculumItems = curriculums.filter((item) => item.userId === activeStudent);
 
   return (
@@ -106,7 +103,6 @@ export default () => {
                       if (authority !== Consts.Authority.PARENT) return;
 
                       const item = curriculumItems.find((item) => item.groupId === dataRow.id);
-                      const label = !item ? 'Study' : 'Cancel';
                       const icon = !item ? (
                         <CheckCircleIcon sx={{ fontSize: 32 }} />
                       ) : (
@@ -130,20 +126,17 @@ export default () => {
                       );
                     })()}
                     {authority === Consts.Authority.ADMIN && (
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        startIcon={<EditIcon />}
-                        size="small"
-                        sx={{ py: 0, mx: 0.5 }}
+                      <LoadingIconButton
+                        sx={{ p: 0.5 }}
+                        loading={isLoading}
                         onClick={() => {
                           handleEdit(dataRow.id, Consts.EDIT_MODE.EDIT);
                         }}
                         component={React.forwardRef((props: any, ref: any) => (
-                          <Link to={ROUTE_PATHS.GROUP_LIST} {...props} />
+                          <Link to={ROUTE_PATHS.GROUP_EDIT(subject, dataRow.id)} {...props} />
                         ))}>
-                        Edit
-                      </Button>
+                        <EditIcon sx={{ fontSize: 32 }} />
+                      </LoadingIconButton>
                     )}
                   </Box>
                 </TableCell>

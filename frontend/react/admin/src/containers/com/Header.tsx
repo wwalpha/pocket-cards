@@ -8,11 +8,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
-import { useLocation } from 'react-router-dom';
+import { UploadButton } from '@components/buttons';
+import { useLocation, useParams } from 'react-router-dom';
 import { ROUTE_PATHS, Consts } from '@constants';
 import { AppActions, GroupActions } from '@actions';
-import { RootState } from 'typings';
-import { UploadButton } from '@components/buttons';
+import { HeaderParams, RootState } from 'typings';
 
 const appState = (state: RootState) => state.app;
 const groupState = (state: RootState) => state.group;
@@ -25,10 +25,11 @@ export default () => {
 
   const { authority, isLoading } = useSelector(appState);
   const { editable } = useSelector(groupState);
+  const { subject, groupId } = useParams<HeaderParams>();
 
   const handleUserReigst = () => actions.showUserRegist();
   const handleLogout = () => actions.logout();
-  const handleGroupAdd = () => grpActions.transitToGroupRegist();
+  const handleGroupAdd = () => grpActions.transitToGroupRegist(subject);
   const handleGroupEdit = () => {
     if (editable === Consts.EDIT_MODE.EDIT) {
       grpActions.editable(Consts.EDIT_MODE.REGIST);
@@ -39,20 +40,20 @@ export default () => {
 
   const handleAbilityRegist = () => dispatch(push(ROUTE_PATHS.ABILITIES_REGIST));
 
-  const handleAdminBack = () => {
-    if (pathname === ROUTE_PATHS.QUESTION_LIST) {
-      // go to top
-      dispatch(push(ROUTE_PATHS.ROOT));
-      // clear questions
-      grpActions.clearQuestions();
-    }
-    if (pathname === ROUTE_PATHS.QUESTION_CONFIRM) {
-      // go to top
-      dispatch(push(ROUTE_PATHS.QUESTION_LIST));
-      // clear questions
-      grpActions.clearQuestions();
-    }
-  };
+  // const handleAdminBack = () => {
+  //   if (pathname === ROUTE_PATHS.QUESTION_LIST) {
+  //     // go to top
+  //     dispatch(push(ROUTE_PATHS.ROOT));
+  //     // clear questions
+  //     grpActions.clearQuestions();
+  //   }
+  //   if (pathname === ROUTE_PATHS.QUESTION_CONFIRM) {
+  //     // go to top
+  //     dispatch(push(ROUTE_PATHS.QUESTION_LIST));
+  //     // clear questions
+  //     grpActions.clearQuestions();
+  //   }
+  // };
 
   return (
     <AppBar
@@ -73,15 +74,7 @@ export default () => {
           {(() => {
             if (authority !== Consts.Authority.ADMIN) return;
 
-            if (
-              [
-                ROUTE_PATHS.ROOT,
-                ROUTE_PATHS.ROOT_ENGLISH,
-                ROUTE_PATHS.ROOT_LANGUAGE,
-                ROUTE_PATHS.ROOT_SCIENCE,
-                ROUTE_PATHS.ROOT_SOCIETY,
-              ].includes(pathname)
-            ) {
+            if (pathname.match(/\/*\/groups$/)) {
               return (
                 <Button
                   variant="outlined"
@@ -93,15 +86,15 @@ export default () => {
               );
             }
 
-            <Button
-              variant="outlined"
-              color="inherit"
-              sx={{ mx: 1, borderRadius: 0, width: 96 }}
-              onClick={handleAdminBack}>
-              BACK
-            </Button>;
+            // <Button
+            //   variant="outlined"
+            //   color="inherit"
+            //   sx={{ mx: 1, borderRadius: 0, width: 96 }}
+            //   onClick={handleAdminBack}>
+            //   BACK
+            // </Button>;
 
-            if (pathname === ROUTE_PATHS.QUESTION_LIST) {
+            if (pathname.match(/\/*\/groups\/*\/questions$/)) {
               return (
                 <UploadButton
                   loading={isLoading}
@@ -124,7 +117,7 @@ export default () => {
                   color="inherit"
                   sx={{ mx: 1, borderRadius: 0, width: 96 }}
                   onClick={() => {
-                    grpActions.uploadQuestions();
+                    grpActions.uploadQuestions(subject, groupId);
                   }}>
                   REGIST
                 </LoadingButton>

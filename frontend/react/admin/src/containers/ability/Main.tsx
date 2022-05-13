@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
@@ -14,11 +15,11 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { StyledTableCell, styles } from './Main.style';
-import { Consts } from '@constants';
-import { AppActions, GroupActions, UserActions } from '@actions';
-import { RootState } from 'typings';
 import { LoadingIconButton } from '@components/buttons';
 import ConfirmDialog from '@components/dialogs/ConfirmDialog';
+import { Consts } from '@constants';
+import { AppActions, GroupActions, UserActions } from '@actions';
+import { RootState, AbilityParams } from 'typings';
 
 const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
@@ -30,7 +31,8 @@ export default () => {
   const grpActions = bindActionCreators(GroupActions, useDispatch());
   const { groups, editable } = useSelector(groupState);
   const { curriculums, activeStudent } = useSelector(userState);
-  const { isLoading, authority } = useSelector(appState);
+  const { isLoading } = useSelector(appState);
+  const { subject } = useParams<AbilityParams>();
 
   const [open, setOpen] = useState(false);
 
@@ -64,10 +66,8 @@ export default () => {
   };
 
   const handleOnView = (groupId: string) => {
-    // select group
-    appActions.activeGroup(groupId);
     // 質問リスト取得
-    grpActions.questionList();
+    grpActions.questionList(subject, groupId);
   };
 
   const handleGroupDelete = () => {
