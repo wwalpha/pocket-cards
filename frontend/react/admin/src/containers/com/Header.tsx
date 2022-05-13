@@ -1,15 +1,15 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouteMatch } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import LoadingButton from '@mui/lab/LoadingButton';
 import Typography from '@mui/material/Typography';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { UploadButton } from '@components/buttons';
-import { useLocation, useParams } from 'react-router-dom';
 import { ROUTE_PATHS, Consts } from '@constants';
 import { AppActions, GroupActions } from '@actions';
 import { HeaderParams, RootState } from 'typings';
@@ -19,13 +19,15 @@ const groupState = (state: RootState) => state.group;
 
 export default () => {
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
   const actions = bindActionCreators(AppActions, dispatch);
   const grpActions = bindActionCreators(GroupActions, dispatch);
 
   const { authority, isLoading } = useSelector(appState);
   const { editable } = useSelector(groupState);
-  const { subject, groupId } = useParams<HeaderParams>();
+  const {
+    url: pathname,
+    params: { subject, groupId },
+  } = useRouteMatch<HeaderParams>();
 
   const handleUserReigst = () => actions.showUserRegist();
   const handleLogout = () => actions.logout();
@@ -94,7 +96,7 @@ export default () => {
             //   BACK
             // </Button>;
 
-            if (pathname.match(/\/*\/groups\/*\/questions$/)) {
+            if (pathname.match(/\/*\/groups\/[0-9a-zA-Z]{22}\/questions$/)) {
               return (
                 <UploadButton
                   loading={isLoading}
@@ -102,14 +104,14 @@ export default () => {
                   color="inherit"
                   sx={{ mx: 1, borderRadius: 0, width: 96 }}
                   readAsText={(texts: string) => {
-                    grpActions.uploadConfirm(texts);
+                    grpActions.uploadConfirm(subject, groupId, texts);
                   }}>
                   Upload
                 </UploadButton>
               );
             }
 
-            if (pathname === ROUTE_PATHS.QUESTION_CONFIRM) {
+            if (pathname.match(/\/*\/groups\/[0-9a-zA-Z]{22}\/confirm$/)) {
               return (
                 <LoadingButton
                   loading={isLoading}

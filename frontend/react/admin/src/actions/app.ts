@@ -1,5 +1,5 @@
 import { push } from 'connected-react-router';
-import { Consts, ROUTE_PATHS } from '@constants';
+import { ROUTE_PATHS } from '@constants';
 import { Credentials } from '@utils';
 import { Actions } from '@reducers';
 import { AppDispatch } from '@store';
