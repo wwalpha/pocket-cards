@@ -3,10 +3,10 @@ import { Tables } from 'typings';
 import * as Queries from './queries';
 
 /** 問題詳細取得 */
-export const describe = async (groupId: string): Promise<Tables.TQuestions | undefined> => {
+export const describe = async (qid: string): Promise<Tables.TQuestions | undefined> => {
   const results = await DBHelper().get<Tables.TQuestions>(
     Queries.get({
-      id: groupId,
+      id: qid,
     })
   );
 

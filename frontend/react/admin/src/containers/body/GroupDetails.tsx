@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
@@ -11,20 +11,20 @@ import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Consts } from '@constants';
 import { GroupActions } from '@actions';
-import { RootState, GroupEditForm } from 'typings';
+import { RootState, GroupEditForm, GroupDetailsParams } from 'typings';
 
 const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
 
 export default () => {
-  const history = useHistory();
   const actions = bindActionCreators(GroupActions, useDispatch());
   const { groups, editable } = useSelector(groupState);
-  const { activeGroup } = useSelector(appState);
   const { isLoading } = useSelector(appState);
+  const history = useHistory();
+  const { groupId, subject } = useParams<GroupDetailsParams>();
 
   // 選択中のGroup情報取得
-  const groupInfo = groups.find((item) => item.id === activeGroup);
+  const groupInfo = groups.find((item) => item.id === groupId);
 
   const {
     control,
@@ -35,7 +35,7 @@ export default () => {
       id: groupInfo?.id,
       name: groupInfo?.name || '',
       description: groupInfo?.description || '',
-      subject: groupInfo?.subject || '0',
+      subject: subject,
     },
   });
 
@@ -43,9 +43,10 @@ export default () => {
   const onSubmit = handleSubmit((datas) => {
     if (editable === Consts.EDIT_MODE.EDIT) {
       actions.edit({
-        id: activeGroup,
+        id: groupId ?? '',
         name: datas.name,
         description: datas.description,
+        subject: subject,
       });
     } else if (editable === Consts.EDIT_MODE.REGIST) {
       actions.regist({

@@ -37,7 +37,7 @@ export const USER_CURRICULUM_REGIST = createAsyncThunk<APIs.CurriculumRegistResp
   async (groupId, { getState }) => {
     const { activeStudent } = (getState() as RootState).user;
 
-    return await API.put<APIs.CurriculumRegistResponse, APIs.CurriculumRegistRequest>(URLs.CURRICULUM_REGIST(), {
+    return await API.post<APIs.CurriculumRegistResponse, APIs.CurriculumRegistRequest>(URLs.CURRICULUM_REGIST(), {
       groupId: groupId,
       userId: activeStudent,
     });

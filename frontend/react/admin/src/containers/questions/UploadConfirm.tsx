@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import { QuestionTable } from '@components/tables';
 import { RootState } from 'typings';

@@ -119,7 +119,8 @@ describe('d0', () => {
   });
 
   test('Question06:質問一覧', async () => {
-    await client.bulk(Environment.TABLE_NAME_QUESTIONS, QUESTIONS.DETAILS05_DB_QUESTIONS);
+    await client.bulk(Environment.TABLE_NAME_QUESTIONS, QUESTIONS.DETAILS06_DB_QUESTIONS);
+    await client.bulk(Environment.TABLE_NAME_GROUPS, QUESTIONS.DETAILS06_DB_GROUP);
 
     const apiPath = '/v1/groups/G001/questions';
 
@@ -128,6 +129,6 @@ describe('d0', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
-    expect(res.body).toEqual(QUESTIONS.DETAILS05_EXPECT01);
+    expect(res.body).toEqual(QUESTIONS.DETAILS06_EXPECT01);
   });
 });

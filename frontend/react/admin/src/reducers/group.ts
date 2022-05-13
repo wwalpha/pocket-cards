@@ -1,7 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains, Tables } from 'typings';
 import { Consts } from '@constants';
-import { GROUP_ABILITY_REGIST, GROUP_LIST, GROUP_QUESTION_LIST, GROUP_QUESTION_UPDATE } from './groupActions';
+import {
+  GROUP_ABILITY_REGIST,
+  GROUP_LIST,
+  GROUP_QUESTION_LIST,
+  GROUP_QUESTION_UPDATE,
+  GROUP_REMOVE,
+} from './groupActions';
 import sortBy from 'lodash/sortBy';
 
 const grpState: Domains.GroupState = {
@@ -75,6 +81,9 @@ const slice = createSlice({
       })
       .addCase(GROUP_QUESTION_LIST.fulfilled, (state, { payload }) => {
         state.questions = payload;
+      })
+      .addCase(GROUP_REMOVE.fulfilled, (state, { payload }) => {
+        state.groups = state.groups.filter((item) => item.id !== payload);
       })
       .addCase(GROUP_QUESTION_UPDATE.fulfilled, (state, { payload }) => {
         const question = state.questions.find((item) => item.id === payload.id);
