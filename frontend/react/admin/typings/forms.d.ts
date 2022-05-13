@@ -47,3 +47,27 @@ export interface AbilityForm {
   subject: string;
   groupIds: string[];
 }
+
+export interface GroupParams {
+  subject?: string;
+}
+
+export interface GroupDetailsParams {
+  subject: string;
+  groupId?: string;
+}
+
+export interface QuestionParams {
+  subject: string;
+  groupId: string;
+  questionId: string;
+}
+
+export interface AbilityParams {
+  subject: string;
+}
+
+export interface HeaderParams {
+  subject: string;
+  groupId: string;
+}

@@ -19,10 +19,10 @@ export namespace Domains {
     showUserRegist: boolean;
     // loading
     isLoading: boolean;
-    // active subject
-    activeSubject: string;
-    // active group
-    activeGroup: string;
+    // // active subject
+    // activeSubject: string;
+    // // active group
+    // activeGroup: string;
     // authority
     authority?: string;
   }

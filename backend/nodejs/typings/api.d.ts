@@ -103,11 +103,13 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
-  // B005
+  // Group Remove
   // ------------------------------------------------------------
   interface GroupRemoveParams {
     groupId: string;
   }
+
+  type GroupRemoveResponse = void;
 
   // ------------------------------------------------------------
   // B006
@@ -538,5 +540,16 @@ export namespace APIs {
   interface CurriculumListsResponse {
     count: number;
     items: Tables.TCurriculums[];
+  }
+
+  interface CurriculumQuestionsParams {
+    curriculumId: string;
+  }
+
+  interface CurriculumQuestionsRequest {}
+
+  interface CurriculumQuestionsResponse {
+    count: number;
+    items: Tables.TQuestions[];
   }
 }

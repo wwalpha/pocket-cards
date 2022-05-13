@@ -1,34 +1,25 @@
-export type RouteKeys =
-  | 'ROOT'
-  | 'ROOT_LANGUAGE'
-  | 'ROOT_SCIENCE'
-  | 'ROOT_SOCIETY'
-  | 'ROOT_ENGLISH'
-  | 'SIGN_IN'
-  | 'SIGN_UP'
-  | 'NEW_PASSWORD'
-  | 'GROUP_LIST'
-  | 'QUESTION_LIST'
-  | 'QUESTION_CONFIRM'
-  | 'STUDENTS'
-  | 'SETTINGS'
-  | 'ABILITIES'
-  | 'ABILITIES_REGIST';
+export const ROOT = '/';
+export const GROUP_ROOT = (subject: string = ':subject') => `/${subject}/groups`;
+export const GROUP_QUESTIONS = (subject: string = ':subject', groupId: string = ':groupId') =>
+  `/${subject}/groups/${groupId}/questions`;
+export const GROUP_EDIT = (subject: string = ':subject', groupId: string = ':groupId') =>
+  `/${subject}/groups/${groupId}`;
+export const GROUP_REGIST = (subject: string = ':subject') => `/${subject}/groups/regist`;
 
-export const ROUTE_PATHS: Record<RouteKeys, string> = {
-  ROOT: '/',
-  ROOT_LANGUAGE: '/language',
-  ROOT_SCIENCE: '/science',
-  ROOT_SOCIETY: '/society',
-  ROOT_ENGLISH: '/english',
-  SIGN_IN: '/',
-  SIGN_UP: '/auth/signup',
-  NEW_PASSWORD: '/auth/newpassword',
-  GROUP_LIST: '/group',
-  QUESTION_LIST: '/questions',
-  QUESTION_CONFIRM: '/questions/confirm',
-  STUDENTS: '/students',
-  SETTINGS: '/settings',
-  ABILITIES: '/abilities',
-  ABILITIES_REGIST: '/abilities/regist',
-};
+export const GROUP_UPLOAD = (subject: string = ':subject', groupId: string = ':groupId') =>
+  `/${subject}/groups/${groupId}/upload`;
+
+export const GROUP_UPLOAD_CONFIRM = `/:subject/groups/:groupId/confirm`;
+
+export const GROUP_UPLOAD_CONFIRM_PUSH = (subject: string, groupId: string) => `/${subject}/groups/${groupId}/confirm`;
+
+export const SIGN_IN = '/';
+export const SIGN_UP = '/auth/signup';
+export const NEW_PASSWORD = '/auth/newpassword';
+
+export const STUDENTS = '/students';
+export const SETTINGS = '/settings';
+
+export const ABILITIES = '/abilities';
+export const ABILITIES_REGIST = '/abilities/regist';
+export const ABILITIES_QUESTIONS = (groupId: string = ':groupId') => `/abilities/groups/${groupId}/questions`;

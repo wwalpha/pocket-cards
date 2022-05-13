@@ -1,14 +1,28 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  AsyncThunkFulfilledActionCreator,
+  AsyncThunkPendingActionCreator,
+  AsyncThunkRejectedActionCreator,
+} from '@reduxjs/toolkit/dist/createAsyncThunk';
 import { Domains } from 'typings';
-import { Consts } from '@constants';
 
 const appState: Domains.AppState = {
-  activeSubject: Consts.SUBJECT.LANGUAGE,
-  activeGroup: '',
   isLoading: false,
   showSnackbar: false,
   showUserRegist: false,
 };
+
+function isPendingAction(action: AnyAction): action is AsyncThunkPendingActionCreator<any, any> {
+  return action.type.endsWith('pending');
+}
+
+function isFulfilledAction(action: AnyAction): action is AsyncThunkFulfilledActionCreator<any, any, any> {
+  return action.type.endsWith('fulfilled');
+}
+
+function isRejectedAction(action: AnyAction): action is AsyncThunkRejectedActionCreator<any, any> {
+  return action.type.endsWith('rejected');
+}
 
 const slice = createSlice({
   name: 'app',
@@ -58,17 +72,21 @@ const slice = createSlice({
       state.showUserRegist = action.payload;
     },
 
-    APP_ACTIVE_SUBJECT: (state, { payload }: PayloadAction<string>) => {
-      state.activeSubject = payload;
-    },
-
-    APP_ACTIVE_GROUP: (state, { payload }: PayloadAction<string>) => {
-      state.activeGroup = payload;
-    },
-
     APP_SET_AUTHORITY: (state, { payload }: PayloadAction<string | undefined>) => {
       state.authority = payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(isPendingAction, (state) => {
+        state.isLoading = true;
+      })
+      .addMatcher(isFulfilledAction, (state) => {
+        state.isLoading = false;
+      })
+      .addMatcher(isRejectedAction, (state) => {
+        state.isLoading = false;
+      });
   },
 });
 

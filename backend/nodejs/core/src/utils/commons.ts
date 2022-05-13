@@ -229,15 +229,15 @@ const createAnswerVoice = async (question: Tables.TQuestions) => {
 };
 
 const createImage = async (text: string): Promise<string> => {
-  if (!text.match(/\[http(s?):\/\/.*\]$/)) {
+  if (!text.match(/\[http(s?):\/\/.*\]/)) {
     return text;
   }
 
   const startIdx = text.indexOf('[http');
-  const endIdx = text.indexOf(']');
+  const endIdx = text.indexOf(']', startIdx);
   const url = text.substring(startIdx + 1, endIdx);
 
   const s3Key = await generateImage(url);
 
-  return text.replace(/\[http(s?):\/\/.*\]$/, `[${s3Key}]`);
+  return text.replace(/\[http(s?):\/\/.*\]/, `[${s3Key}]`);
 };

@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { URLs } from '@constants';
 import { RootState } from '@store';
 import { API } from '@utils';
-import { Tables, APIs, Group } from 'typings';
+import { Tables, APIs, Group, QuestionUpdateParameter } from 'typings';
 import omit from 'lodash/omit';
 
 export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST', async () => {
@@ -11,13 +11,19 @@ export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST',
   return res.items;
 });
 
+export const GROUP_REMOVE = createAsyncThunk<string, string>('group/GROUP_REMOVE', async (id) => {
+  // グループ削除
+  await API.del(URLs.GROUP_REMOVE(id));
+
+  return id;
+});
+
 /** Question List */
-export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], void>(
+export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], string>(
   'group/GROUP_QUESTION_LIST',
-  async (_, { getState }) => {
-    const { activeGroup } = (getState() as RootState).app;
+  async (groupId) => {
     // request
-    const res = await API.get<APIs.QuestionListResponse>(URLs.QUESTION_LIST(activeGroup));
+    const res = await API.get<APIs.QuestionListResponse>(URLs.QUESTION_LIST(groupId));
 
     // response
     return res.questions.map((item) => ({
@@ -31,15 +37,14 @@ export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], void>(
 );
 
 /** Question List */
-export const GROUP_QUESTION_REGIST = createAsyncThunk<void, void>(
+export const GROUP_QUESTION_REGIST = createAsyncThunk<void, string>(
   'group/GROUP_QUESTION_REGIST',
-  async (_, { getState }) => {
+  async (groupId, { getState }) => {
     // request parameter
-    const { activeGroup } = (getState() as RootState).app;
     const { uploads } = (getState() as RootState).group;
 
     // request
-    await API.post<APIs.QuestionRegistRequest, APIs.QuestionRegistResponse>(URLs.QUESTION_REGIST(activeGroup), {
+    await API.post<APIs.QuestionRegistRequest, APIs.QuestionRegistResponse>(URLs.QUESTION_REGIST(groupId), {
       questions: uploads.map(
         ({ title, answer, description, choices }) =>
           `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer}`
@@ -49,21 +54,20 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, void>(
 );
 
 /** Question Update */
-export const GROUP_QUESTION_UPDATE = createAsyncThunk<
-  APIs.QuestionUpdateResponse,
-  APIs.QuestionUpdateRequest & { questionId: string }
->('group/GROUP_QUESTION_UPDATE', async (request, { getState }) => {
-  // request parameter
-  const { activeGroup } = (getState() as RootState).app;
-  const questionId = request.questionId;
-  const req = omit(request, 'questionId');
+export const GROUP_QUESTION_UPDATE = createAsyncThunk<APIs.QuestionUpdateResponse, QuestionUpdateParameter>(
+  'group/GROUP_QUESTION_UPDATE',
+  async (request) => {
+    // request parameter
+    const { groupId, questionId } = request;
+    const req = omit<QuestionUpdateParameter, ['questionId', 'groupId']>(request, 'questionId', 'groupId');
 
-  // 質問更新
-  return await API.put<APIs.QuestionUpdateResponse, APIs.QuestionUpdateRequest>(
-    URLs.QUESTION_UPDATE(activeGroup, questionId),
-    req
-  );
-});
+    // 質問更新
+    return await API.put<APIs.QuestionUpdateResponse, APIs.QuestionUpdateRequest>(
+      URLs.QUESTION_UPDATE(groupId, questionId),
+      req
+    );
+  }
+);
 
 /** Question Update */
 export const GROUP_ABILITY_REGIST = createAsyncThunk<APIs.WeeklyAbilityRegistResponse, APIs.WeeklyAbilityRegistRequest>(

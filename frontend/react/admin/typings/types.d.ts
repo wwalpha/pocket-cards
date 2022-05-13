@@ -1,4 +1,5 @@
 import { Tables } from '.';
+import { APIs } from '../../../../backend/nodejs/typings';
 
 declare module '*.svg' {
   const content: string;
@@ -116,3 +117,5 @@ interface ScreenInfo {
   showBack: boolean;
   title?: string;
 }
+
+type QuestionUpdateParameter = APIs.QuestionUpdateParams & APIs.QuestionUpdateRequest;

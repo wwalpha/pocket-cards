@@ -9,34 +9,29 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
-import LoadingButton from '@mui/lab/LoadingButton';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import EditIcon from '@mui/icons-material/Edit';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import CancelIcon from '@mui/icons-material/Cancel';
+import ConfirmDialog from '@components/dialogs/ConfirmDialog';
+import { LoadingIconButton } from '@components/buttons';
 import { AppActions, GroupActions, UserActions } from '@actions';
 import { ROUTE_PATHS, Consts } from '@constants';
-import { RootState } from 'typings';
+import { GroupParams, RootState } from 'typings';
 import { StyledTableCell, styles } from './Mainboard.style';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
 
 export default () => {
-  const actions = bindActionCreators(AppActions, useDispatch());
   const grpActions = bindActionCreators(GroupActions, useDispatch());
   const usrActions = bindActionCreators(UserActions, useDispatch());
 
+  const { subject = Consts.SUBJECT.LANGUAGE } = useParams<GroupParams>();
   const { groups } = useSelector(groupState);
-  const { isLoading, activeSubject, authority } = useSelector(appState);
+  const { isLoading, authority } = useSelector(appState);
   const { curriculums, activeStudent } = useSelector(userState);
   const [open, setOpen] = useState(false);
   const [curriculumId, setCurriculumId] = useState<string | undefined>(undefined);
@@ -53,10 +48,9 @@ export default () => {
 
   // get question list
   const handleQuestions = (groupId: string) => {
-    // select group
-    actions.activeGroup(groupId);
+    const path = ROUTE_PATHS.GROUP_QUESTIONS(subject, groupId);
     // 質問リスト取得
-    grpActions.questionList();
+    grpActions.questionList(groupId, path);
   };
 
   const handleClose = () => setOpen(false);
@@ -73,13 +67,11 @@ export default () => {
 
   // Folder click
   const handleEdit = (groupId: string, editable: Consts.EDIT_MODE) => {
-    // 選択値を保存する
-    actions.activeGroup(groupId);
     // 編集モード
     grpActions.editable(editable);
   };
 
-  const displayGroups = groups.filter((item) => item.subject === activeSubject);
+  const displayGroups = groups.filter((item) => item.subject === subject);
   const curriculumItems = curriculums.filter((item) => item.userId === activeStudent);
 
   return (
@@ -98,59 +90,52 @@ export default () => {
               <TableRow key={dataRow.id}>
                 <TableCell>
                   <Box sx={{ display: 'flex' }}>
-                    <LoadingButton
-                      disabled={authority !== Consts.Authority.ADMIN && dataRow.count === 0}
+                    <LoadingIconButton
                       loading={isLoading}
-                      variant="contained"
-                      color="secondary"
-                      startIcon={<PageviewIcon />}
-                      size="small"
-                      sx={{ py: 0, mx: 0.5 }}
+                      sx={{ p: 0.5 }}
                       onClick={() => {
                         handleQuestions(dataRow.id);
                       }}>
-                      View
-                    </LoadingButton>
+                      <PageviewIcon sx={{ fontSize: 32 }} />
+                    </LoadingIconButton>
                     {(() => {
                       if (authority !== Consts.Authority.PARENT) return;
 
                       const item = curriculumItems.find((item) => item.groupId === dataRow.id);
-                      const label = !item ? 'Apply' : 'Cancel';
-                      const icon = !item ? <CheckCircleIcon /> : <HighlightOffIcon />;
-                      const color = item ? 'info' : 'primary';
+                      const icon = !item ? (
+                        <CheckCircleIcon sx={{ fontSize: 32 }} />
+                      ) : (
+                        <CancelIcon sx={{ fontSize: 32 }} />
+                      );
+                      const color = item ? 'error' : 'success';
 
                       return (
-                        <LoadingButton
+                        <LoadingIconButton
+                          sx={{ p: 0.5 }}
                           loading={isLoading}
-                          variant="contained"
                           color={color}
-                          startIcon={icon}
-                          size="small"
-                          sx={{ py: 0, mx: 0.5, width: 100 }}
+                          disabled={authority !== Consts.Authority.ADMIN && dataRow.count === 0}
                           onClick={() => {
                             setGroupId(dataRow.id);
                             setCurriculumId(item?.id);
                             setOpen(true);
                           }}>
-                          {label}
-                        </LoadingButton>
+                          {icon}
+                        </LoadingIconButton>
                       );
                     })()}
                     {authority === Consts.Authority.ADMIN && (
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        startIcon={<EditIcon />}
-                        size="small"
-                        sx={{ py: 0, mx: 0.5 }}
+                      <LoadingIconButton
+                        sx={{ p: 0.5 }}
+                        loading={isLoading}
                         onClick={() => {
                           handleEdit(dataRow.id, Consts.EDIT_MODE.EDIT);
                         }}
                         component={React.forwardRef((props: any, ref: any) => (
-                          <Link to={ROUTE_PATHS.GROUP_LIST} {...props} />
+                          <Link to={ROUTE_PATHS.GROUP_EDIT(subject, dataRow.id)} {...props} />
                         ))}>
-                        Edit
-                      </Button>
+                        <EditIcon sx={{ fontSize: 32 }} />
+                      </LoadingIconButton>
                     )}
                   </Box>
                 </TableCell>
@@ -161,20 +146,13 @@ export default () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Dialog open={open} onClose={handleClose} maxWidth="md">
-        <DialogTitle id="alert-dialog-title">カリキュラム</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            カリキュラムを{curriculumId ? '解除' : '適用'}しますか？
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleConfirm} autoFocus>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ConfirmDialog
+        open={open}
+        maxWidth="md"
+        message={`カリキュラムを${curriculumId ? '解除' : '適用'}しますか？`}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+      />
     </Box>
   );
 };

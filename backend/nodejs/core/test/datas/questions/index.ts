@@ -17,5 +17,6 @@ export { default as ANSWER04_EXPECT01 } from './004_expect01.json';
 export { default as ANSWER05_DB_LEARNING } from './005_db_learning.json';
 export { default as ANSWER05_EXPECT01 } from './005_expect01.json';
 
-export { default as DETAILS05_DB_QUESTIONS } from './006_db_questions.json';
-export { default as DETAILS05_EXPECT01 } from './006_expect01.json';
+export { default as DETAILS06_DB_GROUP } from './006_db_group.json';
+export { default as DETAILS06_DB_QUESTIONS } from './006_db_questions.json';
+export { default as DETAILS06_EXPECT01 } from './006_expect01.json';
