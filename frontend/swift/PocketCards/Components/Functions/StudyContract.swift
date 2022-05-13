@@ -16,7 +16,7 @@ protocol StudyPresentationLogic {
 }
 
 protocol StudyBusinessLogic {
-    func loadQuestions()
+    func loadQuestions() async
 
     func addQuestions(questions: [Question])
 

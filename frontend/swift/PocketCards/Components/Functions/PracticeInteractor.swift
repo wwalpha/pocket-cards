@@ -22,7 +22,7 @@ class PracticeInteractor: StudyBusinessLogic {
     // update answer
     func updateAnswer(id _: String?, correct _: Bool) {}
 
-    func loadQuestions() {}
+    func loadQuestions() async {}
 
     func addQuestions(questions: [Question]) {
         for q in questions {
@@ -50,11 +50,6 @@ class PracticeInteractor: StudyBusinessLogic {
     func removeQuestion(id: String) {
         // remove updated question
         questions.removeAll(where: { $0.id == id })
-
-        // add questions
-        if questions.count < 5 {
-            loadQuestions()
-        }
     }
 
     func onAction(correct: Bool) {
