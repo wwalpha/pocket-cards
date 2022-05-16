@@ -22,7 +22,6 @@ const styles = {
 const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick, onClose }) => {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<QuestionForm>({
@@ -63,21 +62,23 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
             />
           )}
         />
-        <Controller
-          name="choices"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              disabled={!onClick}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              label="Choices"
-              value={value}
-              onChange={onChange}
-            />
-          )}
-        />
+        {dataRow.choices && (
+          <Controller
+            name="choices"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                disabled={!onClick}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                label="Choices"
+                value={value}
+                onChange={onChange}
+              />
+            )}
+          />
+        )}
         <Controller
           name="answer"
           control={control}
