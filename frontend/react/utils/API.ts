@@ -23,9 +23,13 @@ axios.defaults.baseURL = process.env.API_URL;
 
 // get method
 export const get = async <Res = any>(path: string, config?: AxiosRequestConfig): Promise<Res> => {
-  const res = await axios.get(path, config);
+  try {
+    const res = await axios.get(path, config);
 
-  return res.data;
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
 };
 
 // put method
@@ -34,9 +38,13 @@ export const put = async <Res = any, Req = any>(
   data?: Req,
   config?: AxiosRequestConfig
 ): Promise<Res> => {
-  const res = await axios.put(path, data, config);
+  try {
+    const res = await axios.put(path, data, config);
 
-  return res.data;
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
 };
 
 // post method
@@ -45,14 +53,22 @@ export const post = async <Res = any, Req = any>(
   data?: Req,
   config?: AxiosRequestConfig
 ): Promise<Res> => {
-  const res = await axios.post(path, data, config);
+  try {
+    const res = await axios.post(path, data, config);
 
-  return res.data;
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
 };
 
 // delete method
 export const del = async <Res = any>(path: string): Promise<Res> => {
-  const res = await axios.delete(path);
+  try {
+    const res = await axios.delete(path);
 
-  return res.data;
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
 };

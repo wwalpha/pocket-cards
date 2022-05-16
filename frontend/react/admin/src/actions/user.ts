@@ -1,6 +1,6 @@
+import { push } from 'connected-react-router';
 import { Consts, ROUTE_PATHS } from '@constants';
 import { Actions } from '@reducers';
-import { push } from 'connected-react-router';
 import { AppDispatch } from 'typings';
 
 /** サインイン */
