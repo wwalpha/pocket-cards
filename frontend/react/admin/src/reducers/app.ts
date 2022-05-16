@@ -1,9 +1,4 @@
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  AsyncThunkFulfilledActionCreator,
-  AsyncThunkPendingActionCreator,
-  AsyncThunkRejectedActionCreator,
-} from '@reduxjs/toolkit/dist/createAsyncThunk';
+import { Action, AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains } from 'typings';
 
 const appState: Domains.AppState = {
@@ -12,15 +7,19 @@ const appState: Domains.AppState = {
   showUserRegist: false,
 };
 
-function isPendingAction(action: AnyAction): action is AsyncThunkPendingActionCreator<any, any> {
+function isPendingAction(action: AnyAction) {
   return action.type.endsWith('pending');
 }
 
-function isFulfilledAction(action: AnyAction): action is AsyncThunkFulfilledActionCreator<any, any, any> {
+function isFulfilledAction(action: AnyAction) {
   return action.type.endsWith('fulfilled');
 }
 
-function isRejectedAction(action: AnyAction): action is AsyncThunkRejectedActionCreator<any, any> {
+interface RejectedAction extends Action {
+  error: Error;
+}
+
+function isRejectedAction(action: AnyAction): action is RejectedAction {
   return action.type.endsWith('rejected');
 }
 
@@ -37,17 +36,6 @@ const slice = createSlice({
     // end loading
     APP_END_LOADING: (state) => {
       state.isLoading = false;
-    },
-
-    // end loading
-    APP_COM_01_FAILURE: (state, action: PayloadAction<Error>) => {
-      state.isLoading = false;
-
-      if (action.payload.name === 'Error') {
-        state.showSnackbar = true;
-        state.severity = 'error';
-        state.message = action.payload.message;
-      }
     },
 
     APP_SHOW_SUCCESS: (state, action: PayloadAction<string>) => {
@@ -84,8 +72,11 @@ const slice = createSlice({
       .addMatcher(isFulfilledAction, (state) => {
         state.isLoading = false;
       })
-      .addMatcher(isRejectedAction, (state) => {
+      .addMatcher(isRejectedAction, (state, action) => {
         state.isLoading = false;
+        state.showSnackbar = true;
+        state.severity = 'error';
+        state.message = action.error.message;
       });
   },
 });
