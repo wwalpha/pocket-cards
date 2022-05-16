@@ -227,6 +227,7 @@ export namespace Tables {
     userId: string;
     groupId: string;
     subject: string;
+    order: number;
   }
 
   interface TCurriculumsGSI1Key {
