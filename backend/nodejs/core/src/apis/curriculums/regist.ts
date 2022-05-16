@@ -49,6 +49,7 @@ export default async (
       guardian: guardian,
       userId: userId,
       groupId: groupId,
+      order: 9999,
     };
 
     // add new curriculum
@@ -80,6 +81,7 @@ export default async (
       guardian: guardian,
       userId: questions[0]!.userId,
       groupId: groupId,
+      order: 9999,
     };
 
     // add new curriculum

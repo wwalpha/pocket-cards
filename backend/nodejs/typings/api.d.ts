@@ -529,6 +529,19 @@ export namespace APIs {
   type CurriculumRemoveResponse = void;
 
   // ------------------------------------------------------------
+  // Curriculums - Curriculum Order Update
+  // ------------------------------------------------------------
+  interface CurriculumOrderParams {
+    curriculumId: string;
+  }
+
+  interface CurriculumOrderRequest {
+    order: string;
+  }
+
+  type CurriculumOrderResponse = Tables.TCurriculums;
+
+  // ------------------------------------------------------------
   // Curriculums - Curriculum Lists
   // ------------------------------------------------------------
   interface CurriculumListsQuery {
