@@ -4,7 +4,7 @@ import { Words } from '@queries';
 import { Environment } from '@consts';
 import { DateUtils } from '@utils';
 import server from '@src/app';
-import * as C0 from '../datas/c0';
+import * as C0 from '../../datas/c0';
 import { HEADER_AUTH } from '@test/Commons';
 import { GroupService } from '@services';
 

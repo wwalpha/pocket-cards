@@ -18,6 +18,7 @@ const TABLE_NAME_QUESTIONS = process.env['TABLE_NAME_QUESTIONS'] as string;
 const TABLE_NAME_LEARNING = process.env['TABLE_NAME_LEARNING'] as string;
 const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;
 const TABLE_NAME_WEEKLY_ABILITY = process.env['TABLE_NAME_WEEKLY_ABILITY'] as string;
+const TABLE_NAME_CURRICULUMS = process.env['TABLE_NAME_CURRICULUMS'] as string;
 
 const setup = async () => {
   console.log('jest setup start...');
@@ -185,6 +186,36 @@ const setup = async () => {
               { AttributeName: 'userId', KeyType: 'HASH' },
               { AttributeName: 'nextTime', KeyType: 'RANGE' },
             ],
+            Projection: { ProjectionType: 'ALL' },
+            ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
+          },
+        ],
+      })
+      .promise(),
+    dbClient
+      .createTable({
+        TableName: TABLE_NAME_CURRICULUMS,
+        BillingMode: 'PROVISIONED',
+        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+        AttributeDefinitions: [
+          { AttributeName: 'id', AttributeType: 'S' },
+          { AttributeName: 'guardian', AttributeType: 'S' },
+          { AttributeName: 'groupId', AttributeType: 'S' },
+        ],
+        GlobalSecondaryIndexes: [
+          {
+            IndexName: 'gsiIdx1',
+            KeySchema: [
+              { AttributeName: 'guardian', KeyType: 'HASH' },
+              { AttributeName: 'groupId', KeyType: 'RANGE' },
+            ],
+            Projection: { ProjectionType: 'ALL' },
+            ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
+          },
+          {
+            IndexName: 'gsiIdx2',
+            KeySchema: [{ AttributeName: 'groupId', KeyType: 'HASH' }],
             Projection: { ProjectionType: 'ALL' },
             ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
           },
