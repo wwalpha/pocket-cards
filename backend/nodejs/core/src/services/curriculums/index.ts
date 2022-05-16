@@ -57,3 +57,10 @@ export const getListByGroup = async (groupId: string): Promise<Tables.TCurriculu
 
   return results.Items;
 };
+
+/** 未学習のカリキュラム一覧を取得 */
+export const getUnlearned = async (guardian: string, userId: string): Promise<Tables.TCurriculums[]> => {
+  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byUnlearned(guardian, userId));
+
+  return results.Items;
+};

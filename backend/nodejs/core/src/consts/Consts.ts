@@ -43,3 +43,5 @@ export const Authority = {
 
 export const ANSWER_CORRECT = '1';
 export const ANSWER_INCORRECT = '0';
+
+export const INITIAL_DATE = '19900101';

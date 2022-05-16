@@ -1,4 +1,4 @@
-import { Environment } from '@consts';
+import { Consts, Environment } from '@consts';
 import { DynamoDB } from 'aws-sdk';
 import { Tables } from 'typings';
 
@@ -53,18 +53,20 @@ export const practice = (userId: string, nextTime: string, subject: string): Dyn
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
-  FilterExpression: '#times = :times and #subject = :subject',
+  FilterExpression: '#times = :times and #subject = :subject and #lastTime <> :lastTime',
   ExpressionAttributeNames: {
     '#userId': 'userId',
-    '#times': 'times',
     '#nextTime': 'nextTime',
+    '#times': 'times',
     '#subject': 'subject',
+    '#lastTime': 'lastTime',
   },
   ExpressionAttributeValues: {
     ':userId': userId,
     ':times': 0,
     ':nextTime': nextTime,
     ':subject': subject,
+    ':lastTime': Consts.INITIAL_DATE,
   },
   IndexName: 'gsiIdx1',
   ScanIndexForward: false,
@@ -140,4 +142,20 @@ export const byUserId = (userId: string): DynamoDB.DocumentClient.QueryInput => 
     ':userId': userId,
   },
   IndexName: 'gsiIdx1',
+});
+
+export const unlearned = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#groupId = :groupId',
+  FilterExpression: '#lastTime = :lastTime',
+  ExpressionAttributeNames: {
+    '#groupId': 'groupId',
+    '#lastTime': 'lastTime',
+  },
+  ExpressionAttributeValues: {
+    ':groupId': groupId,
+    ':lastTime': Consts.INITIAL_DATE,
+  },
+  IndexName: 'gsiIdx2',
 });
