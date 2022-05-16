@@ -17,7 +17,6 @@ export const sleep = (timeout: number) => new Promise<void>((resolve) => setTime
 /**
  * Header情報からUserIdを取得する(Cognito Authorization IdToken)
  *
- * @param event APIGateway EVENT
  * @param authKey Header Key
  */
 export const getUserId = (req: Request<any, any, any, any>, authKey: string = 'authorization') => {

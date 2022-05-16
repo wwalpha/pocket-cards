@@ -61,3 +61,19 @@ export const byUnlearned = (guardian: string, userId: string): DynamoDB.Document
   },
   IndexName: 'gsiIdx2',
 });
+
+/** カリキュラム一覧を取得する（未学習のみ） */
+export const updateUnlearned = (
+  key: Tables.TCurriculumsKey,
+  count: number
+): DynamoDB.DocumentClient.UpdateItemInput => ({
+  TableName: Environment.TABLE_NAME_CURRICULUMS,
+  Key: key,
+  UpdateExpression: 'set #unlearned = #unlearned + :nums',
+  ExpressionAttributeNames: {
+    '#count': 'count',
+  },
+  ExpressionAttributeValues: {
+    ':nums': count,
+  },
+});

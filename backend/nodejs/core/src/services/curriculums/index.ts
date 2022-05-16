@@ -64,3 +64,15 @@ export const getUnlearned = async (guardian: string, userId: string): Promise<Ta
 
   return results.Items;
 };
+
+/** 未学習数を更新する */
+export const updateUnlearned = async (id: string, count: number) => {
+  await DBHelper().update(
+    Queries.updateUnlearned(
+      {
+        id: id,
+      },
+      count
+    )
+  );
+};

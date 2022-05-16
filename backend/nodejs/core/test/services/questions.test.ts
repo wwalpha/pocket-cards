@@ -12,7 +12,7 @@ const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOI
 
 jest.setTimeout(10000);
 
-describe('d0', () => {
+describe('questions', () => {
   afterEach(async () => {
     await client.truncateAll(Environment.TABLE_NAME_GROUPS);
     await client.truncateAll(Environment.TABLE_NAME_QUESTIONS);

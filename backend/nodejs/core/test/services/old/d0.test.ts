@@ -2,7 +2,7 @@ import { WordIgnore } from '@queries';
 import { DBHelper } from '@utils';
 import server from '@src/app';
 import request from 'supertest';
-import * as D0 from '../datas/d0';
+import * as D0 from '../../datas/d0';
 import { HEADER_AUTH } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
