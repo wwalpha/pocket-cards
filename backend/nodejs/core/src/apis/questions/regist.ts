@@ -1,10 +1,10 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
 import isEmpty from 'lodash/isEmpty';
+import { CurriculumService, GroupService, QuestionService } from '@services';
 import { Commons, DBHelper } from '@utils';
-import { Environment } from '@consts';
+import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
-import { CurriculumService, GroupService, QuestionService } from '@src/services';
 
 /** 問題カード一括追加 */
 export default async (req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>): Promise<void> => {
@@ -62,8 +62,8 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
       userId: item.guardian,
       groupId: item.groupId,
       subject: groupInfo.subject,
-      lastTime: '19900101',
-      nextTime: '19900101',
+      lastTime: Consts.INITIAL_DATE,
+      nextTime: Consts.INITIAL_DATE,
       times: 0,
     }));
 
