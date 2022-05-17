@@ -38,13 +38,11 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
     };
   });
 
-  // regist question
-  const tasks = questions.map(async (item) => QuestionService.regist(item));
-
   // regist all questions
-  await Promise.all(tasks);
-  // update question count
-  await GroupService.plusCount(groupId, questions.length);
+  await Promise.all([
+    questions.map(async (item) => QuestionService.regist(item)),
+    GroupService.plusCount(groupId, questions.length),
+  ]);
 
   // 質問の情報を更新する
   Commons.updateQuestion(questions);
@@ -55,6 +53,13 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   if (curriculumInfos.length === 0) {
     return;
   }
+
+  const curriculumUpdates = curriculumInfos.map(async (item) =>
+    CurriculumService.updateUnlearned(item.id, questions.length)
+  );
+
+  // 未学習件数を更新する
+  await Promise.all(curriculumUpdates);
 
   const lTasks = curriculumInfos.map(async (item) => {
     const dataRows = questions.map<Tables.TLearning>((q) => ({
@@ -70,5 +75,6 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
     return DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
   });
 
+  // 学習計画に登録
   await Promise.all(lTasks);
 };

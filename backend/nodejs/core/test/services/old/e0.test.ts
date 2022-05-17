@@ -5,7 +5,7 @@ import server from '@src/app';
 import { WordMaster } from '@queries';
 import { DBHelper } from '@utils';
 import { HEADER_AUTH } from '@test/Commons';
-import * as E0 from '../datas/e0';
+import * as E0 from '../../datas/e0';
 import { Environment } from '@consts';
 
 jest.mock('axios');
