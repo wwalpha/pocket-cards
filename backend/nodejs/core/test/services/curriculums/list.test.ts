@@ -9,7 +9,7 @@ import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 
 jest.mock('axios');
-jest.setTimeout(30000);
+jest.setTimeout(10000);
 
 const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 const api = axios as jest.Mocked<AxiosStatic>;
@@ -33,15 +33,6 @@ describe('Curriculums', () => {
       client.truncateAll(Environment.TABLE_NAME_QUESTIONS),
     ]);
   });
-
-  // // カリキュラム一覧
-  // app.get('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumList));
-  // // カリキュラム削除
-  // app.delete('/v1/curriculums/:curriculumId', express.json(), (req, res) => entry(req, res, CurriculumRemove));
-  // // カリキュラムの問題集一覧
-  // app.get('/v1/curriculums/:curriculumId/questions', express.json(), (req, res) => entry(req, res, CurriculumQuestions));
-  // // カリキュラム並べ順更新
-  // app.put('/v1/curriculums/:curriculumId/order', express.json(), (req, res) => entry(req, res, CurriculumOrder));
 
   test('List01:保護者', async () => {
     api.get.mockImplementationOnce(() => Promise.resolve({ status: 200, data: COMMONS.USER_GUARDIAN }));
