@@ -8,6 +8,7 @@ const db_groups: Tables.TGroups[] = [];
 const db_questions: Tables.TQuestions[] = [];
 const db_curriculums: Tables.TCurriculums[] = [];
 const db_learning: Tables.TLearning[] = [];
+const db_ability: Tables.TWeeklyAbility[] = [];
 
 export const DB_GROUPS = ((): Tables.TGroups[] => {
   if (db_groups.length > 0) return db_groups;
@@ -39,6 +40,14 @@ export const DB_LEARNING = (() => {
   return parse(fs.readFileSync(path.join(__dirname, './db_learning.csv')), {
     columns: true,
   }) as Tables.TLearning[];
+})();
+
+export const DB_ABILITY = (() => {
+  if (db_ability.length > 0) return db_ability;
+
+  return parse(fs.readFileSync(path.join(__dirname, './db_weekly_ability.csv')), {
+    columns: true,
+  }) as Tables.TWeeklyAbility[];
 })();
 
 export const USER_GUARDIAN: Tables.TUsers = {
