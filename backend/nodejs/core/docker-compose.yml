@@ -8,4 +8,10 @@ services:
       - '4566:4566'
     environment:
       - DEFAULT_REGION=us-east-1
-      - SERVICES=dynamodb,sqs,s3,sns
+      - SERVICES=sqs,s3,sns
+  # dynamodb
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: dynamodb
+    ports:
+      - '8000:8000'
