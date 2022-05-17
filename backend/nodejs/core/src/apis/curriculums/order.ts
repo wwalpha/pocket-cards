@@ -11,7 +11,7 @@ export default async (
   const { order } = req.body;
 
   if (isEmpty(order)) {
-    throw new ValidationError(`Curriculum[${curriculumId}] not found.`);
+    throw new ValidationError(`Required parameter: Order`);
   }
 
   // describe info

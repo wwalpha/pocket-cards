@@ -114,7 +114,7 @@ app.delete('/v1/curriculums/:curriculumId', express.json(), (req, res) => entry(
 // カリキュラムの問題集一覧
 app.get('/v1/curriculums/:curriculumId/questions', express.json(), (req, res) => entry(req, res, CurriculumQuestions));
 // カリキュラム並べ順更新
-app.put('/v1/curriculums/:curriculumId/order', express.json(), (req, res) => entry(req, res, CurriculumOrder));
+app.post('/v1/curriculums/:curriculumId/order', express.json(), (req, res) => entry(req, res, CurriculumOrder));
 
 // 週テスト対策の問題登録
 app.post('/v1/study/weekly', express.json(), (req, res) => entry(req, res, WeeklyAbilityRegist));
