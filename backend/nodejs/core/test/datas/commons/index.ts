@@ -50,3 +50,12 @@ export const USER_GUARDIAN: Tables.TUsers = {
   sub: '6a9182ed-e948-442f-8a3f-3bcfdb8b8e23',
   username: 'guardian',
 };
+
+export const USER_STUDENT: Tables.TUsers = {
+  id: 'Google_109439805128280065775',
+  authority: 'STUDENT',
+  email: 'test016@Session10+',
+  role: 'TENANT_USER',
+  teacher: 'guardian@gmail.com',
+  username: 'Google_109439805128280065775',
+};
