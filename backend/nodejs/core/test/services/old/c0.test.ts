@@ -10,7 +10,7 @@ import { GroupService } from '@services';
 
 jest.mock('axios');
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 
 describe.skip('C0', () => {
   afterEach(async () => {

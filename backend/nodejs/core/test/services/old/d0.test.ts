@@ -8,7 +8,7 @@ import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 import { GroupService } from '@services';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 
 jest.setTimeout(10000);
 

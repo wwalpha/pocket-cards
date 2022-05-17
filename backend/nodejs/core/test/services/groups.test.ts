@@ -7,7 +7,7 @@ import { DynamodbHelper } from '@alphax/dynamodb';
 import { TABLE_NAME_WORDS } from '@src/consts/Environment';
 import { GroupService } from '@services';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 const TABLE_NAME_GROUPS = process.env['TABLE_NAME_GROUPS'] as string;
 
 describe('b0', () => {

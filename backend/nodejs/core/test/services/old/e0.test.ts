@@ -11,7 +11,7 @@ import { Environment } from '@consts';
 jest.mock('axios');
 
 const api = axios as jest.Mocked<AxiosStatic>;
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 
 describe.skip('e0', () => {
   afterEach(async () => {
