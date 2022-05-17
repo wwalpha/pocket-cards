@@ -6,7 +6,7 @@ AWS.config.update({
   region: process.env['AWS_REGION'],
   s3: { endpoint: process.env['AWS_ENDPOINT'] },
   sqs: { endpoint: process.env['AWS_ENDPOINT'] },
-  dynamodb: { endpoint: process.env['AWS_ENDPOINT'] },
+  dynamodb: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] },
 });
 
 const s3Client = new S3();

@@ -8,7 +8,7 @@ import { Environment } from '@consts';
 import { APIs } from 'typings';
 import { LearningService } from '@services';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 
 jest.setTimeout(10000);
 
