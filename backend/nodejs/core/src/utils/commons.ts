@@ -20,8 +20,6 @@ export const sleep = (timeout: number) => new Promise<void>((resolve) => setTime
  * @param authKey Header Key
  */
 export const getUserId = (req: Request<any, any, any, any>, authKey: string = 'username') => {
-  console.log(JSON.stringify(req.headers));
-
   const value = req.headers[authKey] as string;
 
   // データが存在しない場合、エラーとする

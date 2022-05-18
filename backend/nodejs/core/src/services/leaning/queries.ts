@@ -70,7 +70,6 @@ export const practice = (userId: string, nextTime: string, subject: string): Dyn
   },
   IndexName: 'gsiIdx1',
   ScanIndexForward: false,
-  Limit: 50,
 });
 
 /** Daily Questions */

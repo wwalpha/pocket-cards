@@ -28,7 +28,7 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
   }
 
   // 未学習
-  return getUnlearned(userId, req.headers);
+  return getUnlearned(userId, subject, req.headers);
 };
 
 const EmptyResponse = (): APIs.QuestionStudyResponse => ({
@@ -52,7 +52,11 @@ const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.Question
   };
 };
 
-const getUnlearned = async (userId: string, header: IncomingHttpHeaders): Promise<APIs.QuestionStudyResponse> => {
+const getUnlearned = async (
+  userId: string,
+  subject: string,
+  header: IncomingHttpHeaders
+): Promise<APIs.QuestionStudyResponse> => {
   const userInfo = await UserService.getUserInfo(userId, header);
 
   if (!userInfo.teacher) {
@@ -60,9 +64,9 @@ const getUnlearned = async (userId: string, header: IncomingHttpHeaders): Promis
   }
 
   // 未学習のカリキュラム一覧を取得する
-  let rows = await CurriculumService.getUnlearned(userInfo.teacher, userId);
+  let rows = await CurriculumService.getUnlearned(userInfo.teacher, userId, subject);
   // 並べ替え
-  rows = orderBy(rows, 'order');
+  rows = orderBy(rows, 'order').filter((item) => item.subject === subject);
 
   const groupIds = getGroupIds(rows);
 
@@ -76,9 +80,7 @@ const getUnlearned = async (userId: string, header: IncomingHttpHeaders): Promis
 
   const qid = unlearned
     .reduce((prev, curr) => {
-      prev.concat(curr.map((item) => item.qid));
-
-      return prev;
+      return prev.concat(curr.map((item) => item.qid));
     }, [] as string[])
     .slice(0, Environment.WORDS_LIMIT);
 
