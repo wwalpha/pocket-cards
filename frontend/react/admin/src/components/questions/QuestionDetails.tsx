@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Group, QuestionForm } from 'typings';
 import Button from '@mui/material/Button';
-import { LoadingButton } from '@mui/lab';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const styles = {
   container: {

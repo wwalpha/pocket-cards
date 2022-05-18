@@ -39,3 +39,10 @@ export enum EDIT_MODE {
   EDIT,
   READONLY,
 }
+
+export const COLORS = {
+  LANGUAGE: '#b71927',
+  SCIENCE: '#f19116',
+  SOCIETY: '#288f46',
+  ENGLISH: '#b71927',
+};

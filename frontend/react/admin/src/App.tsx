@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import { ROUTE_PATHS } from '@constants';
 import { AbilityRouter } from '@containers/ability';
-import { Students, Settings, GroupRouter } from '@containers/body';
+import { Students, Settings, GroupRouter, CurriculumOrder } from '@containers/body';
 import { Header } from '@containers/com';
 import { MainMenu } from '@containers/com';
 
@@ -33,6 +33,10 @@ export default () => {
           <Route path={ROUTE_PATHS.ABILITIES}>
             <Header />
             <AbilityRouter />
+          </Route>
+          <Route path={ROUTE_PATHS.CURRICULUM_ORDER}>
+            <Header />
+            <CurriculumOrder />
           </Route>
         </Switch>
       </Box>
