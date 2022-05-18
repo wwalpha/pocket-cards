@@ -3,7 +3,8 @@ import { defaultTo } from 'lodash';
 import { Commons, DateUtils, DBHelper } from '@utils';
 import { Traces } from '@queries';
 import { APIs } from 'typings';
-import { LearningService } from '@services';
+import { LearningService, CurriculumService } from '@services';
+import { Consts } from '@consts';
 
 export default async (
   req: Request<APIs.QuestionAnswerParams, any, APIs.QuestionAnswerRequest, any>
@@ -12,25 +13,34 @@ export default async (
   const userId = Commons.getUserId(req);
   const { questionId } = req.params;
 
-  const result = await LearningService.describe(questionId, userId);
+  const learning = await LearningService.describe(questionId, userId);
 
-  const question = result;
-
-  if (!question) {
+  if (!learning) {
     throw new Error(`Question not found. ${questionId}`);
   }
 
   // 正解の場合
-  const times = input.correct === '1' ? defaultTo(question.times, 0) + 1 : 0;
+  const times = input.correct === '1' ? defaultTo(learning.times, 0) + 1 : 0;
   const nextTime = input.correct === '1' ? DateUtils.getNextTime(times) : DateUtils.getNextTime(0);
 
   // 学習情報更新
   await LearningService.update({
-    ...question,
+    ...learning,
     times: times,
     nextTime: nextTime,
     lastTime: DateUtils.getNow(),
   });
+
+  // 初めて勉強の場合
+  if (learning.lastTime === Consts.INITIAL_DATE) {
+    const curriculums = await CurriculumService.getListByGroup(learning.groupId);
+    const target = curriculums.find((item) => item.userId === learning.userId);
+
+    if (target) {
+      // 未学習数 - 1
+      await CurriculumService.updateUnlearned(target.id, -1);
+    }
+  }
 
   // 登録実行
   await DBHelper().transactWrite({
@@ -38,14 +48,14 @@ export default async (
       {
         // 履歴登録
         Put: Traces.put({
-          qid: question.qid,
+          qid: learning.qid,
           timestamp: DateUtils.getTimestamp(),
-          groupId: question.groupId,
-          userId: question.userId,
-          subject: question.subject,
-          timesBefore: question.times,
+          groupId: learning.groupId,
+          userId: learning.userId,
+          subject: learning.subject,
+          timesBefore: learning.times,
           timesAfter: times,
-          lastTime: question.lastTime,
+          lastTime: learning.lastTime,
         }),
       },
     ],
