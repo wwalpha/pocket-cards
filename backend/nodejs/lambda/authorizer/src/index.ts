@@ -72,12 +72,12 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
 
     const policy = await buildAuthPolicy(event, principalId);
 
-    console.log(JSON.stringify(policy));
-
     // transform informations to backend
     policy.context = {
       userId: principalId,
     };
+
+    console.log(JSON.stringify(policy));
 
     return policy;
   } catch (err) {
