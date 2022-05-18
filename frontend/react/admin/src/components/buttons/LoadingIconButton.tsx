@@ -35,8 +35,8 @@ export const button: FunctionComponent<LoadingIconButtonProps> = ({ color = 'sec
           sx={{
             color: 'grey.700',
             position: 'absolute',
-            top: 10,
-            left: 10,
+            top: 12.5,
+            left: 15,
             zIndex: 1,
           }}
         />
