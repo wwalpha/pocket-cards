@@ -75,7 +75,7 @@ export const updateUnlearned = (
   Key: key,
   UpdateExpression: 'set #unlearned = #unlearned + :nums',
   ExpressionAttributeNames: {
-    '#count': 'count',
+    '#unlearned': 'unlearned',
   },
   ExpressionAttributeValues: {
     ':nums': count,
