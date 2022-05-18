@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { Consts } from '@consts';
 import { Users } from 'typings';
+import { IncomingHttpHeaders } from 'http';
 
-export const getUserInfo = async (userId: string, token?: string) => {
+export const getUserInfo = async (userId: string, headers: IncomingHttpHeaders) => {
   // get user information
   const response = await axios.get<Users.DescribeUserResponse>(Consts.API_URLs.describeUser(userId), {
-    headers: {
-      authorization: token,
-    },
+    headers: headers,
   });
 
   // user not found

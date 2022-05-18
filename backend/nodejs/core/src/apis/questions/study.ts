@@ -4,6 +4,7 @@ import { CurriculumService, LearningService, QuestionService, UserService } from
 import { Logger, DateUtils, Commons, QueryUtils } from '@utils';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
+import { IncomingHttpHeaders } from 'http';
 
 /** 今日のテスト */
 export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Promise<APIs.QuestionStudyResponse> => {
@@ -27,7 +28,7 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
   }
 
   // 未学習
-  return getUnlearned(userId, req.headers['authorization']);
+  return getUnlearned(userId, req.headers);
 };
 
 const EmptyResponse = (): APIs.QuestionStudyResponse => ({
@@ -51,8 +52,8 @@ const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.Question
   };
 };
 
-const getUnlearned = async (userId: string, token?: string): Promise<APIs.QuestionStudyResponse> => {
-  const userInfo = await UserService.getUserInfo(userId, token);
+const getUnlearned = async (userId: string, header: IncomingHttpHeaders): Promise<APIs.QuestionStudyResponse> => {
+  const userInfo = await UserService.getUserInfo(userId, header);
 
   if (!userInfo.teacher) {
     throw new Error('Teacher not found.');

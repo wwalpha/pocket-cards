@@ -9,7 +9,7 @@ export default async (
 ): Promise<APIs.CurriculumListsResponse> => {
   const subject = req.query.subject;
   const userId = Commons.getUserId(req);
-  const userInfo = await UserService.getUserInfo(userId, req.headers['authorization']);
+  const userInfo = await UserService.getUserInfo(userId, req.headers);
 
   // 保護者の場合
   if (userInfo.authority !== Consts.Authority.PARENT) {
