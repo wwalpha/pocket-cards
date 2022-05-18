@@ -29,6 +29,8 @@ export const CURRICULUM_LIST = () => `${API_VERSION}/curriculums`;
 export const CURRICULUM_REGIST = () => `${API_VERSION}/curriculums`;
 // カリキュラムの削除
 export const CURRICULUM_REMOVE = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}`;
+// カリキュラムの並べ順の更新
+export const CURRICULUM_ORDER = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}/order`;
 
 // 生徒登録
 export const STUDENT_REGIST = () => `${API_VERSION}/users/students`;
