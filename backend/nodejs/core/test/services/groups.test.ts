@@ -17,7 +17,7 @@ describe('b0', () => {
   });
 
   test('b001', async () => {
-    const res = await request(server).post('/v1/groups').set('authorization', HEADER_AUTH).send(B0.B001Req);
+    const res = await request(server).post('/v1/groups').set('username', HEADER_AUTH).send(B0.B001Req);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -31,7 +31,7 @@ describe('b0', () => {
   test('b002: get list success', async () => {
     await client.bulk(TABLE_NAME_GROUPS, B0.B002DB);
 
-    const res = await request(server).get('/v1/groups').set('authorization', HEADER_AUTH);
+    const res = await request(server).get('/v1/groups').set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -40,7 +40,7 @@ describe('b0', () => {
   });
 
   test('b002: empty list', async () => {
-    const res = await request(server).get('/v1/groups').set('authorization', HEADER_AUTH);
+    const res = await request(server).get('/v1/groups').set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -52,7 +52,7 @@ describe('b0', () => {
     // initialize table
     await client.bulk(TABLE_NAME_GROUPS, B0.B003DB);
 
-    const res = await request(server).get('/v1/groups/B003').set('authorization', HEADER_AUTH);
+    const res = await request(server).get('/v1/groups/B003').set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -65,7 +65,7 @@ describe('b0', () => {
     await client.bulk(TABLE_NAME_GROUPS, B0.B004DB01);
 
     // api call
-    const res = await request(server).put('/v1/groups/B004').set('authorization', HEADER_AUTH).send(B0.B004Req01);
+    const res = await request(server).put('/v1/groups/B004').set('username', HEADER_AUTH).send(B0.B004Req01);
 
     // database
     const result = await GroupService.describe('B004');
@@ -81,7 +81,7 @@ describe('b0', () => {
     await client.bulk(TABLE_NAME_WORDS, B0.B005DB_WORDS);
 
     // api call
-    const res = await request(server).delete('/v1/groups/B005').set('authorization', HEADER_AUTH).send(B0.B004Req01);
+    const res = await request(server).delete('/v1/groups/B005').set('username', HEADER_AUTH).send(B0.B004Req01);
 
     // database
     const result = await GroupService.describe('B005');
@@ -97,7 +97,7 @@ describe('b0', () => {
     await client.bulk(TABLE_NAME_WORDS, B0.B006DB_WORDS);
 
     // api call
-    const res = await request(server).get('/v1/groups/B006/status').set('authorization', HEADER_AUTH);
+    const res = await request(server).get('/v1/groups/B006/status').set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);

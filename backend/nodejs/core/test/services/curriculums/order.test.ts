@@ -64,7 +64,7 @@ describe('Curriculums', () => {
     const curriculumId = 'jkxRVJ1ggVEEUYNHAX8SxL';
     const apiPath = `/v1/curriculums/${curriculumId}/order`;
 
-    const res = await request(server).post(apiPath).set('authorization', HEADER_GUARDIAN).send();
+    const res = await request(server).post(apiPath).set('username', HEADER_GUARDIAN).send();
 
     // status code
     expect(res.statusCode).toBe(400);

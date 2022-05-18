@@ -26,7 +26,7 @@ describe('d0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, D0.D003DB_WORDS);
 
     const apiPath = '/v1/user/wordignore';
-    const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH).send(D0.D003Req01);
+    const res = await request(server).post(apiPath).set('username', HEADER_AUTH).send(D0.D003Req01);
     const userId = '84d95083-9ee8-4187-b6e7-8123558ef2c1';
 
     // status code
@@ -52,7 +52,7 @@ describe('d0', () => {
     await client.bulk(Environment.TABLE_NAME_WORD_MASTER, D0.D004DB_WORD_MASTER);
 
     const apiPath = '/v1/today/test';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     console.log(res.body);
     console.log(res.statusCode);
