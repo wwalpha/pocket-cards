@@ -40,8 +40,8 @@ export const remove = async (id: string): Promise<void> => {
 };
 
 /** 保護者関連のカリキュラム一覧 */
-export const getListByGuardian = async (userId: string, subject?: string): Promise<Tables.TCurriculums[]> => {
-  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byGuardian(userId));
+export const getListByGuardian = async (guardian: string, subject?: string): Promise<Tables.TCurriculums[]> => {
+  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byGuardian(guardian));
 
   // filter
   if (subject) {

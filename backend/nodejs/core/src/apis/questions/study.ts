@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import orderBy from 'lodash/orderBy';
-import { CurriculumService, LearningService, QuestionService } from '@services';
+import { CurriculumService, LearningService, QuestionService, UserService } from '@services';
 import { Logger, DateUtils, Commons, QueryUtils } from '@utils';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
@@ -27,7 +27,7 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
   }
 
   // 未学習
-  return getUnlearned(userId);
+  return getUnlearned(userId, req.headers['authorization']);
 };
 
 const EmptyResponse = (): APIs.QuestionStudyResponse => ({
@@ -51,9 +51,15 @@ const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.Question
   };
 };
 
-const getUnlearned = async (userId: string): Promise<APIs.QuestionStudyResponse> => {
+const getUnlearned = async (userId: string, token?: string): Promise<APIs.QuestionStudyResponse> => {
+  const userInfo = await UserService.getUserInfo(userId, token);
+
+  if (!userInfo.teacher) {
+    throw new Error('Teacher not found.');
+  }
+
   // 未学習のカリキュラム一覧を取得する
-  let rows = await CurriculumService.getUnlearned('x', userId);
+  let rows = await CurriculumService.getUnlearned(userInfo.teacher, userId);
   // 並べ替え
   rows = orderBy(rows, 'order');
 

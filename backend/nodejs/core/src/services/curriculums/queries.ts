@@ -50,14 +50,16 @@ export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput =
 export const byUnlearned = (guardian: string, userId: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_CURRICULUMS,
   KeyConditionExpression: '#guardian = :guardian',
-  FilterExpression: '#userId = :userId and unlearned <> 0',
+  FilterExpression: '#userId = :userId and #unlearned <> :unlearned',
   ExpressionAttributeNames: {
     '#guardian': 'guardian',
     '#userId': 'userId',
+    '#unlearned': 'unlearned',
   },
   ExpressionAttributeValues: {
     ':guardian': guardian,
     ':userId': userId,
+    ':unlearned': 0,
   },
   IndexName: 'gsiIdx2',
 });
