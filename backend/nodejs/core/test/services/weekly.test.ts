@@ -20,7 +20,7 @@ describe('weekly', () => {
     await client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, DATAS.WEEKLY01_DB_WEEKLY_ABILITY);
 
     const apiPath = '/v1/study/weekly/G001/questions';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_USER);
+    const res = await request(server).get(apiPath).set('username', HEADER_USER);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -32,7 +32,7 @@ describe('weekly', () => {
     await client.bulk(Environment.TABLE_NAME_QUESTIONS, DATAS.WEEKLY02_DB_QUESTIONS);
 
     const apiPath = '/v1/study/weekly/G001/questions';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_USER);
+    const res = await request(server).get(apiPath).set('username', HEADER_USER);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -44,7 +44,7 @@ describe('weekly', () => {
     await client.bulk(Environment.TABLE_NAME_QUESTIONS, DATAS.WEEKLY03_DB_QUESTIONS);
 
     const apiPath = '/v1/study/weekly/G001/questions?reset=1';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_USER);
+    const res = await request(server).get(apiPath).set('username', HEADER_USER);
 
     const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
 
@@ -59,7 +59,7 @@ describe('weekly', () => {
     await client.bulk(Environment.TABLE_NAME_QUESTIONS, DATAS.WEEKLY04_DB_QUESTIONS);
 
     const apiPath = '/v1/study/weekly/G001/questions';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_USER);
+    const res = await request(server).get(apiPath).set('username', HEADER_USER);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -71,7 +71,7 @@ describe('weekly', () => {
     await client.bulk(Environment.TABLE_NAME_GROUPS, DATAS.WEEKLY05_DB_GROUP);
 
     const apiPath = '/v1/study/weekly/G001/questions/gr4RJGXne2p68Q6oyYcwoN';
-    const res = await request(server).post(apiPath).set('authorization', HEADER_USER).send({
+    const res = await request(server).post(apiPath).set('username', HEADER_USER).send({
       correct: '1',
       mode: 'test',
     });
@@ -91,7 +91,7 @@ describe('weekly', () => {
 
     const apiPath = '/v1/study/weekly/G001/questions/gr4RJGXne2p68Q6oyYcwoN';
 
-    const res = await request(server).post(apiPath).set('authorization', HEADER_USER).send({
+    const res = await request(server).post(apiPath).set('username', HEADER_USER).send({
       correct: '0',
       mode: 'test',
     });
@@ -110,7 +110,7 @@ describe('weekly', () => {
 
     const apiPath = '/v1/study/weekly/G001/questions/87fu6UiJNECBPebKGJcxh1';
 
-    const res = await request(server).post(apiPath).set('authorization', HEADER_USER).send({
+    const res = await request(server).post(apiPath).set('username', HEADER_USER).send({
       correct: '1',
       mode: 'practice',
     });
@@ -127,7 +127,7 @@ describe('weekly', () => {
 
     const apiPath = '/v1/study/weekly/G001/questions/87fu6UiJNECBPebKGJcxh1';
 
-    const res = await request(server).post(apiPath).set('authorization', HEADER_USER).send({
+    const res = await request(server).post(apiPath).set('username', HEADER_USER).send({
       correct: '1',
       mode: 'practice',
     });
@@ -144,7 +144,7 @@ describe('weekly', () => {
 
     const apiPath = '/v1/study/weekly/G001/questions/87fu6UiJNECBPebKGJcxh1';
 
-    const res = await request(server).post(apiPath).set('authorization', HEADER_USER).send({
+    const res = await request(server).post(apiPath).set('username', HEADER_USER).send({
       correct: '0',
       mode: 'practice',
     });
@@ -161,7 +161,7 @@ describe('weekly', () => {
 
     const apiPath = '/v1/study/weekly/G001/questions/97fu6UiJNECBPebKGJcxh1';
 
-    const res = await request(server).post(apiPath).set('authorization', HEADER_USER).send({
+    const res = await request(server).post(apiPath).set('username', HEADER_USER).send({
       correct: '0',
       mode: 'practice',
     });

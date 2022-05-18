@@ -39,7 +39,7 @@ describe('Curriculums', () => {
 
     const apiPath = '/v1/curriculums';
 
-    const res = await request(server).get(apiPath).set('authorization', HEADER_GUARDIAN);
+    const res = await request(server).get(apiPath).set('username', HEADER_GUARDIAN);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -52,7 +52,7 @@ describe('Curriculums', () => {
 
     const apiPath = '/v1/curriculums';
 
-    const res = await request(server).get(apiPath).set('authorization', HEADER_USER);
+    const res = await request(server).get(apiPath).set('username', HEADER_USER);
 
     // status code
     expect(res.statusCode).toBe(400);

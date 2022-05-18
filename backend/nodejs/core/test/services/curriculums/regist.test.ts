@@ -29,7 +29,7 @@ describe('Curriculums', () => {
 
     const res = await request(server)
       .post(apiPath)
-      .set('authorization', HEADER_USER)
+      .set('username', HEADER_USER)
       .send(CURRICULUMS.CURRI_001_REQ as APIs.CurriculumRegistRequest);
 
     // status code
@@ -58,7 +58,7 @@ describe('Curriculums', () => {
 
     const res = await request(server)
       .post(apiPath)
-      .set('authorization', HEADER_USER)
+      .set('username', HEADER_USER)
       .send(CURRICULUMS.CURRI_002_REQ as APIs.CurriculumRegistRequest);
 
     // status code
@@ -85,7 +85,7 @@ describe('Curriculums', () => {
 
     const res = await request(server)
       .post(apiPath)
-      .set('authorization', HEADER_USER)
+      .set('username', HEADER_USER)
       .send(CURRICULUMS.CURRI_003_REQ as APIs.CurriculumRegistRequest);
 
     // status code
@@ -98,7 +98,7 @@ describe('Curriculums', () => {
 
     const res = await request(server)
       .post(apiPath)
-      .set('authorization', HEADER_USER)
+      .set('username', HEADER_USER)
       .send(CURRICULUMS.CURRI_004_REQ as APIs.CurriculumRegistRequest);
 
     // status code
@@ -113,7 +113,7 @@ describe('Curriculums', () => {
 
     const res = await request(server)
       .post(apiPath)
-      .set('authorization', HEADER_USER)
+      .set('username', HEADER_USER)
       .send(CURRICULUMS.CURRI_005_REQ as APIs.CurriculumRegistRequest);
 
     // status code
@@ -128,7 +128,7 @@ describe('Curriculums', () => {
 
     const res = await request(server)
       .post(apiPath)
-      .set('authorization', HEADER_USER)
+      .set('username', HEADER_USER)
       .send(CURRICULUMS.CURRI_006_REQ as APIs.CurriculumRegistRequest);
 
     // status code
