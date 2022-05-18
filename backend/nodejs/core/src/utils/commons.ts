@@ -19,7 +19,7 @@ export const sleep = (timeout: number) => new Promise<void>((resolve) => setTime
  *
  * @param authKey Header Key
  */
-export const getUserId = (req: Request<any, any, any, any>, authKey: string = 'authorization') => {
+export const getUserId = (req: Request<any, any, any, any>, authKey: string = 'username') => {
   const value = req.headers[authKey] as string;
 
   // データが存在しない場合、エラーとする
@@ -27,7 +27,7 @@ export const getUserId = (req: Request<any, any, any, any>, authKey: string = 'a
     throw new Error('Can not found User Id.');
   }
 
-  return getUserInfo(value);
+  return value;
 };
 
 export const getUserInfo = (token: string) => {
