@@ -10,7 +10,7 @@ resource "aws_apigatewayv2_integration" "backend" {
   integration_uri    = aws_service_discovery_service.this.arn
 
   request_parameters = {
-    "append:header.username" = "$context.userId"
+    "append:header.username" = "$context.authorizer.userId"
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_apigatewayv2_integration" "auth" {
   integration_uri    = aws_service_discovery_service.auth.arn
 
   request_parameters = {
-    "append:header.username" = "$context.userId"
+    "append:header.username" = "$context.authorizer.userId"
   }
 }
 
@@ -42,6 +42,6 @@ resource "aws_apigatewayv2_integration" "users" {
   integration_uri    = aws_service_discovery_service.users.arn
 
   request_parameters = {
-    "append:header.username" = "$context.userId"
+    "append:header.username" = "$context.authorizer.userId"
   }
 }
