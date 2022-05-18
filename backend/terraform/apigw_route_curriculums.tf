@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------------------------
 # API Gateway Route - Curriculums Proxy
 # ---------------------------------------------------------------------------------------------
-resource "aws_apigatewayv2_route" "delete_curriculums_proxy" {
+resource "aws_apigatewayv2_route" "get_curriculums_proxy" {
   api_id             = local.apigw_id
   route_key          = "DELETE /curriculums/{proxy+}"
   target             = "integrations/${local.apigw_integration_id_backend}"
