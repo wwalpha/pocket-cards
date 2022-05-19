@@ -25,7 +25,12 @@ class URLs {
 
     static let SIGN_IN = "\(HOST)/v1/auth/login"
     static let GROUP_LIST = "\(HOST)/v1/groups"
+
     static let CURRICULUM_LIST = "\(HOST)/v1/curriculums"
+
+    static func CURRICULUM_QUESTIONS(curriculumId: String) -> String {
+        "\(HOST)/v1/curriculums/\(curriculumId)/questions"
+    }
 
     static let REPORTS_PROGRESS = "\(HOST)/v1/reports/progress"
     static let REPORTS_OVERALL = "\(HOST)/v1/reports/overall"

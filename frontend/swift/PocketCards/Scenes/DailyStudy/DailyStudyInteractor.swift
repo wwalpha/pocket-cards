@@ -22,6 +22,10 @@ class DailyStudyInteractor: PracticeInteractor {
 
             // update answer
             _ = await API.request(URLs.STUDY_DAILY_ANSWER(id: qid), method: .post, parameters: params).serializingString().response
+
+            if questions.count < 5 {
+                await loadQuestions()
+            }
         }
     }
 

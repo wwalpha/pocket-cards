@@ -22,6 +22,11 @@ class DailyTestInteractor: TestInteractor {
 
             // update answer
             _ = await API.request(URLs.STUDY_DAILY_ANSWER(id: qid), method: .post, parameters: params).serializingString().response
+
+            // add questions
+            if questions.count < 5 {
+                loadQuestions()
+            }
         }
     }
 
