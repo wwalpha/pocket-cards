@@ -1,7 +1,7 @@
+import { push } from 'connected-react-router';
 import { Consts, ROUTE_PATHS } from '@constants';
 import { Actions } from '@reducers';
-import { push } from 'connected-react-router';
-import { AppDispatch } from 'typings';
+import { AppDispatch, Tables } from 'typings';
 
 /** サインイン */
 export const signin = (username: string, passwd: string, newPassword?: string) => async (dispatch: AppDispatch) => {
@@ -86,6 +86,23 @@ export const curriculumRemove = (id: string) => (dispatch: AppDispatch) => {
   // Get question lists
   dispatch(Actions.USER_CURRICULUM_REMOVE(id));
 };
+
+/** カリキュラム並べ順更新 */
+export const curriculumOrder =
+  (changed: Tables.TCurriculums[], origin: Tables.TCurriculums[]) => (dispatch: AppDispatch) => {
+    changed.forEach((item) => {
+      const source = origin.find((o) => o.id === item.id);
+
+      if (item.order !== source?.order) {
+        dispatch(
+          Actions.USER_CURRICULUM_ORDER({
+            curriculumId: item.id,
+            order: item.order.toString(),
+          })
+        );
+      }
+    });
+  };
 
 /** 生徒一覧 */
 export const getStudentList = () => (dispatch: AppDispatch) => {

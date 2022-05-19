@@ -20,6 +20,7 @@
 | OK     | /curriculums                                 | POST        | CurriculumRegist    | カリキュラム新規登録   |
 | OK     | /curriculums                                 | GET         | CurriculumList      | カリキュラム一覧取得   |
 | OK     | /curriculums/:curriculumId                   | DELETE      | CurriculumRemove    | カリキュラム削除       |
+| OK     | /curriculums/:curriculumId/order             | PUT         | CurriculumOrder     | カリキュラム並べ順更新 |
 | OK     | /patch                                       | PATCH       | Patchs              | パッチ                 |
 | OK     | /study/daily/practice/questions              | GET         | QuestionStudy       | 日次練習問題           |
 | OK     | /study/daily/test/questions                  | GET         | QuestionExam        | 日次テスト問題         |

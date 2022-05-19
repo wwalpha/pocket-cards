@@ -40,8 +40,8 @@ export const remove = async (id: string): Promise<void> => {
 };
 
 /** 保護者関連のカリキュラム一覧 */
-export const getListByGuardian = async (userId: string, subject?: string): Promise<Tables.TCurriculums[]> => {
-  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byGuardian(userId));
+export const getListByGuardian = async (guardian: string, subject?: string): Promise<Tables.TCurriculums[]> => {
+  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byGuardian(guardian));
 
   // filter
   if (subject) {
@@ -56,4 +56,27 @@ export const getListByGroup = async (groupId: string): Promise<Tables.TCurriculu
   const results = await DBHelper().query<Tables.TCurriculums>(Queries.byGroupId(groupId));
 
   return results.Items;
+};
+
+/** 未学習のカリキュラム一覧を取得 */
+export const getUnlearned = async (
+  guardian: string,
+  userId: string,
+  subject: string
+): Promise<Tables.TCurriculums[]> => {
+  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byUnlearned(guardian, userId, subject));
+
+  return results.Items;
+};
+
+/** 未学習数を更新する */
+export const updateUnlearned = async (id: string, count: number) => {
+  await DBHelper().update(
+    Queries.updateUnlearned(
+      {
+        id: id,
+      },
+      count
+    )
+  );
 };

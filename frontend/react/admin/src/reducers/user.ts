@@ -1,5 +1,6 @@
 import { Consts } from '@constants';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import sortBy from 'lodash/sortBy';
 import { Domains } from 'typings';
 import * as UserActions from './userActions';
 
@@ -55,8 +56,15 @@ const slice = createSlice({
       .addCase(UserActions.USER_CURRICULUM_REMOVE.fulfilled, (state, { payload }) => {
         state.curriculums = state.curriculums.filter((item) => item.id !== payload);
       })
+      .addCase(UserActions.USER_CURRICULUM_ORDER.fulfilled, (state, { payload }) => {
+        const finded = state.curriculums.find((item) => item.id === payload.curriculumId);
+
+        if (finded) {
+          finded.order = Number(payload.order);
+        }
+      })
       .addCase(UserActions.USER_CURRICULUM_LIST.fulfilled, (state, { payload }) => {
-        state.curriculums = payload.items;
+        state.curriculums = sortBy(payload.items, ['order']);
       })
       .addCase(UserActions.USER_STUDENT_LIST.fulfilled, (state, { payload }) => {
         state.students = payload.items;

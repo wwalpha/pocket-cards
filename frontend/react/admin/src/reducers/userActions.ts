@@ -1,7 +1,7 @@
 import { URLs } from '@constants';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API, Credentials } from '@utils';
-import { Auth, Users, APIs, RootState } from 'typings';
+import { Auth, Users, APIs, RootState, CurriculumOrderUpdate } from 'typings';
 
 export const USER_SIGN_IN = createAsyncThunk<Auth.SignInResponse & Auth.SignInRequest, Auth.SignInRequest>(
   'user/USER_SIGN_IN',
@@ -50,6 +50,20 @@ export const USER_CURRICULUM_REMOVE = createAsyncThunk<string, string>(
     await API.del(URLs.CURRICULUM_REMOVE(curriculumId));
 
     return curriculumId;
+  }
+);
+
+export const USER_CURRICULUM_ORDER = createAsyncThunk<CurriculumOrderUpdate, CurriculumOrderUpdate>(
+  'user/USER_CURRICULUM_ORDER',
+  async (params) => {
+    await API.post<APIs.CurriculumOrderResponse, APIs.CurriculumOrderRequest>(
+      URLs.CURRICULUM_ORDER(params.curriculumId),
+      {
+        order: params.order,
+      }
+    );
+
+    return params;
   }
 );
 

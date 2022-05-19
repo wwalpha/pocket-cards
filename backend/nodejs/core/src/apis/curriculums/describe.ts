@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { APIs } from 'typings';
 import { QuestionService } from '@services';
 
+// @deprecated
 export default async (
   req: Request<APIs.QuestionListParams, any, APIs.QuestionListRequest, any>
 ): Promise<APIs.QuestionListResponse> => {

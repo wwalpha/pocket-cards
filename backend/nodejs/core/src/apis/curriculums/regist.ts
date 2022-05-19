@@ -1,9 +1,9 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
-import { Commons, DBHelper, ValidationError } from '@utils';
-import { APIs, Tables } from 'typings';
-import { Consts, Environment } from '@consts';
 import { AbilityService, CurriculumService, GroupService, QuestionService } from '@services';
+import { Commons, DBHelper, ValidationError } from '@utils';
+import { Consts, Environment } from '@consts';
+import { APIs, Tables } from 'typings';
 
 export default async (
   req: Request<any, any, APIs.CurriculumRegistRequest, any>
@@ -18,7 +18,7 @@ export default async (
   const groupInfo = await GroupService.describe(groupId);
 
   if (!groupInfo) {
-    throw new Error('Group informations not found.');
+    throw new ValidationError('Group informations not found.');
   }
 
   // 普通グループ
@@ -27,7 +27,7 @@ export default async (
 
     // group not exsits or no question in group
     if (questions.length === 0) {
-      throw new Error('No questions in group');
+      throw new ValidationError('No questions in group');
     }
 
     const dataRows = questions.map<Tables.TLearning>((item) => ({
@@ -35,8 +35,8 @@ export default async (
       userId: userId,
       groupId: item.groupId,
       subject: groupInfo.subject,
-      lastTime: '19900101',
-      nextTime: '19900101',
+      lastTime: Consts.INITIAL_DATE,
+      nextTime: Consts.INITIAL_DATE,
       times: 0,
     }));
 
@@ -49,6 +49,8 @@ export default async (
       guardian: guardian,
       userId: userId,
       groupId: groupId,
+      order: 9999,
+      unlearned: dataRows.length,
     };
 
     // add new curriculum
@@ -63,7 +65,7 @@ export default async (
 
     // group not exsits or no question in group
     if (questions.length === 0) {
-      throw new Error('No questions in group');
+      throw new ValidationError('No questions in group');
     }
 
     // reset question times
@@ -80,6 +82,8 @@ export default async (
       guardian: guardian,
       userId: questions[0]!.userId,
       groupId: groupId,
+      order: 9999,
+      unlearned: questions.length,
     };
 
     // add new curriculum

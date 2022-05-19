@@ -4,13 +4,13 @@ import { Words } from '@queries';
 import { Environment } from '@consts';
 import { DateUtils } from '@utils';
 import server from '@src/app';
-import * as C0 from '../datas/c0';
+import * as C0 from '../../datas/c0';
 import { HEADER_AUTH } from '@test/Commons';
 import { GroupService } from '@services';
 
 jest.mock('axios');
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 
 describe.skip('C0', () => {
   afterEach(async () => {
@@ -24,10 +24,7 @@ describe.skip('C0', () => {
     // const user: User.GetUserResponse = require('./expect/Decode.json');
     // api.get.mockResolvedValueOnce({ status: 200, data: user });
 
-    const res = await request(server)
-      .post('/v1/groups/group001/words')
-      .set('authorization', HEADER_AUTH)
-      .send(C0.C001Req01);
+    const res = await request(server).post('/v1/groups/group001/words').set('username', HEADER_AUTH).send(C0.C001Req01);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -36,10 +33,7 @@ describe.skip('C0', () => {
   });
 
   test.skip('C001:単語新規追加(1つ)', async () => {
-    const res = await request(server)
-      .post('/v1/groups/group001/words')
-      .set('authorization', HEADER_AUTH)
-      .send(C0.C001Req02);
+    const res = await request(server).post('/v1/groups/group001/words').set('username', HEADER_AUTH).send(C0.C001Req02);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -51,7 +45,7 @@ describe.skip('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C002DB01);
 
     const apiPath = '/v1/groups/C002/words';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -61,7 +55,7 @@ describe.skip('C0', () => {
 
   test('C002:グループ単語一覧_データなし', async () => {
     const apiPath = '/v1/groups/C003/words';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -73,7 +67,7 @@ describe.skip('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C003DB01);
 
     const apiPath = '/v1/groups/C003/words/C003-1';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH).expect(200);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH).expect(200);
 
     // response
     expect(res.body).toEqual(C0.C003Res01);
@@ -84,7 +78,7 @@ describe.skip('C0', () => {
 
     await request(server)
       .put('/v1/groups/C004/words/WORD-4')
-      .set('authorization', HEADER_AUTH)
+      .set('username', HEADER_AUTH)
       .send(C0.C004Req01)
       .expect(200);
 
@@ -105,7 +99,7 @@ describe.skip('C0', () => {
 
     await request(server)
       .put('/v1/groups/C004/words/WORD-4')
-      .set('authorization', HEADER_AUTH)
+      .set('username', HEADER_AUTH)
       .send(C0.C004Req02)
       .expect(200);
 
@@ -125,7 +119,7 @@ describe.skip('C0', () => {
 
     const res = await request(server)
       .put('/v1/groups/C004/words/WORD4')
-      .set('authorization', HEADER_AUTH)
+      .set('username', HEADER_AUTH)
       .send(C0.C004Req03);
 
     // status code
@@ -137,7 +131,7 @@ describe.skip('C0', () => {
 
     const res = await request(server)
       .put('/v1/groups/C004/words/WORD4')
-      .set('authorization', HEADER_AUTH)
+      .set('username', HEADER_AUTH)
       .send(C0.C004Req04);
 
     // status code
@@ -149,7 +143,7 @@ describe.skip('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORDS, C0.C005DB01_Word);
 
     const apiPath = '/v1/groups/C005/words/C005-1';
-    const res = await request(server).delete(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).delete(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -166,7 +160,7 @@ describe.skip('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORD_MASTER, C0.C006DB01_WORD_MASTER);
 
     const apiPath = '/v1/groups/C006/new';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -175,7 +169,7 @@ describe.skip('C0', () => {
 
   test('C006:新規学習なし', async () => {
     const apiPath = '/v1/groups/C006/new';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -187,7 +181,7 @@ describe.skip('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORD_MASTER, C0.C007DB01_WORD_MASTER);
 
     const apiPath = '/v1/groups/C007/test';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -196,7 +190,7 @@ describe.skip('C0', () => {
 
   test('C007:テストなし', async () => {
     const apiPath = '/v1/groups/C007/test';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -213,7 +207,7 @@ describe.skip('C0', () => {
     await client.bulk(Environment.TABLE_NAME_WORD_MASTER, C0.C008DB01_WORD_MASTER);
 
     const apiPath = '/v1/groups/C008/review';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -223,7 +217,7 @@ describe.skip('C0', () => {
 
   test('C008:レビューなし', async () => {
     const apiPath = '/v1/groups/C008/review';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
