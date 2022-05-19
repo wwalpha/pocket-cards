@@ -105,7 +105,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) =
           </TableBody>
         </Table>
       </TableContainer>
-      <Dialog open={open} onClose={handleClose} maxWidth="md">
+      <Dialog open={open} onClose={handleClose} maxWidth="lg">
         <DialogTitle>問題</DialogTitle>
         <DialogContent>
           {dataRow && (

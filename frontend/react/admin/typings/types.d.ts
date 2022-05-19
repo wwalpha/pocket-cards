@@ -109,7 +109,10 @@ export namespace Group {
     untested: number;
   }
 
-  type Question = Pick<Tables.TQuestions, 'id' | 'title' | 'answer' | 'description' | 'choices'>;
+  type Question = Pick<
+    Tables.TQuestions,
+    'id' | 'title' | 'answer' | 'description' | 'choices' | 'voiceTitle' | 'voiceAnswer'
+  >;
 }
 
 interface ScreenInfo {
