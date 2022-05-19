@@ -90,24 +90,20 @@ export const curriculumRemove = (id: string) => (dispatch: AppDispatch) => {
 /** カリキュラム並べ順更新 */
 export const curriculumOrder =
   (changed: Tables.TCurriculums[], origin: Tables.TCurriculums[]) => async (dispatch: AppDispatch) => {
-    const tasks: Promise<CurriculumOrderUpdate>[] = [];
+    const updates: CurriculumOrderUpdate[] = [];
 
     changed.forEach((item) => {
       const source = origin.find((o) => o.id === item.id);
 
       if (item.order !== source?.order) {
-        tasks.push(
-          dispatch(
-            Actions.USER_CURRICULUM_ORDER({
-              curriculumId: item.id,
-              order: item.order.toString(),
-            })
-          ).unwrap()
-        );
+        updates.push({
+          curriculumId: item.id,
+          order: item.order.toString(),
+        });
       }
     });
 
-    await Promise.all(tasks);
+    await dispatch(Actions.USER_CURRICULUM_ORDER(updates)).unwrap();
   };
 
 /** 生徒一覧 */
