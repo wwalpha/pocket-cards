@@ -5,13 +5,13 @@ import server from '@src/app';
 import { WordMaster } from '@queries';
 import { DBHelper } from '@utils';
 import { HEADER_AUTH } from '@test/Commons';
-import * as E0 from '../datas/e0';
+import * as E0 from '../../datas/e0';
 import { Environment } from '@consts';
 
 jest.mock('axios');
 
 const api = axios as jest.Mocked<AxiosStatic>;
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 
 describe.skip('e0', () => {
   afterEach(async () => {
@@ -22,7 +22,7 @@ describe.skip('e0', () => {
     await client.bulk(Environment.TABLE_NAME_WORD_MASTER, E0.E001_01_DB);
 
     const apiPath = '/v1/words/AAA';
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -33,7 +33,7 @@ describe.skip('e0', () => {
     await client.bulk(Environment.TABLE_NAME_WORD_MASTER, E0.E002_02_DB);
 
     const apiPath = '/v1/words/AAA';
-    const res = await request(server).put(apiPath).set('authorization', HEADER_AUTH).send(E0.E002_01_Req);
+    const res = await request(server).put(apiPath).set('username', HEADER_AUTH).send(E0.E002_01_Req);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -50,7 +50,7 @@ describe.skip('e0', () => {
     api.post.mockImplementationOnce(() => Promise.resolve({ status: 200, data: E0.E002_02_Translate }));
 
     const apiPath = '/v1/words/AAA';
-    const res = await request(server).put(apiPath).set('authorization', HEADER_AUTH).send(E0.E002_02_Req);
+    const res = await request(server).put(apiPath).set('username', HEADER_AUTH).send(E0.E002_02_Req);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -67,7 +67,7 @@ describe.skip('e0', () => {
     api.post.mockImplementationOnce(() => Promise.resolve({ status: 200, data: E0.E002_03_Translate }));
 
     const apiPath = '/v1/words/BBB';
-    const res = await request(server).put(apiPath).set('authorization', HEADER_AUTH).send(E0.E002_03_Req);
+    const res = await request(server).put(apiPath).set('username', HEADER_AUTH).send(E0.E002_03_Req);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -78,7 +78,7 @@ describe.skip('e0', () => {
 
   test('E002:Validation', async () => {
     const apiPath = '/v1/words/AAA';
-    const res = await request(server).put(apiPath).set('authorization', HEADER_AUTH).send(E0.E002_04_Req);
+    const res = await request(server).put(apiPath).set('username', HEADER_AUTH).send(E0.E002_04_Req);
 
     // status code
     expect(res.statusCode).toBe(500);

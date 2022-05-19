@@ -8,11 +8,11 @@ import { Environment } from '@consts';
 import { APIs } from 'typings';
 import { LearningService } from '@services';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
+const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 
 jest.setTimeout(10000);
 
-describe('d0', () => {
+describe('questions', () => {
   afterEach(async () => {
     await client.truncateAll(Environment.TABLE_NAME_GROUPS);
     await client.truncateAll(Environment.TABLE_NAME_QUESTIONS);
@@ -24,7 +24,7 @@ describe('d0', () => {
 
     const apiPath = '/v1/groups/G001/questions';
 
-    const res = await request(server).post(apiPath).set('authorization', HEADER_AUTH).send(QUESTIONS.REGIST001_REQ);
+    const res = await request(server).post(apiPath).set('username', HEADER_AUTH).send(QUESTIONS.REGIST001_REQ);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -51,7 +51,7 @@ describe('d0', () => {
       .query({
         subject: '2',
       })
-      .set('authorization', HEADER_AUTH);
+      .set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -70,7 +70,7 @@ describe('d0', () => {
       .query({
         subject: '2',
       })
-      .set('authorization', HEADER_AUTH);
+      .set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -85,7 +85,7 @@ describe('d0', () => {
 
     const res = await request(server)
       .post(apiPath)
-      .set('authorization', HEADER_AUTH)
+      .set('username', HEADER_AUTH)
       .send({
         correct: '1',
       } as APIs.QuestionAnswerRequest);
@@ -105,7 +105,7 @@ describe('d0', () => {
 
     const res = await request(server)
       .post(apiPath)
-      .set('authorization', HEADER_AUTH)
+      .set('username', HEADER_AUTH)
       .send({
         correct: '0',
       } as APIs.QuestionAnswerRequest);
@@ -124,7 +124,7 @@ describe('d0', () => {
 
     const apiPath = '/v1/groups/G001/questions';
 
-    const res = await request(server).get(apiPath).set('authorization', HEADER_AUTH);
+    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(200);

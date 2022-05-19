@@ -13,7 +13,7 @@ export default async (
   const curriculumInfo = await CurriculumService.describe(curriculumId);
 
   if (!curriculumInfo) {
-    throw new ValidationError('Curriculum not found.');
+    throw new ValidationError(`Curriculum[${curriculumId}] not found.`);
   }
 
   // グループ

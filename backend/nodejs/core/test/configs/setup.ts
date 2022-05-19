@@ -6,7 +6,7 @@ import AWS, { S3 } from 'aws-sdk';
 AWS.config.update({
   region: process.env['AWS_REGION'],
   s3: { endpoint: process.env['AWS_ENDPOINT'] },
-  dynamodb: { endpoint: process.env['AWS_ENDPOINT'] },
+  dynamodb: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] },
 });
 
 const TABLE_NAME_USERS = process.env['TABLE_NAME_USERS'] as string;
@@ -18,11 +18,12 @@ const TABLE_NAME_QUESTIONS = process.env['TABLE_NAME_QUESTIONS'] as string;
 const TABLE_NAME_LEARNING = process.env['TABLE_NAME_LEARNING'] as string;
 const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;
 const TABLE_NAME_WEEKLY_ABILITY = process.env['TABLE_NAME_WEEKLY_ABILITY'] as string;
+const TABLE_NAME_CURRICULUMS = process.env['TABLE_NAME_CURRICULUMS'] as string;
 
 const setup = async () => {
   console.log('jest setup start...');
 
-  const helper = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT'] } });
+  const helper = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
   const s3Client = new S3();
   const dbClient = helper.getClient();
 
@@ -31,8 +32,7 @@ const setup = async () => {
     dbClient
       .createTable({
         TableName: TABLE_NAME_USERS,
-        BillingMode: 'PROVISIONED',
-        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
         AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
       })
@@ -40,8 +40,7 @@ const setup = async () => {
     dbClient
       .createTable({
         TableName: TABLE_NAME_GROUPS,
-        BillingMode: 'PROVISIONED',
-        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
         AttributeDefinitions: [
           { AttributeName: 'id', AttributeType: 'S' },
@@ -55,7 +54,6 @@ const setup = async () => {
               { AttributeName: 'id', KeyType: 'RANGE' },
             ],
             Projection: { ProjectionType: 'ALL' },
-            ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
           },
         ],
       })
@@ -63,8 +61,7 @@ const setup = async () => {
     dbClient
       .createTable({
         TableName: TABLE_NAME_WORDS,
-        BillingMode: 'PROVISIONED',
-        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [
           { AttributeName: 'id', KeyType: 'HASH' },
           { AttributeName: 'groupId', KeyType: 'RANGE' },
@@ -82,7 +79,6 @@ const setup = async () => {
               { AttributeName: 'nextTime', KeyType: 'RANGE' },
             ],
             Projection: { ProjectionType: 'ALL' },
-            ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
           },
         ],
       })
@@ -90,8 +86,7 @@ const setup = async () => {
     dbClient
       .createTable({
         TableName: TABLE_NAME_WORD_MASTER,
-        BillingMode: 'PROVISIONED',
-        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
         AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
       })
@@ -99,8 +94,7 @@ const setup = async () => {
     dbClient
       .createTable({
         TableName: TABLE_NAME_WORD_IGNORE,
-        BillingMode: 'PROVISIONED',
-        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [
           { AttributeName: 'id', KeyType: 'HASH' },
           { AttributeName: 'word', KeyType: 'RANGE' },
@@ -114,8 +108,7 @@ const setup = async () => {
     dbClient
       .createTable({
         TableName: TABLE_NAME_TRACES,
-        BillingMode: 'PROVISIONED',
-        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [
           { AttributeName: 'qid', KeyType: 'HASH' },
           { AttributeName: 'timestamp', KeyType: 'RANGE' },
@@ -129,8 +122,7 @@ const setup = async () => {
     dbClient
       .createTable({
         TableName: TABLE_NAME_QUESTIONS,
-        BillingMode: 'PROVISIONED',
-        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
         AttributeDefinitions: [
           { AttributeName: 'id', AttributeType: 'S' },
@@ -144,7 +136,6 @@ const setup = async () => {
               { AttributeName: 'id', KeyType: 'RANGE' },
             ],
             Projection: { ProjectionType: 'ALL' },
-            ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
           },
         ],
       })
@@ -152,8 +143,7 @@ const setup = async () => {
     dbClient
       .createTable({
         TableName: TABLE_NAME_WEEKLY_ABILITY,
-        BillingMode: 'PROVISIONED',
-        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [
           { AttributeName: 'id', KeyType: 'HASH' },
           { AttributeName: 'qid', KeyType: 'RANGE' },
@@ -167,8 +157,7 @@ const setup = async () => {
     dbClient
       .createTable({
         TableName: TABLE_NAME_LEARNING,
-        BillingMode: 'PROVISIONED',
-        ProvisionedThroughput: { ReadCapacityUnits: 100, WriteCapacityUnits: 100 },
+        BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [
           { AttributeName: 'qid', KeyType: 'HASH' },
           { AttributeName: 'userId', KeyType: 'RANGE' },
@@ -186,7 +175,33 @@ const setup = async () => {
               { AttributeName: 'nextTime', KeyType: 'RANGE' },
             ],
             Projection: { ProjectionType: 'ALL' },
-            ProvisionedThroughput: { WriteCapacityUnits: 100, ReadCapacityUnits: 100 },
+          },
+        ],
+      })
+      .promise(),
+    dbClient
+      .createTable({
+        TableName: TABLE_NAME_CURRICULUMS,
+        BillingMode: 'PAY_PER_REQUEST',
+        KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+        AttributeDefinitions: [
+          { AttributeName: 'id', AttributeType: 'S' },
+          { AttributeName: 'guardian', AttributeType: 'S' },
+          { AttributeName: 'groupId', AttributeType: 'S' },
+        ],
+        GlobalSecondaryIndexes: [
+          {
+            IndexName: 'gsiIdx1',
+            KeySchema: [
+              { AttributeName: 'guardian', KeyType: 'HASH' },
+              { AttributeName: 'groupId', KeyType: 'RANGE' },
+            ],
+            Projection: { ProjectionType: 'ALL' },
+          },
+          {
+            IndexName: 'gsiIdx2',
+            KeySchema: [{ AttributeName: 'groupId', KeyType: 'HASH' }],
+            Projection: { ProjectionType: 'ALL' },
           },
         ],
       })

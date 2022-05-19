@@ -42,6 +42,11 @@ export default () => {
     dispatch(push(ROUTE_PATHS.ABILITIES));
   };
 
+  // ability click handler
+  const handleOrder = () => {
+    dispatch(push(ROUTE_PATHS.CURRICULUM_ORDER));
+  };
+
   return (
     <Drawer sx={styles.drawer} variant="permanent" anchor="left">
       <Toolbar>
@@ -58,7 +63,7 @@ export default () => {
             handleClick(Consts.SUBJECT.LANGUAGE);
           }}>
           <ListItemIcon sx={styles.itemIcon}>
-            <BookIcon sx={{ color: '#b71927' }} />
+            <BookIcon sx={{ color: Consts.COLORS.LANGUAGE }} />
           </ListItemIcon>
           <ListItemText primary="国 語" />
         </ListItem>
@@ -70,7 +75,7 @@ export default () => {
             handleClick(Consts.SUBJECT.SCIENCE.toString());
           }}>
           <ListItemIcon sx={styles.itemIcon}>
-            <BookIcon sx={{ color: '#f19116' }} />
+            <BookIcon sx={{ color: Consts.COLORS.SCIENCE }} />
           </ListItemIcon>
           <ListItemText primary="理 科" />
         </ListItem>
@@ -82,7 +87,7 @@ export default () => {
             handleClick(Consts.SUBJECT.SOCIETY.toString());
           }}>
           <ListItemIcon sx={styles.itemIcon}>
-            <BookIcon sx={{ color: '#288f46' }} />
+            <BookIcon sx={{ color: Consts.COLORS.SOCIETY }} />
           </ListItemIcon>
           <ListItemText primary="社 会" />
         </ListItem>
@@ -94,12 +99,19 @@ export default () => {
             handleClick(Consts.SUBJECT.ENGLISH.toString());
           }}>
           <ListItemIcon sx={styles.itemIcon}>
-            <BookIcon sx={{ color: '#b71927' }} />
+            <BookIcon sx={{ color: Consts.COLORS.ENGLISH }} />
           </ListItemIcon>
           <ListItemText primary="英 語" />
         </ListItem>
         {authority === Consts.Authority.PARENT && (
           <React.Fragment>
+            <Divider />
+            <ListItem button key="order" onClick={handleOrder}>
+              <ListItemIcon sx={styles.itemIcon}>
+                <LocalFireDepartmentIcon sx={{ color: 'secondary.main' }} />
+              </ListItemIcon>
+              <ListItemText primary="学習順番" />
+            </ListItem>
             <Divider />
             <ListItem button key="weekly" onClick={handleAbility}>
               <ListItemIcon sx={styles.itemIcon}>

@@ -50,6 +50,13 @@ export const dailyPractice = async (userId: string, nextTime: string, subject: s
   return results.Items;
 };
 
+/** 未学習問題一覧 */
+export const dailyUnlearned = async (groupId: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.unlearned(groupId));
+
+  return results.Items;
+};
+
 export const dailyPastTasks = async (userId: string, nextTime: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Queries.past(userId, nextTime));
 

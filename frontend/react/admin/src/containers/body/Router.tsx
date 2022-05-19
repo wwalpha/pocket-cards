@@ -6,9 +6,8 @@ import { Header } from '@containers/com';
 import { QuestionList, QuestionConfirm } from '../questions';
 
 export default () => {
-  const { path, params, url } = useRouteMatch();
+  const { path } = useRouteMatch();
 
-  console.log(path, params, url);
   return (
     <React.Fragment>
       <Switch>

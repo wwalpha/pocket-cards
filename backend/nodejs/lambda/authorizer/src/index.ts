@@ -1,5 +1,5 @@
 import { DynamoDB } from 'aws-sdk';
-import { APIGatewayAuthorizerResult, APIGatewayRequestAuthorizerEventV2 } from 'aws-lambda';
+import { APIGatewayAuthorizerResult, APIGatewayRequestAuthorizerEventV2, Context } from 'aws-lambda';
 import { JwtPayload } from 'jsonwebtoken';
 import winston from 'winston';
 import omit from 'lodash/omit';
@@ -71,6 +71,11 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
     const principalId = payload['cognito:username'];
 
     const policy = await buildAuthPolicy(event, principalId);
+
+    // transform informations to backend
+    policy.context = {
+      userId: principalId,
+    };
 
     console.log(JSON.stringify(policy));
 

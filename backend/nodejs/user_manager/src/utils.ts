@@ -39,10 +39,9 @@ export const common = async (req: express.Request, res: express.Response, app: a
 /**
  * Header情報からUserIdを取得する(Cognito Authorization IdToken)
  *
- * @param event APIGateway EVENT
  * @param authKey Header Key
  */
-export const getUserId = (req: express.Request<any, any, any, any>, authKey: string = 'authorization') => {
+export const getUserId = (req: express.Request<any, any, any, any>, authKey: string = 'username') => {
   const value = req.headers[authKey] as string;
 
   // データが存在しない場合、エラーとする
@@ -50,7 +49,8 @@ export const getUserId = (req: express.Request<any, any, any, any>, authKey: str
     throw new Error('Can not found User Id.');
   }
 
-  return getUserInfo(value);
+  return value;
+  // return getUserInfo(value);
 };
 
 export const getUserInfo = (token: string) => {

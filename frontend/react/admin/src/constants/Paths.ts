@@ -23,3 +23,5 @@ export const SETTINGS = '/settings';
 export const ABILITIES = '/abilities';
 export const ABILITIES_REGIST = '/abilities/regist';
 export const ABILITIES_QUESTIONS = (groupId: string = ':groupId') => `/abilities/groups/${groupId}/questions`;
+
+export const CURRICULUM_ORDER = '/curriculums';

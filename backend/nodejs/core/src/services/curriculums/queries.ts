@@ -45,3 +45,39 @@ export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput =
   },
   IndexName: 'gsiIdx2',
 });
+
+/** カリキュラム一覧を取得する（未学習のみ） */
+export const byUnlearned = (guardian: string, userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_CURRICULUMS,
+  KeyConditionExpression: '#guardian = :guardian',
+  FilterExpression: '#userId = :userId and #unlearned <> :unlearned and #subject = :subject',
+  ExpressionAttributeNames: {
+    '#guardian': 'guardian',
+    '#userId': 'userId',
+    '#subject': 'subject',
+    '#unlearned': 'unlearned',
+  },
+  ExpressionAttributeValues: {
+    ':guardian': guardian,
+    ':userId': userId,
+    ':subject': subject,
+    ':unlearned': 0,
+  },
+  IndexName: 'gsiIdx1',
+});
+
+/** カリキュラム一覧を取得する（未学習のみ） */
+export const updateUnlearned = (
+  key: Tables.TCurriculumsKey,
+  count: number
+): DynamoDB.DocumentClient.UpdateItemInput => ({
+  TableName: Environment.TABLE_NAME_CURRICULUMS,
+  Key: key,
+  UpdateExpression: 'set #unlearned = #unlearned + :nums',
+  ExpressionAttributeNames: {
+    '#unlearned': 'unlearned',
+  },
+  ExpressionAttributeValues: {
+    ':nums': count,
+  },
+});

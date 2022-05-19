@@ -1,10 +1,10 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
 import isEmpty from 'lodash/isEmpty';
+import { CurriculumService, GroupService, QuestionService } from '@services';
 import { Commons, DBHelper } from '@utils';
-import { Environment } from '@consts';
+import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
-import { CurriculumService, GroupService, QuestionService } from '@src/services';
 
 /** 問題カード一括追加 */
 export default async (req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>): Promise<void> => {
@@ -38,13 +38,11 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
     };
   });
 
-  // regist question
-  const tasks = questions.map(async (item) => QuestionService.regist(item));
-
   // regist all questions
-  await Promise.all(tasks);
-  // update question count
-  await GroupService.plusCount(groupId, questions.length);
+  await Promise.all([
+    questions.map(async (item) => QuestionService.regist(item)),
+    GroupService.plusCount(groupId, questions.length),
+  ]);
 
   // 質問の情報を更新する
   Commons.updateQuestion(questions);
@@ -56,19 +54,27 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
     return;
   }
 
+  const curriculumUpdates = curriculumInfos.map(async (item) =>
+    CurriculumService.updateUnlearned(item.id, questions.length)
+  );
+
+  // 未学習件数を更新する
+  await Promise.all(curriculumUpdates);
+
   const lTasks = curriculumInfos.map(async (item) => {
     const dataRows = questions.map<Tables.TLearning>((q) => ({
       qid: q.id,
       userId: item.guardian,
       groupId: item.groupId,
       subject: groupInfo.subject,
-      lastTime: '19900101',
-      nextTime: '19900101',
+      lastTime: Consts.INITIAL_DATE,
+      nextTime: Consts.INITIAL_DATE,
       times: 0,
     }));
 
     return DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
   });
 
+  // 学習計画に登録
   await Promise.all(lTasks);
 };

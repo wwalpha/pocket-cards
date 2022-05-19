@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Group, QuestionForm } from 'typings';
 import Button from '@mui/material/Button';
-import { LoadingButton } from '@mui/lab';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const styles = {
   container: {
@@ -22,7 +22,6 @@ const styles = {
 const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick, onClose }) => {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<QuestionForm>({
@@ -63,21 +62,23 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
             />
           )}
         />
-        <Controller
-          name="choices"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              disabled={!onClick}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              label="Choices"
-              value={value}
-              onChange={onChange}
-            />
-          )}
-        />
+        {dataRow.choices && (
+          <Controller
+            name="choices"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                disabled={!onClick}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                label="Choices"
+                value={value}
+                onChange={onChange}
+              />
+            )}
+          />
+        )}
         <Controller
           name="answer"
           control={control}
