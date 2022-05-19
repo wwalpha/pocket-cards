@@ -53,15 +53,16 @@ export const USER_CURRICULUM_REMOVE = createAsyncThunk<string, string>(
   }
 );
 
-export const USER_CURRICULUM_ORDER = createAsyncThunk<CurriculumOrderUpdate, CurriculumOrderUpdate>(
+export const USER_CURRICULUM_ORDER = createAsyncThunk<CurriculumOrderUpdate[], CurriculumOrderUpdate[]>(
   'user/USER_CURRICULUM_ORDER',
   async (params) => {
-    await API.post<APIs.CurriculumOrderResponse, APIs.CurriculumOrderRequest>(
-      URLs.CURRICULUM_ORDER(params.curriculumId),
-      {
-        order: params.order,
-      }
+    const tasks = params.map((item) =>
+      API.post<APIs.CurriculumOrderResponse, APIs.CurriculumOrderRequest>(URLs.CURRICULUM_ORDER(item.curriculumId), {
+        order: item.order,
+      })
     );
+
+    await Promise.all(tasks);
 
     return params;
   }
