@@ -32,6 +32,8 @@ export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], string>(
       answer: item.answer,
       description: item.description,
       choices: item.choices,
+      voiceAnswer: item.voiceAnswer,
+      voiceTitle: item.voiceTitle,
     }));
   }
 );
