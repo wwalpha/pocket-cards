@@ -62,6 +62,8 @@ const slice = createSlice({
         if (finded) {
           finded.order = Number(payload.order);
         }
+
+        state.curriculums = sortBy(state.curriculums, ['order']);
       })
       .addCase(UserActions.USER_CURRICULUM_LIST.fulfilled, (state, { payload }) => {
         state.curriculums = sortBy(payload.items, ['order']);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
@@ -40,6 +40,12 @@ export default () => {
   const [dataRows, setDataRows] = useState(
     curriculums.filter((item) => item.subject === Consts.SUBJECT.SOCIETY && item.userId === student)
   );
+
+  useEffect(() => {
+    const dataRows = curriculums.filter((item) => item.subject === Consts.SUBJECT.SOCIETY && item.userId === student);
+
+    setDataRows(dataRows);
+  }, [curriculums]);
 
   const handleDragEnd = (result: DropResult) => {
     // dropped outside the list
