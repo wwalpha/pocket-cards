@@ -83,7 +83,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
           <IconButton sx={{ mx: 1 }} color="secondary" onClick={handlePlayQuestion}>
             <VolumeUpIcon />
           </IconButton>
-          <audio ref={titleRef} src={`/${dataRow.voiceTitle}`} />
+          {dataRow.voiceTitle && <audio ref={titleRef} src={`/${dataRow.voiceTitle}`} />}
         </Box>
 
         {dataRow.choices && (
@@ -123,7 +123,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
           <IconButton sx={{ mx: 1 }} color="secondary" onClick={handlePlayAnswer}>
             <VolumeUpIcon />
           </IconButton>
-          <audio ref={answerRef} src={dataRow.voiceTitle} />
+          {dataRow.voiceAnswer && <audio ref={answerRef} src={`/${dataRow.voiceAnswer}`} />}
         </Box>
       </Box>
       <Box mt={4} display="flex" justifyContent="flex-end">
