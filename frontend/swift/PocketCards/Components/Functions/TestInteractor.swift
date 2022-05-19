@@ -62,11 +62,6 @@ class TestInteractor: StudyBusinessLogic {
         questions.removeAll(where: { $0.id == id })
         // record answered questions
         answered.append(id)
-
-        // add questions
-        if questions.count < 5 {
-            loadQuestions()
-        }
     }
 
     func onAction(correct: Bool) {

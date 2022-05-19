@@ -17,7 +17,7 @@ struct DailyStudyView: View {
                     Task {
                         await interactor?.loadQuestions()
                     }
-                }   
+                }
         } else if viewModel.isFinish {
             Text("今日の学習は終わりました")
                 .font(.system(size: 64, design: .default))
