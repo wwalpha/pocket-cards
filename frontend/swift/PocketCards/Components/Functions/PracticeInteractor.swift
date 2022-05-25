@@ -73,12 +73,10 @@ class PracticeInteractor: StudyBusinessLogic {
             // play sound
             Audio.playCorrect()
 
-            if let isAnswered = current?.isAnswered {
-                // first time
-                if !isAnswered {
-                    // update to known
-                    updateAnswer(id: current?.id, correct: true)
-                }
+            // first time
+            if current?.isAnswered == nil || current?.isAnswered == false {
+                // update to known
+                updateAnswer(id: current?.id, correct: true)
             }
 
             // show next question
