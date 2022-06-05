@@ -149,9 +149,12 @@ export namespace Tables {
   // ------------------------------------------------------------
   // Word Master
   // ------------------------------------------------------------
-  export interface TWordMaster {
+  export interface TWordMasterKey {
     // 単語
     id: string;
+  }
+
+  export interface TWordMaster extends TWordMasterKey {
     // 原型
     original: string;
     // 発音記号
@@ -167,14 +170,14 @@ export namespace Tables {
   // ------------------------------------------------------------
   // Word Ignore
   // ------------------------------------------------------------
-  export interface WordIgnoreKey {
+  export interface TWordIgnoreKey {
     // ユーザID
     id: string;
     // 単語
     word: string;
   }
 
-  export interface TWordIgnore extends WordIgnoreKey {}
+  export interface TWordIgnore extends TWordIgnoreKey {}
 
   // ------------------------------------------------------------
   // Trace
