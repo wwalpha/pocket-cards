@@ -22,7 +22,7 @@ export const SUBJECT_ABILITY = [
   SUBJECT.ABILITY_MATHS,
 ];
 
-export const PATH_PATTERN = 'pattern';
+export const PATH_PATTERN = 'audios';
 export const PATH_IMAGE = 'images';
 export const PATH_VOICE = 'voices';
 
