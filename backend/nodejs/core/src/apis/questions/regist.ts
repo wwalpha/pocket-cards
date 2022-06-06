@@ -88,13 +88,21 @@ const registDefault = async (groupInfo: Tables.TGroups, questions: string[]) => 
 };
 
 const registEnglish = async (userId: string, groupInfo: Tables.TGroups, questions: string[]) => {
+  // create question
+  const words = questions.map((item) => {
+    const items = item.split(',');
+    return items[0] ?? '';
+  });
+
   const targets = await Promise.all(
-    questions.filter(async (item) => {
-      return await WordService.isIgnore({
-        id: userId,
-        word: item,
-      });
-    })
+    words
+      .filter((item) => item !== '')
+      .filter(async (item) => {
+        return await WordService.isIgnore({
+          id: userId,
+          word: item,
+        });
+      })
   );
 
   // 単語語彙一覧
