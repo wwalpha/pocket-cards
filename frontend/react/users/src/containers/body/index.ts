@@ -3,4 +3,4 @@ export { default as StudyMain } from './study/B000';
 export { default as MyPageMain } from './mypage/C000';
 export { default as Settings } from './settings/D000';
 export { default as Folder } from './folder/E000';
-export { default as Home } from './home/F000';
+export { default as Home } from './Home';
