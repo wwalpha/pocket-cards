@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import { Paths } from '@constants';
 import { QuestionHome } from '.';
 
 export default () => {
