@@ -1,5 +1,5 @@
 import { withLoading } from '@actions';
-import { Consts, Paths } from '@constants';
+import { Consts, ROUTE_PATHS } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
 import { push, goBack } from 'connected-react-router';
@@ -10,7 +10,7 @@ export const del = (groupId: string, word: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // 画面遷移
-      dispatch(push(Paths.PATHS_STUDY));
+      dispatch(push(ROUTE_PATHS.PATHS_STUDY));
 
       await API.del<APIs.C005Response>(Consts.C005_URL(groupId, word));
 
@@ -43,7 +43,7 @@ export const detail = (details: Group.WordSimple) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // 単語詳細画面へ遷移する
-      const prefix = Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyEdit].split(':')[0];
+      const prefix = ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.StudyEdit].split(':')[0];
       // get word detail
       await dispatch(Actions.GROUP_WORD_DETAILS(details)).unwrap();
       // dispatch screen

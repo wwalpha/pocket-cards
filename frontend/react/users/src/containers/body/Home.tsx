@@ -12,25 +12,14 @@ export default () => {
   const grpActions = bindActionCreators(GroupActions, dispatch);
 
   // 学習
-  const handleNew = () => {
-    // clean active group
-    grpActions.cleanGroup();
+  const handlePractice = () => {
     // start study
-    actions.startTodos(Consts.MODES.New);
-  };
-  // 復習
-  const handleReview = () => {
-    // clean active group
-    grpActions.cleanGroup();
-    // start study
-    actions.startTodos(Consts.MODES.Review);
+    actions.startTodos(Consts.MODES.Practice);
   };
   // テスト
   const handleTest = () => {
-    // clean active group
-    grpActions.cleanGroup();
     // start study
-    actions.startTodos(Consts.MODES.AllTest);
+    actions.startTodos(Consts.MODES.Test);
   };
 
   return (
@@ -38,11 +27,8 @@ export default () => {
       <Button variant="contained" color="secondary" onClick={handleTest}>
         今日のテスト
       </Button>
-      <Button variant="contained" color="secondary" onClick={handleNew}>
+      <Button variant="contained" color="secondary" onClick={handlePractice}>
         今日の再学習
-      </Button>
-      <Button variant="contained" color="secondary" onClick={handleReview}>
-        今日の復習
       </Button>
     </Box>
   );

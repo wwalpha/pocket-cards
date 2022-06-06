@@ -1,5 +1,5 @@
 import { withLoading } from '@actions';
-import { Consts, Paths } from '@constants';
+import { ROUTE_PATHS } from '@constants';
 import { Actions } from '@reducers';
 import { push } from 'connected-react-router';
 import { AppDispatch } from 'typings';
@@ -22,20 +22,7 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
         return;
       }
 
-      dispatch(push(Paths.PATHS_ADMIN_DASHBOARD));
-      // initialize
-      dispatch(Actions.GROUP_LIST());
-      dispatch(Actions.APP_SET_AUTHORITY(res.authority));
-
-      // login success
-      if (res.authority === Consts.Authority.PARENT) {
-        // initialize
-        dispatch(Actions.USER_CURRICULUM_LIST());
-        // initialize
-        dispatch(Actions.USER_INFORMATIONS());
-        // initialize
-        dispatch(Actions.USER_STUDENT_LIST());
-      }
+      dispatch(push(ROUTE_PATHS.ROOT));
     })
   );
 
@@ -53,7 +40,7 @@ export const signup = (username: string, email: string) => (dispatch: AppDispatc
 
       if (res.success == true) {
         // Sign In
-        dispatch(push(Paths.PATHS_SIGN_IN));
+        dispatch(push(ROUTE_PATHS.SIGN_IN));
 
         // success
         dispatch(Actions.APP_SHOW_SUCCESS('User regist success.'));

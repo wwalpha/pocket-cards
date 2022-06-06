@@ -42,9 +42,6 @@ export default () => {
 
   const handleTouchStart = () => setShowText(true);
 
-  /** 新規単語学習 */
-  const handleNext = () => actions.startStudy(Consts.MODES.Review);
-
   const handleAnswer = (word: string, yes: boolean) => {
     actions.answer(word, yes);
 
@@ -77,6 +74,7 @@ export default () => {
   };
 
   const getButtons = (mode?: string, word?: Group.WordItem) => {
+    // @ts-ignore
     const buttons = [];
 
     // 単語あり
@@ -128,28 +126,7 @@ export default () => {
       return buttons;
     }
 
-    // 単語なし
-    if (mode === Consts.MODES.Review) {
-      buttons.push(
-        <Fab
-          key={3}
-          sx={{
-            width: ({ spacing }) => spacing(12),
-            height: ({ spacing }) => spacing(12),
-            mx: 3,
-            color: 'common.white',
-          }}
-          size="large"
-          color="secondary"
-          disableFocusRipple
-          disableTouchRipple
-          disableRipple
-          onClick={handleNext}>
-          Retry
-        </Fab>
-      );
-    }
-
+    // @ts-ignore
     return buttons;
   };
 
