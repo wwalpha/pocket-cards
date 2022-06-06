@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useLocation } from 'react-router-dom';
 import { Consts } from '@constants';
-import { AppActions, AdminActions, GroupActions } from '@actions';
+import { AppActions } from '@actions';
 import { RootState } from 'typings';
 
 const appState = (state: RootState) => state.app;
@@ -17,13 +17,10 @@ export default () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const actions = bindActionCreators(AppActions, dispatch);
-  const grpActions = bindActionCreators(GroupActions, dispatch);
-  const adminActions = bindActionCreators(AdminActions, dispatch);
   const { authority, isLoading } = useSelector(appState);
 
   const handleUserReigst = () => actions.showUserRegist();
   const handleLogout = () => actions.logout();
-  const handleGroupAdd = () => adminActions.transitToGroupRegist();
 
   return (
     <AppBar
