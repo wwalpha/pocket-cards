@@ -7,7 +7,7 @@ export const NEW_PASSWORD = '/auth/newpassword';
 
 export const SETTINGS = '/settings';
 
-export const STUDY_CARD = '/study/card';
+export const STUDY_CARD = '/study';
 
 export const ROUTE_PATH_INDEX: Record<string, number> = {
   Root: 0,

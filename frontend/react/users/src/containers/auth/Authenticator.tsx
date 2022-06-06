@@ -33,12 +33,14 @@ const Authenticator: React.FunctionComponent = () => {
     return <NewPassword />;
   }
 
+  if (loginStatus === Consts.SIGN_STATUS.LOGINED) {
+    return <App />;
+  }
+
   return (
     <React.Fragment>
       <Switch>
-        <Route exact path="/">
-          {loginStatus === Consts.SIGN_STATUS.LOGINED ? <App /> : <SignIn />}
-        </Route>
+        <Route exact path={ROUTE_PATHS.ROOT} component={SignIn} />
         <Route path={ROUTE_PATHS.SIGN_UP} component={SignUp} />
         <Route>
           <Redirect to={ROUTE_PATHS.SIGN_IN} />

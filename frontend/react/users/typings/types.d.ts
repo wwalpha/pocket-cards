@@ -10,6 +10,8 @@ export interface WordItem {
   id: string;
   // グループID
   groupId: string;
+  // 質問
+  question: string;
   // 発音記号
   pronounce?: string;
   // 語彙（中国語）
