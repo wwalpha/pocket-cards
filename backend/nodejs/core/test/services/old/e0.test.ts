@@ -2,8 +2,6 @@ import axios, { AxiosStatic } from 'axios';
 import request from 'supertest';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import server from '@src/app';
-import { WordMaster } from '@queries';
-import { DBHelper } from '@utils';
 import { HEADER_AUTH } from '@test/Commons';
 import * as E0 from '../../datas/e0';
 import { Environment } from '@consts';
@@ -37,9 +35,6 @@ describe.skip('e0', () => {
 
     // status code
     expect(res.statusCode).toBe(200);
-
-    const master = await DBHelper().get(WordMaster.get('AAA'));
-    expect(master?.Item).toMatchObject(E0.E002_01_Exp);
   });
 
   test('E002:Original不一致', async () => {
@@ -54,9 +49,6 @@ describe.skip('e0', () => {
 
     // status code
     expect(res.statusCode).toBe(200);
-
-    const master = await DBHelper().get(WordMaster.get('BBB'));
-    expect(master?.Item).toMatchObject(E0.E002_02_Exp);
   });
 
   test('E002:ID不一致', async () => {
@@ -71,9 +63,6 @@ describe.skip('e0', () => {
 
     // status code
     expect(res.statusCode).toBe(200);
-
-    const master = await DBHelper().get(WordMaster.get('BBB'));
-    expect(master?.Item).toMatchObject(E0.E002_03_Exp);
   });
 
   test('E002:Validation', async () => {
