@@ -1,4 +1,4 @@
-import { APIs, Tables, App, Group } from '.';
+import { APIs, Tables, App, Group, WordItem } from '.';
 
 export namespace Domains {
   interface States {
@@ -62,14 +62,6 @@ export namespace Domains {
     username: string;
     // password
     password?: string;
-    // curriculums
-    curriculums: Tables.TCurriculums[];
-    // students
-    students: Tables.TUsers[];
-    // user informations
-    infos?: Tables.TUsers;
-    // selected student
-    activeStudent: string;
   }
 
   interface StudyState {
@@ -77,5 +69,6 @@ export namespace Domains {
     rows: WordItem[];
     history: WordItem[];
     index: number;
+    mode: string;
   }
 }
