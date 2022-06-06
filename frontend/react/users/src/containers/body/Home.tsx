@@ -3,13 +3,12 @@ import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Button from '@components/buttons/Button';
-import { StudyActions, GroupActions } from '@actions';
+import { StudyActions } from '@actions';
 import { Consts } from '@constants';
 
 export default () => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(StudyActions, dispatch);
-  const grpActions = bindActionCreators(GroupActions, dispatch);
 
   // 学習
   const handlePractice = () => {

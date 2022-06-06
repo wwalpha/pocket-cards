@@ -1,33 +1,20 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import { push } from 'connected-react-router';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-// import MenuIcon from '@mui/icons-material/Menu';
-// import ExitToApp from '@mui/icons-material/ExitToApp';
-// import AddCircleOutline from '@mui/icons-material/AddCircleOutline';
 import AddIcon from '@mui/icons-material/Add';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import ReplayIcon from '@mui/icons-material/Replay';
 import ArrowBackIcon from '@mui/icons-material/ArrowBackIos';
-import SearchIcon from '@mui/icons-material/Search';
 import { ROUTE_PATHS, Consts } from '@constants';
-import { GroupActions } from '@actions';
 import { RootState } from 'typings';
-import { Groups } from '@mui/icons-material';
 
 const audioRef = React.createRef<HTMLAudioElement>();
 
@@ -71,7 +58,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const actions = bindActionCreators(GroupActions, dispatch);
   const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { current } = useSelector(studyState);
@@ -85,29 +71,10 @@ export default () => {
   // switch group regist screen
   const handleOnClickAdd = () => dispatch(push(ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.GroupRegist]));
 
-  // group delete
-  const handleOnGroupDelete = () => {
-    // close dialog
-    handleMenuClose();
-    // delete group
-    actions.del();
-  };
-
-  const handleOnGroupEdit = () => {
-    // close dialog
-    handleMenuClose();
-    // switch to group edit
-    dispatch(push(ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.GroupEdit]));
-  };
-
   // Menu Open
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
   // Menu Close
   const handleMenuClose = () => setAnchorEl(null);
-
-  const handleOnSearch = (e: React.SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    actions.search(e.currentTarget.value);
-  };
 
   /** 音声再生 */
   const handleReply = () => {
@@ -148,22 +115,6 @@ export default () => {
               color: 'common.white',
             }}>
             {(() => {
-              if (pathname === ROUTE_PATHS.PATHS_STUDY) {
-                return (
-                  <Search>
-                    <SearchIconWrapper>
-                      <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                      placeholder="Search…"
-                      inputProps={{ 'aria-label': 'search' }}
-                      value={searchWord}
-                      onChange={handleOnSearch}
-                    />
-                  </Search>
-                );
-              }
-
               if (pathname === ROUTE_PATHS.PATHS_STUDY_CARD) {
                 return groups.find((item) => item.id === activeGroup)?.name;
               }
@@ -220,44 +171,6 @@ export default () => {
           })()}
         </Toolbar>
       </AppBar>
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        keepMounted
-        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={isMenuOpen}
-        onClose={handleMenuClose}>
-        {/* <MenuItem
-          sx={{
-            '&:hover': {
-              bgcolor: 'primary.light',
-              '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                color: 'common.white',
-              },
-            },
-          }}
-          onClick={handleOnGroupDelete}>
-          <ListItemIcon sx={{ minWidth: ({ spacing }) => spacing(4) }}>
-            <DeleteIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="フォルダ削除" />
-        </MenuItem> */}
-        <MenuItem
-          sx={{
-            '&:hover': {
-              bgcolor: 'primary.light',
-              '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                color: 'common.white',
-              },
-            },
-          }}
-          onClick={handleOnGroupEdit}>
-          <ListItemIcon sx={{ minWidth: ({ spacing }) => spacing(4) }}>
-            <EditIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="フォルダ編集" />
-        </MenuItem>
-      </Menu>
     </React.Fragment>
   );
 };
