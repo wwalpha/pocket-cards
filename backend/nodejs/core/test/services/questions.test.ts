@@ -44,16 +44,16 @@ describe('questions', () => {
     await client.bulk(Environment.TABLE_NAME_QUESTIONS, QUESTIONS.STUDY002_DB_QUESTIONS);
     await client.bulk(Environment.TABLE_NAME_LEARNING, QUESTIONS.STUDY002_DB_LEARNING);
 
-    const apiPath = '/v1/study/daily/practice/questions';
-
-    const res = await request(server)
-      .get(apiPath)
-      .query({
-        subject: '2',
-      })
-      .set('username', HEADER_AUTH);
-
     // TODO:
+    // const apiPath = '/v1/study/daily/practice/questions';
+
+    // const res = await request(server)
+    //   .get(apiPath)
+    //   .query({
+    //     subject: '2',
+    //   })
+    //   .set('username', HEADER_AUTH);
+
     // status code
     // expect(res.statusCode).toBe(200);
     // expect(res.body).toEqual(QUESTIONS.STUDY002_EXPECT01);
