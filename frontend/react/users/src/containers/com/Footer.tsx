@@ -41,16 +41,15 @@ export default () => {
       <BottomNavigation showLabels={false} value={tabIndex} onChange={handleChange}>
         <BottomNavigationAction
           sx={styles.navigation}
-          value={ROUTE_PATHS.ROUTE_PATH_INDEX.Todos}
+          value="0"
           icon={<HomeIcon sx={{ fontSize: '2.5rem' }} />}
-          disabled={status !== Consts.SERVER_STATUS.RUNNING}
           component={React.forwardRef((props: any, ref: any) => (
             <Link to={ROUTE_PATHS.ROOT} {...props} />
           ))}
         />
         <BottomNavigationAction
           sx={styles.navigation}
-          value={ROUTE_PATHS.ROUTE_PATH_INDEX.Settings}
+          value="1"
           icon={<SettingsIcon sx={{ fontSize: '2.5rem' }} />}
           component={React.forwardRef((props: any, ref: any) => (
             <Link to={ROUTE_PATHS.SETTINGS} {...props} />

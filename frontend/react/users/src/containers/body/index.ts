@@ -4,3 +4,4 @@
 export { default as Settings } from './Settings';
 // export { default as Folder } from './folder/E000';
 export { default as Home } from './Home';
+export { default as Card } from './Card';
