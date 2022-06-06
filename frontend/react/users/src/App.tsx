@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { ROUTE_PATHS, Consts } from '@constants';
-import { Header, Footer, RegistMain, StudyMain, MyPageMain, Settings, Home, Folder, SignUp } from '@containers';
+import { Header, Footer, Home, SignUp } from '@containers';
 
 const styles = {
   root: (theme: any) => ({
@@ -37,7 +37,7 @@ const App = () => {
       <Header />
       <Box sx={styles.body}>
         <Switch>
-          <Route exact path="/" component={MyPageMain} />
+          <Route exact path="/" component={Home} />
           {/* <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]} component={RegistMain} />
           <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.MyPage]} component={MyPageMain} />
           <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]} component={StudyMain} />

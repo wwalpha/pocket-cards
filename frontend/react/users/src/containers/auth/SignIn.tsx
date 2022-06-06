@@ -57,10 +57,6 @@ const SignIn = () => {
             control={control}
             rules={{
               required: 'required',
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: 'Entered value does not match email format',
-              },
             }}
             render={({ field: { onChange, value } }) => (
               <TextField
@@ -68,9 +64,8 @@ const SignIn = () => {
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                label="Email Address"
+                label="Email Address / Username"
                 autoFocus
-                autoComplete="email"
                 value={value}
                 onChange={onChange}
                 helperText={errors.username?.message}

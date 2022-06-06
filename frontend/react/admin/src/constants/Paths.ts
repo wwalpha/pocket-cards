@@ -13,11 +13,16 @@ export const GROUP_UPLOAD_CONFIRM = `/:subject/groups/:groupId/confirm`;
 
 export const GROUP_UPLOAD_CONFIRM_PUSH = (subject: string, groupId: string) => `/${subject}/groups/${groupId}/confirm`;
 
+// ログイン画面
 export const SIGN_IN = '/';
+// 新規登録画面
 export const SIGN_UP = '/auth/signup';
+// パスワード変更画面
 export const NEW_PASSWORD = '/auth/newpassword';
 
+// 生徒画面
 export const STUDENTS = '/students';
+// 設定画面
 export const SETTINGS = '/settings';
 
 export const ABILITIES = '/abilities';
