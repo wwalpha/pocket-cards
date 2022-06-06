@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import orderBy from 'lodash/orderBy';
 import { CurriculumService, LearningService, QuestionService, UserService } from '@services';
-import { Logger, DateUtils, Commons, QueryUtils } from '@utils';
+import { Logger, DateUtils, Commons, QueryUtils, ValidationError } from '@utils';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 import { IncomingHttpHeaders } from 'http';
@@ -14,7 +14,7 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
 
   // 科目選択されていない
   if (!subject) {
-    throw new Error('Please select subject.');
+    throw new ValidationError('Please select subject.');
   }
 
   // next study date
