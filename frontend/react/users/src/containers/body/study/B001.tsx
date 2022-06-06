@@ -41,11 +41,9 @@ export default () => {
   }, [activeGroup, groupWords, searchWord]);
 
   // 学習
-  const handleNew = () => actions.startStudy(Consts.MODES.New);
-  // 復習
-  const handleReview = () => actions.startStudy(Consts.MODES.Review);
+  const handleNew = () => actions.startStudy(Consts.MODES.Practice);
   // テスト
-  const handleTest = () => actions.startStudy(Consts.MODES.AllTest);
+  const handleTest = () => actions.startStudy(Consts.MODES.Test);
 
   // 詳細
   const handleDetail = (details: Group.WordSimple) => wrdActions.detail(details);
@@ -110,13 +108,6 @@ export default () => {
             sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}
             onClick={handleNew}>
             学習
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}
-            onClick={handleReview}>
-            復習
           </Button>
           <Button
             variant="contained"

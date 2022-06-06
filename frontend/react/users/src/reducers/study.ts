@@ -29,7 +29,7 @@ const slice = createSlice({
     },
     // 単語登録正常終了
     STUDY_ANSWER: (state, { payload }: PayloadAction<boolean>) => {
-      if (!payload && state.mode !== Consts.MODES.AllTest) {
+      if (!payload && state.mode !== Consts.MODES.Test) {
         const newIdx = state.index + 1 === state.rows.length ? 0 : state.index + 1;
 
         // １件のみ場合、計算しない

@@ -67,9 +67,8 @@ export const DESCRIBE_USER = (userId: string) => `${API_VERSION}/users/${userId}
 export const UPDATE_USER = (userId: string) => `${API_VERSION}/users/${userId}`;
 
 export const MODES = {
-  New: '1',
-  AllTest: '3',
-  Review: '4',
+  Practice: '1',
+  Test: '2',
 };
 
 export const PAGE_MAX_WORDS = 7;

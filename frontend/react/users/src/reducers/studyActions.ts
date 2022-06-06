@@ -8,15 +8,11 @@ const getWords = async (mode: string, group?: string): Promise<Payloads.StudyCas
   let url: string | undefined;
 
   switch (mode) {
-    case Consts.MODES.New:
+    case Consts.MODES.Practice:
       // new
       url = group ? Consts.C006_URL(group) : Consts.D005_URL();
       break;
-    case Consts.MODES.Review:
-      // review
-      url = group ? Consts.C008_URL(group) : Consts.D006_URL();
-      break;
-    case Consts.MODES.AllTest:
+    case Consts.MODES.Test:
       // test
       url = group ? Consts.C007_URL(group) : Consts.D004_URL();
       break;
