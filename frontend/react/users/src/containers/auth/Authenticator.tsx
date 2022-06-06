@@ -6,8 +6,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { SignIn, SignUp, NewPassword } from '.';
 import { AppActions } from '@actions';
-import { Consts, Paths } from '@constants';
-import { AdminTop } from '@containers/admin';
+import { Consts, ROUTE_PATHS } from '@constants';
 
 import { RootState } from 'typings';
 import App from '../../App';
@@ -40,12 +39,9 @@ const Authenticator: React.FunctionComponent = () => {
         <Route exact path="/">
           {loginStatus === Consts.SIGN_STATUS.LOGINED ? <App /> : <SignIn />}
         </Route>
-        <Route path={Paths.PATHS_SIGN_UP} component={SignUp} />
-        <Route path={Paths.PATHS_ADMIN_DASHBOARD}>
-          {loginStatus === Consts.SIGN_STATUS.LOGINED ? <AdminTop /> : <SignIn />}
-        </Route>
+        <Route path={ROUTE_PATHS.SIGN_UP} component={SignUp} />
         <Route>
-          <Redirect to={Paths.PATHS_SIGN_IN} />
+          <Redirect to={ROUTE_PATHS.SIGN_IN} />
         </Route>
       </Switch>
       <Snackbar

@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@components/buttons/Button';
 import { WordList } from '@components/functions';
 import { StudyActions, WordActions, RegistActions, GroupActions } from '@actions';
-import { Paths, Consts } from '@constants';
+import { ROUTE_PATHS, Consts } from '@constants';
 import { Group, RootState } from 'typings';
 import { useForm } from 'react-hook-form';
 

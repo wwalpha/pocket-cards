@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { withLoading } from '@actions';
-import { Consts, Paths } from '@constants';
+import { Consts, ROUTE_PATHS } from '@constants';
 import { API, Credentials } from '@utils';
 import { Actions } from '@reducers';
 import { AppDispatch } from '@store';
@@ -87,5 +87,5 @@ export const logout = () => (dispatch: AppDispatch) => {
 
   dispatch(Actions.APP_LOGOUT());
 
-  dispatch(push(Paths.PATHS_SIGN_IN));
+  dispatch(push(ROUTE_PATHS.SIGN_IN));
 };
