@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@components/buttons/Button';
 import { WordList } from '@components/functions';
 import { StudyActions, WordActions, RegistActions, GroupActions } from '@actions';
-import { Paths, Consts } from '@constants';
+import { ROUTE_PATHS, Consts } from '@constants';
 import { Group, RootState } from 'typings';
 import { useForm } from 'react-hook-form';
 
@@ -92,7 +92,7 @@ export default () => {
             sx={{ width: '108px', letterSpacing: 2, fontSize: '1rem' }}
             // @ts-ignore
             component={Link}
-            to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
+            to={ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.Regist]}>
             一括登録
           </Button>
           <Button

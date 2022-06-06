@@ -24,7 +24,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ReplayIcon from '@mui/icons-material/Replay';
 import ArrowBackIcon from '@mui/icons-material/ArrowBackIos';
 import SearchIcon from '@mui/icons-material/Search';
-import { Paths, Consts } from '@constants';
+import { ROUTE_PATHS, Consts } from '@constants';
 import { GroupActions } from '@actions';
 import { RootState } from 'typings';
 import { Groups } from '@mui/icons-material';
@@ -83,7 +83,7 @@ export default () => {
   const handleOnGoback = () => history.goBack();
 
   // switch group regist screen
-  const handleOnClickAdd = () => dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]));
+  const handleOnClickAdd = () => dispatch(push(ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.GroupRegist]));
 
   // group delete
   const handleOnGroupDelete = () => {
@@ -97,7 +97,7 @@ export default () => {
     // close dialog
     handleMenuClose();
     // switch to group edit
-    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupEdit]));
+    dispatch(push(ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.GroupEdit]));
   };
 
   // Menu Open
@@ -117,7 +117,7 @@ export default () => {
   };
 
   // 表示中画面情報
-  const screen = Paths.ROUTE_INFO[pathname];
+  const screen = ROUTE_PATHS.ROUTE_INFO[pathname];
 
   return (
     <React.Fragment>
@@ -148,7 +148,7 @@ export default () => {
               color: 'common.white',
             }}>
             {(() => {
-              if (pathname === Paths.PATHS_STUDY) {
+              if (pathname === ROUTE_PATHS.PATHS_STUDY) {
                 return (
                   <Search>
                     <SearchIconWrapper>
@@ -164,7 +164,7 @@ export default () => {
                 );
               }
 
-              if (pathname === Paths.PATHS_STUDY_CARD) {
+              if (pathname === ROUTE_PATHS.PATHS_STUDY_CARD) {
                 return groups.find((item) => item.id === activeGroup)?.name;
               }
 
@@ -172,14 +172,14 @@ export default () => {
             })()}
           </Typography>
           {(() => {
-            if (pathname === Paths.PATHS_SETTINGS) {
+            if (pathname === ROUTE_PATHS.PATHS_SETTINGS) {
               return <Button color="inherit">{Consts.VERSION}</Button>;
             }
 
             return null;
           })()}
           {(() => {
-            if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]) {
+            if (pathname === ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.Groups]) {
               return (
                 <IconButton
                   sx={{ position: 'absolute', right: ({ spacing }) => spacing(1) }}
@@ -191,7 +191,7 @@ export default () => {
               );
             }
 
-            if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
+            if (pathname === ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.Study]) {
               return [
                 <IconButton
                   key={`studyMore`}
@@ -204,7 +204,7 @@ export default () => {
               ];
             }
 
-            if (pathname === Paths.PATHS_STUDY_CARD) {
+            if (pathname === ROUTE_PATHS.PATHS_STUDY_CARD) {
               const draw = [
                 <IconButton key="replyIcon" sx={{ p: 0.5 }} onClick={handleReply}>
                   <ReplayIcon sx={{ color: 'common.white', fontSize: ({ spacing }) => spacing(4) }} />
