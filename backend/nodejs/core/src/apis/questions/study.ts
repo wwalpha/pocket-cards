@@ -77,7 +77,7 @@ const getUnlearned = async (
   }
 
   // get unlearned
-  const unlearned = await Promise.all(groupIds.map((item) => LearningService.dailyUnlearned(item)));
+  const unlearned = await Promise.all(groupIds.map((item) => LearningService.dailyUnlearned(userId, item)));
 
   const qids = unlearned
     .reduce(
