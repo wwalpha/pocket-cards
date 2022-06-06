@@ -5,6 +5,8 @@ export const SIGN_IN = '/';
 export const SIGN_UP = '/auth/signup';
 export const NEW_PASSWORD = '/auth/newpassword';
 
+export const SETTINGS = '/settings';
+
 export const ROUTE_PATH_INDEX: Record<string, number> = {
   Root: 0,
   SignIn: 1,

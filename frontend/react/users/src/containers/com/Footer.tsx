@@ -7,7 +7,6 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Paper from '@mui/material/Paper';
 import HomeIcon from '@mui/icons-material/HomeOutlined';
 import SettingsIcon from '@mui/icons-material/SettingsOutlined';
-import FolderIcon from '@mui/icons-material/FolderOpen';
 import { ROUTE_PATHS, Consts } from '@constants';
 import { AppActions } from '@actions';
 import { RootState } from 'typings';
@@ -15,7 +14,6 @@ import { RootState } from 'typings';
 const styles = {
   navigation: {
     p: 1,
-    // color: `${theme.palette.primary.dark} !important`,
   },
 };
 
@@ -42,56 +40,20 @@ export default () => {
     <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: 'common.white' }} elevation={3}>
       <BottomNavigation showLabels={false} value={tabIndex} onChange={handleChange}>
         <BottomNavigationAction
-          // classes={{
-          //   root: classes.root,
-          //   selected: classes.selected,
-          // }}
           sx={styles.navigation}
           value={ROUTE_PATHS.ROUTE_PATH_INDEX.Todos}
           icon={<HomeIcon sx={{ fontSize: '2.5rem' }} />}
           disabled={status !== Consts.SERVER_STATUS.RUNNING}
           component={React.forwardRef((props: any, ref: any) => (
-            <Link to={ROUTE_PATHS.PATHS_TODOS} {...props} />
+            <Link to={ROUTE_PATHS.ROOT} {...props} />
           ))}
         />
         <BottomNavigationAction
-          // classes={{
-          //   root: classes.root,
-          //   selected: classes.selected,
-          // }}
-          sx={styles.navigation}
-          value={ROUTE_PATHS.ROUTE_PATH_INDEX.Groups}
-          icon={
-            <FolderIcon
-              sx={{
-                fontSize: '2.5rem',
-              }}
-            />
-          }
-          disabled={status !== Consts.SERVER_STATUS.RUNNING}
-          component={React.forwardRef((props: any, ref: any) => (
-            <Link to={ROUTE_PATHS.PATHS_GROUPS} {...props} />
-          ))}
-        />
-        {/* <BottomNavigationAction
-          sx={{ pt: 1 }}
-          value={Paths.ROUTE_PATH_INDEX.MyPage}
-          icon={<PersonIcon sx={{ fontSize: '2.5rem' }} />}
-          disabled={status !== Consts.SERVER_STATUS.RUNNING}
-          component={React.forwardRef((props: any, ref: any) => (
-            <Link to={Paths.PATHS_MYPAGE} {...props} />
-          ))}
-        /> */}
-        <BottomNavigationAction
-          // classes={{
-          //   root: classes.root,
-          //   selected: classes.selected,
-          // }}
           sx={styles.navigation}
           value={ROUTE_PATHS.ROUTE_PATH_INDEX.Settings}
           icon={<SettingsIcon sx={{ fontSize: '2.5rem' }} />}
           component={React.forwardRef((props: any, ref: any) => (
-            <Link to={ROUTE_PATHS.PATHS_SETTINGS} {...props} />
+            <Link to={ROUTE_PATHS.SETTINGS} {...props} />
           ))}
         />
       </BottomNavigation>
