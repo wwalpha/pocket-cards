@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { GroupList, GroupNew, GroupEdit } from '@containers/body/folder';
-import { Paths } from '@constants';
+import { ROUTE_PATHS } from '@constants';
 
 export default () => {
   const { path } = useRouteMatch();
@@ -9,8 +9,8 @@ export default () => {
   return (
     <Switch>
       <Route path={path} exact component={GroupList} />
-      <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]} component={GroupNew} />
-      <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupEdit]} component={GroupEdit} />
+      <Route path={ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.GroupRegist]} component={GroupNew} />
+      <Route path={ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.GroupEdit]} component={GroupEdit} />
     </Switch>
   );
 };

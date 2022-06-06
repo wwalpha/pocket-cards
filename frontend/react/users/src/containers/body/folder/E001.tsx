@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import FolderIcon from '@mui/icons-material/Folder';
 import Button from '@components/buttons/Button';
 import { GroupActions } from '@actions';
-import { Paths } from '@constants';
+import { ROUTE_PATHS } from '@constants';
 import { RootState } from 'typings';
 
 const group = (state: RootState) => state.group;
@@ -28,7 +28,7 @@ export default () => {
     actions.activeGroup(groupId);
 
     // 画面遷移
-    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
+    dispatch(push(ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.Study]));
   };
 
   // フォルダなしの場合
@@ -42,7 +42,7 @@ export default () => {
           sx={{ fontSize: '1.5rem' }}
           // @ts-ignore
           component={Link}
-          to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]}>
+          to={ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.GroupRegist]}>
           フォルダを新規作成
         </Button>
       </Box>
