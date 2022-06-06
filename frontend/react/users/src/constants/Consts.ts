@@ -97,13 +97,13 @@ export enum ShowTypes {
 
 export const STUDY_BUFFER_LOWER_LIMIT = 5;
 
-export enum SUBJECT {
-  ENGLISH,
-  JAPANESE,
-  SCIENCE,
-  SOCIETY,
-}
-
+export const SUBJECT = {
+  ENGLISH: '0',
+  LANGUAGE: '1',
+  SCIENCE: '2',
+  SOCIETY: '3',
+  MATHS: '4',
+};
 export enum SIGN_STATUS {
   NOT_LOGIN,
   NEW_PASSWORD_REQUIRED,

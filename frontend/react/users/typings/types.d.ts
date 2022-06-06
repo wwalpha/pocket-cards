@@ -5,6 +5,21 @@ declare module '*.svg' {
   export default content;
 }
 
+export interface WordItem {
+  // 単語
+  id: string;
+  // グループID
+  groupId: string;
+  // 発音記号
+  pronounce?: string;
+  // 語彙（中国語）
+  vocChn?: string;
+  // 語彙（日本語）
+  vocJpn?: string;
+  // 音声ファイル
+  mp3?: string;
+}
+
 export namespace Payloads {
   type StudyCase = {
     mode: string;

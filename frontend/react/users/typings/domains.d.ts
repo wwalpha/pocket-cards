@@ -73,10 +73,9 @@ export namespace Domains {
   }
 
   interface StudyState {
-    current?: Group.WordItem;
-    mode: string;
-    rows: Group.WordItem[];
-    history: Group.WordItem[];
+    current?: WordItem;
+    rows: WordItem[];
+    history: WordItem[];
     index: number;
   }
 }
