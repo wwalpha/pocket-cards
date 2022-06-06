@@ -396,6 +396,7 @@ export namespace APIs {
     title: string;
     choices?: string;
     answer: string;
+    description?: string;
   }
 
   type QuestionUpdateResponse = Tables.TQuestions;
