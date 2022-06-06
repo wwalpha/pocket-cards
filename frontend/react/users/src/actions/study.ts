@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { withLoading } from '@actions';
-import { Consts, Paths } from '@constants';
+import { Consts, ROUTE_PATHS } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
 import { APIs, AppDispatch, RootState } from 'typings';
@@ -11,14 +11,8 @@ export const answer = (word: string, yes: boolean) => (dispatch: AppDispatch) =>
     withLoading(async (state: RootState) => {
       const { mode, current, rows } = state.study;
 
-      // 復習モードの場合、サーバ更新しない
-      if (mode === Consts.MODES.Review) {
-        dispatch(Actions.STUDY_ANSWER(yes));
-        return;
-      }
-
       // 新規学習モードの場合、不正解の場合、更新しない
-      if (mode === Consts.MODES.New && !yes) {
+      if (mode === Consts.MODES.Practice && !yes) {
         dispatch(Actions.STUDY_ANSWER(yes));
         return;
       }
@@ -63,9 +57,31 @@ export const startStudy = (mode: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // 画面遷移
-      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
+      dispatch(push(ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.StudyCard]));
       // 新規単語の学習開始
       dispatch(Actions.STUDY_START(mode));
+    })
+  );
+
+/** 新規単語学習 */
+export const startPractice = () => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // 画面遷移
+      dispatch(push(ROUTE_PATHS.STUDY_CARD));
+      // 新規単語の学習開始
+      dispatch(Actions.STUDY_START(Consts.MODES.Practice));
+    })
+  );
+
+/** 新規単語テスト */
+export const startTest = () => (dispatch: AppDispatch) =>
+  dispatch(
+    withLoading(async () => {
+      // 画面遷移
+      dispatch(push(ROUTE_PATHS.STUDY_CARD));
+      // 新規単語の学習開始
+      dispatch(Actions.STUDY_START(Consts.MODES.Practice));
     })
   );
 
@@ -74,7 +90,7 @@ export const startTodos = (mode: string) => (dispatch: AppDispatch) =>
   dispatch(
     withLoading(async () => {
       // 画面遷移
-      dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
+      dispatch(push(ROUTE_PATHS.ROUTE_PATHS[ROUTE_PATHS.ROUTE_PATH_INDEX.StudyCard]));
       // 新規単語の学習開始
       dispatch(Actions.STUDY_TODOS(mode));
     })
