@@ -143,18 +143,20 @@ export const byUserId = (userId: string): DynamoDB.DocumentClient.QueryInput => 
   IndexName: 'gsiIdx1',
 });
 
-export const unlearned = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
+export const unlearned = (userId: string, groupId: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid',
+  ProjectionExpression: 'qid,lastTime,times',
   KeyConditionExpression: '#groupId = :groupId',
-  FilterExpression: '#lastTime = :lastTime',
+  FilterExpression: '#lastTime = :lastTime AND #userId = :userId',
   ExpressionAttributeNames: {
     '#groupId': 'groupId',
     '#lastTime': 'lastTime',
+    '#userId': 'userId',
   },
   ExpressionAttributeValues: {
     ':groupId': groupId,
     ':lastTime': Consts.INITIAL_DATE,
+    ':userId': userId,
   },
   IndexName: 'gsiIdx2',
 });

@@ -51,8 +51,8 @@ export const dailyPractice = async (userId: string, nextTime: string, subject: s
 };
 
 /** 未学習問題一覧 */
-export const dailyUnlearned = async (groupId: string): Promise<Tables.TLearning[]> => {
-  const results = await DBHelper().query<Tables.TLearning>(Queries.unlearned(groupId));
+export const dailyUnlearned = async (userId: string, groupId: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.unlearned(userId, groupId));
 
   return results.Items;
 };
