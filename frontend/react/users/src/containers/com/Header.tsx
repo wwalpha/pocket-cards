@@ -163,7 +163,7 @@ export default () => {
               ];
 
               if (current) {
-                draw.push(<audio key="replyAudio" ref={audioRef} src={`/${current.mp3}`} />);
+                draw.push(<audio key="replyAudio" ref={audioRef} src={`/${current.voiceTitle}`} />);
               }
 
               return draw;

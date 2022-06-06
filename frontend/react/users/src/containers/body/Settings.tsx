@@ -20,7 +20,7 @@ import { Consts } from '@constants';
 
 const appState = (state: RootState) => state.app;
 
-export default () => {
+const settings = () => {
   const { isLoading, status, displayCtrl } = useSelector(appState);
   const actions = bindActionCreators(AppActions, useDispatch());
   const usrActions = bindActionCreators(UserActions, useDispatch());
@@ -128,3 +128,5 @@ export default () => {
     </Fragment>
   );
 };
+
+export default settings;
