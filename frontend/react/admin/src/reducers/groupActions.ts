@@ -49,7 +49,7 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, string>(
     await API.post<APIs.QuestionRegistRequest, APIs.QuestionRegistResponse>(URLs.QUESTION_REGIST(groupId), {
       questions: uploads.map(
         ({ title, answer, description, choices }) =>
-          `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer}`
+          `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`
       ),
     });
   }
