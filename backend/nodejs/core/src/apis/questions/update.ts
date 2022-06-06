@@ -7,7 +7,7 @@ import { QuestionService } from '@services';
 export default async (
   req: Request<APIs.QuestionUpdateParams, any, APIs.QuestionUpdateRequest, any>
 ): Promise<APIs.QuestionUpdateResponse> => {
-  const { title, answer, choices } = req.body;
+  const { title, answer, choices, description } = req.body;
   const { questionId } = req.params;
 
   // ユーザのグループID 一覧
@@ -23,6 +23,7 @@ export default async (
     title,
     answer,
     choices: choices?.split('|'),
+    description,
   };
 
   // 音声、画像情報を更新する

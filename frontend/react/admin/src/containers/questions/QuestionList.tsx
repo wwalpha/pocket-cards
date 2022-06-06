@@ -25,6 +25,7 @@ export default () => {
         title: datas.title,
         choices: datas.choices,
         answer: datas.answer,
+        description: datas.description,
       });
     }
   };
