@@ -20,3 +20,10 @@ export const getFromIgnore = (key: Tables.TWordIgnoreKey): DynamoDB.DocumentClie
   TableName: Environment.TABLE_NAME_WORD_IGNORE,
   Key: key,
 });
+
+/** データ登録 */
+export const putIgnore = (item: Tables.TWordIgnore) =>
+  ({
+    TableName: Environment.TABLE_NAME_WORD_IGNORE,
+    Item: item,
+  } as DynamoDB.DocumentClient.PutItemInput);

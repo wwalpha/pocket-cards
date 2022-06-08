@@ -402,6 +402,18 @@ export namespace APIs {
   type QuestionUpdateResponse = Tables.TQuestions;
 
   // ------------------------------------------------------------
+  // Question Ignore
+  // ------------------------------------------------------------
+  interface CurriculumIgnoreParams {
+    curriculumId: string;
+    questionId: string;
+  }
+
+  interface CurriculumIgnoreRequest {}
+
+  type CurriculumIgnoreResponse = void;
+
+  // ------------------------------------------------------------
   // Weekly Ability Regist
   // ------------------------------------------------------------
   interface WeeklyAbilityRegistRequest {
