@@ -46,14 +46,14 @@ const registNewword = async (id: string): Promise<Tables.TWordMaster> => {
   return record;
 };
 
-// /** 単語新規登録 */
-// export const regist = async (item: Tables.TWordMaster): Promise<void> => {
-//   await DBHelper().put(Queries.put(item));
-// };
-
 /** 無視単語判断 */
 export const isIgnore = async (key: Tables.TWordIgnoreKey): Promise<boolean> => {
   const results = await DBHelper().get<Tables.TWordIgnore>(Queries.getFromIgnore(key));
 
   return results !== undefined;
+};
+
+/** 無視単語を登録 */
+export const registIgnore = async (item: Tables.TWordIgnore) => {
+  await DBHelper().put(Queries.putIgnore(item));
 };

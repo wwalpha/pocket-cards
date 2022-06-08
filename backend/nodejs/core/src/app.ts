@@ -19,6 +19,7 @@ import {
   CurriculumRemove,
   CurriculumQuestions,
   CurriculumOrder,
+  CurriculumIgnore,
 } from '@src/apis/curriculums';
 import { WeeklyAbilityRegist, WeeklyAbilityList, WeeklyAbilityAnswer } from '@src/apis/weekly';
 import { Patchs } from '@src/apis/patch';
@@ -73,18 +74,6 @@ app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, 
 // // 画像から単語に変換する
 // app.post('/v1/user/wordignore', express.json(), (req, res) => entry(req, res, D003));
 
-// 今日のテスト単語一覧
-// app.get('/v1/today/test', express.json(), (req, res) => entry(req, res, D004));
-// // 今日の再学習単語一覧
-// app.get('/v1/today/new', express.json(), (req, res) => entry(req, res, D005));
-// // 今日の復習単語一覧
-// app.get('/v1/today/review', express.json(), (req, res) => entry(req, res, D006));
-
-// // 単語詳細情報取得
-// app.get('/v1/words/:word', express.json(), (req, res) => entry(req, res, E001 as any));
-// // 単語詳細情報取得
-// app.put('/v1/words/:word', express.json(), (req, res) => entry(req, res, E002 as any));
-
 // 問題一括登録
 app.post('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
 // 問題詳細一括取得
@@ -115,6 +104,10 @@ app.delete('/v1/curriculums/:curriculumId', express.json(), (req, res) => entry(
 app.get('/v1/curriculums/:curriculumId/questions', express.json(), (req, res) => entry(req, res, CurriculumQuestions));
 // カリキュラム並べ順更新
 app.post('/v1/curriculums/:curriculumId/order', express.json(), (req, res) => entry(req, res, CurriculumOrder));
+// カリキュラムの問題集一覧
+app.get('/v1/curriculums/:curriculumId/questions/:questionId/ignore', express.json(), (req, res) =>
+  entry(req, res, CurriculumIgnore)
+);
 
 // 週テスト対策の問題登録
 app.post('/v1/study/weekly', express.json(), (req, res) => entry(req, res, WeeklyAbilityRegist));

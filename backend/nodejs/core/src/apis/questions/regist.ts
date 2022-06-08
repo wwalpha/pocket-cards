@@ -87,6 +87,7 @@ const registDefault = async (groupInfo: Tables.TGroups, questions: string[]) => 
   return qItems;
 };
 
+/** 英語単語一括登録 */
 const registEnglish = async (userId: string, groupInfo: Tables.TGroups, questions: string[]) => {
   // create question
   const words = questions.map((item) => {
