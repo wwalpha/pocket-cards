@@ -48,5 +48,5 @@ export const COLORS = {
   SCIENCE: '#f19116',
   SOCIETY: '#288f46',
   ENGLISH: '#b71927',
-  MATHS: '#b71927',
+  MATHS: '#1B5AAA',
 };

@@ -58,6 +58,18 @@ export default () => {
       <List sx={styles.list}>
         <ListItem
           button
+          key="maths"
+          onClick={() => {
+            handleClick(Consts.SUBJECT.MATHS);
+          }}>
+          <ListItemIcon sx={styles.itemIcon}>
+            <BookIcon sx={{ color: Consts.COLORS.MATHS }} />
+          </ListItemIcon>
+          <ListItemText primary="算 数" />
+        </ListItem>
+        <Divider />
+        <ListItem
+          button
           key="Japanese"
           onClick={() => {
             handleClick(Consts.SUBJECT.LANGUAGE);
