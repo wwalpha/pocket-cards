@@ -9,13 +9,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-// import ReplayIcon from '@mui/icons-material/Replay';
-// import EditIcon from '@mui/icons-material/Edit';
-// import ArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-// import DoneIcon from '@mui/icons-material/Done';
-import { StudyActions, WordActions } from '@actions';
-import { Consts } from '@constants';
-import { RootState, Group } from 'typings';
+import { StudyActions } from '@actions';
+import { RootState, WordItem } from 'typings';
 
 const studyState = (state: RootState) => state.study;
 const appState = (state: RootState) => state.app;
@@ -34,16 +29,23 @@ const StyledBarButton = styled(Button)(({ theme: { spacing, palette } }) => ({
 const card = () => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(StudyActions, dispatch);
-  const wrdActions = bindActionCreators(WordActions, dispatch);
-
-  const { current: word } = useSelector(studyState);
-  const { isLoading } = useSelector(appState);
+  const { current: word, rows, history } = useSelector(studyState);
   const [showText, setShowText] = React.useState(false);
 
   const handleTouchStart = () => setShowText(true);
 
-  const handleAnswer = (word: string, yes: boolean) => {
-    actions.answer(word, yes);
+  console.log(rows, history);
+  const handleKnown = () => {
+    // 正解
+    actions.answer(true);
+    setShowText(false);
+
+    setTimeout(() => play(), 500);
+  };
+
+  const handleUnknown = () => {
+    // 不正解
+    actions.answer(false);
 
     setShowText(false);
 
@@ -54,8 +56,6 @@ const card = () => {
   const handleIgnore = () => {
     if (!word) return;
 
-    // call api for ignore word
-    wrdActions.ignore(word.id);
     // hide text
     setShowText(false);
 
@@ -63,60 +63,55 @@ const card = () => {
     setTimeout(() => play(), 500);
   };
 
-  const getButtons = (mode?: string, word?: Group.WordItem) => {
+  const getButtons = (word?: WordItem) => {
+    if (!word) return [];
+
     // @ts-ignore
     const buttons = [];
 
     // 単語あり
-    if (word) {
-      buttons.push(
-        <Fab
-          key={2}
-          sx={{
-            width: ({ spacing }) => spacing(12),
-            height: ({ spacing }) => spacing(12),
-            mx: 3,
-            color: 'common.white',
-          }}
-          size="large"
-          color="primary"
-          disableFocusRipple
-          disableTouchRipple
-          disableRipple
-          onTouchStart={handleTouchStart}
-          onMouseDown={handleTouchStart}
-          onClick={() => {
-            handleAnswer(word.id, true);
-          }}>
-          知ってる
-        </Fab>
-      );
-      buttons.push(
-        <Fab
-          key={1}
-          sx={{
-            width: ({ spacing }) => spacing(12),
-            height: ({ spacing }) => spacing(12),
-            mx: 3,
-            color: 'common.white',
-          }}
-          size="large"
-          color="secondary"
-          disableFocusRipple
-          disableTouchRipple
-          disableRipple
-          onTouchStart={handleTouchStart}
-          onMouseDown={handleTouchStart}
-          onClick={() => {
-            handleAnswer(word.id, false);
-          }}>
-          知らない
-        </Fab>
-      );
-      return buttons;
-    }
+    buttons.push(
+      <Fab
+        key={2}
+        sx={{
+          width: ({ spacing }) => spacing(12),
+          height: ({ spacing }) => spacing(12),
+          mx: 3,
+          color: 'common.white',
+        }}
+        size="large"
+        color="primary"
+        disableFocusRipple
+        disableTouchRipple
+        disableRipple
+        onTouchStart={handleTouchStart}
+        onMouseDown={handleTouchStart}
+        onClick={handleKnown}>
+        知ってる
+      </Fab>
+    );
 
-    // @ts-ignore
+    buttons.push(
+      <Fab
+        key={1}
+        sx={{
+          width: ({ spacing }) => spacing(12),
+          height: ({ spacing }) => spacing(12),
+          mx: 3,
+          color: 'common.white',
+        }}
+        size="large"
+        color="secondary"
+        disableFocusRipple
+        disableTouchRipple
+        disableRipple
+        onTouchStart={handleTouchStart}
+        onMouseDown={handleTouchStart}
+        onClick={handleUnknown}>
+        知らない
+      </Fab>
+    );
+
     return buttons;
   };
 
@@ -156,7 +151,7 @@ const card = () => {
         if (!word) {
           return (
             <Grid container justifyContent="center" alignItems="center" sx={{ mb: 2, flexGrow: 1 }}>
-              <Grid item>{getButtons('', word)}</Grid>
+              <Grid item>{getButtons(word)}</Grid>
             </Grid>
           );
         }
@@ -187,7 +182,7 @@ const card = () => {
               </Card>
             </Grid>
             <Grid container justifyContent="center" alignItems="center" sx={{ mb: 2, flexGrow: 1 }}>
-              <Grid item>{getButtons('', word)}</Grid>
+              <Grid item>{getButtons(word)}</Grid>
             </Grid>
           </React.Fragment>
         );
