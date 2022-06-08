@@ -95,7 +95,7 @@ export enum ShowTypes {
   REMOVE_WORD,
 }
 
-export const STUDY_BUFFER_LOWER_LIMIT = 5;
+export const STUDY_BUFFER_LOWER_LIMIT = 4;
 
 export const SUBJECT = {
   ENGLISH: '0',
