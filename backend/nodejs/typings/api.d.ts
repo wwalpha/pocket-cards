@@ -477,6 +477,10 @@ export namespace APIs {
       archive: number;
       target: number;
     };
+    maths: {
+      archive: number;
+      target: number;
+    };
   }
 
   // ------------------------------------------------------------
@@ -502,6 +506,7 @@ export namespace APIs {
     language: _.Dictionary<number>;
     science: _.Dictionary<number>;
     society: _.Dictionary<number>;
+    maths: _.Dictionary<number>;
   }
 
   // ------------------------------------------------------------

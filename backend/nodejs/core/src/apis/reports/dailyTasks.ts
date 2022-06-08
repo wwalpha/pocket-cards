@@ -12,6 +12,7 @@ export default async (req: Request<any, any, APIs.DailyTasksResquest, any>): Pro
   // 問題一覧
   const pastResults = await LearningService.dailyPastTasks(userId, date);
   const currentResults = await LearningService.dailyCurrentTasks(userId, date);
+  const mathsArchive = getArchive(currentResults, Consts.SUBJECT.MATHS);
 
   return {
     language: {
@@ -25,6 +26,10 @@ export default async (req: Request<any, any, APIs.DailyTasksResquest, any>): Pro
     society: {
       archive: getArchive(currentResults, Consts.SUBJECT.SOCIETY),
       target: getTarget(pastResults, currentResults, Consts.SUBJECT.SOCIETY),
+    },
+    maths: {
+      archive: mathsArchive >= 5 ? 5 : mathsArchive,
+      target: 5,
     },
   };
 };

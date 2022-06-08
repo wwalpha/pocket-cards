@@ -13,9 +13,10 @@ export default async (
   // 問題一覧
   const results = await LearningService.listByUser(userId);
 
-  const language = results.filter((item) => item.subject === Consts.SUBJECT.LANGUAGE.toString());
-  const science = results.filter((item) => item.subject === Consts.SUBJECT.SCIENCE.toString());
-  const society = results.filter((item) => item.subject === Consts.SUBJECT.SOCIETY.toString());
+  const language = results.filter((item) => item.subject === Consts.SUBJECT.LANGUAGE);
+  const science = results.filter((item) => item.subject === Consts.SUBJECT.SCIENCE);
+  const society = results.filter((item) => item.subject === Consts.SUBJECT.SOCIETY);
+  const maths = results.filter((item) => item.subject === Consts.SUBJECT.MATHS);
 
   return {
     language: countBy(language, (item) => {
@@ -25,6 +26,9 @@ export default async (
       return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
     }),
     society: countBy(society, (item) => {
+      return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
+    }),
+    maths: countBy(maths, (item) => {
       return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
     }),
   };
