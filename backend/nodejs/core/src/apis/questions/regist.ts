@@ -10,7 +10,6 @@ import { APIs, Tables } from 'typings';
 export default async (req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>): Promise<void> => {
   const { questions } = req.body;
   const groupId = req.params.groupId;
-  const userId = Commons.getUserId(req);
 
   // ユーザのグループID 一覧
   const groupInfo = await GroupService.describe(groupId);
@@ -22,7 +21,7 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
 
   let qItems: Tables.TQuestions[] = [];
   if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
-    qItems = await registEnglish(userId, groupInfo, questions);
+    qItems = await registEnglish(groupInfo, questions);
   } else {
     qItems = await registDefault(groupInfo, questions);
   }
@@ -88,23 +87,14 @@ const registDefault = async (groupInfo: Tables.TGroups, questions: string[]) => 
 };
 
 /** 英語単語一括登録 */
-const registEnglish = async (userId: string, groupInfo: Tables.TGroups, questions: string[]) => {
+const registEnglish = async (groupInfo: Tables.TGroups, questions: string[]) => {
   // create question
-  const words = questions.map((item) => {
-    const items = item.split(',');
-    return items[0] ?? '';
-  });
-
-  const targets = await Promise.all(
-    words
-      .filter((item) => item !== '')
-      .filter(async (item) => {
-        return await WordService.isIgnore({
-          id: userId,
-          word: item,
-        });
-      })
-  );
+  const targets = questions
+    .map((item) => {
+      const items = item.split(',');
+      return items[0] ?? '';
+    })
+    .filter((item) => item !== '');
 
   // 単語語彙一覧
   const wordInfos = await Promise.all(targets.map(async (item) => await WordService.describe(item)));
