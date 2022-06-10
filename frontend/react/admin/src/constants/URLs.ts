@@ -22,6 +22,8 @@ export const QUESTION_REGIST = (groupId: string) => `${API_VERSION}/groups/${gro
 // 問題集情報更新
 export const QUESTION_UPDATE = (groupId: string, questionId: string) =>
   `${API_VERSION}/groups/${groupId}/questions/${questionId}`;
+export const QUESTION_DELETE = (groupId: string, questionId: string) =>
+  `${API_VERSION}/groups/${groupId}/questions/${questionId}`;
 
 // カリキュラム一覧取得
 export const CURRICULUM_LIST = () => `${API_VERSION}/curriculums`;
