@@ -11,9 +11,10 @@ import DialogContent from '@mui/material/DialogContent';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { Group, QuestionForm } from 'typings';
-import QuestionDetails from './QuestionDetails';
 import Button from '@mui/material/Button';
+import ConfirmDialog from '@components/dialogs/ConfirmDialog';
+import QuestionDetails from './QuestionDetails';
+import { Group, QuestionForm } from 'typings';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,14 +39,27 @@ const styles = {
   },
 };
 
-const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) => {
+const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onDelete }) => {
   const [open, setOpen] = React.useState(false);
+  const [confirm, setConfirm] = React.useState(false);
   const [index, setIndex] = React.useState(-1);
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setConfirm(false);
+  };
+
   const handleClick = (index: number) => {
     setIndex(index);
     setOpen(true);
+  };
+  const handleDeleteBtn = (index: number) => {
+    setIndex(index);
+    setConfirm(true);
+  };
+  const handleOnDelete = () => {
+    onDelete && onDelete(index);
+    setConfirm(false);
   };
 
   const handleDialogClick = (datas: QuestionForm) => {
@@ -75,14 +89,27 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) =
                 <TableCell>{idx + 1}</TableCell>
                 {onSubmit && (
                   <StyledTableCell>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      onClick={() => {
-                        handleClick(idx);
-                      }}>
-                      Edit
-                    </Button>
+                    <Box component="span" sx={styles.tableCell}>
+                      <Button
+                        size="small"
+                        sx={{ mx: 0.5 }}
+                        variant="contained"
+                        onClick={() => {
+                          handleDeleteBtn(idx);
+                        }}>
+                        Delete
+                      </Button>
+                      <Button
+                        size="small"
+                        sx={{ mx: 0.5 }}
+                        color="success"
+                        variant="contained"
+                        onClick={() => {
+                          handleClick(idx);
+                        }}>
+                        Edit
+                      </Button>
+                    </Box>
                   </StyledTableCell>
                 )}
                 <TableCell>
@@ -105,6 +132,13 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) =
           </TableBody>
         </Table>
       </TableContainer>
+      <ConfirmDialog
+        open={confirm}
+        message="削除してよろしいでしょうか？"
+        onClose={handleClose}
+        onConfirm={handleOnDelete}
+        maxWidth="md"
+      />
       <Dialog open={open} onClose={handleClose} maxWidth="lg">
         <DialogTitle>問題</DialogTitle>
         <DialogContent>
@@ -121,6 +155,7 @@ interface QuestionTable {
   loading?: boolean;
   datas: Partial<Group.Question>[];
   onSubmit?: (datas: QuestionForm) => void;
+  onDelete?: (index: number) => void;
 }
 
 export default table;

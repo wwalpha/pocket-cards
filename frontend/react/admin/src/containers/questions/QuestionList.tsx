@@ -30,12 +30,19 @@ export default () => {
     }
   };
 
+  const handleDelete = (index: number) => {
+    const q = questions[index];
+
+    actions.questionDelete(groupId, q.id);
+  };
+
   return (
     <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <QuestionTable
         datas={questions}
         loading={isLoading}
         onSubmit={authority === Consts.Authority.ADMIN ? handleSubmit : undefined}
+        onDelete={authority === Consts.Authority.ADMIN ? handleDelete : undefined}
       />
     </Box>
   );
