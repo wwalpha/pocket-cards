@@ -12,7 +12,10 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import ConfirmDialog from '@components/dialogs/ConfirmDialog';
+import { LoadingIconButton } from '@components/buttons';
 import QuestionDetails from './QuestionDetails';
 import { Group, QuestionForm } from 'typings';
 
@@ -37,6 +40,7 @@ const styles = {
     display: 'inline-block',
     width: '350px',
   },
+  iconCell: { display: 'flex' },
 };
 
 const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onDelete }) => {
@@ -89,26 +93,24 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
                 <TableCell>{idx + 1}</TableCell>
                 {onSubmit && (
                   <StyledTableCell>
-                    <Box component="span" sx={styles.tableCell}>
-                      <Button
-                        size="small"
-                        sx={{ mx: 0.5 }}
-                        variant="contained"
+                    <Box sx={styles.iconCell}>
+                      <LoadingIconButton
+                        loading={loading}
+                        sx={{ p: 0.5 }}
+                        color="error"
                         onClick={() => {
                           handleDeleteBtn(idx);
                         }}>
-                        Delete
-                      </Button>
-                      <Button
-                        size="small"
-                        sx={{ mx: 0.5 }}
-                        color="success"
-                        variant="contained"
+                        <DeleteIcon sx={{ fontSize: 32 }} />
+                      </LoadingIconButton>
+                      <LoadingIconButton
+                        sx={{ p: 0.5 }}
+                        loading={loading}
                         onClick={() => {
                           handleClick(idx);
                         }}>
-                        Edit
-                      </Button>
+                        <EditIcon sx={{ fontSize: 32 }} />
+                      </LoadingIconButton>
                     </Box>
                   </StyledTableCell>
                 )}
