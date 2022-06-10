@@ -120,7 +120,7 @@ export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput =
 
 export const byQuestionId = (questionId: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid',
+  ProjectionExpression: 'qid, userId',
   KeyConditionExpression: '#qid = :qid',
   ExpressionAttributeNames: {
     '#qid': 'qid',
