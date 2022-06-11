@@ -11,6 +11,7 @@ import {
   QuestionList,
   QuestionUpdate,
   QuestionDelete,
+  QuestionIgnore,
 } from '@src/apis/questions';
 import { DailyTasks, LearningProgress, LearningOverall, Inquiry } from '@src/apis/reports';
 import {
@@ -74,6 +75,8 @@ app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, 
 // // 画像から単語に変換する
 // app.post('/v1/user/wordignore', express.json(), (req, res) => entry(req, res, D003));
 
+// 問題一括登録
+app.post('/v1/groups/:groupId/ignore', express.json(), (req, res) => entry(req, res, QuestionIgnore));
 // 問題一括登録
 app.post('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
 // 問題詳細一括取得

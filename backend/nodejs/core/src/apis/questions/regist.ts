@@ -89,33 +89,43 @@ const registDefault = async (groupInfo: Tables.TGroups, questions: string[]) => 
 /** 英語単語一括登録 */
 const registEnglish = async (groupInfo: Tables.TGroups, questions: string[]) => {
   // create question
-  const targets = questions
+  const dataRows = questions
     .map((item) => {
       const items = item.split(',');
       return items[0] ?? '';
     })
     .filter((item) => item !== '');
 
+  // 単語の語彙を取得する
+  const tasks = dataRows.map(async (item) => {
+    const ignore = await WordService.isIgnore({
+      id: Consts.Authority.ADMIN,
+      word: item,
+    });
+
+    // 無視単語を除外する
+    if (ignore === true) {
+      return undefined;
+    }
+
+    return await WordService.describe(item);
+  });
+
   // 単語語彙一覧
-  const wordInfos = await Promise.all(targets.map(async (item) => await WordService.describe(item)));
+  const wordInfos = await Promise.all(tasks);
 
-  const qItems = targets.map<Tables.TQuestions>((item) => {
-    // 単語情報取得
-    const wordInfo = wordInfos.find((w) => w.id === item);
-
-    // validation
-    if (!wordInfo) throw new Error();
-
-    return {
+  // 登録単語作成
+  const qItems = wordInfos
+    .filter((item): item is Exclude<typeof item, undefined> => item !== undefined)
+    .map<Tables.TQuestions>((item) => ({
       id: generate(),
       subject: groupInfo.subject,
       groupId: groupInfo.id,
-      title: wordInfo.id,
-      answer: `${wordInfo.vocChn}|${wordInfo.vocJpn}`,
-      description: wordInfo.pronounce,
-      voiceTitle: wordInfo.mp3,
-    };
-  });
+      title: item.id,
+      answer: `${item.vocChn}|${item.vocJpn}`,
+      description: item.pronounce,
+      voiceTitle: item.mp3,
+    }));
 
   // regist all questions
   await Promise.all([

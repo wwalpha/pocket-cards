@@ -52,8 +52,8 @@ export const getListByGuardian = async (guardian: string, subject?: string): Pro
 };
 
 /** グループ関連のカリキュラム一覧 */
-export const getListByGroup = async (groupId: string): Promise<Tables.TCurriculums[]> => {
-  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byGroupId(groupId));
+export const getListByGroup = async (groupId: string, userId?: string): Promise<Tables.TCurriculums[]> => {
+  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byGroupId(groupId, userId));
 
   return results.Items;
 };
