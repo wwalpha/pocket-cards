@@ -298,6 +298,11 @@ resource "aws_dynamodb_table" "curriculums" {
     type = "S"
   }
 
+  attribute {
+    name = "userId"
+    type = "S"
+  }
+
   global_secondary_index {
     name            = "gsiIdx1"
     hash_key        = "guardian"
