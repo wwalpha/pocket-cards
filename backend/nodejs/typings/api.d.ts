@@ -404,6 +404,19 @@ export namespace APIs {
   // ------------------------------------------------------------
   // Question Ignore
   // ------------------------------------------------------------
+  interface QuestionIgnoreParams {
+    groupId: string;
+  }
+
+  interface QuestionIgnoreRequest {
+    qid: string;
+  }
+
+  type QuestionIgnoreResponse = void;
+
+  // ------------------------------------------------------------
+  // Curriculum Ignore
+  // ------------------------------------------------------------
   interface CurriculumIgnoreParams {
     curriculumId: string;
     questionId: string;
