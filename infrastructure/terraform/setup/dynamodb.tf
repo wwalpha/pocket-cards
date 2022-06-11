@@ -308,6 +308,7 @@ resource "aws_dynamodb_table" "curriculums" {
   global_secondary_index {
     name            = "gsiIdx2"
     hash_key        = "groupId"
+    range_key       = "userId"
     projection_type = "ALL"
   }
 
