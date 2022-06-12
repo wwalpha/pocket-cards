@@ -319,7 +319,10 @@ export namespace APIs {
     questions: string[];
   }
 
-  interface QuestionRegistResponse {}
+  interface QuestionRegistResponse {
+    count: number;
+    ids: string[];
+  }
 
   // ------------------------------------------------------------
   // Question Delete
@@ -333,7 +336,9 @@ export namespace APIs {
 
   type QuestionDeleteResponse = void;
 
-  // Study
+  // ------------------------------------------------------------
+  // Question Daily Study
+  // ------------------------------------------------------------
   interface QuestionStudyRequest {}
 
   interface QuestionStudyResponse {
@@ -345,7 +350,9 @@ export namespace APIs {
     subject?: string;
   }
 
-  // Test
+  // ------------------------------------------------------------
+  // Question Daily Test
+  // ------------------------------------------------------------
   interface QuestionTestRequest {}
 
   interface QuestionTestQuery {
@@ -353,6 +360,20 @@ export namespace APIs {
   }
 
   interface QuestionTestResponse {
+    count: number;
+    questions: Tables.TQuestions[];
+  }
+
+  // ------------------------------------------------------------
+  // Question Daily Review
+  // ------------------------------------------------------------
+  interface QuestionReviewRequest {}
+
+  interface QuestionReviewQuery {
+    subject?: string;
+  }
+
+  interface QuestionReviewResponse {
     count: number;
     questions: Tables.TQuestions[];
   }
