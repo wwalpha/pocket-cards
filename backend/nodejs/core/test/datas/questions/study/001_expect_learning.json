@@ -1,0 +1,95 @@
+{
+  "count": 10,
+  "questions": [
+    {
+      "voiceTitle": "voices/oXwp1dFsUdrSjioTZUrrNG.mp3",
+      "answer": "[images/i4xoVbNjZJyRRB2XnXNpSr.gif]",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "oBEhNZMKfRyz9KMDQkDSnT",
+      "title": "2018年、瀬戸内工業地域の工業別生産額は",
+      "voiceAnswer": "voices/4EzxJ2Cah9xJd42LRTC2QU.mp3"
+    },
+    {
+      "voiceTitle": "voices/bV1MTPM6GAVGZpLHYDHWPT.mp3",
+      "answer": "金属(16.8%)、機械(40.8%)、化学(12.8%)、食品(9.4%)",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "ohgBMXMjMVSKgzPF47L37F",
+      "title": "2018年、北陸工業地域の工業別生産額は",
+      "voiceAnswer": "voices/aH7PazoNThtsoapZmPHnLt.mp3"
+    },
+    {
+      "voiceTitle": "voices/d78RqPMD27Yf3tr4K2eAdM.mp3",
+      "answer": "生態系",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "kK4c44qM2nJXrUrJatqsnt",
+      "title": "動植物が自然環境の中でたがいに関係しあって生きている仕組みとは",
+      "voiceAnswer": "voices/6vM2oCfeZoqbUQuf4W1XCs.mp3"
+    },
+    {
+      "voiceTitle": "voices/rqCNfWArnJDmbGSTzP7LcW.mp3",
+      "answer": "かつお、まぐろ",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "rbBtN7oBSWymDfirnmu7w5",
+      "title": "焼津港で水揚げされる主な魚は",
+      "voiceAnswer": "voices/1D4RgTm54sAabV9ftGy11Q.mp3"
+    },
+    {
+      "voiceTitle": "voices/2UMMqtsFva2GvzMULW44tB.mp3",
+      "answer": "レアメタル",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "gvEs23Nk5ZBssHhFMvKsbp",
+      "title": "パソコンや携帯電話、ゲーム機などに使用される貴重金属は",
+      "voiceAnswer": "voices/1wX94YgQv3EDVqWwNJfJVx.mp3"
+    },
+    {
+      "voiceTitle": "voices/8Lt6U9u2sB6GTdyG5aS4k9.mp3",
+      "answer": "親潮",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "8AYbNN4jhnViq5wtZKXnxs",
+      "title": "太平洋を南下する海流は4",
+      "voiceAnswer": "voices/7NSyf98vVogw2Gvd2XThNR.mp3"
+    },
+    {
+      "voiceTitle": "voices/7RPxcvrGVqZb1ykfWp5MXY.mp3",
+      "answer": "金属(16.5%)、機械(46.3%)、化学(6.1%)、食品(16.9%)",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "fkVuwVtgk3rCiFJeXRDxUm",
+      "title": "2018年、北九州工業地域の工業別生産額は",
+      "voiceAnswer": "voices/v8nDMUGuNfwuH4wnoHv87b.mp3"
+    },
+    {
+      "voiceTitle": "voices/8Gtb85tKcu8k39etcUyZbU.mp3",
+      "answer": "[images/6EQwgCL3d2zLhgnJNfpEhc.gif]",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "jfcRECgpY6xcREfdMy88FR",
+      "title": "2018年、東海工業地域の工業別生産額は",
+      "voiceAnswer": "voices/fUYx9Dotc3H3dPXqVmAZRL.mp3"
+    },
+    {
+      "voiceTitle": "voices/kfuVQRveteHunkVvYps75G.mp3",
+      "answer": "[images/hzAeRJs5vMrsk7ESWbEp2i.gif]",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "jUriZBr91HNtfHVcQ6KozX",
+      "title": "2018年、阪神工業地帯の工業別生産額は",
+      "voiceAnswer": "voices/7cQea1iqcK2rmbHSrpmvZY.mp3"
+    },
+    {
+      "voiceTitle": "voices/vxS55xEgzqSPGHXustJRdV.mp3",
+      "answer": "たち",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "8aqiGGBw5wH1beVMzouKXf",
+      "title": "釧路港で水揚げされる主な魚は",
+      "voiceAnswer": "voices/qHiqCB53Kh5rVYtUpxLuoF.mp3"
+    }
+  ]
+}
