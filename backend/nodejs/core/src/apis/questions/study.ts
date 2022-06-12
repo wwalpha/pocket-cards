@@ -18,21 +18,16 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
   }
 
   // 直近不正解の問題を優先する
-  const questions = await getDailyPractice(userId, subject);
+  const learnings = await getDailyPractice(userId, subject);
 
   // 検索結果０件の場合
-  if (questions.length >= Environment.WORDS_LIMIT) {
-    return await getQuestions(questions);
+  if (learnings.length >= Environment.WORDS_LIMIT) {
+    return await getQuestions(learnings);
   }
 
   // 未学習
-  return getUnlearned(questions, userId, subject, req.headers);
+  return await getUnlearned(learnings, userId, subject, req.headers);
 };
-
-const EmptyResponse = (): APIs.QuestionStudyResponse => ({
-  count: 0,
-  questions: [],
-});
 
 const getDailyPractice = async (userId: string, subject: string) => {
   // next study date
@@ -89,9 +84,9 @@ const getUnlearned = async (
 
   const groupIds = getGroupIds(rows);
 
-  // no questions
+  // 未学習の問題がありません
   if (groupIds.length === 0) {
-    return EmptyResponse();
+    return await getQuestions(leanings);
   }
 
   // get unlearned
