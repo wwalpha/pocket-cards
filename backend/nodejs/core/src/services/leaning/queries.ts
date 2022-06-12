@@ -71,7 +71,9 @@ export const test = (userId: string, nextTime: string, subject: string): DynamoD
 });
 
 /**
- * 新規学習単語対象一覧を取得する
+ * 復習単語対象一覧を取得する（科目別）
+ *
+ * 当日を含めて、過去少なくとも１回学習した事がある、且つ最後の１回は間違った
  *
  * 対象：Times = 0, NextTime <= now, NextTime DESC, Top 10
  */
