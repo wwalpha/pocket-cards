@@ -27,10 +27,10 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
 
   Logger.info(`Count: ${results.length}`);
 
-  // // 時間順
+  // 時間順
   // const sorted = orderBy(items, 'lastTime');
-  // // 時間順で上位N件を対象とします
-  const targets = results.length > Environment.WORDS_LIMIT ? results.slice(0, Environment.WORDS_LIMIT) : results;
+  // 時間順で上位N件を対象とします
+  const targets = results.slice(0, Environment.WORDS_LIMIT);
 
   // 単語明細情報の取得
   const details = await QueryUtils.getQuestionDetails(targets);
