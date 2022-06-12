@@ -24,7 +24,7 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
 
   // 検索結果０件の場合
   if (results.length >= Environment.WORDS_LIMIT) {
-    return await getQuestions(results.slice(0, Environment.WORDS_LIMIT));
+    return await getQuestions(results);
   }
 
   // 未学習
@@ -38,10 +38,8 @@ const EmptyResponse = (): APIs.QuestionStudyResponse => ({
 
 const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.QuestionStudyResponse> => {
   Logger.info(`Count: ${dataRows.length}`);
-  // 時間順
-  const sorted = orderBy(dataRows, 'nextTime', 'desc');
   // 時間順で上位N件を対象とします
-  const targets = dataRows.length > Environment.WORDS_LIMIT ? sorted.slice(0, Environment.WORDS_LIMIT) : dataRows;
+  const targets = dataRows.slice(0, Environment.WORDS_LIMIT);
 
   // 単語明細情報の取得
   const details = await QueryUtils.getQuestionDetails(targets);
