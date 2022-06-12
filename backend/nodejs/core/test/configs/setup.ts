@@ -188,6 +188,7 @@ const setup = async () => {
           { AttributeName: 'id', AttributeType: 'S' },
           { AttributeName: 'guardian', AttributeType: 'S' },
           { AttributeName: 'groupId', AttributeType: 'S' },
+          { AttributeName: 'userId', AttributeType: 'S' },
         ],
         GlobalSecondaryIndexes: [
           {
@@ -200,7 +201,10 @@ const setup = async () => {
           },
           {
             IndexName: 'gsiIdx2',
-            KeySchema: [{ AttributeName: 'groupId', KeyType: 'HASH' }],
+            KeySchema: [
+              { AttributeName: 'groupId', KeyType: 'HASH' },
+              { AttributeName: 'userId', KeyType: 'RANGE' },
+            ],
             Projection: { ProjectionType: 'ALL' },
           },
         ],

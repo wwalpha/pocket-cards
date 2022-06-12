@@ -24,7 +24,7 @@ export default async (
   let nextTime = input.correct === '1' ? DateUtils.getNextTime(times) : DateUtils.getNextTime(0);
 
   // 算数
-  if (learning.subject === Consts.SUBJECT.MATHS && times > 4) {
+  if (learning.subject === Consts.SUBJECT.MATHS && times > 5) {
     nextTime = '99991231';
   }
 

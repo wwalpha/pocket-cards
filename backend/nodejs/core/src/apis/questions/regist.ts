@@ -81,7 +81,7 @@ const registDefault = async (groupInfo: Tables.TGroups, questions: string[]) => 
   ]);
 
   // 質問の情報を更新する(非同期)
-  Commons.updateQuestion(qItems);
+  await Commons.updateQuestion(qItems);
 
   return qItems;
 };
