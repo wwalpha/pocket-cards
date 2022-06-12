@@ -166,12 +166,21 @@ const setup = async () => {
           { AttributeName: 'qid', AttributeType: 'S' },
           { AttributeName: 'userId', AttributeType: 'S' },
           { AttributeName: 'nextTime', AttributeType: 'S' },
+          { AttributeName: 'groupId', AttributeType: 'S' },
         ],
         GlobalSecondaryIndexes: [
           {
             IndexName: 'gsiIdx1',
             KeySchema: [
               { AttributeName: 'userId', KeyType: 'HASH' },
+              { AttributeName: 'nextTime', KeyType: 'RANGE' },
+            ],
+            Projection: { ProjectionType: 'ALL' },
+          },
+          {
+            IndexName: 'gsiIdx2',
+            KeySchema: [
+              { AttributeName: 'groupId', KeyType: 'HASH' },
               { AttributeName: 'nextTime', KeyType: 'RANGE' },
             ],
             Projection: { ProjectionType: 'ALL' },
