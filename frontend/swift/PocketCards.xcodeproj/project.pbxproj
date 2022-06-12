@@ -61,6 +61,16 @@
 		9A56399C28143494006D6C96 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399328143494006D6C96 /* LoginView.swift */; };
 		9A5639A02814D86E006D6C96 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399F2814D86E006D6C96 /* UserServices.swift */; };
 		9A5639A12814D86E006D6C96 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399F2814D86E006D6C96 /* UserServices.swift */; };
+		9A61E8652855EAC50037FA82 /* DailyReviewContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61E8602855EAC50037FA82 /* DailyReviewContract.swift */; };
+		9A61E8662855EAC50037FA82 /* DailyReviewContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61E8602855EAC50037FA82 /* DailyReviewContract.swift */; };
+		9A61E8672855EAC50037FA82 /* DailyReviewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61E8612855EAC50037FA82 /* DailyReviewPresenter.swift */; };
+		9A61E8682855EAC50037FA82 /* DailyReviewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61E8612855EAC50037FA82 /* DailyReviewPresenter.swift */; };
+		9A61E8692855EAC50037FA82 /* DailyReviewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61E8622855EAC50037FA82 /* DailyReviewInteractor.swift */; };
+		9A61E86A2855EAC50037FA82 /* DailyReviewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61E8622855EAC50037FA82 /* DailyReviewInteractor.swift */; };
+		9A61E86B2855EAC50037FA82 /* DailyReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61E8632855EAC50037FA82 /* DailyReviewView.swift */; };
+		9A61E86C2855EAC50037FA82 /* DailyReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61E8632855EAC50037FA82 /* DailyReviewView.swift */; };
+		9A61E86D2855EAC50037FA82 /* DailyReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61E8642855EAC50037FA82 /* DailyReviewViewModel.swift */; };
+		9A61E86E2855EAC50037FA82 /* DailyReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61E8642855EAC50037FA82 /* DailyReviewViewModel.swift */; };
 		9A61EEA927E4684B002C73D0 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEA827E4684B002C73D0 /* TabBar.swift */; };
 		9A61EEB827E481C1002C73D0 /* incorrect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9A61EEB727E481C1002C73D0 /* incorrect.mp3 */; };
 		9A61EEBA27E481C8002C73D0 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9A61EEB927E481C8002C73D0 /* correct.mp3 */; };
@@ -276,6 +286,11 @@
 		9A56399228143494006D6C96 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
 		9A56399328143494006D6C96 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9A56399F2814D86E006D6C96 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		9A61E8602855EAC50037FA82 /* DailyReviewContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReviewContract.swift; sourceTree = "<group>"; };
+		9A61E8612855EAC50037FA82 /* DailyReviewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReviewPresenter.swift; sourceTree = "<group>"; };
+		9A61E8622855EAC50037FA82 /* DailyReviewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReviewInteractor.swift; sourceTree = "<group>"; };
+		9A61E8632855EAC50037FA82 /* DailyReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReviewView.swift; sourceTree = "<group>"; };
+		9A61E8642855EAC50037FA82 /* DailyReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReviewViewModel.swift; sourceTree = "<group>"; };
 		9A61EEA827E4684B002C73D0 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		9A61EEB727E481C1002C73D0 /* incorrect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = incorrect.mp3; sourceTree = "<group>"; };
 		9A61EEB927E481C8002C73D0 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
@@ -461,6 +476,7 @@
 				9A9E576F281554140025C74F /* Weekly */,
 				9A1FD27727D7394C0000A16B /* DailyTest */,
 				9A1FD28027D7394C0000A16B /* DailyStudy */,
+				9A61E8542855EA900037FA82 /* DailyReview */,
 				9A1FD28627D7394C0000A16B /* Login */,
 			);
 			path = Scenes;
@@ -597,6 +613,18 @@
 				9A3F50C627EB2E9A00D9A305 /* DailyTasksViewModel.swift */,
 			);
 			path = DailyTasks;
+			sourceTree = "<group>";
+		};
+		9A61E8542855EA900037FA82 /* DailyReview */ = {
+			isa = PBXGroup;
+			children = (
+				9A61E8602855EAC50037FA82 /* DailyReviewContract.swift */,
+				9A61E8612855EAC50037FA82 /* DailyReviewPresenter.swift */,
+				9A61E8622855EAC50037FA82 /* DailyReviewInteractor.swift */,
+				9A61E8632855EAC50037FA82 /* DailyReviewView.swift */,
+				9A61E8642855EAC50037FA82 /* DailyReviewViewModel.swift */,
+			);
+			path = DailyReview;
 			sourceTree = "<group>";
 		};
 		9A61EEAA27E468FF002C73D0 /* Charts */ = {
@@ -971,6 +999,7 @@
 				9A9E5769281554000025C74F /* WeeklyChoiceInteractor.swift in Sources */,
 				9A1FD2A227D7394C0000A16B /* TokenManager.swift in Sources */,
 				9A56399528143494006D6C96 /* LoginContract.swift in Sources */,
+				9A61E8692855EAC50037FA82 /* DailyReviewInteractor.swift in Sources */,
 				9A1FD2A527D7394C0000A16B /* Question.swift in Sources */,
 				9A9E579B2817781C0025C74F /* UserAttributes.swift in Sources */,
 				9AB63BB428043AD60001F15C /* OverallTimesViewModel.swift in Sources */,
@@ -983,8 +1012,10 @@
 				9A9E577E281598860025C74F /* WeeklyRootViewModel.swift in Sources */,
 				9A56399B28143494006D6C96 /* LoginView.swift in Sources */,
 				9A9E5776281598860025C74F /* WeeklyRootContract.swift in Sources */,
+				9A61E8652855EAC50037FA82 /* DailyReviewContract.swift in Sources */,
 				9A1FD29427D7394C0000A16B /* ChoiceQuestion.swift in Sources */,
 				9A61EEA927E4684B002C73D0 /* TabBar.swift in Sources */,
+				9A61E8672855EAC50037FA82 /* DailyReviewPresenter.swift in Sources */,
 				9AF57E6927D8DC6F002B1F32 /* DailyTestViewModel.swift in Sources */,
 				9A9E57A9281A0A0F0025C74F /* FileManager.swift in Sources */,
 				9A3F50E227EC412E00D9A305 /* HistoriesView.swift in Sources */,
@@ -996,6 +1027,7 @@
 				9A9E579E2817B6470025C74F /* Curriculum.swift in Sources */,
 				9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */,
 				9AB63BB228043AD60001F15C /* OverallTimesInteractor.swift in Sources */,
+				9A61E86D2855EAC50037FA82 /* DailyReviewViewModel.swift in Sources */,
 				9A1FD29827D7394C0000A16B /* RootView.swift in Sources */,
 				9A9E57C0282386370025C74F /* PopupView.swift in Sources */,
 				9A56399728143494006D6C96 /* LoginPresenter.swift in Sources */,
@@ -1029,6 +1061,7 @@
 				9A9E57852816316A0025C74F /* GroupServices.swift in Sources */,
 				9AF57E6D27D96292002B1F32 /* DailyTestPresenter.swift in Sources */,
 				9A3F50C927EB2E9A00D9A305 /* DailyTasksInteractor.swift in Sources */,
+				9A61E86B2855EAC50037FA82 /* DailyReviewView.swift in Sources */,
 				9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */,
 				9A9E575928154E210025C74F /* WeeklyTestInteractor.swift in Sources */,
 				9AB63BB128043AD60001F15C /* OverallTimesPresenter.swift in Sources */,
@@ -1078,6 +1111,7 @@
 				9A9E576A281554000025C74F /* WeeklyChoiceInteractor.swift in Sources */,
 				9A56399628143494006D6C96 /* LoginContract.swift in Sources */,
 				9AF2ACB12814273300F80DB4 /* TokenManager.swift in Sources */,
+				9A61E86A2855EAC50037FA82 /* DailyReviewInteractor.swift in Sources */,
 				9AF2ACB22814273300F80DB4 /* Question.swift in Sources */,
 				9A9E579C2817781C0025C74F /* UserAttributes.swift in Sources */,
 				9AF2ACB32814273300F80DB4 /* OverallTimesViewModel.swift in Sources */,
@@ -1090,8 +1124,10 @@
 				9A9E577F281598860025C74F /* WeeklyRootViewModel.swift in Sources */,
 				9AF2ACB62814273300F80DB4 /* History.swift in Sources */,
 				9A9E5777281598860025C74F /* WeeklyRootContract.swift in Sources */,
+				9A61E8662855EAC50037FA82 /* DailyReviewContract.swift in Sources */,
 				9AF2ACB72814273300F80DB4 /* ChoiceQuestion.swift in Sources */,
 				9AF2ACB82814273300F80DB4 /* TabBar.swift in Sources */,
+				9A61E8682855EAC50037FA82 /* DailyReviewPresenter.swift in Sources */,
 				9AF2ACB92814273300F80DB4 /* DailyTestViewModel.swift in Sources */,
 				9A9E57AA281A0A0F0025C74F /* FileManager.swift in Sources */,
 				9AF2ACBA2814273300F80DB4 /* HistoriesView.swift in Sources */,
@@ -1103,6 +1139,7 @@
 				9A9E579F2817B6470025C74F /* Curriculum.swift in Sources */,
 				9AF2ACBC2814273300F80DB4 /* Colors.swift in Sources */,
 				9AF2ACBD2814273300F80DB4 /* OverallTimesInteractor.swift in Sources */,
+				9A61E86E2855EAC50037FA82 /* DailyReviewViewModel.swift in Sources */,
 				9A56399828143494006D6C96 /* LoginPresenter.swift in Sources */,
 				9A9E57C1282386370025C74F /* PopupView.swift in Sources */,
 				9AF2ACBF2814273300F80DB4 /* RootView.swift in Sources */,
@@ -1136,6 +1173,7 @@
 				9A9E57862816316A0025C74F /* GroupServices.swift in Sources */,
 				9AF2ACD52814273300F80DB4 /* DailyTestPresenter.swift in Sources */,
 				9AF2ACD62814273300F80DB4 /* DailyTasksInteractor.swift in Sources */,
+				9A61E86C2855EAC50037FA82 /* DailyReviewView.swift in Sources */,
 				9AF2ACD72814273300F80DB4 /* DailyTasks.swift in Sources */,
 				9A9E575A28154E210025C74F /* WeeklyTestInteractor.swift in Sources */,
 				9AF2ACD82814273300F80DB4 /* OverallTimesPresenter.swift in Sources */,

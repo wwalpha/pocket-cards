@@ -22,6 +22,8 @@ extension DailyTasksPresenter: DailyTasksPresentationLogic {
         model.sciArchive = Double(res.science.archive)
         model.socTarget = Double(res.society.target)
         model.socArchive = Double(res.society.archive)
+        model.mathsTarget = Double(res.maths.target)
+        model.mathsArchive = Double(res.maths.archive)
 
         view?.showTasks(model: model)
     }

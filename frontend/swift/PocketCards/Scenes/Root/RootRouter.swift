@@ -8,12 +8,20 @@
 import SwiftUI
 
 class RootRouter {
+    func makeMathsTestView() -> some View {
+        DailyTestView().configureView(subject: SUBJECT.MATHS)
+    }
+
+    func makeMathsReviewView() -> some View {
+        DailyReviewView().configureView(subject: SUBJECT.MATHS)
+    }
+
     func makeLanguageStudyiew() -> some View {
         DailyStudyView().configureView(subject: SUBJECT.LANGUAGE)
     }
 
     func makeLanguageTestView() -> some View {
-        DailyTestView(subject: SUBJECT.LANGUAGE).configureView()
+        DailyTestView().configureView(subject: SUBJECT.LANGUAGE)
     }
 
     func makeScienceStudyiew() -> some View {
@@ -21,7 +29,7 @@ class RootRouter {
     }
 
     func makeScienceTestView() -> some View {
-        DailyTestView(subject: SUBJECT.SCIENCE).configureView()
+        DailyTestView().configureView(subject: SUBJECT.SCIENCE)
     }
 
     func makeSocietyStudyiew() -> some View {
@@ -29,7 +37,7 @@ class RootRouter {
     }
 
     func makeSocietyTestView() -> some View {
-        DailyTestView(subject: SUBJECT.SOCIETY).configureView()
+        DailyTestView().configureView(subject: SUBJECT.SOCIETY)
     }
 
     func makeScienceWeeklyTestView() -> some View {
