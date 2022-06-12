@@ -11,6 +11,8 @@ class URLs {
     private static let HOST = API_URL
     static let STUDY_DAILY_PRACTICE = "\(HOST)/v1/study/daily/practice/questions"
     static let STUDY_DAILY_TEST = "\(HOST)/v1/study/daily/test/questions"
+    static let STUDY_DAILY_REVIEW = "\(HOST)/v1/study/daily/review/questions"
+
     static func STUDY_DAILY_ANSWER(id: String) -> String {
         "\(HOST)/v1/study/daily/test/questions/\(id)"
     }
@@ -53,6 +55,7 @@ enum SUBJECT {
     static let LANGUAGE = "1"
     static let SCIENCE = "2"
     static let SOCIETY = "3"
+    static let MATHS = "4"
 }
 
 enum MODE {
