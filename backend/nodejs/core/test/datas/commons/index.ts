@@ -37,9 +37,19 @@ export const DB_QUESTIONS = (() => {
 export const DB_CURRICULUMS = (() => {
   if (db_curriculums.length > 0) return db_curriculums;
 
-  return parse(fs.readFileSync(path.join(__dirname, './db_curriculums.csv')), {
+  const datas = parse(fs.readFileSync(path.join(__dirname, './db_curriculums.csv')), {
     columns: true,
-  }) as Tables.TCurriculums[];
+  }) as Record<string, string>[];
+
+  return datas.map<Tables.TCurriculums>((item) => ({
+    id: item['id'] ?? '',
+    groupId: item['groupId'] ?? '',
+    guardian: item['guardian'] ?? '',
+    order: item['order'] ? Number(item['order']) : 999,
+    subject: item['subject'] ?? '',
+    unlearned: item['unlearned'] ? Number(item['unlearned']) : 0,
+    userId: item['userId'] ?? '',
+  }));
 })();
 
 export const DB_LEARNING = (() => {
