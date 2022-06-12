@@ -21,10 +21,10 @@ export const regist = async (item: Tables.TQuestions): Promise<void> => {
 
 /** 問題詳細更新 */
 export const update = async (item: Tables.TQuestions): Promise<void> => {
-  const groupInfo = await describe(item.id);
+  const question = await describe(item.id);
 
   // if exists
-  if (!groupInfo) {
+  if (!question) {
     throw new Error(`Question not exists. ${item.id}`);
   }
 
