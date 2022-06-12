@@ -2,12 +2,14 @@ import { Request } from 'express';
 import { generate } from 'short-uuid';
 import isEmpty from 'lodash/isEmpty';
 import { CurriculumService, GroupService, QuestionService, WordService } from '@services';
-import { Commons, DBHelper } from '@utils';
+import { Commons, DBHelper, ValidationError } from '@utils';
 import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 
 /** 問題カード一括追加 */
-export default async (req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>): Promise<void> => {
+export default async (
+  req: Request<APIs.QuestionRegistParams, any, APIs.QuestionRegistRequest, any>
+): Promise<APIs.QuestionRegistResponse> => {
   const { questions } = req.body;
   const groupId = req.params.groupId;
 
@@ -16,7 +18,7 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
 
   // group not users
   if (!groupInfo) {
-    throw new Error(`Group id is not exist. ${groupId}`);
+    throw new ValidationError(`Group id is not exist. ${groupId}`);
   }
 
   let qItems: Tables.TQuestions[] = [];
@@ -30,7 +32,10 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
 
   // 学習対象がない
   if (curriculumInfos.length === 0) {
-    return;
+    return {
+      count: qItems.length,
+      ids: qItems.map((item) => item.id),
+    };
   }
 
   // 未学習件数を更新する
@@ -39,7 +44,7 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
   const lTasks = curriculumInfos.map(async (item) => {
     const dataRows = qItems.map<Tables.TLearning>((q) => ({
       qid: q.id,
-      userId: item.guardian,
+      userId: item.userId,
       groupId: item.groupId,
       subject: groupInfo.subject,
       lastTime: Consts.INITIAL_DATE,
@@ -52,6 +57,11 @@ export default async (req: Request<APIs.QuestionRegistParams, any, APIs.Question
 
   // 学習計画に登録
   await Promise.all(lTasks);
+
+  return {
+    count: qItems.length,
+    ids: qItems.map((item) => item.id),
+  };
 };
 
 const registDefault = async (groupInfo: Tables.TGroups, questions: string[]) => {
