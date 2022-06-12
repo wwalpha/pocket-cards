@@ -16,7 +16,7 @@ struct OverallChart: UIViewRepresentable {
     func makeUIView(context _: Context) -> BarChartView {
         let dataset = BarChartDataSet(entries: yVals, label: "")
         dataset.drawIconsEnabled = false
-        dataset.colors = [Color.language_ui, Color.society_ui, Color.science_ui]
+        dataset.colors = [Color.maths_ui, Color.language_ui, Color.society_ui, Color.science_ui]
 
         dataset.stackLabels = xLabels
 

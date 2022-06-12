@@ -33,30 +33,59 @@ struct RootView: View {
             Spacer()
 
             HStack {
-                Text("国語")
-                    .frame(height: 120, alignment: .topLeading)
+                Text("算数")
+                    .frame(height: 96, alignment: .topLeading)
                     .font(.system(size: 32))
                     .padding(.trailing, 64)
 
-//                Button {
-//                    _ = FileManager.default.allRecordedData()
-//                } label: {
-//                    Text("日々の演習")
-//                        .font(.system(size: 24, design: .default))
-//                        .fontWeight(.bold)
-//                        .frame(width: 200, height: 96, alignment: .center)
-//                        .background(gradient1)
-//                        .foregroundColor(Color.white)
-//                }
-//                .padding(.trailing, 32)
-//                .clipped()
-//                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                NavigationLink(destination: router?.makeMathsTestView()) {
+                    Text("日々の演習")
+                        .font(.system(size: 24, design: .default))
+                        .fontWeight(.bold)
+                        .frame(width: 200, height: 72, alignment: .center)
+                        .background(gradient2)
+                        .foregroundColor(Color.white)
+                }
+                .padding(.trailing, 32)
+                .clipped()
+                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+
+                NavigationLink(destination: router?.makeMathsTestView()) {
+                    Text("日々の復習")
+                        .font(.system(size: 24, design: .default))
+                        .fontWeight(.bold)
+                        .frame(width: 200, height: 72, alignment: .center)
+                        .background(gradient2)
+                        .foregroundColor(Color.white)
+                }
+                .padding(.trailing, 32)
+                .clipped()
+                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+
+                Spacer()
+            }
+            .padding(16)
+            .background(
+                LinearGradient(
+                    colors: [Color(hex: 0x3F2B96), Color(hex: 0xA8C0FF)],
+                    startPoint: .topTrailing,
+                    endPoint: .bottomLeading
+                )
+            )
+            .clipped()
+            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+
+            HStack {
+                Text("国語")
+                    .frame(height: 96, alignment: .topLeading)
+                    .font(.system(size: 32))
+                    .padding(.trailing, 64)
 
                 NavigationLink(destination: router?.makeLanguageStudyiew()) {
                     Text("日々の演習")
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
+                        .frame(width: 200, height: 72, alignment: .center)
                         .background(gradient1)
                         .foregroundColor(Color.white)
                 }
@@ -68,7 +97,7 @@ struct RootView: View {
                     Text("日々のテスト")
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
+                        .frame(width: 200, height: 72, alignment: .center)
                         .background(gradient2)
                         .foregroundColor(Color.white)
                 }
@@ -80,7 +109,7 @@ struct RootView: View {
                     Text("週テスト対策")
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
+                        .frame(width: 200, height: 72, alignment: .center)
                         .background(gradient3)
                         .foregroundColor(Color.white)
                 }
@@ -90,7 +119,7 @@ struct RootView: View {
 
                 Spacer()
             }
-            .padding(32)
+            .padding(16)
             .background(
                 LinearGradient(
                     colors: [Color(hex: 0xF2B0B7), Color(hex: 0xFAE3E5)],
@@ -103,7 +132,7 @@ struct RootView: View {
 
             HStack {
                 Text("社会")
-                    .frame(height: 120, alignment: .topLeading)
+                    .frame(height: 96, alignment: .topLeading)
                     .font(.system(size: 32))
                     .padding(.trailing, 64)
 
@@ -111,7 +140,7 @@ struct RootView: View {
                     Text("日々の演習")
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
+                        .frame(width: 200, height: 72, alignment: .center)
                         .background(gradient1)
                         .foregroundColor(Color.white)
                 }
@@ -123,7 +152,7 @@ struct RootView: View {
                     Text("日々のテスト")
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
+                        .frame(width: 200, height: 72, alignment: .center)
                         .background(gradient2)
                         .foregroundColor(Color.white)
                 }
@@ -135,7 +164,7 @@ struct RootView: View {
                     Text("週テスト対策")
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
+                        .frame(width: 200, height: 72, alignment: .center)
                         .background(gradient3)
                         .foregroundColor(Color.white)
                 }
@@ -145,7 +174,7 @@ struct RootView: View {
 
                 Spacer()
             }
-            .padding(32)
+            .padding(16)
             .background(
                 LinearGradient(
                     colors: [Color(hex: 0xBCEAC7), Color(hex: 0xDAF4E0)],
@@ -158,7 +187,7 @@ struct RootView: View {
 
             HStack {
                 Text("理科")
-                    .frame(height: 120, alignment: .topLeading)
+                    .frame(height: 96, alignment: .topLeading)
                     .font(.system(size: 32))
                     .padding(.trailing, 64)
 
@@ -166,7 +195,7 @@ struct RootView: View {
                     Text("日々の演習")
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
+                        .frame(width: 200, height: 72, alignment: .center)
                         .background(gradient1)
                         .foregroundColor(Color.white)
                 }
@@ -178,7 +207,7 @@ struct RootView: View {
                     Text("日々のテスト")
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
+                        .frame(width: 200, height: 72, alignment: .center)
                         .background(gradient2)
                         .foregroundColor(Color.white)
                 }
@@ -190,7 +219,7 @@ struct RootView: View {
                     Text("週テスト対策")
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
+                        .frame(width: 200, height: 84, alignment: .center)
                         .background(gradient3)
                         .foregroundColor(Color.white)
                 }
@@ -200,7 +229,7 @@ struct RootView: View {
 
                 Spacer()
             }
-            .padding(32)
+            .padding(16)
             .background(
                 LinearGradient(
                     colors: [Color(hex: 0xF4C9B0), Color(hex: 0xFBECE4)],

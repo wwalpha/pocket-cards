@@ -101,7 +101,6 @@ class TestInteractor: StudyBusinessLogic {
 
         index = (index + 1) % questions.count
 
-        debugPrint(index, questions.count, questions)
         if questions.count > index {
             // get next question
             current = questions[index]
