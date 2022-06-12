@@ -204,7 +204,7 @@ export const updateQuestion = async (q: Tables.TQuestions[]) => {
   );
 
   // 非同期一括実行する
-  Promise.all(tasks);
+  await Promise.all(tasks);
 };
 
 const createQuestionVoice = async (question: Tables.TQuestions) => {
