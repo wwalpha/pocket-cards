@@ -11,9 +11,13 @@ import DialogContent from '@mui/material/DialogContent';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { Group, QuestionForm } from 'typings';
-import QuestionDetails from './QuestionDetails';
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import ConfirmDialog from '@components/dialogs/ConfirmDialog';
+import { LoadingIconButton } from '@components/buttons';
+import QuestionDetails from './QuestionDetails';
+import { Group, QuestionForm } from 'typings';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,16 +40,30 @@ const styles = {
     display: 'inline-block',
     width: '350px',
   },
+  iconCell: { display: 'flex' },
 };
 
-const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) => {
+const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onDelete }) => {
   const [open, setOpen] = React.useState(false);
+  const [confirm, setConfirm] = React.useState(false);
   const [index, setIndex] = React.useState(-1);
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setConfirm(false);
+  };
+
   const handleClick = (index: number) => {
     setIndex(index);
     setOpen(true);
+  };
+  const handleDeleteBtn = (index: number) => {
+    setIndex(index);
+    setConfirm(true);
+  };
+  const handleOnDelete = () => {
+    onDelete && onDelete(index);
+    setConfirm(false);
   };
 
   const handleDialogClick = (datas: QuestionForm) => {
@@ -75,14 +93,25 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) =
                 <TableCell>{idx + 1}</TableCell>
                 {onSubmit && (
                   <StyledTableCell>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      onClick={() => {
-                        handleClick(idx);
-                      }}>
-                      Edit
-                    </Button>
+                    <Box sx={styles.iconCell}>
+                      <LoadingIconButton
+                        loading={loading}
+                        sx={{ p: 0.5 }}
+                        color="error"
+                        onClick={() => {
+                          handleDeleteBtn(idx);
+                        }}>
+                        <DeleteIcon sx={{ fontSize: 32 }} />
+                      </LoadingIconButton>
+                      <LoadingIconButton
+                        sx={{ p: 0.5 }}
+                        loading={loading}
+                        onClick={() => {
+                          handleClick(idx);
+                        }}>
+                        <EditIcon sx={{ fontSize: 32 }} />
+                      </LoadingIconButton>
+                    </Box>
                   </StyledTableCell>
                 )}
                 <TableCell>
@@ -105,6 +134,13 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit }) =
           </TableBody>
         </Table>
       </TableContainer>
+      <ConfirmDialog
+        open={confirm}
+        message="削除してよろしいでしょうか？"
+        onClose={handleClose}
+        onConfirm={handleOnDelete}
+        maxWidth="md"
+      />
       <Dialog open={open} onClose={handleClose} maxWidth="lg">
         <DialogTitle>問題</DialogTitle>
         <DialogContent>
@@ -121,6 +157,7 @@ interface QuestionTable {
   loading?: boolean;
   datas: Partial<Group.Question>[];
   onSubmit?: (datas: QuestionForm) => void;
+  onDelete?: (index: number) => void;
 }
 
 export default table;

@@ -1,4 +1,6 @@
+import { Environment } from '@consts';
 import { DBHelper } from '@utils';
+import moment from 'moment';
 import { Tables } from 'typings';
 import * as Queries from './queries';
 
@@ -36,6 +38,16 @@ export const remove = async (qid: string, userId: string): Promise<void> => {
   );
 };
 
+/** 日次復習 */
+export const dailyReview = async (userId: string, subject: string): Promise<Tables.TLearning[]> => {
+  // 明日の日付
+  const nextTime = moment().add(1, 'days').format('YYYYMMDD');
+  // 演習で間違った問題一覧を取得する
+  const results = await DBHelper().query<Tables.TLearning>(Queries.review(userId, nextTime, subject));
+
+  return results.Items;
+};
+
 /** 日次テスト */
 export const dailyTest = async (userId: string, nextTime: string, subject: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Queries.test(userId, nextTime, subject));
@@ -51,8 +63,8 @@ export const dailyPractice = async (userId: string, nextTime: string, subject: s
 };
 
 /** 未学習問題一覧 */
-export const dailyUnlearned = async (groupId: string): Promise<Tables.TLearning[]> => {
-  const results = await DBHelper().query<Tables.TLearning>(Queries.unlearned(groupId));
+export const dailyUnlearned = async (userId: string, groupId: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.unlearned(userId, groupId));
 
   return results.Items;
 };
@@ -65,6 +77,13 @@ export const dailyPastTasks = async (userId: string, nextTime: string): Promise<
 
 export const dailyCurrentTasks = async (userId: string, lastTime: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Queries.current(userId, lastTime));
+
+  return results.Items;
+};
+
+/** 全件検索 */
+export const listAll = async (): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().scan<Tables.TLearning>({ TableName: Environment.TABLE_NAME_LEARNING });
 
   return results.Items;
 };

@@ -34,17 +34,34 @@ export const byGuardian = (guardian: string): DynamoDB.DocumentClient.QueryInput
 });
 
 /** カリキュラム一覧を取得する */
-export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_CURRICULUMS,
-  KeyConditionExpression: '#groupId = :groupId',
-  ExpressionAttributeNames: {
-    '#groupId': 'groupId',
-  },
-  ExpressionAttributeValues: {
-    ':groupId': groupId,
-  },
-  IndexName: 'gsiIdx2',
-});
+export const byGroupId = (groupId: string, userId?: string): DynamoDB.DocumentClient.QueryInput => {
+  const query: DynamoDB.DocumentClient.QueryInput = {
+    TableName: Environment.TABLE_NAME_CURRICULUMS,
+    KeyConditionExpression: '#groupId = :groupId',
+    ExpressionAttributeNames: {
+      '#groupId': 'groupId',
+    },
+    ExpressionAttributeValues: {
+      ':groupId': groupId,
+    },
+    IndexName: 'gsiIdx2',
+  };
+
+  // range key
+  if (userId) {
+    query.KeyConditionExpression = '#groupId = :groupId AND #userId = :userId';
+    query.ExpressionAttributeNames = {
+      ...query.ExpressionAttributeNames,
+      '#userId': 'userId',
+    };
+    query.ExpressionAttributeValues = {
+      ...query.ExpressionAttributeValues,
+      ':userId': userId,
+    };
+  }
+
+  return query;
+};
 
 /** カリキュラム一覧を取得する（未学習のみ） */
 export const byUnlearned = (guardian: string, userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({

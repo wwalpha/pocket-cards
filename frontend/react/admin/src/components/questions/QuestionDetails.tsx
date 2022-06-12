@@ -32,9 +32,10 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
   } = useForm<QuestionForm>({
     defaultValues: {
       id: dataRow.id,
-      title: dataRow.title || '',
-      answer: dataRow.answer || '',
+      title: dataRow.title ?? '',
+      answer: dataRow.answer ?? '',
       choices: dataRow.choices?.join('|'),
+      description: dataRow.description ?? '',
     },
   });
 
@@ -63,6 +64,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
             <TextField disabled={true} variant="outlined" margin="normal" fullWidth label="ID" value={value} />
           )}
         />
+
         <Box sx={{ display: 'flex' }}>
           <Controller
             name="title"
@@ -80,12 +82,27 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
               />
             )}
           />
-          <IconButton sx={{ mx: 1 }} color="secondary" onClick={handlePlayQuestion}>
-            <VolumeUpIcon />
-          </IconButton>
-          {dataRow.voiceTitle && <audio ref={titleRef} src={`/${dataRow.voiceTitle}`} />}
+          {dataRow.voiceAnswer && [
+            <IconButton sx={{ mx: 1 }} color="secondary" onClick={handlePlayQuestion}>
+              <VolumeUpIcon />
+            </IconButton>,
+            <audio ref={titleRef} src={`/${dataRow.voiceTitle}`} />,
+          ]}
         </Box>
-
+        <Controller
+          name="description"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="Description"
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        />
         {dataRow.choices && (
           <Controller
             name="choices"
@@ -120,10 +137,12 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
               />
             )}
           />
-          <IconButton sx={{ mx: 1 }} color="secondary" onClick={handlePlayAnswer}>
-            <VolumeUpIcon />
-          </IconButton>
-          {dataRow.voiceAnswer && <audio ref={answerRef} src={`/${dataRow.voiceAnswer}`} />}
+          {dataRow.voiceAnswer && [
+            <IconButton sx={{ mx: 1 }} color="secondary" onClick={handlePlayAnswer}>
+              <VolumeUpIcon />
+            </IconButton>,
+            <audio ref={answerRef} src={`/${dataRow.voiceAnswer}`} />,
+          ]}
         </Box>
       </Box>
       <Box mt={4} display="flex" justifyContent="flex-end">

@@ -1,12 +1,9 @@
-import { WordIgnore } from '@queries';
-import { DBHelper } from '@utils';
 import server from '@src/app';
 import request from 'supertest';
 import * as D0 from '../../datas/d0';
 import { HEADER_AUTH } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
-import { GroupService } from '@services';
 
 const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 
@@ -19,31 +16,6 @@ describe('d0', () => {
     await client.truncateAll(Environment.TABLE_NAME_WORD_MASTER);
     await client.truncateAll(Environment.TABLE_NAME_TRACES);
     await client.truncateAll(Environment.TABLE_NAME_GROUPS);
-  });
-
-  test.skip('D003:単語無視機能', async () => {
-    await client.bulk(Environment.TABLE_NAME_GROUPS, D0.D003DB_GROUP);
-    await client.bulk(Environment.TABLE_NAME_WORDS, D0.D003DB_WORDS);
-
-    const apiPath = '/v1/user/wordignore';
-    const res = await request(server).post(apiPath).set('username', HEADER_AUTH).send(D0.D003Req01);
-    const userId = '84d95083-9ee8-4187-b6e7-8123558ef2c1';
-
-    // status code
-    expect(res.statusCode).toBe(200);
-
-    const ignore = await DBHelper().get(
-      WordIgnore.get({
-        id: userId,
-        word: D0.D003Req01.word,
-      })
-    );
-    const words = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WORDS });
-    const groups = await GroupService.describe('G001');
-
-    expect(ignore?.Item).toEqual(D0.D003Expect01);
-    expect(words.Items).toEqual(D0.D003Expect02);
-    expect(groups?.count).toBe(0);
   });
 
   test.skip('D004:今日のテスト', async () => {

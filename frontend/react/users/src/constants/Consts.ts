@@ -67,9 +67,8 @@ export const DESCRIBE_USER = (userId: string) => `${API_VERSION}/users/${userId}
 export const UPDATE_USER = (userId: string) => `${API_VERSION}/users/${userId}`;
 
 export const MODES = {
-  New: '1',
-  AllTest: '3',
-  Review: '4',
+  Practice: '1',
+  Test: '2',
 };
 
 export const PAGE_MAX_WORDS = 7;
@@ -96,15 +95,15 @@ export enum ShowTypes {
   REMOVE_WORD,
 }
 
-export const STUDY_BUFFER_LOWER_LIMIT = 5;
+export const STUDY_BUFFER_LOWER_LIMIT = 4;
 
-export enum SUBJECT {
-  ENGLISH,
-  JAPANESE,
-  SCIENCE,
-  SOCIETY,
-}
-
+export const SUBJECT = {
+  ENGLISH: '0',
+  LANGUAGE: '1',
+  SCIENCE: '2',
+  SOCIETY: '3',
+  MATHS: '4',
+};
 export enum SIGN_STATUS {
   NOT_LOGIN,
   NEW_PASSWORD_REQUIRED,

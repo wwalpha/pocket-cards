@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
-import { AbilityService, CurriculumService, GroupService, QuestionService } from '@services';
+import { AbilityService, CurriculumService, GroupService, QuestionService, WordService } from '@services';
 import { Commons, DBHelper, ValidationError } from '@utils';
 import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
@@ -23,11 +23,23 @@ export default async (
 
   // 普通グループ
   if (Consts.SUBJECT_NORMAL.includes(groupInfo.subject)) {
-    const questions = await QuestionService.listByGroup(groupId);
+    let questions = await QuestionService.listByGroup(groupId);
 
     // group not exsits or no question in group
     if (questions.length === 0) {
       throw new ValidationError('No questions in group');
+    }
+
+    // 英語の場合、
+    if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
+      questions = await Promise.all(
+        questions.filter(async (item) => {
+          return await WordService.isIgnore({
+            id: userId,
+            word: item.title,
+          });
+        })
+      );
     }
 
     const dataRows = questions.map<Tables.TLearning>((item) => ({

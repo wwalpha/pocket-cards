@@ -25,8 +25,15 @@ export default () => {
         title: datas.title,
         choices: datas.choices,
         answer: datas.answer,
+        description: datas.description,
       });
     }
+  };
+
+  const handleDelete = (index: number) => {
+    const q = questions[index];
+
+    actions.questionDelete(groupId, q.id);
   };
 
   return (
@@ -35,6 +42,7 @@ export default () => {
         datas={questions}
         loading={isLoading}
         onSubmit={authority === Consts.Authority.ADMIN ? handleSubmit : undefined}
+        onDelete={authority === Consts.Authority.ADMIN ? handleDelete : undefined}
       />
     </Box>
   );

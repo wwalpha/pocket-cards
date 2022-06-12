@@ -319,7 +319,10 @@ export namespace APIs {
     questions: string[];
   }
 
-  interface QuestionRegistResponse {}
+  interface QuestionRegistResponse {
+    count: number;
+    ids: string[];
+  }
 
   // ------------------------------------------------------------
   // Question Delete
@@ -333,7 +336,9 @@ export namespace APIs {
 
   type QuestionDeleteResponse = void;
 
-  // Study
+  // ------------------------------------------------------------
+  // Question Daily Study
+  // ------------------------------------------------------------
   interface QuestionStudyRequest {}
 
   interface QuestionStudyResponse {
@@ -345,7 +350,9 @@ export namespace APIs {
     subject?: string;
   }
 
-  // Test
+  // ------------------------------------------------------------
+  // Question Daily Test
+  // ------------------------------------------------------------
   interface QuestionTestRequest {}
 
   interface QuestionTestQuery {
@@ -353,6 +360,20 @@ export namespace APIs {
   }
 
   interface QuestionTestResponse {
+    count: number;
+    questions: Tables.TQuestions[];
+  }
+
+  // ------------------------------------------------------------
+  // Question Daily Review
+  // ------------------------------------------------------------
+  interface QuestionReviewRequest {}
+
+  interface QuestionReviewQuery {
+    subject?: string;
+  }
+
+  interface QuestionReviewResponse {
     count: number;
     questions: Tables.TQuestions[];
   }
@@ -396,9 +417,35 @@ export namespace APIs {
     title: string;
     choices?: string;
     answer: string;
+    description?: string;
   }
 
   type QuestionUpdateResponse = Tables.TQuestions;
+
+  // ------------------------------------------------------------
+  // Question Ignore
+  // ------------------------------------------------------------
+  interface QuestionIgnoreParams {
+    groupId: string;
+  }
+
+  interface QuestionIgnoreRequest {
+    qid: string;
+  }
+
+  type QuestionIgnoreResponse = void;
+
+  // ------------------------------------------------------------
+  // Curriculum Ignore
+  // ------------------------------------------------------------
+  interface CurriculumIgnoreParams {
+    curriculumId: string;
+    questionId: string;
+  }
+
+  interface CurriculumIgnoreRequest {}
+
+  type CurriculumIgnoreResponse = void;
 
   // ------------------------------------------------------------
   // Weekly Ability Regist
@@ -464,6 +511,10 @@ export namespace APIs {
       archive: number;
       target: number;
     };
+    maths: {
+      archive: number;
+      target: number;
+    };
   }
 
   // ------------------------------------------------------------
@@ -489,6 +540,7 @@ export namespace APIs {
     language: _.Dictionary<number>;
     science: _.Dictionary<number>;
     society: _.Dictionary<number>;
+    maths: _.Dictionary<number>;
   }
 
   // ------------------------------------------------------------

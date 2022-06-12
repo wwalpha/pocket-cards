@@ -1,112 +1,106 @@
-import { Request } from 'express';
-import { DBHelper, API, Commons } from '@utils';
-import { WordMaster, Words } from '@queries';
-import { APIs, Tables } from 'typings';
-import { isEmpty } from 'lodash';
+// import { Request } from 'express';
+// import { DBHelper, API, Commons } from '@utils';
+// import { Words } from '@queries';
+// import { APIs, Tables } from 'typings';
+// import { isEmpty } from 'lodash';
 
-export default async (req: Request<APIs.E002Params, any, APIs.E002Request, any>): Promise<APIs.E002Response> => {
-  const word = req.params.word;
-  const input = req.body;
+// export default async (req: Request<APIs.E002Params, any, APIs.E002Request, any>): Promise<APIs.E002Response> => {
+//   // const word = req.params.word;
+//   // const input = req.body;
+//   // // validation
+//   // validate(req.body);
+//   // const record = await getMaster(word);
+//   // // 単語が存在しない場合
+//   // if (Commons.isEmpty(record)) {
+//   //   // 新規追加
+//   //   return await addNew(word);
+//   // }
+//   // // Original 単語変更
+//   // if (word !== Commons.word2Id(input.original)) {
+//   //   const record = await getMaster(input.original);
+//   //   // original word not exist
+//   //   if (Commons.isEmpty(record)) {
+//   //     await addNew(input.original);
+//   //   }
+//   // }
+//   // // 既存更新
+//   // return await update(word, input);
+// };
 
-  // validation
-  validate(req.body);
+// /** validation function */
+// const validate = (req: APIs.E002Request) => {
+//   // required
+//   if (isEmpty(req.original)) throw new Error('Original not found');
+// };
 
-  const record = await getMaster(word);
+// const getMaster = async (word: string) => await DBHelper().get<Tables.TWordMaster>(WordMaster.get(word));
 
-  // 単語が存在しない場合
-  if (Commons.isEmpty(record)) {
-    // 新規追加
-    return await addNew(word);
-  }
+// /** add new word */
+// const addNew = async (word: string): Promise<Tables.TWordMaster> => {
+//   // 新規単語追加
+//   const results = await Promise.all([
+//     API.getPronounce(word),
+//     Commons.saveWithMP3(word),
+//     API.getTranslate(word, 'zh'),
+//     API.getTranslate(word, 'ja'),
+//   ]);
 
-  // Original 単語変更
-  if (word !== Commons.word2Id(input.original)) {
-    const record = await getMaster(input.original);
+//   const record = {
+//     id: word,
+//     original: Commons.getOriginal(word),
+//     pronounce: results[0]['pronounce'],
+//     mp3: results[1],
+//     vocChn: results[2],
+//     vocJpn: results[3],
+//   };
 
-    // original word not exist
-    if (Commons.isEmpty(record)) {
-      await addNew(input.original);
-    }
-  }
+//   const putItem: any = {}; //WordMaster.put(record);
+//   // condition
+//   putItem.ConditionExpression = 'attribute_not_exists(id)';
 
-  // 既存更新
-  return await update(word, input);
-};
+//   try {
+//     // DB 更新
+//     await DBHelper().put(putItem);
+//   } catch (err) {
+//     if ((err as any).code !== 'ConditionalCheckFailedException') {
+//       console.log(err);
+//     }
+//   }
 
-/** validation function */
-const validate = (req: APIs.E002Request) => {
-  // required
-  if (isEmpty(req.original)) throw new Error('Original not found');
-};
+//   return record;
+// };
 
-const getMaster = async (word: string) => await DBHelper().get<Tables.TWordMaster>(WordMaster.get(word));
+// /** update master properties */
+// const update = async (word: string, input: APIs.E002Request) => {
+//   // 音声の再取得
+//   const mp3 = await Commons.saveWithMP3(word);
 
-/** add new word */
-const addNew = async (word: string): Promise<Tables.TWordMaster> => {
-  // 新規単語追加
-  const results = await Promise.all([
-    API.getPronounce(word),
-    Commons.saveWithMP3(word),
-    API.getTranslate(word, 'zh'),
-    API.getTranslate(word, 'ja'),
-  ]);
+//   const putItem: Tables.TWordMaster = {
+//     id: word,
+//     original: input.original,
+//     mp3: mp3,
+//     pronounce: input.pronounce,
+//     vocChn: input.vocChn,
+//     vocJpn: input.vocJpn,
+//   };
 
-  const record = {
-    id: word,
-    original: Commons.getOriginal(word),
-    pronounce: results[0]['pronounce'],
-    mp3: results[1],
-    vocChn: results[2],
-    vocJpn: results[3],
-  };
+//   // 単語詳細情報を取得する
+//   // await DBHelper().put(WordMaster.put(putItem));
 
-  const putItem = WordMaster.put(record);
-  // condition
-  putItem.ConditionExpression = 'attribute_not_exists(id)';
+//   // get rows of same word in all groups
+//   const words = await DBHelper().query(Words.query.listByWord(word));
 
-  try {
-    // DB 更新
-    await DBHelper().put(putItem);
-  } catch (err) {
-    if ((err as any).code !== 'ConditionalCheckFailedException') {
-      console.log(err);
-    }
-  }
+//   // overwrite the vocabulary
+//   const tasks = words.Items.map((item) =>
+//     DBHelper().put(
+//       Words.put({
+//         ...item,
+//         vocabulary: input.vocJpn,
+//       })
+//     )
+//   );
 
-  return record;
-};
+//   await Promise.all(tasks);
 
-/** update master properties */
-const update = async (word: string, input: APIs.E002Request) => {
-  // 音声の再取得
-  const mp3 = await Commons.saveWithMP3(word);
-
-  const putItem: Tables.TWordMaster = {
-    id: word,
-    original: input.original,
-    mp3: mp3,
-    pronounce: input.pronounce,
-    vocChn: input.vocChn,
-    vocJpn: input.vocJpn,
-  };
-
-  // 単語詳細情報を取得する
-  await DBHelper().put(WordMaster.put(putItem));
-
-  // get rows of same word in all groups
-  const words = await DBHelper().query(Words.query.listByWord(word));
-
-  // overwrite the vocabulary
-  const tasks = words.Items.map((item) =>
-    DBHelper().put(
-      Words.put({
-        ...item,
-        vocabulary: input.vocJpn,
-      })
-    )
-  );
-
-  await Promise.all(tasks);
-
-  return putItem;
-};
+//   return putItem;
+// };

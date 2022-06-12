@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Action, AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains } from 'typings';
 import { Consts } from '@constants';
 
 const appState: Domains.AppState = {
-  activeSubject: Consts.SUBJECT.JAPANESE.toString(),
+  activeSubject: Consts.SUBJECT.LANGUAGE,
   tabIndex: 11,
   isLoading: false,
   showSnackbar: false,
@@ -12,32 +12,27 @@ const appState: Domains.AppState = {
   displayCtrl: {},
 };
 
+function isPendingAction(action: AnyAction) {
+  return action.type.endsWith('pending');
+}
+
+function isFulfilledAction(action: AnyAction) {
+  return action.type.endsWith('fulfilled');
+}
+
+interface RejectedAction extends Action {
+  error: Error;
+}
+
+function isRejectedAction(action: AnyAction): action is RejectedAction {
+  return action.type.endsWith('rejected');
+}
+
 const slice = createSlice({
   name: 'app',
   initialState: appState,
   reducers: {
     APP_LOGOUT: () => {},
-    // start loading
-    APP_START_LOADING: (state) => {
-      state.isLoading = true;
-    },
-
-    // end loading
-    APP_END_LOADING: (state) => {
-      state.isLoading = false;
-    },
-
-    // end loading
-    APP_COM_01_FAILURE: (state, action: PayloadAction<Error>) => {
-      state.isLoading = false;
-
-      if (action.payload.name === 'Error') {
-        state.showSnackbar = true;
-        state.severity = 'error';
-        state.message = action.payload.message;
-      }
-    },
-
     APP_SHOW_SUCCESS: (state, action: PayloadAction<string>) => {
       state.showSnackbar = true;
       state.severity = 'success';
@@ -77,6 +72,21 @@ const slice = createSlice({
     APP_SET_AUTHORITY: (state, { payload }: PayloadAction<string | undefined>) => {
       state.authority = payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(isPendingAction, (state) => {
+        state.isLoading = true;
+      })
+      .addMatcher(isFulfilledAction, (state) => {
+        state.isLoading = false;
+      })
+      .addMatcher(isRejectedAction, (state, action) => {
+        state.isLoading = false;
+        state.showSnackbar = true;
+        state.severity = 'error';
+        state.message = action.error.message;
+      });
   },
 });
 

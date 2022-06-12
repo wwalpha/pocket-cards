@@ -21,7 +21,12 @@ export default async (
 
   // 正解の場合
   const times = input.correct === '1' ? defaultTo(learning.times, 0) + 1 : 0;
-  const nextTime = input.correct === '1' ? DateUtils.getNextTime(times) : DateUtils.getNextTime(0);
+  let nextTime = input.correct === '1' ? DateUtils.getNextTime(times) : DateUtils.getNextTime(0);
+
+  // 算数
+  if (learning.subject === Consts.SUBJECT.MATHS && times > 5) {
+    nextTime = '99991231';
+  }
 
   // 学習情報更新
   await LearningService.update({

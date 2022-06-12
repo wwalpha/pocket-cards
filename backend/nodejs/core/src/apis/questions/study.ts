@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import orderBy from 'lodash/orderBy';
 import { CurriculumService, LearningService, QuestionService, UserService } from '@services';
-import { Logger, DateUtils, Commons, QueryUtils } from '@utils';
+import { Logger, DateUtils, Commons, QueryUtils, ValidationError } from '@utils';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 import { IncomingHttpHeaders } from 'http';
@@ -14,7 +14,7 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
 
   // 科目選択されていない
   if (!subject) {
-    throw new Error('Please select subject.');
+    throw new ValidationError('Please select subject.');
   }
 
   // next study date
@@ -23,12 +23,12 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
   const results = await LearningService.dailyPractice(userId, date, subject);
 
   // 検索結果０件の場合
-  if (results.length > 0) {
+  if (results.length >= Environment.WORDS_LIMIT) {
     return await getQuestions(results);
   }
 
   // 未学習
-  return getUnlearned(userId, subject, req.headers);
+  return getUnlearned(results, userId, subject, req.headers);
 };
 
 const EmptyResponse = (): APIs.QuestionStudyResponse => ({
@@ -38,10 +38,8 @@ const EmptyResponse = (): APIs.QuestionStudyResponse => ({
 
 const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.QuestionStudyResponse> => {
   Logger.info(`Count: ${dataRows.length}`);
-  // 時間順
-  const sorted = orderBy(dataRows, 'nextTime', 'desc');
   // 時間順で上位N件を対象とします
-  const targets = dataRows.length > Environment.WORDS_LIMIT ? sorted.slice(0, Environment.WORDS_LIMIT) : dataRows;
+  const targets = dataRows.slice(0, Environment.WORDS_LIMIT);
 
   // 単語明細情報の取得
   const details = await QueryUtils.getQuestionDetails(targets);
@@ -53,6 +51,7 @@ const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.Question
 };
 
 const getUnlearned = async (
+  leanings: Tables.TLearning[],
   userId: string,
   subject: string,
   header: IncomingHttpHeaders
@@ -76,15 +75,18 @@ const getUnlearned = async (
   }
 
   // get unlearned
-  const unlearned = await Promise.all(groupIds.map((item) => LearningService.dailyUnlearned(item)));
+  const unlearned = await Promise.all(groupIds.map((item) => LearningService.dailyUnlearned(userId, item)));
 
-  const qid = unlearned
-    .reduce((prev, curr) => {
-      return prev.concat(curr.map((item) => item.qid));
-    }, [] as string[])
+  const qids = unlearned
+    .reduce(
+      (prev, curr) => {
+        return prev.concat(curr.map((item) => item.qid));
+      },
+      leanings.map((item) => item.qid)
+    )
     .slice(0, Environment.WORDS_LIMIT);
 
-  const results = await Promise.all(qid.map((item) => QuestionService.describe(item)));
+  const results = await Promise.all(qids.map((item) => QuestionService.describe(item)));
   const questions = results.filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
 
   return {

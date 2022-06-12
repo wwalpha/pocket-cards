@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import { Paths, Consts } from '@constants';
-import { Header, Footer, RegistMain, StudyMain, MyPageMain, Settings, Home, Folder, SignUp } from '@containers';
+import { ROUTE_PATHS, Consts } from '@constants';
+import { Header, Footer, Home, SignUp, Settings, Card } from '@containers';
 
 const styles = {
   root: (theme: any) => ({
@@ -37,14 +37,10 @@ const App = () => {
       <Header />
       <Box sx={styles.body}>
         <Switch>
-          <Route exact path="/" component={Settings} />
-          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]} component={RegistMain} />
-          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.MyPage]} component={MyPageMain} />
-          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]} component={StudyMain} />
-          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Settings]} component={Settings} />
-          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]} component={Folder} />
-          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Todos]} component={Home} />
-          <Route path={Paths.PATHS_SIGN_UP} component={SignUp} />
+          <Route exact path={ROUTE_PATHS.ROOT} component={Home} />
+          <Route path={ROUTE_PATHS.SETTINGS} component={Settings} />
+          <Route path={ROUTE_PATHS.STUDY_CARD} component={Card} />
+          <Route path={ROUTE_PATHS.SIGN_UP} component={SignUp} />
         </Switch>
       </Box>
       <Footer />
