@@ -86,7 +86,7 @@ const registDefault = async (groupInfo: Tables.TGroups, questions: string[]) => 
 
   // regist all questions
   await Promise.all([
-    qItems.map(async (item) => QuestionService.regist(item)),
+    qItems.map((item) => QuestionService.regist(item)),
     GroupService.plusCount(groupInfo.id, qItems.length),
   ]);
 
