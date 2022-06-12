@@ -83,6 +83,12 @@ export const questionList = (groupId: string, routePath: string) => async (dispa
   dispatch(push(routePath));
 };
 
+/** 質問削除 */
+export const questionDelete = (groupId: string, qid: string) => async (dispatch: AppDispatch) => {
+  // Get question lists
+  dispatch(Actions.GROUP_QUESTION_DELETE({ groupId: groupId, questionId: qid })).unwrap();
+};
+
 /** 質問リスト */
 export const uploadConfirm = (subject: string, groupId: string, texts: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.GROUP_QUESTION_UPLOADS(texts));

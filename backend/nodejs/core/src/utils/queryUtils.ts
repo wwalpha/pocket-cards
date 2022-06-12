@@ -1,15 +1,14 @@
-import { WordMaster } from '@queries';
-import { QuestionService } from '@services';
-import { DBHelper, Logger } from '@utils';
+import { QuestionService, WordService } from '@services';
+import { Logger } from '@utils';
 import { APIs, Tables } from 'typings';
 
 /** 単語明細情報の取得 */
 export const getWordDetails = async (words: Tables.TWords[]) => {
   // 単語明細情報を取得する
-  const tasks = words.map((item) => DBHelper().get<Tables.TWordMaster>(WordMaster.get(item.id)));
-  const details = (await Promise.all(tasks))
-    .map((item) => item?.Item)
-    .filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
+  const tasks = words.map((item) => WordService.describe(item.id));
+  const details = (await Promise.all(tasks)).filter(
+    (item): item is Exclude<typeof item, undefined> => item !== undefined
+  );
 
   Logger.info('検索結果', details);
 

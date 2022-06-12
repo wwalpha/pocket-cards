@@ -16,7 +16,7 @@ import MButton from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { UserActions } from '@actions';
-import { Paths } from '@constants';
+import { ROUTE_PATHS } from '@constants';
 import { RootState, SignInForm } from 'typings';
 import { styles } from './SignIn.style';
 
@@ -57,10 +57,6 @@ const SignIn = () => {
             control={control}
             rules={{
               required: 'required',
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: 'Entered value does not match email format',
-              },
             }}
             render={({ field: { onChange, value } }) => (
               <TextField
@@ -68,9 +64,8 @@ const SignIn = () => {
                 variant="outlined"
                 margin="normal"
                 fullWidth
-                label="Email Address"
+                label="Email Address / Username"
                 autoFocus
-                autoComplete="email"
                 value={value}
                 onChange={onChange}
                 helperText={errors.username?.message}
@@ -116,7 +111,7 @@ const SignIn = () => {
             variant="contained"
             color="secondary"
             component={React.forwardRef((props: any, ref: any) => (
-              <Link to={Paths.PATHS_SIGN_UP} {...props} />
+              <Link to={ROUTE_PATHS.SIGN_UP} {...props} />
             ))}>
             Sign Up
           </MButton>

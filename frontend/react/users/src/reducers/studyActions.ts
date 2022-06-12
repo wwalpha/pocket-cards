@@ -1,54 +1,25 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Consts } from '@constants';
+import { Consts, URLs } from '@constants';
 import { RootState } from '@store';
 import { API } from '@utils';
-import { Payloads, APIs } from 'typings';
+import { APIs, WordItem } from 'typings';
 
-const getWords = async (mode: string, group?: string): Promise<Payloads.StudyCase> => {
-  let url: string | undefined;
-
-  switch (mode) {
-    case Consts.MODES.New:
-      // new
-      url = group ? Consts.C006_URL(group) : Consts.D005_URL();
-      break;
-    case Consts.MODES.Review:
-      // review
-      url = group ? Consts.C008_URL(group) : Consts.D006_URL();
-      break;
-    case Consts.MODES.AllTest:
-      // test
-      url = group ? Consts.C007_URL(group) : Consts.D004_URL();
-      break;
-    default:
-      url = '';
-      break;
-  }
-
-  const res = await API.get<APIs.C006Response>(url);
-
-  return {
-    mode: mode,
-    items: res.words,
-  };
-};
-
-export const STUDY_START = createAsyncThunk<Payloads.StudyCase, string>(
-  'study/STUDY_START',
-  async (mode, { getState }) => {
-    const { activeGroup } = (getState() as RootState).group;
-
-    return await getWords(mode, activeGroup);
-  }
-);
-
-export const STUDY_CONTINUE = createAsyncThunk<Payloads.StudyCase, void>(
+export const STUDY_CONTINUE = createAsyncThunk<void, void>(
   'study/STUDY_CONTINUE',
-  async (_, { getState }) => {
-    const { activeGroup } = (getState() as RootState).group;
-    const { mode } = (getState() as RootState).study;
+  async (_, { getState, dispatch }) => {
+    const { mode, rows } = (getState() as RootState).study;
 
-    return await getWords(mode, activeGroup);
+    if (rows.length > Consts.STUDY_BUFFER_LOWER_LIMIT) {
+      return;
+    }
+
+    // 練習モード
+    if (mode === Consts.MODES.Practice) {
+      dispatch(STUDY_PRACTICE());
+    } else {
+      // テストモード
+      dispatch(STUDY_TEST());
+    }
   }
 );
 
@@ -61,6 +32,52 @@ export const STUDY_IGNORE = createAsyncThunk<string, string>('study/STUDY_IGNORE
   return word;
 });
 
-export const STUDY_TODOS = createAsyncThunk<Payloads.StudyCase, string>('study/STUDY_TODOS', async (mode) => {
-  return await getWords(mode);
+// 学習
+export const STUDY_PRACTICE = createAsyncThunk<WordItem[], void>('study/STUDY_PRACTICE', async () => {
+  const res = await API.get<APIs.QuestionStudyResponse>(URLs.DAILY_PRACTICE());
+
+  return res.questions.map((item) => ({
+    id: item.id,
+    groupId: item.groupId,
+    question: item.title,
+    mp3: item.voiceTitle,
+    pronounce: item.description,
+    vocChn: item.answer.split('|')[0],
+    vocJpn: item.answer.split('|')[1],
+  }));
 });
+
+// テスト
+export const STUDY_TEST = createAsyncThunk<WordItem[], void>('study/STUDY_TEST', async () => {
+  const res = await API.get<APIs.QuestionTestResponse>(URLs.DAILY_TEST());
+
+  return res.questions.map((item) => ({
+    id: item.id,
+    groupId: item.groupId,
+    question: item.title,
+    mp3: item.voiceTitle,
+    pronounce: item.description,
+    vocChn: item.answer.split('|')[0],
+    vocJpn: item.answer.split('|')[1],
+  }));
+});
+
+export const STUDY_ANSWER = createAsyncThunk<boolean, boolean>(
+  'study/STUDY_ANSWER',
+  (correct: boolean, { getState }) => {
+    // request parameter
+    const { current } = (getState() as RootState).study;
+
+    if (!current) return correct;
+
+    // request parameter
+    const param = correct === true ? '1' : '0';
+
+    // update question answer
+    API.post<APIs.QuestionAnswerResponse, APIs.QuestionAnswerRequest>(URLs.DAILY_ANSWER(current.id), {
+      correct: param,
+    });
+
+    return correct;
+  }
+);

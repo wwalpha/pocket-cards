@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { UserActions } from '@actions';
-import { Paths } from '@constants';
+import { ROUTE_PATHS } from '@constants';
 import { RootState, SignUpForm } from 'typings';
 import { push } from 'connected-react-router';
 
@@ -46,7 +46,7 @@ const SignUp = () => {
     actions.signup(username, email);
   });
 
-  const onBack = () => dispatch(push(Paths.PATHS_SIGN_IN));
+  const onBack = () => dispatch(push(ROUTE_PATHS.SIGN_IN));
 
   return (
     <Container component="main" maxWidth="xs">

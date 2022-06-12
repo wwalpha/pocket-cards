@@ -4,6 +4,7 @@ import { Consts } from '@constants';
 import {
   GROUP_ABILITY_REGIST,
   GROUP_LIST,
+  GROUP_QUESTION_DELETE,
   GROUP_QUESTION_LIST,
   GROUP_QUESTION_UPDATE,
   GROUP_REMOVE,
@@ -93,6 +94,9 @@ const slice = createSlice({
 
         question.title = payload.title;
         question.answer = payload.answer;
+      })
+      .addCase(GROUP_QUESTION_DELETE.fulfilled, (state, { payload }) => {
+        state.questions = state.questions.filter((item) => item.id !== payload);
       })
       .addCase(GROUP_ABILITY_REGIST.fulfilled, (state, { payload }) => {
         state.groups.push(payload.item);

@@ -19,6 +19,32 @@ export const del = (key: Tables.TLearningKey): DynamoDB.DocumentClient.DeleteIte
   TableName: Environment.TABLE_NAME_LEARNING,
   Key: key,
 });
+
+/**
+ * 問題一覧を取得する
+ * 対象: Times = 0, NextTime = now + 1
+ */
+export const review = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#userId = :userId and #nextTime = :nextTime',
+  FilterExpression: '#times = :times and #subject = :subject',
+  ExpressionAttributeNames: {
+    '#userId': 'userId',
+    '#nextTime': 'nextTime',
+    '#times': 'times',
+    '#subject': 'subject',
+  },
+  ExpressionAttributeValues: {
+    ':userId': userId,
+    ':nextTime': nextTime,
+    ':times': 0,
+    ':subject': subject,
+  },
+  IndexName: 'gsiIdx1',
+  ScanIndexForward: false,
+});
+
 /**
  * 問題一覧を取得する
  * 対象: Times <> 0, NextTime <= now, NextTime DESC, Top 10
@@ -120,7 +146,7 @@ export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput =
 
 export const byQuestionId = (questionId: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid',
+  ProjectionExpression: 'qid, userId',
   KeyConditionExpression: '#qid = :qid',
   ExpressionAttributeNames: {
     '#qid': 'qid',
@@ -143,18 +169,20 @@ export const byUserId = (userId: string): DynamoDB.DocumentClient.QueryInput => 
   IndexName: 'gsiIdx1',
 });
 
-export const unlearned = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
+export const unlearned = (userId: string, groupId: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid',
+  ProjectionExpression: 'qid,lastTime,times',
   KeyConditionExpression: '#groupId = :groupId',
-  FilterExpression: '#lastTime = :lastTime',
+  FilterExpression: '#lastTime = :lastTime AND #userId = :userId',
   ExpressionAttributeNames: {
     '#groupId': 'groupId',
     '#lastTime': 'lastTime',
+    '#userId': 'userId',
   },
   ExpressionAttributeValues: {
     ':groupId': groupId,
     ':lastTime': Consts.INITIAL_DATE,
+    ':userId': userId,
   },
   IndexName: 'gsiIdx2',
 });

@@ -13,9 +13,17 @@ const db_ability: Tables.TWeeklyAbility[] = [];
 export const DB_GROUPS = ((): Tables.TGroups[] => {
   if (db_groups.length > 0) return db_groups;
 
-  return parse(fs.readFileSync(path.join(__dirname, './db_groups.csv')), {
+  const datas = parse(fs.readFileSync(path.join(__dirname, './db_groups.csv')), {
     columns: true,
-  }) as Tables.TGroups[];
+  }) as Record<string, string>[];
+
+  return datas.map<Tables.TGroups>((item) => ({
+    id: item['id'] ?? '',
+    count: item['count'] ? Number(item['count']) : -1,
+    subject: item['subject'] ?? '',
+    description: item['description'],
+    name: item['name'],
+  }));
 })();
 
 export const DB_QUESTIONS = (() => {
@@ -29,17 +37,37 @@ export const DB_QUESTIONS = (() => {
 export const DB_CURRICULUMS = (() => {
   if (db_curriculums.length > 0) return db_curriculums;
 
-  return parse(fs.readFileSync(path.join(__dirname, './db_curriculums.csv')), {
+  const datas = parse(fs.readFileSync(path.join(__dirname, './db_curriculums.csv')), {
     columns: true,
-  }) as Tables.TCurriculums[];
+  }) as Record<string, string>[];
+
+  return datas.map<Tables.TCurriculums>((item) => ({
+    id: item['id'] ?? '',
+    groupId: item['groupId'] ?? '',
+    guardian: item['guardian'] ?? '',
+    order: item['order'] ? Number(item['order']) : 999,
+    subject: item['subject'] ?? '',
+    unlearned: item['unlearned'] ? Number(item['unlearned']) : 0,
+    userId: item['userId'] ?? '',
+  }));
 })();
 
 export const DB_LEARNING = (() => {
   if (db_learning.length > 0) return db_learning;
 
-  return parse(fs.readFileSync(path.join(__dirname, './db_learning.csv')), {
+  const datas = parse(fs.readFileSync(path.join(__dirname, './db_learning.csv')), {
     columns: true,
-  }) as Tables.TLearning[];
+  }) as Record<string, string>[];
+
+  return datas.map<Tables.TLearning>((item) => ({
+    qid: item['qid'] ?? '',
+    groupId: item['groupId'] ?? '',
+    nextTime: item['nextTime'] ?? '',
+    lastTime: item['lastTime'],
+    userId: item['userId'] ?? '',
+    subject: item['subject'],
+    times: item['times'] ? Number(item['times']) : 0,
+  }));
 })();
 
 export const DB_ABILITY = (() => {

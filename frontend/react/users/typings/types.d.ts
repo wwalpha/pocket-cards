@@ -1,14 +1,31 @@
-import { Tables } from '.';
+import { Tables, WordItem } from '.';
 
 declare module '*.svg' {
   const content: string;
   export default content;
 }
 
+export interface WordItem {
+  // 単語
+  id: string;
+  // グループID
+  groupId: string;
+  // 質問
+  question: string;
+  // 発音記号
+  pronounce?: string;
+  // 語彙（中国語）
+  vocChn?: string;
+  // 語彙（日本語）
+  vocJpn?: string;
+  // 音声ファイル
+  mp3?: string;
+}
+
 export namespace Payloads {
   type StudyCase = {
     mode: string;
-    items: Group.WordItem[];
+    items: WordItem[];
   };
 
   type GroupWordList = {
@@ -76,23 +93,6 @@ export namespace Group {
     mp3?: string;
     vocChn?: string;
     vocJpn?: string;
-  }
-
-  interface WordItem {
-    // 単語
-    id: string;
-    // グループID
-    groupId: string;
-    // 発音記号
-    pronounce?: string;
-    // 語彙（中国語）
-    vocChn?: string;
-    // 語彙（日本語）
-    vocJpn?: string;
-    // 音声ファイル
-    mp3?: string;
-    // 回数
-    times: number;
   }
 
   interface Status {

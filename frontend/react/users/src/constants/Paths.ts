@@ -1,5 +1,14 @@
 import { App } from 'typings';
 
+export const ROOT = '/';
+export const SIGN_IN = '/';
+export const SIGN_UP = '/auth/signup';
+export const NEW_PASSWORD = '/auth/newpassword';
+
+export const SETTINGS = '/settings';
+
+export const STUDY_CARD = '/study';
+
 export const ROUTE_PATH_INDEX: Record<string, number> = {
   Root: 0,
   SignIn: 1,
@@ -56,20 +65,6 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.AdminStudents]: '/admin/students',
   [ROUTE_PATH_INDEX.AdminSettings]: '/admin/settings',
 };
-
-// admin
-export const PATHS_ADMIN_DASHBOARD = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminDashboard];
-export const PATHS_ADMIN_GROUP_DETAILS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminGroupDetails];
-export const PATHS_ADMIN_QUESTIONS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminQuestions];
-export const PATHS_ADMIN_QUESTIONS_CONFIRM = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminQuestionsConfirm];
-
-export const PATHS_ADMIN_STUDENTS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminStudents];
-export const PATHS_ADMIN_SETTINGS = ROUTE_PATHS[ROUTE_PATH_INDEX.AdminSettings];
-
-// user auth
-export const PATHS_SIGN_UP = ROUTE_PATHS[ROUTE_PATH_INDEX.SignUp];
-export const PATHS_SIGN_IN = ROUTE_PATHS[ROUTE_PATH_INDEX.SignIn];
-export const PATHS_NEW_PASSWORD = ROUTE_PATHS[ROUTE_PATH_INDEX.NewPassword];
 
 export const PATHS_STUDY = ROUTE_PATHS[ROUTE_PATH_INDEX.Study];
 export const PATHS_STUDY_CARD = ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard];
