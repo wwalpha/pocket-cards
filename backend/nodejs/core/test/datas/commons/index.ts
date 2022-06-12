@@ -55,9 +55,19 @@ export const DB_CURRICULUMS = (() => {
 export const DB_LEARNING = (() => {
   if (db_learning.length > 0) return db_learning;
 
-  return parse(fs.readFileSync(path.join(__dirname, './db_learning.csv')), {
+  const datas = parse(fs.readFileSync(path.join(__dirname, './db_learning.csv')), {
     columns: true,
-  }) as Tables.TLearning[];
+  }) as Record<string, string>[];
+
+  return datas.map<Tables.TLearning>((item) => ({
+    qid: item['qid'] ?? '',
+    groupId: item['groupId'] ?? '',
+    nextTime: item['nextTime'] ?? '',
+    lastTime: item['lastTime'],
+    userId: item['userId'] ?? '',
+    subject: item['subject'],
+    times: item['times'] ? Number(item['times']) : 0,
+  }));
 })();
 
 export const DB_ABILITY = (() => {

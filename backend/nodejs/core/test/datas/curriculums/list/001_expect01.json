@@ -7,7 +7,7 @@
       "userId": "Google_109439805128280065775",
       "subject": "102",
       "groupId": "dAvNyPgb5dss9ni8tqjAWy",
-      "order": "9999"
+      "order": 9999
     },
     {
       "id": "1bgHsxkMFvUa9DaBDMVuHP",
@@ -15,7 +15,7 @@
       "userId": "kakuto",
       "subject": "3",
       "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
-      "order": "1"
+      "order": 1
     },
     {
       "id": "f55JhAg711uNpW8DFT54fh",
@@ -23,7 +23,7 @@
       "userId": "Google_109439805128280065775",
       "subject": "3",
       "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
-      "order": "1"
+      "order": 1
     },
     {
       "id": "1ALaTG7DTwfRTtxCsRDLRz",
@@ -31,7 +31,7 @@
       "userId": "kakuto",
       "subject": "2",
       "groupId": "tS4d9h5Rn644uf3Wf3cy19",
-      "order": "2"
+      "order": 2
     },
     {
       "id": "aaYHb4GyjxfYWYAaKMyG53",
@@ -39,7 +39,7 @@
       "userId": "Google_109439805128280065775",
       "subject": "2",
       "groupId": "tS4d9h5Rn644uf3Wf3cy19",
-      "order": "2"
+      "order": 2
     },
     {
       "id": "vB6cUPdMB8TJFSrypGwoML",
@@ -47,7 +47,7 @@
       "userId": "Google_109439805128280065775",
       "subject": "2",
       "groupId": "uDf4fvg3yMAYKgvYBPydt9",
-      "order": "1"
+      "order": 1
     },
     {
       "id": "14qNeXyGo5K9X6FPkvQaPC",
@@ -55,7 +55,7 @@
       "userId": "kakuto",
       "subject": "2",
       "groupId": "uDf4fvg3yMAYKgvYBPydt9",
-      "order": "1"
+      "order": 1
     },
     {
       "id": "jkxRVJ1ggVEEUYNHAX8SxL",
@@ -63,7 +63,7 @@
       "userId": "Google_109439805128280065775",
       "subject": "3",
       "groupId": "v4kBKX6owmewxcVUp1mQvf",
-      "order": "2"
+      "order": 2
     },
     {
       "id": "2EKAKGqAUeDg2LY4DSNsaZ",
@@ -71,7 +71,7 @@
       "userId": "kakuto",
       "subject": "3",
       "groupId": "v4kBKX6owmewxcVUp1mQvf",
-      "order": "2"
+      "order": 2
     }
   ]
 }
