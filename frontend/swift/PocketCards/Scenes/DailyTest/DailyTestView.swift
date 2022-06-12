@@ -8,14 +8,7 @@ import SwiftUI
 
 struct DailyTestView: View {
     var interactor: DailyTestBusinessLogic?
-    private var subject: String
-
-    @ObservedObject var viewModel: DailyTestViewModel
-
-    init(subject: String) {
-        self.subject = subject
-        viewModel = DailyTestViewModel()
-    }
+    @ObservedObject var viewModel = DailyTestViewModel()
 
     var body: some View {
         if viewModel.isLoading {
@@ -52,7 +45,7 @@ extension DailyTestView: DailyTestDisplayLogic {
 }
 
 extension DailyTestView {
-    func configureView() -> some View {
+    func configureView(subject: String) -> some View {
         var view = self
         let interactor = DailyTestInteractor(subject: subject)
         let presenter = DailyTestPresenter()
@@ -70,6 +63,6 @@ extension DailyTestView {
 
 struct DailyTestView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyTestView(subject: SUBJECT.LANGUAGE)
+        DailyTestView().configureView(subject: SUBJECT.LANGUAGE)
     }
 }

@@ -12,5 +12,7 @@ class OverallTimesViewModel: ObservableObject {
     var language: [String: Int] = [:]
     var science: [String: Int] = [:]
     var society: [String: Int] = [:]
+    var maths: [String: Int] = [:]
+
     @Published var isLoaded = false
 }
