@@ -13,9 +13,17 @@ const db_ability: Tables.TWeeklyAbility[] = [];
 export const DB_GROUPS = ((): Tables.TGroups[] => {
   if (db_groups.length > 0) return db_groups;
 
-  return parse(fs.readFileSync(path.join(__dirname, './db_groups.csv')), {
+  const datas = parse(fs.readFileSync(path.join(__dirname, './db_groups.csv')), {
     columns: true,
-  }) as Tables.TGroups[];
+  }) as Record<string, string>[];
+
+  return datas.map<Tables.TGroups>((item) => ({
+    id: item['id'] ?? '',
+    count: item['count'] ? Number(item['count']) : -1,
+    subject: item['subject'] ?? '',
+    description: item['description'],
+    name: item['name'],
+  }));
 })();
 
 export const DB_QUESTIONS = (() => {

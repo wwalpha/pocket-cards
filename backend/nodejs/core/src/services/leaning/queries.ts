@@ -19,6 +19,32 @@ export const del = (key: Tables.TLearningKey): DynamoDB.DocumentClient.DeleteIte
   TableName: Environment.TABLE_NAME_LEARNING,
   Key: key,
 });
+
+/**
+ * 問題一覧を取得する
+ * 対象: Times = 0, NextTime = now + 1
+ */
+export const review = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#userId = :userId and #nextTime = :nextTime',
+  FilterExpression: '#times = :times and #subject = :subject',
+  ExpressionAttributeNames: {
+    '#userId': 'userId',
+    '#nextTime': 'nextTime',
+    '#times': 'times',
+    '#subject': 'subject',
+  },
+  ExpressionAttributeValues: {
+    ':userId': userId,
+    ':nextTime': nextTime,
+    ':times': 0,
+    ':subject': subject,
+  },
+  IndexName: 'gsiIdx1',
+  ScanIndexForward: false,
+});
+
 /**
  * 問題一覧を取得する
  * 対象: Times <> 0, NextTime <= now, NextTime DESC, Top 10

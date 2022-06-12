@@ -1,3 +1,4 @@
+import { Environment } from '@consts';
 import { DBHelper } from '@utils';
 import { Tables } from 'typings';
 import * as Queries from './queries';
@@ -37,6 +38,13 @@ export const remove = async (id: string): Promise<void> => {
       id: id,
     })
   );
+};
+
+/** 全件検索 */
+export const listAll = async (): Promise<Tables.TQuestions[]> => {
+  const results = await DBHelper().scan<Tables.TQuestions>({ TableName: Environment.TABLE_NAME_QUESTIONS });
+
+  return results.Items;
 };
 
 /** グループの問題一覧取得 */

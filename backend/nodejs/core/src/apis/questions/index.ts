@@ -6,3 +6,4 @@ export { default as QuestionExam } from './exam';
 export { default as QuestionAnswer } from './answer';
 export { default as QuestionDelete } from './delete';
 export { default as QuestionIgnore } from './ignore';
+export { default as QuestionReview } from './review';

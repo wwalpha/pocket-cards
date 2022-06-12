@@ -48,7 +48,7 @@ export const byGroupId = (groupId: string, userId?: string): DynamoDB.DocumentCl
   };
 
   // range key
-  if (!userId) {
+  if (userId) {
     query.KeyConditionExpression = '#groupId = :groupId AND #userId = :userId';
     query.ExpressionAttributeNames = {
       ...query.ExpressionAttributeNames,

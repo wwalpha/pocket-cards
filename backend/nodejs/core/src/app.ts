@@ -12,6 +12,7 @@ import {
   QuestionUpdate,
   QuestionDelete,
   QuestionIgnore,
+  QuestionReview,
 } from '@src/apis/questions';
 import { DailyTasks, LearningProgress, LearningOverall, Inquiry } from '@src/apis/reports';
 import {
@@ -121,6 +122,8 @@ app.post('/v1/study/weekly/:groupId/questions/:questionId', express.json(), (req
   entry(req, res, WeeklyAbilityAnswer)
 );
 
+// 復習問題取得
+app.get('/v1/study/daily/review/questions', express.json(), (req, res) => entry(req, res, QuestionReview));
 // 練習問題取得
 app.get('/v1/study/daily/practice/questions', express.json(), (req, res) => entry(req, res, QuestionStudy));
 // テスト問題取得
