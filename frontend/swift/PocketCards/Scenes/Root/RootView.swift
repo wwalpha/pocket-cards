@@ -43,14 +43,14 @@ struct RootView: View {
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)
                         .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient2)
+                        .background(gradient1)
                         .foregroundColor(Color.white)
                 }
                 .padding(.trailing, 32)
                 .clipped()
                 .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
 
-                NavigationLink(destination: router?.makeMathsTestView()) {
+                NavigationLink(destination: router?.makeMathsReviewView()) {
                     Text("日々の復習")
                         .font(.system(size: 24, design: .default))
                         .fontWeight(.bold)

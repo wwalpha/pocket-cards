@@ -13,7 +13,7 @@ class WeeklyPracticeInteractor: PracticeInteractor {
 
     init(groupId: String) {
         self.groupId = groupId
-        super.init(subject: "")
+        super.init(subject: "", loadUrl: "")
     }
 
     override func updateAnswer(id: String?, correct: Bool) {

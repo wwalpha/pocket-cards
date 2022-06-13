@@ -471,12 +471,10 @@
 		9A1FD27627D7394C0000A16B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9A61E86F285610C80037FA82 /* Daily */,
+				9A9E576F281554140025C74F /* Weekly */,
 				9A61EEAA27E468FF002C73D0 /* Charts */,
 				9A1FD27C27D7394C0000A16B /* Root */,
-				9A9E576F281554140025C74F /* Weekly */,
-				9A1FD27727D7394C0000A16B /* DailyTest */,
-				9A1FD28027D7394C0000A16B /* DailyStudy */,
-				9A61E8542855EA900037FA82 /* DailyReview */,
 				9A1FD28627D7394C0000A16B /* Login */,
 			);
 			path = Scenes;
@@ -625,6 +623,16 @@
 				9A61E8642855EAC50037FA82 /* DailyReviewViewModel.swift */,
 			);
 			path = DailyReview;
+			sourceTree = "<group>";
+		};
+		9A61E86F285610C80037FA82 /* Daily */ = {
+			isa = PBXGroup;
+			children = (
+				9A61E8542855EA900037FA82 /* DailyReview */,
+				9A1FD28027D7394C0000A16B /* DailyStudy */,
+				9A1FD27727D7394C0000A16B /* DailyTest */,
+			);
+			path = Daily;
 			sourceTree = "<group>";
 		};
 		9A61EEAA27E468FF002C73D0 /* Charts */ = {

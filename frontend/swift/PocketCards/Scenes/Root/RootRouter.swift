@@ -9,7 +9,7 @@ import SwiftUI
 
 class RootRouter {
     func makeMathsTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.MATHS)
+        DailyTestView().configureView(subject: SUBJECT.MATHS, loadUrl: URLs.STUDY_DAILY_PRACTICE)
     }
 
     func makeMathsReviewView() -> some View {
@@ -17,27 +17,27 @@ class RootRouter {
     }
 
     func makeLanguageStudyiew() -> some View {
-        DailyStudyView().configureView(subject: SUBJECT.LANGUAGE)
+        DailyStudyView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_PRACTICE)
     }
 
     func makeLanguageTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.LANGUAGE)
+        DailyTestView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_TEST)
     }
 
     func makeScienceStudyiew() -> some View {
-        DailyStudyView().configureView(subject: SUBJECT.SCIENCE)
+        DailyStudyView().configureView(subject: SUBJECT.SCIENCE, loadUrl: URLs.STUDY_DAILY_PRACTICE)
     }
 
     func makeScienceTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.SCIENCE)
+        DailyTestView().configureView(subject: SUBJECT.SCIENCE, loadUrl: URLs.STUDY_DAILY_TEST)
     }
 
     func makeSocietyStudyiew() -> some View {
-        DailyStudyView().configureView(subject: SUBJECT.SOCIETY)
+        DailyStudyView().configureView(subject: SUBJECT.SOCIETY, loadUrl: URLs.STUDY_DAILY_PRACTICE)
     }
 
     func makeSocietyTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.SOCIETY)
+        DailyTestView().configureView(subject: SUBJECT.SOCIETY, loadUrl: URLs.STUDY_DAILY_TEST)
     }
 
     func makeScienceWeeklyTestView() -> some View {
