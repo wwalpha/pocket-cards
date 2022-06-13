@@ -27,19 +27,57 @@ export const del = (key: Tables.TLearningKey): DynamoDB.DocumentClient.DeleteIte
 export const review = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
-  KeyConditionExpression: '#userId = :userId and #nextTime = :nextTime',
-  FilterExpression: '#times = :times and #subject = :subject',
+  KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
+  FilterExpression: '#times = :times and #subject = :subject and #lastTime = :lastTime',
   ExpressionAttributeNames: {
     '#userId': 'userId',
     '#nextTime': 'nextTime',
+    '#lastTime': 'lastTime',
     '#times': 'times',
     '#subject': 'subject',
   },
   ExpressionAttributeValues: {
     ':userId': userId,
     ':nextTime': nextTime,
+    ':lastTime': nextTime,
     ':times': 0,
     ':subject': subject,
+  },
+  IndexName: 'gsiIdx1',
+  ScanIndexForward: false,
+});
+
+/**
+ * 復習単語対象一覧を取得する（科目別）
+ *
+ * 当日を含めて、過去少なくとも１回学習した事がある、且つ最後の１回は間違った
+ *
+ * 対象：Times = 0, NextTime <= now, NextTime DESC, Top 10
+ */
+export const practiceWithoutToday = (
+  userId: string,
+  nextTime: string,
+  subject: string
+): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
+  FilterExpression:
+    '#times = :times and #subject = :subject and NOT (#lastTime = :lastTime1 OR #lastTime = :lastTime2)',
+  ExpressionAttributeNames: {
+    '#userId': 'userId',
+    '#nextTime': 'nextTime',
+    '#times': 'times',
+    '#subject': 'subject',
+    '#lastTime': 'lastTime',
+  },
+  ExpressionAttributeValues: {
+    ':userId': userId,
+    ':times': 0,
+    ':nextTime': nextTime,
+    ':subject': subject,
+    ':lastTime1': nextTime,
+    ':lastTime2': Consts.INITIAL_DATE,
   },
   IndexName: 'gsiIdx1',
   ScanIndexForward: false,
