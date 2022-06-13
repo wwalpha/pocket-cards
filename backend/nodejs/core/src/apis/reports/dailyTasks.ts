@@ -28,8 +28,8 @@ export default async (req: Request<any, any, APIs.DailyTasksResquest, any>): Pro
       target: getTarget(pastResults, currentResults, Consts.SUBJECT.SOCIETY),
     },
     maths: {
-      archive: mathsArchive >= 5 ? 5 : mathsArchive,
-      target: 5,
+      archive: mathsArchive,
+      target: 20,
     },
   };
 };

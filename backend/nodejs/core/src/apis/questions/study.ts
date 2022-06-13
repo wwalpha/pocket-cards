@@ -2,11 +2,11 @@ import { Request } from 'express';
 import orderBy from 'lodash/orderBy';
 import { CurriculumService, LearningService, QuestionService, UserService } from '@services';
 import { Logger, DateUtils, Commons, QueryUtils, ValidationError } from '@utils';
-import { Environment } from '@consts';
+import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 import { IncomingHttpHeaders } from 'http';
 
-/** 今日のテスト */
+/** 今日の学習 */
 export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Promise<APIs.QuestionStudyResponse> => {
   // ユーザID
   const userId = Commons.getUserId(req);
@@ -17,25 +17,41 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
     throw new ValidationError('Please select subject.');
   }
 
-  // next study date
-  const date = DateUtils.getNow();
-  // 問題一覧
-  const results = await LearningService.dailyPractice(userId, date, subject);
+  // 直近不正解の問題を優先する
+  const learnings = await getDailyPractice(userId, subject);
 
   // 検索結果０件の場合
-  if (results.length >= Environment.WORDS_LIMIT) {
-    return await getQuestions(results);
+  if (learnings.length >= Environment.WORDS_LIMIT) {
+    return await getQuestions(learnings);
   }
 
   // 未学習
-  return getUnlearned(results, userId, subject, req.headers);
+  return await getUnlearned(learnings, userId, subject, req.headers);
 };
 
-const EmptyResponse = (): APIs.QuestionStudyResponse => ({
-  count: 0,
-  questions: [],
-});
+const getDailyPractice = async (userId: string, subject: string) => {
+  // next study date
+  const date = DateUtils.getNow();
 
+  // 算数以外は処理終了
+  if (Consts.SUBJECT.MATHS !== subject) {
+    return await LearningService.dailyPractice(userId, date, subject);
+  }
+
+  const questions = await LearningService.dailyMaths(userId, date);
+
+  // 問題上限に達した場合
+  if (questions.length >= Environment.WORDS_LIMIT) {
+    return questions;
+  }
+
+  // テスト問題
+  const dailyTest = await LearningService.dailyTest(userId, date, subject);
+
+  return [...questions, ...dailyTest];
+};
+
+/** 質問詳細を取得する */
 const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.QuestionStudyResponse> => {
   Logger.info(`Count: ${dataRows.length}`);
   // 時間順で上位N件を対象とします
@@ -50,6 +66,15 @@ const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.Question
   };
 };
 
+/**
+ * 未着手の学習問題一覧
+ *
+ * @param leanings 進行中の学習
+ * @param userId ユーザＩＤ
+ * @param subject 科目
+ * @param header ヘッダ情報
+ * @returns
+ */
 const getUnlearned = async (
   leanings: Tables.TLearning[],
   userId: string,
@@ -69,9 +94,9 @@ const getUnlearned = async (
 
   const groupIds = getGroupIds(rows);
 
-  // no questions
+  // 未学習の問題がありません
   if (groupIds.length === 0) {
-    return EmptyResponse();
+    return await getQuestions(leanings);
   }
 
   // get unlearned
