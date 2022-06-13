@@ -1,4 +1,4 @@
-import { Environment } from '@consts';
+import { Consts, Environment } from '@consts';
 import { DBHelper } from '@utils';
 import moment from 'moment';
 import { Tables } from 'typings';
@@ -40,8 +40,8 @@ export const remove = async (qid: string, userId: string): Promise<void> => {
 
 /** 日次復習 */
 export const dailyReview = async (userId: string, subject: string): Promise<Tables.TLearning[]> => {
-  // 明日の日付
-  const nextTime = moment().add(1, 'days').format('YYYYMMDD');
+  // 当日の日付
+  const nextTime = moment().format('YYYYMMDD');
   // 演習で間違った問題一覧を取得する
   const results = await DBHelper().query<Tables.TLearning>(Queries.review(userId, nextTime, subject));
 
@@ -51,6 +51,15 @@ export const dailyReview = async (userId: string, subject: string): Promise<Tabl
 /** 日次テスト */
 export const dailyTest = async (userId: string, nextTime: string, subject: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Queries.test(userId, nextTime, subject));
+
+  return results.Items;
+};
+
+/** 日次練習 */
+export const dailyMaths = async (userId: string, nextTime: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(
+    Queries.practiceWithoutToday(userId, nextTime, Consts.SUBJECT.MATHS)
+  );
 
   return results.Items;
 };

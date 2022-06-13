@@ -32,12 +32,13 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
 const getDailyPractice = async (userId: string, subject: string) => {
   // next study date
   const date = DateUtils.getNow();
-  const questions = await LearningService.dailyPractice(userId, date, subject);
 
   // 算数以外は処理終了
   if (Consts.SUBJECT.MATHS !== subject) {
-    return questions;
+    return await LearningService.dailyPractice(userId, date, subject);
   }
+
+  const questions = await LearningService.dailyMaths(userId, date);
 
   // 問題上限に達した場合
   if (questions.length >= Environment.WORDS_LIMIT) {
@@ -65,6 +66,15 @@ const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.Question
   };
 };
 
+/**
+ * 未着手の学習問題一覧
+ *
+ * @param leanings 進行中の学習
+ * @param userId ユーザＩＤ
+ * @param subject 科目
+ * @param header ヘッダ情報
+ * @returns
+ */
 const getUnlearned = async (
   leanings: Tables.TLearning[],
   userId: string,
