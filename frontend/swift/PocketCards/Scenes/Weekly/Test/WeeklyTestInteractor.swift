@@ -13,7 +13,7 @@ class WeeklyTestInteractor: TestInteractor {
 
     init(groupId: String) {
         self.groupId = groupId
-        super.init(subject: "")
+        super.init(subject: "", loadUrl: "")
     }
 
     override func removeQuestion(id: String) {
