@@ -45,9 +45,9 @@ extension DailyTestView: DailyTestDisplayLogic {
 }
 
 extension DailyTestView {
-    func configureView(subject: String) -> some View {
+    func configureView(subject: String, loadUrl: String) -> some View {
         var view = self
-        let interactor = DailyTestInteractor(subject: subject)
+        let interactor = DailyTestInteractor(subject: subject, loadUrl: loadUrl)
         let presenter = DailyTestPresenter()
 
         view.interactor = interactor
@@ -63,6 +63,6 @@ extension DailyTestView {
 
 struct DailyTestView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyTestView().configureView(subject: SUBJECT.LANGUAGE)
+        DailyTestView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_TEST)
     }
 }

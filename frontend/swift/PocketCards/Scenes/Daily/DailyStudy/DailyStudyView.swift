@@ -57,9 +57,9 @@ extension DailyStudyView: DailyStudyDisplayLogic {
 }
 
 extension DailyStudyView {
-    func configureView(subject: String) -> some View {
+    func configureView(subject: String, loadUrl: String) -> some View {
         var view = self
-        let interactor = DailyStudyInteractor(subject: subject)
+        let interactor = DailyStudyInteractor(subject: subject, loadUrl: loadUrl)
         let presenter = DailyStudyPresenter()
 
         view.interactor = interactor
@@ -74,6 +74,6 @@ extension DailyStudyView {
 
 struct DailyStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyStudyView().configureView(subject: SUBJECT.LANGUAGE)
+        DailyStudyView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_PRACTICE)
     }
 }

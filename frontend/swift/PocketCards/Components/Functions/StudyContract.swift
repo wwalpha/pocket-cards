@@ -29,4 +29,6 @@ protocol StudyBusinessLogic {
     func onAction(correct: Bool)
 
     func next()
+
+    func clear()
 }
