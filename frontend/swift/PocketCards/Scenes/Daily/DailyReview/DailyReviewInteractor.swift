@@ -9,6 +9,14 @@
 import Foundation
 
 class DailyReviewInteractor: TestInteractor {
+    // update answer
+    override func updateAnswer(id: String?, correct _: Bool) {
+        guard let qid = id else { return }
+
+        // remove answered question
+        removeQuestion(id: qid)
+    }
+
     override func loadQuestions() {
         let params = ["subject": subject]
 

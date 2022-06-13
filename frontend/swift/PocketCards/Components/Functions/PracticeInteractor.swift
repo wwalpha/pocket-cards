@@ -9,14 +9,18 @@ import Foundation
 
 class PracticeInteractor: StudyBusinessLogic {
     var presenter: StudyPresentationLogic?
+
     var subject: String
+    var loadUrl: String
+
     var current: Question?
     var index: Int = -1
     var maxCount = 10
     var questions: [Question] = []
 
-    init(subject: String) {
+    init(subject: String, loadUrl: String) {
         self.subject = subject
+        self.loadUrl = loadUrl
     }
 
     // update answer
@@ -116,5 +120,11 @@ class PracticeInteractor: StudyBusinessLogic {
             // show nothing
             presenter?.showNothing()
         }
+    }
+
+    func clear() {
+        current = nil
+        index = -1
+        questions = []
     }
 }

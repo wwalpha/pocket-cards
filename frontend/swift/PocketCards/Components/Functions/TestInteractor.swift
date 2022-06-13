@@ -9,15 +9,19 @@ import Foundation
 
 class TestInteractor: StudyBusinessLogic {
     var presenter: StudyPresentationLogic?
+
     var subject: String
+    var loadUrl: String
+
     var current: Question?
     var index: Int = -1
     var maxCount = 10
     var questions: [Question] = []
     var answered: [String?] = []
 
-    init(subject: String) {
+    init(subject: String, loadUrl: String) {
         self.subject = subject
+        self.loadUrl = loadUrl
     }
 
     // for override
@@ -47,6 +51,7 @@ class TestInteractor: StudyBusinessLogic {
             self.questions.append(q)
         }
 
+        debugPrint(current, self.questions.count)
         // initialize
         if current == nil {
             if self.questions.count > 0 {
@@ -114,5 +119,12 @@ class TestInteractor: StudyBusinessLogic {
         } else {
             presenter?.showNothing()
         }
+    }
+
+    func clear() {
+        current = nil
+        index = -1
+        questions = []
+        answered = []
     }
 }
