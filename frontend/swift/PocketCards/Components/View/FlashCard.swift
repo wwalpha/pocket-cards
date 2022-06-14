@@ -9,6 +9,8 @@ import Kingfisher
 import SwiftUI
 
 struct FlashCard: View {
+    @State private var fontSize: [CGFloat] = [24, 32, 40, 48, 56, 64]
+
     @State private var flipped = false
     @State private var angle: Double = 0
     @State private var frontImage: Image?
@@ -16,6 +18,7 @@ struct FlashCard: View {
     @State private var showingAlert = false
     @State private var showingConfirm = false
     @State private var isPresented = false
+    @State private var fontIndex = 5
 
     var question: Question
     var action: (_: Bool) -> Void
@@ -72,7 +75,7 @@ struct FlashCard: View {
                         }
                     }
                     .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.7, alignment: .center)
-                    .font(.system(size: 64, design: .default))
+                    .font(.system(size: fontSize[fontIndex], design: .default))
                     .padding()
                     .border(Color.purple, width: 5)
                     .background(Color.grey100)
@@ -110,7 +113,7 @@ struct FlashCard: View {
                         }
                     }
                     .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.7, alignment: .center)
-                    .font(.system(size: 64, design: .default))
+                    .font(.system(size: fontSize[fontIndex], design: .default))
                     .padding()
                     .border(Color.purple, width: 5)
                     .background(Color.green100)
@@ -167,6 +170,30 @@ struct FlashCard: View {
             .padding(.vertical, 16)
             .background(Color.grey50)
             .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        self.fontIndex = self.fontIndex == 5 ? 5 : self.fontIndex + 1
+                    } label: {
+                        Text("+")
+                            .frame(width: 64, height: 36, alignment: .center)
+                            .background(Color.secondaryColor)
+                            .foregroundColor(Color.white)
+                            .cornerRadius(2)
+                            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        self.fontIndex = self.fontIndex == 0 ? 0 : self.fontIndex - 1
+                    } label: {
+                        Text("-")
+                            .frame(width: 64, height: 36, alignment: .center)
+                            .background(Color.secondaryColor)
+                            .foregroundColor(Color.white)
+                            .cornerRadius(2)
+                            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         self.showingAlert = true
