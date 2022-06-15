@@ -2,11 +2,12 @@ import server from '@src/app';
 import request from 'supertest';
 import * as COMMONS from '../../datas/commons';
 import * as QUESTIONS from '../../datas/questions/answer';
-import { HEADER_AUTH } from '@test/Commons';
+import { HEADER_USER } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 import { APIs } from 'typings';
-import { LearningService } from '@services';
+import { CurriculumService, LearningService } from '@services';
+import moment from 'moment';
 
 const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
 
@@ -32,12 +33,13 @@ describe('Questions', () => {
     ]);
   });
 
-  test.skip('Answer01: 問題回答_正解', async () => {
-    const apiPath = '/v1/study/daily/test/questions/Q001';
+  test('Answer01: 問題回答_正解', async () => {
+    const before = await LearningService.describe('xtk4W9TSsxSMmTifVxeFLA', 'Google_109439805128280065775');
+    const apiPath = '/v1/study/daily/test/questions/xtk4W9TSsxSMmTifVxeFLA';
 
     const res = await request(server)
       .post(apiPath)
-      .set('username', HEADER_AUTH)
+      .set('username', HEADER_USER)
       .send({
         correct: '1',
       } as APIs.QuestionAnswerRequest);
@@ -45,8 +47,115 @@ describe('Questions', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
-    const result = await LearningService.describe('Q001', '84d95083-9ee8-4187-b6e7-8123558ef2c1');
+    const after = await LearningService.describe('xtk4W9TSsxSMmTifVxeFLA', 'Google_109439805128280065775');
 
-    expect(result).toMatchObject(QUESTIONS.ANSWER001_REQUEST);
+    expect(after).not.toBeUndefined();
+
+    if (!before || !after) return;
+
+    before.lastTime = moment().format('YYYYMMDD');
+    before.nextTime = moment().add(2, 'days').format('YYYYMMDD');
+    before.times += 1;
+
+    expect(before).toMatchObject(after);
+  });
+
+  test('Answer02: 問題回答_不正解', async () => {
+    const before = await LearningService.describe('xtk4W9TSsxSMmTifVxeFLA', 'Google_109439805128280065775');
+
+    const apiPath = '/v1/study/daily/test/questions/xtk4W9TSsxSMmTifVxeFLA';
+
+    const res = await request(server)
+      .post(apiPath)
+      .set('username', HEADER_USER)
+      .send({
+        correct: '0',
+      } as APIs.QuestionAnswerRequest);
+
+    // status code
+    expect(res.statusCode).toBe(200);
+
+    const after = await LearningService.describe('xtk4W9TSsxSMmTifVxeFLA', 'Google_109439805128280065775');
+
+    expect(after).not.toBeUndefined();
+
+    if (!before || !after) return;
+
+    before.lastTime = moment().format('YYYYMMDD');
+    before.nextTime = moment().format('YYYYMMDD');
+    before.times = 0;
+
+    expect(before).toMatchObject(after);
+  });
+
+  test('Answer03: 問題回答_正解_算数５回', async () => {
+    const before = await LearningService.describe('fBTFsyZGVkknQtKBBpfuhJ', 'Google_109439805128280065775');
+    const apiPath = '/v1/study/daily/test/questions/fBTFsyZGVkknQtKBBpfuhJ';
+
+    const res = await request(server)
+      .post(apiPath)
+      .set('username', HEADER_USER)
+      .send({
+        correct: '1',
+      } as APIs.QuestionAnswerRequest);
+
+    // status code
+    expect(res.statusCode).toBe(200);
+
+    const after = await LearningService.describe('fBTFsyZGVkknQtKBBpfuhJ', 'Google_109439805128280065775');
+
+    expect(after).not.toBeUndefined();
+
+    if (!before || !after) return;
+
+    before.lastTime = moment().format('YYYYMMDD');
+    before.nextTime = '99991231';
+    before.times += 1;
+
+    expect(before).toMatchObject(after);
+  });
+
+  test('Answer04: 問題存在しない', async () => {
+    const apiPath = '/v1/study/daily/test/questions/Q001';
+
+    const res = await request(server)
+      .post(apiPath)
+      .set('username', HEADER_USER)
+      .send({
+        correct: '1',
+      } as APIs.QuestionAnswerRequest);
+
+    // status code
+    expect(res.statusCode).toBe(400);
+    expect(res.text).toEqual('Question not found. Q001');
+  });
+
+  test('Answer05: 問題回答_正解_初回学習', async () => {
+    const before = await LearningService.describe('8QZG2k5o43o1acnT2NCyDY', 'Google_109439805128280065775');
+    const apiPath = '/v1/study/daily/test/questions/8QZG2k5o43o1acnT2NCyDY';
+
+    const res = await request(server)
+      .post(apiPath)
+      .set('username', HEADER_USER)
+      .send({
+        correct: '1',
+      } as APIs.QuestionAnswerRequest);
+
+    // status code
+    expect(res.statusCode).toBe(200);
+
+    const after = await LearningService.describe('8QZG2k5o43o1acnT2NCyDY', 'Google_109439805128280065775');
+    const curriculum = await CurriculumService.describe('vB6cUPdMB8TJFSrypGwoML');
+
+    expect(after).not.toBeUndefined();
+
+    if (!before || !after) return;
+
+    before.lastTime = moment().format('YYYYMMDD');
+    before.nextTime = moment().add(1, 'days').format('YYYYMMDD');
+    before.times = 1;
+
+    expect(before).toMatchObject(after);
+    expect(curriculum).toMatchObject(QUESTIONS.ANSWER005_EXPECT_LEARNING);
   });
 });
