@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { defaultTo } from 'lodash';
-import { Commons, DateUtils, DBHelper } from '@utils';
+import { Commons, DateUtils, DBHelper, ValidationError } from '@utils';
 import { Traces } from '@queries';
 import { APIs } from 'typings';
 import { LearningService, CurriculumService } from '@services';
@@ -16,7 +16,7 @@ export default async (
   const learning = await LearningService.describe(questionId, userId);
 
   if (!learning) {
-    throw new Error(`Question not found. ${questionId}`);
+    throw new ValidationError(`Question not found. ${questionId}`);
   }
 
   // 正解の場合
