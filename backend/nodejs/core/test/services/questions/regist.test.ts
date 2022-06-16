@@ -61,7 +61,7 @@ describe('Questions', () => {
 
     const qid = response.ids[0] ?? '';
     const question = await QuestionService.describe(qid);
-    const curriculums = await CurriculumService.getListByGroup(groupId);
+    const curriculums = await CurriculumService.listByGroup(groupId);
 
     const learnings = await Promise.all(curriculums.map((item) => LearningService.describe(qid, item.userId)));
 
