@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { APIs } from 'typings';
 import { AbilityService, GroupService, QuestionService } from '@services';
 import { Consts } from '@consts';
+import { ValidationError } from '@utils';
 
 export default async (
   req: Request<APIs.QuestionListParams, any, APIs.QuestionListRequest, any>
@@ -11,7 +12,7 @@ export default async (
   const groupInfo = await GroupService.describe(groupId);
 
   if (!groupInfo) {
-    throw new Error('Group informations not found.');
+    throw new ValidationError('Group informations not found.');
   }
 
   // 普通グループ

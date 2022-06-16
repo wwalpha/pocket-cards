@@ -1,0 +1,185 @@
+{
+  "count": 20,
+  "questions": [
+    {
+      "voiceTitle": "voices/rd1XiR6hR4jhnprdBWcHP2.mp3",
+      "answer": "乱層雲",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "12aRqJFUysyi4veiZRh2UK",
+      "title": "これは何雲？[images/3EpQb4zJ7rk75wd23St9Qf.jpg]",
+      "voiceAnswer": "voices/fJCB68TtZKRpANYW3828xh.mp3"
+    },
+    {
+      "voiceTitle": "voices/7GgG5ppnUPdMtgtPew8bLQ.mp3",
+      "answer": "気温、気温高いほど多く含める",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "1Mq3LbhfEqmFZaQ4jy35WT",
+      "title": "空気中に含める水蒸気の量は、何で決める",
+      "voiceAnswer": "voices/vpEdQCNtYZvux4asjndxQE.mp3"
+    },
+    {
+      "voiceTitle": "voices/rF3xHx9xxEgdTuA9u2y16w.mp3",
+      "answer": "日光がさしこまないよう",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "3XLnsBfwGqBxXY3GqXGmNg",
+      "title": "百葉箱はなんのために、とびらを北向きにする",
+      "voiceAnswer": "voices/jyEwcrgVo6Cs6uNqfqGu61.mp3"
+    },
+    {
+      "voiceTitle": "voices/kEiSgFwrpAmKB9P5LS4tEB.mp3",
+      "answer": "積雲",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "3sEf7xKhEoEGfRYDK4xKTR",
+      "title": "これは何雲？[images/7svwMyZ4Ay5G3RdDzUc4Et.jpg]",
+      "voiceAnswer": "voices/hh6SfDLANAnJtuFbiSuCL2.mp3"
+    },
+    {
+      "voiceTitle": "voices/uBTAgufZaHJm1zqdwqjPuu.mp3",
+      "answer": "風向計",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "3tmJ28gaou8pGwitZV61AQ",
+      "title": "風向の測る道具は",
+      "voiceAnswer": "voices/d824cg5LeGSYjNDzGwVMmW.mp3"
+    },
+    {
+      "voiceTitle": "voices/bJ7SL26iDecgEe4hFfNap7.mp3",
+      "answer": "雲が地上の熱を反射、吸収する事で、宇宙への放出が少ない",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "4BYM1or8wgdL2uLUv6hAkH",
+      "title": "くもりや雨の日に気温が下がりにくい理由は",
+      "voiceAnswer": "voices/sThD5Yned85CJhPBc99LX6.mp3"
+    },
+    {
+      "voiceTitle": "voices/ik31n4hHAhA9wGRjUGqPVY.mp3",
+      "answer": "巻積雲",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "4fCuNZuLTtrwE5Zqdy4fHN",
+      "title": "これは何雲？[images/5Lxoq8ZtBHL5W1XgDt29Kn.jpg]",
+      "voiceAnswer": "voices/wRjz7hqutEdjxMs7WG5Hke.mp3"
+    },
+    {
+      "voiceTitle": "voices/hiw5Gi5LJhK4aSghTFw5pQ.mp3",
+      "answer": "飽和水蒸気量",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "4t7aSSW2WijLFmJzJotFEH",
+      "title": "空気中に含む事のできる水蒸気の限度量とは",
+      "voiceAnswer": "voices/1FQyP392fJooA32ecy7rWB.mp3"
+    },
+    {
+      "voiceTitle": "voices/vSvZBbQqRZzRFdgyrEzukG.mp3",
+      "answer": "地中30cmまでは浅いところは曲管地中温度計、深いところは、鉄管地中温度計を使う",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "54KWutCKVALvZhVFmXSmJZ",
+      "title": "地温の正しいはかり方",
+      "voiceAnswer": "voices/3LzxsqB8RDTuHtajxCrmJU.mp3"
+    },
+    {
+      "voiceTitle": "voices/fvhcRurX9iHAZxCPwj2hTy.mp3",
+      "answer": "熱を伝えにくくするため",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "5eZjobt2GxuP9HJnnv4MPH",
+      "title": "百葉箱はなんのために、金具があまり使わない",
+      "voiceAnswer": "voices/vCvJqRiPqUWKGSBL7VEYbN.mp3"
+    },
+    {
+      "voiceTitle": "voices/j1fmsmbFJsTnSV2RRUBUs5.mp3",
+      "answer": "いか",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "5gvoEENPkKKqj1W2uhw428",
+      "title": "八戸港で水揚げされる主な魚は",
+      "voiceAnswer": "voices/iKG2nHfPYLZJ8x8WyuB1SV.mp3"
+    },
+    {
+      "voiceTitle": "voices/qKV8aHvVTvoehtYsFwhb8y.mp3",
+      "answer": "○に縦の１本線",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "5v8iKwNRKMPHK6ri8iT8xE",
+      "title": "晴れの天気記号は",
+      "voiceAnswer": "voices/rupsZSFe8dtAtRp83CoN1b.mp3"
+    },
+    {
+      "voiceTitle": "voices/qrAJDAkXDcn5g5EpjhBHHA.mp3",
+      "answer": "太陽熱の吸収を防ぐ",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "65ra9hch1kMYzc8ufWmyET",
+      "title": "百葉箱はなんのために、外側、内側とも白いペンキで塗ってる",
+      "voiceAnswer": "voices/grvmgi2asVkzgAxcccrWK5.mp3"
+    },
+    {
+      "voiceTitle": "voices/qivBhXj4GEv6EiJexa5HVL.mp3",
+      "answer": "きり雲",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "6pwhFRcRp1A8gDatYmVzHQ",
+      "title": "層雲の別名は",
+      "voiceAnswer": "voices/6pGNp8KjgwJKuM914zgyvG.mp3"
+    },
+    {
+      "voiceTitle": "voices/7kmeaLu3zFQfxwhuW4voeq.mp3",
+      "answer": "巻雲",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "7AAEHkqd3Vd57dFoDMhrvU",
+      "title": "これは何雲？[images/29bRRuemuujnf1DXGaRa26.jpg]",
+      "voiceAnswer": "voices/1t4CfGAQdubDSSz7oNEKUs.mp3"
+    },
+    {
+      "voiceTitle": "voices/wSPgXi2k1UVNdaPAqABK4H.mp3",
+      "answer": "中京工業地帯、阪神工業地帯、関東内陸工業地域",
+      "subject": "2",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "7DdD7n9mfvvGFkUHHMKTB8",
+      "title": "工業生産額の前３位の工業地帯・工業地域は",
+      "voiceAnswer": "voices/kYunmxhg2Cc1mabhnvJAVY.mp3"
+    },
+    {
+      "voiceTitle": "voices/u31pEMva9Rd5ZsoHaUZMfz.mp3",
+      "answer": "水蒸気が急に冷やされる",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "7GvUmcMvkFsQmA1tXWuZ1K",
+      "title": "気体の水蒸気が液体になる原因は",
+      "voiceAnswer": "voices/xifXB87h2JTdZY2TMhZicc.mp3"
+    },
+    {
+      "voiceTitle": "voices/191p3X5ju9awe3aomDn7Kg.mp3",
+      "answer": "外側、内側とも白いペンキで塗ってあります",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "7kzLSfPvhKBjLJ5bezHTHi",
+      "title": "百葉箱は太陽熱の吸収を防ぐための工夫は",
+      "voiceAnswer": "voices/8hqeJS1EqdHr5jTttu3GdU.mp3"
+    },
+    {
+      "voiceTitle": "voices/7h9RPEQD3Qx5URU3fo3emp.mp3",
+      "answer": "乱層雲と積乱雲",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "7wtnEmu5uFvSYcreuUTjst",
+      "title": "雨を降らせる雲は何",
+      "voiceAnswer": "voices/3EeeonFpex7UEb4kYU7Zoj.mp3"
+    },
+    {
+      "voiceTitle": "voices/2GjxU7dzXo7RfZTj2ziSzx.mp3",
+      "answer": "10分間",
+      "subject": "2",
+      "groupId": "tS4d9h5Rn644uf3Wf3cy19",
+      "id": "81GonJ2f5fguswVFhEFuVb",
+      "title": "風向は、観測時刻前の何分間で風向計が最も多くさした方向の方位",
+      "voiceAnswer": "voices/f5rF15h6cahGKbqYMxLxpo.mp3"
+    }
+  ]
+}
