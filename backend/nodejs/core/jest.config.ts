@@ -14,6 +14,7 @@ const config: Config.InitialOptions = {
   globalSetup: './test/configs/setup.ts',
   globalTeardown: './test/configs/teardown.ts',
   collectCoverage: true,
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   coverageDirectory: 'coverage',
   setupFiles: ['./test/configs/setupMock.ts'],
   setupFilesAfterEnv: ['jest-extended'],
