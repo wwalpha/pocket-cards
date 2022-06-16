@@ -1,7 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
 import { json, urlencoded } from 'body-parser';
-import { A002 } from '@src/apis/a0';
 import { GroupRegist, GroupList, GroupDescribe, GroupUpdate, GroupRemove } from '@src/apis/groups';
 import {
   QuestionRegist,
@@ -38,9 +37,6 @@ app.disable('x-powered-by');
 app.options('*', (_, res) => res.sendStatus(200));
 // health check
 app.get('/v1/health', (_, res) => res.send('backend'));
-
-// ユーザ学習履歴
-app.get('/v1/history', express.json(), (req, res) => entry(req, res, A002));
 
 // グループ新規
 app.post('/v1/groups', express.json(), (req, res) => entry(req, res, GroupRegist));
