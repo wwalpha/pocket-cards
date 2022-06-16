@@ -28,7 +28,7 @@ export default async (
     qItems = await registDefault(groupInfo, questions);
   }
 
-  const curriculumInfos = await CurriculumService.getListByGroup(groupId);
+  const curriculumInfos = await CurriculumService.listByGroup(groupId);
 
   // 学習対象がない
   if (curriculumInfos.length === 0) {

@@ -38,7 +38,7 @@ export default async (
 
   // 初めて勉強の場合
   if (learning.lastTime === Consts.INITIAL_DATE) {
-    const curriculums = await CurriculumService.getListByGroup(learning.groupId);
+    const curriculums = await CurriculumService.listByGroup(learning.groupId);
     const target = curriculums.find((item) => item.userId === learning.userId);
 
     if (target) {

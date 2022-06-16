@@ -19,7 +19,7 @@ export default async (
     // 未学習の場合、カウントを引く
     if (item.lastTime === Consts.INITIAL_DATE) {
       // 対象カリキュラムを検索する
-      const curriculums = await CurriculumService.getListByGroup(item.groupId, item.userId);
+      const curriculums = await CurriculumService.listByGroup(item.groupId, item.userId);
 
       // 処理実行
       await Promise.all(
