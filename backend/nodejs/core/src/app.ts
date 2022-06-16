@@ -53,8 +53,6 @@ app.put('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, Gro
 // グループ削除
 app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupRemove));
 
-// グループ学習状態
-// app.get('/v1/groups/:groupId/status', express.json(), (req, res) => entry(req, res, B006 as any));
 // // 単語一括登録
 // app.post('/v1/groups/:groupId/words', express.json(), (req, res) => entry(req, res, C001 as any));
 // // 単語一括取得
