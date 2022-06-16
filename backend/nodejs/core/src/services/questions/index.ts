@@ -40,6 +40,11 @@ export const remove = async (id: string): Promise<void> => {
   );
 };
 
+/** 全件削除 */
+export const truncate = async (questions: Tables.TQuestions[]) => {
+  await DBHelper().truncate(Environment.TABLE_NAME_QUESTIONS, questions);
+};
+
 /** 全件検索 */
 export const listAll = async (): Promise<Tables.TQuestions[]> => {
   const results = await DBHelper().scan<Tables.TQuestions>({ TableName: Environment.TABLE_NAME_QUESTIONS });

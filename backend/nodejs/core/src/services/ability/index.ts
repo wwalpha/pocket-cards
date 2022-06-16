@@ -1,3 +1,4 @@
+import { Environment } from '@consts';
 import { DBHelper } from '@utils';
 import { Tables } from 'typings';
 import * as Queries from './queries';
@@ -34,6 +35,11 @@ export const remove = async (id: string, qid: string): Promise<void> => {
       qid,
     })
   );
+};
+
+/** 全件削除 */
+export const truncate = async (questions: Tables.TWeeklyAbility[]): Promise<void> => {
+  await DBHelper().truncate(Environment.TABLE_NAME_WEEKLY_ABILITY, questions);
 };
 
 export const listByKey = async (id: string): Promise<Tables.TWeeklyAbility[]> => {

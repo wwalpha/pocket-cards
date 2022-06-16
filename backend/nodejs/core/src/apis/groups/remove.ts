@@ -1,8 +1,7 @@
 import { Request } from 'express';
+import { AbilityService, CurriculumService, GroupService, LearningService, QuestionService } from '@services';
+import { Consts } from '@consts';
 import { APIs } from 'typings';
-import { AbilityService, GroupService, QuestionService } from '@services';
-import { Consts, Environment } from '@consts';
-import { DBHelper } from '@utils';
 
 /**
  * グループ情報削除
@@ -20,19 +19,35 @@ export default async (req: Request<APIs.GroupRemoveParams, any, any, any>): Prom
   // 一般グループ
   if (Consts.SUBJECT_NORMAL.includes(groupInfo.subject)) {
     const questions = await QuestionService.listByGroup(groupInfo.id);
+    const curriculums = await CurriculumService.getListByGroup(groupInfo.id);
+    const learnings = await LearningService.listByGroup(groupInfo.id);
 
     // execute all
-    await Promise.all([GroupService.remove(groupId), DBHelper().truncate(Environment.TABLE_NAME_QUESTIONS, questions)]);
+    await Promise.all([
+      // remove group
+      GroupService.remove(groupId),
+      // remove group questions
+      QuestionService.truncate(questions),
+      // remove curriculum
+      CurriculumService.truncate(curriculums),
+      // remove learnings
+      LearningService.truncate(learnings),
+    ]);
   }
 
   // 実力テストグループ
   if (Consts.SUBJECT_ABILITY.includes(groupInfo.subject)) {
     const questions = await AbilityService.listByKey(groupInfo.id);
+    const curriculums = await CurriculumService.getListByGroup(groupInfo.id);
 
     // execute all
     await Promise.all([
+      // remove group
       GroupService.remove(groupId),
-      DBHelper().truncate(Environment.TABLE_NAME_WEEKLY_ABILITY, questions),
+      // remove curriculum
+      CurriculumService.truncate(curriculums),
+      // remove weekly questions
+      AbilityService.truncate(questions),
     ]);
   }
 };
