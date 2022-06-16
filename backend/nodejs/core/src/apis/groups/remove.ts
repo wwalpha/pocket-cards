@@ -16,10 +16,11 @@ export default async (req: Request<APIs.GroupRemoveParams, any, any, any>): Prom
   // not exists
   if (!groupInfo) return;
 
+  const questions = await QuestionService.listByGroup(groupInfo.id);
+  const curriculums = await CurriculumService.listByGroup(groupInfo.id);
+
   // 一般グループ
   if (Consts.SUBJECT_NORMAL.includes(groupInfo.subject)) {
-    const questions = await QuestionService.listByGroup(groupInfo.id);
-    const curriculums = await CurriculumService.getListByGroup(groupInfo.id);
     const learnings = await LearningService.listByGroup(groupInfo.id);
 
     // execute all
@@ -37,17 +38,17 @@ export default async (req: Request<APIs.GroupRemoveParams, any, any, any>): Prom
 
   // 実力テストグループ
   if (Consts.SUBJECT_ABILITY.includes(groupInfo.subject)) {
-    const questions = await AbilityService.listByKey(groupInfo.id);
-    const curriculums = await CurriculumService.getListByGroup(groupInfo.id);
-
+    const abilities = await AbilityService.listByKey(groupId);
     // execute all
     await Promise.all([
       // remove group
       GroupService.remove(groupId),
+      // remove group questions
+      QuestionService.truncate(questions),
       // remove curriculum
       CurriculumService.truncate(curriculums),
       // remove weekly questions
-      AbilityService.truncate(questions),
+      AbilityService.truncate(abilities),
     ]);
   }
 };
