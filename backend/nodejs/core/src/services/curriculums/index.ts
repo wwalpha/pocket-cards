@@ -1,3 +1,4 @@
+import { Environment } from '@consts';
 import { DBHelper } from '@utils';
 import { Tables } from 'typings';
 import * as Queries from './queries';
@@ -37,6 +38,11 @@ export const remove = async (id: string): Promise<void> => {
       id: id,
     })
   );
+};
+
+/** カリキュラム一括削除 */
+export const truncate = async (curriculums: Tables.TCurriculums[]): Promise<void> => {
+  await DBHelper().truncate(Environment.TABLE_NAME_CURRICULUMS, curriculums);
 };
 
 /** 保護者関連のカリキュラム一覧 */

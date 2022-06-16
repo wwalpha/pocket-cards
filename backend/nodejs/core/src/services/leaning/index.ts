@@ -38,6 +38,11 @@ export const remove = async (qid: string, userId: string): Promise<void> => {
   );
 };
 
+/** 学習項目一括削除 */
+export const truncate = async (learnings: Tables.TLearning[]): Promise<void> => {
+  await DBHelper().truncate(Environment.TABLE_NAME_LEARNING, learnings);
+};
+
 /** 日次復習 */
 export const dailyReview = async (userId: string, subject: string): Promise<Tables.TLearning[]> => {
   // 当日の日付
