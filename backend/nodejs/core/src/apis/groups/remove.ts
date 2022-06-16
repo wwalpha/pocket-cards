@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { AbilityService, CurriculumService, GroupService, LearningService, QuestionService } from '@services';
 import { Consts } from '@consts';
 import { APIs } from 'typings';
+import { ValidationError } from '@utils';
 
 /**
  * グループ情報削除
@@ -14,7 +15,9 @@ export default async (req: Request<APIs.GroupRemoveParams, any, any, any>): Prom
   const groupInfo = await GroupService.describe(groupId);
 
   // not exists
-  if (!groupInfo) return;
+  if (!groupInfo) {
+    throw new ValidationError(`Group not found. ${groupId}`);
+  }
 
   const questions = await QuestionService.listByGroup(groupInfo.id);
   const curriculums = await CurriculumService.listByGroup(groupInfo.id);

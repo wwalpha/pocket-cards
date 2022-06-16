@@ -1,7 +1,7 @@
 import server from '@src/app';
 import request from 'supertest';
 import * as COMMONS from '../../datas/commons';
-import { HEADER_USER } from '@test/Commons';
+import { HEADER_AUTH, HEADER_USER } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 import { AbilityService, CurriculumService, GroupService, LearningService, QuestionService } from '@services';
@@ -69,5 +69,16 @@ describe('Groups', () => {
     expect(curriculums.length).toBe(0);
     expect(questions.length).toBe(0);
     expect(groupInfo).toBeUndefined();
+  });
+
+  test('Remove03: グループ存在しない', async () => {
+    const gid = 'G001';
+    const apiPath = `/v1/groups/${gid}`;
+
+    const res = await request(server).delete(apiPath).set('username', HEADER_AUTH).send();
+
+    // status code
+    expect(res.statusCode).toBe(400);
+    expect(res.text).toBe('Group not found. G001');
   });
 });
