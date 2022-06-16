@@ -17,6 +17,7 @@ jobs:
       region: ap-northeast-1
       working-directory: backend/nodejs/core
       environment: dev
+      save-coverage: true
       ECS_SERVICE_NAME: backend
       ECR_REPOSITORY: pkc/backend
       ECS_TASK_DEF: pkc-backend

@@ -17,6 +17,10 @@ on:
         required: false
         type: boolean
         default: true
+      save-coverage:
+        required: false
+        type: boolean
+        default: false
       ECR_REPOSITORY:
         required: true
         type: string
@@ -89,6 +93,12 @@ jobs:
           sleep 10
           yarn test
           docker-compose down
+
+      # Save Coverage Report
+      - name: Save Coverage Report
+        if: ${{ inputs.save-coverage == true }}
+        run: |
+          aws s3 cp ./coverage/lcov-report/ s3://pkc-frontend-376965/coverage/ --recursive --no-progress --only-show-errors
 
       # ECR Login
       - name: Login to Amazon ECR
