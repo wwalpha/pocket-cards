@@ -6,7 +6,7 @@ import { Consts } from '@consts';
 export default async (
   req: Request<APIs.QuestionListParams, any, APIs.QuestionListRequest, any>
 ): Promise<APIs.QuestionListResponse> => {
-  const groupId = req.params.groupId;
+  const { groupId } = req.params;
 
   const groupInfo = await GroupService.describe(groupId);
 
