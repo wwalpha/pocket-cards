@@ -8,7 +8,8 @@ import { ValidationError } from '@utils';
 export default async (
   req: Request<APIs.QuestionIgnoreParams, any, APIs.QuestionIgnoreRequest, any>
 ): Promise<APIs.QuestionIgnoreResponse> => {
-  const { questionId, groupId } = req.params;
+  const { groupId } = req.params;
+  const { qid } = req.body;
 
   const groupInfo = await GroupService.describe(groupId);
 
@@ -17,7 +18,7 @@ export default async (
     throw new ValidationError('Only effect to english subject.');
   }
 
-  const question = await QuestionService.describe(questionId);
+  const question = await QuestionService.describe(qid);
 
   // question not found
   if (!question) {
