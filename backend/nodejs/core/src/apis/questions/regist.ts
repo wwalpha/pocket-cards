@@ -107,7 +107,7 @@ const registEnglish = async (groupInfo: Tables.TGroups, questions: string[]) => 
     .filter((item) => item !== '');
 
   // 単語の語彙を取得する
-  const tasks = dataRows.map(async (item) => {
+  let tasks = dataRows.map(async (item) => {
     const ignore = await WordService.isIgnore({
       id: Consts.Authority.ADMIN,
       word: item,
@@ -121,17 +121,35 @@ const registEnglish = async (groupInfo: Tables.TGroups, questions: string[]) => 
     return await WordService.describe(item);
   });
 
-  // 単語語彙一覧
-  const wordInfos = await Promise.all(tasks);
+  // 無視単語を１次フィルター
+  const filter1 = await Promise.all(tasks);
+
+  const words = filter1
+    .filter((item): item is Exclude<typeof item, undefined> => item !== undefined)
+    .map((item) => item.original);
+
+  // 重複削除する
+  const targets = Array.from(new Set(words));
+
+  tasks = targets.map(async (item) => {
+    const w = filter1.find((wi) => wi?.id === item);
+
+    if (w) return w;
+
+    return await WordService.describe(item);
+  });
+
+  // 重複単語を修正する
+  const filter2 = await Promise.all(tasks);
 
   // 登録単語作成
-  const qItems = wordInfos
+  const qItems = filter2
     .filter((item): item is Exclude<typeof item, undefined> => item !== undefined)
     .map<Tables.TQuestions>((item) => ({
       id: generate(),
       subject: groupInfo.subject,
       groupId: groupInfo.id,
-      title: item.id,
+      title: item.original,
       answer: `${item.vocChn}|${item.vocJpn}`,
       description: item.pronounce,
       voiceTitle: item.mp3,
