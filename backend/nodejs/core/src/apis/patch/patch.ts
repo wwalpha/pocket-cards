@@ -1,4 +1,4 @@
-import { Environment } from '@consts';
+import { Consts, Environment } from '@consts';
 import { DBHelper } from '@utils';
 import { Tables } from 'typings';
 
@@ -11,7 +11,7 @@ export default async (): Promise<void> => {
   await DBHelper().truncateAll(Environment.TABLE_NAME_WORD_IGNORE);
 
   const datas = results.Items.map<Tables.TWordIgnore>((item) => ({
-    id: 'wwalpha@gmail.com',
+    id: Consts.Authority.ADMIN,
     word: item.word,
   }));
 
