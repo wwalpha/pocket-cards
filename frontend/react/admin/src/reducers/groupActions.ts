@@ -67,13 +67,19 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, string>(
     // request parameter
     const { uploads } = (getState() as RootState).group;
 
-    // request
-    await API.post<APIs.QuestionRegistResponse, APIs.QuestionRegistRequest>(URLs.QUESTION_REGIST(groupId), {
-      questions: uploads.map(
-        ({ title, answer, description, choices }) =>
-          `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`
-      ),
-    });
+    const questions = uploads.map(
+      ({ title, answer, description, choices }) =>
+        `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`
+    );
+
+    for (; questions.length > 0; ) {
+      const datas = questions.splice(0, 100);
+
+      // request
+      await API.post<APIs.QuestionRegistResponse, APIs.QuestionRegistRequest>(URLs.QUESTION_REGIST(groupId), {
+        questions: datas,
+      });
+    }
   }
 );
 
