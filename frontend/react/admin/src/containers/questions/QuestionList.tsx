@@ -40,7 +40,7 @@ export default () => {
   const handleIgnore = (index: number) => {
     const q = questions[index];
 
-    actions.questionDelete(groupId, q.id);
+    actions.questionIgnore(groupId, q.id);
   };
 
   return (

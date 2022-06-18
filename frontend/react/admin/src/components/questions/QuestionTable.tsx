@@ -5,6 +5,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TablePagination from '@mui/material/TablePagination';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -48,6 +49,8 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
   const [deleteFlag, setDeleteFlag] = React.useState(false);
   const [ignoreFlag, setIgnoreFlag] = React.useState(false);
   const [index, setIndex] = React.useState(-1);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(50);
 
   /** popup close */
   const handleClose = () => {
@@ -58,19 +61,19 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
 
   /** edit open */
   const handleEditClick = (index: number) => {
-    setIndex(index);
+    setIndex(page * rowsPerPage + index);
     setOpen(true);
   };
 
   /** delete button click */
   const handleDeleteClick = (index: number) => {
-    setIndex(index);
+    setIndex(page * rowsPerPage + index);
     setDeleteFlag(true);
   };
 
   /** ignore button click */
   const handleIgnoreClick = (index: number) => {
-    setIndex(index);
+    setIndex(page * rowsPerPage + index);
     setIgnoreFlag(true);
   };
 
@@ -90,82 +93,102 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
     setOpen(false);
   };
 
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const dataRow = index !== -1 ? datas[index] : undefined;
   const hasChoices = datas.filter((item) => item.choices !== undefined).length > 0;
 
   return (
     <React.Fragment>
-      <TableContainer component={Paper} sx={styles.container}>
-        <Table aria-label="customized table" size="small">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
-              {onSubmit && <StyledTableCell></StyledTableCell>}
-              <StyledTableCell>Title</StyledTableCell>
-              {hasChoices && <StyledTableCell>Choices</StyledTableCell>}
-              <StyledTableCell>Answer</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {datas.map((item, idx) => (
-              <TableRow hover key={idx}>
-                <TableCell>{idx + 1}</TableCell>
-                {onSubmit && (
-                  <StyledTableCell>
-                    <Box sx={styles.iconCell}>
-                      <LoadingIconButton
-                        loading={loading}
-                        sx={{ p: 0.5 }}
-                        color="error"
-                        onClick={() => {
-                          handleDeleteClick(idx);
-                        }}>
-                        <DeleteIcon sx={{ fontSize: 32 }} />
-                      </LoadingIconButton>
-                      {onIgnore && (
+      <Paper>
+        <TableContainer component={Paper} sx={styles.container}>
+          <Table aria-label="customized table" size="small">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
+                {onSubmit && <StyledTableCell></StyledTableCell>}
+                <StyledTableCell>Title</StyledTableCell>
+                {hasChoices && <StyledTableCell>Choices</StyledTableCell>}
+                <StyledTableCell>Answer</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {datas.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, idx) => (
+                <TableRow hover key={idx}>
+                  <TableCell>{idx + 1}</TableCell>
+                  {onSubmit && (
+                    <StyledTableCell>
+                      <Box sx={styles.iconCell}>
                         <LoadingIconButton
+                          loading={loading}
                           sx={{ p: 0.5 }}
                           color="error"
+                          onClick={() => {
+                            handleDeleteClick(idx);
+                          }}>
+                          <DeleteIcon sx={{ fontSize: 32 }} />
+                        </LoadingIconButton>
+                        {onIgnore && (
+                          <LoadingIconButton
+                            sx={{ p: 0.5 }}
+                            color="error"
+                            loading={loading}
+                            onClick={() => {
+                              handleIgnoreClick(idx);
+                            }}>
+                            <VisibilityOffIcon sx={{ fontSize: 32 }} />
+                          </LoadingIconButton>
+                        )}
+                        <LoadingIconButton
+                          sx={{ p: 0.5 }}
                           loading={loading}
                           onClick={() => {
-                            handleIgnoreClick(idx);
+                            handleEditClick(idx);
                           }}>
-                          <VisibilityOffIcon sx={{ fontSize: 32 }} />
+                          <EditIcon sx={{ fontSize: 32 }} />
                         </LoadingIconButton>
-                      )}
-                      <LoadingIconButton
-                        sx={{ p: 0.5 }}
-                        loading={loading}
-                        onClick={() => {
-                          handleEditClick(idx);
-                        }}>
-                        <EditIcon sx={{ fontSize: 32 }} />
-                      </LoadingIconButton>
-                    </Box>
-                  </StyledTableCell>
-                )}
-                <TableCell>
-                  <Box component="span" sx={styles.tableCell}>
-                    {item.title}
-                  </Box>
-                </TableCell>
-                {hasChoices && (
+                      </Box>
+                    </StyledTableCell>
+                  )}
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.choices?.join('|')}
+                      {item.title}
                     </Box>
                   </TableCell>
-                )}
-                <TableCell>
-                  <Box component="span" sx={styles.tableCell}>
-                    {item.answer}
-                  </Box>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  {hasChoices && (
+                    <TableCell>
+                      <Box component="span" sx={styles.tableCell}>
+                        {item.choices?.join('|')}
+                      </Box>
+                    </TableCell>
+                  )}
+                  <TableCell>
+                    <Box component="span" sx={styles.tableCell}>
+                      {item.answer}
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[25, 50, 100]}
+          component="div"
+          count={datas.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
       <ConfirmDialog
         open={deleteFlag}
         message="削除してよろしいでしょうか？"
