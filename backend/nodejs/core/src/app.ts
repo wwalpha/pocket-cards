@@ -71,7 +71,7 @@ app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, 
 // app.post('/v1/user/wordignore', express.json(), (req, res) => entry(req, res, D003));
 
 // 問題一括登録
-app.post('/v1/groups/:groupId/ignore', express.json(), (req, res) => entry(req, res, QuestionIgnore));
+app.post('/v1/groups/:groupId/questions/ignore', express.json(), (req, res) => entry(req, res, QuestionIgnore));
 // 問題一括登録
 app.post('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
 // 問題詳細一括取得

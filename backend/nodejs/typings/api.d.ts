@@ -427,11 +427,10 @@ export namespace APIs {
   // ------------------------------------------------------------
   interface QuestionIgnoreParams {
     groupId: string;
+    questionId: string;
   }
 
-  interface QuestionIgnoreRequest {
-    qid: string;
-  }
+  interface QuestionIgnoreRequest {}
 
   type QuestionIgnoreResponse = void;
 
