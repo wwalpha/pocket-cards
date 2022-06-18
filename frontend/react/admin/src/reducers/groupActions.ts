@@ -48,6 +48,16 @@ export const GROUP_QUESTION_DELETE = createAsyncThunk<string, { groupId: string;
   }
 );
 
+export const GROUP_QUESTION_IGNORE = createAsyncThunk<string, { groupId: string; questionId: string }>(
+  'group/GROUP_QUESTION_IGNORE',
+  async ({ groupId, questionId }) => {
+    // request
+    await API.post<APIs.QuestionIgnoreResponse>(URLs.QUESTION_IGNORE(groupId, questionId));
+
+    return questionId;
+  }
+);
+
 /** Question List */
 export const GROUP_QUESTION_REGIST = createAsyncThunk<void, string>(
   'group/GROUP_QUESTION_REGIST',
@@ -56,7 +66,7 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, string>(
     const { uploads } = (getState() as RootState).group;
 
     // request
-    await API.post<APIs.QuestionRegistRequest, APIs.QuestionRegistResponse>(URLs.QUESTION_REGIST(groupId), {
+    await API.post<APIs.QuestionRegistResponse, APIs.QuestionRegistRequest>(URLs.QUESTION_REGIST(groupId), {
       questions: uploads.map(
         ({ title, answer, description, choices }) =>
           `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`

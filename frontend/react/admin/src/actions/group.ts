@@ -89,6 +89,12 @@ export const questionDelete = (groupId: string, qid: string) => async (dispatch:
   dispatch(Actions.GROUP_QUESTION_DELETE({ groupId: groupId, questionId: qid })).unwrap();
 };
 
+/** 質問無視 */
+export const questionIgnore = (groupId: string, qid: string) => async (dispatch: AppDispatch) => {
+  // ignore english word
+  dispatch(Actions.GROUP_QUESTION_IGNORE({ groupId: groupId, questionId: qid })).unwrap();
+};
+
 /** 質問リスト */
 export const uploadConfirm = (subject: string, groupId: string, texts: string) => (dispatch: AppDispatch) => {
   dispatch(Actions.GROUP_QUESTION_UPLOADS(texts));
