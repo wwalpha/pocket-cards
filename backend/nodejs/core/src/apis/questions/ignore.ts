@@ -51,9 +51,12 @@ export default async (
   // // 学習実績を削除する
   // await Promise.all(tasks);
 
-  // 無視単語登録
-  await WordService.registIgnore({
-    id: Consts.Authority.ADMIN,
-    word: question.title,
-  });
+  // 単語削除、無視単語の追加
+  await Promise.all([
+    QuestionService.remove(question.id),
+    WordService.registIgnore({
+      id: Consts.Authority.ADMIN,
+      word: question.title,
+    }),
+  ]);
 };
