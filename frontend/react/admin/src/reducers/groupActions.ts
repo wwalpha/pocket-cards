@@ -52,7 +52,9 @@ export const GROUP_QUESTION_IGNORE = createAsyncThunk<string, { groupId: string;
   'group/GROUP_QUESTION_IGNORE',
   async ({ groupId, questionId }) => {
     // request
-    await API.post<APIs.QuestionIgnoreResponse>(URLs.QUESTION_IGNORE(groupId, questionId));
+    await API.post<APIs.QuestionIgnoreResponse, APIs.QuestionIgnoreRequest>(URLs.QUESTION_IGNORE(groupId), {
+      qid: questionId,
+    });
 
     return questionId;
   }

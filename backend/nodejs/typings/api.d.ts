@@ -430,7 +430,9 @@ export namespace APIs {
     questionId: string;
   }
 
-  interface QuestionIgnoreRequest {}
+  interface QuestionIgnoreRequest {
+    qid: string;
+  }
 
   type QuestionIgnoreResponse = void;
 
