@@ -11,9 +11,9 @@ import DialogContent from '@mui/material/DialogContent';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ConfirmDialog from '@components/dialogs/ConfirmDialog';
 import { LoadingIconButton } from '@components/buttons';
 import QuestionDetails from './QuestionDetails';
@@ -43,27 +43,45 @@ const styles = {
   iconCell: { display: 'flex' },
 };
 
-const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onDelete }) => {
+const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onDelete, onIgnore }) => {
   const [open, setOpen] = React.useState(false);
-  const [confirm, setConfirm] = React.useState(false);
+  const [deleteFlag, setDeleteFlag] = React.useState(false);
+  const [ignoreFlag, setIgnoreFlag] = React.useState(false);
   const [index, setIndex] = React.useState(-1);
 
+  /** popup close */
   const handleClose = () => {
     setOpen(false);
-    setConfirm(false);
+    setDeleteFlag(false);
+    setIgnoreFlag(false);
   };
 
-  const handleClick = (index: number) => {
+  /** edit open */
+  const handleEditClick = (index: number) => {
     setIndex(index);
     setOpen(true);
   };
-  const handleDeleteBtn = (index: number) => {
+
+  /** delete button click */
+  const handleDeleteClick = (index: number) => {
     setIndex(index);
-    setConfirm(true);
+    setDeleteFlag(true);
   };
+
+  /** ignore button click */
+  const handleIgnoreClick = (index: number) => {
+    setIndex(index);
+    setIgnoreFlag(true);
+  };
+
   const handleOnDelete = () => {
     onDelete && onDelete(index);
-    setConfirm(false);
+    setDeleteFlag(false);
+  };
+
+  const handleOnIgnore = () => {
+    onIgnore && onIgnore(index);
+    setIgnoreFlag(false);
   };
 
   const handleDialogClick = (datas: QuestionForm) => {
@@ -73,6 +91,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
   };
 
   const dataRow = index !== -1 ? datas[index] : undefined;
+  const hasChoices = datas.filter((item) => item.choices !== undefined).length > 0;
 
   return (
     <React.Fragment>
@@ -83,7 +102,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
               <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
               {onSubmit && <StyledTableCell></StyledTableCell>}
               <StyledTableCell>Title</StyledTableCell>
-              <StyledTableCell>Choices</StyledTableCell>
+              {hasChoices && <StyledTableCell>Choices</StyledTableCell>}
               <StyledTableCell>Answer</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -99,15 +118,26 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
                         sx={{ p: 0.5 }}
                         color="error"
                         onClick={() => {
-                          handleDeleteBtn(idx);
+                          handleDeleteClick(idx);
                         }}>
                         <DeleteIcon sx={{ fontSize: 32 }} />
                       </LoadingIconButton>
+                      {onIgnore && (
+                        <LoadingIconButton
+                          sx={{ p: 0.5 }}
+                          color="error"
+                          loading={loading}
+                          onClick={() => {
+                            handleIgnoreClick(idx);
+                          }}>
+                          <VisibilityOffIcon sx={{ fontSize: 32 }} />
+                        </LoadingIconButton>
+                      )}
                       <LoadingIconButton
                         sx={{ p: 0.5 }}
                         loading={loading}
                         onClick={() => {
-                          handleClick(idx);
+                          handleEditClick(idx);
                         }}>
                         <EditIcon sx={{ fontSize: 32 }} />
                       </LoadingIconButton>
@@ -119,11 +149,13 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
                     {item.title}
                   </Box>
                 </TableCell>
-                <TableCell>
-                  <Box component="span" sx={styles.tableCell}>
-                    {item.choices?.join('|')}
-                  </Box>
-                </TableCell>
+                {hasChoices && (
+                  <TableCell>
+                    <Box component="span" sx={styles.tableCell}>
+                      {item.choices?.join('|')}
+                    </Box>
+                  </TableCell>
+                )}
                 <TableCell>
                   <Box component="span" sx={styles.tableCell}>
                     {item.answer}
@@ -135,12 +167,21 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
         </Table>
       </TableContainer>
       <ConfirmDialog
-        open={confirm}
+        open={deleteFlag}
         message="削除してよろしいでしょうか？"
         onClose={handleClose}
         onConfirm={handleOnDelete}
         maxWidth="md"
       />
+      {onIgnore && (
+        <ConfirmDialog
+          open={ignoreFlag}
+          message="無視してよろしいでしょうか？"
+          onClose={handleClose}
+          onConfirm={handleOnIgnore}
+          maxWidth="md"
+        />
+      )}
       <Dialog open={open} onClose={handleClose} maxWidth="lg">
         <DialogTitle>問題</DialogTitle>
         <DialogContent>
@@ -158,6 +199,7 @@ interface QuestionTable {
   datas: Partial<Group.Question>[];
   onSubmit?: (datas: QuestionForm) => void;
   onDelete?: (index: number) => void;
+  onIgnore?: (index: number) => void;
 }
 
 export default table;

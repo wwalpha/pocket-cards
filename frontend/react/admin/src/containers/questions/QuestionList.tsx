@@ -12,10 +12,11 @@ const groupState = (state: RootState) => state.group;
 const appState = (state: RootState) => state.app;
 
 export default () => {
-  const { questions } = useSelector(groupState);
+  const { questions, groups } = useSelector(groupState);
   const { isLoading, authority } = useSelector(appState);
   const actions = bindActionCreators(GroupActions, useDispatch());
   const { groupId } = useParams<QuestionParams>();
+  const subject = groups.find((item) => item.id === groupId)?.subject;
 
   const handleSubmit = (datas: QuestionForm) => {
     if (datas.id) {
@@ -36,6 +37,12 @@ export default () => {
     actions.questionDelete(groupId, q.id);
   };
 
+  const handleIgnore = (index: number) => {
+    const q = questions[index];
+
+    actions.questionDelete(groupId, q.id);
+  };
+
   return (
     <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <QuestionTable
@@ -43,6 +50,7 @@ export default () => {
         loading={isLoading}
         onSubmit={authority === Consts.Authority.ADMIN ? handleSubmit : undefined}
         onDelete={authority === Consts.Authority.ADMIN ? handleDelete : undefined}
+        onIgnore={authority === Consts.Authority.ADMIN && subject === Consts.SUBJECT.ENGLISH ? handleIgnore : undefined}
       />
     </Box>
   );
