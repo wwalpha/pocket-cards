@@ -109,6 +109,21 @@ resource "aws_s3_object" "lambda_status" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda vision module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_vision" {
+  bucket = local.bucket_name_archive
+  key    = "lambda/vision.zip"
+  source = data.archive_file.lambda_default.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
 # Archive file - Lambda default module
 # ----------------------------------------------------------------------------------------------
 data "archive_file" "lambda_default" {
