@@ -130,3 +130,30 @@ resource "aws_lambda_function_event_invoke_config" "batch" {
     }
   }
 }
+
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Function - Vision
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_function" "vision" {
+  function_name     = "${local.project_name}-vision"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = "lambda/vision.zip"
+  s3_object_version = aws_s3_object.lambda_vision.version_id
+  handler           = local.lambda_handler
+  memory_size       = 128
+  role              = aws_iam_role.vision.arn
+  runtime           = local.lambda_runtime
+  timeout           = 10
+
+  environment {
+    variables = {
+      MASTER_EMAIL_ADDRESS = "master@${local.domain_name}"
+      TARGET_EMAIL_ADDRESS = "diewumao@gmail.com"
+      VISION_API_URL       = data.aws_ssm_parameter.vision_api_url.value
+      VISION_API_KEY       = data.aws_ssm_parameter.vision_api_key.value
+      TZ                   = "Asia/Tokyo"
+    }
+  }
+}
+

@@ -114,4 +114,30 @@ resource "aws_iam_role_policy_attachment" "batch_ses" {
   policy_arn = local.iam_policy_arn_ses
 }
 
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - Vision
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "vision" {
+  name               = "${local.project_name_uc}_Lambda_VisionRole"
+  assume_role_policy = data.aws_iam_policy_document.lambda.json
 
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - Vision Basic Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "vision_basic" {
+  role       = aws_iam_role.vision.name
+  policy_arn = local.lambda_basic_policy_arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - Vision SES Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "vision_ses" {
+  role       = aws_iam_role.vision.name
+  policy_arn = local.iam_policy_arn_ses
+}
