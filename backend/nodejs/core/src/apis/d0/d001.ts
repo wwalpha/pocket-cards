@@ -9,7 +9,6 @@ const visionApiKey = Environment.VISION_API_KEY;
 export default async (req: Request<any, any, APIs.D001Request, any>): Promise<APIs.D001Response> => {
   const input = req.body;
 
-  console.log(visionUrl, visionApiKey);
   // get image words
   const res = await Axios.post<VisionRequest, AxiosResponse<VisionResponse>>(
     `${visionUrl}/image2words?key=${visionApiKey}`,
