@@ -6,7 +6,8 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "tsc",
-    "postbuild": "cd dist && yarn install --production && zip -rq ../dist.zip ."
+    "postbuild": "yarn copyfiles && cd dist && yarn install --production && zip -rq ../dist.zip .",
+    "copyfiles": "cp package.build.json dist/package.json"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.100",

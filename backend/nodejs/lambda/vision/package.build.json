@@ -1,0 +1,10 @@
+{
+  "name": "vision",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1157.0",
+    "axios": "^0.27.2"
+  }
+}
