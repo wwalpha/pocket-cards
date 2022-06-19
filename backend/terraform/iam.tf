@@ -141,3 +141,11 @@ resource "aws_iam_role_policy_attachment" "vision_ses" {
   role       = aws_iam_role.vision.name
   policy_arn = local.iam_policy_arn_ses
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - Vision S3 ReadOnly Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "vision_s3_readonly" {
+  role       = aws_iam_role.vision.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+}
