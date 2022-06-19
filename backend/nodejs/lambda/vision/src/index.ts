@@ -55,6 +55,13 @@ export const handler: S3Handler = async (e) => {
       },
     })
     .promise();
+
+  await client
+    .deleteObject({
+      Bucket: bucket,
+      Key: key,
+    })
+    .promise();
 };
 
 const japanese = [
