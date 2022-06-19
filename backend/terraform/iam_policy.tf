@@ -77,3 +77,24 @@ resource "aws_iam_role_policy" "ecs_task_status_basic" {
     ]
   })
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - ECS Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy" "vision_s3_delete" {
+  name = "S3_Policy"
+  role = aws_iam_role.vision.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:DeleteObject",
+        ]
+        Resource = "*"
+      },
+    ]
+  })
+}
