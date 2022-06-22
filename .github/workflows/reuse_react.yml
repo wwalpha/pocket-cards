@@ -81,6 +81,12 @@ jobs:
           echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
           echo "::set-output name=source_tag::${GITHUB_REF#refs/tags/}"
 
+      # Pre Install
+      - name: PreInstall
+        run: |
+          cd ..
+          yarn install
+
       # Install and Build
       - name: Build
         env:
