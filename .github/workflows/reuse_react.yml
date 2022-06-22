@@ -1,0 +1,102 @@
+name: React Build Workflow
+
+on:
+  workflow_call:
+    # inputs
+    inputs:
+      environment:
+        required: true
+        type: string
+      region:
+        required: true
+        type: string
+      working-directory:
+        required: true
+        type: string
+      module:
+        required: true
+        type: string
+      deploy:
+        required: false
+        type: boolean
+    # secrets
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      TF_API_TOKEN:
+        required: true
+
+jobs:
+  ECS_BUILD:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      AWS_DEFAULT_REGION: ${{ inputs.region }}
+      SSM_PARAMETER_NAME: ${{ format('{0}/{1}', '/pkc/frontend', inputs.module) }}    
+    defaults:
+      run:
+        working-directory: ${{ format('{0}/{1}', inputs.working-directory, inputs.module) }}
+    outputs:
+      image: ${{ steps.build-image.outputs.image }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # Install the latest version of Terraform CLI 
+      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.1.7
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Get terraform outputs
+      - name: Get terraform outputs
+        id: terraform
+        run: |
+          cd configs/terraform
+          terraform init
+          terraform apply -auto-approve=true
+          BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
+          BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
+          echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
+          echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
+          echo "::set-output name=source_tag::${GITHUB_REF#refs/tags/}"
+
+      # Install and Build
+      - name: Build
+        env:
+          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
+          VERSION: ${{ steps.terraform.outputs.source_tag }}
+        run: |
+          aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
+          echo VERSION=$VERSION >> frontend.env
+          yarn install --production=false
+          yarn build
+
+      # Deploy frontend
+      - name: Deploy
+        if: ${{ inputs.deploy == true }}
+        env:
+          BUCKET_NAME: ${{ steps.terraform.outputs.bucket_name_frontend }}
+          BUCKET_FOLDER: ${{ inputs.module }}
+        run: |
+          aws s3 cp dist s3://$BUCKET_NAME/$BUCKET_FOLDER --recursive --region $AWS_DEFAULT_REGION
