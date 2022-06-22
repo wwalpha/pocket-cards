@@ -23,7 +23,7 @@ jobs:
       environment: dev
       region: ap-northeast-1
       working-directory: frontend/react
-      module: admin
+      module: users
       deploy: true
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
