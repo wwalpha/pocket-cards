@@ -8,7 +8,6 @@ on:
 
 env:
   AWS_DEFAULT_REGION: us-east-1
-  WORKING_DIR_FRONTEND: frontend/react/admin
 
 jobs:
   #Terraform
@@ -152,72 +151,30 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  # Frontend
-  Frontend:
-    runs-on: ubuntu-latest
-    concurrency: frontend
-    environment:
-      name: prod
-    env:
-      NODE_ENV: production
-      TF_WORKSPACE: prod
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR_FRONTEND }}
+  # Frontend Admin
+  FrontAdmin:
+    uses: ./.github/workflows/reuse_react.yml
+    with:
+      environment: prod
+      region: ${{ env.AWS_DEFAULT_REGION }}
+      working-directory: frontend/react
+      module: admin
+      deploy: false
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
 
-    steps:
-      # source checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      # Setup Node.js
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      # Install the latest version of Terraform CLI 
-      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.1.7
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-          terraform_wrapper: false
-
-      # AWS Credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-
-      # Get terraform outputs
-      - name: Get terraform outputs
-        id: terraform
-        run: |
-          cd configs/terraform
-          terraform init
-          terraform apply -auto-approve=true
-          BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
-          BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
-          echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
-          echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
-          echo "::set-output name=source_tag::${GITHUB_REF#refs/tags/}"
-
-      # Pre Install
-      - name: PreInstall
-        run: |
-          cd ..
-          yarn install
-
-      # Install and Build
-      - name: Build
-        env:
-          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
-          VERSION: ${{ steps.terraform.outputs.source_tag }}
-        run: |
-          aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
-          echo VERSION=$VERSION >> frontend.env
-          yarn install --production=false
-          yarn build
+  # Frontend Users
+  FrontUsers:
+    uses: ./.github/workflows/reuse_react.yml
+    with:
+      environment: prod
+      region: ${{ env.AWS_DEFAULT_REGION }}
+      working-directory: frontend/react
+      module: users
+      deploy: false
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
