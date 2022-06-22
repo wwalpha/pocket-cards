@@ -191,7 +191,7 @@ jobs:
 
 
   # Frontend Admin
-  FrontAdmin:
+  Frontend_Admin:
     needs: Terraform_Backend
     uses: ./.github/workflows/reuse_react.yml
     with:
@@ -206,8 +206,10 @@ jobs:
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
 
   # Frontend Users
-  FrontUsers:
-    needs: Terraform_Backend
+  Frontend_Users:
+    needs:
+      - Terraform_Backend
+      - Frontend_Admin
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
