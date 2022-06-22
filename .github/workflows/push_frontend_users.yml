@@ -1,13 +1,13 @@
 name: PUSH_F) Users React Build
 
 on:
-  push:
-    paths:
-      - frontend/react/**
-      - .github/workflows/push_frontend_users.yml
-    branches-ignore:
-      - releases/**
-  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - PUSH_F) Admin React Build
+    branches:
+      - master
+    types:
+      - completed
 
 env:
   AWS_DEFAULT_REGION: ap-northeast-1

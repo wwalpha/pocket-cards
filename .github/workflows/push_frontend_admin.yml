@@ -5,6 +5,7 @@ on:
     paths:
       - frontend/react/**
       - .github/workflows/push_frontend_admin.yml
+      - .github/workflows/push_frontend_users.yml
     branches-ignore:
       - releases/**
   workflow_dispatch:
