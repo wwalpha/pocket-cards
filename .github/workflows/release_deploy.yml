@@ -199,7 +199,7 @@ jobs:
       region: us-east-1
       working-directory: frontend/react
       module: admin
-      deploy: false
+      deploy: true
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -216,7 +216,7 @@ jobs:
       region: us-east-1
       working-directory: frontend/react
       module: users
-      deploy: false
+      deploy: true
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
