@@ -16,7 +16,7 @@ jobs:
     uses: ./.github/workflows/reuse_react.yml
     with:
       region: ap-northeast-1
-      working-directory: frontend/react/admin
+      working-directory: frontend/react
       environment: dev
       module: admin
       deploy: true
