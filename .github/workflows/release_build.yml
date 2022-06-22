@@ -152,7 +152,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Frontend Admin
-  FrontAdmin:
+  Frontend_Admin:
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
@@ -166,7 +166,7 @@ jobs:
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
 
   # Frontend Users
-  FrontUsers:
+  Frontend_Users:
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
