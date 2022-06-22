@@ -1,10 +1,10 @@
-name: PUSH_F) React Build
+name: PUSH_F) Users React Build
 
 on:
   push:
     paths:
       - frontend/react/**
-      - .github/workflows/push_frontend_react.yml
+      - .github/workflows/push_frontend_users.yml
     branches-ignore:
       - releases/**
   workflow_dispatch:
@@ -12,9 +12,9 @@ on:
 env:
   AWS_DEFAULT_REGION: ap-northeast-1
   TF_WORKSPACE: dev
-  WORKING_DIR: frontend/react/admin
+  WORKING_DIR: frontend/react/users
   NODE_ENV: production
-  SSM_PARAMETER_NAME: /pkc/frontend
+  SSM_PARAMETER_NAME: /pkc/frontend/users
 
 jobs:
   Update:
@@ -98,4 +98,4 @@ jobs:
         env:
           BUCKET_NAME_FRONTEND: ${{ steps.terraform.outputs.bucket_name_frontend }}
         run: |
-          aws s3 cp dist s3://$BUCKET_NAME_FRONTEND/ --recursive
+          aws s3 cp dist s3://$BUCKET_NAME_FRONTEND/users/ --recursive
