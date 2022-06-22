@@ -12,6 +12,7 @@ import {
   QuestionDelete,
   QuestionIgnore,
   QuestionReview,
+  QuestionDescribe,
 } from '@src/apis/questions';
 import { DailyTasks, LearningProgress, LearningOverall, Inquiry } from '@src/apis/reports';
 import {
@@ -79,7 +80,7 @@ app.get('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req
 // 問題集詳細更新
 app.put('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionUpdate));
 // 問題集詳細取得
-app.get('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionList));
+app.get('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionDescribe));
 // 問題集削除
 app.delete('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionDelete));
 

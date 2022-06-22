@@ -406,6 +406,20 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
+  // Question Describe
+  // ------------------------------------------------------------
+  interface QuestionDescribeParams {
+    groupId: string;
+    questionId: string;
+  }
+
+  interface QuestionDescribeRequest {}
+
+  interface QuestionDescribeResponse {
+    question: Tables.TQuestions;
+  }
+
+  // ------------------------------------------------------------
   // Question Update
   // ------------------------------------------------------------
   interface QuestionUpdateParams {
