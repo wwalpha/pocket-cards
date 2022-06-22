@@ -196,7 +196,7 @@ jobs:
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
-      region: ${{ env.AWS_DEFAULT_REGION }}
+      region: us-east-1
       working-directory: frontend/react
       module: admin
       deploy: false
@@ -211,7 +211,7 @@ jobs:
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
-      region: ${{ env.AWS_DEFAULT_REGION }}
+      region: us-east-1
       working-directory: frontend/react
       module: users
       deploy: false
