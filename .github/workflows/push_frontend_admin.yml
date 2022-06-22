@@ -1,0 +1,101 @@
+name: PUSH_F) Admin React Build
+
+on:
+  push:
+    paths:
+      - frontend/react/**
+      - .github/workflows/push_frontend_admin.yml
+    branches-ignore:
+      - releases/**
+  workflow_dispatch:
+
+env:
+  AWS_DEFAULT_REGION: ap-northeast-1
+  TF_WORKSPACE: dev
+  WORKING_DIR: frontend/react/admin
+  NODE_ENV: production
+  SSM_PARAMETER_NAME: /pkc/frontend/admin
+
+jobs:
+  Update:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # setup node.js
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      # Install the latest version of Terraform CLI 
+      # and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.4
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
+
+      # AWS Credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Get terraform outputs
+      - name: Get terraform outputs
+        id: terraform
+        run: |
+          cd configs/terraform
+          terraform init
+          terraform apply -auto-approve=true
+          BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
+          BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
+          echo ::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)
+          echo ::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)
+          echo ::set-output name=source_tag::${GITHUB_REF#refs/tags/}
+
+      # Pre Install
+      - name: PreInstall
+        run: |
+          cd ..
+          yarn install
+
+      # Install and Build
+      - name: Build
+        env:
+          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
+          VERSION: ${{ steps.terraform.outputs.source_tag }}
+        run: |
+          aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
+          echo VERSION=$VERSION >> frontend.env
+          yarn install --production=false
+          yarn build
+
+      # Upload dist files
+      - name: Upload files
+        env:
+          FILE_NAME: ${{ github.sha }}
+          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
+        run: |
+          zip -jr $FILE_NAME.zip dist
+          aws s3 cp $FILE_NAME.zip s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip
+          aws ssm put-parameter --name $SSM_PARAMETER_NAME --type "String" --value s3://$BUCKET_NAME_ARCHIVE/frontend/$FILE_NAME.zip --overwrite
+
+      # Deploy frontend
+      - name: Deploy
+        env:
+          BUCKET_NAME_FRONTEND: ${{ steps.terraform.outputs.bucket_name_frontend }}
+        run: |
+          aws s3 cp dist s3://$BUCKET_NAME_FRONTEND/admin/ --recursive
