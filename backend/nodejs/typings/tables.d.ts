@@ -73,12 +73,14 @@ export namespace Tables {
     voiceTitle?: string;
     // 回答音声
     voiceAnswer?: string;
-    /** @deprecated 次の学習時間 */
-    nextTime?: string;
-    /** @deprecated 最後の学習時間 */
-    lastTime?: string;
-    /** @deprecated 学習回数 */
-    times?: number;
+    // /** @deprecated 次の学習時間 */
+    // nextTime?: string;
+    // /** @deprecated 最後の学習時間 */
+    // lastTime?: string;
+    // /** @deprecated 学習回数 */
+    // times?: number;
+    /**  */
+    original?: string;
   }
 
   interface TQuestionsGSI1Key {
