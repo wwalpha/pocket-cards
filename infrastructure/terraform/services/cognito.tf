@@ -150,10 +150,10 @@ resource "aws_cognito_user_pool_client" "this" {
     "profile"
   ]
   callback_urls = [
-    "https://www.${local.domain_name}/"
+    "https://admin.${local.domain_name}/"
   ]
   logout_urls = [
-    "https://www.${local.domain_name}/logout"
+    "https://admin.${local.domain_name}/logout"
   ]
   supported_identity_providers = [aws_cognito_identity_provider.google.provider_name]
   explicit_auth_flows = [
@@ -346,8 +346,8 @@ resource "aws_cognito_user_pool_client" "admin" {
     "phone",
     "profile"
   ]
-  callback_urls = ["https://www.${local.domain_name}/admin"]
-  logout_urls   = ["https://www.${local.domain_name}/admin/logout"]
+  callback_urls = ["https://admin.${local.domain_name}/"]
+  logout_urls   = ["https://admin.${local.domain_name}/logout"]
   explicit_auth_flows = [
     "ALLOW_CUSTOM_AUTH",
     "ALLOW_REFRESH_TOKEN_AUTH",
