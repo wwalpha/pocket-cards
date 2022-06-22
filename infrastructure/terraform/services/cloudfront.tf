@@ -68,7 +68,7 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "/voices/*"
+    path_pattern     = "/audios/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = local.origin_id_materials
@@ -170,7 +170,7 @@ resource "aws_cloudfront_distribution" "admin" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "/voices/*"
+    path_pattern     = "/audios/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = local.origin_id_materials
