@@ -130,9 +130,9 @@ jobs:
   Lambda_Start:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
+      environment: prod
       region: us-east-1
       working-directory: backend/nodejs/lambda/start
-      environment: prod
       outputs-bucket: pkc-archive-af2a18
       function-name: start
     secrets:
@@ -156,7 +156,7 @@ jobs:
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
-      region: ${{ env.AWS_DEFAULT_REGION }}
+      region: us-east-1
       working-directory: frontend/react
       module: admin
       deploy: false
@@ -170,7 +170,7 @@ jobs:
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
-      region: ${{ env.AWS_DEFAULT_REGION }}
+      region: us-east-1
       working-directory: frontend/react
       module: users
       deploy: false
