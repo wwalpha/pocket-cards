@@ -6,6 +6,7 @@ on:
       - frontend/react/**
       - .github/workflows/push_frontend_admin.yml
       - .github/workflows/push_frontend_users.yml
+      - .github/workflows/reuse_react.yml
     branches-ignore:
       - releases/**
   workflow_dispatch:
