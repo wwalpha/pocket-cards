@@ -39,6 +39,7 @@ export interface QuestionForm {
   title: string;
   answer: string;
   choices?: string;
+  original?: string;
   description?: string;
 }
 
