@@ -36,6 +36,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
       answer: dataRow.answer ?? '',
       choices: dataRow.choices?.join('|'),
       description: dataRow.description ?? '',
+      original: dataRow.original,
     },
   });
 
@@ -89,6 +90,24 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
             <audio ref={titleRef} src={`/${dataRow.voiceTitle}`} />,
           ]}
         </Box>
+        {dataRow.original && (
+          <Controller
+            name="original"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                disabled={!onClick}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                label="Original"
+                value={value}
+                onChange={onChange}
+              />
+            )}
+          />
+        )}
+
         <Controller
           name="description"
           control={control}

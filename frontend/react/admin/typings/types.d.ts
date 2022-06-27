@@ -111,7 +111,7 @@ export namespace Group {
 
   type Question = Pick<
     Tables.TQuestions,
-    'id' | 'title' | 'answer' | 'description' | 'choices' | 'voiceTitle' | 'voiceAnswer'
+    'id' | 'title' | 'answer' | 'description' | 'choices' | 'voiceTitle' | 'voiceAnswer' | 'original'
   >;
 }
 
