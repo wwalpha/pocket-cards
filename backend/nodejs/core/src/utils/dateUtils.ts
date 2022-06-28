@@ -6,7 +6,7 @@ export const getNow = () => `${moment().format('YYYYMMDD')}`;
 // 算数以外の科目の日数
 const days = [1, 2, 4, 7, 15, 30, 60, 90, 180, 360];
 // 算数の日数
-const daysM = [1, 3, 7, 15, 60, 120];
+const daysM = [1, 3, 7, 15, 60];
 
 /** 次回学習時間を計算する */
 export const getNextTime = (times: number, subject?: string) => {
@@ -14,7 +14,7 @@ export const getNextTime = (times: number, subject?: string) => {
   // 算数以外の場合、10 回学習後表示しないようにする
   if (times > 10 && subject !== Consts.SUBJECT.MATHS) return '99991231';
   // 7 回学習後表示しないようにする
-  if (times > 7 && subject === Consts.SUBJECT.MATHS) return '99991231';
+  if (times > 5 && subject === Consts.SUBJECT.MATHS) return '99991231';
 
   // 日数の組みの選択
   const nextDays = Consts.SUBJECT.MATHS === subject ? daysM : days;
