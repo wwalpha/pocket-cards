@@ -88,7 +88,7 @@ describe('Questions', () => {
     expect(before).toMatchObject(after);
   });
 
-  test('Answer03: 問題回答_正解_算数7回', async () => {
+  test('Answer03: 問題回答_正解_算数6回', async () => {
     const before = await LearningService.describe('fBTFsyZGVkknQtKBBpfuhJ', 'Google_109439805128280065775');
     const apiPath = '/v1/study/daily/test/questions/fBTFsyZGVkknQtKBBpfuhJ';
 
