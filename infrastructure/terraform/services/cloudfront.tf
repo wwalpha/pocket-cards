@@ -187,6 +187,24 @@ resource "aws_cloudfront_distribution" "admin" {
     compress               = true
   }
 
+  ordered_cache_behavior {
+    path_pattern     = "/voices/*"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
+    target_origin_id = local.origin_id_materials
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    compress               = true
+  }
+
 
   viewer_certificate {
     cloudfront_default_certificate = false
