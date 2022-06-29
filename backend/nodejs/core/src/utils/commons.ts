@@ -123,7 +123,7 @@ const generateImage = async (url: string): Promise<string> => {
   return key;
 };
 
-const createJapaneseVoice = async (text: string, s3Key?: string) => {
+const createJapaneseVoice = async (text: string, groupId: string, s3Key?: string) => {
   const client = ClientUtils.polly();
 
   const request: Polly.SynthesizeSpeechInput = {
@@ -137,7 +137,7 @@ const createJapaneseVoice = async (text: string, s3Key?: string) => {
   const response = await client.synthesizeSpeech(request).promise();
 
   // ファイル名
-  const key: string = s3Key ?? `${Consts.PATH_VOICE}/${short.generate()}.mp3`;
+  const key: string = s3Key ?? `${Consts.PATH_VOICE}/${groupId}/${short.generate()}.mp3`;
 
   const putRequest: S3.Types.PutObjectRequest = {
     Bucket: Environment.BUCKET_NAME_MATERAILS,
@@ -212,7 +212,7 @@ const createQuestionVoice = async (question: Tables.TQuestions) => {
 
   if (newTitle.length === 0) return undefined;
 
-  return await createJapaneseVoice(newTitle, question.voiceTitle);
+  return await createJapaneseVoice(newTitle, question.groupId, question.voiceTitle);
 };
 
 const createAnswerVoice = async (question: Tables.TQuestions) => {
@@ -224,7 +224,7 @@ const createAnswerVoice = async (question: Tables.TQuestions) => {
 
   if (newAnswer.length === 0) return undefined;
 
-  return await createJapaneseVoice(newAnswer, question.voiceAnswer);
+  return await createJapaneseVoice(newAnswer, question.groupId, question.voiceAnswer);
 };
 
 const createImage = async (text: string): Promise<string> => {
