@@ -33,9 +33,9 @@ export namespace Domains {
     /** user's all group infomations */
     groups: Tables.TGroups[];
     /** Questions */
-    questions: Group.Question[];
+    questions: Tables.TQuestions[];
     /** Upload Questions */
-    uploads: Omit<Group.Question, 'id'>[];
+    uploads: Omit<Tables.TQuestions, 'id', 'groupId'>[];
   }
 
   interface UserState {

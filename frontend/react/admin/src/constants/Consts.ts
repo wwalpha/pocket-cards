@@ -50,3 +50,6 @@ export const COLORS = {
   ENGLISH: '#b71927',
   MATHS: '#1B5AAA',
 };
+
+export const PATH_IMAGE = 'images';
+export const PATH_VOICE = 'voices';

@@ -75,7 +75,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas, onEdit }) => {
 };
 
 interface QuestionTable {
-  datas: Partial<Group.Question>[];
+  datas: Group.Question[];
   onEdit?: () => void;
 }
 

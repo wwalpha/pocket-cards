@@ -241,6 +241,9 @@ username: Google_109439805128280065775
 
 PATCH https://api.pkc.aws-handson.com/v1/patch
 
+PATCH https://api.pkc.onecloudlabo.com/v1/patch
+
+
 GET http://localhost:8080/v1/study/daily/practice/questions?subject=0
 Content-Type: application/json
 username: wwalpha

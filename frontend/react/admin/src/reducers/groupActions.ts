@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { URLs } from '@constants';
 import { RootState } from '@store';
 import { API } from '@utils';
-import { Tables, APIs, Group, QuestionUpdateParameter } from 'typings';
+import { Tables, APIs, QuestionUpdateParameter } from 'typings';
 import omit from 'lodash/omit';
 
 export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST', async () => {
@@ -19,22 +19,14 @@ export const GROUP_REMOVE = createAsyncThunk<string, string>('group/GROUP_REMOVE
 });
 
 /** Question List */
-export const GROUP_QUESTION_LIST = createAsyncThunk<Group.Question[], string>(
+export const GROUP_QUESTION_LIST = createAsyncThunk<Tables.TQuestions[], string>(
   'group/GROUP_QUESTION_LIST',
   async (groupId) => {
     // request
     const res = await API.get<APIs.QuestionListResponse>(URLs.QUESTION_LIST(groupId));
 
     // response
-    return res.questions.map((item) => ({
-      id: item.id,
-      title: item.title,
-      answer: item.answer,
-      description: item.description,
-      choices: item.choices,
-      voiceAnswer: item.voiceAnswer,
-      voiceTitle: item.voiceTitle,
-    }));
+    return res.questions;
   }
 );
 
