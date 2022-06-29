@@ -137,13 +137,14 @@ const createJapaneseVoice = async (text: string, groupId: string, s3Key?: string
   const response = await client.synthesizeSpeech(request).promise();
 
   const prefix = `${Consts.PATH_VOICE}/${groupId}`;
+  const key = s3Key ?? `${short.generate()}.mp3`;
 
   // ファイル名
-  const key: string = s3Key ? `${prefix}/${s3Key}` : `${prefix}/${short.generate()}.mp3`;
+  const bucketKey: string = `${prefix}/${key}`;
 
   const putRequest: S3.Types.PutObjectRequest = {
     Bucket: Environment.BUCKET_NAME_MATERAILS,
-    Key: key,
+    Key: bucketKey,
     Body: response.AudioStream,
   };
 
