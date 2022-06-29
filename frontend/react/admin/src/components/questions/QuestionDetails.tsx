@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { IconButton } from '@mui/material';
+import { Consts } from '@constants';
 
 const titleRef = createRef<HTMLAudioElement>();
 const answerRef = createRef<HTMLAudioElement>();
@@ -65,7 +66,6 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
             <TextField disabled={true} variant="outlined" margin="normal" fullWidth label="ID" value={value} />
           )}
         />
-
         <Box sx={{ display: 'flex' }}>
           <Controller
             name="title"
@@ -87,7 +87,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
             <IconButton sx={{ mx: 1 }} color="secondary" onClick={handlePlayQuestion}>
               <VolumeUpIcon />
             </IconButton>,
-            <audio ref={titleRef} src={`/${dataRow.voiceTitle}`} />,
+            <audio ref={titleRef} src={`/${Consts.PATH_VOICE}/${dataRow.groupId}/${dataRow.voiceTitle}`} />,
           ]}
         </Box>
         {dataRow.original && (
@@ -160,7 +160,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
             <IconButton sx={{ mx: 1 }} color="secondary" onClick={handlePlayAnswer}>
               <VolumeUpIcon />
             </IconButton>,
-            <audio ref={answerRef} src={`/${dataRow.voiceAnswer}`} />,
+            <audio ref={answerRef} src={`/${Consts.PATH_VOICE}/${dataRow.groupId}/${dataRow.voiceAnswer}`} />,
           ]}
         </Box>
       </Box>
@@ -187,7 +187,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
 interface QuestionDetails {
   readonly?: boolean;
   loading?: boolean;
-  dataRow: Partial<Group.Question>;
+  dataRow: Group.Question;
   onClick?: (form: QuestionForm) => void;
   onClose?: () => void;
 }

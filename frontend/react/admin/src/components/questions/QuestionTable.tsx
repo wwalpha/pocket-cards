@@ -221,7 +221,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
 
 interface QuestionTable {
   loading?: boolean;
-  datas: Partial<Group.Question>[];
+  datas: Group.Question[];
   onSubmit?: (datas: QuestionForm) => void;
   onDelete?: (index: number) => void;
   onIgnore?: (index: number) => void;
