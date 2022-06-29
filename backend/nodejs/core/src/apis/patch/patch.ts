@@ -1,20 +1,28 @@
-import { Consts, Environment } from '@consts';
-import { DBHelper } from '@utils';
+import { Environment } from '@consts';
+import { DBHelper, Commons } from '@utils';
 import { Tables } from 'typings';
 
 export default async (): Promise<void> => {
-  const results = await DBHelper().scan<Tables.TWordIgnore>({
-    TableName: Environment.TABLE_NAME_WORD_IGNORE,
+  const results = await DBHelper().scan<Tables.TQuestions>({
+    TableName: Environment.TABLE_NAME_QUESTIONS,
   });
 
-  // 全件削除
-  await DBHelper().truncateAll(Environment.TABLE_NAME_WORD_IGNORE);
+  const questions = results.Items.map((item) => {
+    item.voiceAnswer = undefined;
+    item.voiceTitle = undefined;
 
-  const datas = results.Items.map<Tables.TWordIgnore>((item) => ({
-    id: Consts.Authority.ADMIN,
-    word: item.word,
-  }));
+    return item;
+  });
+
+  Commons.updateQuestion(questions);
+  // 全件削除
+  // await DBHelper().truncateAll(Environment.TABLE_NAME_WORD_IGNORE);
+
+  // const datas = results.Items.map<Tables.TWordIgnore>((item) => ({
+  //   id: Consts.Authority.ADMIN,
+  //   word: item.word,
+  // }));
 
   // 一括登録
-  await DBHelper().bulk(Environment.TABLE_NAME_WORD_IGNORE, datas);
+  // await DBHelper().bulk(Environment.TABLE_NAME_WORD_IGNORE, datas);
 };
