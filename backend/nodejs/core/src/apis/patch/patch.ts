@@ -1,4 +1,4 @@
-import { Environment } from '@consts';
+import { Consts, Environment } from '@consts';
 import { DBHelper, Commons } from '@utils';
 import { Tables } from 'typings';
 
@@ -12,17 +12,9 @@ export default async (): Promise<void> => {
     item.voiceTitle = undefined;
 
     return item;
-  });
+  })
+    .filter((item) => item.subject !== Consts.SUBJECT.MATHS)
+    .filter((item) => item.subject !== Consts.SUBJECT.ENGLISH);
 
   Commons.updateQuestion(questions);
-  // 全件削除
-  // await DBHelper().truncateAll(Environment.TABLE_NAME_WORD_IGNORE);
-
-  // const datas = results.Items.map<Tables.TWordIgnore>((item) => ({
-  //   id: Consts.Authority.ADMIN,
-  //   word: item.word,
-  // }));
-
-  // 一括登録
-  // await DBHelper().bulk(Environment.TABLE_NAME_WORD_IGNORE, datas);
 };
