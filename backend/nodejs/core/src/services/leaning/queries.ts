@@ -61,9 +61,8 @@ export const practiceWithoutToday = (
 ): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
-  KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
-  FilterExpression:
-    '#times = :times and #subject = :subject and NOT (#lastTime = :lastTime1 OR #lastTime = :lastTime2)',
+  KeyConditionExpression: '#userId = :userId AND #nextTime <= :nextTime',
+  FilterExpression: '#times = :times AND #subject = :subject AND #lastTime <> :lastTime1 AND #lastTime <> :lastTime2',
   ExpressionAttributeNames: {
     '#userId': 'userId',
     '#nextTime': 'nextTime',
