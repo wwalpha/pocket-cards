@@ -6,3 +6,4 @@ export * as LearningService from './leaning';
 export * as AbilityService from './ability';
 export * as UserService from './users';
 export * as WordService from './words';
+export * as TraceService from './traces';
