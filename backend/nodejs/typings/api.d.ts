@@ -533,6 +533,55 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
+  // Reports - Daily Status
+  // ------------------------------------------------------------
+  interface DailyStatusResquest {}
+
+  interface DailyStatusQuery {
+    datetime: string;
+    groupId: string;
+    userId: string;
+  }
+
+  type DailyStatusResponseItem = {
+    // question id
+    qid: string;
+    // 問題
+    title: string;
+    // 学習回数(解答前)
+    before: number;
+    // 学習回数(解答後)
+    after: number;
+  };
+
+  interface DailyStatusResponse {
+    items: DailyStatusResponseItem[];
+  }
+
+  // ------------------------------------------------------------
+  // Reports - Overall Status
+  // ------------------------------------------------------------
+  interface OverallStatusResquest {}
+
+  interface OverallStatusQuery {
+    userId: string;
+    groupId: string;
+  }
+
+  type OverallStatusResponseItem = {
+    // question id
+    qid: string;
+    // 回答回数
+    times: number;
+    // 問題
+    title: string;
+  };
+
+  interface OverallStatusResponse {
+    items: OverallStatusResponseItem[];
+  }
+
+  // ------------------------------------------------------------
   // Reports - Leaning Progress
   // ------------------------------------------------------------
   interface LearningProgressRequest {}

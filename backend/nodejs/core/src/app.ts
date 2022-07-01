@@ -14,7 +14,7 @@ import {
   QuestionReview,
   QuestionDescribe,
 } from '@src/apis/questions';
-import { DailyTasks, LearningProgress, LearningOverall, Inquiry } from '@src/apis/reports';
+import { DailyTasks, LearningProgress, LearningOverall, Inquiry, OverallStatus, DailyStatus } from '@src/apis/reports';
 import {
   CurriculumRegist,
   CurriculumList,
@@ -92,6 +92,10 @@ app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, Le
 app.get('/v1/reports/overall', express.json(), (req, res) => entry(req, res, LearningOverall));
 // 問い合わせ
 app.post('/v1/reports/inquiry', express.json(), (req, res) => entry(req, res, Inquiry));
+// 学習進捗
+app.get('/v1/reports/status/overall', express.json(), (req, res) => entry(req, res, OverallStatus));
+// 学習進捗
+app.get('/v1/reports/status/daily', express.json(), (req, res) => entry(req, res, DailyStatus));
 
 // カリキュラム登録
 app.post('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumRegist));

@@ -110,8 +110,8 @@ export const listByGroup = async (groupId: string): Promise<Tables.TLearning[]> 
 };
 
 /** 学習任務一覧 */
-export const listByUser = async (userId: string): Promise<Tables.TLearning[]> => {
-  const results = await DBHelper().query<Tables.TLearning>(Queries.byUserId(userId));
+export const listByUser = async (userId: string, groupId?: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.byUserId(userId, groupId));
 
   return results.Items;
 };
