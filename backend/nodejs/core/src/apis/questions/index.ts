@@ -8,3 +8,4 @@ export { default as QuestionExam } from './exam';
 export { default as QuestionAnswer } from './answer';
 export { default as QuestionIgnore } from './ignore';
 export { default as QuestionReview } from './review';
+export { default as QuestionOrder } from './order';

@@ -138,21 +138,38 @@ export const practice = (userId: string, nextTime: string, subject: string): Dyn
 });
 
 /** Daily Questions */
-export const past = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid, subject, times',
-  KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
-  ExpressionAttributeNames: {
-    '#userId': 'userId',
-    '#nextTime': 'nextTime',
-  },
-  ExpressionAttributeValues: {
-    ':userId': userId,
-    ':nextTime': nextTime,
-  },
-  IndexName: 'gsiIdx1',
-  ScanIndexForward: false,
-});
+export const past = (userId: string, nextTime: string, subject?: string): DynamoDB.DocumentClient.QueryInput => {
+  const query: DynamoDB.DocumentClient.QueryInput = {
+    TableName: Environment.TABLE_NAME_LEARNING,
+    ProjectionExpression: 'qid, groupId, subject, times',
+    KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
+    ExpressionAttributeNames: {
+      '#userId': 'userId',
+      '#nextTime': 'nextTime',
+    },
+    ExpressionAttributeValues: {
+      ':userId': userId,
+      ':nextTime': nextTime,
+    },
+    IndexName: 'gsiIdx1',
+    ScanIndexForward: false,
+  };
+
+  // if exists
+  if (subject) {
+    query.FilterExpression = '#subject = :subject';
+    query.ExpressionAttributeNames = {
+      ...query.ExpressionAttributeNames,
+      '#subject': 'subject',
+    };
+    query.ExpressionAttributeValues = {
+      ...query.ExpressionAttributeValues,
+      ':subject': subject,
+    };
+  }
+
+  return query;
+};
 
 export const current = (userId: string, lastTime: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
@@ -170,18 +187,22 @@ export const current = (userId: string, lastTime: string): DynamoDB.DocumentClie
   IndexName: 'gsiIdx1',
 });
 
-export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid, userId',
-  KeyConditionExpression: '#groupId = :groupId',
-  ExpressionAttributeNames: {
-    '#groupId': 'groupId',
-  },
-  ExpressionAttributeValues: {
-    ':groupId': groupId,
-  },
-  IndexName: 'gsiIdx2',
-});
+export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => {
+  const query: DynamoDB.DocumentClient.QueryInput = {
+    TableName: Environment.TABLE_NAME_LEARNING,
+    ProjectionExpression: 'qid, userId',
+    KeyConditionExpression: '#groupId = :groupId',
+    ExpressionAttributeNames: {
+      '#groupId': 'groupId',
+    },
+    ExpressionAttributeValues: {
+      ':groupId': groupId,
+    },
+    IndexName: 'gsiIdx2',
+  };
+
+  return query;
+};
 
 export const byQuestionId = (questionId: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
@@ -221,8 +242,6 @@ export const byUserId = (userId: string, groupId?: string): DynamoDB.DocumentCli
       ':groupId': groupId,
     };
   }
-
-  console.log(query, groupId);
 
   return query;
 };

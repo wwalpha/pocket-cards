@@ -21,17 +21,59 @@ export const del = (key: Tables.TCurriculumsKey): DynamoDB.DocumentClient.Delete
 });
 
 /** カリキュラム一覧を取得する */
-export const byGuardian = (guardian: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_CURRICULUMS,
-  KeyConditionExpression: '#guardian = :guardian',
-  ExpressionAttributeNames: {
-    '#guardian': 'guardian',
-  },
-  ExpressionAttributeValues: {
-    ':guardian': guardian,
-  },
-  IndexName: 'gsiIdx1',
-});
+export const byGuardian = (guardian: string, subject?: string, userId?: string): DynamoDB.DocumentClient.QueryInput => {
+  const query: DynamoDB.DocumentClient.QueryInput = {
+    TableName: Environment.TABLE_NAME_CURRICULUMS,
+    KeyConditionExpression: '#guardian = :guardian',
+    ExpressionAttributeNames: {
+      '#guardian': 'guardian',
+    },
+    ExpressionAttributeValues: {
+      ':guardian': guardian,
+    },
+    IndexName: 'gsiIdx1',
+  };
+
+  const filter: string[] = [];
+
+  // if subject exists
+  if (subject) {
+    // filter expression item
+    filter.push('#subject = :subject');
+    // expression attribute names
+    query.ExpressionAttributeNames = {
+      ...query.ExpressionAttributeNames,
+      '#subject': 'subject',
+    };
+    // expression attribute values
+    query.ExpressionAttributeValues = {
+      ...query.ExpressionAttributeValues,
+      ':subject': subject,
+    };
+  }
+
+  // if user id exists
+  if (userId) {
+    // filter expression item
+    filter.push('#userId = :userId');
+    // expression attribute names
+    query.ExpressionAttributeNames = {
+      ...query.ExpressionAttributeNames,
+      '#userId': 'userId',
+    };
+    // expression attribute values
+    query.ExpressionAttributeValues = {
+      ...query.ExpressionAttributeValues,
+      ':userId': userId,
+    };
+  }
+
+  if (filter.length > 0) {
+    query.FilterExpression = filter.join(' AND ');
+  }
+
+  return query;
+};
 
 /** カリキュラム一覧を取得する */
 export const byGroupId = (groupId: string, userId?: string): DynamoDB.DocumentClient.QueryInput => {
