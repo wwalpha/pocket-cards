@@ -46,13 +46,12 @@ export const truncate = async (curriculums: Tables.TCurriculums[]): Promise<void
 };
 
 /** 保護者関連のカリキュラム一覧 */
-export const getListByGuardian = async (guardian: string, subject?: string): Promise<Tables.TCurriculums[]> => {
-  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byGuardian(guardian));
-
-  // filter
-  if (subject) {
-    return results.Items.filter((item) => item.subject === subject);
-  }
+export const getListByGuardian = async (
+  guardian: string,
+  subject?: string,
+  userId?: string
+): Promise<Tables.TCurriculums[]> => {
+  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byGuardian(guardian, subject, userId));
 
   return results.Items;
 };

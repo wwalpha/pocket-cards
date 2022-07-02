@@ -406,6 +406,18 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
+  // Question Order
+  // ------------------------------------------------------------
+  interface QuestionOrderQuery {}
+
+  interface QuestionOrderRequest {}
+
+  interface QuestionOrderResponse {
+    count: number;
+    questions: Tables.TQuestions[];
+  }
+
+  // ------------------------------------------------------------
   // Question Describe
   // ------------------------------------------------------------
   interface QuestionDescribeParams {
