@@ -20,7 +20,7 @@ const configs: Configuration = {
   resolve: {
     mainFields: ['browser', 'main', 'module'],
     extensions: ['.ts', '.tsx', '.js'],
-    plugins: [new TsconfigPathsPlugin()],
+    plugins: [new TsconfigPathsPlugin() as any],
     alias: {
       '@mui/base': '@mui/base/modern',
       '@mui/lab': '@mui/lab/modern',
