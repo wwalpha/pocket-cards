@@ -53,8 +53,8 @@ export const listAll = async (): Promise<Tables.TQuestions[]> => {
 };
 
 /** グループの問題一覧取得 */
-export const listByGroup = async (groupId: string): Promise<Tables.TQuestions[]> => {
-  const results = await DBHelper().query<Tables.TQuestions>(Queries.byGroupId(groupId));
+export const listByGroup = async (groupId: string, ...projects: string[]): Promise<Tables.TQuestions[]> => {
+  const results = await DBHelper().query<Tables.TQuestions>(Queries.byGroupId(groupId, projects));
 
   return results.Items;
 };
