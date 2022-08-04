@@ -82,5 +82,5 @@
   },
   "files": ["./typings/index.d.ts"],
   "include": ["./src/**/*", "./test/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/old/*.ts"]
 }

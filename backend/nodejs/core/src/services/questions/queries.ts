@@ -22,14 +22,22 @@ export const del = (key: Tables.TQuestionsKey): DynamoDB.DocumentClient.DeleteIt
   } as Tables.TQuestionsKey,
 });
 
-export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_QUESTIONS,
-  KeyConditionExpression: '#groupId = :groupId',
-  ExpressionAttributeNames: {
-    '#groupId': 'groupId',
-  },
-  ExpressionAttributeValues: {
-    ':groupId': groupId,
-  },
-  IndexName: 'gsiIdx1',
-});
+export const byGroupId = (groupId: string, projects: string[]): DynamoDB.DocumentClient.QueryInput => {
+  const query: DynamoDB.DocumentClient.QueryInput = {
+    TableName: Environment.TABLE_NAME_QUESTIONS,
+    KeyConditionExpression: '#groupId = :groupId',
+    ExpressionAttributeNames: {
+      '#groupId': 'groupId',
+    },
+    ExpressionAttributeValues: {
+      ':groupId': groupId,
+    },
+    IndexName: 'gsiIdx1',
+  };
+
+  if (projects.length > 0) {
+    query.ProjectionExpression = projects.join(',');
+  }
+
+  return query;
+};
