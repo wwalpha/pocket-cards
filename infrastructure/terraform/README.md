@@ -10,21 +10,6 @@
 
 ![Pipeline](./Serverless_Pipeline.png)
 
-## Resources
-
-| Status | Resource ID | Path                           | cors_methods           |
-| ------ | ----------- | ------------------------------ | ---------------------- |
-|        | r001        | /history                       | GET,OPTIONS            |
-|        | r002        | /groups                        | POST,OPTIONS           |
-|        | r003        | /groups/{groupId}              | GET,PUT,DELETE,OPTIONS |
-|        | r004        | /groups/{groupId}/words        | GET,POST,OPTIONS       |
-|        | r005        | /groups/{groupId}/words/{word} | GET,PUT,OPTIONS        |
-|        | r006        | /groups/{groupId}/new          | GET,OPTIONS            |
-|        | r007        | /groups/{groupId}/test         | GET,OPTIONS            |
-|        | r008        | /groups/{groupId}/review       | GET,OPTIONS            |
-|        | r009        | /image2text                    | POST,OPTIONS           |
-|        | r010        | /image2line                    |
-
 ## Methods
 
 | Status | Method ID | Path                           | Resource Id | Http Method | Lambda |
