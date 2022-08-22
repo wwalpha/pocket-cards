@@ -137,7 +137,7 @@ describe('Curriculums', () => {
     expect(res.text).toEqual('No questions in group');
   });
 
-  test.skip('Curriculums07: 英語初回', async () => {
+  test('Curriculums07: 英語初回登録', async () => {
     const apiPath = '/v1/curriculums';
 
     const res = await request(server)
@@ -145,21 +145,20 @@ describe('Curriculums', () => {
       .set('username', HEADER_GUARDIAN)
       .send(CURRICULUMS.CURRI_006_REQ as APIs.CurriculumRegistRequest);
 
-    // status code
-    expect(res.statusCode).toBe(400);
-    expect(res.text).toEqual('No questions in group');
-  });
-
-  test.skip('Curriculums08: 英語２回目', async () => {
-    const apiPath = '/v1/curriculums';
-
-    const res = await request(server)
-      .post(apiPath)
-      .set('username', HEADER_GUARDIAN)
-      .send(CURRICULUMS.CURRI_006_REQ as APIs.CurriculumRegistRequest);
+    const response = res.body as APIs.CurriculumRegistResponse;
 
     // status code
-    expect(res.statusCode).toBe(400);
-    expect(res.text).toEqual('No questions in group');
+    expect(res.statusCode).toBe(200);
+
+    const learning = await LearningService.listByUser(HEADER_USER, 'jzqKogQQw7nvZnrkrQaMWN');
+    const curriculum = await DBHelper().get({
+      TableName: Environment.TABLE_NAME_CURRICULUMS,
+      Key: {
+        id: response.id,
+      } as Tables.TCurriculumsKey,
+    });
+
+    expect(orderBy(learning, 'qid')).toMatchObject(CURRICULUMS.CURRI_006_EXPECT_01);
+    expect(curriculum?.Item).toMatchObject(CURRICULUMS.CURRI_006_EXPECT_02);
   });
 });
