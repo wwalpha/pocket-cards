@@ -4,11 +4,11 @@ import * as path from 'path';
 import { parse } from 'csv-parse/sync';
 import { Tables } from 'typings';
 
-const db_groups: Tables.TGroups[] = [];
-const db_questions: Tables.TQuestions[] = [];
-const db_curriculums: Tables.TCurriculums[] = [];
-const db_learning: Tables.TLearning[] = [];
-const db_ability: Tables.TWeeklyAbility[] = [];
+let db_groups: Tables.TGroups[] = [];
+let db_questions: Tables.TQuestions[] = [];
+let db_curriculums: Tables.TCurriculums[] = [];
+let db_learning: Tables.TLearning[] = [];
+let db_ability: Tables.TWeeklyAbility[] = [];
 
 export const DB_GROUPS = ((): Tables.TGroups[] => {
   if (db_groups.length > 0) return db_groups;
@@ -17,21 +17,42 @@ export const DB_GROUPS = ((): Tables.TGroups[] => {
     columns: true,
   }) as Record<string, string>[];
 
-  return datas.map<Tables.TGroups>((item) => ({
+  db_groups = datas.map<Tables.TGroups>((item) => ({
     id: item['id'] ?? '',
     count: item['count'] ? Number(item['count']) : -1,
     subject: item['subject'] ?? '',
     description: item['description'],
     name: item['name'],
   }));
+
+  return db_groups;
 })();
 
 export const DB_QUESTIONS = (() => {
   if (db_questions.length > 0) return db_questions;
 
-  return parse(fs.readFileSync(path.join(__dirname, './db_questions.csv')), {
+  const datas = parse(fs.readFileSync(path.join(__dirname, './db_questions.csv')), {
     columns: true,
-  }) as Tables.TQuestions[];
+  }) as Record<string, string>[];
+
+  db_questions = datas.map<Tables.TQuestions>((item) => {
+    return {
+      id: item['id'] ?? '',
+      answer: item['answer'] ?? '',
+      groupId: item['groupId'] ?? '',
+      subject: item['subject'] ?? '',
+      title: item['title'] ?? '',
+      voiceAnswer: item['voiceAnswer'] ?? '',
+      voiceTitle: item['voiceTitle'] ?? '',
+      description: item['description'] === '' ? undefined : item['description'],
+      choices:
+        item['choices'] === ''
+          ? undefined
+          : (JSON.parse(item['choices'] ?? '[]') as string[]).map((t) => t[0] as string),
+    };
+  });
+
+  return db_questions;
 })();
 
 export const DB_CURRICULUMS = (() => {
@@ -41,7 +62,7 @@ export const DB_CURRICULUMS = (() => {
     columns: true,
   }) as Record<string, string>[];
 
-  return datas.map<Tables.TCurriculums>((item) => ({
+  db_curriculums = datas.map<Tables.TCurriculums>((item) => ({
     id: item['id'] ?? '',
     groupId: item['groupId'] ?? '',
     guardian: item['guardian'] ?? '',
@@ -50,6 +71,8 @@ export const DB_CURRICULUMS = (() => {
     unlearned: item['unlearned'] ? Number(item['unlearned']) : 0,
     userId: item['userId'] ?? '',
   }));
+
+  return db_curriculums;
 })();
 
 export const DB_LEARNING = (() => {
@@ -59,7 +82,7 @@ export const DB_LEARNING = (() => {
     columns: true,
   }) as Record<string, string>[];
 
-  return datas.map<Tables.TLearning>((item) => ({
+  db_learning = datas.map<Tables.TLearning>((item) => ({
     qid: item['qid'] ?? '',
     groupId: item['groupId'] ?? '',
     nextTime: item['nextTime'] ?? '',
@@ -68,14 +91,18 @@ export const DB_LEARNING = (() => {
     subject: item['subject'],
     times: item['times'] ? Number(item['times']) : 0,
   }));
+
+  return db_learning;
 })();
 
 export const DB_ABILITY = (() => {
   if (db_ability.length > 0) return db_ability;
 
-  return parse(fs.readFileSync(path.join(__dirname, './db_weekly_ability.csv')), {
+  db_ability = parse(fs.readFileSync(path.join(__dirname, './db_weekly_ability.csv')), {
     columns: true,
   }) as Tables.TWeeklyAbility[];
+
+  return db_ability;
 })();
 
 export const USER_GUARDIAN: Tables.TUsers = {

@@ -30,16 +30,9 @@ export default async (
       throw new ValidationError('No questions in group');
     }
 
-    // 英語の場合、
+    // 英語の場合
     if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
-      questions = await Promise.all(
-        questions.filter(async (item) => {
-          return await WordService.isIgnore({
-            id: userId,
-            word: item.title,
-          });
-        })
-      );
+      questions = await getQuestionsForEnglish(guardian, userId, questions);
     }
 
     const dataRows = questions.map<Tables.TLearning>((item) => ({
@@ -103,4 +96,33 @@ export default async (
 
     return response;
   }
+};
+
+/** 英語の単語一覧 */
+const getQuestionsForEnglish = async (guardian: string, userId: string, newQuestions: Tables.TQuestions[]) => {
+  // ユーザのカリキュラム一覧
+  const curriculums = await CurriculumService.getListByGuardian(guardian, Consts.SUBJECT.ENGLISH, userId);
+  // グループ一覧
+  const groups = curriculums.map((item) => item.groupId);
+
+  // group questions
+  const existQuestions = await Promise.all(
+    groups.map(async (item) => await QuestionService.listByGroup(item, 'title'))
+  );
+
+  const words = new Set<string>();
+  // remove duplicate
+  existQuestions.forEach((qg) => qg.forEach((q) => words.add(q.title)));
+
+  const questions = await Promise.all(
+    newQuestions.filter(async (item) => {
+      return await WordService.isIgnore({
+        id: userId,
+        word: item.title,
+      });
+    })
+  );
+
+  // remvoe registed
+  return questions.filter((item) => words.has(item.title) === false);
 };
