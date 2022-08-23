@@ -34,7 +34,6 @@ const card = () => {
 
   const handleTouchStart = () => setShowText(true);
 
-  console.log(rows, history);
   const handleKnown = () => {
     // 正解
     actions.answer(true);
