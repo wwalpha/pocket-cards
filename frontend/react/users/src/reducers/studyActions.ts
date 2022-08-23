@@ -64,7 +64,7 @@ export const STUDY_TEST = createAsyncThunk<WordItem[], void>('study/STUDY_TEST',
 
 export const STUDY_ANSWER = createAsyncThunk<boolean, boolean>(
   'study/STUDY_ANSWER',
-  (correct: boolean, { getState }) => {
+  async (correct: boolean, { getState }) => {
     // request parameter
     const { current } = (getState() as RootState).study;
 
@@ -74,7 +74,7 @@ export const STUDY_ANSWER = createAsyncThunk<boolean, boolean>(
     const param = correct === true ? '1' : '0';
 
     // update question answer
-    API.post<APIs.QuestionAnswerResponse, APIs.QuestionAnswerRequest>(URLs.DAILY_ANSWER(current.id), {
+    await API.post<APIs.QuestionAnswerResponse, APIs.QuestionAnswerRequest>(URLs.DAILY_ANSWER(current.id), {
       correct: param,
     });
 
