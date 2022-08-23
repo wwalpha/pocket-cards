@@ -44,7 +44,7 @@ const card = () => {
     play();
 
     console.log('useEffect');
-  });
+  }, [word]);
 
   const handleTouchStart = () => setShowText(true);
 
