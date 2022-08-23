@@ -4,10 +4,10 @@ import { Actions } from '@reducers';
 import { AppDispatch } from 'typings';
 
 /** テスト回答(YES/NO) */
-export const answer = (correct: boolean) => (dispatch: AppDispatch) => {
-  dispatch(Actions.STUDY_ANSWER(correct)).then(() => {
-    dispatch(Actions.STUDY_CONTINUE());
-  });
+export const answer = (correct: boolean) => async (dispatch: AppDispatch) => {
+  await dispatch(Actions.STUDY_ANSWER(correct));
+
+  await dispatch(Actions.STUDY_CONTINUE());
 };
 
 /** 新規単語学習 */
