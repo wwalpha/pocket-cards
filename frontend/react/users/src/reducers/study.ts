@@ -32,10 +32,9 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addMatcher(isAnyOf(STUDY_PRACTICE.fulfilled, STUDY_TEST.fulfilled), (state, { payload }) => {
-        console.log('payload', payload, state.history);
         // 差分を抽出する
         const differ = differenceBy(payload, state.history, 'id');
-        console.log('differ', differ);
+
         // 足りない単語数を計算する
         const diffNum = Consts.PAGE_MAX_WORDS - state.rows.length;
         // 追加する単語
