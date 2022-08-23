@@ -48,7 +48,8 @@ const slice = createSlice({
         state.current = state.rows[state.index];
       })
       .addMatcher(isAnyOf(STUDY_ANSWER.fulfilled), (state, { payload }) => {
-        if (payload === true) {
+        // 回答正解 / テストモードの場合、対象単語を削除する
+        if (payload === true || state.mode === Consts.MODES.Test) {
           // 回答を除外する
           state.rows = state.rows.filter((item) => item.id !== state.current?.id);
         } else {
