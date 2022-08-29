@@ -72,7 +72,7 @@ app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, 
 // // 画像から単語に変換する
 // app.post('/v1/user/wordignore', express.json(), (req, res) => entry(req, res, D003));
 
-// 問題一括登録
+// 問題無視機能
 app.post('/v1/groups/:groupId/questions/ignore', express.json(), (req, res) => entry(req, res, QuestionIgnore));
 // 問題一括登録
 app.post('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
