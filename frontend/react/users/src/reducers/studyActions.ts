@@ -66,12 +66,17 @@ export const STUDY_ANSWER = createAsyncThunk<boolean, boolean>(
   'study/STUDY_ANSWER',
   async (correct: boolean, { getState }) => {
     // request parameter
-    const { current } = (getState() as RootState).study;
+    const { current, mode } = (getState() as RootState).study;
 
     if (!current) return correct;
 
     // request parameter
     const param = correct === true ? '1' : '0';
+
+    // 学習モード、且つ不正解の場合、サーバ通信しない
+    if (mode === Consts.MODES.Practice && correct !== true) {
+      return correct;
+    }
 
     // update question answer
     await API.post<APIs.QuestionAnswerResponse, APIs.QuestionAnswerRequest>(URLs.DAILY_ANSWER(current.id), {
