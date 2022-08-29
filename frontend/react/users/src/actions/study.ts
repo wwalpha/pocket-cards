@@ -1,13 +1,19 @@
 import { push } from 'connected-react-router';
 import { Consts, ROUTE_PATHS } from '@constants';
 import { Actions } from '@reducers';
-import { AppDispatch } from 'typings';
+import { AppDispatch, WordItem } from 'typings';
 
 /** テスト回答(YES/NO) */
 export const answer = (correct: boolean) => async (dispatch: AppDispatch) => {
   dispatch(Actions.STUDY_ANSWER(correct)).then(() => {
     dispatch(Actions.STUDY_CONTINUE());
   });
+};
+
+/** テスト回答(YES/NO) */
+export const ignore = (item: WordItem) => async (dispatch: AppDispatch) => {
+  // 学習初期化
+  dispatch(Actions.STUDY_INIT(Consts.MODES.Practice));
 };
 
 /** 新規単語学習 */

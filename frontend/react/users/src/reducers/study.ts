@@ -2,7 +2,7 @@ import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
 import differenceBy from 'lodash/differenceBy';
 import { Consts } from '@constants';
 import { Domains } from 'typings';
-import { STUDY_PRACTICE, STUDY_TEST, STUDY_ANSWER } from './studyActions';
+import { STUDY_PRACTICE, STUDY_TEST, STUDY_ANSWER, STUDY_IGNORE } from './studyActions';
 
 const studyState: Domains.StudyState = {
   current: undefined,
@@ -61,49 +61,18 @@ const slice = createSlice({
         }
         // 次の単語
         state.current = state.rows[state.index];
+      })
+      .addMatcher(isAnyOf(STUDY_IGNORE.fulfilled), (state, { payload }) => {
+        state.rows = state.rows.filter((item) => item.id !== state.current?.id);
+
+        // 最後尾確認
+        if (state.index >= state.rows.length) {
+          state.index = 0;
+        }
+
+        // 次の単語
+        state.current = state.rows[state.index];
       });
-
-    // .addMatcher(isAnyOf(STUDY_START.fulfilled, STUDY_TODOS.fulfilled), (state, { payload: { mode, items } }) => {
-    //   // 差分を抽出する
-    //   const differ = differenceBy(items, state.history, 'id');
-    //   // 足りない単語数を計算する
-    //   const diffNum = Consts.PAGE_MAX_WORDS - state.rows.length;
-    //   // 追加する単語
-    //   const added = differ.splice(0, diffNum);
-    //   // 既存配列と合併する
-    //   const newArray = concat(state.rows, added);
-
-    //   // モード変わった、或いは、既存データ存在しない
-    //   state.rows = newArray;
-    //   state.history = concat(state.history, added);
-    //   state.current = state.current ? state.current : newArray[0];
-    //   state.mode = mode;
-    // })
-    // .addMatcher(isAnyOf(STUDY_CONTINUE.fulfilled), (state, { payload: { mode, items } }) => {
-    //   // 差分を抽出する
-    //   const differ = differenceBy(items, state.history, 'id');
-    //   // 足りない単語数を計算する
-    //   const diffNum = Consts.PAGE_MAX_WORDS - state.rows.length;
-    //   // 追加する単語
-    //   const added = differ.splice(0, diffNum);
-    //   // 既存配列と合併する
-    //   const newArray = concat(state.rows, added);
-
-    //   // モード変わった、或いは、既存データ存在しない
-    //   state.rows = newArray;
-    //   state.history = concat(state.history, added);
-    //   state.current = state.current ? state.current : newArray[0];
-    //   state.mode = mode;
-    // })
-    // .addMatcher(isAnyOf(STUDY_IGNORE.fulfilled), (state, { payload }) => {
-    //   // remove first item
-    //   const array = state.rows.filter((item) => item.id !== payload);
-    //   const newIdx = state.index > array.length - 1 ? 0 : state.index;
-
-    //   state.rows = array;
-    //   state.index = newIdx;
-    //   state.current = array[newIdx];
-    // });
   },
 });
 

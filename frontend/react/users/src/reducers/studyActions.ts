@@ -23,13 +23,13 @@ export const STUDY_CONTINUE = createAsyncThunk<void, void>(
   }
 );
 
-export const STUDY_IGNORE = createAsyncThunk<string, string>('study/STUDY_IGNORE', async (word) => {
+export const STUDY_IGNORE = createAsyncThunk<string, WordItem>('study/STUDY_IGNORE', async (item) => {
   // ignore word from study words
-  await API.post<APIs.D003Response, APIs.D003Request>(Consts.D003_URL(), {
-    word,
+  await API.post<APIs.QuestionIgnoreResponse, APIs.QuestionIgnoreRequest>(URLs.STUDY_IGNORE(item.groupId), {
+    qid: item.id,
   });
 
-  return word;
+  return item.question;
 });
 
 // 学習

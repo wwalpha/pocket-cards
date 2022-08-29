@@ -5,7 +5,6 @@ export namespace Domains {
     router: any;
     app: AppState;
     study: StudyState;
-    group: GroupState;
     user: UserState;
   }
 
