@@ -10,10 +10,10 @@ export const answer = (correct: boolean) => async (dispatch: AppDispatch) => {
   });
 };
 
-/** テスト回答(YES/NO) */
+/** 単語無視 */
 export const ignore = (item: WordItem) => async (dispatch: AppDispatch) => {
   // 学習初期化
-  dispatch(Actions.STUDY_INIT(Consts.MODES.Practice));
+  dispatch(Actions.STUDY_IGNORE(item));
 };
 
 /** 新規単語学習 */
