@@ -63,6 +63,17 @@ export const listByGroup = async (groupId: string, userId?: string): Promise<Tab
   return results.Items;
 };
 
+/** グループ対応のカリキュラムを取得する */
+export const queryByGroup = async (groupId: string, userId: string): Promise<Tables.TCurriculums | undefined> => {
+  const results = await DBHelper().query<Tables.TCurriculums>(Queries.byGroupId(groupId, userId));
+
+  if (results.Items.length > 0) {
+    return results.Items[0];
+  }
+
+  return undefined;
+};
+
 /** 未学習のカリキュラム一覧を取得 */
 export const getUnlearned = async (
   guardian: string,
