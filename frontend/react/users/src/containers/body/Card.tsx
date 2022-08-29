@@ -63,6 +63,9 @@ const card = () => {
   const handleIgnore = () => {
     if (!word) return;
 
+    // 単語無視API
+    actions.ignore(word);
+
     // hide text
     setShowText(false);
   };
