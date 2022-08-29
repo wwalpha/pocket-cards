@@ -42,8 +42,6 @@ const card = () => {
     };
 
     play();
-
-    console.log('useEffect');
   }, [word]);
 
   const handleTouchStart = () => setShowText(true);
@@ -52,8 +50,6 @@ const card = () => {
     // 正解
     actions.answer(true);
     setShowText(false);
-
-    // setTimeout(() => play(), 500);
   };
 
   const handleUnknown = () => {
@@ -61,8 +57,6 @@ const card = () => {
     actions.answer(false);
 
     setShowText(false);
-
-    // setTimeout(() => play(), 500);
   };
 
   // 単語無視
@@ -71,9 +65,6 @@ const card = () => {
 
     // hide text
     setShowText(false);
-
-    // play next word's audio
-    // setTimeout(() => play(), 500);
   };
 
   const getButtons = (word?: WordItem) => {
@@ -127,17 +118,6 @@ const card = () => {
 
     return buttons;
   };
-
-  /** 音声再生 */
-  // const play = () => {
-  //   const audio = audioRef.current;
-
-  //   if (!window.location.hostname.startsWith('localhost')) {
-  //     audio && audio.play();
-  //   }
-  // };
-
-  console.log('show');
 
   return (
     <Grid container direction="column" sx={{ height: '100%', position: 'relative' }}>

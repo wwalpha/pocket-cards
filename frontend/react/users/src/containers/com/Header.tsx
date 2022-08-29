@@ -19,7 +19,6 @@ import { RootState } from 'typings';
 const audioRef = React.createRef<HTMLAudioElement>();
 
 const studyState = (state: RootState) => state.study;
-const groupState = (state: RootState) => state.group;
 
 const Search = styled('div')(({ theme: { shape, palette, spacing } }) => ({
   position: 'relative',
@@ -61,7 +60,6 @@ export default () => {
   const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { current } = useSelector(studyState);
-  const { searchWord, groups, activeGroup } = useSelector(groupState);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -104,24 +102,7 @@ export default () => {
               </IconButton>
             );
           })()}
-          <Typography
-            variant="h5"
-            color="inherit"
-            sx={{
-              flexGrow: 1,
-              fontWeight: 600,
-              textAlign: 'center',
-              letterSpacing: ({ spacing }) => spacing(0.25),
-              color: 'common.white',
-            }}>
-            {(() => {
-              if (pathname === ROUTE_PATHS.PATHS_STUDY_CARD) {
-                return groups.find((item) => item.id === activeGroup)?.name;
-              }
 
-              return screen?.title;
-            })()}
-          </Typography>
           {(() => {
             if (pathname === ROUTE_PATHS.PATHS_SETTINGS) {
               return <Button color="inherit">{Consts.VERSION}</Button>;
@@ -162,9 +143,9 @@ export default () => {
                 </IconButton>,
               ];
 
-              if (current) {
-                draw.push(<audio key="replyAudio" ref={audioRef} src={`/${current.voiceTitle}`} />);
-              }
+              // if (current) {
+              //   draw.push(<audio key="replyAudio" ref={audioRef} src={`/${current.voiceTitle}`} />);
+              // }
 
               return draw;
             }

@@ -14,3 +14,6 @@ export const DAILY_PRACTICE = () => `${API_VERSION}/study/daily/practice/questio
 export const DAILY_TEST = () => `${API_VERSION}/study/daily/test/questions?subject=${Consts.SUBJECT.ENGLISH}`;
 // 学習テスト
 export const DAILY_ANSWER = (questionId: string) => `${API_VERSION}/study/daily/test/questions/${questionId}`;
+
+// 単語無視
+export const STUDY_IGNORE = (groupId: string) => `${API_VERSION}/groups/${groupId}/questions/ignore`;
