@@ -31,11 +31,6 @@ export default async (
     throw new ValidationError('Question not found.');
   }
 
-  // learning status not found
-  if (!learning) {
-    throw new ValidationError('Learning infomartion not found.');
-  }
-
   // Curriculum not found
   if (!curriculum) {
     throw new ValidationError('Curriculum not found.');
@@ -56,7 +51,7 @@ export default async (
   ];
 
   // 未学習の場合
-  if (learning.lastTime === Consts.INITIAL_DATE) {
+  if (learning?.lastTime === Consts.INITIAL_DATE) {
     tasks.push(CurriculumService.updateUnlearned(curriculum.id, -1));
   }
 
