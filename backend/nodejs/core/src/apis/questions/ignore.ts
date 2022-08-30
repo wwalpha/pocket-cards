@@ -31,18 +31,12 @@ export default async (
     throw new ValidationError('Question not found.');
   }
 
-  // Curriculum not found
-  if (!curriculum) {
-    throw new ValidationError('Curriculum not found.');
-  }
-
   const tasks = [
     // グループの問題数を調整する
     GroupService.minusCount(groupId, 1),
     // 問題を削除する
     QuestionService.remove(question.id),
-    // 学習状況を削除する
-    LearningService.remove(qid, userId),
+
     // 単語無視に登録する
     WordService.registIgnore({
       id: Consts.Authority.ADMIN,
@@ -50,9 +44,15 @@ export default async (
     }),
   ];
 
-  // 未学習の場合
-  if (learning?.lastTime === Consts.INITIAL_DATE) {
-    tasks.push(CurriculumService.updateUnlearned(curriculum.id, -1));
+  // 学習進捗ある場合
+  if (learning) {
+    // 学習状況を削除する
+    tasks.push(LearningService.remove(qid, userId));
+
+    // 未学習の場合
+    if (learning.lastTime === Consts.INITIAL_DATE && curriculum) {
+      tasks.push(CurriculumService.updateUnlearned(curriculum.id, -1));
+    }
   }
 
   // 単語削除、無視単語の追加
