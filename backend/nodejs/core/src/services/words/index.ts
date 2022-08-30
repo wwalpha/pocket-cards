@@ -19,6 +19,18 @@ export const describe = async (id: string): Promise<Tables.TWordMaster> => {
   return await registNewword(id);
 };
 
+/** 問題詳細更新 */
+export const update = async (item: Tables.TWordMaster): Promise<void> => {
+  const question = await describe(item.id);
+
+  // if exists
+  if (!question) {
+    throw new Error(`Question not exists. ${item.id}`);
+  }
+
+  await DBHelper().put(Queries.put(item));
+};
+
 const registNewword = async (id: string): Promise<Tables.TWordMaster> => {
   const newword = Commons.getOriginal(id);
 
