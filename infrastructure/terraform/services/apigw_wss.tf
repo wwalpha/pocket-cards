@@ -77,3 +77,13 @@ resource "aws_apigatewayv2_api_mapping" "wss" {
   stage           = aws_apigatewayv2_stage.wss.id
   api_mapping_key = "v1"
 }
+
+# ---------------------------------------------------------------------------------------------
+# API Gateway VPC Link
+# ---------------------------------------------------------------------------------------------
+resource "aws_api_gateway_vpc_link" "wss" {
+  name        = "${local.project_name}-wss"
+  target_arns = [aws_lb.vpc_link[0].arn]
+
+  count = local.is_dev_only
+}

@@ -369,3 +369,27 @@ resource "aws_dynamodb_table" "weekly_ability" {
     Project = local.project_name_uc
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - WSS connections
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "wss" {
+  name         = local.dynamodb_name_wss_connections
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+  range_key    = "connId"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  attribute {
+    name = "connId"
+    type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
+  }
+}

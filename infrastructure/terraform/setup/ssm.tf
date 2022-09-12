@@ -121,3 +121,19 @@ resource "aws_ssm_parameter" "repo_url_auth" {
     ]
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Repository URL (WSS)
+# ----------------------------------------------------------------------------------------------
+resource "aws_ssm_parameter" "repo_url_wss" {
+  name      = "/${var.project_name}/repository_url/wss"
+  type      = "String"
+  value     = "${module.ecr_repo_wss.repository_url}:latest"
+  overwrite = true
+
+  lifecycle {
+    ignore_changes = [
+      value
+    ]
+  }
+}

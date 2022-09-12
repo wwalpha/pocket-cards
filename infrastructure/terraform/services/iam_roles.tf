@@ -309,6 +309,27 @@ resource "aws_iam_role_policy_attachment" "ecs_task_users_ses" {
   policy_arn = aws_iam_policy.ses_basic.arn
 }
 
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "wss_task_wss" {
+  name               = "${local.project_name_uc}_ECSTask_WssRole"
+  assume_role_policy = data.aws_iam_policy_document.ecs_task_role_policy.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy - CloudWatch Basic Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "ecs_task_wss_cloudwatch" {
+  role       = aws_iam_role.wss_task_wss.name
+  policy_arn = aws_iam_policy.cloudwatch_logs_basic.arn
+}
+
 # ----------------------------------------------------------------------------------------------
 # AWS ECS Task Role - Backup
 # ----------------------------------------------------------------------------------------------
