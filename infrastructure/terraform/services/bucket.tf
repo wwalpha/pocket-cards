@@ -46,6 +46,24 @@ EOT
 }
 
 # ----------------------------------------------------------------------------------------------
+# WSS Service Environment file
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "wss" {
+  bucket  = local.bucket_name_archive
+  key     = "envs/wss.env"
+  content = <<EOT
+ENDPOINT_USER_SERVICE=http://${aws_service_discovery_service.users.name}.${aws_service_discovery_private_dns_namespace.this.name}:8080
+EOT
+
+  lifecycle {
+    ignore_changes = [
+      content
+    ]
+  }
+}
+
+
+# ----------------------------------------------------------------------------------------------
 # S3 Object - API Gateway Authorizer
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_object" "lambda_authorizer" {
