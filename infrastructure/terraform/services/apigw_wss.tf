@@ -83,7 +83,7 @@ resource "aws_apigatewayv2_api_mapping" "wss" {
 # ---------------------------------------------------------------------------------------------
 resource "aws_api_gateway_vpc_link" "wss" {
   name        = "${local.project_name}-wss"
-  target_arns = [aws_lb.vpc_link[0].arn]
+  target_arns = [aws_lb.wss[0].arn]
 
   count = local.is_dev_only
 }

@@ -2,7 +2,7 @@
 # ECS Service - Users Service
 # ----------------------------------------------------------------------------------------------
 resource "aws_ecs_service" "wss" {
-  depends_on = [aws_ecs_cluster.this]
+  depends_on = [aws_ecs_cluster.this, aws_lb_listener.wss]
 
   name                               = "wss_manager"
   cluster                            = aws_ecs_cluster.this.id
@@ -37,6 +37,12 @@ resource "aws_ecs_service" "wss" {
     security_groups  = [aws_security_group.ecs_default_sg.id]
   }
 
+  load_balancer {
+    target_group_arn = aws_lb_target_group.wss[0].arn
+    container_name   = local.task_def_family_wss
+    container_port   = 8080
+  }
+
   service_registries {
     registry_arn = aws_service_discovery_service.users.arn
     port         = 8080
@@ -59,7 +65,7 @@ resource "aws_ecs_service" "wss" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_ecs_task_definition" "wss" {
   family             = local.task_def_family_wss
-  task_role_arn      = aws_iam_role.ecs_task_users.arn
+  task_role_arn      = aws_iam_role.ecs_task_wss.arn
   execution_role_arn = aws_iam_role.ecs_task_exec.arn
   network_mode       = "awsvpc"
   cpu                = "256"
@@ -73,10 +79,10 @@ resource "aws_ecs_task_definition" "wss" {
     "taskdefs/definition.tpl",
     {
       aws_region      = local.region
-      container_name  = local.task_def_family_users
-      container_image = "${local.repo_url_users}:latest"
+      container_name  = local.task_def_family_wss
+      container_image = "${local.repo_url_wss}:latest"
       container_port  = 8080
-      env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.users.key}"
+      env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.wss.key}"
       # healthCheck     = "curl -f http://127.0.0.1:8080/v1/users/health || exit 1"
     }
   )
