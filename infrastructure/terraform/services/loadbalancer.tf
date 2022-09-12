@@ -1,3 +1,17 @@
+# ----------------------------------------------------------------------------------------------
+# Network Load Balancer - VPC Link
+# ----------------------------------------------------------------------------------------------
+resource "aws_lb" "vpc_link" {
+  name               = "${local.project_name}-vpc-link"
+  internal           = true
+  load_balancer_type = "network"
+  subnets            = local.vpc_subnets
+
+  enable_deletion_protection = false
+
+  count = local.is_dev_only
+}
+
 # # ----------------------------------------------------------------------------------------------
 # # Application Load Balancer
 # # ----------------------------------------------------------------------------------------------

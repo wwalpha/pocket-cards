@@ -5,6 +5,7 @@ locals {
   environment  = terraform.workspace
   is_dev       = local.environment == "dev"
   is_dev_count = local.is_dev ? 0 : 1
+  is_dev_only  = local.environment == "dev" ? 1 : 0
   remote_setup = data.terraform_remote_state.setup.outputs
   account_id   = data.aws_caller_identity.this.account_id
   region       = data.aws_region.this.name
@@ -26,9 +27,11 @@ locals {
   task_def_family_backend = "${local.project_name}-backend"
   task_def_family_users   = "${local.project_name}-users"
   task_def_family_auth    = "${local.project_name}-auth"
+  task_def_family_wss     = "${local.project_name}-wss"
   task_def_rev            = max(aws_ecs_task_definition.this.revision, data.aws_ecs_task_definition.backend.revision)
   task_def_rev_users      = max(aws_ecs_task_definition.users.revision, data.aws_ecs_task_definition.users.revision)
   task_def_rev_auth       = max(aws_ecs_task_definition.auth.revision, data.aws_ecs_task_definition.auth.revision)
+  task_def_rev_wss        = max(aws_ecs_task_definition.wss.revision, data.aws_ecs_task_definition.wss.revision)
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -74,6 +77,7 @@ locals {
   repo_url_batch   = local.remote_setup.repo_url_batch
   repo_url_auth    = local.remote_setup.repo_url_auth
   repo_url_users   = local.remote_setup.repo_url_users
+  repo_url_wss     = local.remote_setup.repo_url_wss
 
   # ----------------------------------------------------------------------------------------------
   # S3 Bucket
@@ -142,6 +146,14 @@ data "aws_ecs_task_definition" "users" {
 data "aws_ecs_task_definition" "auth" {
   depends_on      = [aws_ecs_task_definition.auth]
   task_definition = aws_ecs_task_definition.auth.family
+}
+
+# ----------------------------------------------------------------------------------------------
+# ECS Task Definition - WSS
+# ----------------------------------------------------------------------------------------------
+data "aws_ecs_task_definition" "wss" {
+  depends_on      = [aws_ecs_task_definition.wss]
+  task_definition = aws_ecs_task_definition.wss.family
 }
 
 # ----------------------------------------------------------------------------------------------
