@@ -39,3 +39,17 @@ data "aws_iam_policy_document" "backup" {
     }
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS IAM Policy Document - AWS Backup
+# ----------------------------------------------------------------------------------------------
+data "aws_iam_policy_document" "apigw" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["apigateway.amazonaws.com"]
+    }
+  }
+}

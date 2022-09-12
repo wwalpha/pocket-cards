@@ -349,3 +349,18 @@ resource "aws_iam_role_policy_attachment" "webhook_policy" {
   role       = aws_iam_role.webhook.name
   policy_arn = local.lambda_basic_policy_arn
 }
+
+# ----------------------------------------------------------------------------------------------
+# API Gateway Role - WSS
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "wss" {
+  name               = "${local.project_name_uc}_APIGW_WSSRole"
+  assume_role_policy = data.aws_iam_policy_document.apigw.json
+  managed_policy_arns = [
+    "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+  ]
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
