@@ -64,6 +64,7 @@ locals {
   # ----------------------------------------------------------------------------------------------
   apigw_id                     = local.remote_services.api_gateway_id
   apigw_id_admin               = local.remote_services.api_gateway_id_admin
+  apigw_id_wss                 = local.remote_services.api_gateway_id_wss
   apigw_authorizer_id_cognito  = local.remote_services.apigw_authorizer_id_cognito
   apigw_authorizer_id_lambda   = local.remote_services.apigw_authorizer_id_lambda
   apigw_authorizer_id_admin    = local.remote_services.api_gateway_authorizer_id_admin
@@ -85,9 +86,9 @@ locals {
   bucket_name_frontend  = local.remote_setup.bucket_name_frontend
   bucket_name_materials = local.remote_setup.bucket_name_materials
 
-  bucket_key_lambda_wss_connect = "lambda/wss_connect.zip"
+  bucket_key_lambda_wss_connect    = "lambda/wss_connect.zip"
   bucket_key_lambda_wss_disconnect = "lambda/wss_disconnect.zip"
-  bucket_key_lambda_wss_commands = "lambda/wss_commands.zip"
+  bucket_key_lambda_wss_commands   = "lambda/wss_commands.zip"
 
   # ----------------------------------------------------------------------------------------------
   # SSM
@@ -154,6 +155,14 @@ data "aws_ecs_service" "users" {
 data "aws_apigatewayv2_api" "admin" {
   api_id = local.apigw_id_admin
 }
+
+# ----------------------------------------------------------------------------------------------
+# APIGateway - Admin
+# ----------------------------------------------------------------------------------------------
+data "aws_apigatewayv2_api" "wss" {
+  api_id = local.apigw_id_wss
+}
+
 
 # ----------------------------------------------------------------------------------------------
 # SSM Parameter - IPA URL

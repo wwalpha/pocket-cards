@@ -149,3 +149,33 @@ resource "aws_iam_role_policy_attachment" "vision_s3_readonly" {
   role       = aws_iam_role.vision.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - WSS Connect
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "wss" {
+  name               = "${local.project_name_uc}_Lambda_WSSRole"
+  assume_role_policy = data.aws_iam_policy_document.lambda.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - Lambda basic policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "wss_basic" {
+  role       = aws_iam_role.wss.name
+  policy_arn = local.lambda_basic_policy_arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - Dynamodb Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "wss_dynamodb" {
+  role       = aws_iam_role.wss.name
+  policy_arn = local.iam_policy_arn_dynamodb
+}
+
+
