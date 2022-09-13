@@ -124,6 +124,52 @@ resource "aws_s3_object" "lambda_vision" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda wss connect module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_wss_connect" {
+  bucket = local.bucket_name_archive
+  key    = local.bucket_key_lambda_wss_connect
+  source = data.archive_file.lambda_default.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda wss disconnect module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_wss_disconnect" {
+  bucket = local.bucket_name_archive
+  key    = local.bucket_key_lambda_wss_disconnect
+  source = data.archive_file.lambda_default.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda wss commands module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_wss_commands" {
+  bucket = local.bucket_name_archive
+  key    = local.bucket_key_lambda_wss_commands
+  source = data.archive_file.lambda_default.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+
+# ----------------------------------------------------------------------------------------------
 # Archive file - Lambda default module
 # ----------------------------------------------------------------------------------------------
 data "archive_file" "lambda_default" {

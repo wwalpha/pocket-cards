@@ -57,6 +57,7 @@ locals {
   dynamodb_name_curriculums    = local.remote_setup.dynamodb_name_curriculums
   dynamodb_name_reports        = local.remote_setup.dynamodb_name_reports
   dynamodb_name_weekly_ability = local.remote_setup.dynamodb_name_weekly_ability
+  dynamodb_name_wss            = local.remote_setup.dynamodb_name_wss
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -83,6 +84,10 @@ locals {
   bucket_name_archive   = local.remote_setup.bucket_name_archive
   bucket_name_frontend  = local.remote_setup.bucket_name_frontend
   bucket_name_materials = local.remote_setup.bucket_name_materials
+
+  bucket_key_lambda_wss_connect = "lambda/wss_connect.zip"
+  bucket_key_lambda_wss_disconnect = "lambda/wss_disconnect.zip"
+  bucket_key_lambda_wss_commands = "lambda/wss_commands.zip"
 
   # ----------------------------------------------------------------------------------------------
   # SSM
