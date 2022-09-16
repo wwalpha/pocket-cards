@@ -209,26 +209,17 @@ const buildWSSAuthPolicy = async (
 
   switch (authority) {
     case 'TENANT_ADMIN':
-      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/admin/*');
-      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups');
-      policy.allowMethod(AuthPolicy.HttpVerb.POST, '/groups');
-      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/groups/*');
+      policy.allowAllMethods();
+      break;
 
-      break;
     case 'PARENT':
-      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups');
-      policy.allowMethod(AuthPolicy.HttpVerb.DELETE, '/groups/*');
-      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups/*/questions');
-      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/curriculums');
-      policy.allowMethod(AuthPolicy.HttpVerb.POST, '/curriculums');
-      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/curriculums/*');
-      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/users/*');
-      policy.allowMethod(AuthPolicy.HttpVerb.POST, '/study/weekly');
-      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/study/weekly/*');
+      policy.allowAllMethods();
       break;
+
     case 'STUDENT':
       policy.allowAllMethods();
       break;
+
     default:
       policy.denyAllMethods();
   }
