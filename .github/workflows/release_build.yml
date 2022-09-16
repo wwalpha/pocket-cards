@@ -103,14 +103,26 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  Lambda_Authorizer:
+  Lambda_AuthorizerV1:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
       region: us-east-1
-      working-directory: backend/nodejs/lambda/authorizer
+      working-directory: backend/nodejs/lambda/authorizer_v1
       environment: prod
       outputs-bucket: pkc-archive-af2a18
-      function-name: authorizer
+      function-name: authorizer-v1
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  Lambda_AuthorizerV2:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/lambda/authorizer_v2
+      environment: prod
+      outputs-bucket: pkc-archive-af2a18
+      function-name: authorizer-v2
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -147,6 +159,42 @@ jobs:
       environment: prod
       outputs-bucket: pkc-archive-af2a18
       function-name: stop
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  WSS_Connect:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/lambda/wss_connect
+      environment: prod
+      outputs-bucket: pkc-archive-af2a18
+      function-name: wss_connect
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  WSS_Disconnect:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/lambda/wss_disconnect
+      environment: prod
+      outputs-bucket: pkc-archive-af2a18
+      function-name: wss_disconnect
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  WSS_Commands:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/lambda/wss_commands
+      environment: prod
+      outputs-bucket: pkc-archive-af2a18
+      function-name: wss_commands
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
