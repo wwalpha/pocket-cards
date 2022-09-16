@@ -20,5 +20,5 @@ resource "aws_apigatewayv2_authorizer" "wss" {
   api_id           = aws_apigatewayv2_api.wss.id
   authorizer_type  = "REQUEST"
   authorizer_uri   = aws_lambda_function.authorizer.invoke_arn
-  identity_sources = ["route.request.header.Authorization"]
+  identity_sources = ["route.request.querystring.Authorization"]
 }
