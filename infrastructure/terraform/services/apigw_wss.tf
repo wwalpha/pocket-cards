@@ -8,30 +8,16 @@ resource "aws_apigatewayv2_api" "wss" {
 }
 
 # ---------------------------------------------------------------------------------------------
-# API Gateway Authorizer
-# ---------------------------------------------------------------------------------------------
-# resource "aws_apigatewayv2_authorizer" "wss" {
-#   api_id           = aws_apigatewayv2_api.wss.id
-#   authorizer_type  = "REQUEST"
-#   identity_sources = ["$request.header.Authorization"]
-#   name             = "Cognito"
-
-#   jwt_configuration {
-#     audience = [
-#       aws_cognito_user_pool_client.this.id,
-#       aws_cognito_user_pool_client.ios.id
-#     ]
-#     issuer = "https://${aws_cognito_user_pool.this.endpoint}"
-#   }
-# }
-
-# ---------------------------------------------------------------------------------------------
 # API Gateway Stage
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_stage" "wss" {
-  api_id      = aws_apigatewayv2_api.wss.id
-  name        = "v1"
-  auto_deploy = true
+  api_id = aws_apigatewayv2_api.wss.id
+  name   = "v1"
+
+  default_route_settings {
+    throttling_burst_limit = 100
+    throttling_rate_limit  = 100
+  }
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.wss.arn

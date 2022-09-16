@@ -68,7 +68,7 @@ EOT
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_object" "lambda_authorizer_v2" {
   bucket = local.bucket_name_archive
-  key    = "lambda/authorizer_v2.zip"
+  key    = "lambda/authorizer-v2.zip"
   source = data.archive_file.lambda_authorizer.output_path
 
   lifecycle {
@@ -83,7 +83,7 @@ resource "aws_s3_object" "lambda_authorizer_v2" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_object" "lambda_authorizer_v1" {
   bucket = local.bucket_name_archive
-  key    = "lambda/authorizer_v1.zip"
+  key    = "lambda/authorizer-v1.zip"
   source = data.archive_file.lambda_authorizer.output_path
 
   lifecycle {
