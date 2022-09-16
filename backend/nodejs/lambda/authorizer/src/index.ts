@@ -1,5 +1,9 @@
 import { DynamoDB } from 'aws-sdk';
-import { APIGatewayAuthorizerResult, APIGatewayRequestAuthorizerEventV2, Context } from 'aws-lambda';
+import {
+  APIGatewayAuthorizerResult,
+  APIGatewayEventRequestContextV2,
+  APIGatewayRequestAuthorizerEventV2,
+} from 'aws-lambda';
 import { JwtPayload } from 'jsonwebtoken';
 import winston from 'winston';
 import omit from 'lodash/omit';
@@ -82,22 +86,44 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
 
     // principalId
     const principalId = payload['cognito:username'];
-
-    const policy = await buildAuthPolicy(event, principalId);
-
-    // transform informations to backend
-    policy.context = {
-      userId: principalId,
-    };
+    // policy
+    const policy = await getPolicy(event, principalId);
 
     console.log(JSON.stringify(policy));
 
     return policy;
   } catch (err) {
-    Logger.error(err);
+    console.log(err);
 
     return authorizationFailure();
   }
+};
+
+/** get user policy */
+const getPolicy = async (
+  event: APIGatewayRequestAuthorizerEventV2,
+  principalId: string
+): Promise<APIGatewayAuthorizerResult> => {
+  let policy: APIGatewayAuthorizerResult = {
+    principalId: '*',
+    policyDocument: {
+      Version: '*',
+      Statement: [],
+    },
+  };
+
+  // websocket
+  if (event.headers?.['Sec-WebSocket-Key'] !== undefined) {
+    policy = await buildWSSAuthPolicy(event.requestContext, principalId);
+  }
+
+  policy = await buildAuthPolicy(event, principalId);
+
+  policy.context = {
+    userId: principalId,
+  };
+
+  return policy;
 };
 
 /**
@@ -121,6 +147,61 @@ const buildAuthPolicy = async (
   apiOptions.stage = stage;
 
   const policy = new AuthPolicy(principalId, accountId, apiOptions);
+  const authority = await getUserRole(principalId);
+
+  console.log('authority', authority);
+  console.log('principalId', principalId);
+
+  switch (authority) {
+    case 'TENANT_ADMIN':
+      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/admin/*');
+      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups');
+      policy.allowMethod(AuthPolicy.HttpVerb.POST, '/groups');
+      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/groups/*');
+
+      break;
+    case 'PARENT':
+      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups');
+      policy.allowMethod(AuthPolicy.HttpVerb.DELETE, '/groups/*');
+      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups/*/questions');
+      policy.allowMethod(AuthPolicy.HttpVerb.GET, '/curriculums');
+      policy.allowMethod(AuthPolicy.HttpVerb.POST, '/curriculums');
+      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/curriculums/*');
+      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/users/*');
+      policy.allowMethod(AuthPolicy.HttpVerb.POST, '/study/weekly');
+      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/study/weekly/*');
+      break;
+    case 'STUDENT':
+      policy.allowAllMethods();
+      break;
+    default:
+      policy.denyAllMethods();
+  }
+
+  return policy.build();
+};
+
+/**
+ * Build IAM Policy
+ *
+ * @param event event
+ * @param principalId user id
+ * @returns
+ */
+const buildWSSAuthPolicy = async (
+  context: APIGatewayEventRequestContextV2,
+  principalId: string
+): Promise<APIGatewayAuthorizerResult> => {
+  const apiOptions: ApiOptions = {};
+  const infos = context.domainName.split('.');
+  const region = infos[2];
+  const { apiId, stage } = context;
+
+  apiOptions.region = region;
+  apiOptions.restApiId = apiId;
+  apiOptions.stage = stage;
+
+  const policy = new AuthPolicy(principalId, '*', apiOptions);
   const authority = await getUserRole(principalId);
 
   console.log('authority', authority);
