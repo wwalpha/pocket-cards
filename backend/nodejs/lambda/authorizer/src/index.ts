@@ -24,7 +24,20 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
   Logger.info('event', omit(event, ['identitySource', 'headers.authorization']));
 
   // authorizator token
-  const identitySource = event.identitySource[0];
+  let identitySource: string | undefined = undefined;
+
+  // websocket
+  if (event.headers?.['Sec-WebSocket-Key'] !== undefined) {
+    identitySource = event.queryStringParameters?.['Authorization'];
+  } else {
+    // http api
+    identitySource = event.identitySource[0];
+  }
+
+  // validation
+  if (!identitySource) {
+    return authorizationFailure();
+  }
 
   // if (event.headers['x-api-key']) {
   //   if (API_KEYS.length === 0) {
