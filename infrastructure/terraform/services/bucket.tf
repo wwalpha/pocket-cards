@@ -66,9 +66,24 @@ EOT
 # ----------------------------------------------------------------------------------------------
 # S3 Object - API Gateway Authorizer
 # ----------------------------------------------------------------------------------------------
-resource "aws_s3_object" "lambda_authorizer" {
+resource "aws_s3_object" "lambda_authorizer_v2" {
   bucket = local.bucket_name_archive
-  key    = "lambda/authorizer.zip"
+  key    = "lambda/authorizer_v2.zip"
+  source = data.archive_file.lambda_authorizer.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# S3 Object - API Gateway Authorizer
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_authorizer_v1" {
+  bucket = local.bucket_name_archive
+  key    = "lambda/authorizer_v1.zip"
   source = data.archive_file.lambda_authorizer.output_path
 
   lifecycle {

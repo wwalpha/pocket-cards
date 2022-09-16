@@ -59,14 +59,26 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  Authorizer:
+  AuthorizerV1:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
       region: ap-northeast-1
-      working-directory: backend/nodejs/lambda/authorizer
+      working-directory: backend/nodejs/lambda/authorizer_v1
       environment: dev
       outputs-bucket: pkc-archive-376965
-      function-name: authorizer
+      function-name: authorizer-v1
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  AuthorizerV2:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: ap-northeast-1
+      working-directory: backend/nodejs/lambda/authorizer_v2
+      environment: dev
+      outputs-bucket: pkc-archive-376965
+      function-name: authorizer-v2
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
