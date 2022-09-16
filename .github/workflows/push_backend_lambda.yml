@@ -1,4 +1,4 @@
-name: PUSH_B) Lambda Build2
+name: PUSH_B) Lambda Build
 
 on:
   push:
