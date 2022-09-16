@@ -28,20 +28,7 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
   Logger.info('event', omit(event, ['identitySource', 'headers.authorization']));
 
   // authorizator token
-  let identitySource: string | undefined = undefined;
-
-  // websocket
-  if (event.headers?.['Sec-WebSocket-Key'] !== undefined) {
-    identitySource = event.queryStringParameters?.['Authorization'];
-  } else {
-    // http api
-    identitySource = event.identitySource[0];
-  }
-
-  // validation
-  if (!identitySource) {
-    return authorizationFailure();
-  }
+  const identitySource: string = event.identitySource[0];
 
   // if (event.headers['x-api-key']) {
   //   if (API_KEYS.length === 0) {
@@ -87,7 +74,11 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
     // principalId
     const principalId = payload['cognito:username'];
     // policy
-    const policy = await getPolicy(event, principalId);
+    const policy = await buildAuthPolicy(event, principalId);
+
+    policy.context = {
+      userId: principalId,
+    };
 
     console.log(JSON.stringify(policy));
 
@@ -97,33 +88,6 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
 
     return authorizationFailure();
   }
-};
-
-/** get user policy */
-const getPolicy = async (
-  event: APIGatewayRequestAuthorizerEventV2,
-  principalId: string
-): Promise<APIGatewayAuthorizerResult> => {
-  let policy: APIGatewayAuthorizerResult = {
-    principalId: '*',
-    policyDocument: {
-      Version: '*',
-      Statement: [],
-    },
-  };
-
-  // websocket
-  if (event.headers?.['Sec-WebSocket-Key'] !== undefined) {
-    policy = await buildWSSAuthPolicy(event.requestContext, principalId);
-  } else {
-    policy = await buildAuthPolicy(event, principalId);
-  }
-
-  policy.context = {
-    userId: principalId,
-  };
-
-  return policy;
 };
 
 /**
@@ -174,52 +138,6 @@ const buildAuthPolicy = async (
     case 'STUDENT':
       policy.allowAllMethods();
       break;
-    default:
-      policy.denyAllMethods();
-  }
-
-  return policy.build();
-};
-
-/**
- * Build IAM Policy
- *
- * @param context context
- * @param principalId user id
- * @returns
- */
-const buildWSSAuthPolicy = async (
-  context: APIGatewayEventRequestContextV2,
-  principalId: string
-): Promise<APIGatewayAuthorizerResult> => {
-  const apiOptions: ApiOptions = {};
-  const infos = context.domainName.split('.');
-  const region = infos[2];
-  const { apiId, stage } = context;
-
-  apiOptions.region = region;
-  apiOptions.restApiId = apiId;
-  apiOptions.stage = stage;
-
-  const policy = new AuthPolicy(principalId, '*', apiOptions);
-  const authority = await getUserRole(principalId);
-
-  console.log('authority', authority);
-  console.log('principalId', principalId);
-
-  switch (authority) {
-    case 'TENANT_ADMIN':
-      policy.allowAllMethods();
-      break;
-
-    case 'PARENT':
-      policy.allowAllMethods();
-      break;
-
-    case 'STUDENT':
-      policy.allowAllMethods();
-      break;
-
     default:
       policy.denyAllMethods();
   }
