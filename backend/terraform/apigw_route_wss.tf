@@ -2,8 +2,10 @@
 # API Gateway Route - $connect
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_route" "wss_connect" {
-  api_id    = local.apigw_id_wss
-  route_key = "$connect"
+  api_id             = local.apigw_id_wss
+  route_key          = "$connect"
+  authorization_type = "CUSTOM"
+  authorizer_id      = local.apigw_authorizer_id_wss
 
   target = "integrations/${aws_apigatewayv2_integration.wss_connect.id}"
 }
