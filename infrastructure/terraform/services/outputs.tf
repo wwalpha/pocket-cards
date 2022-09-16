@@ -230,10 +230,17 @@ output "lambda_source_key_cognito_post_signup" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Lambda source key - API Gateway Authorizer
+# Lambda source key - API Gateway Authorizer v2
 # ----------------------------------------------------------------------------------------------
-output "lambda_source_key_authorizer" {
-  value = aws_s3_object.lambda_authorizer.key
+output "lambda_source_key_authorizer_v2" {
+  value = aws_s3_object.lambda_authorizer_v2.key
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda source key - API Gateway Authorizer v1
+# ----------------------------------------------------------------------------------------------
+output "lambda_source_key_authorizer_v1" {
+  value = aws_s3_object.lambda_authorizer_v1.key
 }
 
 # ----------------------------------------------------------------------------------------------

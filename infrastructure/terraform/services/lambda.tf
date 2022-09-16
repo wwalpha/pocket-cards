@@ -41,13 +41,13 @@ resource "aws_lambda_permission" "cognito_users" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Lambda Function - Authorizer
+# Lambda Function - Authorizer v2
 # ----------------------------------------------------------------------------------------------
-resource "aws_lambda_function" "authorizer" {
-  function_name     = "${local.project_name}-authorizer"
+resource "aws_lambda_function" "authorizer_v2" {
+  function_name     = "${local.project_name}-authorizer-v2"
   s3_bucket         = local.bucket_name_archive
-  s3_key            = aws_s3_object.lambda_authorizer.key
-  s3_object_version = aws_s3_object.lambda_authorizer.version_id
+  s3_key            = aws_s3_object.lambda_authorizer_v2.key
+  s3_object_version = aws_s3_object.lambda_authorizer_v2.version_id
   handler           = local.lambda_handler
   runtime           = local.lambda_runtime
   memory_size       = 1024
@@ -64,11 +64,26 @@ resource "aws_lambda_function" "authorizer" {
 # ----------------------------------------------------------------------------------------------
 # Lambda Permission - Authorizer
 # ----------------------------------------------------------------------------------------------
-resource "aws_lambda_permission" "authorizer" {
+resource "aws_lambda_permission" "authorizer_v2" {
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.authorizer.function_name
+  function_name = aws_lambda_function.authorizer_v2.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.this.execution_arn}/authorizers/${aws_apigatewayv2_authorizer.auth.id}"
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Function - Authorizer v1
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_function" "authorizer_v1" {
+  function_name     = "${local.project_name}-authorizer-v1"
+  s3_bucket         = local.bucket_name_archive
+  s3_key            = aws_s3_object.lambda_authorizer_v1.key
+  s3_object_version = aws_s3_object.lambda_authorizer_v1.version_id
+  handler           = local.lambda_handler
+  runtime           = local.lambda_runtime
+  memory_size       = 256
+  role              = aws_iam_role.authorizer.arn
+  timeout           = 3
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -76,7 +91,7 @@ resource "aws_lambda_permission" "authorizer" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_permission" "authorizer_wss" {
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.authorizer.function_name
+  function_name = aws_lambda_function.authorizer_v1.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.wss.execution_arn}/authorizers/${aws_apigatewayv2_authorizer.wss.id}"
 }
