@@ -115,9 +115,9 @@ const getPolicy = async (
   // websocket
   if (event.headers?.['Sec-WebSocket-Key'] !== undefined) {
     policy = await buildWSSAuthPolicy(event.requestContext, principalId);
+  } else {
+    policy = await buildAuthPolicy(event, principalId);
   }
-
-  policy = await buildAuthPolicy(event, principalId);
 
   policy.context = {
     userId: principalId,
@@ -184,7 +184,7 @@ const buildAuthPolicy = async (
 /**
  * Build IAM Policy
  *
- * @param event event
+ * @param context context
  * @param principalId user id
  * @returns
  */
