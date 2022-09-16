@@ -72,6 +72,16 @@ resource "aws_lambda_permission" "authorizer" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# Lambda Permission - Authorizer
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_permission" "authorizer_wss" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.authorizer.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.wss.execution_arn}/authorizers/${aws_apigatewayv2_authorizer.wss.id}"
+}
+
+# ----------------------------------------------------------------------------------------------
 # Lambda Function - Webhook
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "webhook" {
