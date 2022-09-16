@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------
-# API Gateway Authorizer - Authorization
+# API Gateway Authorizer - Authorization(API)
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_authorizer" "auth" {
   name                              = "Authorizer"
@@ -10,4 +10,15 @@ resource "aws_apigatewayv2_authorizer" "auth" {
   enable_simple_responses           = false
   authorizer_result_ttl_in_seconds  = 300
   identity_sources                  = ["$request.header.Authorization"]
+}
+
+# ---------------------------------------------------------------------------------------------
+# API Gateway Authorizer - Authorization(WSS)
+# ---------------------------------------------------------------------------------------------
+resource "aws_apigatewayv2_authorizer" "wss" {
+  name             = "Authorizer"
+  api_id           = aws_apigatewayv2_api.wss.id
+  authorizer_type  = "REQUEST"
+  authorizer_uri   = aws_lambda_function.authorizer.invoke_arn
+  identity_sources = ["route.request.header.Authorization"]
 }

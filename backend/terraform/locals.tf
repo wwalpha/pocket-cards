@@ -62,12 +62,13 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # API Gateway
   # ----------------------------------------------------------------------------------------------
-  apigw_id                     = local.remote_services.api_gateway_id
-  apigw_id_admin               = local.remote_services.api_gateway_id_admin
-  apigw_id_wss                 = local.remote_services.api_gateway_id_wss
+  apigw_id                     = local.remote_services.apigw_id
+  apigw_id_admin               = local.remote_services.apigw_id_admin
+  apigw_id_wss                 = local.remote_services.apigw_id_wss
   apigw_authorizer_id_cognito  = local.remote_services.apigw_authorizer_id_cognito
   apigw_authorizer_id_lambda   = local.remote_services.apigw_authorizer_id_lambda
-  apigw_authorizer_id_admin    = local.remote_services.api_gateway_authorizer_id_admin
+  apigw_authorizer_id_admin    = local.remote_services.apigw_authorizer_id_admin
+  apigw_authorizer_id_wss      = local.remote_services.apigw_authorizer_id_wss
   apigw_integration_id_auth    = local.remote_services.apigw_integration_id_auth
   apigw_integration_id_backend = local.remote_services.apigw_integration_id_backend
   apigw_integration_id_users   = local.remote_services.apigw_integration_id_users

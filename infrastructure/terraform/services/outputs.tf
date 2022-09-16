@@ -113,7 +113,7 @@ output "ecs_service_name_users" {
 # ----------------------------------------------------------------------------------------------
 # API Gateway ID
 # ----------------------------------------------------------------------------------------------
-output "api_gateway_id" {
+output "apigw_id" {
   value = aws_apigatewayv2_api.this.id
 }
 
@@ -134,21 +134,28 @@ output "apigw_authorizer_id_lambda" {
 # ----------------------------------------------------------------------------------------------
 # API Gateway ID - WebSocket
 # ----------------------------------------------------------------------------------------------
-output "api_gateway_id_wss" {
+output "apigw_id_wss" {
   value = aws_apigatewayv2_api.wss.id
+}
+
+# ----------------------------------------------------------------------------------------------
+# API Gateway Authorizer ID - WebSocket
+# ----------------------------------------------------------------------------------------------
+output "apigw_authorizer_id_wss" {
+  value = aws_apigatewayv2_authorizer.wss.id
 }
 
 # ----------------------------------------------------------------------------------------------
 # API Gateway ID - Admin
 # ----------------------------------------------------------------------------------------------
-output "api_gateway_id_admin" {
+output "apigw_id_admin" {
   value = aws_apigatewayv2_api.admin.id
 }
 
 # ----------------------------------------------------------------------------------------------
 # API Gateway Authorizer ID - Admin
 # ----------------------------------------------------------------------------------------------
-output "api_gateway_authorizer_id_admin" {
+output "apigw_authorizer_id_admin" {
   value = aws_apigatewayv2_authorizer.admin.id
 }
 
