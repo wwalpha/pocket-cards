@@ -300,4 +300,19 @@ export namespace Tables {
     // 回数
     times: number;
   }
+
+  // ------------------------------------------------------------
+  // WSS Connections
+  // ------------------------------------------------------------
+  interface TWSSConnectionsKey {
+    // id
+    id: string;
+    // qid
+    connId: string;
+  }
+
+  interface TWSSConnections extends TWSSConnectionsKey {
+    // 科目
+    subject: string;
+  }
 }
