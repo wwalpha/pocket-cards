@@ -9,6 +9,9 @@
     "build:stop": "cd stop && yarn install && yarn build",
     "build:status": "cd status && yarn install && yarn build",
     "build:authorizer": "cd authorizer && yarn install && yarn build",
-    "build:vision": "cd vision && yarn install && yarn build"
+    "build:vision": "cd vision && yarn install && yarn build",
+    "build:wss_connect": "cd wss_connect && yarn install && yarn build",
+    "build:wss_disconnect": "cd wss_disconnect && yarn install && yarn build",
+    "build:wss_commands": "cd wss_commands && yarn install && yarn build"
   }
 }
