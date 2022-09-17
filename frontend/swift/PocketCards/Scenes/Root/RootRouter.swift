@@ -16,6 +16,10 @@ class RootRouter {
         DailyReviewView().configureView(subject: SUBJECT.MATHS)
     }
 
+    func makeMathsWeeklyTestView() -> some View {
+        DailyTestView().configureView(subject: SUBJECT.MATHS, loadUrl: URLs.STUDY_DAILY_CURRICULUM_ORDER)
+    }
+
     func makeLanguageStudyiew() -> some View {
         DailyStudyView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_PRACTICE)
     }
