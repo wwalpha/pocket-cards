@@ -1,21 +1,11 @@
 import { DynamoDB } from 'aws-sdk';
 import {
   APIGatewayEventWebsocketRequestContextV2,
-  APIGatewayProxyWebsocketEventV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
 } from 'aws-lambda';
 
 const TABLE_NAME = process.env.TABLE_NAME as string;
 const client = new DynamoDB.DocumentClient();
-
-interface TAuthorizer {
-  principalId: string;
-  integrationLatency: number;
-}
-
-interface ContextV2WithAuthorizer extends APIGatewayEventWebsocketRequestContextV2 {
-  authorizer: TAuthorizer;
-}
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
@@ -43,3 +33,12 @@ export const handler = async (
     statusCode,
   };
 };
+
+interface TAuthorizer {
+  principalId: string;
+  integrationLatency: number;
+}
+
+interface ContextV2WithAuthorizer extends APIGatewayEventWebsocketRequestContextV2 {
+  authorizer: TAuthorizer;
+}
