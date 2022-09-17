@@ -1,12 +1,27 @@
 import { DynamoDB } from 'aws-sdk';
-import { APIGatewayProxyWebsocketEventV2 } from 'aws-lambda';
+import {
+  APIGatewayEventWebsocketRequestContextV2,
+  APIGatewayProxyWebsocketEventV2,
+  APIGatewayProxyWebsocketEventV2WithRequestContext,
+} from 'aws-lambda';
 
 const TABLE_NAME = process.env.TABLE_NAME as string;
 const client = new DynamoDB.DocumentClient();
 
-export const handler = async (event: APIGatewayProxyWebsocketEventV2, context: any): Promise<any> => {
+interface TAuthorizer {
+  principalId: string;
+  integrationLatency: number;
+}
+
+interface ContextV2WithAuthorizer extends APIGatewayEventWebsocketRequestContextV2 {
+  authorizer: TAuthorizer;
+}
+
+export const handler = async (
+  event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
+): Promise<any> => {
   const { connectionId } = event.requestContext;
-  const { userId } = context;
+  const { principalId } = event.requestContext.authorizer;
   let statusCode = 200;
 
   try {
@@ -14,7 +29,7 @@ export const handler = async (event: APIGatewayProxyWebsocketEventV2, context: a
       .put({
         TableName: TABLE_NAME,
         Item: {
-          id: userId,
+          id: principalId,
           connId: connectionId,
         },
       })
