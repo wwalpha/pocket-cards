@@ -57,7 +57,7 @@ struct OverallChart: UIViewRepresentable {
         xAxis.enabled = true
         xAxis.axisMinimum = 0
         xAxis.valueFormatter = OverallFormatter()
-        xAxis.labelCount = 12
+        xAxis.labelCount = 9
 
         let leftAxis = chartView.leftAxis
         leftAxis.labelFont = .systemFont(ofSize: 14)
