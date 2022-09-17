@@ -94,25 +94,14 @@ export class AuthPolicy {
       throw new Error('Invalid HTTP verb ' + verb + '. Allowed verbs in AuthPolicy.HttpVerb');
     }
 
-    if (!this.pathRegex.test(resource)) {
-      throw new Error('Invalid resource path: ' + resource + '. Path should match ' + this.pathRegex);
-    }
-
-    let cleanedResource = resource;
-    if (resource.substring(0, 1) == '/') {
-      cleanedResource = resource.substring(1, resource.length);
-    }
-
-    const resourceArn = `arn:aws:execute-api:${this.region}:${this.awsAccountId}:${this.restApiId}/${this.stage}/${verb}/${cleanedResource}`;
-
     if (effect.toLowerCase() == 'allow') {
       this.allowMethods.push({
-        resourceArn: resourceArn,
+        resourceArn: resource,
         conditions: conditions,
       });
     } else if (effect.toLowerCase() == 'deny') {
       this.denyMethods.push({
-        resourceArn: resourceArn,
+        resourceArn: resource,
         conditions: conditions,
       });
     }
