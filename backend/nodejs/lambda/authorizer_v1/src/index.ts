@@ -53,11 +53,7 @@ export const handler = async (event: APIGatewayRequestAuthorizerEvent): Promise<
     // principalId
     const principalId = payload['cognito:username'];
     // policy
-    const policy = buildWSSAuthPolicy(event, principalId);
-
-    policy.context = {
-      userId: principalId,
-    };
+    const policy = buildAuthPolicy(event, principalId);
 
     console.log(JSON.stringify(policy));
 
@@ -76,10 +72,7 @@ export const handler = async (event: APIGatewayRequestAuthorizerEvent): Promise<
  * @param principalId user id
  * @returns
  */
-const buildWSSAuthPolicy = (
-  event: APIGatewayRequestAuthorizerEvent,
-  principalId: string
-): APIGatewayAuthorizerResult => {
+const buildAuthPolicy = (event: APIGatewayRequestAuthorizerEvent, principalId: string): APIGatewayAuthorizerResult => {
   const apiOptions: ApiOptions = {};
   const infos = event.methodArn.split(':');
   const region = infos[3];
