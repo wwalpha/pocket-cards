@@ -40,12 +40,12 @@ const getConnections = async (userId: string, connectionId: string) => {
   const results = await client
     .query({
       TableName: TABLE_NAME_CONNECTIONS,
-      KeyConditionExpression: '#id = :id',
+      KeyConditionExpression: '#guardian = :guardian',
       ExpressionAttributeNames: {
-        '#id': 'id',
+        '#guardian': 'guardian',
       },
       ExpressionAttributeValues: {
-        ':id': userId,
+        ':guardian': userId,
       },
     })
     .promise();
