@@ -28,9 +28,11 @@ struct DailyStudyView: View {
                     isShowError: viewModel.isShowError,
                     onChoice: interactor!.onChoice
                 )
-            } else {
+            } else if viewModel.question != nil {
                 // Society or Science
                 FlashCard(question: viewModel.question!, action: interactor!.onAction)
+            } else {
+                let _ = debugPrint(viewModel, viewModel.question)
             }
         }
     }
@@ -50,9 +52,8 @@ extension DailyStudyView: DailyStudyDisplayLogic {
             viewModel.isLoading = model.isLoading
             viewModel.isFinish = model.isFinish
             viewModel.isShowError = model.isShowError
+            viewModel.question = model.question
         }
-
-        viewModel.question = model.question
     }
 }
 

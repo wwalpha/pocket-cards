@@ -26,6 +26,8 @@ struct FlashCard: View {
     var body: some View {
         let qImage = question.title.getImage()
         let aImage = question.answer.getImage()
+        let qText = question.title.removeImage().trimmingCharacters(in: .whitespacesAndNewlines)
+        let aText = question.answer.removeImage().trimmingCharacters(in: .whitespacesAndNewlines)
 
         GeometryReader { geo in
             VStack {
@@ -44,7 +46,10 @@ struct FlashCard: View {
                     .zIndex(100)
 
                     VStack {
-                        Text(question.title.removeImage())
+                        let _ = debugPrint(123, qText, qText.isEmpty)
+                        if !qText.isEmpty {
+                            Text(qText)
+                        }
 
                         if !qImage.isEmpty {
                             // if file locally exist
@@ -82,7 +87,9 @@ struct FlashCard: View {
                     .opacity(flipped ? 0.0 : 1.0)
 
                     VStack {
-                        Text(question.answer.removeImage())
+                        if !aText.isEmpty {
+                            Text(aText)
+                        }
 
                         if !aImage.isEmpty {
                             // if file locally exist
@@ -217,8 +224,11 @@ struct FlashCard: View {
     }
 
     func onPlay(front: Bool) {
-        let url = front ? question.voiceTitle : question.voiceAnswer
+        let titleUrl = "voices/\(question.groupId)/\(question.voiceTitle ?? "")"
+        let answerUrl = "voices/\(question.groupId)/\(question.voiceAnswer ?? "")"
+        let url = front ? titleUrl : answerUrl
 
+        debugPrint(url)
         // download file if not exist
         let request = DownloadManager.default.downloadRequest(path: url)
 
