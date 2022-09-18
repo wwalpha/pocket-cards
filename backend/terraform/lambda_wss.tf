@@ -15,7 +15,6 @@ resource "aws_lambda_function" "wss_connect" {
   environment {
     variables = {
       TABLE_NAME_CONNECTIONS              = local.dynamodb_name_wss
-      TABLE_NAME_USERS                    = local.dynamodb_name_users
       AWS_NODEJS_CONNECTION_REUSE_ENABLED = 1
       TZ                                  = "Asia/Tokyo"
     }
@@ -49,7 +48,6 @@ resource "aws_lambda_function" "wss_disconnect" {
   environment {
     variables = {
       TABLE_NAME_CONNECTIONS              = local.dynamodb_name_wss
-      TABLE_NAME_USERS                    = local.dynamodb_name_users
       AWS_NODEJS_CONNECTION_REUSE_ENABLED = 1
       TZ                                  = "Asia/Tokyo"
     }
