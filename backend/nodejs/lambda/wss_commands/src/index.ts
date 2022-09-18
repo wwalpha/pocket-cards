@@ -5,7 +5,7 @@ import {
 import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
 import { Tables } from 'typings';
 
-const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME as string;
+const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
 const client = new DynamoDB.DocumentClient();
 
 export const handler = async (
