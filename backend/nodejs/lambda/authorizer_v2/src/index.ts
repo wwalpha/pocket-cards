@@ -1,9 +1,5 @@
 import { DynamoDB } from 'aws-sdk';
-import {
-  APIGatewayAuthorizerResult,
-  APIGatewayEventRequestContextV2,
-  APIGatewayRequestAuthorizerEventV2,
-} from 'aws-lambda';
+import { APIGatewayAuthorizerResult, APIGatewayRequestAuthorizerEventV2 } from 'aws-lambda';
 import { JwtPayload } from 'jsonwebtoken';
 import winston from 'winston';
 import omit from 'lodash/omit';
