@@ -31,7 +31,7 @@ extension String {
             of: #"\[.*\]"#,
             with: "",
             options: .regularExpression
-        )
+        ).replacingOccurrences(of: "\\n", with: "\n")
     }
 
     func getImage() -> String {

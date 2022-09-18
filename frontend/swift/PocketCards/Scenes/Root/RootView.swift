@@ -62,6 +62,18 @@ struct RootView: View {
                 .clipped()
                 .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
 
+                NavigationLink(destination: router?.makeMathsWeeklyTestView()) {
+                    Text("週テスト対策")
+                        .font(.system(size: 24, design: .default))
+                        .fontWeight(.bold)
+                        .frame(width: 200, height: 72, alignment: .center)
+                        .background(gradient3)
+                        .foregroundColor(Color.white)
+                }
+                .padding(.trailing, 32)
+                .clipped()
+                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+
                 Spacer()
             }
             .padding(16)
