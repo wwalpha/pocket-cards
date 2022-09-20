@@ -6,6 +6,7 @@ export namespace Domains {
     app: AppState;
     group: GroupState;
     user: UserState;
+    study: StudyState;
   }
 
   interface AppState {
@@ -56,10 +57,9 @@ export namespace Domains {
   }
 
   interface StudyState {
-    current?: Group.WordItem;
-    mode: string;
-    rows: Group.WordItem[];
-    history: Group.WordItem[];
+    questions: Tables.TQuestions[];
     index: number;
+    student: string;
+    subject: string;
   }
 }
