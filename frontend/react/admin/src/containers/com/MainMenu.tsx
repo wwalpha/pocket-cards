@@ -15,6 +15,7 @@ import BookIcon from '@mui/icons-material/Book';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import DirtyLensIcon from '@mui/icons-material/DirtyLens';
 import { AppActions, UserActions } from '@actions';
 import { Consts, ROUTE_PATHS } from '@constants';
 import { styles } from './MainMenu.style';
@@ -37,18 +38,13 @@ export default () => {
   const handleSettings = () => {
     dispatch(push(ROUTE_PATHS.SETTINGS));
   };
-  // ability click handler
-  const handleAbility = () => {
-    dispatch(push(ROUTE_PATHS.ABILITIES));
-  };
   // history click handler
   // const handleHistory = () => {
   //   dispatch(push(ROUTE_PATHS.HISTORY));
   // };
 
-  // order click handler
-  const handleOrder = () => {
-    dispatch(push(ROUTE_PATHS.CURRICULUM_ORDER));
+  const handleDispatch = (path: string) => {
+    dispatch(push(path));
   };
 
   return (
@@ -122,14 +118,36 @@ export default () => {
         {authority === Consts.Authority.PARENT && (
           <React.Fragment>
             <Divider />
-            <ListItem button key="order" onClick={handleOrder}>
+            <ListItem
+              button
+              key="multitest"
+              onClick={() => {
+                handleDispatch(ROUTE_PATHS.MULTI_TEST);
+              }}>
+              <ListItemIcon sx={styles.itemIcon}>
+                <DirtyLensIcon sx={{ color: Consts.COLORS.MULTI_TEST }} />
+              </ListItemIcon>
+              <ListItemText primary="確認テスト" />
+            </ListItem>
+            <Divider />
+            <ListItem
+              button
+              key="order"
+              onClick={() => {
+                handleDispatch(ROUTE_PATHS.CURRICULUM_ORDER);
+              }}>
               <ListItemIcon sx={styles.itemIcon}>
                 <LocalFireDepartmentIcon sx={{ color: 'secondary.main' }} />
               </ListItemIcon>
               <ListItemText primary="学習順番" />
             </ListItem>
             <Divider />
-            <ListItem button key="weekly" onClick={handleAbility}>
+            <ListItem
+              button
+              key="weekly"
+              onClick={() => {
+                handleDispatch(ROUTE_PATHS.ABILITIES);
+              }}>
               <ListItemIcon sx={styles.itemIcon}>
                 <LocalFireDepartmentIcon sx={{ color: 'secondary.main' }} />
               </ListItemIcon>
