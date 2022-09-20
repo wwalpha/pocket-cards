@@ -195,7 +195,7 @@ resource "aws_iam_role" "wss_commands" {
 # AWS Lambda Role Policy - Lambda basic policy
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "wss_commands_basic" {
-  role       = aws_iam_role.wss.name
+  role       = aws_iam_role.wss_commands.name
   policy_arn = local.lambda_basic_policy_arn
 }
 
@@ -203,7 +203,7 @@ resource "aws_iam_role_policy_attachment" "wss_commands_basic" {
 # AWS Lambda Role Policy - Dynamodb Policy
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "wss_commands_dynamodb" {
-  role       = aws_iam_role.wss.name
+  role       = aws_iam_role.wss_commands.name
   policy_arn = local.iam_policy_arn_dynamodb
 }
 
