@@ -80,3 +80,8 @@ export interface HistorySearchForm {
   subject: string;
   groupId: string;
 }
+
+export interface MultiTestForm {
+  userId: string;
+  subject: string;
+}
