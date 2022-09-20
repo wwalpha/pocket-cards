@@ -69,11 +69,19 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
 
     // principalId
     const principalId = payload['cognito:username'];
+    const userInfo = await getUserInfo(principalId);
+
+    // user info not found
+    if (!userInfo) {
+      return authorizationFailure();
+    }
+
     // policy
-    const policy = await buildAuthPolicy(event, principalId);
+    const policy = buildAuthPolicy(event, userInfo);
 
     policy.context = {
-      userId: principalId,
+      username: principalId,
+      guardian: userInfo.teacher ? userInfo.teacher : userInfo.id,
     };
 
     console.log(JSON.stringify(policy));
@@ -90,13 +98,13 @@ export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promis
  * Build IAM Policy
  *
  * @param event event
- * @param principalId user id
+ * @param userInfo user info
  * @returns
  */
-const buildAuthPolicy = async (
+const buildAuthPolicy = (
   event: APIGatewayRequestAuthorizerEventV2,
-  principalId: string
-): Promise<APIGatewayAuthorizerResult> => {
+  userInfo: Tables.TUsers
+): APIGatewayAuthorizerResult => {
   const apiOptions: ApiOptions = {};
   const infos = event.routeArn.split(':');
   const region = infos[3];
@@ -106,13 +114,12 @@ const buildAuthPolicy = async (
   apiOptions.restApiId = apiId;
   apiOptions.stage = stage;
 
-  const policy = new AuthPolicy(principalId, accountId, apiOptions);
-  const authority = await getUserRole(principalId);
+  const policy = new AuthPolicy(userInfo.id, accountId, apiOptions);
 
-  console.log('authority', authority);
-  console.log('principalId', principalId);
+  console.log('authority', userInfo.authority);
+  console.log('principalId', userInfo.id);
 
-  switch (authority) {
+  switch (userInfo?.authority) {
     case 'TENANT_ADMIN':
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/admin/*');
       policy.allowMethod(AuthPolicy.HttpVerb.GET, '/groups');
@@ -141,7 +148,7 @@ const buildAuthPolicy = async (
   return policy.build();
 };
 
-const getUserRole = async (userId: string): Promise<string> => {
+const getUserInfo = async (userId: string): Promise<Tables.TUsers | undefined> => {
   // get user role from db
   const result = await client
     .get({
@@ -154,10 +161,9 @@ const getUserRole = async (userId: string): Promise<string> => {
 
   const userInfo = result.Item;
 
-  // user not found
-  if (!userInfo) return '';
+  if (!userInfo) return undefined;
 
-  return (userInfo as Tables.TUsers).authority;
+  return userInfo as Tables.TUsers;
 };
 
 /**
