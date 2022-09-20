@@ -41,8 +41,12 @@ export default () => {
   const handleAbility = () => {
     dispatch(push(ROUTE_PATHS.ABILITIES));
   };
+  // history click handler
+  // const handleHistory = () => {
+  //   dispatch(push(ROUTE_PATHS.HISTORY));
+  // };
 
-  // ability click handler
+  // order click handler
   const handleOrder = () => {
     dispatch(push(ROUTE_PATHS.CURRICULUM_ORDER));
   };
@@ -132,6 +136,13 @@ export default () => {
               <ListItemText primary="週テスト対策" />
             </ListItem>
             <Divider />
+            {/* <ListItem button key="history" onClick={handleHistory}>
+              <ListItemIcon sx={styles.itemIcon}>
+                <LocalFireDepartmentIcon sx={{ color: 'secondary.main' }} />
+              </ListItemIcon>
+              <ListItemText primary="学習履歴" />
+            </ListItem>
+            <Divider /> */}
             <ListItem button key="Students" onClick={handleStudents}>
               <ListItemIcon sx={styles.itemIcon}>
                 <PersonIcon sx={{ color: 'secondary.main' }} />
