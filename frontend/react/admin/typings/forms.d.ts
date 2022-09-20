@@ -73,3 +73,10 @@ export interface HeaderParams {
   subject: string;
   groupId: string;
 }
+
+export interface HistorySearchForm {
+  datetime: string;
+  userId: string;
+  subject: string;
+  groupId: string;
+}

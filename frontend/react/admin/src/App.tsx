@@ -38,6 +38,10 @@ export default () => {
             <Header />
             <CurriculumOrder />
           </Route>
+          {/* <Route path={ROUTE_PATHS.HISTORY}>
+            <Header />
+            <History />
+          </Route> */}
         </Switch>
       </Box>
     </Box>
