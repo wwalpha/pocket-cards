@@ -410,7 +410,10 @@ export namespace APIs {
   // ------------------------------------------------------------
   interface QuestionOrderQuery {}
 
-  interface QuestionOrderRequest {}
+  interface QuestionOrderRequest {
+    subject: string;
+    userId?: string;
+  }
 
   interface QuestionOrderResponse {
     count: number;

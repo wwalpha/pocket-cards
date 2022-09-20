@@ -30,6 +30,22 @@ export const getUserId = (req: Request<any, any, any, any>, authKey: string = 'u
   return value;
 };
 
+/**
+ * Header情報からUserIdを取得する(Cognito Authorization IdToken)
+ *
+ * @param authKey Header Key
+ */
+export const getGuardian = (req: Request<any, any, any, any>, authKey: string = 'guardian') => {
+  const value = req.headers[authKey] as string;
+
+  // データが存在しない場合、エラーとする
+  if (!value) {
+    throw new Error('Can not found guardian id.');
+  }
+
+  return value;
+};
+
 export const getUserInfo = (token: string) => {
   try {
     const jwt = decode(token, { complete: true });
