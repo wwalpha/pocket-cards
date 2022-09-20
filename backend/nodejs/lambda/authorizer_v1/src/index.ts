@@ -62,10 +62,10 @@ export const handler = async (event: APIGatewayRequestAuthorizerEvent): Promise<
     // policy
     const policy = buildAuthPolicy(event, principalId);
 
-    const guadian = await getGuardian(principalId);
+    const guardian = await getGuardian(principalId);
 
     policy.context = {
-      guadian: guadian,
+      guardian: guardian,
     };
 
     console.log(JSON.stringify(policy));
