@@ -5,3 +5,4 @@ export { default as GroupDetails } from './GroupDetails';
 export { default as GroupRouter } from './Router';
 export { default as CurriculumOrder } from './CurriculumOrder';
 // export { default as History } from './History';
+export { default as MultiTest } from './MultiTest';

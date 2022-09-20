@@ -31,3 +31,5 @@ export const ABILITIES_QUESTIONS = (groupId: string = ':groupId') => `/abilities
 
 export const CURRICULUM_ORDER = '/curriculums';
 export const HISTORY = '/history';
+
+export const MULTI_TEST = '/multitest';
