@@ -74,7 +74,7 @@ resource "aws_lambda_function" "wss_commands" {
   s3_object_version = aws_s3_object.lambda_wss_commands.version_id
   handler           = local.lambda_handler
   memory_size       = 128
-  role              = aws_iam_role.wss.arn
+  role              = aws_iam_role.wss_commands.arn
   runtime           = local.lambda_runtime
   timeout           = 10
   environment {

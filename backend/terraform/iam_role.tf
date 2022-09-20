@@ -179,3 +179,52 @@ resource "aws_iam_role_policy_attachment" "wss_dynamodb" {
 }
 
 
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - WSS Connect
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "wss_commands" {
+  name               = "${local.project_name_uc}_Lambda_WSSCommandsRole"
+  assume_role_policy = data.aws_iam_policy_document.lambda.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - Lambda basic policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "wss_commands_basic" {
+  role       = aws_iam_role.wss.name
+  policy_arn = local.lambda_basic_policy_arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - Dynamodb Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "wss_commands_dynamodb" {
+  role       = aws_iam_role.wss.name
+  policy_arn = local.iam_policy_arn_dynamodb
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS IAM Policy - SES Basic
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy" "wss_commands_apigw" {
+  name = "apigw_policy"
+  role = aws_iam_role.wss_commands.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "execute-api:ManageConnections",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
