@@ -21,10 +21,20 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(StudyActions.STUDY_QUESTIONS.fulfilled, (state, { payload }) => {
-      state.questions = payload;
-      state.index = 0;
-    });
+    builder
+      .addCase(StudyActions.STUDY_QUESTIONS.fulfilled, (state, { payload }) => {
+        state.questions = payload;
+        state.index = 0;
+      })
+      .addCase(StudyActions.STUDY_SHOW_QUESTION.fulfilled, (state) => {
+        // remove question
+        state.questions = state.questions.filter((item) => item.id !== state.questions[state.index].id);
+        // recalculate index
+        if (state.index + 1 >= state.questions.length) {
+          state.index = 0;
+        }
+      })
+      .addCase(StudyActions.STUDY_SHOW_ANSWER.fulfilled, () => {});
   },
 });
 
