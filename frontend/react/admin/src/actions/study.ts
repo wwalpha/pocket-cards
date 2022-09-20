@@ -16,3 +16,11 @@ export const curriculumOrder = (student: string, subject: string) => async (disp
     })
   ).unwrap();
 };
+
+export const correct = () => async (dispatch: AppDispatch) => {
+  dispatch(Actions.STUDY_SHOW_QUESTION());
+};
+
+export const failure = () => async (dispatch: AppDispatch) => {
+  dispatch(Actions.STUDY_SHOW_ANSWER());
+};
