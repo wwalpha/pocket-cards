@@ -26,7 +26,7 @@ export const handler = async (
     connections.map((item) =>
       apigateway.postToConnection({
         ConnectionId: item.connId,
-        Data: request.command,
+        Data: JSON.stringify(request),
       })
     ),
   ]);
@@ -61,7 +61,8 @@ const getConnections = async (userId: string, connectionId: string) => {
 };
 
 interface RequestBody {
-  command: 'PLAY_SOUND' | 'SHOW_NEXT' | 'SHOW_ANSWER';
+  command: 'SHOW_NEXT' | 'SHOW_ANSWER';
+  payload?: string;
 }
 
 interface TAuthorizer {
