@@ -9,13 +9,10 @@ let ws: WebSocket;
 export const STUDY_QUESTIONS = createAsyncThunk<Tables.TQuestions[], { subject: string; userId: string }>(
   'study/STUDY_QUESTIONS',
   async ({ subject, userId }) => {
-    const res = await API.post<APIs.QuestionOrderResponse, APIs.QuestionOrderRequest>(
-      URLs.CURRICULUM_ORDER_QUESTIONS(),
-      {
-        subject: subject,
-        userId: userId,
-      }
-    );
+    const res = await API.post<APIs.QuestionTestResponse, APIs.QuestionTestRequest>(URLs.DAILY_TEST(), {
+      subject: subject,
+      userId: userId,
+    });
 
     const url = await URLs.WSS_URL();
     ws = new WebSocket(url);
@@ -25,16 +22,16 @@ export const STUDY_QUESTIONS = createAsyncThunk<Tables.TQuestions[], { subject: 
   }
 );
 
-export const STUDY_SHOW_QUESTION = createAsyncThunk<void, void>(
+export const STUDY_SHOW_QUESTION = createAsyncThunk<void, string>(
   'study/STUDY_SHOW_QUESTION',
-  async (_, { getState }) => {
+  async (command, { getState }) => {
     const { questions, index } = (getState() as RootState).study;
     const nextIndex = index + 1 === questions.length ? 0 : index + 1;
     const question = questions[nextIndex];
 
     ws.send(
       JSON.stringify({
-        command: 'SHOW_NEXT',
+        command: command,
         payload: JSON.stringify({
           gid: question.groupId,
           qid: question.id,
@@ -44,10 +41,10 @@ export const STUDY_SHOW_QUESTION = createAsyncThunk<void, void>(
   }
 );
 
-export const STUDY_SHOW_ANSWER = createAsyncThunk<void, void>('study/STUDY_SHOW_ANSWER', async () => {
+export const STUDY_SHOW_ANSWER = createAsyncThunk<void, string>('study/STUDY_SHOW_ANSWER', async (command) => {
   ws.send(
     JSON.stringify({
-      command: 'SHOW_ANSWER',
+      command: command,
     })
   );
 });

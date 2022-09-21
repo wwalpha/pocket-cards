@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
@@ -19,6 +19,7 @@ const appState = (state: RootState) => state.app;
 
 export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
+  const [incorrect, setIncorrect] = React.useState(false);
   const { questions, index } = useSelector(studyState);
   const { students } = useSelector(userState);
   const { isLoading } = useSelector(appState);
@@ -34,12 +35,22 @@ export default () => {
     },
   });
 
-  const onFailure = () => actions.failure();
+  const onFailure = () => {
+    actions.failure();
+    // set status
+    setIncorrect(true);
+  };
 
-  const onCorrect = () => actions.correct();
+  const onCorrect = () => {
+    actions.correct();
+    // set status
+    setIncorrect(false);
+  };
+
+  const onNext = () => {};
 
   const onSubmit = handleSubmit(async ({ userId, subject }) => {
-    actions.curriculumOrder(userId, subject);
+    actions.dailyTest(userId, subject);
   });
 
   return (
@@ -102,7 +113,17 @@ export default () => {
               loading={isLoading}
               variant="contained"
               color="primary"
-              onClick={onFailure}>
+              onClick={onNext}
+              disabled={!incorrect}>
+              次へ
+            </LoadingButton>
+            <LoadingButton
+              sx={{ width: '120px', mx: 2 }}
+              loading={isLoading}
+              variant="contained"
+              color="primary"
+              onClick={onFailure}
+              disabled={incorrect}>
               不正解
             </LoadingButton>
             <LoadingButton
