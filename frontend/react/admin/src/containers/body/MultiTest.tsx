@@ -20,6 +20,7 @@ const appState = (state: RootState) => state.app;
 export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
   const [incorrect, setIncorrect] = React.useState(false);
+  const [isSearched, setSearched] = React.useState(false);
   const { questions, index } = useSelector(studyState);
   const { students } = useSelector(userState);
   const { isLoading } = useSelector(appState);
@@ -47,15 +48,20 @@ export default () => {
     setIncorrect(false);
   };
 
-  const onNext = () => {};
+  const onNext = () => {
+    actions.goNext();
+    // set status
+    setIncorrect(false);
+  };
 
   const onSubmit = handleSubmit(async ({ userId, subject }) => {
+    setSearched(true);
     actions.dailyTest(userId, subject);
   });
 
   return (
     <form onSubmit={onSubmit}>
-      {questions.length === 0 && (
+      {!isSearched && (
         <Box display="flex" sx={{ py: 2 }}>
           <Controller
             name="userId"
@@ -98,7 +104,12 @@ export default () => {
           </LoadingButton>
         </Box>
       )}
-      {questions.length !== 0 && (
+      {isSearched && questions.length === 0 && (
+        <Box display="flex" justifyContent="center">
+          データありません
+        </Box>
+      )}
+      {isSearched && questions.length !== 0 && (
         <Box display="flex" flexDirection="column" sx={{ m: 2 }}>
           <Paper elevation={3} sx={{ my: 1, p: 4 }}>
             {questions[index].title}
@@ -113,8 +124,7 @@ export default () => {
               loading={isLoading}
               variant="contained"
               color="primary"
-              onClick={onNext}
-              disabled={!incorrect}>
+              onClick={onNext}>
               次へ
             </LoadingButton>
             <LoadingButton
@@ -122,8 +132,7 @@ export default () => {
               loading={isLoading}
               variant="contained"
               color="primary"
-              onClick={onFailure}
-              disabled={incorrect}>
+              onClick={onFailure}>
               不正解
             </LoadingButton>
             <LoadingButton
@@ -131,7 +140,8 @@ export default () => {
               loading={isLoading}
               variant="contained"
               color="secondary"
-              onClick={onCorrect}>
+              onClick={onCorrect}
+              disabled={incorrect}>
               正解
             </LoadingButton>
           </Box>

@@ -14,7 +14,7 @@ const slice = createSlice({
   name: 'user',
   initialState: studyState,
   reducers: {
-    // Sign out
+    // save search conditions
     STUDY_CONDITIONS: (state, { payload }: PayloadAction<{ student: string; subject: string }>) => {
       state.student = payload.student;
       state.subject = payload.subject;
@@ -33,6 +33,13 @@ const slice = createSlice({
         if (state.index + 1 >= state.questions.length) {
           state.index = 0;
         }
+      })
+      .addCase(StudyActions.STUDY_QUESTIONS_CONTINUE.fulfilled, (state, { payload }) => {
+        payload.forEach((q) => {
+          const r = state.questions.find((item) => item.id === q.id);
+
+          if (!r) state.questions.push(q);
+        });
       })
       .addCase(StudyActions.STUDY_SHOW_ANSWER.fulfilled, () => {});
   },
