@@ -1,7 +1,8 @@
 import { Actions } from '@reducers';
+import { Consts } from '@constants';
 import { AppDispatch } from 'typings';
 
-export const curriculumOrder = (student: string, subject: string) => async (dispatch: AppDispatch) => {
+export const dailyTest = (student: string, subject: string) => async (dispatch: AppDispatch) => {
   dispatch(
     Actions.STUDY_CONDITIONS({
       student: student,
@@ -18,9 +19,13 @@ export const curriculumOrder = (student: string, subject: string) => async (disp
 };
 
 export const correct = () => async (dispatch: AppDispatch) => {
-  dispatch(Actions.STUDY_SHOW_QUESTION());
+  dispatch(Actions.STUDY_SHOW_QUESTION(Consts.Commands.SHOW_CORRECT));
 };
 
 export const failure = () => async (dispatch: AppDispatch) => {
-  dispatch(Actions.STUDY_SHOW_ANSWER());
+  dispatch(Actions.STUDY_SHOW_ANSWER(Consts.Commands.SHOW_ANSWER));
+};
+
+export const goNext = () => async (dispatch: AppDispatch) => {
+  dispatch(Actions.STUDY_SHOW_QUESTION(Consts.Commands.SHOW_NEXT));
 };

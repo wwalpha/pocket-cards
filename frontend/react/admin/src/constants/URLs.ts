@@ -38,7 +38,7 @@ export const CURRICULUM_REMOVE = (curriculumId: string) => `${API_VERSION}/curri
 export const CURRICULUM_ORDER = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}/order`;
 
 // カリキュラムの並べ順の更新
-export const CURRICULUM_ORDER_QUESTIONS = () => `${API_VERSION}/study/daily/order/questions`;
+export const DAILY_TEST = () => `${API_VERSION}/study/daily/test/questions`;
 
 // 生徒登録
 export const STUDENT_REGIST = () => `${API_VERSION}/users/students`;
