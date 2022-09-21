@@ -22,14 +22,16 @@ export const handler = async (
 
   const connections = await getConnections(authorizer.principalId, connectionId);
 
-  await Promise.all([
+  await Promise.all(
     connections.map((item) =>
-      apigateway.postToConnection({
-        ConnectionId: item.connId,
-        Data: JSON.stringify(request),
-      })
-    ),
-  ]);
+      apigateway
+        .postToConnection({
+          ConnectionId: item.connId,
+          Data: JSON.stringify(request),
+        })
+        .promise()
+    )
+  );
 
   return {
     statusCode: 200,

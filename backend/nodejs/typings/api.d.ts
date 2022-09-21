@@ -353,10 +353,9 @@ export namespace APIs {
   // ------------------------------------------------------------
   // Question Daily Test
   // ------------------------------------------------------------
-  interface QuestionTestRequest {}
-
-  interface QuestionTestQuery {
-    subject?: string;
+  interface QuestionTestRequest {
+    subject: string;
+    userId?: string;
   }
 
   interface QuestionTestResponse {
