@@ -129,7 +129,7 @@ app.get('/v1/study/daily/review/questions', express.json(), (req, res) => entry(
 // 練習問題取得
 app.get('/v1/study/daily/practice/questions', express.json(), (req, res) => entry(req, res, QuestionStudy));
 // テスト問題取得
-app.get('/v1/study/daily/test/questions', express.json(), (req, res) => entry(req, res, QuestionExam));
+app.post('/v1/study/daily/test/questions', express.json(), (req, res) => entry(req, res, QuestionExam));
 // テスト問題更新
 app.post('/v1/study/daily/test/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionAnswer));
 
