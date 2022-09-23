@@ -1,6 +1,7 @@
 // API DOMAIN
 
 export const VERSION = `${process.env.VERSION}`;
+export const DOMAIN_HOST = `${process.env.DOMAIN_HOST}`;
 
 export const Authority = {
   ADMIN: 'TENANT_ADMIN',

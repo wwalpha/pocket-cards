@@ -112,10 +112,32 @@ export default () => {
       {isSearched && questions.length !== 0 && (
         <Box display="flex" flexDirection="column" sx={{ m: 2 }}>
           <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-            {questions[index].title}
+            {questions[index].title.replace(/\[.*\]/g, '')}
+            {(() => {
+              const title = questions[index].title;
+              // 画像がない
+              if (!title.match(/\[.*\]/g)) return;
+
+              const startIdx = title.indexOf('[');
+              const endIdx = title.indexOf(']', startIdx);
+              const url = title.substring(startIdx + 1, endIdx);
+
+              return <img src={`${Consts.DOMAIN_HOST}\\${url}`} />;
+            })()}
           </Paper>
           <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-            {questions[index].answer}
+            {questions[index].answer.replace(/\[.*\]/g, '')}
+            {(() => {
+              const answer = questions[index].answer;
+              // 画像がない
+              if (!answer.match(/\[.*\]/g)) return;
+
+              const startIdx = answer.indexOf('[');
+              const endIdx = answer.indexOf(']', startIdx);
+              const url = answer.substring(startIdx + 1, endIdx);
+
+              return <img src={`${Consts.DOMAIN_HOST}\\${url}`} />;
+            })()}
           </Paper>
 
           <Box display="flex" justifyContent="flex-end" sx={{ py: 2 }}>

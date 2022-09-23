@@ -22,7 +22,7 @@ export const STUDY_QUESTIONS = createAsyncThunk<Tables.TQuestions[], { subject: 
 
     // 未初期化の場合
     if (!ws) {
-      const url = await URLs.WSS_URL();
+      const url = await URLs.WEBSOCKET_URL();
       ws = new WebSocket(url);
       ws.onmessage = onmessage;
     }
