@@ -38,7 +38,7 @@ export const STUDY_QUESTIONS_CONTINUE = createAsyncThunk<Tables.TQuestions[], { 
   }
 );
 
-export const STUDY_SHOW_QUESTION = createAsyncThunk<void, string>(
+export const STUDY_SHOW_QUESTION = createAsyncThunk<string | undefined, string>(
   'study/STUDY_SHOW_QUESTION',
   async (command, { getState, dispatch }) => {
     const { questions, index, student, subject } = (getState() as RootState).study;
@@ -57,6 +57,8 @@ export const STUDY_SHOW_QUESTION = createAsyncThunk<void, string>(
         })
       );
     }
+
+    return command === Consts.Commands.SHOW_NEXT ? undefined : question.id;
   }
 );
 

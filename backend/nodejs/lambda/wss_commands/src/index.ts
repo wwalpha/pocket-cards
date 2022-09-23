@@ -16,7 +16,7 @@ export const handler = async (
     return { statusCode: 400 };
   }
 
-  const { connectionId, domainName, stage, authorizer } = event.requestContext;
+  const { connectionId, domainName, authorizer } = event.requestContext;
   const request = JSON.parse(event.body) as RequestBody;
   const apigateway = new ApiGatewayManagementApi({ endpoint: domainName });
 

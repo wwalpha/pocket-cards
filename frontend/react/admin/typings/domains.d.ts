@@ -57,6 +57,7 @@ export namespace Domains {
   }
 
   interface StudyState {
+    answered: string[];
     questions: Tables.TQuestions[];
     index: number;
     student: string;
