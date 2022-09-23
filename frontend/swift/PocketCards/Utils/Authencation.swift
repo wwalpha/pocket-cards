@@ -100,6 +100,8 @@ class Authentication: ObservableObject {
             case let .success(result):
                 print(result)
                 _ = Amplify.Auth.fetchUserAttributes()
+
+                self.initialize()
             case let .failure(error):
                 print("Can not signin \(error)")
             }

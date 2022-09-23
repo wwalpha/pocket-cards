@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E787B910DB2F0FFDD8E553A /* Pods_PocketCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6883D21AA546318D9DFDB4 /* Pods_PocketCards.framework */; };
 		9A09A14D280AA770001500EB /* OverallChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09A14C280AA770001500EB /* OverallChart.swift */; };
 		9A09A151280AD4D3001500EB /* OverallFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09A150280AD4D3001500EB /* OverallFormatter.swift */; };
 		9A1FD24D27D7369B0000A16B /* PocketCardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD24C27D7369B0000A16B /* PocketCardsApp.swift */; };
@@ -36,6 +35,10 @@
 		9A276A7227EC4CC6005A716D /* TestChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7127EC4CC6005A716D /* TestChart.swift */; };
 		9A276A7427EC8F85005A716D /* DateValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7327EC8F85005A716D /* DateValueFormatter.swift */; };
 		9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7527ECA374005A716D /* DailyTasks.swift */; };
+		9A3A56B628D95012001CC4B0 /* WebSocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */; };
+		9A3A56B828D9599D001CC4B0 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56B728D9599D001CC4B0 /* Command.swift */; };
+		9A3A56C228D95E4C001CC4B0 /* CommandService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56C128D95E4C001CC4B0 /* CommandService.swift */; };
+		9A3A56C328D95E4C001CC4B0 /* CommandService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56C128D95E4C001CC4B0 /* CommandService.swift */; };
 		9A3F50BF27EB2D9000D9A305 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50BE27EB2D9000D9A305 /* History.swift */; };
 		9A3F50C127EB2E3500D9A305 /* ReportServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C027EB2E3500D9A305 /* ReportServices.swift */; };
 		9A3F50C727EB2E9A00D9A305 /* DailyTasksContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C227EB2E9A00D9A305 /* DailyTasksContract.swift */; };
@@ -50,7 +53,8 @@
 		9A3F50E127EC412E00D9A305 /* HistoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DC27EC412E00D9A305 /* HistoriesInteractor.swift */; };
 		9A3F50E227EC412E00D9A305 /* HistoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DD27EC412E00D9A305 /* HistoriesView.swift */; };
 		9A3F50E327EC412E00D9A305 /* HistoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DE27EC412E00D9A305 /* HistoriesViewModel.swift */; };
-		9A56398A2814296B006D6C96 /* Pods_PocketCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A5639892814296B006D6C96 /* Pods_PocketCards.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		9A521C3828D74CF000C092F6 /* Pods_PocketCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6883D21AA546318D9DFDB4 /* Pods_PocketCards.framework */; };
+		9A521C3928D74CF000C092F6 /* Pods_PocketCards.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6883D21AA546318D9DFDB4 /* Pods_PocketCards.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A56399528143494006D6C96 /* LoginContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399028143494006D6C96 /* LoginContract.swift */; };
 		9A56399628143494006D6C96 /* LoginContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399028143494006D6C96 /* LoginContract.swift */; };
 		9A56399728143494006D6C96 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56399128143494006D6C96 /* LoginPresenter.swift */; };
@@ -157,6 +161,16 @@
 		9AB63BB328043AD60001F15C /* OverallTimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAE28043AD60001F15C /* OverallTimesView.swift */; };
 		9AB63BB428043AD60001F15C /* OverallTimesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAF28043AD60001F15C /* OverallTimesViewModel.swift */; };
 		9AB63BB628043EED0001F15C /* Overalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BB528043EED0001F15C /* Overalls.swift */; };
+		9ACC362628D5F2C700B9EC46 /* MultiTestContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC362128D5F2C700B9EC46 /* MultiTestContract.swift */; };
+		9ACC362728D5F2C700B9EC46 /* MultiTestContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC362128D5F2C700B9EC46 /* MultiTestContract.swift */; };
+		9ACC362828D5F2C700B9EC46 /* MultiTestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC362228D5F2C700B9EC46 /* MultiTestPresenter.swift */; };
+		9ACC362928D5F2C700B9EC46 /* MultiTestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC362228D5F2C700B9EC46 /* MultiTestPresenter.swift */; };
+		9ACC362A28D5F2C700B9EC46 /* MultiTestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC362328D5F2C700B9EC46 /* MultiTestInteractor.swift */; };
+		9ACC362B28D5F2C700B9EC46 /* MultiTestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC362328D5F2C700B9EC46 /* MultiTestInteractor.swift */; };
+		9ACC362C28D5F2C700B9EC46 /* MultiTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC362428D5F2C700B9EC46 /* MultiTestView.swift */; };
+		9ACC362D28D5F2C700B9EC46 /* MultiTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC362428D5F2C700B9EC46 /* MultiTestView.swift */; };
+		9ACC362E28D5F2C700B9EC46 /* MultiTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC362528D5F2C700B9EC46 /* MultiTestViewModel.swift */; };
+		9ACC362F28D5F2C700B9EC46 /* MultiTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC362528D5F2C700B9EC46 /* MultiTestViewModel.swift */; };
 		9ADD155827DF83AD00C9CE64 /* Commons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADD155727DF83AD00C9CE64 /* Commons.swift */; };
 		9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */; };
 		9AF2AC9A2814273300F80DB4 /* Dailytasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50CD27EB326C00D9A305 /* Dailytasks.swift */; };
@@ -231,9 +245,23 @@
 		9AF57E7127D96624002B1F32 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E7027D96624002B1F32 /* StringUtils.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9A521C3A28D74CF000C092F6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9A521C3928D74CF000C092F6 /* Pods_PocketCards.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		04BD6740A2278E0E0221613F /* Pods-PocketCards.releasedog.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.releasedog.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.releasedog.xcconfig"; sourceTree = "<group>"; };
 		380DCEE95344EFD397A0E57A /* Pods-PocketCards.releasecat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.releasecat.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.releasecat.xcconfig"; sourceTree = "<group>"; };
+		7D62322E590A88FDEB58F558 /* Pods-PocketCards.releasedog.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.releasedog.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.releasedog.xcconfig"; sourceTree = "<group>"; };
 		95A78849440A1C13E377131F /* Pods-PocketCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.debug.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.debug.xcconfig"; sourceTree = "<group>"; };
 		9A09A14C280AA770001500EB /* OverallChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallChart.swift; sourceTree = "<group>"; };
 		9A09A150280AD4D3001500EB /* OverallFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallFormatter.swift; sourceTree = "<group>"; };
@@ -265,6 +293,9 @@
 		9A276A7127EC4CC6005A716D /* TestChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChart.swift; sourceTree = "<group>"; };
 		9A276A7327EC8F85005A716D /* DateValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValueFormatter.swift; sourceTree = "<group>"; };
 		9A276A7527ECA374005A716D /* DailyTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasks.swift; sourceTree = "<group>"; };
+		9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketConnection.swift; sourceTree = "<group>"; };
+		9A3A56B728D9599D001CC4B0 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		9A3A56C128D95E4C001CC4B0 /* CommandService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandService.swift; sourceTree = "<group>"; };
 		9A3F50BE27EB2D9000D9A305 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		9A3F50C027EB2E3500D9A305 /* ReportServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportServices.swift; sourceTree = "<group>"; };
 		9A3F50C227EB2E9A00D9A305 /* DailyTasksContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksContract.swift; sourceTree = "<group>"; };
@@ -280,7 +311,6 @@
 		9A3F50DD27EC412E00D9A305 /* HistoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesView.swift; sourceTree = "<group>"; };
 		9A3F50DE27EC412E00D9A305 /* HistoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesViewModel.swift; sourceTree = "<group>"; };
 		9A48B056281418FC00878C72 /* Info2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info2.plist; sourceTree = "<group>"; };
-		9A5639892814296B006D6C96 /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A56399028143494006D6C96 /* LoginContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContract.swift; sourceTree = "<group>"; };
 		9A56399128143494006D6C96 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		9A56399228143494006D6C96 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
@@ -341,10 +371,13 @@
 		9AB63BAE28043AD60001F15C /* OverallTimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesView.swift; sourceTree = "<group>"; };
 		9AB63BAF28043AD60001F15C /* OverallTimesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesViewModel.swift; sourceTree = "<group>"; };
 		9AB63BB528043EED0001F15C /* Overalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overalls.swift; sourceTree = "<group>"; };
+		9ACC362128D5F2C700B9EC46 /* MultiTestContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiTestContract.swift; sourceTree = "<group>"; };
+		9ACC362228D5F2C700B9EC46 /* MultiTestPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiTestPresenter.swift; sourceTree = "<group>"; };
+		9ACC362328D5F2C700B9EC46 /* MultiTestInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiTestInteractor.swift; sourceTree = "<group>"; };
+		9ACC362428D5F2C700B9EC46 /* MultiTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiTestView.swift; sourceTree = "<group>"; };
+		9ACC362528D5F2C700B9EC46 /* MultiTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiTestViewModel.swift; sourceTree = "<group>"; };
 		9ADD155727DF83AD00C9CE64 /* Commons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commons.swift; sourceTree = "<group>"; };
 		9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
-		9AF2AC932814255A00F80DB4 /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AF2AC95281426B200F80DB4 /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AF2ACE92814273300F80DB4 /* 勉強わん.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "勉強わん.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestView.swift; sourceTree = "<group>"; };
 		9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestViewModel.swift; sourceTree = "<group>"; };
@@ -360,7 +393,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E787B910DB2F0FFDD8E553A /* Pods_PocketCards.framework in Frameworks */,
+				9A521C3828D74CF000C092F6 /* Pods_PocketCards.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +401,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A56398A2814296B006D6C96 /* Pods_PocketCards.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,9 +410,6 @@
 		21995CF8A05F90E62A3C1153 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9A5639892814296B006D6C96 /* Pods_PocketCards.framework */,
-				9AF2AC95281426B200F80DB4 /* Pods_PocketCards.framework */,
-				9AF2AC932814255A00F80DB4 /* Pods_PocketCards.framework */,
 				9B6883D21AA546318D9DFDB4 /* Pods_PocketCards.framework */,
 			);
 			name = Frameworks;
@@ -471,6 +500,7 @@
 		9A1FD27627D7394C0000A16B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9A61E88028D55EBE0037FA82 /* MuitiTest */,
 				9A61E86F285610C80037FA82 /* Daily */,
 				9A9E576F281554140025C74F /* Weekly */,
 				9A61EEAA27E468FF002C73D0 /* Charts */,
@@ -539,6 +569,7 @@
 				9ADD155727DF83AD00C9CE64 /* Commons.swift */,
 				9A9E57A5281A03C90025C74F /* DownloadManager.swift */,
 				9A9E57A8281A0A0F0025C74F /* FileManager.swift */,
+				9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -555,6 +586,7 @@
 		9A1FD28F27D7394C0000A16B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9A3A56B928D95C63001CC4B0 /* Commands */,
 				9AB63BB728043EF10001F15C /* Reports */,
 				9A1FD29027D7394C0000A16B /* Question.swift */,
 				9A9E5787281631D50025C74F /* Group.swift */,
@@ -572,8 +604,17 @@
 				9A56399F2814D86E006D6C96 /* UserServices.swift */,
 				9A9E57842816316A0025C74F /* GroupServices.swift */,
 				9A9E57AE281C15940025C74F /* WeeklyServices.swift */,
+				9A3A56C128D95E4C001CC4B0 /* CommandService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		9A3A56B928D95C63001CC4B0 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				9A3A56B728D9599D001CC4B0 /* Command.swift */,
+			);
+			path = Commands;
 			sourceTree = "<group>";
 		};
 		9A3F50CC27EB325100D9A305 /* Charts */ = {
@@ -633,6 +674,18 @@
 				9A1FD27727D7394C0000A16B /* DailyTest */,
 			);
 			path = Daily;
+			sourceTree = "<group>";
+		};
+		9A61E88028D55EBE0037FA82 /* MuitiTest */ = {
+			isa = PBXGroup;
+			children = (
+				9ACC362128D5F2C700B9EC46 /* MultiTestContract.swift */,
+				9ACC362228D5F2C700B9EC46 /* MultiTestPresenter.swift */,
+				9ACC362328D5F2C700B9EC46 /* MultiTestInteractor.swift */,
+				9ACC362428D5F2C700B9EC46 /* MultiTestView.swift */,
+				9ACC362528D5F2C700B9EC46 /* MultiTestViewModel.swift */,
+			);
+			path = MuitiTest;
 			sourceTree = "<group>";
 		};
 		9A61EEAA27E468FF002C73D0 /* Charts */ = {
@@ -761,7 +814,7 @@
 			children = (
 				380DCEE95344EFD397A0E57A /* Pods-PocketCards.releasecat.xcconfig */,
 				95A78849440A1C13E377131F /* Pods-PocketCards.debug.xcconfig */,
-				04BD6740A2278E0E0221613F /* Pods-PocketCards.releasedog.xcconfig */,
+				7D62322E590A88FDEB58F558 /* Pods-PocketCards.releasedog.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -778,7 +831,8 @@
 				9A1FD24627D7369B0000A16B /* Frameworks */,
 				9A1FD24727D7369B0000A16B /* Resources */,
 				9A039D4E27E6A0D70052FAF0 /* ShellScript */,
-				0E78151B7B0FB004A1DFF750 /* [CP] Embed Pods Frameworks */,
+				9A521C3A28D74CF000C092F6 /* Embed Frameworks */,
+				DB35EA2902C604FEBB109CB5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -797,7 +851,6 @@
 				9AF2ACDC2814273300F80DB4 /* Frameworks */,
 				9AF2ACDE2814273300F80DB4 /* Resources */,
 				9AF2ACE32814273300F80DB4 /* Run Script */,
-				9A56398C28142AD6006D6C96 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -870,23 +923,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0E78151B7B0FB004A1DFF750 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		1AFA513685F2ECC588516A83 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -924,28 +960,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
-		};
-		9A56398C28142AD6006D6C96 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\" --exclude Pods\n";
 		};
 		9AF2ACE32814273300F80DB4 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -965,6 +980,23 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
 		};
+		DB35EA2902C604FEBB109CB5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -981,6 +1013,7 @@
 				9A9E57A22817D0C90025C74F /* WeeklyChoiceRouter.swift in Sources */,
 				9A3F50CA27EB2E9A00D9A305 /* DailyTasksView.swift in Sources */,
 				9A1FD29727D7394C0000A16B /* RootRouter.swift in Sources */,
+				9ACC362C28D5F2C700B9EC46 /* MultiTestView.swift in Sources */,
 				9A09A151280AD4D3001500EB /* OverallFormatter.swift in Sources */,
 				9A5639A02814D86E006D6C96 /* UserServices.swift in Sources */,
 				9A1FD29327D7394C0000A16B /* ChoiceButton.swift in Sources */,
@@ -995,6 +1028,7 @@
 				9AB63BB028043AD60001F15C /* OverallTimesContract.swift in Sources */,
 				9A9E577A281598860025C74F /* WeeklyRootInteractor.swift in Sources */,
 				9A1FD2A027D7394C0000A16B /* Consts.swift in Sources */,
+				9ACC362628D5F2C700B9EC46 /* MultiTestContract.swift in Sources */,
 				9A1FD2A327D7394C0000A16B /* Alamofire.swift in Sources */,
 				9A9E576D281554000025C74F /* WeeklyChoiceViewModel.swift in Sources */,
 				9A9E5778281598860025C74F /* WeeklyRootPresenter.swift in Sources */,
@@ -1005,6 +1039,7 @@
 				9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */,
 				9ADD155827DF83AD00C9CE64 /* Commons.swift in Sources */,
 				9A9E5769281554000025C74F /* WeeklyChoiceInteractor.swift in Sources */,
+				9ACC362A28D5F2C700B9EC46 /* MultiTestInteractor.swift in Sources */,
 				9A1FD2A227D7394C0000A16B /* TokenManager.swift in Sources */,
 				9A56399528143494006D6C96 /* LoginContract.swift in Sources */,
 				9A61E8692855EAC50037FA82 /* DailyReviewInteractor.swift in Sources */,
@@ -1012,6 +1047,7 @@
 				9A9E579B2817781C0025C74F /* UserAttributes.swift in Sources */,
 				9AB63BB428043AD60001F15C /* OverallTimesViewModel.swift in Sources */,
 				9A3F50E027EC412E00D9A305 /* HistoriesPresenter.swift in Sources */,
+				9ACC362828D5F2C700B9EC46 /* MultiTestPresenter.swift in Sources */,
 				9A9E57C428295D260025C74F /* PracticeInteractor.swift in Sources */,
 				9AF57E6F27D962A0002B1F32 /* DailyTestContract.swift in Sources */,
 				9A9E579828165F000025C74F /* WeeklyPracticeViewModel.swift in Sources */,
@@ -1031,6 +1067,7 @@
 				9A9E57BD2823831F0025C74F /* ImageViewer.swift in Sources */,
 				9A276A7227EC4CC6005A716D /* TestChart.swift in Sources */,
 				9A9E575B28154E210025C74F /* WeeklyTestView.swift in Sources */,
+				9A3A56C228D95E4C001CC4B0 /* CommandService.swift in Sources */,
 				9A9E57AF281C15940025C74F /* WeeklyServices.swift in Sources */,
 				9A9E579E2817B6470025C74F /* Curriculum.swift in Sources */,
 				9A1FD2A427D7394C0000A16B /* Colors.swift in Sources */,
@@ -1043,6 +1080,7 @@
 				9A1FD2A627D7394C0000A16B /* QuestionServices.swift in Sources */,
 				9A3F50DF27EC412E00D9A305 /* HistoriesContract.swift in Sources */,
 				9A3F50E327EC412E00D9A305 /* HistoriesViewModel.swift in Sources */,
+				9A3A56B628D95012001CC4B0 /* WebSocketConnection.swift in Sources */,
 				9A9E579028165F000025C74F /* WeeklyPracticeContract.swift in Sources */,
 				9AF57E6B27D96288002B1F32 /* DailyTestInteractor.swift in Sources */,
 				9A9E57C7282960D50025C74F /* StudyContract.swift in Sources */,
@@ -1057,6 +1095,7 @@
 				9AF57E6727D8DC60002B1F32 /* DailyTestView.swift in Sources */,
 				9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */,
 				9A1FD29D27D7394C0000A16B /* DailyStudyPresenter.swift in Sources */,
+				9ACC362E28D5F2C700B9EC46 /* MultiTestViewModel.swift in Sources */,
 				9A09A14D280AA770001500EB /* OverallChart.swift in Sources */,
 				9A1FD29A27D7394C0000A16B /* DailyStudyView.swift in Sources */,
 				9AB63BB628043EED0001F15C /* Overalls.swift in Sources */,
@@ -1073,6 +1112,7 @@
 				9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */,
 				9A9E575928154E210025C74F /* WeeklyTestInteractor.swift in Sources */,
 				9AB63BB128043AD60001F15C /* OverallTimesPresenter.swift in Sources */,
+				9A3A56B828D9599D001CC4B0 /* Command.swift in Sources */,
 				9A9E57CA2829696F0025C74F /* TestInteractor.swift in Sources */,
 				9A3F50E127EC412E00D9A305 /* HistoriesInteractor.swift in Sources */,
 				9A3F50C727EB2E9A00D9A305 /* DailyTasksContract.swift in Sources */,
@@ -1112,10 +1152,13 @@
 				9A9E5779281598860025C74F /* WeeklyRootPresenter.swift in Sources */,
 				9AF2ACAD2814273300F80DB4 /* DailyStudyContract.swift in Sources */,
 				9A9E579528165F000025C74F /* WeeklyPracticeInteractor.swift in Sources */,
+				9ACC362928D5F2C700B9EC46 /* MultiTestPresenter.swift in Sources */,
 				9A9E576C281554000025C74F /* WeeklyChoiceView.swift in Sources */,
+				9ACC362728D5F2C700B9EC46 /* MultiTestContract.swift in Sources */,
 				9AF2ACAE2814273300F80DB4 /* CardButton.swift in Sources */,
 				9AF2ACAF2814273300F80DB4 /* NavigationBarModifier.swift in Sources */,
 				9AF2ACB02814273300F80DB4 /* Commons.swift in Sources */,
+				9A3A56C328D95E4C001CC4B0 /* CommandService.swift in Sources */,
 				9A9E576A281554000025C74F /* WeeklyChoiceInteractor.swift in Sources */,
 				9A56399628143494006D6C96 /* LoginContract.swift in Sources */,
 				9AF2ACB12814273300F80DB4 /* TokenManager.swift in Sources */,
@@ -1180,14 +1223,17 @@
 				9AF2ACD42814273300F80DB4 /* SwiftUIView.swift in Sources */,
 				9A9E57862816316A0025C74F /* GroupServices.swift in Sources */,
 				9AF2ACD52814273300F80DB4 /* DailyTestPresenter.swift in Sources */,
+				9ACC362B28D5F2C700B9EC46 /* MultiTestInteractor.swift in Sources */,
 				9AF2ACD62814273300F80DB4 /* DailyTasksInteractor.swift in Sources */,
 				9A61E86C2855EAC50037FA82 /* DailyReviewView.swift in Sources */,
 				9AF2ACD72814273300F80DB4 /* DailyTasks.swift in Sources */,
+				9ACC362D28D5F2C700B9EC46 /* MultiTestView.swift in Sources */,
 				9A9E575A28154E210025C74F /* WeeklyTestInteractor.swift in Sources */,
 				9AF2ACD82814273300F80DB4 /* OverallTimesPresenter.swift in Sources */,
 				9A9E57CB2829696F0025C74F /* TestInteractor.swift in Sources */,
 				9AF2ACD92814273300F80DB4 /* HistoriesInteractor.swift in Sources */,
 				9AF2ACDA2814273300F80DB4 /* DailyTasksContract.swift in Sources */,
+				9ACC362F28D5F2C700B9EC46 /* MultiTestViewModel.swift in Sources */,
 				9AF2ACDB2814273300F80DB4 /* RootContract.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1240,7 +1286,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1253,6 +1299,7 @@
 		};
 		9A09A1A6281410C4001500EB /* ReleaseDog */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D62322E590A88FDEB58F558 /* Pods-PocketCards.releasedog.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1334,7 +1381,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1389,7 +1436,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1532,7 +1579,6 @@
 		};
 		9AF2ACE82814273300F80DB4 /* ReleaseDog */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 04BD6740A2278E0E0221613F /* Pods-PocketCards.releasedog.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDog;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
