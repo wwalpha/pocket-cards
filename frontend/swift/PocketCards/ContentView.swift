@@ -46,6 +46,12 @@ struct ContentView: View {
                             Image(systemName: "chart.bar")
                         }
                         .tag(3)
+
+                    MultiTestView().configureView()
+                        .tabItem {
+                            Image(systemName: "gamecontroller")
+                        }
+                        .tag(2)
                 }
                 .onAppear {
                     let standardAppearance = UITabBarAppearance()
