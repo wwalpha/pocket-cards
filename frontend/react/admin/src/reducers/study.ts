@@ -4,6 +4,7 @@ import { Domains } from 'typings';
 import * as StudyActions from './studyActions';
 
 const studyState: Domains.StudyState = {
+  answered: [],
   questions: [],
   index: -1,
   student: '',
@@ -26,7 +27,11 @@ const slice = createSlice({
         state.questions = payload;
         state.index = 0;
       })
-      .addCase(StudyActions.STUDY_SHOW_QUESTION.fulfilled, (state) => {
+      .addCase(StudyActions.STUDY_SHOW_QUESTION.fulfilled, (state, { payload }) => {
+        // answerd question
+        if (payload) {
+          state.answered.push(payload);
+        }
         // remove question
         state.questions = state.questions.filter((item) => item.id !== state.questions[state.index].id);
         // recalculate index
@@ -36,12 +41,19 @@ const slice = createSlice({
       })
       .addCase(StudyActions.STUDY_QUESTIONS_CONTINUE.fulfilled, (state, { payload }) => {
         payload.forEach((q) => {
+          // answered question
+          if (state.answered.includes(q.id)) return;
+          // find the same question
           const r = state.questions.find((item) => item.id === q.id);
-
+          // if not found, add question to queue
           if (!r) state.questions.push(q);
         });
       })
-      .addCase(StudyActions.STUDY_SHOW_ANSWER.fulfilled, () => {});
+      .addCase(StudyActions.STUDY_SHOW_ANSWER.fulfilled, (state) => {
+        const question = state.questions[state.index];
+        // answerd question id
+        state.answered.push(question.id);
+      });
   },
 });
 
