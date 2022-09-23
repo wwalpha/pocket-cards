@@ -305,13 +305,15 @@ export namespace Tables {
   // WSS Connections
   // ------------------------------------------------------------
   interface TWSSConnectionsKey {
-    // id
-    id: string;
-    // qid
-    connId: string;
+    // guardian id
+    guardian: string;
+    // user id
+    userId: string;
   }
 
   interface TWSSConnections extends TWSSConnectionsKey {
+    // qid
+    connId: string;
     // 科目
     subject: string;
   }

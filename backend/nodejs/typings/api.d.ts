@@ -353,10 +353,9 @@ export namespace APIs {
   // ------------------------------------------------------------
   // Question Daily Test
   // ------------------------------------------------------------
-  interface QuestionTestRequest {}
-
-  interface QuestionTestQuery {
-    subject?: string;
+  interface QuestionTestRequest {
+    subject: string;
+    userId?: string;
   }
 
   interface QuestionTestResponse {
@@ -410,7 +409,10 @@ export namespace APIs {
   // ------------------------------------------------------------
   interface QuestionOrderQuery {}
 
-  interface QuestionOrderRequest {}
+  interface QuestionOrderRequest {
+    subject: string;
+    userId?: string;
+  }
 
   interface QuestionOrderResponse {
     count: number;

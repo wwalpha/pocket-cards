@@ -14,7 +14,7 @@ resource "aws_lambda_function" "wss_connect" {
 
   environment {
     variables = {
-      TABLE_NAME                          = local.dynamodb_name_wss
+      TABLE_NAME_CONNECTIONS              = local.dynamodb_name_wss
       AWS_NODEJS_CONNECTION_REUSE_ENABLED = 1
       TZ                                  = "Asia/Tokyo"
     }
@@ -47,7 +47,7 @@ resource "aws_lambda_function" "wss_disconnect" {
 
   environment {
     variables = {
-      TABLE_NAME                          = local.dynamodb_name_wss
+      TABLE_NAME_CONNECTIONS              = local.dynamodb_name_wss
       AWS_NODEJS_CONNECTION_REUSE_ENABLED = 1
       TZ                                  = "Asia/Tokyo"
     }
@@ -74,12 +74,12 @@ resource "aws_lambda_function" "wss_commands" {
   s3_object_version = aws_s3_object.lambda_wss_commands.version_id
   handler           = local.lambda_handler
   memory_size       = 128
-  role              = aws_iam_role.wss.arn
+  role              = aws_iam_role.wss_commands.arn
   runtime           = local.lambda_runtime
   timeout           = 10
   environment {
     variables = {
-      TABLE_NAME                          = local.dynamodb_name_wss
+      TABLE_NAME_CONNECTIONS              = local.dynamodb_name_wss
       AWS_NODEJS_CONNECTION_REUSE_ENABLED = 1
       TZ                                  = "Asia/Tokyo"
     }

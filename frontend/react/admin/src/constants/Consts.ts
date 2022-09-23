@@ -49,7 +49,14 @@ export const COLORS = {
   SOCIETY: '#288f46',
   ENGLISH: '#b71927',
   MATHS: '#1B5AAA',
+  MULTI_TEST: '#6F38C5',
 };
 
 export const PATH_IMAGE = 'images';
 export const PATH_VOICE = 'voices';
+
+export const Commands = {
+  SHOW_NEXT: 'SHOW_NEXT',
+  SHOW_ANSWER: 'SHOW_ANSWER',
+  SHOW_CORRECT: 'SHOW_CORRECT',
+};
