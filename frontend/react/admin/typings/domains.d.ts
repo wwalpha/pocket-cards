@@ -57,6 +57,8 @@ export namespace Domains {
   }
 
   interface StudyState {
+    isConnectionEstablished: boolean;
+    isOnline: boolean;
     answered: string[];
     questions: Tables.TQuestions[];
     index: number;

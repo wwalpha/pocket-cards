@@ -4,6 +4,8 @@ import { Domains } from 'typings';
 import * as StudyActions from './studyActions';
 
 const studyState: Domains.StudyState = {
+  isConnectionEstablished: false,
+  isOnline: false,
   answered: [],
   questions: [],
   index: -1,
@@ -15,10 +17,32 @@ const slice = createSlice({
   name: 'user',
   initialState: studyState,
   reducers: {
+    STUDY_CONNECT: () => {},
+    STUDY_CONNECTED: (state) => {
+      state.isConnectionEstablished = true;
+    },
+    STUDY_DISCONNECT: (state) => {
+      state.isConnectionEstablished = false;
+    },
     // save search conditions
     STUDY_CONDITIONS: (state, { payload }: PayloadAction<{ student: string; subject: string }>) => {
       state.student = payload.student;
       state.subject = payload.subject;
+    },
+    STUDY_ONLINE: (state, { payload }: PayloadAction<string>) => {
+      if (payload === state.student) {
+        state.isOnline = true;
+      }
+    },
+    STUDY_OFFLINE: (state, { payload }: PayloadAction<string>) => {
+      if (payload === state.student) {
+        state.isOnline = false;
+      }
+    },
+    STUDY_SHOW_ANSWER: (state, { payload }: PayloadAction<string>) => {
+      const question = state.questions[state.index];
+      // answerd question id
+      state.answered.push(question.id);
     },
   },
   extraReducers: (builder) => {
@@ -48,11 +72,6 @@ const slice = createSlice({
           // if not found, add question to queue
           if (!r) state.questions.push(q);
         });
-      })
-      .addCase(StudyActions.STUDY_SHOW_ANSWER.fulfilled, (state) => {
-        const question = state.questions[state.index];
-        // answerd question id
-        state.answered.push(question.id);
       });
   },
 });
