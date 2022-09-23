@@ -73,7 +73,7 @@ AUTH_DOMAIN=${local.remote_services.cognito_user_pool_domain}
 AUTH_SIGN_IN_URL=${local.remote_services.cognito_callback_url}
 AUTH_SIGN_OUT_URL=${local.remote_services.cognito_logout_url}
 API_URL=https://api.${local.remote_setup.route53_zone_name}
-WSS_URL=wss://socket.${local.remote_setup.route53_zone_name}/v1
+WSS_URL=wss://socket.${local.remote_setup.route53_zone_name}
 DOMAIN_HOST=https://www.${local.remote_setup.route53_zone_name}
 EOT
 }
