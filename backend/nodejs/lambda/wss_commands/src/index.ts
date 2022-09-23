@@ -18,7 +18,7 @@ export const handler = async (
 
   const { connectionId, domainName, stage, authorizer } = event.requestContext;
   const request = JSON.parse(event.body) as RequestBody;
-  const apigateway = new ApiGatewayManagementApi({ endpoint: `${domainName}/${stage}` });
+  const apigateway = new ApiGatewayManagementApi({ endpoint: domainName });
 
   const connections = await getConnections(authorizer.principalId, connectionId);
 
