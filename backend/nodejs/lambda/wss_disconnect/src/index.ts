@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
 import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
@@ -6,22 +6,17 @@ import {
 import { Tables } from 'typings';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
-// const TABLE_NAME_USERS = process.env.TABLE_NAME_USERS as string;
 const client = new DynamoDB.DocumentClient();
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
 ): Promise<any> => {
+  const { connectionId, domainName } = event.requestContext;
   const { principalId, guardian } = event.requestContext.authorizer;
+  const apigateway = new ApiGatewayManagementApi({ endpoint: domainName });
+
   let statusCode = 200;
-
-  // get guardian id
-  // const guardian = await getGuardian(principalId);
-
-  // // guardian not found
-  // if (!guardian) {
-  //   return { statusCode };
-  // }
+  const connections = await getConnections(guardian, connectionId);
 
   try {
     await client
@@ -33,6 +28,19 @@ export const handler = async (
         } as Tables.TWSSConnectionsKey,
       })
       .promise();
+
+    await Promise.all(
+      connections.map((item) =>
+        apigateway
+          .postToConnection({
+            ConnectionId: item.connId,
+            Data: JSON.stringify({
+              OFF_LINE: principalId,
+            }),
+          })
+          .promise()
+      )
+    );
   } catch (err) {
     console.log(err);
   }
@@ -42,27 +50,29 @@ export const handler = async (
   };
 };
 
-/** get user's guardian id */
-// const getGuardian = async (userId: string) => {
-//   const result = await client
-//     .get({
-//       TableName: TABLE_NAME_USERS,
-//       Key: {
-//         id: userId,
-//       } as Tables.TUsersKey,
-//     })
-//     .promise();
+const getConnections = async (userId: string, connectionId: string): Promise<Tables.TWSSConnections[]> => {
+  const results = await client
+    .query({
+      TableName: TABLE_NAME_CONNECTIONS,
+      KeyConditionExpression: '#guardian = :guardian',
+      ExpressionAttributeNames: {
+        '#guardian': 'guardian',
+      },
+      ExpressionAttributeValues: {
+        ':guardian': userId,
+      },
+    })
+    .promise();
 
-//   if (!result.Item) {
-//     return undefined;
-//   }
+  if (!results.Items) {
+    return [];
+  }
 
-//   // ユーザ情報
-//   const userInfo = result.Item as Tables.TUsers;
+  const items = results.Items as Tables.TWSSConnections[];
 
-//   // 教師ある場合は、教師を返す
-//   return userInfo.teacher ? userInfo.teacher : userInfo.id;
-// };
+  // return client connections
+  return items.filter((item) => item.connId !== connectionId);
+};
 
 interface TAuthorizer {
   principalId: string;
