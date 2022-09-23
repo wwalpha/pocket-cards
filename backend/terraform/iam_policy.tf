@@ -98,3 +98,13 @@ resource "aws_iam_role_policy" "vision_s3_delete" {
     ]
   })
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS Role Policy - API Gateway
+# ----------------------------------------------------------------------------------------------
+data "aws_iam_policy_document" "wss_apigw" {
+  statement {
+    actions = ["execute-api:*"]
+    Resource = "*"
+  }
+}
