@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
 import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
@@ -12,17 +12,13 @@ const client = new DynamoDB.DocumentClient();
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
 ): Promise<any> => {
-  const { connectionId } = event.requestContext;
+  const { connectionId, domainName } = event.requestContext;
   const { principalId, guardian } = event.requestContext.authorizer;
+  const apigateway = new ApiGatewayManagementApi({ endpoint: domainName });
+
   let statusCode = 200;
 
-  // // get guardian id
-  // const guardian = await getGuardian(principalId);
-
-  // // guardian not found
-  // if (!guardian) {
-  //   return { statusCode: 500 };
-  // }
+  const connections = await getConnections(guardian);
 
   try {
     await client
@@ -35,6 +31,19 @@ export const handler = async (
         } as Tables.TWSSConnections,
       })
       .promise();
+
+    await Promise.all(
+      connections.map((item) =>
+        apigateway
+          .postToConnection({
+            ConnectionId: item.connId,
+            Data: JSON.stringify({
+              ON_LINE: principalId,
+            }),
+          })
+          .promise()
+      )
+    );
   } catch (err) {
     console.log(err);
     statusCode = 500;
@@ -43,6 +52,30 @@ export const handler = async (
   return {
     statusCode,
   };
+};
+
+const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]> => {
+  const results = await client
+    .query({
+      TableName: TABLE_NAME_CONNECTIONS,
+      KeyConditionExpression: '#guardian = :guardian',
+      ExpressionAttributeNames: {
+        '#guardian': 'guardian',
+      },
+      ExpressionAttributeValues: {
+        ':guardian': userId,
+      },
+    })
+    .promise();
+
+  if (!results.Items) {
+    return [];
+  }
+
+  const items = results.Items as Tables.TWSSConnections[];
+
+  // return client connections
+  return items;
 };
 
 /** get user's guardian id */
