@@ -70,7 +70,6 @@ resource "aws_apigatewayv2_api_mapping" "wss" {
   api_id          = aws_apigatewayv2_api.wss.id
   domain_name     = aws_apigatewayv2_domain_name.wss.domain_name
   stage           = aws_apigatewayv2_stage.wss.id
-  api_mapping_key = "v1"
 }
 
 # # ---------------------------------------------------------------------------------------------
