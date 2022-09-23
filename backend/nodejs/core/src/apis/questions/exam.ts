@@ -1,18 +1,27 @@
 import { Request } from 'express';
-import { Logger, DateUtils, Commons, QueryUtils } from '@utils';
+import { Logger, DateUtils, Commons, QueryUtils, ValidationError } from '@utils';
 import { Environment } from '@consts';
 import { APIs } from 'typings';
 import { LearningService } from '@services';
 
 /** 今日のテスト */
-export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Promise<APIs.QuestionTestResponse> => {
-  // ユーザID
-  const userId = Commons.getUserId(req);
-  const subject = req.query.subject;
+export default async (req: Request<any, any, APIs.QuestionTestRequest, any>): Promise<APIs.QuestionTestResponse> => {
+  let userId = Commons.getUserId(req);
+  const guardianId = Commons.getGuardian(req);
+  const { subject, userId: username } = req.body;
 
   // 科目選択されていない
   if (!subject) {
     throw new Error('Please select subject.');
+  }
+
+  // 保護者からのリクエスト
+  if (guardianId === userId) {
+    if (!username) {
+      throw new ValidationError('Required username.');
+    }
+
+    userId = username;
   }
 
   // next study date
@@ -27,8 +36,6 @@ export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Pro
 
   Logger.info(`Count: ${results.length}`);
 
-  // 時間順
-  // const sorted = orderBy(items, 'lastTime');
   // 時間順で上位N件を対象とします
   const targets = results.slice(0, Environment.WORDS_LIMIT);
 

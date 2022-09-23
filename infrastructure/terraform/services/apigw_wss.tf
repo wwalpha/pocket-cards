@@ -45,7 +45,7 @@ resource "aws_apigatewayv2_stage" "wss" {
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_domain_name" "wss" {
   depends_on  = [aws_acm_certificate_validation.api]
-  domain_name = "wss.${local.domain_name}"
+  domain_name = "socket.${local.domain_name}"
 
   domain_name_configuration {
     certificate_arn = aws_acm_certificate.api.arn

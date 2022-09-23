@@ -1,28 +1,36 @@
 import { Request } from 'express';
 import { APIs, Tables } from 'typings';
 import { Commons, DateUtils, ValidationError } from '@utils';
-import { CurriculumService, LearningService, QuestionService, UserService } from '@services';
+import { CurriculumService, LearningService, QuestionService } from '@services';
 import orderBy from 'lodash/orderBy';
 import { Environment } from '@consts';
 
-export default async (
-  req: Request<APIs.QuestionOrderQuery, any, APIs.QuestionOrderRequest, any>
-): Promise<APIs.QuestionOrderResponse> => {
-  const userId = Commons.getUserId(req);
-  const subject = req.query.subject;
+export default async (req: Request<any, any, APIs.QuestionOrderRequest, any>): Promise<APIs.QuestionOrderResponse> => {
+  let userId = Commons.getUserId(req);
+  const guardianId = Commons.getGuardian(req);
+  const { subject, userId: username } = req.body;
 
   // 科目選択されていない
   if (!subject) {
     throw new ValidationError('Please select subject.');
   }
 
-  const userInfo = await UserService.getUserInfo(userId, req.headers);
-  const guardianId = userInfo.teacher;
+  // 保護者からのリクエスト
+  if (guardianId === userId) {
+    if (!username) {
+      throw new ValidationError('Required username.');
+    }
 
-  // 保護者の必須チェック
-  if (!guardianId) {
-    throw new ValidationError('Guardian is not found.');
+    userId = username;
   }
+
+  // const userInfo = await UserService.getUserInfo(userId, req.headers);
+  // const guardianId = userInfo.teacher;
+
+  // // 保護者の必須チェック
+  // if (!guardianId) {
+  //   throw new ValidationError('Guardian is not found.');
+  // }
 
   // ユーザのカリキュラム一覧を取得する
   const curriculums = await CurriculumService.getListByGuardian(guardianId, subject, userId);

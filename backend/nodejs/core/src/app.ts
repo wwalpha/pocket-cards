@@ -123,13 +123,13 @@ app.post('/v1/study/weekly/:groupId/questions/:questionId', express.json(), (req
 );
 
 // カリキュラム順で学習
-app.get('/v1/study/daily/order/questions', express.json(), (req, res) => entry(req, res, QuestionOrder));
+app.post('/v1/study/daily/order/questions', express.json(), (req, res) => entry(req, res, QuestionOrder));
 // 復習問題取得
 app.get('/v1/study/daily/review/questions', express.json(), (req, res) => entry(req, res, QuestionReview));
 // 練習問題取得
 app.get('/v1/study/daily/practice/questions', express.json(), (req, res) => entry(req, res, QuestionStudy));
 // テスト問題取得
-app.get('/v1/study/daily/test/questions', express.json(), (req, res) => entry(req, res, QuestionExam));
+app.post('/v1/study/daily/test/questions', express.json(), (req, res) => entry(req, res, QuestionExam));
 // テスト問題更新
 app.post('/v1/study/daily/test/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionAnswer));
 

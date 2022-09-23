@@ -84,6 +84,12 @@ resource "aws_lambda_function" "authorizer_v1" {
   memory_size       = 256
   role              = aws_iam_role.authorizer.arn
   timeout           = 3
+  environment {
+    variables = {
+      TABLE_NAME_USERS                    = local.dynamodb_name_users
+      AWS_NODEJS_CONNECTION_REUSE_ENABLED = "1"
+    }
+  }
 }
 
 # ----------------------------------------------------------------------------------------------

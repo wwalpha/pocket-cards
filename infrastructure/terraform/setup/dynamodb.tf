@@ -376,16 +376,16 @@ resource "aws_dynamodb_table" "weekly_ability" {
 resource "aws_dynamodb_table" "wss" {
   name         = local.dynamodb_name_wss_connections
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "id"
-  range_key    = "connId"
+  hash_key     = "guardian"
+  range_key    = "userId"
 
   attribute {
-    name = "id"
+    name = "guardian"
     type = "S"
   }
 
   attribute {
-    name = "connId"
+    name = "userId"
     type = "S"
   }
 

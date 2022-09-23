@@ -5,7 +5,7 @@ import {
 import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
 import { Tables } from 'typings';
 
-const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME as string;
+const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
 const client = new DynamoDB.DocumentClient();
 
 export const handler = async (
@@ -22,14 +22,16 @@ export const handler = async (
 
   const connections = await getConnections(authorizer.principalId, connectionId);
 
-  await Promise.all([
+  await Promise.all(
     connections.map((item) =>
-      apigateway.postToConnection({
-        ConnectionId: item.connId,
-        Data: request.command,
-      })
-    ),
-  ]);
+      apigateway
+        .postToConnection({
+          ConnectionId: item.connId,
+          Data: JSON.stringify(request),
+        })
+        .promise()
+    )
+  );
 
   return {
     statusCode: 200,
@@ -40,12 +42,12 @@ const getConnections = async (userId: string, connectionId: string) => {
   const results = await client
     .query({
       TableName: TABLE_NAME_CONNECTIONS,
-      KeyConditionExpression: '#id = :id',
+      KeyConditionExpression: '#guardian = :guardian',
       ExpressionAttributeNames: {
-        '#id': 'id',
+        '#guardian': 'guardian',
       },
       ExpressionAttributeValues: {
-        ':id': userId,
+        ':guardian': userId,
       },
     })
     .promise();
@@ -61,7 +63,8 @@ const getConnections = async (userId: string, connectionId: string) => {
 };
 
 interface RequestBody {
-  command: 'PLAY_SOUND' | 'SHOW_NEXT' | 'SHOW_ANSWER';
+  command: 'SHOW_NEXT' | 'SHOW_ANSWER';
+  payload?: string;
 }
 
 interface TAuthorizer {
