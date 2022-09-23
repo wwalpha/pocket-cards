@@ -42,3 +42,18 @@ resource "aws_route53_record" "api" {
     evaluate_target_health = false
   }
 }
+
+# ------------------------------------------------------------------------------------------------
+# AWS Route53 Record - API Gateway
+# ------------------------------------------------------------------------------------------------
+resource "aws_route53_record" "wss" {
+  name    = "socket.${local.domain_name}"
+  type    = "A"
+  zone_id = data.aws_route53_zone.this.id
+
+  alias {
+    name                   = aws_apigatewayv2_domain_name.wss.domain_name_configuration[0].target_domain_name
+    zone_id                = aws_apigatewayv2_domain_name.wss.domain_name_configuration[0].hosted_zone_id
+    evaluate_target_health = false
+  }
+}
