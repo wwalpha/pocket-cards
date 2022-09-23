@@ -9,6 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Paper from '@mui/material/Paper';
 import LoadingButton from '@mui/lab/LoadingButton';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { StudyActions } from '@actions';
 import { Consts } from '@constants';
 import { MultiTestForm, RootState } from 'typings';
@@ -21,7 +22,7 @@ export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
   const [incorrect, setIncorrect] = React.useState(false);
   const [isSearched, setSearched] = React.useState(false);
-  const { questions, index } = useSelector(studyState);
+  const { questions, index, student, isOnline } = useSelector(studyState);
   const { students } = useSelector(userState);
   const { isLoading } = useSelector(appState);
 
@@ -110,64 +111,69 @@ export default () => {
         </Box>
       )}
       {isSearched && questions.length !== 0 && (
-        <Box display="flex" flexDirection="column" sx={{ m: 2 }}>
-          <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-            {questions[index].title.replace(/\[.*\]/g, '')}
-            {(() => {
-              const title = questions[index].title;
-              // 画像がない
-              if (!title.match(/\[.*\]/g)) return;
-
-              const startIdx = title.indexOf('[');
-              const endIdx = title.indexOf(']', startIdx);
-              const url = title.substring(startIdx + 1, endIdx);
-
-              return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
-            })()}
-          </Paper>
-          <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-            {questions[index].answer.replace(/\[.*\]/g, '')}
-            {(() => {
-              const answer = questions[index].answer;
-              // 画像がない
-              if (!answer.match(/\[.*\]/g)) return;
-
-              const startIdx = answer.indexOf('[');
-              const endIdx = answer.indexOf(']', startIdx);
-              const url = answer.substring(startIdx + 1, endIdx);
-
-              return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
-            })()}
-          </Paper>
-
-          <Box display="flex" justifyContent="flex-end" sx={{ py: 2 }}>
-            <LoadingButton
-              sx={{ width: '120px', mx: 2 }}
-              loading={isLoading}
-              variant="contained"
-              color="primary"
-              onClick={onNext}>
-              次へ
-            </LoadingButton>
-            <LoadingButton
-              sx={{ width: '120px', mx: 2 }}
-              loading={isLoading}
-              variant="contained"
-              color="primary"
-              onClick={onFailure}>
-              不正解
-            </LoadingButton>
-            <LoadingButton
-              sx={{ width: '120px', mx: 2 }}
-              loading={isLoading}
-              variant="contained"
-              color="secondary"
-              onClick={onCorrect}
-              disabled={incorrect}>
-              正解
-            </LoadingButton>
+        <React.Fragment>
+          <Box display="flex" sx={{ mt: 1, px: 2 }}>
+            {student}: <LightbulbIcon sx={{ ml: 2, color: isOnline === true ? 'green' : 'red' }} />
           </Box>
-        </Box>
+          <Box display="flex" flexDirection="column" sx={{ my: 1, mx: 2 }}>
+            <Paper elevation={3} sx={{ my: 1, p: 4 }}>
+              {questions[index].title.replace(/\[.*\]/g, '')}
+              {(() => {
+                const title = questions[index].title;
+                // 画像がない
+                if (!title.match(/\[.*\]/g)) return;
+
+                const startIdx = title.indexOf('[');
+                const endIdx = title.indexOf(']', startIdx);
+                const url = title.substring(startIdx + 1, endIdx);
+
+                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
+              })()}
+            </Paper>
+            <Paper elevation={3} sx={{ my: 1, p: 4 }}>
+              {questions[index].answer.replace(/\[.*\]/g, '')}
+              {(() => {
+                const answer = questions[index].answer;
+                // 画像がない
+                if (!answer.match(/\[.*\]/g)) return;
+
+                const startIdx = answer.indexOf('[');
+                const endIdx = answer.indexOf(']', startIdx);
+                const url = answer.substring(startIdx + 1, endIdx);
+
+                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
+              })()}
+            </Paper>
+
+            <Box display="flex" justifyContent="flex-end" sx={{ py: 2 }}>
+              <LoadingButton
+                sx={{ width: '120px', mx: 2 }}
+                loading={isLoading}
+                variant="contained"
+                color="primary"
+                onClick={onNext}>
+                次へ
+              </LoadingButton>
+              <LoadingButton
+                sx={{ width: '120px', mx: 2 }}
+                loading={isLoading}
+                variant="contained"
+                color="primary"
+                onClick={onFailure}>
+                不正解
+              </LoadingButton>
+              <LoadingButton
+                sx={{ width: '120px', mx: 2 }}
+                loading={isLoading}
+                variant="contained"
+                color="secondary"
+                onClick={onCorrect}
+                disabled={incorrect}>
+                正解
+              </LoadingButton>
+            </Box>
+          </Box>
+        </React.Fragment>
       )}
     </form>
   );

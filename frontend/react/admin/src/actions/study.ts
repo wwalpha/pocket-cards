@@ -3,13 +3,16 @@ import { Consts } from '@constants';
 import { AppDispatch } from 'typings';
 
 export const dailyTest = (student: string, subject: string) => async (dispatch: AppDispatch) => {
+  // websocket connect
+  dispatch(Actions.STUDY_CONNECT());
+  // save search condition
   dispatch(
     Actions.STUDY_CONDITIONS({
       student: student,
       subject: subject,
     })
   );
-
+  // get questions
   await dispatch(
     Actions.STUDY_QUESTIONS({
       userId: student,

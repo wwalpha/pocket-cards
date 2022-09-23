@@ -5,6 +5,7 @@ import { createHashHistory, createBrowserHistory } from 'history';
 import logger from 'redux-logger';
 import { Credentials } from '@utils';
 import { URLs } from '@constants';
+import WebSocket from '../middleware/WebSocket';
 import { Auth, Domains } from 'typings';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
@@ -60,6 +61,7 @@ const store = configureStore({
     let middle = getDefaultMiddleware();
 
     middle = middle.concat(routerMiddleware(history));
+    middle = middle.concat(WebSocket);
 
     if (process.env.NODE_ENV !== 'production') {
       middle = middle.concat(logger);
