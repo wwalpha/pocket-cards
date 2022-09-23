@@ -16,11 +16,11 @@ let COGNITO_WEB_DOMAIN: String = ProcessInfo.processInfo.environment["COGNITO_WE
 
 #if DEBUG
     let API_URL: String = "https://api.pkc.onecloudlabo.com"
-    let SOCKET_URL: String = "wss://socket.pkc.onecloudlabo.com/v1"
+    let SOCKET_URL: String = "wss://socket.pkc.onecloudlabo.com/"
     let DOMAIN_HOST: String = "https://www.pkc.onecloudlabo.com/"
 #else
     let API_URL: String = "https://api.pkc.aws-handson.com"
-    let SOCKET_URL: String = "wss://socket.pkc.aws-handson.com/v1"
+    let SOCKET_URL: String = "wss://socket.pkc.aws-handson.com/"
     let DOMAIN_HOST: String = "https://www.pkc.aws-handson.com/"
 #endif
 
