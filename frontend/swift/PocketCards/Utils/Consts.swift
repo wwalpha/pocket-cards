@@ -9,6 +9,11 @@ import Foundation
 
 class URLs {
     private static let HOST = API_URL
+
+    static func WSS_URL(token: String) -> String {
+        "\(SOCKET_URL)?Authorization=\(token)"
+    }
+
     static let STUDY_DAILY_CURRICULUM_ORDER = "\(HOST)/v1/study/daily/order/questions"
     static let STUDY_DAILY_PRACTICE = "\(HOST)/v1/study/daily/practice/questions"
     static let STUDY_DAILY_TEST = "\(HOST)/v1/study/daily/test/questions"
@@ -42,6 +47,10 @@ class URLs {
 
     static func QUESTION_LIST(groupId: String) -> String {
         "\(HOST)/v1/groups/\(groupId)/questions"
+    }
+
+    static func QUESTION_DESCRIBE(gid: String, qid: String) -> String {
+        "\(HOST)/v1/groups/\(gid)/questions/\(qid)"
     }
 
     static func USER_CURRICULUM_LIST(userId: String) -> String {

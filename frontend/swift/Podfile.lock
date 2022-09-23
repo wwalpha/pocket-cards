@@ -1,43 +1,43 @@
 PODS:
-  - Alamofire (5.5.0)
-  - Amplify (1.21.0):
-    - Amplify/Default (= 1.21.0)
-  - Amplify/Default (1.21.0)
-  - AmplifyPlugins/AWSCognitoAuthPlugin (1.21.0):
-    - AWSAuthCore (~> 2.27.0)
-    - AWSCognitoIdentityProvider (~> 2.27.0)
-    - AWSCognitoIdentityProviderASF (~> 2.27.0)
-    - AWSCore (~> 2.27.0)
-    - AWSMobileClient (~> 2.27.0)
-    - AWSPluginsCore (= 1.21.0)
-  - AWSAuthCore (2.27.2):
-    - AWSCore (= 2.27.2)
-  - AWSCognitoIdentityProvider (2.27.2):
-    - AWSCognitoIdentityProviderASF (= 2.27.2)
-    - AWSCore (= 2.27.2)
-  - AWSCognitoIdentityProviderASF (2.27.2):
-    - AWSCore (= 2.27.2)
-  - AWSCore (2.27.2)
-  - AWSMobileClient (2.27.2):
-    - AWSAuthCore (= 2.27.2)
-    - AWSCognitoIdentityProvider (= 2.27.2)
-    - AWSCognitoIdentityProviderASF (= 2.27.2)
-    - AWSCore (= 2.27.2)
-  - AWSPluginsCore (1.21.0):
-    - Amplify (= 1.21.0)
-    - AWSCore (~> 2.27.0)
+  - Alamofire (5.6.2)
+  - Amplify (1.28.1):
+    - Amplify/Default (= 1.28.1)
+  - Amplify/Default (1.28.1)
+  - AmplifyPlugins/AWSCognitoAuthPlugin (1.28.1):
+    - AWSAuthCore (~> 2.28.0)
+    - AWSCognitoIdentityProvider (~> 2.28.0)
+    - AWSCognitoIdentityProviderASF (~> 2.28.0)
+    - AWSCore (~> 2.28.0)
+    - AWSMobileClient (~> 2.28.0)
+    - AWSPluginsCore (= 1.28.1)
+  - AWSAuthCore (2.28.0):
+    - AWSCore (= 2.28.0)
+  - AWSCognitoIdentityProvider (2.28.0):
+    - AWSCognitoIdentityProviderASF (= 2.28.0)
+    - AWSCore (= 2.28.0)
+  - AWSCognitoIdentityProviderASF (2.28.0):
+    - AWSCore (= 2.28.0)
+  - AWSCore (2.28.0)
+  - AWSMobileClient (2.28.0):
+    - AWSAuthCore (= 2.28.0)
+    - AWSCognitoIdentityProvider (= 2.28.0)
+    - AWSCognitoIdentityProviderASF (= 2.28.0)
+    - AWSCore (= 2.28.0)
+  - AWSPluginsCore (1.28.1):
+    - Amplify (= 1.28.1)
+    - AWSCore (~> 2.28.0)
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
-  - Kingfisher (7.2.0)
-  - SwiftFormat/CLI (0.49.4)
+  - Kingfisher (7.3.2)
+  - SwiftFormat/CLI (0.49.18)
 
 DEPENDENCIES:
   - Alamofire
   - Amplify
   - AmplifyPlugins/AWSCognitoAuthPlugin
-  - Charts
-  - Kingfisher (~> 7.0)
+  - Charts (~> 3.6.0)
+  - Kingfisher
   - SwiftFormat/CLI
 
 SPEC REPOS:
@@ -56,19 +56,19 @@ SPEC REPOS:
     - SwiftFormat
 
 SPEC CHECKSUMS:
-  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
-  Amplify: 8af0fbd1856d7418469ee3f940f428925902210e
-  AmplifyPlugins: f2a93ae2a981e3a7f362ad00c39e2656af038215
-  AWSAuthCore: bf09d476ed9cbc3b3c0d106997020712ff96ae0b
-  AWSCognitoIdentityProvider: bab85c753763a6ffa7764875e5c2303cdd82928d
-  AWSCognitoIdentityProviderASF: 24d554b7a39fdac0892353a41a460821946aa8e2
-  AWSCore: 577d083806d0d86d102462cdd06d16706b74410b
-  AWSMobileClient: a4716d7418ca79fb3081d97139fb590c2a4e7cd8
-  AWSPluginsCore: d0e4ea6ca225b0f79e40193178c06348b8220a86
+  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
+  Amplify: 050d2daf2c5754eab171606fa3e35619c4babf6e
+  AmplifyPlugins: 55b7fe0fe9a4788b0602b9e65601a832b814a96a
+  AWSAuthCore: 658c331fe5cbc58608ced499aa0d8d46c57e9c96
+  AWSCognitoIdentityProvider: 9778edc430206a1bf67ff5f0c7a7b130fa4a5380
+  AWSCognitoIdentityProviderASF: a82f81ad75fce6d8c826ed394fa3cf7c51306897
+  AWSCore: 0ebe9ba8a459893cdf268ce0bae61875efd0182b
+  AWSMobileClient: 8d466f135e8d851a76e57cbfe65bb67eb522b64c
+  AWSPluginsCore: a12e315533b041485d722bdb394bf150ad9cc78e
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
-  Kingfisher: 3ac0b75b155cabc0e544877d1a4deea29feece92
-  SwiftFormat: 8acc16efcecb563206cbe90b4cb047cfdf9aafdb
+  Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
+  SwiftFormat: 2402d29b26746f169cce5454d5af88314cbb2e35
 
-PODFILE CHECKSUM: be5ee574589b2305b7893c1509921aa5e9370861
+PODFILE CHECKSUM: f33f695f3168a017359008701f5a6447363c9556
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

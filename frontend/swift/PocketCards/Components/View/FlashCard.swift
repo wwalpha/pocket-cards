@@ -10,8 +10,6 @@ import SwiftUI
 
 struct FlashCard: View {
     @State private var fontSize: [CGFloat] = [24, 32, 40, 48, 56, 64]
-
-    @State private var flipped = false
     @State private var angle: Double = 0
     @State private var frontImage: Image?
     @State private var backImage: Image?
@@ -20,157 +18,37 @@ struct FlashCard: View {
     @State private var isPresented = false
     @State private var fontIndex = 5
 
-    var question: Question
-    var action: (_: Bool) -> Void
+    @State var flipped = false
+
+    private var readOnly = false
+    private var question: Question
+    private var action: (_: Bool) -> Void
+
+    init(question: Question, action: @escaping (_: Bool) -> Void) {
+        self.init(flipped: false, readOnly: false, question: question, action: action)
+    }
+
+    init(flipped: Bool, readOnly: Bool, question: Question, action: @escaping (_: Bool) -> Void) {
+        self.readOnly = readOnly
+        self.flipped = flipped
+        self.question = question
+        self.action = action
+    }
 
     var body: some View {
-        let qImage = question.title.getImage()
-        let aImage = question.answer.getImage()
-        let qText = question.title.removeImage().trimmingCharacters(in: .whitespacesAndNewlines)
-        let aText = question.answer.removeImage().trimmingCharacters(in: .whitespacesAndNewlines)
-
         GeometryReader { geo in
             VStack {
-                ZStack {
-                    Button {
-                        onPlay(front: !flipped)
-                    } label: {
-                        HStack {
-                            Image(systemName: "speaker.wave.3")
-                        }
-                        .padding()
-                        .border(Color.blue, width: 2)
-                    }
-                    .frame(width: 120, height: 48, alignment: .center)
-                    .position(x: geo.size.width - 92, y: 56)
-                    .zIndex(100)
+                if readOnly {
+                    bodyView(size: geo.size)
 
-                    VStack {
-                        let _ = debugPrint(123, qText, qText.isEmpty)
-                        if !qText.isEmpty {
-                            Text(qText)
-                        }
-
-                        if !qImage.isEmpty {
-                            // if file locally exist
-                            if FileManager.default.fileExists(fileName: qImage) {
-                                Image(uiImage: FileManager.default.loadImage(fileName: qImage)!)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .onTapGesture {
-                                        isPresented = true
-                                    }
-                                    .fullScreenCover(isPresented: $isPresented) {
-                                        ImageViewer(isShowing: $isPresented, name: qImage)
-                                    }
-                            } else {
-                                // download image
-                                let _ = DownloadManager.default.downloadFile(path: qImage)
-
-                                KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .onTapGesture {
-                                        isPresented = true
-                                    }
-                                    .fullScreenCover(isPresented: $isPresented) {
-                                        ImageViewer(isShowing: $isPresented, name: qImage)
-                                    }
-                            }
-                        }
-                    }
-                    .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.7, alignment: .center)
-                    .font(.system(size: fontSize[fontIndex], design: .default))
-                    .padding()
-                    .border(Color.purple, width: 5)
-                    .background(Color.grey100)
-                    .opacity(flipped ? 0.0 : 1.0)
-
-                    VStack {
-                        if !aText.isEmpty {
-                            Text(aText)
-                        }
-
-                        if !aImage.isEmpty {
-                            // if file locally exist
-                            if FileManager.default.fileExists(fileName: aImage) {
-                                Image(uiImage: FileManager.default.loadImage(fileName: aImage)!)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .onTapGesture {
-                                        isPresented = true
-                                    }
-                                    .fullScreenCover(isPresented: $isPresented) {
-                                        ImageViewer(isShowing: $isPresented, name: aImage)
-                                    }
-                            } else {
-                                // download image
-                                let _ = DownloadManager.default.downloadFile(path: aImage)
-
-                                KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .onTapGesture {
-                                        isPresented = true
-                                    }
-                                    .fullScreenCover(isPresented: $isPresented) {
-                                        ImageViewer(isShowing: $isPresented, name: aImage)
-                                    }
-                            }
-                        }
-                    }
-                    .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.7, alignment: .center)
-                    .font(.system(size: fontSize[fontIndex], design: .default))
-                    .padding()
-                    .border(Color.purple, width: 5)
-                    .background(Color.green100)
-                    .opacity(flipped ? 1.0 : 0.0)
+                } else {
+                    bodyView(size: geo.size)
+                        .modifier(FlipEffect(flipped: $flipped, angle: angle, axis: (x: 0, y: 1)))
                 }
-                .modifier(FlipEffect(flipped: $flipped, angle: angle, axis: (x: 0, y: 1)))
-                .onTapGesture {
-                    withAnimation(Animation.spring()) {
-                        self.angle += 180
-                    }
-                    withAnimation(nil) {
-                        if self.angle >= 360 {
-                            self.angle = self.angle.truncatingRemainder(dividingBy: 360)
-                        }
-                    }
+
+                if !readOnly {
+                    buttonsView(size: geo.size)
                 }
-                .padding(0)
-
-                HStack {
-                    Spacer()
-
-                    Button(action: {
-                        self.action(false)
-                        self.angle = 0.0
-                    }, label: {
-                        Text("知らない")
-                            .frame(maxWidth: geo.size.width * 0.25, maxHeight: 64, alignment: .center)
-                            .padding()
-                            .font(.largeTitle)
-                            .foregroundColor(Color.white)
-                            .background(Color.systemYellow)
-                    })
-
-                    Spacer()
-
-                    Button(action: {
-                        self.action(true)
-                        self.angle = 0.0
-                    }, label: {
-                        Text("知ってる")
-                            .frame(maxWidth: geo.size.width * 0.25, maxHeight: 64, alignment: .center)
-                            .padding()
-                            .font(.largeTitle)
-                            .foregroundColor(Color.white)
-                            .background(Color.green)
-                    })
-
-                    Spacer()
-                }
-                .padding(.top)
 
                 Spacer()
             }
@@ -221,6 +99,172 @@ struct FlashCard: View {
                 }
             }
         }
+    }
+
+    @ViewBuilder
+    func bodyView(size: CGSize) -> some View {
+        ZStack {
+            Button {
+                onPlay(front: !flipped)
+            } label: {
+                HStack {
+                    Image(systemName: "speaker.wave.3")
+                }
+                .padding()
+                .border(Color.blue, width: 2)
+            }
+            .frame(width: 120, height: 48, alignment: .center)
+            .position(x: size.width - 92, y: 56)
+            .zIndex(100)
+
+            // question page
+            questionView(size: size)
+            // answer page
+            answerView(size: size)
+        }
+        .onTapGesture {
+            withAnimation(Animation.spring()) {
+                if readOnly {
+                    self.angle = 0
+                } else {
+                    self.angle += 180
+                }
+            }
+            withAnimation(nil) {
+                if self.angle >= 360 {
+                    self.angle = self.angle.truncatingRemainder(dividingBy: 360)
+                }
+            }
+        }
+        .padding(0)
+    }
+
+    @ViewBuilder
+    func questionView(size: CGSize) -> some View {
+        let qImage = question.title.getImage()
+        let qText = question.title.removeImage().trimmingCharacters(in: .whitespacesAndNewlines)
+
+        VStack {
+            if !qText.isEmpty {
+                Text(qText)
+            }
+
+            if !qImage.isEmpty {
+                // if file locally exist
+                if FileManager.default.fileExists(fileName: qImage) {
+                    Image(uiImage: FileManager.default.loadImage(fileName: qImage)!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .onTapGesture {
+                            isPresented = true
+                        }
+                        .fullScreenCover(isPresented: $isPresented) {
+                            ImageViewer(isShowing: $isPresented, name: qImage)
+                        }
+                } else {
+                    // download image
+                    let _ = DownloadManager.default.downloadFile(path: qImage)
+
+                    KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .onTapGesture {
+                            isPresented = true
+                        }
+                        .fullScreenCover(isPresented: $isPresented) {
+                            ImageViewer(isShowing: $isPresented, name: qImage)
+                        }
+                }
+            }
+        }
+        .frame(width: size.width * 0.9, height: size.height * 0.7, alignment: .center)
+        .font(.system(size: fontSize[fontIndex], design: .default))
+        .padding()
+        .border(Color.purple, width: 5)
+        .background(Color.grey100)
+        .opacity(flipped ? 0.0 : 1.0)
+    }
+
+    @ViewBuilder
+    func answerView(size: CGSize) -> some View {
+        let aImage = question.answer.getImage()
+        let aText = question.answer.removeImage().trimmingCharacters(in: .whitespacesAndNewlines)
+
+        VStack {
+            if !aText.isEmpty {
+                Text(aText)
+            }
+
+            if !aImage.isEmpty {
+                // if file locally exist
+                if FileManager.default.fileExists(fileName: aImage) {
+                    Image(uiImage: FileManager.default.loadImage(fileName: aImage)!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .onTapGesture {
+                            isPresented = true
+                        }
+                        .fullScreenCover(isPresented: $isPresented) {
+                            ImageViewer(isShowing: $isPresented, name: aImage)
+                        }
+                } else {
+                    // download image
+                    let _ = DownloadManager.default.downloadFile(path: aImage)
+
+                    KFImage(URL(string: DOMAIN_HOST + question.title.getImage())!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .onTapGesture {
+                            isPresented = true
+                        }
+                        .fullScreenCover(isPresented: $isPresented) {
+                            ImageViewer(isShowing: $isPresented, name: aImage)
+                        }
+                }
+            }
+        }
+        .frame(width: size.width * 0.9, height: size.height * 0.7, alignment: .center)
+        .font(.system(size: fontSize[fontIndex], design: .default))
+        .padding()
+        .border(Color.purple, width: 5)
+        .background(Color.green100)
+        .opacity(flipped ? 1.0 : 0.0)
+    }
+
+    @ViewBuilder
+    func buttonsView(size: CGSize) -> some View {
+        HStack {
+            Spacer()
+
+            Button(action: {
+                self.action(false)
+                self.angle = 0.0
+            }, label: {
+                Text("知らない")
+                    .frame(maxWidth: size.width * 0.25, maxHeight: 64, alignment: .center)
+                    .padding()
+                    .font(.largeTitle)
+                    .foregroundColor(Color.white)
+                    .background(Color.systemYellow)
+            })
+
+            Spacer()
+
+            Button(action: {
+                self.action(true)
+                self.angle = 0.0
+            }, label: {
+                Text("知ってる")
+                    .frame(maxWidth: size.width * 0.25, maxHeight: 64, alignment: .center)
+                    .padding()
+                    .font(.largeTitle)
+                    .foregroundColor(Color.white)
+                    .background(Color.green)
+            })
+
+            Spacer()
+        }
+        .padding(.top)
     }
 
     func onPlay(front: Bool) {
@@ -285,11 +329,11 @@ struct FlipEffect: GeometryEffect {
 
 struct FlashCard_Previews: PreviewProvider {
     static var previews: some View {
-        let q = Question(id: "", groupId: "", title: "Front Side Front Side Front Side Front Side Front Side Front SideFront SideFront SideFront SideFront SideFront SideFront SideFront SideFront SideFront SideFront ", answer: "Back Side")
+        let _ = Question(id: "", groupId: "", title: "Front Side Front Side Front Side Front Side Front Side Front SideFront SideFront SideFront SideFront SideFront SideFront SideFront SideFront SideFront SideFront ", answer: "Back Side")
 
-        FlashCard(question: q) { action in
-            debugPrint(action)
-        }
-        .previewInterfaceOrientation(.landscapeLeft)
+//        FlashCard(question: q) { action in
+//            debugPrint(action)
+//        }
+//        .previewInterfaceOrientation(.landscapeLeft)
     }
 }
