@@ -1,6 +1,8 @@
 import { Credentials } from '@utils';
 
 export const API_URL = process.env.API_URL as string;
+export const WSS_URL = process.env.WSS_URL as string;
+
 export const API_NAME = 'api';
 export const API_VERSION = '/v1';
 
@@ -53,13 +55,12 @@ export const UPDATE_USER = (userId: string) => `${API_VERSION}/users/${userId}`;
 // 問題集情報更新
 export const STUDY_WEEKLY_REGIST = () => `${API_VERSION}/study/weekly`;
 
-export const WSS_URL = async () => {
+export const WEBSOCKET_URL = async () => {
   const idToken = (await Credentials.getSession())?.idToken;
-  const wssUrl = 'wss://f7katjvja7.execute-api.ap-northeast-1.amazonaws.com/v1';
 
   if (idToken) {
-    return `${wssUrl}?Authorization=${idToken}`;
+    return `${WSS_URL}?Authorization=${idToken}`;
   }
 
-  return wssUrl;
+  return WSS_URL;
 };
