@@ -163,6 +163,16 @@ resource "aws_iam_role" "wss" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - API Gateway Execution
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy" "wss_apigw" {
+  name = "apigw_policy"
+  role = aws_iam_role.wss.id
+
+  policy = data.aws_iam_policy_document.wss_apigw.json
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS Lambda Role Policy - Lambda basic policy
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "wss_basic" {
@@ -177,7 +187,6 @@ resource "aws_iam_role_policy_attachment" "wss_dynamodb" {
   role       = aws_iam_role.wss.name
   policy_arn = local.iam_policy_arn_dynamodb
 }
-
 
 # ----------------------------------------------------------------------------------------------
 # AWS Lambda Role - WSS Connect
@@ -208,23 +217,12 @@ resource "aws_iam_role_policy_attachment" "wss_commands_dynamodb" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS IAM Policy - SES Basic
+# AWS Lambda Role Policy - API Gateway Execution
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy" "wss_commands_apigw" {
   name = "apigw_policy"
   role = aws_iam_role.wss_commands.id
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "execute-api:*",
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-    ]
-  })
+  policy = data.aws_iam_policy_document.wss_apigw.json
 }
 
