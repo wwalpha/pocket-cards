@@ -122,7 +122,7 @@ export default () => {
               const endIdx = title.indexOf(']', startIdx);
               const url = title.substring(startIdx + 1, endIdx);
 
-              return <img src={`${Consts.DOMAIN_HOST}\\${url}`} />;
+              return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
             })()}
           </Paper>
           <Paper elevation={3} sx={{ my: 1, p: 4 }}>
@@ -136,7 +136,7 @@ export default () => {
               const endIdx = answer.indexOf(']', startIdx);
               const url = answer.substring(startIdx + 1, endIdx);
 
-              return <img src={`${Consts.DOMAIN_HOST}\\${url}`} />;
+              return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
             })()}
           </Paper>
 
