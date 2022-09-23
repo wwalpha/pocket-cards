@@ -10,7 +10,16 @@ resource "aws_apigatewayv2_api" "wss" {
 # ---------------------------------------------------------------------------------------------
 # API Gateway Stage
 # ---------------------------------------------------------------------------------------------
+resource "aws_api_gateway_account" "wss" {
+  cloudwatch_role_arn = aws_iam_role.wss.arn
+}
+
+# ---------------------------------------------------------------------------------------------
+# API Gateway Stage
+# ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_stage" "wss" {
+  depends_on = [aws_api_gateway_account.wss]
+
   api_id = aws_apigatewayv2_api.wss.id
   name   = "v1"
 
