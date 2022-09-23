@@ -219,7 +219,7 @@ resource "aws_iam_role_policy" "wss_commands_apigw" {
     Statement = [
       {
         Action = [
-          "execute-api:ManageConnections",
+          "execute-api:*",
         ]
         Effect   = "Allow"
         Resource = "*"
