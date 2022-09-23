@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '15.0'
+platform :ios, '15.5'
 
 target 'PocketCards' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -10,6 +10,6 @@ target 'PocketCards' do
   pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
   pod 'Alamofire'
   pod 'Charts'
-  pod 'Kingfisher', '~> 7.0'
+  pod 'Kingfisher'
   pod 'SwiftFormat/CLI'
 end

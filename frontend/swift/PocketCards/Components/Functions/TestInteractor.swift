@@ -51,7 +51,7 @@ class TestInteractor: StudyBusinessLogic {
             self.questions.append(q)
         }
 
-        debugPrint(current, self.questions.count)
+//        debugPrint(current, self.questions.count)
         // initialize
         if current == nil {
             if self.questions.count > 0 {
