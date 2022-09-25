@@ -67,6 +67,9 @@ output "dynamodb_name_weekly_ability" {
 output "dynamodb_name_wss" {
   value = aws_dynamodb_table.wss.name
 }
+output "dynamodb_name_inquiry" {
+  value = aws_dynamodb_table.inquiry.name
+}
 # ----------------------------------------------------------------------------------------------
 # Route53 DNS Servers
 # ----------------------------------------------------------------------------------------------
