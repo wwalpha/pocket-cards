@@ -32,18 +32,33 @@ export const handler = async (
       })
       .promise();
 
-    await Promise.all(
-      connections.map((item) =>
+    const tasks = connections.map((item) =>
+      apigateway
+        .postToConnection({
+          ConnectionId: item.connId,
+          Data: JSON.stringify({
+            ON_LINE: principalId,
+          }),
+        })
+        .promise()
+    );
+
+    // 保護者且つ、対象者すでにログインの場合
+    if (principalId === guardian && connections.length > 0) {
+      tasks.push(
         apigateway
           .postToConnection({
-            ConnectionId: item.connId,
+            ConnectionId: connectionId,
             Data: JSON.stringify({
-              ON_LINE: principalId,
+              ON_LINE: connections[0].userId,
             }),
           })
           .promise()
-      )
-    );
+      );
+    }
+
+    // 一括実行
+    await Promise.all(tasks);
   } catch (err) {
     console.log(err);
     statusCode = 500;
