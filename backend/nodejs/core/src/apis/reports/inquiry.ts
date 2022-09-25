@@ -2,12 +2,15 @@ import { SES } from 'aws-sdk';
 import { Request } from 'express';
 import { Environment } from '@consts';
 import { APIs } from 'typings';
+import { InquiryService } from '@services';
 
 export default async (req: Request<any, any, APIs.InquiryResquest, any>): Promise<APIs.InquiryResponse> => {
   const id = req.body.id;
 
-  // const adminUser = await getAdminUser();
+  // データ登録
+  await InquiryService.regist({ qid: id });
 
+  // メール通知
   await sendmail(id, 'wwalpha@gmail.com');
 };
 
@@ -35,17 +38,3 @@ const sendmail = async (id: string, email: string) => {
     })
     .promise();
 };
-
-// const getAdminUser = async () => {
-//   // get user information
-//   const response = await axios.get<Users.ListAdminUsersRequest, AxiosResponse<Users.ListAdminUsersResponse>>(
-//     Consts.API_URLs.listAdmins()
-//   );
-
-//   // user not found
-//   if (response.status !== 200) {
-//     throw new Error('User not found.');
-//   }
-
-//   return response.data.users[0];
-// };
