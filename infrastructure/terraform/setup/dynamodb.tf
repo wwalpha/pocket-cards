@@ -393,3 +393,21 @@ resource "aws_dynamodb_table" "wss" {
     Project = local.project_name_uc
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - WSS connections
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "inquiry" {
+  name         = local.dynamodb_name_inquiry
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "qid"
+
+  attribute {
+    name = "qid"
+    type = "S"
+  }
+
+  tags = {
+    Project = local.project_name_uc
+  }
+}
