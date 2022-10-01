@@ -1,3 +1,4 @@
+import { Environment } from '@consts';
 import { DBHelper } from '@utils';
 import { Tables } from 'typings';
 import * as Queries from './queries';
@@ -24,6 +25,15 @@ export const update = async (item: Tables.TInquiry): Promise<void> => {
   }
 
   await DBHelper().put(Queries.put(item));
+};
+
+/** データ更新 */
+export const getAll = async (): Promise<Tables.TInquiry[]> => {
+  const results = await DBHelper().scan<Tables.TInquiry>({
+    TableName: Environment.TABLE_NAME_INQUIRY,
+  });
+
+  return results.Items;
 };
 
 /** データ削除 */

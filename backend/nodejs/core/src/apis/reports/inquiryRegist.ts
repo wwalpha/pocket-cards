@@ -4,7 +4,7 @@ import { Environment } from '@consts';
 import { APIs } from 'typings';
 import { InquiryService } from '@services';
 
-export default async (req: Request<any, any, APIs.InquiryResquest, any>): Promise<APIs.InquiryResponse> => {
+export default async (req: Request<any, any, APIs.InquiryRegistResquest, any>): Promise<APIs.InquiryRegistResponse> => {
   const id = req.body.id;
 
   // データ登録
