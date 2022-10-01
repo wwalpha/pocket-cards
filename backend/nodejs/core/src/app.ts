@@ -15,7 +15,15 @@ import {
   QuestionDescribe,
   QuestionOrder,
 } from '@src/apis/questions';
-import { DailyTasks, LearningProgress, LearningOverall, Inquiry, OverallStatus, DailyStatus } from '@src/apis/reports';
+import {
+  DailyTasks,
+  LearningProgress,
+  LearningOverall,
+  InquiryRegist,
+  InquiryList,
+  OverallStatus,
+  DailyStatus,
+} from '@src/apis/reports';
 import {
   CurriculumRegist,
   CurriculumList,
@@ -91,8 +99,10 @@ app.get('/v1/reports/dailytasks', express.json(), (req, res) => entry(req, res, 
 app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, LearningProgress));
 // leaning progress
 app.get('/v1/reports/overall', express.json(), (req, res) => entry(req, res, LearningOverall));
-// 問い合わせ
-app.post('/v1/reports/inquiry', express.json(), (req, res) => entry(req, res, Inquiry));
+// 問い合わせ登録
+app.post('/v1/reports/inquiries', express.json(), (req, res) => entry(req, res, InquiryRegist));
+// 問い合わせ一覧
+app.get('/v1/reports/inquiries', express.json(), (req, res) => entry(req, res, InquiryList));
 // 学習進捗
 app.get('/v1/reports/status/overall', express.json(), (req, res) => entry(req, res, OverallStatus));
 // 学習進捗
