@@ -9,7 +9,6 @@ export default async (req: Request<any, any, APIs.InquiryRegistResquest, any>): 
 
   // データ登録
   await InquiryService.regist({ qid: id });
-
   // メール通知
   await sendmail(id, 'wwalpha@gmail.com');
 };
