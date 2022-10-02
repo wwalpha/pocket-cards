@@ -15,15 +15,7 @@ import {
   QuestionDescribe,
   QuestionOrder,
 } from '@src/apis/questions';
-import {
-  DailyTasks,
-  LearningProgress,
-  LearningOverall,
-  InquiryRegist,
-  InquiryList,
-  OverallStatus,
-  DailyStatus,
-} from '@src/apis/reports';
+import { DailyTasks, LearningProgress, LearningOverall, OverallStatus, DailyStatus } from '@src/apis/reports';
 import {
   CurriculumRegist,
   CurriculumList,
@@ -33,8 +25,8 @@ import {
   CurriculumIgnore,
 } from '@src/apis/curriculums';
 import { WeeklyAbilityRegist, WeeklyAbilityList, WeeklyAbilityAnswer } from '@src/apis/weekly';
+import { InquiryList, InquiryRegist } from '@src//apis/inquiry';
 import { Patchs } from '@src/apis/patch';
-
 import entry from './entry';
 
 const app = express();
