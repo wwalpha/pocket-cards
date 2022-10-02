@@ -631,6 +631,17 @@ export namespace APIs {
   type InquiryRegistResponse = void;
 
   // ------------------------------------------------------------
+  // Reports - Inquiry Remove
+  // ------------------------------------------------------------
+  interface InquiryRemoveParameter {
+    id: string;
+  }
+
+  type InquiryRemoveResquest = void;
+
+  type InquiryRemoveResponse = void;
+
+  // ------------------------------------------------------------
   // Reports - Inquiry List
   // ------------------------------------------------------------
   interface InquiryListResquest {}
