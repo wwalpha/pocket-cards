@@ -192,3 +192,10 @@ output "ssm_repo_url_batch" {
 output "ssm_repo_url_wss" {
   value = aws_ssm_parameter.repo_url_wss.name
 }
+
+# ----------------------------------------------------------------------------------------------
+# Bucket Key - Lambda WSS Relay
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_wss_relay" {
+  value = local.bucket_key_lambda_wss_relay
+}

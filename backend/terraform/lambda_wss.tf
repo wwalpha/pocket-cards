@@ -104,7 +104,7 @@ resource "aws_lambda_function" "wss_relay" {
   function_name     = "${local.project_name}-wss-relay"
   s3_bucket         = local.bucket_name_archive
   s3_key            = local.bucket_key_lambda_wss_relay
-  s3_object_version = aws_s3_object.lambda_wss_relay.version_id
+  s3_object_version = data.aws_s3_object.lambda_wss_relay.version_id
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.wss_relay.arn
