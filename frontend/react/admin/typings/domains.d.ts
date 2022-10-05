@@ -28,6 +28,8 @@ export namespace Domains {
     authority?: string;
     // websocket connection
     isConnectionEstablished: boolean;
+    // websocket connecting
+    isConnecting: boolean;
   }
 
   interface GroupState {
