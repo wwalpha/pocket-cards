@@ -13,10 +13,12 @@ jest.setTimeout(10000);
 describe('Inquiry', () => {
   beforeEach(async () => {
     await Promise.all([client.bulk(Environment.TABLE_NAME_INQUIRY, COMMONS.DB_INQUIRY)]);
+    await Promise.all([client.bulk(Environment.TABLE_NAME_QUESTIONS, COMMONS.DB_QUESTIONS)]);
   });
 
   afterEach(async () => {
     await Promise.all([client.truncateAll(Environment.TABLE_NAME_INQUIRY)]);
+    await Promise.all([client.truncateAll(Environment.TABLE_NAME_QUESTIONS)]);
   });
 
   test('List01: 一覧', async () => {
@@ -27,6 +29,7 @@ describe('Inquiry', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
+    console.log(JSON.stringify(res.body));
     expect(res.body).toEqual(INQUIRES.LIST_001_EXPECT);
   });
 });
