@@ -50,6 +50,8 @@ export namespace Domains {
     curriculums: Tables.TCurriculums[];
     // students
     students: Tables.TUsers[];
+    // inquiries
+    inquiries: Tables.TQuestions[];
     // user informations
     infos?: Tables.TUsers;
     // selected student
