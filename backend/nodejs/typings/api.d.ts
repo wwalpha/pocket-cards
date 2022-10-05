@@ -647,7 +647,7 @@ export namespace APIs {
   interface InquiryListResquest {}
 
   interface InquiryListResponse {
-    items: Tables.TInquiry[];
+    items: Tables.TQuestions[];
   }
 
   // ------------------------------------------------------------
