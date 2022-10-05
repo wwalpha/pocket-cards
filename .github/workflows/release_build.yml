@@ -213,6 +213,7 @@ jobs:
 
   # Frontend Admin
   Frontend_Admin:
+    needs: Terraform_Service
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
@@ -227,7 +228,7 @@ jobs:
 
   # Frontend Users
   Frontend_Users:
-    needs: Frontend_Admin
+    needs: Terraform_Service
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
