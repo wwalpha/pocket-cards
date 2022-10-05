@@ -21,8 +21,6 @@ const socket: Middleware = (store) => {
   const onmessage = (event: WebSocket.MessageEvent) => {
     const state = store.getState() as RootState;
 
-    console.log(event);
-
     try {
       const value = JSON.parse(event.data.toString());
 
