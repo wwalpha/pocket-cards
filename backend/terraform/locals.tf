@@ -91,7 +91,7 @@ locals {
   bucket_key_lambda_wss_connect    = "lambda/wss_connect.zip"
   bucket_key_lambda_wss_disconnect = "lambda/wss_disconnect.zip"
   bucket_key_lambda_wss_commands   = "lambda/wss_commands.zip"
-  bucket_key_lambda_wss_relay      = "lambda/wss_relay.zip"
+  bucket_key_lambda_wss_relay      = local.remote_setup.bucket_key_lambda_wss_relay
 
   # ----------------------------------------------------------------------------------------------
   # SSM
@@ -220,4 +220,12 @@ data "aws_ssm_parameter" "vision_api_key" {
 # ----------------------------------------------------------------------------------------------
 data "aws_ssm_parameter" "repo_url_batch" {
   name = local.ssm_repo_url_batch
+}
+
+# ----------------------------------------------------------------------------------------------
+# Bucket Object - Lambda WSS Relay
+# ----------------------------------------------------------------------------------------------
+data "aws_s3_object" "lambda_wss_relay" {
+  bucket = local.bucket_name_archive
+  key    = local.bucket_key_lambda_wss_relay
 }
