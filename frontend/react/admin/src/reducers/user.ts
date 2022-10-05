@@ -1,7 +1,7 @@
 import { Consts } from '@constants';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import sortBy from 'lodash/sortBy';
-import { Domains } from 'typings';
+import { Domains, QuestionForm } from 'typings';
 import * as UserActions from './userActions';
 
 const userState: Domains.UserState = {
@@ -13,6 +13,8 @@ const userState: Domains.UserState = {
   curriculums: [],
   // students
   students: [],
+  // inquiries
+  inquiries: [],
   // selected student
   activeStudent: '',
 };
@@ -28,6 +30,26 @@ const slice = createSlice({
     // Sign out
     USER_ACTIVE_STUDENT: (state, { payload }: PayloadAction<string>) => {
       state.activeStudent = payload;
+    },
+    // Sign out
+    USER_INQUIRY_UPDATE: (state, { payload }: PayloadAction<QuestionForm>) => {
+      const index = state.inquiries.findIndex((item) => item.id === payload.id);
+
+      // not found
+      if (index === -1) {
+        return;
+      }
+
+      const inquiry = state.inquiries[index];
+
+      // 問題
+      inquiry.title = payload.title;
+      // 解答
+      inquiry.answer = payload.answer;
+      // コメント
+      inquiry.description = payload.description;
+
+      state.inquiries[index] = inquiry;
     },
   },
   extraReducers: (builder) => {
@@ -81,12 +103,22 @@ const slice = createSlice({
         state.activeStudent = payload.items[0].id;
       })
       .addCase(UserActions.USER_INFORMATIONS.fulfilled, (state, { payload }) => {
+        // ユーザ情報一覧
         state.infos = payload;
       })
       .addCase(UserActions.USER_UPDATE_NOTIFICATIONS.fulfilled, (state, { payload }) => {
+        // ユーザ情報更新
         if (state.infos) {
           state.infos.notification = payload;
         }
+      })
+      .addCase(UserActions.USER_INQUIRY_LIST.fulfilled, (state, { payload }) => {
+        // 問い合わせ一覧
+        state.inquiries = payload;
+      })
+      .addCase(UserActions.USER_INQUIRY_REMOVE.fulfilled, (state, { payload }) => {
+        // 問い合わせ削除
+        state.inquiries = state.inquiries.filter((item) => item.id !== payload);
       });
   },
 });

@@ -64,3 +64,8 @@ export const WEBSOCKET_URL = async () => {
 
   return WSS_URL;
 };
+
+// 問い合わせ一覧
+export const INQUIRY_LIST = () => `${API_VERSION}/inquiries`;
+
+export const INQUIRY_REMOVE = (qid: string) => `${API_VERSION}/inquiries/${qid}`;

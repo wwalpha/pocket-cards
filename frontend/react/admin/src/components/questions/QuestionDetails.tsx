@@ -28,6 +28,7 @@ const styles = {
 const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick, onClose }) => {
   const {
     control,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm<QuestionForm>({
@@ -38,6 +39,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
       choices: dataRow.choices?.join('|'),
       description: dataRow.description ?? '',
       original: dataRow.original,
+      groupId: dataRow.groupId,
     },
   });
 
@@ -58,6 +60,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
 
   return (
     <form onSubmit={onSubmit}>
+      <input {...register('groupId')} hidden />
       <Box margin={2} sx={{ width: '640px' }}>
         <Controller
           name="id"
@@ -84,10 +87,14 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
             )}
           />
           {dataRow.voiceAnswer && [
-            <IconButton sx={{ mx: 1 }} color="secondary" onClick={handlePlayQuestion}>
+            <IconButton key="questionPlayBtn" sx={{ mx: 1 }} color="secondary" onClick={handlePlayQuestion}>
               <VolumeUpIcon />
             </IconButton>,
-            <audio ref={titleRef} src={`/${Consts.PATH_VOICE}/${dataRow.groupId}/${dataRow.voiceTitle}`} />,
+            <audio
+              key="questionAudio"
+              ref={titleRef}
+              src={`/${Consts.PATH_VOICE}/${dataRow.groupId}/${dataRow.voiceTitle}`}
+            />,
           ]}
         </Box>
         {dataRow.original && (
@@ -157,25 +164,38 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
             )}
           />
           {dataRow.voiceAnswer && [
-            <IconButton sx={{ mx: 1 }} color="secondary" onClick={handlePlayAnswer}>
+            <IconButton key="answerPlayBtn" sx={{ mx: 1 }} color="secondary" onClick={handlePlayAnswer}>
               <VolumeUpIcon />
             </IconButton>,
-            <audio ref={answerRef} src={`/${Consts.PATH_VOICE}/${dataRow.groupId}/${dataRow.voiceAnswer}`} />,
+            <audio
+              key="answerAudio"
+              ref={answerRef}
+              src={`/${Consts.PATH_VOICE}/${dataRow.groupId}/${dataRow.voiceAnswer}`}
+            />,
           ]}
         </Box>
       </Box>
       <Box mt={4} display="flex" justifyContent="flex-end">
-        <Button size="large" variant="contained" color="secondary" sx={{ mx: 1, width: 120 }} onClick={onClose}>
+        <Button
+          key="closeBtn"
+          size="large"
+          variant="contained"
+          color="secondary"
+          sx={{ mx: 1, width: 120 }}
+          onClick={onClose}
+        >
           CLOSE
         </Button>
         {onClick && (
           <LoadingButton
+            key="loadingBtn"
             size="large"
             variant="contained"
             color="primary"
             type="submit"
             loading={loading}
-            sx={{ mx: 1, width: 120 }}>
+            sx={{ mx: 1, width: 120 }}
+          >
             SUBMIT
           </LoadingButton>
         )}

@@ -1,7 +1,7 @@
 import { push } from 'connected-react-router';
 import { Consts, ROUTE_PATHS } from '@constants';
 import { Actions } from '@reducers';
-import { AppDispatch, CurriculumOrderUpdate, Tables } from 'typings';
+import { AppDispatch, CurriculumOrderUpdate, QuestionForm, Tables } from 'typings';
 
 /** サインイン */
 export const signin = (username: string, passwd: string, newPassword?: string) => async (dispatch: AppDispatch) => {
@@ -24,6 +24,10 @@ export const signin = (username: string, passwd: string, newPassword?: string) =
   dispatch(Actions.GROUP_LIST());
   dispatch(Actions.APP_SET_AUTHORITY(res.authority));
 
+  // login success
+  if (res.authority === Consts.Authority.ADMIN) {
+    inquiryList()(dispatch);
+  }
   // login success
   if (res.authority === Consts.Authority.PARENT) {
     // initialize
@@ -122,4 +126,21 @@ export const studentRegist = (username: string, password: string) => async (disp
   dispatch(Actions.APP_SHOW_USER_REGIST(false));
 
   getStudentList()(dispatch);
+};
+
+/** 問い合わせ削除 */
+export const inquiryRemove = (qid: string) => async (dispatch: AppDispatch) => {
+  // Get question lists
+  dispatch(Actions.USER_INQUIRY_REMOVE(qid));
+};
+
+/** 問い合わせ一覧取得 */
+export const inquiryList = () => async (dispatch: AppDispatch) => {
+  // Get question lists
+  dispatch(Actions.USER_INQUIRY_LIST());
+};
+
+export const inquiryUpdate = (form: QuestionForm) => async (dispatch: AppDispatch) => {
+  // Get question lists
+  dispatch(Actions.USER_INQUIRY_UPDATE(form));
 };
