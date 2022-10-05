@@ -5,6 +5,7 @@ const appState: Domains.AppState = {
   isLoading: false,
   showSnackbar: false,
   showUserRegist: false,
+  isConnectionEstablished: false,
 };
 
 function isPendingAction(action: AnyAction) {
@@ -62,6 +63,13 @@ const slice = createSlice({
 
     APP_SET_AUTHORITY: (state, { payload }: PayloadAction<string | undefined>) => {
       state.authority = payload;
+    },
+    APP_CONNECT: () => {},
+    APP_CONNECTED: (state) => {
+      state.isConnectionEstablished = true;
+    },
+    APP_DISCONNECT: (state) => {
+      state.isConnectionEstablished = false;
     },
   },
   extraReducers: (builder) => {
