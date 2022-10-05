@@ -21,9 +21,9 @@ const appState = (state: RootState) => state.app;
 export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
   const [incorrect, setIncorrect] = React.useState(false);
+  const { isLoading, isConnecting, isConnectionEstablished } = useSelector(appState);
   const { questions, index, student, isOnline } = useSelector(studyState);
   const { students } = useSelector(userState);
-  const { isLoading, isConnectionEstablished } = useSelector(appState);
 
   const {
     control,
@@ -96,7 +96,7 @@ export default () => {
           <LoadingButton
             type="submit"
             sx={{ width: '120px', mx: 2 }}
-            loading={isLoading}
+            loading={isLoading || isConnecting}
             variant="contained"
             color="primary"
           >

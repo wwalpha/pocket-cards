@@ -50,15 +50,17 @@ export const handler = async (
 
     // 保護者且つ、対象者すでにログインの場合
     if (principalId === guardian && connections.length > 0) {
-      lambda.invoke({
-        FunctionName: FUNCTION_NAME,
-        InvocationType: 'Event',
-        Payload: JSON.stringify({
-          connectionId: connectionId,
-          domainName: domainName,
-          principalId: connections[0].userId,
-        } as WSSConnectionEvent),
-      });
+      await lambda
+        .invoke({
+          FunctionName: FUNCTION_NAME,
+          InvocationType: 'Event',
+          Payload: JSON.stringify({
+            connectionId: connectionId,
+            domainName: domainName,
+            principalId: connections[0].userId,
+          } as WSSConnectionEvent),
+        })
+        .promise();
     }
   } catch (err) {
     console.log(err);
