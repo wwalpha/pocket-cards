@@ -21,7 +21,7 @@ jobs:
       ECS_SERVICE_NAME: backend
       ECR_REPOSITORY: pkc/backend
       ECS_TASK_DEF: pkc-backend
-      ECS_WAIT_FOR_STABILITY: false
+      ECS_WAIT_FOR_STABILITY: true
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

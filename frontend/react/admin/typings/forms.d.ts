@@ -41,6 +41,7 @@ export interface QuestionForm {
   choices?: string;
   original?: string;
   description?: string;
+  groupId: string;
 }
 
 export interface AbilityForm {

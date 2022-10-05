@@ -16,6 +16,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import DirtyLensIcon from '@mui/icons-material/DirtyLens';
+import TrafficIcon from '@mui/icons-material/Traffic';
 import { AppActions, UserActions } from '@actions';
 import { Consts, ROUTE_PATHS } from '@constants';
 import { styles } from './MainMenu.style';
@@ -61,7 +62,8 @@ export default () => {
           key="maths"
           onClick={() => {
             handleClick(Consts.SUBJECT.MATHS);
-          }}>
+          }}
+        >
           <ListItemIcon sx={styles.itemIcon}>
             <BookIcon sx={{ color: Consts.COLORS.MATHS }} />
           </ListItemIcon>
@@ -73,7 +75,8 @@ export default () => {
           key="Japanese"
           onClick={() => {
             handleClick(Consts.SUBJECT.LANGUAGE);
-          }}>
+          }}
+        >
           <ListItemIcon sx={styles.itemIcon}>
             <BookIcon sx={{ color: Consts.COLORS.LANGUAGE }} />
           </ListItemIcon>
@@ -85,7 +88,8 @@ export default () => {
           key="Science"
           onClick={() => {
             handleClick(Consts.SUBJECT.SCIENCE.toString());
-          }}>
+          }}
+        >
           <ListItemIcon sx={styles.itemIcon}>
             <BookIcon sx={{ color: Consts.COLORS.SCIENCE }} />
           </ListItemIcon>
@@ -97,7 +101,8 @@ export default () => {
           key="Society"
           onClick={() => {
             handleClick(Consts.SUBJECT.SOCIETY.toString());
-          }}>
+          }}
+        >
           <ListItemIcon sx={styles.itemIcon}>
             <BookIcon sx={{ color: Consts.COLORS.SOCIETY }} />
           </ListItemIcon>
@@ -109,12 +114,30 @@ export default () => {
           key="English"
           onClick={() => {
             handleClick(Consts.SUBJECT.ENGLISH.toString());
-          }}>
+          }}
+        >
           <ListItemIcon sx={styles.itemIcon}>
             <BookIcon sx={{ color: Consts.COLORS.ENGLISH }} />
           </ListItemIcon>
           <ListItemText primary="英 語" />
         </ListItem>
+        {authority === Consts.Authority.ADMIN && (
+          <React.Fragment>
+            <Divider />
+            <ListItem
+              button
+              key="inquiry"
+              onClick={() => {
+                handleDispatch(ROUTE_PATHS.INQUIRY);
+              }}
+            >
+              <ListItemIcon sx={styles.itemIcon}>
+                <TrafficIcon sx={{ color: Consts.COLORS.INQUIRY }} />
+              </ListItemIcon>
+              <ListItemText primary="問い合わせ" />
+            </ListItem>
+          </React.Fragment>
+        )}
         {authority === Consts.Authority.PARENT && (
           <React.Fragment>
             <Divider />
@@ -123,7 +146,8 @@ export default () => {
               key="multitest"
               onClick={() => {
                 handleDispatch(ROUTE_PATHS.MULTI_TEST);
-              }}>
+              }}
+            >
               <ListItemIcon sx={styles.itemIcon}>
                 <DirtyLensIcon sx={{ color: Consts.COLORS.MULTI_TEST }} />
               </ListItemIcon>
@@ -135,7 +159,8 @@ export default () => {
               key="order"
               onClick={() => {
                 handleDispatch(ROUTE_PATHS.CURRICULUM_ORDER);
-              }}>
+              }}
+            >
               <ListItemIcon sx={styles.itemIcon}>
                 <LocalFireDepartmentIcon sx={{ color: 'secondary.main' }} />
               </ListItemIcon>
@@ -147,7 +172,8 @@ export default () => {
               key="weekly"
               onClick={() => {
                 handleDispatch(ROUTE_PATHS.ABILITIES);
-              }}>
+              }}
+            >
               <ListItemIcon sx={styles.itemIcon}>
                 <LocalFireDepartmentIcon sx={{ color: 'secondary.main' }} />
               </ListItemIcon>

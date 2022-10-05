@@ -317,4 +317,14 @@ export namespace Tables {
     // 科目
     subject: string;
   }
+
+  // ------------------------------------------------------------
+  // WSS Connections
+  // ------------------------------------------------------------
+  interface TInquiryKey {
+    // question id
+    qid: string;
+  }
+
+  interface TInquiry extends TInquiryKey {}
 }

@@ -23,6 +23,7 @@ TABLE_NAME_TRACES=${local.dynamodb_name_traces}
 TABLE_NAME_CURRICULUMS=${local.dynamodb_name_curriculums}
 TABLE_NAME_REPORTS=${local.dynamodb_name_reports}
 TABLE_NAME_WEEKLY_ABILITY=${local.dynamodb_name_weekly_ability}
+TABLE_NAME_INQUIRY=${local.dynamodb_name_inquiry}
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
 BUCKET_NAME_MATERAILS=${local.bucket_name_materials}
 MASTER_EMAIL_ADDRESS=master@${local.domain_name}
