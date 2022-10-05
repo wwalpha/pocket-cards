@@ -26,17 +26,19 @@ PODS:
   - AWSPluginsCore (1.28.1):
     - Amplify (= 1.28.1)
     - AWSCore (~> 2.28.0)
-  - Charts (3.6.0):
-    - Charts/Core (= 3.6.0)
-  - Charts/Core (3.6.0)
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
   - Kingfisher (7.3.2)
+  - SwiftAlgorithms (1.0.0)
   - SwiftFormat/CLI (0.49.18)
 
 DEPENDENCIES:
   - Alamofire
   - Amplify
   - AmplifyPlugins/AWSCognitoAuthPlugin
-  - Charts (~> 3.6.0)
+  - Charts (= 4.1.0)
   - Kingfisher
   - SwiftFormat/CLI
 
@@ -53,6 +55,7 @@ SPEC REPOS:
     - AWSPluginsCore
     - Charts
     - Kingfisher
+    - SwiftAlgorithms
     - SwiftFormat
 
 SPEC CHECKSUMS:
@@ -65,10 +68,11 @@ SPEC CHECKSUMS:
   AWSCore: 0ebe9ba8a459893cdf268ce0bae61875efd0182b
   AWSMobileClient: 8d466f135e8d851a76e57cbfe65bb67eb522b64c
   AWSPluginsCore: a12e315533b041485d722bdb394bf150ad9cc78e
-  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  Charts: 354f86803d11d9c35de280587fef50d1af063978
   Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   SwiftFormat: 2402d29b26746f169cce5454d5af88314cbb2e35
 
-PODFILE CHECKSUM: f33f695f3168a017359008701f5a6447363c9556
+PODFILE CHECKSUM: 9e28fe4b454e5143df0968484c1a257d79388e6d
 
 COCOAPODS: 1.11.3

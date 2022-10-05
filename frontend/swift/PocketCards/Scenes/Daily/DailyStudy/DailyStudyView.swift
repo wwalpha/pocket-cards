@@ -31,8 +31,6 @@ struct DailyStudyView: View {
             } else if viewModel.question != nil {
                 // Society or Science
                 FlashCard(question: viewModel.question!, action: interactor!.onAction)
-            } else {
-                let _ = debugPrint(viewModel, viewModel.question)
             }
         }
     }

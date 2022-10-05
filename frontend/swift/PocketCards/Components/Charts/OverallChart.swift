@@ -28,7 +28,7 @@ struct OverallChart: UIViewRepresentable {
         let chartView = BarChartView()
         chartView.fitBars = true
         chartView.data = data
-        chartView.chartDescription?.enabled = false
+        chartView.chartDescription.enabled = false
         chartView.dragEnabled = false
         chartView.setScaleEnabled(false)
         chartView.pinchZoomEnabled = false
