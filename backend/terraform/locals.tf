@@ -91,6 +91,7 @@ locals {
   bucket_key_lambda_wss_connect    = "lambda/wss_connect.zip"
   bucket_key_lambda_wss_disconnect = "lambda/wss_disconnect.zip"
   bucket_key_lambda_wss_commands   = "lambda/wss_commands.zip"
+  bucket_key_lambda_wss_relay      = "lambda/wss_relay.zip"
 
   # ----------------------------------------------------------------------------------------------
   # SSM
