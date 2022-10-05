@@ -93,10 +93,36 @@ extension MultiTestView: MultiTestDisplayLogic {
         status(model: model)
 
         viewModel.question = model.question
+
+        #if DOG
+            guard let question = model.question else { return }
+            let url = "voices/\(question.groupId)/\(question.voiceTitle ?? "")"
+            play(url: url)
+        #endif
     }
 
     func showAnswer(model: MultiTestViewModel) {
         status(model: model)
+
+        #if DOG
+            guard let question = viewModel.question else { return }
+
+            let url = "voices/\(question.groupId)/\(question.voiceAnswer ?? "")"
+            play(url: url)
+        #endif
+    }
+
+    func play(url: String) {
+        debugPrint(url)
+        // download file if not exist
+        let request = DownloadManager.default.downloadRequest(path: url)
+
+        Task {
+            _ = await request?.serializingDownloadedFileURL().response
+
+            // play audio
+            Audio.play(url: FileManager.default.getFileUrl(fileName: url))
+        }
     }
 }
 

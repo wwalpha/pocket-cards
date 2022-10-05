@@ -45,7 +45,7 @@ struct HistoriesChart: UIViewRepresentable {
 
         let chartView = LineChartView()
         chartView.data = data
-        chartView.chartDescription?.enabled = false
+        chartView.chartDescription.enabled = false
         chartView.dragEnabled = false
         chartView.setScaleEnabled(false)
         chartView.pinchZoomEnabled = false

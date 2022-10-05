@@ -8,7 +8,7 @@
 import Charts
 import Foundation
 
-public class OverallFormatter: NSObject, IAxisValueFormatter {
+public class OverallFormatter: NSObject, AxisValueFormatter {
     public func stringForValue(_ value: Double, axis _: AxisBase?) -> String {
         if value < 1 {
             return ""
