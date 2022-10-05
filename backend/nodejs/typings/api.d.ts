@@ -622,13 +622,33 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
-  // Reports - Inquiry
+  // Reports - Inquiry Regist
   // ------------------------------------------------------------
-  interface InquiryResquest {
+  interface InquiryRegistResquest {
     id: string;
   }
 
-  type InquiryResponse = void;
+  type InquiryRegistResponse = void;
+
+  // ------------------------------------------------------------
+  // Reports - Inquiry Remove
+  // ------------------------------------------------------------
+  interface InquiryRemoveParameter {
+    id: string;
+  }
+
+  type InquiryRemoveResquest = void;
+
+  type InquiryRemoveResponse = void;
+
+  // ------------------------------------------------------------
+  // Reports - Inquiry List
+  // ------------------------------------------------------------
+  interface InquiryListResquest {}
+
+  interface InquiryListResponse {
+    items: Tables.TQuestions[];
+  }
 
   // ------------------------------------------------------------
   // Curriculums - Curriculum Regist

@@ -15,7 +15,7 @@ import {
   QuestionDescribe,
   QuestionOrder,
 } from '@src/apis/questions';
-import { DailyTasks, LearningProgress, LearningOverall, Inquiry, OverallStatus, DailyStatus } from '@src/apis/reports';
+import { DailyTasks, LearningProgress, LearningOverall, OverallStatus, DailyStatus } from '@src/apis/reports';
 import {
   CurriculumRegist,
   CurriculumList,
@@ -25,8 +25,8 @@ import {
   CurriculumIgnore,
 } from '@src/apis/curriculums';
 import { WeeklyAbilityRegist, WeeklyAbilityList, WeeklyAbilityAnswer } from '@src/apis/weekly';
+import { InquiryList, InquiryRegist, InquiryRemove } from '@src//apis/inquiry';
 import { Patchs } from '@src/apis/patch';
-
 import entry from './entry';
 
 const app = express();
@@ -91,12 +91,17 @@ app.get('/v1/reports/dailytasks', express.json(), (req, res) => entry(req, res, 
 app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, LearningProgress));
 // leaning progress
 app.get('/v1/reports/overall', express.json(), (req, res) => entry(req, res, LearningOverall));
-// 問い合わせ
-app.post('/v1/reports/inquiry', express.json(), (req, res) => entry(req, res, Inquiry));
 // 学習進捗
 app.get('/v1/reports/status/overall', express.json(), (req, res) => entry(req, res, OverallStatus));
 // 学習進捗
 app.get('/v1/reports/status/daily', express.json(), (req, res) => entry(req, res, DailyStatus));
+
+// 問い合わせ登録
+app.post('/v1/inquiries', express.json(), (req, res) => entry(req, res, InquiryRegist));
+// 問い合わせ一覧
+app.get('/v1/inquiries', express.json(), (req, res) => entry(req, res, InquiryList));
+// 問い合わせ一覧
+app.delete('/v1/inquiries/:id', express.json(), (req, res) => entry(req, res, InquiryRemove));
 
 // カリキュラム登録
 app.post('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumRegist));

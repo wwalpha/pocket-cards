@@ -51,6 +51,7 @@ export const COLORS = {
   ENGLISH: '#b71927',
   MATHS: '#1B5AAA',
   MULTI_TEST: '#6F38C5',
+  INQUIRY: '#233163',
 };
 
 export const PATH_IMAGE = 'images';

@@ -33,3 +33,4 @@ export const CURRICULUM_ORDER = '/curriculums';
 export const HISTORY = '/history';
 
 export const MULTI_TEST = '/multitest';
+export const INQUIRY = '/inquiry';

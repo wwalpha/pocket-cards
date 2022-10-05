@@ -1,7 +1,7 @@
 import { URLs } from '@constants';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API, Credentials } from '@utils';
-import { Auth, Users, APIs, RootState, CurriculumOrderUpdate } from 'typings';
+import { Auth, Users, APIs, RootState, CurriculumOrderUpdate, Tables } from 'typings';
 
 export const USER_SIGN_IN = createAsyncThunk<Auth.SignInResponse & Auth.SignInRequest, Auth.SignInRequest>(
   'user/USER_SIGN_IN',
@@ -109,3 +109,18 @@ export const USER_UPDATE_NOTIFICATIONS = createAsyncThunk<string[] | undefined, 
     return request.notifications;
   }
 );
+
+// 問い合わせ一覧
+export const USER_INQUIRY_LIST = createAsyncThunk<Tables.TQuestions[], void>('user/USER_INQUIRY_LIST', async () => {
+  // list inquiries
+  const res = await API.get<APIs.InquiryListResponse>(URLs.INQUIRY_LIST());
+
+  return res.items;
+});
+
+export const USER_INQUIRY_REMOVE = createAsyncThunk<string, string>('user/USER_INQUIRY_REMOVE', async (qid) => {
+  // remove inquiry
+  await API.del<APIs.InquiryRemoveResponse>(URLs.INQUIRY_REMOVE(qid));
+
+  return qid;
+});
