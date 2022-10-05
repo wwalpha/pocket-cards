@@ -3,6 +3,7 @@ name: RELEASE_D) Production Deploy
 on:
   release:
     types: [released]
+  workflow_dispatch:
 
 env:
   AWS_DEFAULT_REGION: us-east-1
