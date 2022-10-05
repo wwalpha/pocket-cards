@@ -22,8 +22,9 @@ export default () => {
   const actions = bindActionCreators(AppActions, dispatch);
   const grpActions = bindActionCreators(GroupActions, dispatch);
 
-  const { authority, isLoading } = useSelector(appState);
+  const { authority, isLoading, isConnectionEstablished } = useSelector(appState);
   const { editable } = useSelector(groupState);
+
   const {
     url: pathname,
     params: { subject, groupId },
@@ -41,6 +42,8 @@ export default () => {
   };
 
   const handleAbilityRegist = () => dispatch(push(ROUTE_PATHS.ABILITIES_REGIST));
+
+  const handleWssDisconnect = () => actions.disconnect();
 
   // const handleAdminBack = () => {
   //   if (pathname === ROUTE_PATHS.QUESTION_LIST) {
@@ -67,7 +70,8 @@ export default () => {
         userSelect: 'none',
         width: { sm: `calc(100% - 200px)` },
         ml: { sm: `200px` },
-      }}>
+      }}
+    >
       <Toolbar>
         <Typography variant="h6" noWrap component="div">
           Guardian Dashboard
@@ -82,19 +86,12 @@ export default () => {
                   variant="outlined"
                   color="inherit"
                   sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                  onClick={handleGroupAdd}>
+                  onClick={handleGroupAdd}
+                >
                   ADD
                 </Button>
               );
             }
-
-            // <Button
-            //   variant="outlined"
-            //   color="inherit"
-            //   sx={{ mx: 1, borderRadius: 0, width: 96 }}
-            //   onClick={handleAdminBack}>
-            //   BACK
-            // </Button>;
 
             if (pathname.match(/\/*\/groups\/[0-9a-zA-Z]{22}\/questions$/)) {
               return (
@@ -105,7 +102,8 @@ export default () => {
                   sx={{ mx: 1, borderRadius: 0, width: 96 }}
                   readAsText={(texts: string) => {
                     grpActions.uploadConfirm(subject, groupId, texts);
-                  }}>
+                  }}
+                >
                   Upload
                 </UploadButton>
               );
@@ -120,7 +118,8 @@ export default () => {
                   sx={{ mx: 1, borderRadius: 0, width: 96 }}
                   onClick={() => {
                     grpActions.uploadQuestions(subject, groupId);
-                  }}>
+                  }}
+                >
                   REGIST
                 </LoadingButton>
               );
@@ -131,13 +130,27 @@ export default () => {
           {(() => {
             if (authority !== Consts.Authority.PARENT) return;
 
+            if (pathname === ROUTE_PATHS.MULTI_TEST && isConnectionEstablished === true) {
+              return (
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ mx: 1, borderRadius: 0, width: 120 }}
+                  onClick={handleWssDisconnect}
+                >
+                  DISCONNECT
+                </Button>
+              );
+            }
+
             if (pathname === ROUTE_PATHS.STUDENTS) {
               return (
                 <Button
                   variant="outlined"
                   color="inherit"
                   sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                  onClick={handleUserReigst}>
+                  onClick={handleUserReigst}
+                >
                   ADD
                 </Button>
               );
@@ -150,7 +163,8 @@ export default () => {
                     variant="outlined"
                     color="inherit"
                     sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                    onClick={handleGroupEdit}>
+                    onClick={handleGroupEdit}
+                  >
                     {editable === Consts.EDIT_MODE.EDIT ? 'CANCEL' : 'EDIT'}
                   </Button>
                   {editable !== Consts.EDIT_MODE.EDIT && (
@@ -158,7 +172,8 @@ export default () => {
                       variant="outlined"
                       color="inherit"
                       sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                      onClick={handleAbilityRegist}>
+                      onClick={handleAbilityRegist}
+                    >
                       ADD
                     </Button>
                   )}

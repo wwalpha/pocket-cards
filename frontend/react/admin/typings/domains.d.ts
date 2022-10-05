@@ -26,6 +26,8 @@ export namespace Domains {
     // activeGroup: string;
     // authority
     authority?: string;
+    // websocket connection
+    isConnectionEstablished: boolean;
   }
 
   interface GroupState {
@@ -59,7 +61,6 @@ export namespace Domains {
   }
 
   interface StudyState {
-    isConnectionEstablished: boolean;
     isOnline: boolean;
     answered: string[];
     questions: Tables.TQuestions[];

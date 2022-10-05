@@ -4,7 +4,7 @@ import { AppDispatch } from 'typings';
 
 export const dailyTest = (student: string, subject: string) => async (dispatch: AppDispatch) => {
   // websocket connect
-  dispatch(Actions.STUDY_CONNECT());
+  dispatch(Actions.APP_CONNECT());
   // save search condition
   dispatch(
     Actions.STUDY_CONDITIONS({
