@@ -715,4 +715,15 @@ export namespace APIs {
     count: number;
     items: Tables.TQuestions[];
   }
+
+  // ------------------------------------------------------------
+  // Vision - Handwriting
+  // ------------------------------------------------------------
+  interface HandwritingRequest {
+    key: string;
+  }
+
+  interface HandwritingResponse {
+    results: string[];
+  }
 }

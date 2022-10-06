@@ -25,7 +25,9 @@ import {
   CurriculumIgnore,
 } from '@src/apis/curriculums';
 import { WeeklyAbilityRegist, WeeklyAbilityList, WeeklyAbilityAnswer } from '@src/apis/weekly';
-import { InquiryList, InquiryRegist, InquiryRemove } from '@src//apis/inquiry';
+import { InquiryList, InquiryRegist, InquiryRemove } from '@src/apis/inquiry';
+import { Handwriting } from '@src/apis/vision';
+
 import { Patchs } from '@src/apis/patch';
 import entry from './entry';
 
@@ -140,5 +142,8 @@ app.post('/v1/study/daily/test/questions/:questionId', express.json(), (req, res
 
 // patch
 app.patch('/v1/patch', express.json(), (req, res) => entry(req, res, Patchs));
+
+// handwriting
+app.post('/v1/vision/handwriting', express.json(), (req, res) => entry(req, res, Handwriting));
 
 export default app;
