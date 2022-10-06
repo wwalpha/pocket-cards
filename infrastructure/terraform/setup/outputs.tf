@@ -24,7 +24,9 @@ output "bucket_name_archive" {
 output "bucket_name_materials" {
   value = aws_s3_bucket.materials.id
 }
-
+output "bucket_name_uploads" {
+  value = aws_s3_bucket.uploads.id
+}
 # ----------------------------------------------------------------------------------------------
 # DynamoDB
 # ----------------------------------------------------------------------------------------------
