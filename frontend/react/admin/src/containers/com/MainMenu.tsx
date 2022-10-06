@@ -12,6 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import BookIcon from '@mui/icons-material/Book';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
@@ -120,6 +121,19 @@ export default () => {
             <BookIcon sx={{ color: Consts.COLORS.ENGLISH }} />
           </ListItemIcon>
           <ListItemText primary="英 語" />
+        </ListItem>
+        <Divider />
+        <ListItem
+          button
+          key="Handwriting"
+          onClick={() => {
+            handleClick(Consts.SUBJECT.HANDWRITING.toString());
+          }}
+        >
+          <ListItemIcon sx={styles.itemIcon}>
+            <RateReviewIcon sx={{ color: Consts.COLORS.HANDWRITING }} />
+          </ListItemIcon>
+          <ListItemText primary="漢 字" />
         </ListItem>
         {authority === Consts.Authority.ADMIN && (
           <React.Fragment>
