@@ -16,6 +16,7 @@ locals {
   bucket_name_frontend  = "${var.project_name}-frontend-${local.suffix}"
   bucket_name_archive   = "${var.project_name}-archive-${local.suffix}"
   bucket_name_materials = "${var.project_name}-materials-${local.suffix}"
+  bucket_name_uploads   = "${var.project_name}-uploads-${local.suffix}"
 
   mime_types = {
     htm   = "text/html"
