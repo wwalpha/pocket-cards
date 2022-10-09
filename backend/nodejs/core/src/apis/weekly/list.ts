@@ -5,8 +5,10 @@ import { Environment } from '@consts';
 import { LearningService, QuestionService } from '@services';
 
 /** 週テスト対策問題一括取得 */
-export default async (req: Request<any, any, APIs.WeeklyListRequest, any>): Promise<APIs.WeeklyListResponse> => {
-  const { subject } = req.body;
+export default async (
+  req: Request<any, any, APIs.WeeklyListRequest, APIs.WeeklyListQuery>
+): Promise<APIs.WeeklyListResponse> => {
+  const { subject } = req.query;
   const userId = Commons.getUserId(req);
 
   // validation

@@ -9,7 +9,7 @@ export default async (req: Request<any, any, APIs.WeeklyRegistRequest, any>): Pr
   const { student, groupId } = req.body;
 
   if (!student || !groupId) {
-    throw new ValidationError('Group ids is required.');
+    throw new ValidationError('Group id is required.');
   }
 
   const groupInfo = await GroupService.describe(groupId);

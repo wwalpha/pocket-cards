@@ -171,6 +171,14 @@ const setup = async () => {
             ],
             Projection: { ProjectionType: 'ALL' },
           },
+          {
+            IndexName: 'gsiIdx3',
+            KeySchema: [
+              { AttributeName: 'userId', KeyType: 'HASH' },
+              { AttributeName: 'qid', KeyType: 'RANGE' },
+            ],
+            Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['weekly', 'subject'] },
+          },
         ],
       })
       .promise(),

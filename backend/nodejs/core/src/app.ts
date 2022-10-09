@@ -123,7 +123,7 @@ app.get('/v1/curriculums/:curriculumId/questions/:questionId/ignore', express.js
 // 週テスト対策の問題登録
 app.post('/v1/study/weekly', express.json(), (req, res) => entry(req, res, WeeklyRegist));
 // 週テスト対策の問題一覧
-app.post('/v1/study/weekly', express.json(), (req, res) => entry(req, res, WeeklyList));
+app.get('/v1/study/weekly', express.json(), (req, res) => entry(req, res, WeeklyList));
 // 週テスト対策の実力テストの回答
 app.post('/v1/study/weekly/:questionId', express.json(), (req, res) => entry(req, res, WeeklyAnswer));
 
