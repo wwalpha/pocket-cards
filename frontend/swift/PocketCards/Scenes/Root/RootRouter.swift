@@ -45,10 +45,10 @@ class RootRouter {
     }
 
     func makeScienceWeeklyTestView() -> some View {
-        WeeklyRootView().configureView(subject: SUBJECT.SCIENCE)
+        WeeklyTestView().configureView(subject: SUBJECT.SCIENCE)
     }
 
     func makeSocietyWeeklyTestView() -> some View {
-        WeeklyRootView().configureView(subject: SUBJECT.SOCIETY)
+        WeeklyTestView().configureView(subject: SUBJECT.SOCIETY)
     }
 }

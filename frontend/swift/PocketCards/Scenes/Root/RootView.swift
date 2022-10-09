@@ -32,60 +32,60 @@ struct RootView: View {
         VStack(alignment: .leading, spacing: 32) {
             Spacer()
 
-            HStack {
-                Text("算数")
-                    .frame(height: 96, alignment: .topLeading)
-                    .font(.system(size: 32))
-                    .padding(.trailing, 64)
-
-                NavigationLink(destination: router?.makeMathsTestView()) {
-                    Text("日々の演習")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient1)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                NavigationLink(destination: router?.makeMathsReviewView()) {
-                    Text("日々の復習")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient2)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                NavigationLink(destination: router?.makeMathsWeeklyTestView()) {
-                    Text("週テスト対策")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient3)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                Spacer()
-            }
-            .padding(16)
-            .background(
-                LinearGradient(
-                    colors: [Color(hex: 0x3F2B96), Color(hex: 0xA8C0FF)],
-                    startPoint: .topTrailing,
-                    endPoint: .bottomLeading
-                )
-            )
-            .clipped()
-            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+//            HStack {
+//                Text("算数")
+//                    .frame(height: 96, alignment: .topLeading)
+//                    .font(.system(size: 32))
+//                    .padding(.trailing, 64)
+//
+//                NavigationLink(destination: router?.makeMathsTestView()) {
+//                    Text("日々の演習")
+//                        .font(.system(size: 24, design: .default))
+//                        .fontWeight(.bold)
+//                        .frame(width: 200, height: 72, alignment: .center)
+//                        .background(gradient1)
+//                        .foregroundColor(Color.white)
+//                }
+//                .padding(.trailing, 32)
+//                .clipped()
+//                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+//
+//                NavigationLink(destination: router?.makeMathsReviewView()) {
+//                    Text("日々の復習")
+//                        .font(.system(size: 24, design: .default))
+//                        .fontWeight(.bold)
+//                        .frame(width: 200, height: 72, alignment: .center)
+//                        .background(gradient2)
+//                        .foregroundColor(Color.white)
+//                }
+//                .padding(.trailing, 32)
+//                .clipped()
+//                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+//
+//                NavigationLink(destination: router?.makeMathsWeeklyTestView()) {
+//                    Text("週テスト対策")
+//                        .font(.system(size: 24, design: .default))
+//                        .fontWeight(.bold)
+//                        .frame(width: 200, height: 72, alignment: .center)
+//                        .background(gradient3)
+//                        .foregroundColor(Color.white)
+//                }
+//                .padding(.trailing, 32)
+//                .clipped()
+//                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+//
+//                Spacer()
+//            }
+//            .padding(16)
+//            .background(
+//                LinearGradient(
+//                    colors: [Color(hex: 0x3F2B96), Color(hex: 0xA8C0FF)],
+//                    startPoint: .topTrailing,
+//                    endPoint: .bottomLeading
+//                )
+//            )
+//            .clipped()
+//            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
 
             HStack {
                 Text("国語")
@@ -117,17 +117,17 @@ struct RootView: View {
                 .clipped()
                 .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
 
-                NavigationLink(destination: router?.makeScienceWeeklyTestView()) {
-                    Text("週テスト対策")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient3)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+//                NavigationLink(destination: router?.makeScienceWeeklyTestView()) {
+//                    Text("週テスト対策")
+//                        .font(.system(size: 24, design: .default))
+//                        .fontWeight(.bold)
+//                        .frame(width: 200, height: 72, alignment: .center)
+//                        .background(gradient3)
+//                        .foregroundColor(Color.white)
+//                }
+//                .padding(.trailing, 32)
+//                .clipped()
+//                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
 
                 Spacer()
             }

@@ -23,12 +23,10 @@ class URLs {
         "\(HOST)/v1/study/daily/test/questions/\(id)"
     }
 
-    static func STUDY_WEEKLY_QUESTIONS(id: String) -> String {
-        "\(HOST)/v1/study/weekly/\(id)/questions"
-    }
+    static let STUDY_WEEKLY_QUESTIONS = "\(HOST)/v1/study/weekly"
 
-    static func STUDY_WEEKLY_ANSWER(id: String, qid: String) -> String {
-        "\(HOST)/v1/study/weekly/\(id)/questions/\(qid)"
+    static func STUDY_WEEKLY_ANSWER(qid: String) -> String {
+        "\(HOST)/v1/study/weekly/\(qid)"
     }
 
     static let SIGN_IN = "\(HOST)/v1/auth/login"
@@ -43,7 +41,7 @@ class URLs {
     static let REPORTS_PROGRESS = "\(HOST)/v1/reports/progress"
     static let REPORTS_OVERALL = "\(HOST)/v1/reports/overall"
     static let REPORTS_DAILY_TASKS = "\(HOST)/v1/reports/dailytasks"
-    static let REPORTS_INQUIRY = "\(HOST)/v1/reports/inquiry"
+    static let REPORTS_INQUIRY = "\(HOST)/v1/inquiries"
 
     static func QUESTION_LIST(groupId: String) -> String {
         "\(HOST)/v1/groups/\(groupId)/questions"
@@ -66,13 +64,13 @@ enum SUBJECT {
     static let SCIENCE = "2"
     static let SOCIETY = "3"
     static let MATHS = "4"
+    static let HANDWRITING = "5"
 }
 
 enum MODE {
     static let STUDY = "1"
     static let TEST = "2"
-    static let WEEKLY_ABILITY = "3"
-    static let WEEKLY_PRACTICE = "4"
+    static let WEEKLY = "3"
 }
 
 enum Correct {

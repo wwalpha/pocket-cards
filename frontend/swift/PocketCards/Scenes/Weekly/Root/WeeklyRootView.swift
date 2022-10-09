@@ -17,23 +17,23 @@ struct WeeklyRootView: View {
     var body: some View {
         VStack {
             HStack {
-                NavigationLink(destination: router.makeTest(subject: viewModel.subject)) {
-                    Text("実力テスト")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
-                        .background(Color.green)
-                        .foregroundColor(Color.white)
-                }.padding(16)
-
-                NavigationLink(destination: router.makePractice(subject: viewModel.subject)) {
-                    Text("反復練習")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 96, alignment: .center)
-                        .background(Color.purple)
-                        .foregroundColor(Color.white)
-                }.padding(.leading, 32)
+//                NavigationLink(destination: router.makeTest(subject: viewModel.subject)) {
+//                    Text("実力テスト")
+//                        .font(.system(size: 24, design: .default))
+//                        .fontWeight(.bold)
+//                        .frame(width: 200, height: 96, alignment: .center)
+//                        .background(Color.green)
+//                        .foregroundColor(Color.white)
+//                }.padding(16)
+//
+//                NavigationLink(destination: router.makePractice(subject: viewModel.subject)) {
+//                    Text("反復練習")
+//                        .font(.system(size: 24, design: .default))
+//                        .fontWeight(.bold)
+//                        .frame(width: 200, height: 96, alignment: .center)
+//                        .background(Color.purple)
+//                        .foregroundColor(Color.white)
+//                }.padding(.leading, 32)
             }
         }
     }

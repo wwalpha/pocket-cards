@@ -12,7 +12,6 @@ class WeeklyTestViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var isFinish = false
     @Published var isShowError: String = ""
-    @Published var count: String = "0"
 
     var question: Question?
 }
