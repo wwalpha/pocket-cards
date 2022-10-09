@@ -45,20 +45,19 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # DynamoDB
   # ----------------------------------------------------------------------------------------------
-  dynamodb_name_users          = local.remote_setup.dynamodb_name_users
-  dynamodb_name_groups         = local.remote_setup.dynamodb_name_groups
-  dynamodb_name_words          = local.remote_setup.dynamodb_name_words
-  dynamodb_name_word_master    = local.remote_setup.dynamodb_name_word_master
-  dynamodb_name_word_ignore    = local.remote_setup.dynamodb_name_word_ignore
-  dynamodb_name_questions      = local.remote_setup.dynamodb_name_questions
-  dynamodb_name_learning       = local.remote_setup.dynamodb_name_learning
-  dynamodb_name_traces         = local.remote_setup.dynamodb_name_traces
-  dynamodb_name_settings       = local.remote_setup.dynamodb_name_settings
-  dynamodb_name_curriculums    = local.remote_setup.dynamodb_name_curriculums
-  dynamodb_name_reports        = local.remote_setup.dynamodb_name_reports
-  dynamodb_name_weekly_ability = local.remote_setup.dynamodb_name_weekly_ability
-  dynamodb_name_wss            = local.remote_setup.dynamodb_name_wss
-  dynamodb_name_inquiry        = local.remote_setup.dynamodb_name_inquiry
+  dynamodb_name_users       = local.remote_setup.dynamodb_name_users
+  dynamodb_name_groups      = local.remote_setup.dynamodb_name_groups
+  dynamodb_name_words       = local.remote_setup.dynamodb_name_words
+  dynamodb_name_word_master = local.remote_setup.dynamodb_name_word_master
+  dynamodb_name_word_ignore = local.remote_setup.dynamodb_name_word_ignore
+  dynamodb_name_questions   = local.remote_setup.dynamodb_name_questions
+  dynamodb_name_learning    = local.remote_setup.dynamodb_name_learning
+  dynamodb_name_traces      = local.remote_setup.dynamodb_name_traces
+  dynamodb_name_settings    = local.remote_setup.dynamodb_name_settings
+  dynamodb_name_curriculums = local.remote_setup.dynamodb_name_curriculums
+  dynamodb_name_reports     = local.remote_setup.dynamodb_name_reports
+  dynamodb_name_wss         = local.remote_setup.dynamodb_name_wss
+  dynamodb_name_inquiry     = local.remote_setup.dynamodb_name_inquiry
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway

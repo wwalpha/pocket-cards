@@ -251,6 +251,14 @@ resource "aws_dynamodb_table" "learning" {
     projection_type = "ALL"
   }
 
+  global_secondary_index {
+    name               = "gsiIdx3"
+    hash_key           = "userId"
+    range_key          = "qid"
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["weekly", "subject"]
+  }
+
   tags = {
     Project = local.project_name_uc
   }
@@ -338,24 +346,6 @@ resource "aws_dynamodb_table" "reports" {
 
   attribute {
     name = "typeDate"
-    type = "S"
-  }
-
-  tags = {
-    Project = local.project_name_uc
-  }
-}
-
-# ----------------------------------------------------------------------------------------------
-# Dynamodb Table - Weekly Ability
-# ----------------------------------------------------------------------------------------------
-resource "aws_dynamodb_table" "weekly_ability" {
-  name         = local.dynamodb_name_weekly_ability
-  billing_mode = "PAY_PER_REQUEST"
-  range_key    = "qid"
-
-  attribute {
-    name = "qid"
     type = "S"
   }
 
