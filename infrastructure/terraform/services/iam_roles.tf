@@ -169,33 +169,6 @@ EOF
 # ----------------------------------------------------------------------------------------------
 # Cognito Authenticated Role Policy
 # ----------------------------------------------------------------------------------------------
-resource "aws_iam_role_policy" "authenticated" {
-  name = "${local.project_name_uc}_CognitoAuthenticatedPolicy"
-  role = aws_iam_role.authenticated.id
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "mobileanalytics:PutEvents",
-        "cognito-sync:*",
-        "cognito-identity:*"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
-  ]
-}
-EOF
-}
-
-# ----------------------------------------------------------------------------------------------
-# Cognito Authenticated Role Policy
-# ----------------------------------------------------------------------------------------------
 resource "aws_cognito_identity_pool_roles_attachment" "authenticated" {
   identity_pool_id = aws_cognito_identity_pool.this.id
 

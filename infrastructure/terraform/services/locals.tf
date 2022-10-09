@@ -83,6 +83,7 @@ locals {
   bucket_name_frontend  = local.remote_setup.bucket_name_frontend
   bucket_name_archive   = local.remote_setup.bucket_name_archive
   bucket_name_materials = local.remote_setup.bucket_name_materials
+  bucket_name_uploads   = local.remote_setup.bucket_name_uploads
 
   # ----------------------------------------------------------------------------------------------
   # Route53
