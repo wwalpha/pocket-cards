@@ -43,14 +43,6 @@ extension MultiTestInteractor: MultiTestBusinessLogic, WebSocketConnectionDelega
 
     func onConnected(connection _: WebSocketConnection) {
         presenter?.onConnected()
-
-//        let encoder = JSONEncoder()
-//        let value = CommandServices.QuestionQuery.Body(gid: "wXtkuF2vzjHPsohPoyuxRg", qid: "6U96ryPPuPfvZow8P1Xtdu")
-//
-//        let data = try? encoder.encode(value)
-//        let text = String(data: data!, encoding: .utf8)!
-//
-//        getQuestion(text: text)
     }
 
     func onDisconnected(connection _: WebSocketConnection, error _: Error?) {}

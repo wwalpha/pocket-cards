@@ -18,7 +18,7 @@ struct WeeklyTestView: View {
             if viewModel.isLoading {
                 Text("Loading....").onAppear {
                     Task {
-                        await interactor?.loadQuestions()
+                        await interactor?.initialize()
                     }
                 }
             } else if viewModel.isFinish {
@@ -36,13 +36,6 @@ struct WeeklyTestView: View {
                     FlashCard(question: viewModel.question!, action: interactor!.onAction)
                 }
             }
-        }.toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("残問題数：" + viewModel.count)
-                    .font(.largeTitle.bold())
-                    .frame(width: 300, height: 20, alignment: .center)
-                    .accessibilityAddTraits(.isHeader)
-            }
         }.onDisappear {
             viewModel.isLoading = true
         }
@@ -50,12 +43,6 @@ struct WeeklyTestView: View {
 }
 
 extension WeeklyTestView: WeeklyTestDisplayLogic {
-    func showCount(model: WeeklyTestViewModel) {
-        DispatchQueue.main.async {
-            viewModel.count = model.count
-        }
-    }
-
     func showError(index: String) {
         DispatchQueue.main.async {
             viewModel.isShowError = index
@@ -67,16 +54,15 @@ extension WeeklyTestView: WeeklyTestDisplayLogic {
             viewModel.isLoading = model.isLoading
             viewModel.isFinish = model.isFinish
             viewModel.isShowError = model.isShowError
-            viewModel.count = model.count
             viewModel.question = model.question
         }
     }
 }
 
 extension WeeklyTestView {
-    func configureView(groupId: String) -> some View {
+    func configureView(subject: String) -> some View {
         var view = self
-        let interactor = WeeklyTestInteractor(groupId: groupId)
+        let interactor = WeeklyTestInteractor(loadUrl: URLs.STUDY_WEEKLY_QUESTIONS, subject: subject)
         let presenter = WeeklyTestPresenter()
 
         view.interactor = interactor
