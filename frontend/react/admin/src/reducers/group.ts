@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains, Tables } from 'typings';
 import { Consts } from '@constants';
 import {
-  GROUP_ABILITY_REGIST,
   GROUP_LIST,
   GROUP_QUESTION_DELETE,
   GROUP_QUESTION_IGNORE,
@@ -101,9 +100,6 @@ const slice = createSlice({
       })
       .addCase(GROUP_QUESTION_IGNORE.fulfilled, (state, { payload }) => {
         state.questions = state.questions.filter((item) => item.id !== payload);
-      })
-      .addCase(GROUP_ABILITY_REGIST.fulfilled, (state, { payload }) => {
-        state.groups.push(payload.item);
       });
   },
 });
