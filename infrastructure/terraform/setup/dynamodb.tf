@@ -352,13 +352,7 @@ resource "aws_dynamodb_table" "reports" {
 resource "aws_dynamodb_table" "weekly_ability" {
   name         = local.dynamodb_name_weekly_ability
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "id"
   range_key    = "qid"
-
-  attribute {
-    name = "id"
-    type = "S"
-  }
 
   attribute {
     name = "qid"
