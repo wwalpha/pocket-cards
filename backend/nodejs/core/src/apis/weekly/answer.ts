@@ -1,45 +1,65 @@
 import { Request } from 'express';
 import { Consts } from '@consts';
-import { AbilityService, GroupService } from '@services';
+import { CurriculumService, LearningService } from '@services';
 import { APIs } from 'typings';
-import { ValidationError } from '@utils';
+import { Commons, DateUtils, DBHelper, ValidationError } from '@utils';
+import { defaultTo } from 'lodash';
+import { Traces } from '@queries';
 
-/** 週テスト対策の実力テストの回答 */
+/** 週テスト対策の回答 */
 export default async (
-  req: Request<APIs.WeeklyAbilityAnswerParameter, any, APIs.WeeklyAbilityAnswerRequest, any>
-): Promise<APIs.WeeklyAbilityAnswerResponse> => {
-  const { groupId, questionId: qid } = req.params;
-  const { correct, mode } = req.body;
+  req: Request<APIs.WeeklyAnswerParameter, any, APIs.WeeklyAnswerRequest, any>
+): Promise<APIs.WeeklyAnswerResponse> => {
+  const { questionId: qid } = req.params;
+  const { correct } = req.body;
+  const userId = Commons.getUserId(req);
 
-  // 実力テストモード
-  if (mode === 'test') {
-    if (correct === Consts.ANSWER_CORRECT) {
-      await AbilityService.remove(groupId, qid);
-      await GroupService.minusCount(groupId, 1);
+  const learning = await LearningService.describe(qid, userId);
+
+  if (!learning) {
+    throw new ValidationError(`Question not found. ${qid}`);
+  }
+
+  // 正解の場合
+  const times = correct === '1' ? defaultTo(learning.times, 0) + 1 : 0;
+  const nextTime = correct === '1' ? DateUtils.getNextTime(times, learning.subject) : DateUtils.getNextTime(0);
+
+  // 学習情報更新
+  await LearningService.update({
+    ...learning,
+    times: times,
+    nextTime: nextTime,
+    lastTime: DateUtils.getNow(),
+    subject_weekly: undefined,
+  });
+
+  // 初めて勉強の場合
+  if (learning.lastTime === Consts.INITIAL_DATE) {
+    const curriculums = await CurriculumService.listByGroup(learning.groupId);
+    const target = curriculums.find((item) => item.userId === learning.userId);
+
+    if (target) {
+      // 未学習数 - 1
+      await CurriculumService.updateUnlearned(target.id, -1);
     }
   }
 
-  // 練習問題モード
-  if (mode === 'practice') {
-    const question = await AbilityService.describe(groupId, qid);
-
-    if (!question) {
-      throw new ValidationError(`Question not found. ${qid}`);
-    }
-
-    // 正解の場合
-    const times = correct === '1' ? question.times + 1 : question.times;
-
-    if (times === 3) {
-      await AbilityService.update({
-        ...question,
-        times: -1,
-      });
-    } else {
-      await AbilityService.update({
-        ...question,
-        times,
-      });
-    }
-  }
+  // 履歴登録
+  await DBHelper().transactWrite({
+    TransactItems: [
+      {
+        // 履歴登録
+        Put: Traces.put({
+          qid: learning.qid,
+          timestamp: DateUtils.getTimestamp(),
+          groupId: learning.groupId,
+          userId: learning.userId,
+          subject: learning.subject,
+          timesBefore: learning.times,
+          timesAfter: times,
+          lastTime: learning.lastTime,
+        }),
+      },
+    ],
+  });
 };

@@ -37,3 +37,9 @@ export interface ENVIRONMENTS {
   WORDS_LIMIT: string;
   PATH_PATTERN: string;
 }
+
+export interface WSSConnectionEvent {
+  domainName: string;
+  principalId: string;
+  connectionId: string;
+}

@@ -17,7 +17,6 @@ describe('Questions', () => {
       client.bulk(Environment.TABLE_NAME_CURRICULUMS, COMMONS.DB_CURRICULUMS),
       client.bulk(Environment.TABLE_NAME_LEARNING, COMMONS.DB_LEARNING),
       client.bulk(Environment.TABLE_NAME_QUESTIONS, COMMONS.DB_QUESTIONS),
-      client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, COMMONS.DB_ABILITY),
     ]);
   });
 
@@ -26,7 +25,6 @@ describe('Questions', () => {
       client.truncateAll(Environment.TABLE_NAME_GROUPS),
       client.truncateAll(Environment.TABLE_NAME_LEARNING),
       client.truncateAll(Environment.TABLE_NAME_CURRICULUMS),
-      client.truncateAll(Environment.TABLE_NAME_WEEKLY_ABILITY),
       client.truncateAll(Environment.TABLE_NAME_QUESTIONS),
     ]);
   });
@@ -41,17 +39,6 @@ describe('Questions', () => {
     expect(res.statusCode).toBe(200);
 
     expect(res.body).toEqual(QUESTIONS.LISTS001_EXPECT_QUESTIONS);
-  });
-
-  test('Lists02: 質問一覧_実力テスト', async () => {
-    const gid = 'dAvNyPgb5dss9ni8tqjAWy';
-    const apiPath = `/v1/groups/${gid}/questions`;
-
-    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
-
-    // status code
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual(QUESTIONS.LISTS002_EXPECT_QUESTIONS);
   });
 
   test('Lists03: グループ存在しない', async () => {

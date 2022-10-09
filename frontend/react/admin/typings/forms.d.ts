@@ -45,7 +45,6 @@ export interface QuestionForm {
 }
 
 export interface AbilityForm {
-  name: string;
   student: string;
   subject: string;
   groupIds: string[];

@@ -173,6 +173,16 @@ resource "aws_iam_role_policy" "wss_apigw" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - Lambda Invoke
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy" "wss_lambda" {
+  name = "lambda_policy"
+  role = aws_iam_role.wss.id
+
+  policy = data.aws_iam_policy_document.wss_lambda.json
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS Lambda Role Policy - Lambda basic policy
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "wss_basic" {
@@ -226,3 +236,32 @@ resource "aws_iam_role_policy" "wss_commands_apigw" {
   policy = data.aws_iam_policy_document.wss_apigw.json
 }
 
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - WSS Relay
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "wss_relay" {
+  name               = "${local.project_name_uc}_Lambda_WSSRelayRole"
+  assume_role_policy = data.aws_iam_policy_document.lambda.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - Lambda basic policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "wss_relay_basic" {
+  role       = aws_iam_role.wss_relay.name
+  policy_arn = local.lambda_basic_policy_arn
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - API Gateway Execution
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy" "wss_relay_apigw" {
+  name = "apigw_policy"
+  role = aws_iam_role.wss_relay.id
+
+  policy = data.aws_iam_policy_document.wss_apigw.json
+}

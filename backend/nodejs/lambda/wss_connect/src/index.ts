@@ -1,13 +1,15 @@
-import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
+import { ApiGatewayManagementApi, DynamoDB, Lambda } from 'aws-sdk';
 import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
 } from 'aws-lambda';
-import { Tables } from 'typings';
+import { Tables, WSSConnectionEvent } from 'typings';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
+const FUNCTION_NAME = process.env.FUNCTION_NAME as string;
 
 const client = new DynamoDB.DocumentClient();
+const lambda = new Lambda();
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
@@ -32,33 +34,34 @@ export const handler = async (
       })
       .promise();
 
-    const tasks = connections.map((item) =>
-      apigateway
-        .postToConnection({
-          ConnectionId: item.connId,
-          Data: JSON.stringify({
-            ON_LINE: principalId,
-          }),
-        })
-        .promise()
+    // 一括実行
+    await Promise.all(
+      connections.map((item) =>
+        apigateway
+          .postToConnection({
+            ConnectionId: item.connId,
+            Data: JSON.stringify({
+              ON_LINE: principalId,
+            }),
+          })
+          .promise()
+      )
     );
 
     // 保護者且つ、対象者すでにログインの場合
     if (principalId === guardian && connections.length > 0) {
-      tasks.push(
-        apigateway
-          .postToConnection({
-            ConnectionId: connectionId,
-            Data: JSON.stringify({
-              ON_LINE: connections[0].userId,
-            }),
-          })
-          .promise()
-      );
+      await lambda
+        .invoke({
+          FunctionName: FUNCTION_NAME,
+          InvocationType: 'Event',
+          Payload: JSON.stringify({
+            connectionId: connectionId,
+            domainName: domainName,
+            principalId: connections[0].userId,
+          } as WSSConnectionEvent),
+        })
+        .promise();
     }
-
-    // 一括実行
-    await Promise.all(tasks);
   } catch (err) {
     console.log(err);
     statusCode = 500;
@@ -92,28 +95,6 @@ const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]>
   // return client connections
   return items;
 };
-
-/** get user's guardian id */
-// const getGuardian = async (userId: string) => {
-//   const result = await client
-//     .get({
-//       TableName: TABLE_NAME_USERS,
-//       Key: {
-//         id: userId,
-//       } as Tables.TUsersKey,
-//     })
-//     .promise();
-
-//   if (!result.Item) {
-//     return undefined;
-//   }
-
-//   // ユーザ情報
-//   const userInfo = result.Item as Tables.TUsers;
-
-//   // 教師ある場合は、教師を返す
-//   return userInfo.teacher ? userInfo.teacher : userInfo.id;
-// };
 
 interface TAuthorizer {
   principalId: string;

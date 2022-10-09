@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
@@ -21,10 +21,9 @@ const appState = (state: RootState) => state.app;
 export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
   const [incorrect, setIncorrect] = React.useState(false);
-  const [isSearched, setSearched] = React.useState(false);
+  const { isLoading, isConnecting, isConnectionEstablished } = useSelector(appState);
   const { questions, index, student, isOnline } = useSelector(studyState);
   const { students } = useSelector(userState);
-  const { isLoading } = useSelector(appState);
 
   const {
     control,
@@ -56,13 +55,12 @@ export default () => {
   };
 
   const onSubmit = handleSubmit(async ({ userId, subject }) => {
-    setSearched(true);
     actions.dailyTest(userId, subject);
   });
 
   return (
     <form onSubmit={onSubmit}>
-      {!isSearched && (
+      {!isConnectionEstablished && (
         <Box display="flex" sx={{ py: 2 }}>
           <Controller
             name="userId"
@@ -98,19 +96,20 @@ export default () => {
           <LoadingButton
             type="submit"
             sx={{ width: '120px', mx: 2 }}
-            loading={isLoading}
+            loading={isLoading || isConnecting}
             variant="contained"
-            color="primary">
+            color="primary"
+          >
             接続
           </LoadingButton>
         </Box>
       )}
-      {isSearched && questions.length === 0 && (
+      {isConnectionEstablished && questions.length === 0 && (
         <Box display="flex" justifyContent="center">
           データありません
         </Box>
       )}
-      {isSearched && questions.length !== 0 && (
+      {isConnectionEstablished && questions.length !== 0 && (
         <React.Fragment>
           <Box display="flex" sx={{ mt: 1, px: 2 }}>
             {student}: <LightbulbIcon sx={{ ml: 2, color: isOnline === true ? 'green' : 'red' }} />
@@ -151,7 +150,8 @@ export default () => {
                 loading={isLoading}
                 variant="contained"
                 color="primary"
-                onClick={onNext}>
+                onClick={onNext}
+              >
                 次へ
               </LoadingButton>
               <LoadingButton
@@ -159,7 +159,8 @@ export default () => {
                 loading={isLoading}
                 variant="contained"
                 color="primary"
-                onClick={onFailure}>
+                onClick={onFailure}
+              >
                 不正解
               </LoadingButton>
               <LoadingButton
@@ -168,7 +169,8 @@ export default () => {
                 variant="contained"
                 color="secondary"
                 onClick={onCorrect}
-                disabled={incorrect}>
+                disabled={incorrect}
+              >
                 正解
               </LoadingButton>
             </Box>

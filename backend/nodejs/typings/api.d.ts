@@ -477,51 +477,41 @@ export namespace APIs {
   type CurriculumIgnoreResponse = void;
 
   // ------------------------------------------------------------
-  // Weekly Ability Regist
+  // Weekly Regist
   // ------------------------------------------------------------
-  interface WeeklyAbilityRegistRequest {
-    name: string;
-    subject: string;
+  interface WeeklyRegistRequest {
+    groupIds: string[];
     student: string;
-    groupIds?: string[];
   }
 
-  interface WeeklyAbilityRegistResponse {
-    item: Tables.TGroups;
-  }
+  type WeeklyRegistResponse = void;
 
   // ------------------------------------------------------------
-  // Weekly Test List
+  // Weekly List
   // ------------------------------------------------------------
-  interface WeeklyTestListParameter {
-    groupId: string;
+  interface WeeklyListQuery {
+    subject: string;
   }
 
-  interface WeeklyTestListQuery {
-    reset?: string;
-  }
+  interface WeeklyListRequest {}
 
-  interface WeeklyTestListRequest {}
-
-  interface WeeklyTestListResponse {
+  interface WeeklyListResponse {
     count: number;
     questions: Tables.TQuestions[];
   }
 
   // ------------------------------------------------------------
-  // Weekly Ability Answer
+  // Weekly Answer
   // ------------------------------------------------------------
-  interface WeeklyAbilityAnswerParameter {
+  interface WeeklyAnswerParameter {
     questionId: string;
-    groupId: string;
   }
 
-  interface WeeklyAbilityAnswerRequest {
-    mode: string;
+  interface WeeklyAnswerRequest {
     correct?: string;
   }
 
-  type WeeklyAbilityAnswerResponse = void;
+  type WeeklyAnswerResponse = void;
   // ------------------------------------------------------------
   // Reports - Daily Tasks
   // ------------------------------------------------------------
@@ -714,5 +704,16 @@ export namespace APIs {
   interface CurriculumQuestionsResponse {
     count: number;
     items: Tables.TQuestions[];
+  }
+
+  // ------------------------------------------------------------
+  // Vision - Handwriting
+  // ------------------------------------------------------------
+  interface HandwritingRequest {
+    key: string;
+  }
+
+  interface HandwritingResponse {
+    results: string[];
   }
 }

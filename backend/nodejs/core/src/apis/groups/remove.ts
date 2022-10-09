@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { AbilityService, CurriculumService, GroupService, LearningService, QuestionService } from '@services';
+import { CurriculumService, GroupService, LearningService, QuestionService } from '@services';
 import { Consts } from '@consts';
 import { APIs } from 'typings';
 import { ValidationError } from '@utils';
@@ -36,22 +36,6 @@ export default async (req: Request<APIs.GroupRemoveParams, any, any, any>): Prom
       CurriculumService.truncate(curriculums),
       // remove learnings
       LearningService.truncate(learnings),
-    ]);
-  }
-
-  // 実力テストグループ
-  if (Consts.SUBJECT_ABILITY.includes(groupInfo.subject)) {
-    const abilities = await AbilityService.listByKey(groupId);
-    // execute all
-    await Promise.all([
-      // remove group
-      GroupService.remove(groupId),
-      // remove group questions
-      QuestionService.truncate(questions),
-      // remove curriculum
-      CurriculumService.truncate(curriculums),
-      // remove weekly questions
-      AbilityService.truncate(abilities),
     ]);
   }
 };

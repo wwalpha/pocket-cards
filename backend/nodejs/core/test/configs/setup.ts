@@ -17,7 +17,6 @@ const TABLE_NAME_WORD_IGNORE = process.env['TABLE_NAME_WORD_IGNORE'] as string;
 const TABLE_NAME_QUESTIONS = process.env['TABLE_NAME_QUESTIONS'] as string;
 const TABLE_NAME_LEARNING = process.env['TABLE_NAME_LEARNING'] as string;
 const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;
-const TABLE_NAME_WEEKLY_ABILITY = process.env['TABLE_NAME_WEEKLY_ABILITY'] as string;
 const TABLE_NAME_CURRICULUMS = process.env['TABLE_NAME_CURRICULUMS'] as string;
 const TABLE_NAME_INQUIRY = process.env['TABLE_NAME_INQUIRY'] as string;
 
@@ -143,20 +142,6 @@ const setup = async () => {
       .promise(),
     dbClient
       .createTable({
-        TableName: TABLE_NAME_WEEKLY_ABILITY,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [
-          { AttributeName: 'id', KeyType: 'HASH' },
-          { AttributeName: 'qid', KeyType: 'RANGE' },
-        ],
-        AttributeDefinitions: [
-          { AttributeName: 'id', AttributeType: 'S' },
-          { AttributeName: 'qid', AttributeType: 'S' },
-        ],
-      })
-      .promise(),
-    dbClient
-      .createTable({
         TableName: TABLE_NAME_LEARNING,
         BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [
@@ -168,6 +153,7 @@ const setup = async () => {
           { AttributeName: 'userId', AttributeType: 'S' },
           { AttributeName: 'nextTime', AttributeType: 'S' },
           { AttributeName: 'groupId', AttributeType: 'S' },
+          { AttributeName: 'subject_weekly', AttributeType: 'S' },
         ],
         GlobalSecondaryIndexes: [
           {
@@ -185,6 +171,14 @@ const setup = async () => {
               { AttributeName: 'nextTime', KeyType: 'RANGE' },
             ],
             Projection: { ProjectionType: 'ALL' },
+          },
+          {
+            IndexName: 'gsiIdx3',
+            KeySchema: [
+              { AttributeName: 'userId', KeyType: 'HASH' },
+              { AttributeName: 'subject_weekly', KeyType: 'RANGE' },
+            ],
+            Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['qid'] },
           },
         ],
       })

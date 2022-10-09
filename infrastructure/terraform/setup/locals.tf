@@ -16,6 +16,7 @@ locals {
   bucket_name_frontend  = "${var.project_name}-frontend-${local.suffix}"
   bucket_name_archive   = "${var.project_name}-archive-${local.suffix}"
   bucket_name_materials = "${var.project_name}-materials-${local.suffix}"
+  bucket_name_uploads   = "${var.project_name}-uploads-${local.suffix}"
 
   mime_types = {
     htm   = "text/html"
@@ -43,9 +44,10 @@ locals {
   dynamodb_name_settings        = "${var.project_name}-settings-${local.suffix}"
   dynamodb_name_curriculums     = "${var.project_name}-curriculums-${local.suffix}"
   dynamodb_name_reports         = "${var.project_name}-reports-${local.suffix}"
-  dynamodb_name_weekly_ability  = "${var.project_name}-weeklyability-${local.suffix}"
   dynamodb_name_wss_connections = "${var.project_name}-wssconnections-${local.suffix}"
-  dynamodb_name_inquiry = "${var.project_name}-inquiry-${local.suffix}"
+  dynamodb_name_inquiry         = "${var.project_name}-inquiry-${local.suffix}"
+
+  bucket_key_lambda_wss_relay = "lambda/wss_relay.zip"
 
 }
 

@@ -237,6 +237,11 @@ resource "aws_dynamodb_table" "learning" {
     type = "S"
   }
 
+  attribute {
+    name = "subject_weekly"
+    type = "S"
+  }
+
   global_secondary_index {
     name            = "gsiIdx1"
     hash_key        = "userId"
@@ -249,6 +254,14 @@ resource "aws_dynamodb_table" "learning" {
     hash_key        = "groupId"
     range_key       = "nextTime"
     projection_type = "ALL"
+  }
+
+  global_secondary_index {
+    name               = "gsiIdx3"
+    hash_key           = "userId"
+    range_key          = "subject_weekly"
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["qid"]
   }
 
   tags = {
@@ -338,30 +351,6 @@ resource "aws_dynamodb_table" "reports" {
 
   attribute {
     name = "typeDate"
-    type = "S"
-  }
-
-  tags = {
-    Project = local.project_name_uc
-  }
-}
-
-# ----------------------------------------------------------------------------------------------
-# Dynamodb Table - Weekly Ability
-# ----------------------------------------------------------------------------------------------
-resource "aws_dynamodb_table" "weekly_ability" {
-  name         = local.dynamodb_name_weekly_ability
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "id"
-  range_key    = "qid"
-
-  attribute {
-    name = "id"
-    type = "S"
-  }
-
-  attribute {
-    name = "qid"
     type = "S"
   }
 

@@ -42,3 +42,8 @@ export const activeSubject = (subject: string) => (dispatch: AppDispatch) => {
   // move to page
   dispatch(push(ROUTE_PATHS.GROUP_ROOT(subject)));
 };
+
+/** websocket disconnect */
+export const disconnect = () => async (dispatch: AppDispatch) => {
+  dispatch(Actions.APP_DISCONNECT());
+};

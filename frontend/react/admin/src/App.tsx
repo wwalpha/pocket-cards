@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import { ROUTE_PATHS } from '@constants';
-import { AbilityRouter } from '@containers/ability';
+import { WeeklyRegist } from '@containers/ability';
 import { Students, Settings, GroupRouter, CurriculumOrder, MultiTest, Inquiry } from '@containers/body';
 import { Header } from '@containers/com';
 import { MainMenu } from '@containers/com';
@@ -31,9 +31,9 @@ export default () => {
             <Header />
             <Settings />
           </Route>
-          <Route path={ROUTE_PATHS.ABILITIES}>
+          <Route path={ROUTE_PATHS.WEEKLY}>
             <Header />
-            <AbilityRouter />
+            <WeeklyRegist />
           </Route>
           <Route path={ROUTE_PATHS.CURRICULUM_ORDER}>
             <Header />

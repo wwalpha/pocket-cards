@@ -20,12 +20,12 @@ export namespace Domains {
     showUserRegist: boolean;
     // loading
     isLoading: boolean;
-    // // active subject
-    // activeSubject: string;
-    // // active group
-    // activeGroup: string;
     // authority
     authority?: string;
+    // websocket connection
+    isConnectionEstablished: boolean;
+    // websocket connecting
+    isConnecting: boolean;
   }
 
   interface GroupState {
@@ -59,7 +59,6 @@ export namespace Domains {
   }
 
   interface StudyState {
-    isConnectionEstablished: boolean;
     isOnline: boolean;
     answered: string[];
     questions: Tables.TQuestions[];

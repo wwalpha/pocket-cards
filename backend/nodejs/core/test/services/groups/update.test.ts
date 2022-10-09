@@ -28,7 +28,6 @@ describe('Groups', () => {
       client.truncateAll(Environment.TABLE_NAME_GROUPS),
       client.truncateAll(Environment.TABLE_NAME_LEARNING),
       client.truncateAll(Environment.TABLE_NAME_CURRICULUMS),
-      client.truncateAll(Environment.TABLE_NAME_WEEKLY_ABILITY),
       client.truncateAll(Environment.TABLE_NAME_QUESTIONS),
     ]);
   });

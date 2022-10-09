@@ -24,8 +24,10 @@ import {
   CurriculumOrder,
   CurriculumIgnore,
 } from '@src/apis/curriculums';
-import { WeeklyAbilityRegist, WeeklyAbilityList, WeeklyAbilityAnswer } from '@src/apis/weekly';
-import { InquiryList, InquiryRegist, InquiryRemove } from '@src//apis/inquiry';
+import { WeeklyRegist, WeeklyList, WeeklyAnswer } from '@src/apis/weekly';
+import { InquiryList, InquiryRegist, InquiryRemove } from '@src/apis/inquiry';
+import { Handwriting } from '@src/apis/vision';
+
 import { Patchs } from '@src/apis/patch';
 import entry from './entry';
 
@@ -119,13 +121,11 @@ app.get('/v1/curriculums/:curriculumId/questions/:questionId/ignore', express.js
 );
 
 // 週テスト対策の問題登録
-app.post('/v1/study/weekly', express.json(), (req, res) => entry(req, res, WeeklyAbilityRegist));
+app.post('/v1/study/weekly', express.json(), (req, res) => entry(req, res, WeeklyRegist));
 // 週テスト対策の問題一覧
-app.get('/v1/study/weekly/:groupId/questions', express.json(), (req, res) => entry(req, res, WeeklyAbilityList));
+app.get('/v1/study/weekly', express.json(), (req, res) => entry(req, res, WeeklyList));
 // 週テスト対策の実力テストの回答
-app.post('/v1/study/weekly/:groupId/questions/:questionId', express.json(), (req, res) =>
-  entry(req, res, WeeklyAbilityAnswer)
-);
+app.post('/v1/study/weekly/:questionId', express.json(), (req, res) => entry(req, res, WeeklyAnswer));
 
 // カリキュラム順で学習
 app.post('/v1/study/daily/order/questions', express.json(), (req, res) => entry(req, res, QuestionOrder));
@@ -140,5 +140,8 @@ app.post('/v1/study/daily/test/questions/:questionId', express.json(), (req, res
 
 // patch
 app.patch('/v1/patch', express.json(), (req, res) => entry(req, res, Patchs));
+
+// handwriting
+app.post('/v1/vision/handwriting', express.json(), (req, res) => entry(req, res, Handwriting));
 
 export default app;
