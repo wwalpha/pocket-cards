@@ -19,16 +19,16 @@ struct DailyTasksView: View {
                 VStack(spacing: 20) {
                     Spacer()
 
-                    Text("算数")
-                        .padding()
-                        .padding(.leading, 32)
-                        .font(.system(size: 28))
-                        .frame(width: geo.size.width, height: 48, alignment: .leading)
-                        .background(Color.maths)
-                        .foregroundColor(Color.white)
-
-                    Dailytasks(target: viewModel.mathsTarget, completed: viewModel.mathsArchive)
-                        .padding(.leading, 32)
+//                    Text("算数")
+//                        .padding()
+//                        .padding(.leading, 32)
+//                        .font(.system(size: 28))
+//                        .frame(width: geo.size.width, height: 48, alignment: .leading)
+//                        .background(Color.maths)
+//                        .foregroundColor(Color.white)
+//
+//                    Dailytasks(target: viewModel.mathsTarget, completed: viewModel.mathsArchive)
+//                        .padding(.leading, 32)
 
                     Text("理科")
                         .padding()

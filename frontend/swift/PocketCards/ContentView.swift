@@ -51,7 +51,12 @@ struct ContentView: View {
                         .tabItem {
                             Image(systemName: "gamecontroller")
                         }
-                        .tag(2)
+                        .tag(4)
+//                    HandwritingView().configureView()
+//                        .tabItem {
+//                            Image(systemName: "pencil.tip")
+//                        }
+//                        .tag(5)
                 }
                 .onAppear {
                     let standardAppearance = UITabBarAppearance()
@@ -59,7 +64,6 @@ struct ContentView: View {
                     standardAppearance.shadowColor = UIColor(Color.black)
 
                     let itemAppearance = UITabBarItemAppearance()
-//                    itemAppearance.normal.iconColor = UIColor(Color.white)
                     itemAppearance.selected.iconColor = UIColor(Color.red)
 
                     standardAppearance.inlineLayoutAppearance = itemAppearance

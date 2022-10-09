@@ -13,16 +13,13 @@ class WeeklyTestPresenter {
 }
 
 extension WeeklyTestPresenter: WeeklyTestPresentationLogic {
-    func showNext(q: Question, count: Int? = 0) {
+    func showNext(q: Question, count _: Int? = 0) {
         let model = WeeklyTestViewModel()
         model.question = q
         model.isLoading = false
         model.isFinish = false
-        model.count = String(count!)
 
         view?.showNext(model: model)
-
-        debugPrint(22222, q.id)
     }
 
     func showNothing() {

@@ -11,6 +11,11 @@ enum QuestionServices {
     enum LoadQuestion {
         struct Request {}
 
+        struct Response2: Codable {
+            var count: Int
+            var questions: [Question]
+        }
+
         struct Response: Codable {
             var count: Int
             var questions: [Question]

@@ -155,6 +155,20 @@
 		9A9E57C8282960D50025C74F /* StudyContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57C6282960D50025C74F /* StudyContract.swift */; };
 		9A9E57CA2829696F0025C74F /* TestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57C92829696F0025C74F /* TestInteractor.swift */; };
 		9A9E57CB2829696F0025C74F /* TestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E57C92829696F0025C74F /* TestInteractor.swift */; };
+		9AA6951F28EEA94600176C3D /* HandwritingContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6951A28EEA94600176C3D /* HandwritingContract.swift */; };
+		9AA6952028EEA94600176C3D /* HandwritingContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6951A28EEA94600176C3D /* HandwritingContract.swift */; };
+		9AA6952128EEA94600176C3D /* HandwritingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6951B28EEA94600176C3D /* HandwritingPresenter.swift */; };
+		9AA6952228EEA94600176C3D /* HandwritingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6951B28EEA94600176C3D /* HandwritingPresenter.swift */; };
+		9AA6952328EEA94600176C3D /* HandwritingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6951C28EEA94600176C3D /* HandwritingInteractor.swift */; };
+		9AA6952428EEA94600176C3D /* HandwritingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6951C28EEA94600176C3D /* HandwritingInteractor.swift */; };
+		9AA6952528EEA94600176C3D /* HandwritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6951D28EEA94600176C3D /* HandwritingView.swift */; };
+		9AA6952628EEA94600176C3D /* HandwritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6951D28EEA94600176C3D /* HandwritingView.swift */; };
+		9AA6952728EEA94600176C3D /* HandwritingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6951E28EEA94600176C3D /* HandwritingViewModel.swift */; };
+		9AA6952828EEA94600176C3D /* HandwritingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6951E28EEA94600176C3D /* HandwritingViewModel.swift */; };
+		9AA6952A28EEA9B500176C3D /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6952928EEA9B500176C3D /* CanvasView.swift */; };
+		9AA6952B28EEA9B500176C3D /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6952928EEA9B500176C3D /* CanvasView.swift */; };
+		9AA6952E28EEB15000176C3D /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6952D28EEB15000176C3D /* ActionButton.swift */; };
+		9AA6952F28EEB15000176C3D /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6952D28EEB15000176C3D /* ActionButton.swift */; };
 		9AB63BB028043AD60001F15C /* OverallTimesContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */; };
 		9AB63BB128043AD60001F15C /* OverallTimesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */; };
 		9AB63BB228043AD60001F15C /* OverallTimesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */; };
@@ -175,6 +189,8 @@
 		9AE3FB0E28DDF5570007865E /* WebSocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */; };
 		9AE3FB0F28DDF57F0007865E /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56B728D9599D001CC4B0 /* Command.swift */; };
 		9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */; };
+		9AF1275128EEF48300856DF9 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1275028EEF48300856DF9 /* QuestionManager.swift */; };
+		9AF1275228EEF48300856DF9 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1275028EEF48300856DF9 /* QuestionManager.swift */; };
 		9AF2AC9A2814273300F80DB4 /* Dailytasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50CD27EB326C00D9A305 /* Dailytasks.swift */; };
 		9AF2AC9B2814273300F80DB4 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E7027D96624002B1F32 /* StringUtils.swift */; };
 		9AF2AC9C2814273300F80DB4 /* DailyTasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C627EB2E9A00D9A305 /* DailyTasksViewModel.swift */; };
@@ -353,6 +369,13 @@
 		9A9E57C328295D260025C74F /* PracticeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeInteractor.swift; sourceTree = "<group>"; };
 		9A9E57C6282960D50025C74F /* StudyContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyContract.swift; sourceTree = "<group>"; };
 		9A9E57C92829696F0025C74F /* TestInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInteractor.swift; sourceTree = "<group>"; };
+		9AA6951A28EEA94600176C3D /* HandwritingContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingContract.swift; sourceTree = "<group>"; };
+		9AA6951B28EEA94600176C3D /* HandwritingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingPresenter.swift; sourceTree = "<group>"; };
+		9AA6951C28EEA94600176C3D /* HandwritingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingInteractor.swift; sourceTree = "<group>"; };
+		9AA6951D28EEA94600176C3D /* HandwritingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingView.swift; sourceTree = "<group>"; };
+		9AA6951E28EEA94600176C3D /* HandwritingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingViewModel.swift; sourceTree = "<group>"; };
+		9AA6952928EEA9B500176C3D /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		9AA6952D28EEB15000176C3D /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesContract.swift; sourceTree = "<group>"; };
 		9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesPresenter.swift; sourceTree = "<group>"; };
 		9AB63BAD28043AD60001F15C /* OverallTimesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallTimesInteractor.swift; sourceTree = "<group>"; };
@@ -366,6 +389,7 @@
 		9ACC362528D5F2C700B9EC46 /* MultiTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiTestViewModel.swift; sourceTree = "<group>"; };
 		9ADD155727DF83AD00C9CE64 /* Commons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commons.swift; sourceTree = "<group>"; };
 		9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		9AF1275028EEF48300856DF9 /* QuestionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
 		9AF2ACE92814273300F80DB4 /* 勉強わん.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "勉強わん.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestView.swift; sourceTree = "<group>"; };
 		9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestViewModel.swift; sourceTree = "<group>"; };
@@ -473,6 +497,7 @@
 			children = (
 				9A1FD27327D7394C0000A16B /* ChoiceButton.swift */,
 				9A6E044E27DC3681005D87EE /* CardButton.swift */,
+				9AA6952D28EEB15000176C3D /* ActionButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -484,6 +509,7 @@
 				9A7F876927D747C700446E9D /* FlashCard.swift */,
 				9A9E57BC2823831F0025C74F /* ImageViewer.swift */,
 				9A9E57BF282386370025C74F /* PopupView.swift */,
+				9AA6952928EEA9B500176C3D /* CanvasView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -491,6 +517,7 @@
 		9A1FD27627D7394C0000A16B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9AA6951928EEA92400176C3D /* Handwriting */,
 				9A61E88028D55EBE0037FA82 /* MuitiTest */,
 				9A61E86F285610C80037FA82 /* Daily */,
 				9A9E576F281554140025C74F /* Weekly */,
@@ -561,6 +588,7 @@
 				9A9E57A5281A03C90025C74F /* DownloadManager.swift */,
 				9A9E57A8281A0A0F0025C74F /* FileManager.swift */,
 				9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */,
+				9AF1275028EEF48300856DF9 /* QuestionManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -776,6 +804,18 @@
 				9A9E57C6282960D50025C74F /* StudyContract.swift */,
 			);
 			path = Functions;
+			sourceTree = "<group>";
+		};
+		9AA6951928EEA92400176C3D /* Handwriting */ = {
+			isa = PBXGroup;
+			children = (
+				9AA6951A28EEA94600176C3D /* HandwritingContract.swift */,
+				9AA6951B28EEA94600176C3D /* HandwritingPresenter.swift */,
+				9AA6951C28EEA94600176C3D /* HandwritingInteractor.swift */,
+				9AA6951D28EEA94600176C3D /* HandwritingView.swift */,
+				9AA6951E28EEA94600176C3D /* HandwritingViewModel.swift */,
+			);
+			path = Handwriting;
 			sourceTree = "<group>";
 		};
 		9AB63BAA28043AC00001F15C /* OverallTimes */ = {
@@ -1046,7 +1086,9 @@
 				9A9E579428165F000025C74F /* WeeklyPracticeInteractor.swift in Sources */,
 				9A9E576B281554000025C74F /* WeeklyChoiceView.swift in Sources */,
 				9A6E044F27DC3682005D87EE /* CardButton.swift in Sources */,
+				9AA6952328EEA94600176C3D /* HandwritingInteractor.swift in Sources */,
 				9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */,
+				9AA6952728EEA94600176C3D /* HandwritingViewModel.swift in Sources */,
 				9ADD155827DF83AD00C9CE64 /* Commons.swift in Sources */,
 				9A9E5769281554000025C74F /* WeeklyChoiceInteractor.swift in Sources */,
 				9ACC362A28D5F2C700B9EC46 /* MultiTestInteractor.swift in Sources */,
@@ -1057,10 +1099,12 @@
 				9A9E579B2817781C0025C74F /* UserAttributes.swift in Sources */,
 				9AB63BB428043AD60001F15C /* OverallTimesViewModel.swift in Sources */,
 				9A3F50E027EC412E00D9A305 /* HistoriesPresenter.swift in Sources */,
+				9AA6952128EEA94600176C3D /* HandwritingPresenter.swift in Sources */,
 				9ACC362828D5F2C700B9EC46 /* MultiTestPresenter.swift in Sources */,
 				9A9E57C428295D260025C74F /* PracticeInteractor.swift in Sources */,
 				9AF57E6F27D962A0002B1F32 /* DailyTestContract.swift in Sources */,
 				9A9E579828165F000025C74F /* WeeklyPracticeViewModel.swift in Sources */,
+				9AA6952A28EEA9B500176C3D /* CanvasView.swift in Sources */,
 				9A3F50BF27EB2D9000D9A305 /* History.swift in Sources */,
 				9A9E579228165F000025C74F /* WeeklyPracticePresenter.swift in Sources */,
 				9A9E577E281598860025C74F /* WeeklyRootViewModel.swift in Sources */,
@@ -1073,6 +1117,7 @@
 				9AF57E6927D8DC6F002B1F32 /* DailyTestViewModel.swift in Sources */,
 				9A9E57A9281A0A0F0025C74F /* FileManager.swift in Sources */,
 				9A3F50E227EC412E00D9A305 /* HistoriesView.swift in Sources */,
+				9AA6951F28EEA94600176C3D /* HandwritingContract.swift in Sources */,
 				9A9E579628165F000025C74F /* WeeklyPracticeView.swift in Sources */,
 				9A9E57BD2823831F0025C74F /* ImageViewer.swift in Sources */,
 				9A276A7227EC4CC6005A716D /* TestChart.swift in Sources */,
@@ -1095,6 +1140,7 @@
 				9AF57E6B27D96288002B1F32 /* DailyTestInteractor.swift in Sources */,
 				9A9E57C7282960D50025C74F /* StudyContract.swift in Sources */,
 				9A1FD29C27D7394C0000A16B /* DailyStudyInteractor.swift in Sources */,
+				9AA6952528EEA94600176C3D /* HandwritingView.swift in Sources */,
 				9A9E577C281598860025C74F /* WeeklyRootView.swift in Sources */,
 				9A1FD2A127D7394C0000A16B /* Authencation.swift in Sources */,
 				9A9E5781281599930025C74F /* WeeklyRootRouter.swift in Sources */,
@@ -1127,6 +1173,8 @@
 				9A3F50E127EC412E00D9A305 /* HistoriesInteractor.swift in Sources */,
 				9A3F50C727EB2E9A00D9A305 /* DailyTasksContract.swift in Sources */,
 				9A1FD29927D7394C0000A16B /* RootContract.swift in Sources */,
+				9AF1275128EEF48300856DF9 /* QuestionManager.swift in Sources */,
+				9AA6952E28EEB15000176C3D /* ActionButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1166,7 +1214,9 @@
 				9ACC362928D5F2C700B9EC46 /* MultiTestPresenter.swift in Sources */,
 				9A9E576C281554000025C74F /* WeeklyChoiceView.swift in Sources */,
 				9ACC362728D5F2C700B9EC46 /* MultiTestContract.swift in Sources */,
+				9AA6952428EEA94600176C3D /* HandwritingInteractor.swift in Sources */,
 				9AF2ACAE2814273300F80DB4 /* CardButton.swift in Sources */,
+				9AA6952828EEA94600176C3D /* HandwritingViewModel.swift in Sources */,
 				9AF2ACAF2814273300F80DB4 /* NavigationBarModifier.swift in Sources */,
 				9AF2ACB02814273300F80DB4 /* Commons.swift in Sources */,
 				9A3A56C328D95E4C001CC4B0 /* CommandService.swift in Sources */,
@@ -1177,10 +1227,12 @@
 				9AF2ACB22814273300F80DB4 /* Question.swift in Sources */,
 				9A9E579C2817781C0025C74F /* UserAttributes.swift in Sources */,
 				9AF2ACB32814273300F80DB4 /* OverallTimesViewModel.swift in Sources */,
+				9AA6952228EEA94600176C3D /* HandwritingPresenter.swift in Sources */,
 				9AF2ACB42814273300F80DB4 /* HistoriesPresenter.swift in Sources */,
 				9A9E57C528295D260025C74F /* PracticeInteractor.swift in Sources */,
 				9AF2ACB52814273300F80DB4 /* DailyTestContract.swift in Sources */,
 				9A9E579928165F000025C74F /* WeeklyPracticeViewModel.swift in Sources */,
+				9AA6952B28EEA9B500176C3D /* CanvasView.swift in Sources */,
 				9A56399C28143494006D6C96 /* LoginView.swift in Sources */,
 				9A9E579328165F000025C74F /* WeeklyPracticePresenter.swift in Sources */,
 				9A9E577F281598860025C74F /* WeeklyRootViewModel.swift in Sources */,
@@ -1193,6 +1245,7 @@
 				9AF2ACB92814273300F80DB4 /* DailyTestViewModel.swift in Sources */,
 				9A9E57AA281A0A0F0025C74F /* FileManager.swift in Sources */,
 				9AF2ACBA2814273300F80DB4 /* HistoriesView.swift in Sources */,
+				9AA6952028EEA94600176C3D /* HandwritingContract.swift in Sources */,
 				9A9E579728165F000025C74F /* WeeklyPracticeView.swift in Sources */,
 				9A9E57BE2823831F0025C74F /* ImageViewer.swift in Sources */,
 				9AF2ACBB2814273300F80DB4 /* TestChart.swift in Sources */,
@@ -1215,6 +1268,7 @@
 				9A9E57C8282960D50025C74F /* StudyContract.swift in Sources */,
 				9AF2ACC52814273300F80DB4 /* DailyStudyInteractor.swift in Sources */,
 				9A9E577D281598860025C74F /* WeeklyRootView.swift in Sources */,
+				9AA6952628EEA94600176C3D /* HandwritingView.swift in Sources */,
 				9AF2ACC62814273300F80DB4 /* Authencation.swift in Sources */,
 				9A9E5782281599930025C74F /* WeeklyRootRouter.swift in Sources */,
 				9A9E57B7281D054A0025C74F /* CheckList.swift in Sources */,
@@ -1247,6 +1301,8 @@
 				9AF2ACDA2814273300F80DB4 /* DailyTasksContract.swift in Sources */,
 				9ACC362F28D5F2C700B9EC46 /* MultiTestViewModel.swift in Sources */,
 				9AF2ACDB2814273300F80DB4 /* RootContract.swift in Sources */,
+				9AF1275228EEF48300856DF9 /* QuestionManager.swift in Sources */,
+				9AA6952F28EEB15000176C3D /* ActionButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
