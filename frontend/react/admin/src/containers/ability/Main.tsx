@@ -149,12 +149,7 @@ export default () => {
                     })()}
                   </Box>
                 </TableCell>
-                <TableCell sx={styles.tableCell}>
-                  {(() => {
-                    if (dataRow.subject === Consts.SUBJECT.ABILITY_SCIENCE) return '理科';
-                    if (dataRow.subject === Consts.SUBJECT.ABILITY_SOCIETY) return '社会';
-                  })()}
-                </TableCell>
+                <TableCell sx={styles.tableCell}></TableCell>
                 <TableCell sx={styles.tableCell}>{dataRow.name}</TableCell>
                 <TableCell sx={styles.tableCell}>{dataRow.description}</TableCell>
               </TableRow>

@@ -41,8 +41,6 @@ export default () => {
     }
   };
 
-  const handleAbilityRegist = () => dispatch(push(ROUTE_PATHS.ABILITIES_REGIST));
-
   const handleWssDisconnect = () => actions.disconnect();
 
   // const handleAdminBack = () => {
@@ -153,31 +151,6 @@ export default () => {
                 >
                   ADD
                 </Button>
-              );
-            }
-
-            if (pathname === ROUTE_PATHS.ABILITIES) {
-              return (
-                <React.Fragment>
-                  <Button
-                    variant="outlined"
-                    color="inherit"
-                    sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                    onClick={handleGroupEdit}
-                  >
-                    {editable === Consts.EDIT_MODE.EDIT ? 'CANCEL' : 'EDIT'}
-                  </Button>
-                  {editable !== Consts.EDIT_MODE.EDIT && (
-                    <Button
-                      variant="outlined"
-                      color="inherit"
-                      sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                      onClick={handleAbilityRegist}
-                    >
-                      ADD
-                    </Button>
-                  )}
-                </React.Fragment>
               );
             }
           })()}

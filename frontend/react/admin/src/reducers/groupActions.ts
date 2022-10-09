@@ -92,10 +92,10 @@ export const GROUP_QUESTION_UPDATE = createAsyncThunk<APIs.QuestionUpdateRespons
 );
 
 /** Question Update */
-export const GROUP_WEEKLY_REGIST = createAsyncThunk<APIs.WeeklyRegistResponse, APIs.WeeklyRegistRequest>(
+export const GROUP_WEEKLY_REGIST = createAsyncThunk<void, APIs.WeeklyRegistRequest>(
   'group/GROUP_WEEKLY_REGIST',
   async (request) => {
     // 質問更新
-    return await API.post<APIs.WeeklyRegistResponse, APIs.WeeklyRegistRequest>(URLs.STUDY_WEEKLY_REGIST(), request);
+    await API.post<APIs.WeeklyRegistResponse, APIs.WeeklyRegistRequest>(URLs.STUDY_WEEKLY_REGIST(), request);
   }
 );
