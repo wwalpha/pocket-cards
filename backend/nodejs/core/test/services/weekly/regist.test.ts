@@ -40,7 +40,7 @@ describe('Weekly', () => {
       .post(apiPath)
       .set('username', HEADER_AUTH)
       .send({
-        groupId,
+        groupIds: [groupId],
         student: userId,
       } as APIs.WeeklyRegistRequest);
 
@@ -77,7 +77,7 @@ describe('Weekly', () => {
       .set('username', HEADER_AUTH)
       .send({
         student: userId,
-        groupId: 'dummy',
+        groupIds: ['dummy'],
       } as APIs.WeeklyRegistRequest);
 
     // status code
