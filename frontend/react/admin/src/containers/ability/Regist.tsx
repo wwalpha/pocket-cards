@@ -29,8 +29,8 @@ const userState = (state: RootState) => state.user;
 export default () => {
   const history = useHistory();
   const actions = bindActionCreators(GroupActions, useDispatch());
-  const { groups, editable } = useSelector(groupState);
-  const { students } = useSelector(userState);
+  const { groups } = useSelector(groupState);
+  const { students, curriculums, activeStudent } = useSelector(userState);
   const { isLoading } = useSelector(appState);
 
   const {
@@ -116,17 +116,19 @@ export default () => {
           rules={{ required: 'required' }}
           control={control}
           render={({ field: { value, onChange } }) => {
-            const dataRows = groups
-              .filter((item) => item.subject === subject)
+            const dataRows = curriculums
+              .filter((item) => item.subject === subject && item.userId === activeStudent)
               .map((item) => {
                 const labelId = `checkbox-list-label-${item.id}`;
+                const group = groups.find((g) => g.id === item.groupId);
+                const groupId = item.groupId;
 
                 return (
-                  <ListItem key={item.id} disablePadding sx={{ width: '50%' }}>
+                  <ListItem key={item.groupId} disablePadding sx={{ width: '50%' }}>
                     <ListItemButton
                       role={undefined}
                       onClick={() => {
-                        handleToggle(item.id, value);
+                        handleToggle(groupId, value);
                         onChange(value);
                       }}
                       dense
@@ -134,15 +136,15 @@ export default () => {
                       <ListItemIcon>
                         <Checkbox
                           edge="start"
-                          value={item.id}
-                          checked={groupIds.includes(item.id)}
+                          value={groupId}
+                          checked={groupIds.includes(groupId)}
                           tabIndex={-1}
                           disableRipple
                           onChange={(_, checked) => {
                             if (checked === true) {
-                              value.push(item.id);
+                              value.push(groupId);
                             } else {
-                              const index = value.findIndex((v) => v === item.id);
+                              const index = value.findIndex((v) => v === groupId);
                               value.splice(index, 1);
                             }
                             onChange(value);
@@ -150,7 +152,7 @@ export default () => {
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </ListItemIcon>
-                      <ListItemText id={labelId} primary={item.name} />
+                      <ListItemText id={labelId} primary={group?.name} />
                     </ListItemButton>
                   </ListItem>
                 );

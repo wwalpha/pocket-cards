@@ -2,6 +2,7 @@ import { push } from 'connected-react-router';
 import { Consts, ROUTE_PATHS, URLs } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
+import { showSuccess } from './app';
 import { APIs, AppDispatch, Group, QuestionUpdateParameter } from 'typings';
 
 /** グループリスト */
@@ -118,7 +119,4 @@ export const uploadQuestions = (subject: string, groupId: string) => async (disp
 export const registWeekly = (request: APIs.WeeklyRegistRequest) => async (dispatch: AppDispatch) => {
   // regist questions
   await dispatch(Actions.GROUP_WEEKLY_REGIST(request)).unwrap();
-
-  // transit to upload confirm
-  dispatch(push(ROUTE_PATHS.WEEKLY));
 };
