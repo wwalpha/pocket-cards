@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { APIs } from 'typings';
-import { AbilityService, GroupService, QuestionService } from '@services';
+import { GroupService, QuestionService } from '@services';
 import { Consts } from '@consts';
 import { ValidationError } from '@utils';
 
@@ -22,18 +22,6 @@ export default async (
     return {
       count: questions.length,
       questions: questions,
-    };
-  }
-
-  // 実力テストグループ
-  if (Consts.SUBJECT_ABILITY.includes(groupInfo.subject)) {
-    const ability = await AbilityService.listByKey(groupId);
-    const tasks = ability.map((item) => QuestionService.describe(item.qid));
-    const questions = await Promise.all(tasks);
-
-    return {
-      count: questions.length,
-      questions: questions.filter((item): item is Exclude<typeof item, undefined> => item !== undefined),
     };
   }
 

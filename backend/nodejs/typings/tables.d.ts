@@ -113,6 +113,8 @@ export namespace Tables {
     times: number;
     // 科目
     subject?: string;
+    // 週テスト対策
+    weekly?: string;
   }
 
   interface TLearningGSI1Key {
@@ -279,25 +281,6 @@ export namespace Tables {
   }
 
   interface TWeeklyTest extends TWeeklyTestKey {
-    times: number;
-  }
-
-  // ------------------------------------------------------------
-  // Weekly Ability
-  // ------------------------------------------------------------
-  interface TWeeklyAbilityKey {
-    // id
-    id: string;
-    // qid
-    qid: string;
-  }
-
-  interface TWeeklyAbility extends TWeeklyAbilityKey {
-    // 科目
-    subject: string;
-    // ユーザ
-    userId: string;
-    // 回数
     times: number;
   }
 

@@ -127,3 +127,10 @@ export const listByQuestion = async (questionId: string): Promise<Tables.TLearni
 
   return results.Items;
 };
+
+/** 週テスト対策一覧 */
+export const listByWeekly = async (userId: string, subject: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.byWeekly(userId, subject));
+
+  return results.Items;
+};

@@ -477,51 +477,39 @@ export namespace APIs {
   type CurriculumIgnoreResponse = void;
 
   // ------------------------------------------------------------
-  // Weekly Ability Regist
+  // Weekly Regist
   // ------------------------------------------------------------
-  interface WeeklyAbilityRegistRequest {
-    name: string;
-    subject: string;
-    student: string;
-    groupIds?: string[];
-  }
-
-  interface WeeklyAbilityRegistResponse {
-    item: Tables.TGroups;
-  }
-
-  // ------------------------------------------------------------
-  // Weekly Test List
-  // ------------------------------------------------------------
-  interface WeeklyTestListParameter {
+  interface WeeklyRegistRequest {
     groupId: string;
+    student: string;
   }
 
-  interface WeeklyTestListQuery {
-    reset?: string;
+  type WeeklyRegistResponse = void;
+
+  // ------------------------------------------------------------
+  // Weekly List
+  // ------------------------------------------------------------
+  interface WeeklyListRequest {
+    subject: string;
   }
 
-  interface WeeklyTestListRequest {}
-
-  interface WeeklyTestListResponse {
+  interface WeeklyListResponse {
     count: number;
     questions: Tables.TQuestions[];
   }
 
   // ------------------------------------------------------------
-  // Weekly Ability Answer
+  // Weekly Answer
   // ------------------------------------------------------------
-  interface WeeklyAbilityAnswerParameter {
+  interface WeeklyAnswerParameter {
     questionId: string;
-    groupId: string;
   }
 
-  interface WeeklyAbilityAnswerRequest {
-    mode: string;
+  interface WeeklyAnswerRequest {
     correct?: string;
   }
 
-  type WeeklyAbilityAnswerResponse = void;
+  type WeeklyAnswerResponse = void;
   // ------------------------------------------------------------
   // Reports - Daily Tasks
   // ------------------------------------------------------------

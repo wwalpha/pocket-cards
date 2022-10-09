@@ -8,7 +8,6 @@ let db_groups: Tables.TGroups[] = [];
 let db_questions: Tables.TQuestions[] = [];
 let db_curriculums: Tables.TCurriculums[] = [];
 let db_learning: Tables.TLearning[] = [];
-let db_ability: Tables.TWeeklyAbility[] = [];
 let db_inquiry: Tables.TInquiry[] = [];
 
 export const DB_GROUPS = ((): Tables.TGroups[] => {
@@ -94,16 +93,6 @@ export const DB_LEARNING = (() => {
   }));
 
   return db_learning;
-})();
-
-export const DB_ABILITY = (() => {
-  if (db_ability.length > 0) return db_ability;
-
-  db_ability = parse(fs.readFileSync(path.join(__dirname, './db_weekly_ability.csv')), {
-    columns: true,
-  }) as Tables.TWeeklyAbility[];
-
-  return db_ability;
 })();
 
 export const DB_INQUIRY = (() => {
