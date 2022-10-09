@@ -40,7 +40,6 @@ export default () => {
     formState: { errors },
   } = useForm<AbilityForm>({
     defaultValues: {
-      name: '',
       student: '',
       subject: '',
       groupIds: [],
@@ -51,10 +50,8 @@ export default () => {
 
   // 編集
   const onSubmit = handleSubmit((datas) => {
-    actions.registAbility({
-      name: datas.name,
+    actions.registWeekly({
       student: datas.student,
-      subject: datas.subject,
       groupIds: datas.groupIds,
     });
   });
@@ -77,29 +74,11 @@ export default () => {
       <Box margin={2}>
         <Box display="flex">
           <Controller
-            name="name"
-            control={control}
-            rules={{ required: 'required' }}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                error={errors.name !== undefined}
-                helperText={errors.name?.message}
-                sx={{ mt: 0, mr: 1 }}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                label="Name *"
-                value={value}
-                onChange={onChange}
-              />
-            )}
-          />
-          <Controller
             name="student"
             control={control}
             rules={{ required: 'required' }}
             render={({ field: { onChange, value } }) => (
-              <FormControl fullWidth error={errors.student !== undefined}>
+              <FormControl fullWidth sx={{ m: 1 }} error={errors.student !== undefined}>
                 <InputLabel id="subject-label">Student *</InputLabel>
                 <Select label="Student *" value={value} onChange={onChange}>
                   {(() => {
@@ -114,22 +93,24 @@ export default () => {
               </FormControl>
             )}
           />
+
+          <Controller
+            name="subject"
+            control={control}
+            rules={{ required: 'required' }}
+            render={({ field: { onChange, value } }) => (
+              <FormControl fullWidth sx={{ m: 1 }} error={errors.subject !== undefined}>
+                <InputLabel id="subject-label">Subject *</InputLabel>
+                <Select labelId="subject-label" onChange={onChange} value={value} label="Subject">
+                  <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
+                  <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
+                </Select>
+                {errors.subject ? <FormHelperText>{errors.subject.message}</FormHelperText> : undefined}
+              </FormControl>
+            )}
+          />
         </Box>
-        <Controller
-          name="subject"
-          control={control}
-          rules={{ required: 'required' }}
-          render={({ field: { onChange, value } }) => (
-            <FormControl fullWidth sx={{ mt: 1 }} error={errors.subject !== undefined}>
-              <InputLabel id="subject-label">Subject *</InputLabel>
-              <Select labelId="subject-label" onChange={onChange} value={value} label="Subject">
-                <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
-                <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
-              </Select>
-              {errors.subject ? <FormHelperText>{errors.subject.message}</FormHelperText> : undefined}
-            </FormControl>
-          )}
-        />
+
         <Controller
           name="groupIds"
           rules={{ required: 'required' }}
@@ -148,7 +129,8 @@ export default () => {
                         handleToggle(item.id, value);
                         onChange(value);
                       }}
-                      dense>
+                      dense
+                    >
                       <ListItemIcon>
                         <Checkbox
                           edge="start"
@@ -189,7 +171,8 @@ export default () => {
             color="primary"
             type="submit"
             loading={isLoading}
-            sx={{ mx: 1, width: 120 }}>
+            sx={{ mx: 1, width: 120 }}
+          >
             REGIST
           </LoadingButton>
 

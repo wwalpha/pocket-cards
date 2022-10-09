@@ -185,7 +185,7 @@ export default () => {
               button
               key="weekly"
               onClick={() => {
-                handleDispatch(ROUTE_PATHS.ABILITIES);
+                handleDispatch(ROUTE_PATHS.WEEKLY);
               }}
             >
               <ListItemIcon sx={styles.itemIcon}>
