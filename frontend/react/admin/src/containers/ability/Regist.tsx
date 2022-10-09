@@ -29,8 +29,8 @@ const userState = (state: RootState) => state.user;
 export default () => {
   const history = useHistory();
   const actions = bindActionCreators(GroupActions, useDispatch());
-  const { groups, editable } = useSelector(groupState);
-  const { students } = useSelector(userState);
+  const { groups } = useSelector(groupState);
+  const { students, curriculums, activeStudent } = useSelector(userState);
   const { isLoading } = useSelector(appState);
 
   const {
@@ -40,7 +40,6 @@ export default () => {
     formState: { errors },
   } = useForm<AbilityForm>({
     defaultValues: {
-      name: '',
       student: '',
       subject: '',
       groupIds: [],
@@ -51,10 +50,8 @@ export default () => {
 
   // 編集
   const onSubmit = handleSubmit((datas) => {
-    actions.registAbility({
-      name: datas.name,
+    actions.registWeekly({
       student: datas.student,
-      subject: datas.subject,
       groupIds: datas.groupIds,
     });
   });
@@ -77,29 +74,11 @@ export default () => {
       <Box margin={2}>
         <Box display="flex">
           <Controller
-            name="name"
-            control={control}
-            rules={{ required: 'required' }}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                error={errors.name !== undefined}
-                helperText={errors.name?.message}
-                sx={{ mt: 0, mr: 1 }}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                label="Name *"
-                value={value}
-                onChange={onChange}
-              />
-            )}
-          />
-          <Controller
             name="student"
             control={control}
             rules={{ required: 'required' }}
             render={({ field: { onChange, value } }) => (
-              <FormControl fullWidth error={errors.student !== undefined}>
+              <FormControl fullWidth sx={{ m: 1 }} error={errors.student !== undefined}>
                 <InputLabel id="subject-label">Student *</InputLabel>
                 <Select label="Student *" value={value} onChange={onChange}>
                   {(() => {
@@ -114,53 +93,58 @@ export default () => {
               </FormControl>
             )}
           />
+
+          <Controller
+            name="subject"
+            control={control}
+            rules={{ required: 'required' }}
+            render={({ field: { onChange, value } }) => (
+              <FormControl fullWidth sx={{ m: 1 }} error={errors.subject !== undefined}>
+                <InputLabel id="subject-label">Subject *</InputLabel>
+                <Select labelId="subject-label" onChange={onChange} value={value} label="Subject">
+                  <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
+                  <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
+                </Select>
+                {errors.subject ? <FormHelperText>{errors.subject.message}</FormHelperText> : undefined}
+              </FormControl>
+            )}
+          />
         </Box>
-        <Controller
-          name="subject"
-          control={control}
-          rules={{ required: 'required' }}
-          render={({ field: { onChange, value } }) => (
-            <FormControl fullWidth sx={{ mt: 1 }} error={errors.subject !== undefined}>
-              <InputLabel id="subject-label">Subject *</InputLabel>
-              <Select labelId="subject-label" onChange={onChange} value={value} label="Subject">
-                <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
-                <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
-              </Select>
-              {errors.subject ? <FormHelperText>{errors.subject.message}</FormHelperText> : undefined}
-            </FormControl>
-          )}
-        />
+
         <Controller
           name="groupIds"
           rules={{ required: 'required' }}
           control={control}
           render={({ field: { value, onChange } }) => {
-            const dataRows = groups
-              .filter((item) => item.subject === subject)
+            const dataRows = curriculums
+              .filter((item) => item.subject === subject && item.userId === activeStudent)
               .map((item) => {
                 const labelId = `checkbox-list-label-${item.id}`;
+                const group = groups.find((g) => g.id === item.groupId);
+                const groupId = item.groupId;
 
                 return (
-                  <ListItem key={item.id} disablePadding sx={{ width: '50%' }}>
+                  <ListItem key={item.groupId} disablePadding sx={{ width: '50%' }}>
                     <ListItemButton
                       role={undefined}
                       onClick={() => {
-                        handleToggle(item.id, value);
+                        handleToggle(groupId, value);
                         onChange(value);
                       }}
-                      dense>
+                      dense
+                    >
                       <ListItemIcon>
                         <Checkbox
                           edge="start"
-                          value={item.id}
-                          checked={groupIds.includes(item.id)}
+                          value={groupId}
+                          checked={groupIds.includes(groupId)}
                           tabIndex={-1}
                           disableRipple
                           onChange={(_, checked) => {
                             if (checked === true) {
-                              value.push(item.id);
+                              value.push(groupId);
                             } else {
-                              const index = value.findIndex((v) => v === item.id);
+                              const index = value.findIndex((v) => v === groupId);
                               value.splice(index, 1);
                             }
                             onChange(value);
@@ -168,7 +152,7 @@ export default () => {
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </ListItemIcon>
-                      <ListItemText id={labelId} primary={item.name} />
+                      <ListItemText id={labelId} primary={group?.name} />
                     </ListItemButton>
                   </ListItem>
                 );
@@ -189,7 +173,8 @@ export default () => {
             color="primary"
             type="submit"
             loading={isLoading}
-            sx={{ mx: 1, width: 120 }}>
+            sx={{ mx: 1, width: 120 }}
+          >
             REGIST
           </LoadingButton>
 

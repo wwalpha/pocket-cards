@@ -1,3 +1,3 @@
-export { default as WeeklyAbilityRegist } from './regist';
-export { default as WeeklyAbilityAnswer } from './answer';
-export { default as WeeklyAbilityList } from './list';
+export { default as WeeklyRegist } from './regist';
+export { default as WeeklyAnswer } from './answer';
+export { default as WeeklyList } from './list';

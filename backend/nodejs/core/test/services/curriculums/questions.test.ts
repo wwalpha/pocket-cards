@@ -17,7 +17,6 @@ describe('Curriculums', () => {
       client.bulk(Environment.TABLE_NAME_CURRICULUMS, COMMONS.DB_CURRICULUMS),
       client.bulk(Environment.TABLE_NAME_LEARNING, COMMONS.DB_LEARNING),
       client.bulk(Environment.TABLE_NAME_QUESTIONS, COMMONS.DB_QUESTIONS),
-      client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, COMMONS.DB_ABILITY),
     ]);
   });
 
@@ -27,7 +26,6 @@ describe('Curriculums', () => {
       client.truncateAll(Environment.TABLE_NAME_CURRICULUMS),
       client.truncateAll(Environment.TABLE_NAME_LEARNING),
       client.truncateAll(Environment.TABLE_NAME_QUESTIONS),
-      client.truncateAll(Environment.TABLE_NAME_WEEKLY_ABILITY),
     ]);
   });
 
@@ -40,17 +38,6 @@ describe('Curriculums', () => {
     // status code
     expect(res.statusCode).toBe(200);
     expect(res.body).toMatchObject(CURRICULUMS.CURRI_001_EXPECT_01);
-  });
-
-  test('Question02: 問題集一覧_実力', async () => {
-    const curriculumId = 'nPhYYwyTtDm3BQLFpWgw7L';
-    const apiPath = `/v1/curriculums/${curriculumId}/questions`;
-
-    const res = await request(server).get(apiPath).set('username', HEADER_USER);
-
-    // status code
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toMatchObject(CURRICULUMS.CURRI_002_EXPECT_01);
   });
 
   test('Question03: カリキュラム存在しない', async () => {

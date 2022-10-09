@@ -24,7 +24,9 @@ output "bucket_name_archive" {
 output "bucket_name_materials" {
   value = aws_s3_bucket.materials.id
 }
-
+output "bucket_name_uploads" {
+  value = aws_s3_bucket.uploads.id
+}
 # ----------------------------------------------------------------------------------------------
 # DynamoDB
 # ----------------------------------------------------------------------------------------------
@@ -60,9 +62,6 @@ output "dynamodb_name_curriculums" {
 }
 output "dynamodb_name_reports" {
   value = aws_dynamodb_table.reports.name
-}
-output "dynamodb_name_weekly_ability" {
-  value = aws_dynamodb_table.weekly_ability.name
 }
 output "dynamodb_name_wss" {
   value = aws_dynamodb_table.wss.name
@@ -191,4 +190,11 @@ output "ssm_repo_url_batch" {
 # ----------------------------------------------------------------------------------------------
 output "ssm_repo_url_wss" {
   value = aws_ssm_parameter.repo_url_wss.name
+}
+
+# ----------------------------------------------------------------------------------------------
+# Bucket Key - Lambda WSS Relay
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_wss_relay" {
+  value = local.bucket_key_lambda_wss_relay
 }

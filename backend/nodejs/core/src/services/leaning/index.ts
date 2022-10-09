@@ -18,14 +18,19 @@ export const regist = async (item: Tables.TLearning): Promise<void> => {
 
 /** 内容更新 */
 export const update = async (item: Tables.TLearning): Promise<void> => {
-  const groupInfo = await describe(item.qid, item.userId);
+  const result = await describe(item.qid, item.userId);
 
   // if exists
-  if (!groupInfo) {
+  if (!result) {
     throw new Error(`Leaning task not exists. ${item.qid}`);
   }
 
-  await DBHelper().put(Queries.put(item));
+  await DBHelper().put(
+    Queries.put({
+      ...result,
+      ...item,
+    })
+  );
 };
 
 /** カリキュラム削除 */
@@ -124,6 +129,13 @@ export const listByUser = async (userId: string, groupId?: string): Promise<Tabl
 /** 学習任務一覧 */
 export const listByQuestion = async (questionId: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Queries.byQuestionId(questionId));
+
+  return results.Items;
+};
+
+/** 週テスト対策一覧 */
+export const listByWeekly = async (userId: string, subject: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.byWeekly(userId, subject));
 
   return results.Items;
 };

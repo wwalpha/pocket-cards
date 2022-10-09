@@ -63,9 +63,9 @@ export default () => {
   };
 
   const handleOnView = (groupId: string) => {
-    const path = ROUTE_PATHS.ABILITIES_QUESTIONS(groupId);
+    // const path = ROUTE_PATHS.ABILITIES_QUESTIONS(groupId);
     // 質問リスト取得
-    grpActions.questionList(groupId, path);
+    // grpActions.questionList(groupId, path);
   };
 
   const handleGroupDelete = () => {
@@ -112,7 +112,8 @@ export default () => {
                             color="error"
                             onClick={() => {
                               handleOnDelete(dataRow.id);
-                            }}>
+                            }}
+                          >
                             <DeleteIcon sx={{ fontSize: 32 }} />
                           </LoadingIconButton>
                         );
@@ -126,7 +127,8 @@ export default () => {
                               sx={{ p: 0.5 }}
                               onClick={() => {
                                 handleOnView(dataRow.id);
-                              }}>
+                              }}
+                            >
                               <PageviewIcon sx={{ fontSize: 32 }} />
                             </LoadingIconButton>
                             <LoadingIconButton
@@ -137,7 +139,8 @@ export default () => {
                                 setGroupId(dataRow.id);
                                 setCurriculumId(item?.id);
                                 setOpen(true);
-                              }}>
+                              }}
+                            >
                               {icon}
                             </LoadingIconButton>
                           </React.Fragment>
@@ -146,12 +149,7 @@ export default () => {
                     })()}
                   </Box>
                 </TableCell>
-                <TableCell sx={styles.tableCell}>
-                  {(() => {
-                    if (dataRow.subject === Consts.SUBJECT.ABILITY_SCIENCE) return '理科';
-                    if (dataRow.subject === Consts.SUBJECT.ABILITY_SOCIETY) return '社会';
-                  })()}
-                </TableCell>
+                <TableCell sx={styles.tableCell}></TableCell>
                 <TableCell sx={styles.tableCell}>{dataRow.name}</TableCell>
                 <TableCell sx={styles.tableCell}>{dataRow.description}</TableCell>
               </TableRow>

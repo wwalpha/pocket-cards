@@ -32,10 +32,4 @@ export default async (
       CurriculumService.remove(curriculumId),
     ]);
   }
-
-  // 実力テストグループ
-  if (Consts.SUBJECT_ABILITY.includes(curriculum.subject)) {
-    // remove curriculum
-    await CurriculumService.remove(curriculumId);
-  }
 };

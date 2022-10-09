@@ -10,12 +10,12 @@ const socket: Middleware = (store) => {
 
   const onopen = (event: WebSocket.Event) => {
     console.log('Socket Connected...');
-    store.dispatch(Actions.STUDY_CONNECTED());
+    store.dispatch(Actions.APP_CONNECTED());
   };
 
   const onclose = (event: WebSocket.CloseEvent) => {
     console.log('Socket Disconnected....');
-    store.dispatch(Actions.STUDY_DISCONNECT());
+    store.dispatch(Actions.APP_DISCONNECT());
   };
 
   const onmessage = (event: WebSocket.MessageEvent) => {
@@ -60,7 +60,7 @@ const socket: Middleware = (store) => {
     const state = store.getState() as RootState;
     console.log(action);
 
-    if (Actions.STUDY_CONNECT.type.match(action.type)) {
+    if (Actions.APP_CONNECT.type.match(action.type)) {
       const url = await URLs.WEBSOCKET_URL();
       ws = new WebSocket(url);
       ws.onopen = onopen;
@@ -68,6 +68,12 @@ const socket: Middleware = (store) => {
       ws.onmessage = onmessage;
 
       console.log('Socket start connect....');
+    }
+
+    if (Actions.APP_DISCONNECT.type.match(action.type)) {
+      console.log('Socket start disconnect....');
+
+      ws.close();
     }
 
     // show answer

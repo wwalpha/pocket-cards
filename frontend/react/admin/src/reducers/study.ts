@@ -4,7 +4,6 @@ import { Domains } from 'typings';
 import * as StudyActions from './studyActions';
 
 const studyState: Domains.StudyState = {
-  isConnectionEstablished: false,
   isOnline: false,
   answered: [],
   questions: [],
@@ -17,13 +16,6 @@ const slice = createSlice({
   name: 'user',
   initialState: studyState,
   reducers: {
-    STUDY_CONNECT: () => {},
-    STUDY_CONNECTED: (state) => {
-      state.isConnectionEstablished = true;
-    },
-    STUDY_DISCONNECT: (state) => {
-      state.isConnectionEstablished = false;
-    },
     // save search conditions
     STUDY_CONDITIONS: (state, { payload }: PayloadAction<{ student: string; subject: string }>) => {
       state.student = payload.student;

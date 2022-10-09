@@ -108,3 +108,13 @@ data "aws_iam_policy_document" "wss_apigw" {
     resources = ["*"]
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS Role Policy - Lambda
+# ----------------------------------------------------------------------------------------------
+data "aws_iam_policy_document" "wss_lambda" {
+  statement {
+    actions   = ["lambda:InvokeFunction"]
+    resources = ["*"]
+  }
+}

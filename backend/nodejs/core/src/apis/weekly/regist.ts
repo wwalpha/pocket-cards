@@ -1,92 +1,40 @@
-import { generate } from 'short-uuid';
 import { Request } from 'express';
-import { GroupService, QuestionService } from '@services';
-import { DBHelper, ValidationError } from '@utils';
-import { Consts, Environment } from '@consts';
-import { APIs, Tables } from 'typings';
+import { GroupService, LearningService } from '@services';
+import { ValidationError } from '@utils';
+import { APIs } from 'typings';
 
 /** 週テスト対策問題登録 */
-export default async (
-  req: Request<any, any, APIs.WeeklyAbilityRegistRequest, any>
-): Promise<APIs.WeeklyAbilityRegistResponse> => {
+export default async (req: Request<any, any, APIs.WeeklyRegistRequest, any>): Promise<APIs.WeeklyRegistResponse> => {
   // next study date
-  const { groupIds, name, subject, student } = req.body;
+  const { student, groupIds } = req.body;
 
-  if (!groupIds || groupIds.length === 0) {
-    throw new ValidationError('Group ids is required.');
+  if (!student || !groupIds || groupIds.length === 0) {
+    throw new ValidationError('Group id is required.');
   }
 
-  // get all group infomations
-  const tasks = groupIds.map(async (item) => GroupService.describe(item));
+  // グループ毎の問題を更新する
+  const tasks = groupIds.map(async (item) => {
+    const groupInfo = await GroupService.describe(item);
 
-  const groupResults = await Promise.all(tasks);
-  const groups = groupResults.filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
+    // validation check
+    if (!groupInfo) {
+      throw new ValidationError('Group is not exists.');
+    }
 
-  const normalCount = groups.filter((item) => Consts.SUBJECT_NORMAL.includes(item.subject)).length;
+    // 対象
+    const questions = await LearningService.listByUser(student, item);
 
-  // validation
-  if (groups.length === 0) {
-    throw new Error('Group information is not found.');
-  }
+    // weekly = 'on' を設定する
+    const tasks = questions.map((item) => {
+      item.subject_weekly = `${item.subject}_ON`;
 
-  // validation
-  if (groups.length !== normalCount) {
-    throw new Error('Base group can not use ability group.');
-  }
+      return LearningService.update(item);
+    });
 
-  const qTasks = groups.map((item) => QuestionService.listByGroup(item.id));
-  const qResults = await Promise.all(qTasks);
-  const questions: Tables.TQuestions[] = [];
-
-  qResults.forEach((items) => {
-    items.forEach((item) => questions.push(item));
+    // 一括実行
+    await Promise.all(tasks);
   });
 
-  const newGroup = await createNewGroup({
-    count: questions.length,
-    subject: getAbilitySubject(subject),
-    name: name,
-  });
-
-  const dataRows = questions.map<Tables.TWeeklyAbility>((item) => ({
-    id: newGroup.id,
-    qid: item.id,
-    subject: newGroup.subject,
-    userId: student,
-    times: 0,
-  }));
-
-  // bulk insert
-  await DBHelper().bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, dataRows);
-
-  return {
-    item: newGroup,
-  };
-};
-
-const createNewGroup = async (item: Omit<Tables.TGroups, 'id'>) => {
-  const dataRow: Tables.TGroups = {
-    id: generate(),
-    ...item,
-  };
-
-  // データ更新
-  await GroupService.regist(dataRow);
-
-  return dataRow;
-};
-
-const getAbilitySubject = (subject: string) => {
-  switch (subject) {
-    case Consts.SUBJECT.ENGLISH:
-      return Consts.SUBJECT.ABILITY_ENGLISH;
-    case Consts.SUBJECT.LANGUAGE:
-      return Consts.SUBJECT.ABILITY_LANGUAGE;
-    case Consts.SUBJECT.SCIENCE:
-      return Consts.SUBJECT.ABILITY_SCIENCE;
-    case Consts.SUBJECT.SOCIETY:
-      return Consts.SUBJECT.ABILITY_SOCIETY;
-    default:
-      return '';
-  }
+  // 一括実行
+  await Promise.all(tasks);
 };

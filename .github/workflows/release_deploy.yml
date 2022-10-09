@@ -2,8 +2,8 @@ name: RELEASE_D) Production Deploy
 
 on:
   release:
-    types:
-      - released
+    types: [released]
+  workflow_dispatch:
 
 env:
   AWS_DEFAULT_REGION: us-east-1
@@ -188,7 +188,6 @@ jobs:
           cluster: ${{ env.ECS_CLUSTER_NAME }}
           wait-for-service-stability: true
           force-new-deployment: true
-
 
   # Frontend Admin
   Frontend_Admin:
