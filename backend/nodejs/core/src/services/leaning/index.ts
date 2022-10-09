@@ -18,14 +18,19 @@ export const regist = async (item: Tables.TLearning): Promise<void> => {
 
 /** 内容更新 */
 export const update = async (item: Tables.TLearning): Promise<void> => {
-  const groupInfo = await describe(item.qid, item.userId);
+  const result = await describe(item.qid, item.userId);
 
   // if exists
-  if (!groupInfo) {
+  if (!result) {
     throw new Error(`Leaning task not exists. ${item.qid}`);
   }
 
-  await DBHelper().put(Queries.put(item));
+  await DBHelper().put(
+    Queries.put({
+      ...result,
+      ...item,
+    })
+  );
 };
 
 /** カリキュラム削除 */

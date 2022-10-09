@@ -219,7 +219,7 @@ export const byQuestionId = (questionId: string): DynamoDB.DocumentClient.QueryI
 export const byUserId = (userId: string, groupId?: string): DynamoDB.DocumentClient.QueryInput => {
   const query: DynamoDB.DocumentClient.QueryInput = {
     TableName: Environment.TABLE_NAME_LEARNING,
-    ProjectionExpression: 'qid, groupId, subject, times, lastTime',
+    ProjectionExpression: 'qid, userId, groupId, subject, times, lastTime',
     KeyConditionExpression: '#userId = :userId',
     ExpressionAttributeNames: {
       '#userId': 'userId',
@@ -267,7 +267,8 @@ export const unlearned = (userId: string, groupId: string): DynamoDB.DocumentCli
 export const byWeekly = (userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
-  KeyConditionExpression: '#userId = :userId AND #subject = :subject',
+  KeyConditionExpression: '#userId = :userId',
+  FilterExpression: '#subject = :subject',
   ExpressionAttributeNames: {
     '#userId': 'userId',
     '#subject': 'subject',
