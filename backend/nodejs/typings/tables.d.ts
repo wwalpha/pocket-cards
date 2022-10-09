@@ -114,7 +114,7 @@ export namespace Tables {
     // 科目
     subject?: string;
     // 週テスト対策
-    weekly?: string;
+    subject_weekly?: string;
   }
 
   interface TLearningGSI1Key {

@@ -24,7 +24,7 @@ export default async (req: Request<any, any, APIs.WeeklyRegistRequest, any>): Pr
 
   // weekly = 'on' を設定する
   const tasks = questions.map((item) => {
-    item.weekly = 'ON';
+    item.subject_weekly = `${item.subject}_ON`;
 
     return LearningService.update(item);
   });
