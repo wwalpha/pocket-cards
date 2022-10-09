@@ -240,7 +240,8 @@ resource "aws_cognito_identity_provider" "google" {
 # Amazon Cognito Identity Pool
 # --------------------------------------------------------------------------------------------------------------
 resource "aws_cognito_identity_pool" "this" {
-  identity_pool_name = "${local.project_name_uc}_IdentityPool"
+  identity_pool_name               = "${local.project_name_uc}_IdentityPool"
+  allow_unauthenticated_identities = false
 
   cognito_identity_providers {
     client_id               = aws_cognito_user_pool_client.this.id
