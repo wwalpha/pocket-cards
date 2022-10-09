@@ -237,6 +237,11 @@ resource "aws_dynamodb_table" "learning" {
     type = "S"
   }
 
+  attribute {
+    name = "subject_weekly"
+    type = "S"
+  }
+
   global_secondary_index {
     name            = "gsiIdx1"
     hash_key        = "userId"
@@ -254,9 +259,9 @@ resource "aws_dynamodb_table" "learning" {
   global_secondary_index {
     name               = "gsiIdx3"
     hash_key           = "userId"
-    range_key          = "qid"
+    range_key          = "subject_weekly"
     projection_type    = "INCLUDE"
-    non_key_attributes = ["weekly", "subject"]
+    non_key_attributes = ["qid"]
   }
 
   tags = {

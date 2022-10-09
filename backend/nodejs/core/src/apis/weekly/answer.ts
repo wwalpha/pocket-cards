@@ -30,7 +30,7 @@ export default async (
     times: times,
     nextTime: nextTime,
     lastTime: DateUtils.getNow(),
-    weekly: undefined,
+    subject_weekly: undefined,
   });
 
   // 初めて勉強の場合
