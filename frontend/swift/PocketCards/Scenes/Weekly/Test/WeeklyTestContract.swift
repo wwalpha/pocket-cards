@@ -13,12 +13,18 @@ protocol WeeklyTestDisplayLogic {
     func showNext(model: WeeklyTestViewModel)
 
     func showError(index: String)
-
-    func showCount(model: WeeklyTestViewModel)
 }
 
 // Interactor logic
-protocol WeeklyTestBusinessLogic: StudyBusinessLogic {}
+protocol WeeklyTestBusinessLogic {
+    func initialize() async
+
+    func onChoice(choice: String)
+
+    func onAction(correct: Bool)
+
+    func next() async
+}
 
 // Presenter logic
-protocol WeeklyTestPresentationLogic: StudyPresentationLogic {}
+protocol WeeklyTestPresentationLogic {}

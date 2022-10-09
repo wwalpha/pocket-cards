@@ -8,11 +8,11 @@
 import SwiftUI
 
 class WeeklyRootRouter {
-    func makeTest(subject: String) -> some View {
-        WeeklyChoiceView().configureView(subject: subject, mode: MODE.WEEKLY_ABILITY)
-    }
-
-    func makePractice(subject: String) -> some View {
-        WeeklyChoiceView().configureView(subject: subject, mode: MODE.WEEKLY_PRACTICE)
-    }
+//    func makeTest(subject: String) -> some View {
+//        WeeklyChoiceView().configureView(subject: subject, mode: MODE.WEEKLY_ABILITY)
+//    }
+//
+//    func makePractice(subject: String) -> some View {
+//        WeeklyChoiceView().configureView(subject: subject, mode: MODE.WEEKLY_PRACTICE)
+//    }
 }
