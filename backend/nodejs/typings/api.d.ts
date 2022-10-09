@@ -480,7 +480,7 @@ export namespace APIs {
   // Weekly Regist
   // ------------------------------------------------------------
   interface WeeklyRegistRequest {
-    groupId: string;
+    groupIds: string[];
     student: string;
   }
 
