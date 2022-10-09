@@ -263,3 +263,18 @@ export const unlearned = (userId: string, groupId: string): DynamoDB.DocumentCli
   },
   IndexName: 'gsiIdx2',
 });
+
+export const byWeekly = (userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#userId = :userId AND #subject = :subject',
+  ExpressionAttributeNames: {
+    '#userId': 'userId',
+    '#subject': 'subject',
+  },
+  ExpressionAttributeValues: {
+    ':userId': userId,
+    ':subject': subject,
+  },
+  IndexName: 'gsiIdx3',
+});

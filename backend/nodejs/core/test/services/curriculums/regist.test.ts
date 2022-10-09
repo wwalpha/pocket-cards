@@ -21,7 +21,6 @@ describe('Curriculums', () => {
       client.bulk(Environment.TABLE_NAME_CURRICULUMS, COMMONS.DB_CURRICULUMS),
       client.bulk(Environment.TABLE_NAME_LEARNING, COMMONS.DB_LEARNING),
       client.bulk(Environment.TABLE_NAME_QUESTIONS, COMMONS.DB_QUESTIONS),
-      client.bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, COMMONS.DB_ABILITY),
     ]);
   });
 
@@ -31,7 +30,6 @@ describe('Curriculums', () => {
       client.truncateAll(Environment.TABLE_NAME_CURRICULUMS),
       client.truncateAll(Environment.TABLE_NAME_LEARNING),
       client.truncateAll(Environment.TABLE_NAME_QUESTIONS),
-      client.truncateAll(Environment.TABLE_NAME_WEEKLY_ABILITY),
     ]);
   });
 
@@ -73,7 +71,6 @@ describe('Curriculums', () => {
 
     const response = res.body as APIs.CurriculumRegistResponse;
 
-    const ability = await DBHelper().scan({ TableName: Environment.TABLE_NAME_WEEKLY_ABILITY });
     const curriculum = await DBHelper().get({
       TableName: Environment.TABLE_NAME_CURRICULUMS,
       Key: {
@@ -81,7 +78,6 @@ describe('Curriculums', () => {
       } as Tables.TCurriculumsKey,
     });
 
-    expect(orderBy(ability.Items, 'qid')).toMatchObject(CURRICULUMS.CURRI_002_EXPECT_01);
     expect(curriculum?.Item).toMatchObject(CURRICULUMS.CURRI_002_EXPECT_02);
   });
 

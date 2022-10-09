@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { AbilityService, CurriculumService, GroupService, QuestionService } from '@services';
+import { CurriculumService, GroupService, QuestionService } from '@services';
 import { Consts } from '@consts';
 import { ValidationError } from '@utils';
 import { APIs } from 'typings';
@@ -32,20 +32,6 @@ export default async (
       items: results,
     };
   }
-
-  // 実力テストグループ
-  if (Consts.SUBJECT_ABILITY.includes(groupInfo.subject)) {
-    const results = await AbilityService.listByKey(groupInfo.id);
-
-    const tasks = results.map((item) => QuestionService.describe(item.qid));
-    const questions = await Promise.all(tasks);
-
-    return {
-      count: results.length,
-      items: questions.filter((item): item is Exclude<typeof item, undefined> => item !== undefined),
-    };
-  }
-
   return {
     count: 0,
     items: [],

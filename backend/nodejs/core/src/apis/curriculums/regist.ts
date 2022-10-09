@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
-import { AbilityService, CurriculumService, GroupService, QuestionService, WordService } from '@services';
+import { CurriculumService, GroupService, QuestionService, WordService } from '@services';
 import { Commons, DBHelper, ValidationError } from '@utils';
 import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
@@ -56,39 +56,6 @@ export default async (
       groupId: groupId,
       order: 9999,
       unlearned: dataRows.length,
-    };
-
-    // add new curriculum
-    await CurriculumService.regist(response);
-
-    return response;
-  }
-
-  // 実力テストグループ
-  if (Consts.SUBJECT_ABILITY.includes(groupInfo.subject)) {
-    const questions = await AbilityService.listByKey(groupId);
-
-    // group not exsits or no question in group
-    if (questions.length === 0) {
-      throw new ValidationError('No questions in group');
-    }
-
-    // reset question times
-    questions.forEach((item) => {
-      item.times = -1;
-    });
-
-    // bulk update
-    await DBHelper().bulk(Environment.TABLE_NAME_WEEKLY_ABILITY, questions);
-
-    const response: Tables.TCurriculums = {
-      id: generate(),
-      subject: groupInfo.subject,
-      guardian: guardian,
-      userId: questions[0]!.userId,
-      groupId: groupId,
-      order: 9999,
-      unlearned: questions.length,
     };
 
     // add new curriculum

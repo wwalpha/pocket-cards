@@ -17,7 +17,6 @@ const TABLE_NAME_WORD_IGNORE = process.env['TABLE_NAME_WORD_IGNORE'] as string;
 const TABLE_NAME_QUESTIONS = process.env['TABLE_NAME_QUESTIONS'] as string;
 const TABLE_NAME_LEARNING = process.env['TABLE_NAME_LEARNING'] as string;
 const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;
-const TABLE_NAME_WEEKLY_ABILITY = process.env['TABLE_NAME_WEEKLY_ABILITY'] as string;
 const TABLE_NAME_CURRICULUMS = process.env['TABLE_NAME_CURRICULUMS'] as string;
 const TABLE_NAME_INQUIRY = process.env['TABLE_NAME_INQUIRY'] as string;
 
@@ -138,20 +137,6 @@ const setup = async () => {
             ],
             Projection: { ProjectionType: 'ALL' },
           },
-        ],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_WEEKLY_ABILITY,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [
-          { AttributeName: 'id', KeyType: 'HASH' },
-          { AttributeName: 'qid', KeyType: 'RANGE' },
-        ],
-        AttributeDefinitions: [
-          { AttributeName: 'id', AttributeType: 'S' },
-          { AttributeName: 'qid', AttributeType: 'S' },
         ],
       })
       .promise(),
