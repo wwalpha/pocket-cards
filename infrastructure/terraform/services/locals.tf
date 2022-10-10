@@ -83,6 +83,7 @@ locals {
   bucket_name_frontend  = local.remote_setup.bucket_name_frontend
   bucket_name_archive   = local.remote_setup.bucket_name_archive
   bucket_name_materials = local.remote_setup.bucket_name_materials
+  bucket_name_uploads   = local.remote_setup.bucket_name_uploads
 
   # ----------------------------------------------------------------------------------------------
   # Route53
@@ -120,6 +121,13 @@ data "aws_s3_bucket" "archive" {
 # ----------------------------------------------------------------------------------------------
 data "aws_s3_bucket" "materials" {
   bucket = local.bucket_name_materials
+}
+
+# ----------------------------------------------------------------------------------------------
+# Amazon S3 Bucket - Uploads
+# ----------------------------------------------------------------------------------------------
+data "aws_s3_bucket" "uploads" {
+  bucket = local.bucket_name_uploads
 }
 
 # ----------------------------------------------------------------------------------------------

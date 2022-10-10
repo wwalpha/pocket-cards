@@ -53,27 +53,6 @@ app.put('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, Gro
 // グループ削除
 app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupRemove));
 
-// // 単語一括登録
-// app.post('/v1/groups/:groupId/words', express.json(), (req, res) => entry(req, res, C001 as any));
-// // 単語一括取得
-// app.get('/v1/groups/:groupId/words', express.json(), (req, res) => entry(req, res, C002 as any));
-// // 単語情報取得
-// app.get('/v1/groups/:groupId/words/:word', express.json(), (req, res) => entry(req, res, C003 as any));
-// // 単語情報更新
-// app.put('/v1/groups/:groupId/words/:word', express.json(), (req, res) => entry(req, res, C004 as any));
-// // 単語情報削除
-// app.delete('/v1/groups/:groupId/words/:word', express.json(), (req, res) => entry(req, res, C005 as any));
-// // 新規学習モード単語一覧
-// app.get('/v1/groups/:groupId/new', express.json(), (req, res) => entry(req, res, C006 as any));
-// // テストモード単語一覧
-// app.get('/v1/groups/:groupId/test', express.json(), (req, res) => entry(req, res, C007 as any));
-// // 復習モード単語一覧
-// app.get('/v1/groups/:groupId/review', express.json(), (req, res) => entry(req, res, C008));
-// // 画像から単語に変換する
-// app.post('/v1/image2text', express.json(), (req, res) => entry(req, res, D001));
-// // 画像から単語に変換する
-// app.post('/v1/user/wordignore', express.json(), (req, res) => entry(req, res, D003));
-
 // 問題無視機能
 app.post('/v1/groups/:groupId/questions/ignore', express.json(), (req, res) => entry(req, res, QuestionIgnore));
 // 問題一括登録
@@ -134,7 +113,7 @@ app.get('/v1/study/daily/review/questions', express.json(), (req, res) => entry(
 // 練習問題取得
 app.get('/v1/study/daily/practice/questions', express.json(), (req, res) => entry(req, res, QuestionStudy));
 // テスト問題取得
-app.post('/v1/study/daily/test/questions', express.json(), (req, res) => entry(req, res, QuestionExam));
+app.get('/v1/study/daily/test/questions', express.json(), (req, res) => entry(req, res, QuestionExam));
 // テスト問題更新
 app.post('/v1/study/daily/test/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionAnswer));
 
