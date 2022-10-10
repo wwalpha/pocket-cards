@@ -18,6 +18,11 @@ class QuestionManager {
     private var answered: [String?] = []
     private var isSuspended: Bool = false
 
+    // check value
+    func checkAnswer(answer: String) -> Bool {
+        current?.answer == answer
+    }
+
     // get all questions
     func loadQuestions() async throws {
         let params = ["subject": subject]
@@ -36,32 +41,52 @@ class QuestionManager {
         }
     }
 
-    func onAction(correct: Bool) {
-        // correct answer
-        if correct {
-            // play sound
-            Audio.playCorrect()
-        } else {
-            // play sound
-            Audio.playInCorrect()
-        }
+    func onAction(correct: Bool) async {
+        do {
+            // correct answer
+            if correct {
+                // play sound
+                Audio.playCorrect()
+            } else {
+                // play sound
+                Audio.playInCorrect()
+            }
 
-        Task {
+            debugPrint(answered)
+
             // update flag
-            try await self.onUpdate(qid: current?.id, correct: correct)
+            try await onUpdate(qid: current?.id, correct: correct)
+
+        } catch {
+            debugPrint(error)
+        }
+    }
+
+    func onAction(correct: Bool) {
+        Task {
+            await onAction(correct: correct)
+        }
+    }
+
+    func onChoice(choice: String) async {
+        do {
+            if choice == current?.answer {
+                Audio.playCorrect()
+            } else {
+                Audio.playInCorrect()
+            }
+
+            // update question state
+            try await onUpdate(qid: current?.id, correct: choice == current?.answer)
+
+        } catch {
+            debugPrint(error)
         }
     }
 
     func onChoice(choice: String) {
-        if choice == current?.answer {
-            Audio.playCorrect()
-        } else {
-            Audio.playInCorrect()
-        }
-
         Task {
-            // update question state
-            try await self.onUpdate(qid: current?.id, correct: choice == current?.answer)
+            await onChoice(choice: choice)
         }
     }
 
@@ -97,6 +122,10 @@ class QuestionManager {
 
         // show next question
         return current
+    }
+
+    func onUpdate(correct: Bool) async throws {
+        try await onUpdate(qid: current?.id, correct: correct)
     }
 
     func clear() {
@@ -136,6 +165,9 @@ class QuestionManager {
     // update question answer
     private func onUpdate(qid: String?, correct: Bool) async throws {
         guard let id = qid else { return }
+
+        // delete answered question
+        removeQuestion(id: id)
 
         let params = ["correct": Correct.convert(value: correct)]
 

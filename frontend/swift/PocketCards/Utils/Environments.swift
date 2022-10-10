@@ -145,6 +145,15 @@ let COGNITO_WEB_DOMAIN: String = ProcessInfo.processInfo.environment["COGNITO_WE
     {
       "UserAgent": "aws-amplify-cli/2.0",
       "Version": "1.0",
+      "storage": {
+        "plugins": {
+            "awsS3StoragePlugin": {
+                "bucket": "pkc-uploads-376965",
+                "region": "ap-northeast-1",
+                "defaultAccessLevel": "guest"
+            }
+        }
+      },
       "auth": {
         "plugins": {
           "awsCognitoAuthPlugin": {
@@ -189,6 +198,12 @@ let COGNITO_WEB_DOMAIN: String = ProcessInfo.processInfo.environment["COGNITO_WE
                 "mfaTypes": ["SMS"],
                 "verificationMechanisms": ["EMAIL"]
               }
+            },
+            "S3TransferUtility": {
+                "Default": {
+                  "Bucket": "pkc-uploads-376965",
+                  "Region": "ap-northeast-1"
+                }
             }
           }
         }
@@ -200,6 +215,15 @@ let COGNITO_WEB_DOMAIN: String = ProcessInfo.processInfo.environment["COGNITO_WE
     {
       "UserAgent": "aws-amplify-cli/2.0",
       "Version": "1.0",
+      "storage": {
+        "plugins": {
+            "awsS3StoragePlugin": {
+                "bucket": "pkc-uploads-376965",
+                "region": "ap-northeast-1",
+                "defaultAccessLevel": "guest"
+            }
+        }
+      },
       "auth": {
         "plugins": {
           "awsCognitoAuthPlugin": {

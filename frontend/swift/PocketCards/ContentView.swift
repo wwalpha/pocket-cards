@@ -52,11 +52,11 @@ struct ContentView: View {
                             Image(systemName: "gamecontroller")
                         }
                         .tag(4)
-//                    HandwritingView().configureView()
-//                        .tabItem {
-//                            Image(systemName: "pencil.tip")
-//                        }
-//                        .tag(5)
+                    HandwritingView().configureView()
+                        .tabItem {
+                            Image(systemName: "pencil.tip")
+                        }
+                        .tag(5)
                 }
                 .onAppear {
                     let standardAppearance = UITabBarAppearance()

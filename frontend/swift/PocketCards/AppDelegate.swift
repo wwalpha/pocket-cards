@@ -7,13 +7,14 @@
 
 import Amplify
 import AmplifyPlugins
-import AWSPluginsCore
 import Foundation
+import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         do {
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
+            try Amplify.add(plugin: AWSS3StoragePlugin())
 
             guard let data = AMPLIFY_CONFIGURATION else { return true }
             let configuration = try JSONDecoder().decode(AmplifyConfiguration.self, from: data)

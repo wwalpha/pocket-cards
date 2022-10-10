@@ -24,6 +24,8 @@ protocol WeeklyTestBusinessLogic {
     func onAction(correct: Bool)
 
     func next() async
+
+    func destory()
 }
 
 // Presenter logic

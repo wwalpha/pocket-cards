@@ -13,26 +13,21 @@ struct HandwritingView: View {
     @State private var canvasView: PKCanvasView = .init()
     @ObservedObject var viewModel = HandwritingViewModel()
     var interactor: HandwritingBusinessLogic?
-    let imgRect = CGRect(x: 0, y: 0, width: 400.0, height: 100.0)
 
     var body: some View {
         if !viewModel.isInitialized {
-            Button(action: {
-                interactor?.initialize()
-            }, label: {
-                Text("漢字練習開始")
-                    .frame(maxWidth: 200, maxHeight: 48, alignment: .center)
-                    .padding()
-                    .foregroundColor(Color.white)
-                    .background(Color.green)
-            })
-
+            Text("Loading....")
+                .onAppear {
+                    interactor?.initialize()
+                }
         } else {
             GeometryReader { geo in
                 VStack {
                     HStack {
                         HStack {
-                            Text("質問")
+                            let question = viewModel.question
+
+                            Text(viewModel.isCorrect == true ? question!.title : question!.answer)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(.system(size: 36, design: .default))
                                 .padding(.leading)
@@ -50,14 +45,19 @@ struct HandwritingView: View {
                             }
 
                             Button {
-                                let _ = canvasView.drawing.image(from: imgRect, scale: 1.0)
+                                // answer
+                                let imgRect = CGRect(x: 0, y: 0, width: canvasView.frame.size.width, height: canvasView.frame.size.height)
+                                let image = canvasView.drawing.image(from: imgRect, scale: 1.0)
+
+                                interactor?.confirmAnswer(image: image)
                             } label: {
                                 Text("確 定")
                                     .padding()
                                     .frame(width: 120, height: 48, alignment: .center)
-                                    .background(Color.green)
+                                    .background(viewModel.isLoading ? Color.gray : Color.green)
                                     .foregroundColor(Color.white)
                             }
+                            .disabled(viewModel.isLoading)
                         }
                     }
                     .padding()
@@ -66,29 +66,48 @@ struct HandwritingView: View {
                     .border(Color.gray, width: 6)
 
                     HStack {
-                        CanvasView(canvasView: self.$canvasView).padding(20.0).background(Color.gray)
+                        CanvasView(canvasView: self.$canvasView)
+                            .padding(10.0)
+                            .background(Color.gray)
                     }.padding()
                 }.padding(.top, 16)
+            }.onDisappear {
+                interactor?.destroy()
             }
         }
     }
 }
 
 extension HandwritingView: HandwritingDisplayLogic {
-    func showNext(model: HandwritingViewModel) {
+    func showLoading(model: HandwritingViewModel) {
         DispatchQueue.main.async {
-            viewModel.isInitialized = model.isInitialized
-            viewModel.question = model.question
+            viewModel.isLoading = model.isLoading
         }
     }
 
-    func showError() {}
+    // 次の質問の表示
+    func showNext(model: HandwritingViewModel) {
+        DispatchQueue.main.async {
+            viewModel.isInitialized = model.isInitialized
+            viewModel.isLoading = model.isLoading
+            viewModel.question = model.question
+            viewModel.isCorrect = true
+            canvasView.drawing = PKDrawing()
+        }
+    }
+
+    // 回答表示
+    func showError() {
+        DispatchQueue.main.async {
+            viewModel.isCorrect = false
+        }
+    }
 }
 
 extension HandwritingView {
     func configureView() -> some View {
         var view = self
-        let interactor = HandwritingInteractor(loadUrl: URLs.STUDY_DAILY_TEST, subject: SUBJECT.SOCIETY)
+        let interactor = HandwritingInteractor(loadUrl: URLs.STUDY_DAILY_TEST, subject: SUBJECT.HANDWRITING)
         let presenter = HandwritingPresenter()
 
         view.interactor = interactor
