@@ -14,6 +14,8 @@ protocol HandwritingDisplayLogic {
     func showNext(model: HandwritingViewModel)
 
     func showError()
+
+    func showLoading(model: HandwritingViewModel)
 }
 
 // Interactor logic
@@ -21,6 +23,8 @@ protocol HandwritingBusinessLogic {
     func initialize()
 
     func confirmAnswer(image: UIImage)
+
+    func destroy()
 }
 
 // Presenter logic
@@ -30,4 +34,8 @@ protocol HandwritingPresentationLogic {
     func showNothing()
 
     func showError()
+
+    func showLoading()
+
+    func hideLoading()
 }

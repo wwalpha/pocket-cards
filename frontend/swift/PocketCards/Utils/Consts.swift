@@ -14,6 +14,8 @@ class URLs {
         "\(SOCKET_URL)?Authorization=\(token)"
     }
 
+    static let VISION_HANDWRITING = "\(HOST)/v1/vision/handwriting"
+
     static let STUDY_DAILY_CURRICULUM_ORDER = "\(HOST)/v1/study/daily/order/questions"
     static let STUDY_DAILY_PRACTICE = "\(HOST)/v1/study/daily/practice/questions"
     static let STUDY_DAILY_TEST = "\(HOST)/v1/study/daily/test/questions"

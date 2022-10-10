@@ -13,9 +13,26 @@ class HandwritingPresenter {
 }
 
 extension HandwritingPresenter: HandwritingPresentationLogic {
+    func hideLoading() {
+        let model = HandwritingViewModel()
+        model.isLoading = false
+
+        view?.showLoading(model: model)
+    }
+
+    func showLoading() {
+        let model = HandwritingViewModel()
+        model.isLoading = true
+
+        debugPrint(model, "model")
+
+        view?.showLoading(model: model)
+    }
+
     func showNext(q: Question) {
         let model = HandwritingViewModel()
         model.isInitialized = true
+        model.isCorrect = true
         model.question = q
 
         view?.showNext(model: model)
@@ -23,5 +40,7 @@ extension HandwritingPresenter: HandwritingPresentationLogic {
 
     func showNothing() {}
 
-    func showError() {}
+    func showError() {
+        view?.showError()
+    }
 }
