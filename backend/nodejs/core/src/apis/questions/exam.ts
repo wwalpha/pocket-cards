@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { Logger, DateUtils, Commons, QueryUtils, ValidationError } from '@utils';
-import { Environment } from '@consts';
-import { APIs } from 'typings';
+import { Consts, Environment } from '@consts';
+import { APIs, Tables } from 'typings';
 import { LearningService } from '@services';
 
 /** 今日のテスト */
@@ -26,8 +26,17 @@ export default async (req: Request<any, any, APIs.QuestionTestRequest, any>): Pr
 
   // next study date
   const date = DateUtils.getNow();
-  // 問題一覧
-  const results = await LearningService.dailyTest(userId, date, subject);
+
+  let results: Tables.TLearning[] = [];
+
+  // 漢字の場合
+  if (subject === Consts.SUBJECT.HANDWRITING) {
+    // 過去問全て
+    results = await LearningService.dailyPastTasks(userId, date, subject);
+  } else {
+    // 漢字以外の場合
+    results = await LearningService.dailyTest(userId, date, subject);
+  }
 
   // 検索結果０件の場合
   if (results.length === 0) {
