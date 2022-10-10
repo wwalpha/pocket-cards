@@ -248,6 +248,12 @@ resource "aws_cognito_identity_pool" "this" {
     provider_name           = aws_cognito_user_pool.this.endpoint
     server_side_token_check = false
   }
+
+  cognito_identity_providers {
+    client_id               = aws_cognito_user_pool_client.ios.id
+    provider_name           = aws_cognito_user_pool.this.endpoint
+    server_side_token_check = false
+  }
 }
 
 # --------------------------------------------------------------------------------------------------------------
