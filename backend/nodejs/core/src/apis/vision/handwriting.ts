@@ -2,12 +2,9 @@ import { Request } from 'express';
 import Axios from 'axios';
 import { S3 } from 'aws-sdk';
 import { APIs } from 'typings';
+import { Consts, Environment } from '@consts';
 
 const client = new S3({ region: process.env['DEFAULT_REGION'] });
-
-const BUCKET_NAME = process.env['BUCKET_NAME'] as string;
-const VISION_API_URL = process.env['VISION_API_URL'];
-const VISION_API_KEY = process.env['VISION_API_KEY'];
 
 export default async (req: Request<any, any, APIs.HandwritingRequest, any>): Promise<APIs.HandwritingResponse> => {
   const { key } = req.body;
@@ -15,13 +12,13 @@ export default async (req: Request<any, any, APIs.HandwritingRequest, any>): Pro
   // get s3 object
   const object = await client
     .getObject({
-      Bucket: BUCKET_NAME,
-      Key: key,
+      Bucket: Environment.BUCKET_NAME_UPLOADS,
+      Key: `${Consts.PATH_PUBLIC}/${key}`,
     })
     .promise();
 
   // convert image to texts
-  const res = await Axios.post(`${VISION_API_URL}/image2texts?key=${VISION_API_KEY}`, {
+  const res = await Axios.post(`${Environment.VISION_API_URL}/image2texts?key=${Environment.VISION_API_KEY}`, {
     content: object.Body?.toString('base64'),
   });
 
