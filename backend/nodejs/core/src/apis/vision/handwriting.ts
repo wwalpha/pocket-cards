@@ -22,9 +22,9 @@ export default async (req: Request<any, any, APIs.HandwritingRequest, any>): Pro
     content: object.Body?.toString('base64'),
   });
 
-  const datas = res.data as string[];
+  const results = Array.isArray(res.data) ? res.data : [];
 
   return {
-    results: datas,
+    results: results,
   };
 };
