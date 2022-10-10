@@ -10,6 +10,8 @@ import SwiftUI
 
 class HandwritingViewModel: ObservableObject {
     @Published var isInitialized = false
+    @Published var isCorrect = false
+    @Published var isLoading = false
 
     var question: Question?
 }
