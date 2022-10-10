@@ -33,7 +33,7 @@ class DailyTestInteractor: TestInteractor {
     override func loadQuestions() {
         let params = ["subject": subject]
 
-        API.request(loadUrl, method: .post, parameters: params)
+        API.request(loadUrl, method: .get, parameters: params)
             .validate()
             .responseDecodable(of: QuestionServices.LoadQuestion.Response.self) { response in
                 guard let res = response.value else { return }

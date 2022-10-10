@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3497F2E986B1D9CA7C0F89ED /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = FAF6ABF2EDAA0453C3C27559 /* amplifyconfiguration.json */; };
+		61F6BA3E6479AF44609C09AB /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C3B6AED9DC870D8FF3AE58F /* awsconfiguration.json */; };
 		91F08E8867A437AEB6DD8356 /* Pods_PocketCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7351D11F778221BCB3F656B /* Pods_PocketCards.framework */; };
 		9A09A14D280AA770001500EB /* OverallChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09A14C280AA770001500EB /* OverallChart.swift */; };
 		9A09A151280AD4D3001500EB /* OverallFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09A150280AD4D3001500EB /* OverallFormatter.swift */; };
@@ -36,6 +38,8 @@
 		9A276A7227EC4CC6005A716D /* TestChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7127EC4CC6005A716D /* TestChart.swift */; };
 		9A276A7427EC8F85005A716D /* DateValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7327EC8F85005A716D /* DateValueFormatter.swift */; };
 		9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7527ECA374005A716D /* DailyTasks.swift */; };
+		9A310F1828F3BE6900FB5305 /* Handwriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A310F1728F3BE6900FB5305 /* Handwriting.swift */; };
+		9A310F1928F3BE6900FB5305 /* Handwriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A310F1728F3BE6900FB5305 /* Handwriting.swift */; };
 		9A3A56B628D95012001CC4B0 /* WebSocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */; };
 		9A3A56B828D9599D001CC4B0 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56B728D9599D001CC4B0 /* Command.swift */; };
 		9A3A56C228D95E4C001CC4B0 /* CommandService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56C128D95E4C001CC4B0 /* CommandService.swift */; };
@@ -82,7 +86,6 @@
 		9A7F876A27D747C800446E9D /* FlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F876927D747C700446E9D /* FlashCard.swift */; };
 		9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F876B27D7498600446E9D /* FlippingView.swift */; };
 		9A7F877A27D8269600446E9D /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F877927D8269600446E9D /* Environments.swift */; };
-		9A85170F28E02C3000A6EFE7 /* Pods_PocketCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A85170E28E02C3000A6EFE7 /* Pods_PocketCards.framework */; };
 		9A9E575528154E210025C74F /* WeeklyTestContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575028154E210025C74F /* WeeklyTestContract.swift */; };
 		9A9E575628154E210025C74F /* WeeklyTestContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575028154E210025C74F /* WeeklyTestContract.swift */; };
 		9A9E575728154E210025C74F /* WeeklyTestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E575128154E210025C74F /* WeeklyTestPresenter.swift */; };
@@ -191,6 +194,8 @@
 		9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */; };
 		9AF1275128EEF48300856DF9 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1275028EEF48300856DF9 /* QuestionManager.swift */; };
 		9AF1275228EEF48300856DF9 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1275028EEF48300856DF9 /* QuestionManager.swift */; };
+		9AF1275428F2B9A700856DF9 /* IntAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1275328F2B9A700856DF9 /* IntAxisValueFormatter.swift */; };
+		9AF1275528F2B9A700856DF9 /* IntAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1275328F2B9A700856DF9 /* IntAxisValueFormatter.swift */; };
 		9AF2AC9A2814273300F80DB4 /* Dailytasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50CD27EB326C00D9A305 /* Dailytasks.swift */; };
 		9AF2AC9B2814273300F80DB4 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E7027D96624002B1F32 /* StringUtils.swift */; };
 		9AF2AC9C2814273300F80DB4 /* DailyTasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C627EB2E9A00D9A305 /* DailyTasksViewModel.swift */; };
@@ -265,7 +270,8 @@
 
 /* Begin PBXFileReference section */
 		021B2C534CC0088159BEFBDD /* Pods-PocketCards.releasecat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.releasecat.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.releasecat.xcconfig"; sourceTree = "<group>"; };
-		8C81A14F89842E35FB76BACD /* Pods-PocketCards.releasedog.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.releasedog.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.releasedog.xcconfig"; sourceTree = "<group>"; };
+		4C3B6AED9DC870D8FF3AE58F /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		649D2D7B80C8ACD590324CBC /* Pods-PocketCards.releasedog.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.releasedog.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.releasedog.xcconfig"; sourceTree = "<group>"; };
 		9A09A14C280AA770001500EB /* OverallChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallChart.swift; sourceTree = "<group>"; };
 		9A09A150280AD4D3001500EB /* OverallFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallFormatter.swift; sourceTree = "<group>"; };
 		9A1FD24927D7369B0000A16B /* 勉強にゃん.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "勉強にゃん.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -296,6 +302,7 @@
 		9A276A7127EC4CC6005A716D /* TestChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestChart.swift; sourceTree = "<group>"; };
 		9A276A7327EC8F85005A716D /* DateValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValueFormatter.swift; sourceTree = "<group>"; };
 		9A276A7527ECA374005A716D /* DailyTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasks.swift; sourceTree = "<group>"; };
+		9A310F1728F3BE6900FB5305 /* Handwriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handwriting.swift; sourceTree = "<group>"; };
 		9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketConnection.swift; sourceTree = "<group>"; };
 		9A3A56B728D9599D001CC4B0 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		9A3A56C128D95E4C001CC4B0 /* CommandService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandService.swift; sourceTree = "<group>"; };
@@ -332,7 +339,6 @@
 		9A7F876927D747C700446E9D /* FlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCard.swift; sourceTree = "<group>"; };
 		9A7F876B27D7498600446E9D /* FlippingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlippingView.swift; sourceTree = "<group>"; };
 		9A7F877927D8269600446E9D /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
-		9A85170E28E02C3000A6EFE7 /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9E575028154E210025C74F /* WeeklyTestContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTestContract.swift; sourceTree = "<group>"; };
 		9A9E575128154E210025C74F /* WeeklyTestPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTestPresenter.swift; sourceTree = "<group>"; };
 		9A9E575228154E210025C74F /* WeeklyTestInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyTestInteractor.swift; sourceTree = "<group>"; };
@@ -390,6 +396,7 @@
 		9ADD155727DF83AD00C9CE64 /* Commons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commons.swift; sourceTree = "<group>"; };
 		9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		9AF1275028EEF48300856DF9 /* QuestionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
+		9AF1275328F2B9A700856DF9 /* IntAxisValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntAxisValueFormatter.swift; sourceTree = "<group>"; };
 		9AF2ACE92814273300F80DB4 /* 勉強わん.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "勉強わん.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AF57E6627D8DC60002B1F32 /* DailyTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestView.swift; sourceTree = "<group>"; };
 		9AF57E6827D8DC6F002B1F32 /* DailyTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTestViewModel.swift; sourceTree = "<group>"; };
@@ -399,6 +406,7 @@
 		9AF57E7027D96624002B1F32 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		B7351D11F778221BCB3F656B /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4590A5D883912B335DAAF95 /* Pods-PocketCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.debug.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.debug.xcconfig"; sourceTree = "<group>"; };
+		FAF6ABF2EDAA0453C3C27559 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,7 +422,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A85170F28E02C3000A6EFE7 /* Pods_PocketCards.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,10 +431,18 @@
 		21995CF8A05F90E62A3C1153 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9A85170E28E02C3000A6EFE7 /* Pods_PocketCards.framework */,
 				B7351D11F778221BCB3F656B /* Pods_PocketCards.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6438AA727D6232ADD075F560 /* AmplifyConfig */ = {
+			isa = PBXGroup;
+			children = (
+				4C3B6AED9DC870D8FF3AE58F /* awsconfiguration.json */,
+				FAF6ABF2EDAA0453C3C27559 /* amplifyconfiguration.json */,
+			);
+			name = AmplifyConfig;
 			sourceTree = "<group>";
 		};
 		9A1FD24027D7369B0000A16B = {
@@ -437,6 +452,7 @@
 				9A1FD24A27D7369B0000A16B /* Products */,
 				B09FBC9FFFA9B5A600498F48 /* Pods */,
 				21995CF8A05F90E62A3C1153 /* Frameworks */,
+				6438AA727D6232ADD075F560 /* AmplifyConfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -624,6 +640,7 @@
 				9A9E57842816316A0025C74F /* GroupServices.swift */,
 				9A9E57AE281C15940025C74F /* WeeklyServices.swift */,
 				9A3A56C128D95E4C001CC4B0 /* CommandService.swift */,
+				9A310F1728F3BE6900FB5305 /* Handwriting.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -645,6 +662,7 @@
 				9A276A7327EC8F85005A716D /* DateValueFormatter.swift */,
 				9A09A14C280AA770001500EB /* OverallChart.swift */,
 				9A09A150280AD4D3001500EB /* OverallFormatter.swift */,
+				9AF1275328F2B9A700856DF9 /* IntAxisValueFormatter.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -845,7 +863,7 @@
 			children = (
 				D4590A5D883912B335DAAF95 /* Pods-PocketCards.debug.xcconfig */,
 				021B2C534CC0088159BEFBDD /* Pods-PocketCards.releasecat.xcconfig */,
-				8C81A14F89842E35FB76BACD /* Pods-PocketCards.releasedog.xcconfig */,
+				649D2D7B80C8ACD590324CBC /* Pods-PocketCards.releasedog.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -881,7 +899,6 @@
 				9AF2ACDC2814273300F80DB4 /* Frameworks */,
 				9AF2ACDE2814273300F80DB4 /* Resources */,
 				9AF2ACE32814273300F80DB4 /* Run Script */,
-				9A85170D28E02BFC00A6EFE7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -936,6 +953,8 @@
 				9A1FD25127D7369C0000A16B /* Assets.xcassets in Resources */,
 				9A9E57BA282383090025C74F /* 002.png in Resources */,
 				9A61EEBA27E481C8002C73D0 /* correct.mp3 in Resources */,
+				61F6BA3E6479AF44609C09AB /* awsconfiguration.json in Resources */,
+				3497F2E986B1D9CA7C0F89ED /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -992,25 +1011,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\" --exclude Pods\n";
-		};
-		9A85170D28E02BFC00A6EFE7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Target Support Files/Pods-PocketCards/Pods-PocketCards-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		9AF2ACE32814273300F80DB4 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1105,6 +1105,7 @@
 				9AF57E6F27D962A0002B1F32 /* DailyTestContract.swift in Sources */,
 				9A9E579828165F000025C74F /* WeeklyPracticeViewModel.swift in Sources */,
 				9AA6952A28EEA9B500176C3D /* CanvasView.swift in Sources */,
+				9AF1275428F2B9A700856DF9 /* IntAxisValueFormatter.swift in Sources */,
 				9A3F50BF27EB2D9000D9A305 /* History.swift in Sources */,
 				9A9E579228165F000025C74F /* WeeklyPracticePresenter.swift in Sources */,
 				9A9E577E281598860025C74F /* WeeklyRootViewModel.swift in Sources */,
@@ -1163,6 +1164,7 @@
 				9AED5AEE27DC22A1009A7A76 /* SwiftUIView.swift in Sources */,
 				9A9E57852816316A0025C74F /* GroupServices.swift in Sources */,
 				9AF57E6D27D96292002B1F32 /* DailyTestPresenter.swift in Sources */,
+				9A310F1828F3BE6900FB5305 /* Handwriting.swift in Sources */,
 				9A3F50C927EB2E9A00D9A305 /* DailyTasksInteractor.swift in Sources */,
 				9A61E86B2855EAC50037FA82 /* DailyReviewView.swift in Sources */,
 				9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */,
@@ -1233,6 +1235,7 @@
 				9AF2ACB52814273300F80DB4 /* DailyTestContract.swift in Sources */,
 				9A9E579928165F000025C74F /* WeeklyPracticeViewModel.swift in Sources */,
 				9AA6952B28EEA9B500176C3D /* CanvasView.swift in Sources */,
+				9AF1275528F2B9A700856DF9 /* IntAxisValueFormatter.swift in Sources */,
 				9A56399C28143494006D6C96 /* LoginView.swift in Sources */,
 				9A9E579328165F000025C74F /* WeeklyPracticePresenter.swift in Sources */,
 				9A9E577F281598860025C74F /* WeeklyRootViewModel.swift in Sources */,
@@ -1291,6 +1294,7 @@
 				9AF2ACD52814273300F80DB4 /* DailyTestPresenter.swift in Sources */,
 				9ACC362B28D5F2C700B9EC46 /* MultiTestInteractor.swift in Sources */,
 				9AF2ACD62814273300F80DB4 /* DailyTasksInteractor.swift in Sources */,
+				9A310F1928F3BE6900FB5305 /* Handwriting.swift in Sources */,
 				9A61E86C2855EAC50037FA82 /* DailyReviewView.swift in Sources */,
 				9AF2ACD72814273300F80DB4 /* DailyTasks.swift in Sources */,
 				9ACC362D28D5F2C700B9EC46 /* MultiTestView.swift in Sources */,
@@ -1368,7 +1372,7 @@
 		};
 		9A09A1A6281410C4001500EB /* ReleaseDog */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C81A14F89842E35FB76BACD /* Pods-PocketCards.releasedog.xcconfig */;
+			baseConfigurationReference = 649D2D7B80C8ACD590324CBC /* Pods-PocketCards.releasedog.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1651,7 +1655,6 @@
 		};
 		9AF2ACE82814273300F80DB4 /* ReleaseDog */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C81A14F89842E35FB76BACD /* Pods-PocketCards.releasedog.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDog;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

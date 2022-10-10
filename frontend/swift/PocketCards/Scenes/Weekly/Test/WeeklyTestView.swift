@@ -38,6 +38,7 @@ struct WeeklyTestView: View {
             }
         }.onDisappear {
             viewModel.isLoading = true
+            interactor?.destory()
         }
     }
 }

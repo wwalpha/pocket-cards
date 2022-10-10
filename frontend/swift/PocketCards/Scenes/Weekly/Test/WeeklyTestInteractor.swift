@@ -21,22 +21,26 @@ class WeeklyTestInteractor {
 }
 
 extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
+    func destory() {
+        manager.clear()
+    }
+
     func initialize() async {
         await next()
     }
 
     func onChoice(choice: String) {
-        manager.onChoice(choice: choice)
-
         Task {
+            await manager.onChoice(choice: choice)
+
             await next()
         }
     }
 
     func onAction(correct: Bool) {
-        manager.onAction(correct: correct)
-
         Task {
+            await manager.onAction(correct: correct)
+
             await next()
         }
     }
