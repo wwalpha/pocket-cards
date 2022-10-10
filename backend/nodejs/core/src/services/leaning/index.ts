@@ -88,13 +88,24 @@ export const dailyUnlearned = async (userId: string, groupId: string): Promise<T
   return results.Items;
 };
 
-/** 学習 */
+/** 学習日は今日以前全ての問題 */
 export const dailyPastTasks = async (
   userId: string,
   nextTime: string,
   subject?: string
 ): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Queries.past(userId, nextTime, subject));
+
+  return results.Items;
+};
+
+/** 学習日は今日より前の全ての問題 */
+export const dailyPastsWithoutToday = async (
+  userId: string,
+  nextTime: string,
+  subject?: string
+): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.pastWithoutToday(userId, nextTime, subject));
 
   return results.Items;
 };

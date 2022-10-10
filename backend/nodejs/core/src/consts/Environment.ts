@@ -19,6 +19,7 @@ export const WORDS_LIMIT = process.env['WORDS_LIMIT'] ? Number(process.env['WORD
 
 export const BUCKET_NAME_FRONTEND = process.env['BUCKET_NAME_FRONTEND'] as string;
 export const BUCKET_NAME_MATERAILS = process.env['BUCKET_NAME_MATERAILS'] as string;
+export const BUCKET_NAME_UPLOADS = process.env['BUCKET_NAME_UPLOADS'] as string;
 
 export const IPA_API_URL = process.env['IPA_API_URL'] as string;
 export const IPA_API_KEY = process.env['IPA_API_KEY'] as string;

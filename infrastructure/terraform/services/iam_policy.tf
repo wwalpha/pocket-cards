@@ -109,3 +109,32 @@ resource "aws_iam_policy" "sns_basic" {
     ]
   })
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS IAM Policy - Cognito Authenticated
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy" "authenticated" {
+  name = "authenticated_policy"
+  role = aws_iam_role.authenticated.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      { Effect = "Allow"
+
+        Action = [
+          "mobileanalytics:PutEvents",
+          "cognito-sync:*",
+          "cognito-identity:*"
+        ]
+        Resource = "*"
+      },
+      { Effect = "Allow"
+        Action = [
+          "s3:PutObject"
+        ]
+        Resource = "arn:aws:s3:::${local.bucket_name_uploads}/*"
+      }
+    ]
+  })
+}

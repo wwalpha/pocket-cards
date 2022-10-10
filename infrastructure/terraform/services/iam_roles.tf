@@ -56,6 +56,7 @@ resource "aws_iam_role_policy" "ecs_task" {
         Action = [
           "polly:SynthesizeSpeech",
           "s3:PutObject",
+          "s3:GetObject",
           "cognito-idp:AdminInitiateAuth"
         ]
         Effect   = "Allow"
@@ -114,15 +115,19 @@ resource "aws_iam_role_policy" "ecs_task_exec" {
         Action = [
           "s3:GetObject",
         ]
-        Effect   = "Allow"
-        Resource = "${data.aws_s3_bucket.archive.arn}/*"
+        Effect = "Allow"
+        Resource = [
+          "${data.aws_s3_bucket.archive.arn}/*",
+        ]
       },
       {
         Action = [
           "s3:GetBucketLocation",
         ]
-        Effect   = "Allow"
-        Resource = "${data.aws_s3_bucket.archive.arn}"
+        Effect = "Allow"
+        Resource = [
+          "${data.aws_s3_bucket.archive.arn}",
+        ]
       }
     ]
   })
@@ -160,33 +165,6 @@ resource "aws_iam_role" "authenticated" {
           "cognito-identity.amazonaws.com:amr": "authenticated"
         }
       }
-    }
-  ]
-}
-EOF
-}
-
-# ----------------------------------------------------------------------------------------------
-# Cognito Authenticated Role Policy
-# ----------------------------------------------------------------------------------------------
-resource "aws_iam_role_policy" "authenticated" {
-  name = "${local.project_name_uc}_CognitoAuthenticatedPolicy"
-  role = aws_iam_role.authenticated.id
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "mobileanalytics:PutEvents",
-        "cognito-sync:*",
-        "cognito-identity:*"
-      ],
-      "Resource": [
-        "*"
-      ]
     }
   ]
 }

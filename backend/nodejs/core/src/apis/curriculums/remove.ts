@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { CurriculumService, LearningService } from '@services';
 import { DBHelper } from '@utils';
-import { Consts, Environment } from '@consts';
+import { Environment } from '@consts';
 import { APIs } from 'typings';
 
 export default async (
@@ -19,17 +19,14 @@ export default async (
   // group id
   const groupId = curriculum.groupId;
 
-  // 普通グループ
-  if (Consts.SUBJECT_NORMAL.includes(curriculum.subject)) {
-    // get all learning datas
-    const learning = await LearningService.listByGroup(groupId);
+  // get all learning datas
+  const learning = await LearningService.listByGroup(groupId);
 
-    // execute all
-    await Promise.all([
-      // remove all learning records
-      DBHelper().truncate(Environment.TABLE_NAME_LEARNING, learning),
-      // remove curriculum
-      CurriculumService.remove(curriculumId),
-    ]);
-  }
+  // execute all
+  await Promise.all([
+    // remove all learning records
+    DBHelper().truncate(Environment.TABLE_NAME_LEARNING, learning),
+    // remove curriculum
+    CurriculumService.remove(curriculumId),
+  ]);
 };
