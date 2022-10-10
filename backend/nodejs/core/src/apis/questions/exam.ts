@@ -5,10 +5,13 @@ import { APIs, Tables } from 'typings';
 import { LearningService } from '@services';
 
 /** 今日のテスト */
-export default async (req: Request<any, any, APIs.QuestionTestRequest, any>): Promise<APIs.QuestionTestResponse> => {
+export default async (
+  req: Request<any, any, APIs.QuestionTestRequest, APIs.QuestionTestQuery>
+): Promise<APIs.QuestionTestResponse> => {
   let userId = Commons.getUserId(req);
   const guardianId = Commons.getGuardian(req);
-  const { subject, userId: username } = req.body;
+  const { subject } = req.query;
+  const { userId: username } = req.body;
 
   // 科目選択されていない
   if (!subject) {
