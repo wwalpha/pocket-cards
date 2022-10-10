@@ -56,6 +56,7 @@ resource "aws_iam_role_policy" "ecs_task" {
         Action = [
           "polly:SynthesizeSpeech",
           "s3:PutObject",
+          "s3:GetObject",
           "cognito-idp:AdminInitiateAuth"
         ]
         Effect   = "Allow"
@@ -114,15 +115,19 @@ resource "aws_iam_role_policy" "ecs_task_exec" {
         Action = [
           "s3:GetObject",
         ]
-        Effect   = "Allow"
-        Resource = "${data.aws_s3_bucket.archive.arn}/*"
+        Effect = "Allow"
+        Resource = [
+          "${data.aws_s3_bucket.archive.arn}/*",
+        ]
       },
       {
         Action = [
           "s3:GetBucketLocation",
         ]
-        Effect   = "Allow"
-        Resource = "${data.aws_s3_bucket.archive.arn}"
+        Effect = "Allow"
+        Resource = [
+          "${data.aws_s3_bucket.archive.arn}",
+        ]
       }
     ]
   })
