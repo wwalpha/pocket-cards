@@ -35,7 +35,7 @@ export default async (
   // 漢字の場合
   if (subject === Consts.SUBJECT.HANDWRITING) {
     // 過去問全て
-    results = await LearningService.dailyPastTasks(userId, date, subject);
+    results = await LearningService.dailyPastsWithoutToday(userId, date, subject);
   } else {
     // 漢字以外の場合
     results = await LearningService.dailyTest(userId, date, subject);

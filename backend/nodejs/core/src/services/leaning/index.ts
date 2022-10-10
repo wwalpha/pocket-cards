@@ -99,6 +99,17 @@ export const dailyPastTasks = async (
   return results.Items;
 };
 
+/** 学習日は今日より前の全ての問題 */
+export const dailyPastsWithoutToday = async (
+  userId: string,
+  nextTime: string,
+  subject?: string
+): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.pastWithoutToday(userId, nextTime, subject));
+
+  return results.Items;
+};
+
 export const dailyCurrentTasks = async (userId: string, lastTime: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Queries.current(userId, lastTime));
 

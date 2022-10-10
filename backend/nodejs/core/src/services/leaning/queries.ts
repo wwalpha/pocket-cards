@@ -138,11 +138,24 @@ export const practice = (userId: string, nextTime: string, subject: string): Dyn
 });
 
 /** Daily Questions */
-export const past = (userId: string, nextTime: string, subject?: string): DynamoDB.DocumentClient.QueryInput => {
+export const pastWithoutToday = (
+  userId: string,
+  nextTime: string,
+  subject?: string
+): DynamoDB.DocumentClient.QueryInput => {
+  return past(userId, nextTime, subject, '#userId = :userId and #nextTime < :nextTime');
+};
+
+export const past = (
+  userId: string,
+  nextTime: string,
+  subject?: string,
+  expression: string = '#userId = :userId and #nextTime <= :nextTime'
+): DynamoDB.DocumentClient.QueryInput => {
   const query: DynamoDB.DocumentClient.QueryInput = {
     TableName: Environment.TABLE_NAME_LEARNING,
     ProjectionExpression: 'qid, groupId, subject, times',
-    KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
+    KeyConditionExpression: expression,
     ExpressionAttributeNames: {
       '#userId': 'userId',
       '#nextTime': 'nextTime',
