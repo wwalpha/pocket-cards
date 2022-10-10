@@ -1,7 +1,6 @@
 import { Request } from 'express';
 import { APIs } from 'typings';
 import { GroupService, QuestionService } from '@services';
-import { Consts } from '@consts';
 import { ValidationError } from '@utils';
 
 export default async (
@@ -15,18 +14,11 @@ export default async (
     throw new ValidationError('Group informations not found.');
   }
 
-  // 普通グループ
-  if (Consts.SUBJECT_NORMAL.includes(groupInfo.subject)) {
-    const questions = await QuestionService.listByGroup(groupId);
-
-    return {
-      count: questions.length,
-      questions: questions,
-    };
-  }
+  // 問題一覧
+  const questions = await QuestionService.listByGroup(groupId);
 
   return {
-    count: 0,
-    questions: [],
+    count: questions.length,
+    questions: questions,
   };
 };
