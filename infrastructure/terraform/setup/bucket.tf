@@ -149,3 +149,24 @@ EOT
 resource "aws_s3_bucket" "uploads" {
   bucket = local.bucket_name_uploads
 }
+
+
+# ----------------------------------------------------------------------------------------------
+# Amazon S3 (uploads) LifeCycle
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_bucket_lifecycle_configuration" "uploads" {
+  bucket = aws_s3_bucket.uploads.id
+
+  rule {
+    id     = "public"
+    status = "Enabled"
+
+    expiration {
+      days = 3
+    }
+
+    filter {
+      prefix = "public/"
+    }
+  }
+}
