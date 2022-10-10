@@ -1,6 +1,5 @@
 import { Request } from 'express';
 import { CurriculumService, GroupService, QuestionService } from '@services';
-import { Consts } from '@consts';
 import { ValidationError } from '@utils';
 import { APIs } from 'typings';
 
@@ -23,17 +22,10 @@ export default async (
     throw new ValidationError('Group not found.');
   }
 
-  // 一般グループ
-  if (Consts.SUBJECT_NORMAL.includes(groupInfo.subject)) {
-    const results = await QuestionService.listByGroup(groupInfo.id);
+  const results = await QuestionService.listByGroup(groupInfo.id);
 
-    return {
-      count: results.length,
-      items: results,
-    };
-  }
   return {
-    count: 0,
-    items: [],
+    count: results.length,
+    items: results,
   };
 };

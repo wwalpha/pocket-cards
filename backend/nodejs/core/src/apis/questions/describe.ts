@@ -16,11 +16,6 @@ export default async (
     throw new ValidationError('Group informations not found.');
   }
 
-  // 普通のグループではない
-  if (!Consts.SUBJECT_NORMAL.includes(groupInfo.subject)) {
-    throw new ValidationError('Unvaliable subject.');
-  }
-
   const question = await QuestionService.describe(questionId);
 
   // not exists

@@ -22,47 +22,45 @@ export default async (
   }
 
   // 普通グループ
-  if (Consts.SUBJECT_NORMAL.includes(groupInfo.subject)) {
-    let questions = await QuestionService.listByGroup(groupId);
+  let questions = await QuestionService.listByGroup(groupId);
 
-    // group not exsits or no question in group
-    if (questions.length === 0) {
-      throw new ValidationError('No questions in group');
-    }
-
-    // 英語の場合
-    if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
-      questions = await getQuestionsForEnglish(guardian, userId, questions);
-    }
-
-    const dataRows = questions.map<Tables.TLearning>((item) => ({
-      qid: item.id,
-      userId: userId,
-      groupId: item.groupId,
-      subject: groupInfo.subject,
-      lastTime: Consts.INITIAL_DATE,
-      nextTime: Consts.INITIAL_DATE,
-      times: 0,
-    }));
-
-    // bulk insert
-    await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
-
-    const response: Tables.TCurriculums = {
-      id: generate(),
-      subject: groupInfo.subject,
-      guardian: guardian,
-      userId: userId,
-      groupId: groupId,
-      order: 9999,
-      unlearned: dataRows.length,
-    };
-
-    // add new curriculum
-    await CurriculumService.regist(response);
-
-    return response;
+  // group not exsits or no question in group
+  if (questions.length === 0) {
+    throw new ValidationError('No questions in group');
   }
+
+  // 英語の場合
+  if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
+    questions = await getQuestionsForEnglish(guardian, userId, questions);
+  }
+
+  const dataRows = questions.map<Tables.TLearning>((item) => ({
+    qid: item.id,
+    userId: userId,
+    groupId: item.groupId,
+    subject: groupInfo.subject,
+    lastTime: Consts.INITIAL_DATE,
+    nextTime: Consts.INITIAL_DATE,
+    times: 0,
+  }));
+
+  // bulk insert
+  await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
+
+  const response: Tables.TCurriculums = {
+    id: generate(),
+    subject: groupInfo.subject,
+    guardian: guardian,
+    userId: userId,
+    groupId: groupId,
+    order: 9999,
+    unlearned: dataRows.length,
+  };
+
+  // add new curriculum
+  await CurriculumService.regist(response);
+
+  return response;
 };
 
 /** 英語の単語一覧 */

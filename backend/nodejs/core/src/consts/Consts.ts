@@ -9,8 +9,6 @@ export const SUBJECT = {
   HANDWRITING: '5',
 };
 
-export const SUBJECT_NORMAL = [SUBJECT.ENGLISH, SUBJECT.LANGUAGE, SUBJECT.SCIENCE, SUBJECT.SOCIETY, SUBJECT.MATHS];
-
 export const PATH_PATTERN = 'audios';
 export const PATH_IMAGE = 'images';
 export const PATH_VOICE = 'voices';
