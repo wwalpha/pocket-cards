@@ -14,6 +14,7 @@ export const SUBJECT_NORMAL = [SUBJECT.ENGLISH, SUBJECT.LANGUAGE, SUBJECT.SCIENC
 export const PATH_PATTERN = 'audios';
 export const PATH_IMAGE = 'images';
 export const PATH_VOICE = 'voices';
+export const PATH_PUBLIC = 'public';
 
 export const REPORT_TYPE = {
   // 日次進捗
