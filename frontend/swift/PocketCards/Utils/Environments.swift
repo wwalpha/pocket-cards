@@ -218,9 +218,8 @@ let COGNITO_WEB_DOMAIN: String = ProcessInfo.processInfo.environment["COGNITO_WE
       "storage": {
         "plugins": {
             "awsS3StoragePlugin": {
-                "bucket": "pkc-uploads-376965",
-                "region": "ap-northeast-1",
-                "defaultAccessLevel": "guest"
+                "bucket": "pkc-uploads-af2a18",
+                "region": "us-east-1"
             }
         }
       },
@@ -268,6 +267,12 @@ let COGNITO_WEB_DOMAIN: String = ProcessInfo.processInfo.environment["COGNITO_WE
                 "mfaTypes": ["SMS"],
                 "verificationMechanisms": ["EMAIL"]
               }
+            },
+            "S3TransferUtility": {
+                "Default": {
+                  "Bucket": "pkc-uploads-af2a18",
+                  "Region": "us-east-1"
+                }
             }
           }
         }
