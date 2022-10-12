@@ -25,7 +25,7 @@ on:
         required: true
 
 jobs:
-  ECS_BUILD:
+  LAMBDA_BUILD:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
