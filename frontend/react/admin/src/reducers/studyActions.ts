@@ -4,7 +4,7 @@ import { API } from '@utils';
 import { Tables, APIs, RootState } from 'typings';
 
 const getQuestions = async (subject: string, userId: string) => {
-  const res = await API.post<APIs.QuestionTestResponse, APIs.QuestionTestRequest>(URLs.DAILY_TEST(subject, userId));
+  const res = await API.get<APIs.QuestionTestResponse>(URLs.DAILY_TEST(subject, userId));
 
   return res.questions;
 };
