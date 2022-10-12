@@ -110,6 +110,7 @@ export default () => {
             <MenuItem value={Consts.SUBJECT.LANGUAGE}>国 語</MenuItem>
             <MenuItem value={Consts.SUBJECT.ENGLISH}>英 語</MenuItem>
             <MenuItem value={Consts.SUBJECT.MATHS}>算 数</MenuItem>
+            <MenuItem value={Consts.SUBJECT.HANDWRITING}>漢 字</MenuItem>
           </Select>
         </FormControl>
         <FormControl sx={{ width: '40%', mr: 2 }}>
@@ -127,7 +128,8 @@ export default () => {
           loading={isLoading}
           variant="contained"
           color="primary"
-          onClick={handleUpdate}>
+          onClick={handleUpdate}
+        >
           UPDATE
         </LoadingButton>
       </Box>

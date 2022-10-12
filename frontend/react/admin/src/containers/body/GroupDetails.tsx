@@ -112,12 +112,14 @@ export default () => {
               onChange={onChange}
               value={value}
               fullWidth
-              sx={{ mt: 2 }}>
+              sx={{ mt: 2 }}
+            >
               <MenuItem value={Consts.SUBJECT.MATHS}>算 数</MenuItem>
               <MenuItem value={Consts.SUBJECT.LANGUAGE}>国 語</MenuItem>
               <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
               <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
               <MenuItem value={Consts.SUBJECT.ENGLISH}>英 語</MenuItem>
+              <MenuItem value={Consts.SUBJECT.HANDWRITING}>漢 字</MenuItem>
             </Select>
           )}
         />
@@ -133,7 +135,8 @@ export default () => {
                 color="primary"
                 type="submit"
                 loading={isLoading}
-                sx={{ mx: 1, width: 120 }}>
+                sx={{ mx: 1, width: 120 }}
+              >
                 {editable === Consts.EDIT_MODE.REGIST ? 'REGIST' : 'EDIT'}
               </LoadingButton>
             );
