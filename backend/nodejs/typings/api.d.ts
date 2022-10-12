@@ -355,11 +355,10 @@ export namespace APIs {
   // ------------------------------------------------------------
   interface QuestionTestQuery {
     subject: string;
-  }
-
-  interface QuestionTestRequest {
     userId?: string;
   }
+
+  interface QuestionTestRequest {}
 
   interface QuestionTestResponse {
     count: number;

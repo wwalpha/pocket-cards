@@ -10,8 +10,7 @@ export default async (
 ): Promise<APIs.QuestionTestResponse> => {
   let userId = Commons.getUserId(req);
   const guardianId = Commons.getGuardian(req);
-  const { subject } = req.query;
-  const { userId: username } = req.body;
+  const { subject, userId: username } = req.query;
 
   // 科目選択されていない
   if (!subject) {
