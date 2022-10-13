@@ -108,6 +108,39 @@ export const test = (userId: string, nextTime: string, subject: string): DynamoD
 });
 
 /**
+ * グループのテスト問題一覧を取得する
+ *
+ * 対象: GroupId = :groupId, NextTime <= now, Subject = :subject, times <> 0
+ */
+export const testByGroup = (
+  groupId: string,
+  userId: string,
+  nextTime: string,
+  subject: string
+): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid',
+  KeyConditionExpression: '#groupId = :groupId and #nextTime <= :nextTime',
+  FilterExpression: '#userId = :userId and #subject = :subject and #times <> :times',
+  ExpressionAttributeNames: {
+    '#groupId': 'groupId',
+    '#nextTime': 'nextTime',
+    '#userId': 'userId',
+    '#subject': 'subject',
+    '#times': 'times',
+  },
+  ExpressionAttributeValues: {
+    ':groupId': groupId,
+    ':nextTime': nextTime,
+    ':userId': userId,
+    ':subject': subject,
+    ':times': 0,
+  },
+  IndexName: 'gsiIdx2',
+  ScanIndexForward: false,
+});
+
+/**
  * 復習単語対象一覧を取得する（科目別）
  *
  * 当日を含めて、過去少なくとも１回学習した事がある、且つ最後の１回は間違った
