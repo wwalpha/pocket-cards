@@ -19,6 +19,11 @@ export default async (
     throw new ValidationError(`Question not found. ${questionId}`);
   }
 
+  // 学習回数が0以外、且つ、当日すでに更新済みの場合、無視する
+  if (learning.lastTime === DateUtils.getNow() && learning.times !== 0) {
+    return;
+  }
+
   // 正解の場合
   const times = input.correct === '1' ? defaultTo(learning.times, 0) + 1 : 0;
   const nextTime = input.correct === '1' ? DateUtils.getNextTime(times, learning.subject) : DateUtils.getNextTime(0);
