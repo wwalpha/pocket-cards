@@ -1,14 +1,12 @@
-// import axios, { AxiosStatic } from 'axios';
 import server from '@src/app';
 import request from 'supertest';
 import * as COMMONS from '../../datas/commons';
 import * as QUESTIONS from '../../datas/questions/exam';
-import { HEADER_AUTH } from '@test/Commons';
+import { HEADER_GUARDIAN, HEADER_USER } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 
 const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
-// const api = axios as jest.Mocked<AxiosStatic>;
 
 jest.mock('axios');
 jest.setTimeout(10000);
@@ -32,21 +30,20 @@ describe('Questions', () => {
     ]);
   });
 
-  test.skip('Exam01: デリー学習一覧_未学習のみ', async () => {
-    // api.get.mockImplementationOnce(() => Promise.resolve({ status: 200, data: COMMONS.USER_STUDENT }));
-
-    const apiPath = '/v1/study/daily/test/questions';
+  test('Exam01: デリー学習一覧_未学習のみ', async () => {
+    const apiPath = `/v1/study/daily/test/questions`;
 
     const res = await request(server)
       .get(apiPath)
       .query({
-        subject: '2',
+        subject: '3',
       })
-      .set('username', HEADER_AUTH);
+      .set('username', HEADER_USER)
+      .set('guardian', HEADER_GUARDIAN);
 
     // status code
     expect(res.statusCode).toBe(200);
 
-    expect(res.body).toEqual(QUESTIONS.EXAM001_REQUEST);
+    expect(res.body).toEqual(QUESTIONS.EXAM001_EXPECT);
   });
 });

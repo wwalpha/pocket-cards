@@ -59,9 +59,9 @@ locals {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Environment file
+# Users Service Environment file
 # ----------------------------------------------------------------------------------------------
-resource "aws_s3_bucket_object" "frontend" {
+resource "aws_s3_object" "frontend" {
   bucket  = local.remote_setup.bucket_name_archive
   key     = "envs/frontend.env"
   content = <<EOT

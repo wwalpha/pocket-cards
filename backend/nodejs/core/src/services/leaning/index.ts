@@ -65,6 +65,18 @@ export const dailyTest = async (userId: string, nextTime: string, subject: strin
   return results.Items;
 };
 
+/** 日次テスト */
+export const dailyTestByGroup = async (
+  groupId: string,
+  userId: string,
+  nextTime: string,
+  subject: string
+): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.testByGroup(groupId, userId, nextTime, subject));
+
+  return results.Items;
+};
+
 /** 日次練習 */
 export const dailyMaths = async (userId: string, nextTime: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(
