@@ -26,14 +26,25 @@ struct HandwritingView: View {
                     HStack {
                         HStack {
                             let question = viewModel.question
+                            let answer = viewModel.handwriting == "" ? question!.answer : "\(question!.answer)  【\(viewModel.handwriting)】"
 
-                            Text(viewModel.isCorrect == true ? question!.title : question!.answer)
+                            Text(viewModel.isCorrect == true ? question!.title : answer)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(.system(size: 36, design: .default))
                                 .padding(.leading)
                         }
 
                         HStack {
+                            Button {
+                                interactor?.next()
+                            } label: {
+                                Text("次へ")
+                                    .padding()
+                                    .frame(width: 96, height: 48, alignment: .center)
+                                    .background(Color.red)
+                                    .foregroundColor(Color.white)
+                            }
+
                             Button {
                                 canvasView.drawing = PKDrawing()
                             } label: {
@@ -97,9 +108,10 @@ extension HandwritingView: HandwritingDisplayLogic {
     }
 
     // 回答表示
-    func showError() {
+    func showError(result: String) {
         DispatchQueue.main.async {
             viewModel.isCorrect = false
+            viewModel.handwriting = result
         }
     }
 }

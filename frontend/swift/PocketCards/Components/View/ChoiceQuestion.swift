@@ -13,6 +13,8 @@ struct ChoiceQuestion: View {
     @State private var showingAlert = false
     @State private var showingConfirm = false
     @State private var isPresented = false
+    @State private var fontSize: [CGFloat] = [24, 32, 40]
+    @State private var fontIndex = 2
 
     var question: Question
     var isShowError: String
@@ -70,7 +72,7 @@ struct ChoiceQuestion: View {
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                    .font(.system(size: 48, design: .default))
+                    .font(.system(size: fontSize[fontIndex], design: .default))
                     .padding(.leading, 32)
                     .border(Color.purple, width: 5)
                 }
@@ -91,6 +93,30 @@ struct ChoiceQuestion: View {
         .padding(.horizontal, 32)
         .padding(.vertical, 16)
         .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    self.fontIndex = self.fontIndex == 2 ? 2 : self.fontIndex + 1
+                } label: {
+                    Text("+")
+                        .frame(width: 64, height: 36, alignment: .center)
+                        .background(Color.secondaryColor)
+                        .foregroundColor(Color.white)
+                        .cornerRadius(2)
+                        .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    self.fontIndex = self.fontIndex == 0 ? 0 : self.fontIndex - 1
+                } label: {
+                    Text("-")
+                        .frame(width: 64, height: 36, alignment: .center)
+                        .background(Color.secondaryColor)
+                        .foregroundColor(Color.white)
+                        .cornerRadius(2)
+                        .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     self.showingAlert = true
