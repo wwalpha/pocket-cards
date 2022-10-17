@@ -10,13 +10,13 @@ import SwiftUI
 
 struct FlashCard: View {
     @State private var fontSize: [CGFloat] = [24, 32, 40, 48, 56, 64]
+    @State private var fontIndex = 5
     @State private var angle: Double = 0
     @State private var frontImage: Image?
     @State private var backImage: Image?
     @State private var showingAlert = false
     @State private var showingConfirm = false
     @State private var isPresented = false
-    @State private var fontIndex = 5
 
     @State var flipped = false
 

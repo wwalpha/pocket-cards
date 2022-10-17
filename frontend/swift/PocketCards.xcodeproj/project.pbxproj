@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3497F2E986B1D9CA7C0F89ED /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = FAF6ABF2EDAA0453C3C27559 /* amplifyconfiguration.json */; };
-		61F6BA3E6479AF44609C09AB /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C3B6AED9DC870D8FF3AE58F /* awsconfiguration.json */; };
 		91F08E8867A437AEB6DD8356 /* Pods_PocketCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7351D11F778221BCB3F656B /* Pods_PocketCards.framework */; };
 		9A09A14D280AA770001500EB /* OverallChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09A14C280AA770001500EB /* OverallChart.swift */; };
 		9A09A151280AD4D3001500EB /* OverallFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09A150280AD4D3001500EB /* OverallFormatter.swift */; };
@@ -270,7 +268,6 @@
 
 /* Begin PBXFileReference section */
 		021B2C534CC0088159BEFBDD /* Pods-PocketCards.releasecat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.releasecat.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.releasecat.xcconfig"; sourceTree = "<group>"; };
-		4C3B6AED9DC870D8FF3AE58F /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		649D2D7B80C8ACD590324CBC /* Pods-PocketCards.releasedog.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.releasedog.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.releasedog.xcconfig"; sourceTree = "<group>"; };
 		9A09A14C280AA770001500EB /* OverallChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallChart.swift; sourceTree = "<group>"; };
 		9A09A150280AD4D3001500EB /* OverallFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallFormatter.swift; sourceTree = "<group>"; };
@@ -406,7 +403,6 @@
 		9AF57E7027D96624002B1F32 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		B7351D11F778221BCB3F656B /* Pods_PocketCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4590A5D883912B335DAAF95 /* Pods-PocketCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.debug.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.debug.xcconfig"; sourceTree = "<group>"; };
-		FAF6ABF2EDAA0453C3C27559 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -436,15 +432,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6438AA727D6232ADD075F560 /* AmplifyConfig */ = {
-			isa = PBXGroup;
-			children = (
-				4C3B6AED9DC870D8FF3AE58F /* awsconfiguration.json */,
-				FAF6ABF2EDAA0453C3C27559 /* amplifyconfiguration.json */,
-			);
-			name = AmplifyConfig;
-			sourceTree = "<group>";
-		};
 		9A1FD24027D7369B0000A16B = {
 			isa = PBXGroup;
 			children = (
@@ -452,7 +439,6 @@
 				9A1FD24A27D7369B0000A16B /* Products */,
 				B09FBC9FFFA9B5A600498F48 /* Pods */,
 				21995CF8A05F90E62A3C1153 /* Frameworks */,
-				6438AA727D6232ADD075F560 /* AmplifyConfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -953,8 +939,6 @@
 				9A1FD25127D7369C0000A16B /* Assets.xcassets in Resources */,
 				9A9E57BA282383090025C74F /* 002.png in Resources */,
 				9A61EEBA27E481C8002C73D0 /* correct.mp3 in Resources */,
-				61F6BA3E6479AF44609C09AB /* awsconfiguration.json in Resources */,
-				3497F2E986B1D9CA7C0F89ED /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,6 +32,17 @@ extension HandwritingInteractor: HandwritingBusinessLogic {
         }
     }
 
+    func next() {
+        Task {
+            // get next question
+            guard let question = await manager.next() else { return }
+            // show question
+            presenter?.showNext(q: question)
+            // 問題無視
+            isAnswered = false
+        }
+    }
+
     func destroy() {
         manager.clear()
     }
@@ -41,6 +52,8 @@ extension HandwritingInteractor: HandwritingBusinessLogic {
         guard let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue)) else { return }
         // ci image
         guard let ciImage = CIImage(image: image) else { return }
+
+        debugPrint(image, ciImage, orientation)
 
         // Create a new image-request handler.
         let handler = VNImageRequestHandler(ciImage: ciImage, orientation: orientation)
@@ -64,6 +77,7 @@ extension HandwritingInteractor: HandwritingBusinessLogic {
         }
         //　language
         request.recognitionLanguages = ["ja-JP"]
+        request.recognitionLevel = .accurate
 
         do {
             // Perform the text-recognition request.
@@ -76,12 +90,13 @@ extension HandwritingInteractor: HandwritingBusinessLogic {
     func confirmAnswer(image: UIImage) {
         presenter?.showLoading()
 
-        // vision(image: image)
+//        vision(image: image)
         // convert image to jpeg
         guard let jpegImage = image.jpegData(compressionQuality: 1) else { return }
         // create file uuid
         let imageKey = UUID().uuidString + ".jpeg"
 
+        print(Date())
         // upload data to s3
         Amplify.Storage.uploadData(key: imageKey, data: jpegImage) {
             result in
@@ -92,17 +107,19 @@ extension HandwritingInteractor: HandwritingBusinessLogic {
                 Task {
                     do {
                         // check answer
-                        try await self.checkAnswer(imageKey: imageKey)
+                        let handwriting = try await self.checkAnswer(imageKey: imageKey)
 
                         // hide loading screen
                         self.presenter?.hideLoading()
 
-                        // 回答済の場合、かつ再確認は正解の場合
-                        if self.isAnswered, self.isCorrect {
-                            try await self.updateAnswer(correct: false)
-                        } else {
-                            // update answer status
-                            try await self.updateAnswer(correct: self.isCorrect)
+                        Task {
+                            // 回答済の場合、かつ再確認は正解の場合
+                            if self.isAnswered, self.isCorrect {
+                                try await self.updateAnswer(correct: false, result: nil)
+                            } else {
+                                // update answer status
+                                try await self.updateAnswer(correct: self.isCorrect, result: handwriting)
+                            }
                         }
 
                     } catch let err {
@@ -116,7 +133,7 @@ extension HandwritingInteractor: HandwritingBusinessLogic {
         }
     }
 
-    private func updateAnswer(correct: Bool) async throws {
+    private func updateAnswer(correct: Bool, result: String?) async throws {
         // 正解の場合、次の質問の表示
         if isCorrect {
             Audio.playCorrect()
@@ -131,13 +148,13 @@ extension HandwritingInteractor: HandwritingBusinessLogic {
         } else {
             Audio.playInCorrect()
             // 不正解の場合、エラー表示
-            presenter?.showError()
+            presenter?.showError(result: result!)
             // answered
             isAnswered = true
         }
     }
 
-    private func checkAnswer(imageKey: String) async throws {
+    private func checkAnswer(imageKey: String) async throws -> String {
         let parameters = ["key": imageKey]
 
         // call api: image to text
@@ -158,5 +175,7 @@ extension HandwritingInteractor: HandwritingBusinessLogic {
         }
 
         isCorrect = correct
+
+        return res.results.joined(separator: " | ")
     }
 }
