@@ -1,0 +1,41 @@
+{
+  "count": 4,
+  "questions": [
+    {
+      "answer": "フロンガス",
+      "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
+      "id": "faruTm3ozSq3EVnQE6qzrt",
+      "subject": "3",
+      "title": "オゾン層が破壊されていた原因物質は",
+      "voiceAnswer": "voices/hZL7cVPJ8hA3Vyk7PjqbKc.mp3",
+      "voiceTitle": "voices/kVcdEa1THZh5n5uhFKGYrN.mp3"
+    },
+    {
+      "answer": "[images/9UfsoVZkEdGUkZHR8NyYUk.gif]",
+      "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
+      "id": "eyKBX66pJSpZ4H4nCGHNKq",
+      "subject": "3",
+      "title": "2018年、東海工業地域の工業別生産額は",
+      "voiceAnswer": "voices/984S5u7P8zy7HqAbmJHHVM.mp3",
+      "voiceTitle": "voices/3jx3zsKByHQFC7u9RwPLHy.mp3"
+    },
+    {
+      "answer": "境",
+      "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
+      "id": "iH5npmyKLnsmVFN7vK1tZL",
+      "subject": "3",
+      "title": "水揚げ量１位の漁港は",
+      "voiceAnswer": "voices/kk2SakcE2fKt459iDD7wwC.mp3",
+      "voiceTitle": "voices/sBLZoswb1wkaFW6FvDju6g.mp3"
+    },
+    {
+      "answer": "シダ植物、種子植物[images/iZp73Jfz8eGU7ULAbz65U4.jpg]",
+      "groupId": "v4kBKX6owmewxcVUp1mQvf",
+      "id": "xtk4W9TSsxSMmTifVxeFLA",
+      "subject": "3",
+      "title": "何の植物は維管束植物に分類される",
+      "voiceAnswer": "voices/v2jRLKzYPAC4ES3wT1CJLp.mp3",
+      "voiceTitle": "voices/oASwzkE2LtAEw71xSUtq8e.mp3"
+    }
+  ]
+}

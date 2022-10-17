@@ -14,8 +14,8 @@ export const TABLE_NAME_CURRICULUMS = process.env['TABLE_NAME_CURRICULUMS'] as s
 export const TABLE_NAME_REPORTS = process.env['TABLE_NAME_REPORTS'] as string;
 export const TABLE_NAME_INQUIRY = process.env['TABLE_NAME_INQUIRY'] as string;
 
-// 最大単語数、default 10件
-export const WORDS_LIMIT = process.env['WORDS_LIMIT'] ? Number(process.env['WORDS_LIMIT']) : 10;
+// 最大単語数、default 15 件
+export const WORDS_LIMIT = process.env['WORDS_LIMIT'] ? Number(process.env['WORDS_LIMIT']) : 15;
 
 export const BUCKET_NAME_FRONTEND = process.env['BUCKET_NAME_FRONTEND'] as string;
 export const BUCKET_NAME_MATERAILS = process.env['BUCKET_NAME_MATERAILS'] as string;
