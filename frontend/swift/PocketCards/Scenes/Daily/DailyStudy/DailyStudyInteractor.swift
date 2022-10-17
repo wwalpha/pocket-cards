@@ -7,42 +7,55 @@
 
 import Alamofire
 
-class DailyStudyInteractor: PracticeInteractor {
-    // update answer
-    override func updateAnswer(id: String?, correct: Bool) {
-        guard let qid = id else { return }
+class DailyStudyInteractor {
+    private var manager: QuestionManager = .init()
 
-        // remove answered question
-        removeQuestion(id: qid)
+    var presenter: DailyStudyPresenter?
 
-        Task {
-            let params = ["correct": Correct.convert(value: correct)]
-
-            debugPrint("updateAnswer", qid, correct)
-
-            // update answer
-            _ = await API.request(URLs.STUDY_DAILY_ANSWER(id: qid), method: .post, parameters: params).serializingString().response
-
-            if questions.count < 5 {
-                await loadQuestions()
-            }
-        }
-    }
-
-    override func loadQuestions() async {
-        do {
-            let params = ["subject": subject]
-
-            let res = try await API.request(URLs.STUDY_DAILY_PRACTICE, method: .get, parameters: params).serializingDecodable(QuestionServices.LoadQuestion.Response.self).value
-
-            print("==HUB== \(res.questions)")
-
-            // add new questions
-            addQuestions(questions: res.questions)
-        } catch {
-            debugPrint(error)
-        }
+    init(loadUrl: String, subject: String) {
+        manager.subject = subject
+        manager.loadUrl = loadUrl
+        manager.mode = MODE.STUDY
     }
 }
 
-extension DailyStudyInteractor: DailyStudyBusinessLogic {}
+extension DailyStudyInteractor: DailyStudyBusinessLogic {
+    func initialize() async {
+        await next()
+    }
+
+    func onChoice(choice: String) {
+        manager.onChoice(choice: choice)
+
+        // 正解の場合
+        if manager.checkAnswer(answer: choice) {
+            Task {
+                await next()
+            }
+        } else {
+            // 不正解の場合、回答を表示する
+            presenter?.showError(index: manager.getAnswer()!)
+        }
+    }
+
+    func onAction(correct: Bool) {
+        manager.onAction(correct: correct)
+
+        Task {
+            await next()
+        }
+    }
+
+    func next() async {
+        guard let question = await manager.next() else {
+            presenter?.showNothing()
+            return
+        }
+
+        presenter?.showNext(q: question)
+    }
+
+    func destory() {
+        manager.clear()
+    }
+}

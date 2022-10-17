@@ -18,11 +18,16 @@ class QuestionManager {
     private var answered: [String] = []
     private var isSuspended: Bool = false
 
-    // check value
+    // check answer correct
     func checkAnswer(answer: String) -> Bool {
         guard let c = current?.answer else { return false }
 
         return c == answer
+    }
+
+    // get current answer
+    func getAnswer() -> String? {
+        current?.answer
     }
 
     // get all questions
@@ -44,13 +49,12 @@ class QuestionManager {
     }
 
     func onAction(correct: Bool) {
-        // correct answer
-        if correct {
-            // play sound
-            Audio.playCorrect()
-        } else {
-            // play sound
-            Audio.playInCorrect()
+        // play sound
+        playSound(correct: correct)
+
+        // 学習モード、かつ回答不正解の場合、スキップする
+        if mode == MODE.STUDY, correct == false {
+            return
         }
 
         // delete answered question
@@ -63,18 +67,53 @@ class QuestionManager {
     }
 
     func onChoice(choice: String) {
-        if choice == current?.answer {
-            Audio.playCorrect()
-        } else {
-            Audio.playInCorrect()
+        let result = checkAnswer(answer: choice)
+
+        // play sound
+        playSound(correct: result)
+
+        // 学習モードの場合、かつ不正解の場合
+        if mode == MODE.STUDY, result == false {
+            // set flag
+            current?.isAnswered = true
+
+            return
         }
 
+        // 学習モードの場合、かつ正解の場合
+        if mode == MODE.STUDY, result == true {
+            // first time
+            if current?.isAnswered == nil || current?.isAnswered == false {
+                Task {
+                    // update question state
+                    try await onUpdate(qid: current?.id, correct: result)
+                }
+            }
+
+            // set flag
+            current?.isAnswered = false
+
+            return
+        }
+
+        // 学習モード以外の場合
         // delete answered question
         removeQuestion(id: current!.id)
 
         Task {
             // update question state
-            try await onUpdate(qid: current?.id, correct: choice == current?.answer)
+            try await onUpdate(qid: current?.id, correct: result)
+        }
+    }
+
+    private func playSound(correct: Bool) {
+        // 正解の場合
+        if correct {
+            // play sound
+            Audio.playCorrect()
+        } else {
+            // play sound
+            Audio.playInCorrect()
         }
     }
 
@@ -158,7 +197,7 @@ class QuestionManager {
 
         let params = ["correct": Correct.convert(value: correct)]
 
-        if mode == MODE.STUDY {
+        if mode == MODE.STUDY || mode == MODE.TEST {
             // update answer
             _ = await API.request(URLs.STUDY_DAILY_ANSWER(id: id), method: .post, parameters: params).serializingString().response
         }

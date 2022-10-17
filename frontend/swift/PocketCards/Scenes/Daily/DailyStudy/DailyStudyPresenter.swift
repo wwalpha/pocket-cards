@@ -19,8 +19,6 @@ extension DailyStudyPresenter: DailyStudyPresentationLogic {
         model.isLoading = false
         model.question?.title = q.description == nil ? q.title : "\(q.title)\n\n\(q.description!)"
 
-        debugPrint(q.id)
-
         view?.showNext(model: model)
     }
 

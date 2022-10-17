@@ -11,27 +11,32 @@ struct DailyStudyView: View {
     @ObservedObject var viewModel = DailyStudyViewModel()
 
     var body: some View {
-        if viewModel.isLoading {
-            Text("Loading....")
-                .onAppear {
+        VStack {
+            if viewModel.isLoading {
+                Text("Loading....").onAppear {
                     Task {
-                        await interactor?.loadQuestions()
+                        await interactor?.initialize()
                     }
                 }
-        } else if viewModel.isFinish {
-            Text("今日の学習は終わりました")
-                .font(.system(size: 64, design: .default))
-        } else {
-            if viewModel.question?.choices != nil {
-                ChoiceQuestion(
-                    question: viewModel.question!,
-                    isShowError: viewModel.isShowError,
-                    onChoice: interactor!.onChoice
-                )
-            } else if viewModel.question != nil {
-                // Society or Science
-                FlashCard(question: viewModel.question!, action: interactor!.onAction)
+            } else if viewModel.isFinish {
+                Text("今日の学習は終わりました")
+                    .font(.system(size: 64, design: .default))
+
+            } else {
+                if viewModel.question?.choices != nil {
+                    ChoiceQuestion(
+                        question: viewModel.question!,
+                        isShowError: viewModel.isShowError,
+                        onChoice: interactor!.onChoice
+                    )
+                } else if viewModel.question != nil {
+                    // Society or Science
+                    FlashCard(question: viewModel.question!, action: interactor!.onAction)
+                }
             }
+        }.onDisappear {
+            viewModel.isLoading = true
+            interactor?.destory()
         }
     }
 }
@@ -58,7 +63,7 @@ extension DailyStudyView: DailyStudyDisplayLogic {
 extension DailyStudyView {
     func configureView(subject: String, loadUrl: String) -> some View {
         var view = self
-        let interactor = DailyStudyInteractor(subject: subject, loadUrl: loadUrl)
+        let interactor = DailyStudyInteractor(loadUrl: loadUrl, subject: subject)
         let presenter = DailyStudyPresenter()
 
         view.interactor = interactor
