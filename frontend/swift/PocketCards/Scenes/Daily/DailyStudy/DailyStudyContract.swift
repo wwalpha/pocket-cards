@@ -13,6 +13,16 @@ protocol DailyStudyDisplayLogic {
     func showError(model: DailyStudyViewModel)
 }
 
-protocol DailyStudyBusinessLogic: StudyBusinessLogic {}
+protocol DailyStudyBusinessLogic {
+    func initialize() async
 
-protocol DailyStudyPresentationLogic: StudyPresentationLogic {}
+    func onChoice(choice: String)
+
+    func onAction(correct: Bool)
+
+    func next() async
+
+    func destory()
+}
+
+protocol DailyStudyPresentationLogic {}
