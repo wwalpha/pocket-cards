@@ -1,0 +1,22 @@
+@startuml cognito+apigw
+title API Gateway + Cognito + SAML Authentication
+skinparam responseMessageBelowArrow true
+autonumber "<b>(##)"
+actor       Actor       as User
+
+User -> Cognito: Request login
+Cognito -> "User": Redirect to SAML provider url
+User -> "SAML Provider": User authenticated by provider
+"SAML Provider" -> Cognito: Post back with SAML session
+Cognito -> User: Amazon Cognito tokens provided to user
+User -> "API Gateway": Access API with tokens
+activate "API Gateway"
+"API Gateway" -> Cognito: Verify tokens
+Cognito -> "API Gateway": Verify result (success/failure)
+"API Gateway" -> User: Verify failure: return status code 403
+"API Gateway" -> "Backend App": Verify success: transfer request to backend
+"Backend App" <- "Backend App": Decode tokens \ncheck API policy with user permission
+"Backend App" -> User: Response
+deactivate "API Gateway"
+
+@enduml
