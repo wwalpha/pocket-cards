@@ -12,7 +12,7 @@ import Foundation
 protocol WeeklyTestDisplayLogic {
     func showNext(model: WeeklyTestViewModel)
 
-    func showError(index: String)
+    func onUpdate(model: WeeklyTestViewModel)
 }
 
 // Interactor logic
@@ -29,4 +29,12 @@ protocol WeeklyTestBusinessLogic {
 }
 
 // Presenter logic
-protocol WeeklyTestPresentationLogic {}
+protocol WeeklyTestPresentationLogic {
+    func showNext(q: Question)
+
+    func showNothing()
+
+    func showLoading()
+
+    func showError(index: String)
+}

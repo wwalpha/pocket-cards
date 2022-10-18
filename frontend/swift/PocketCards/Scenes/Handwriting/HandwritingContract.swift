@@ -13,7 +13,7 @@ import UIKit
 protocol HandwritingDisplayLogic {
     func showNext(model: HandwritingViewModel)
 
-    func showError()
+    func showError(result: String)
 
     func showLoading(model: HandwritingViewModel)
 }
@@ -24,6 +24,8 @@ protocol HandwritingBusinessLogic {
 
     func confirmAnswer(image: UIImage)
 
+    func next()
+
     func destroy()
 }
 
@@ -33,7 +35,7 @@ protocol HandwritingPresentationLogic {
 
     func showNothing()
 
-    func showError()
+    func showError(result: String)
 
     func showLoading()
 

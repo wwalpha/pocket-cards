@@ -13,12 +13,13 @@ class WeeklyTestPresenter {
 }
 
 extension WeeklyTestPresenter: WeeklyTestPresentationLogic {
-    func showNext(q: Question, count _: Int? = 0) {
+    func showNext(q: Question) {
         let model = WeeklyTestViewModel()
         model.question = q
         model.isLoading = false
         model.isFinish = false
 
+        view?.onUpdate(model: model)
         view?.showNext(model: model)
     }
 
@@ -27,7 +28,7 @@ extension WeeklyTestPresenter: WeeklyTestPresentationLogic {
         model.isLoading = false
         model.isFinish = true
 
-        view?.showNext(model: model)
+        view?.onUpdate(model: model)
     }
 
     func showLoading() {
@@ -35,10 +36,15 @@ extension WeeklyTestPresenter: WeeklyTestPresentationLogic {
         model.isLoading = true
         model.isFinish = false
 
-        view?.showNext(model: model)
+        view?.onUpdate(model: model)
     }
 
     func showError(index: String) {
-        view?.showError(index: index)
+        let model = WeeklyTestViewModel()
+        model.isLoading = true
+        model.isFinish = false
+        model.isShowError = index
+
+        view?.onUpdate(model: model)
     }
 }

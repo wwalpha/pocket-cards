@@ -12,6 +12,7 @@ class HandwritingViewModel: ObservableObject {
     @Published var isInitialized = false
     @Published var isCorrect = false
     @Published var isLoading = false
+    @Published var handwriting: String = ""
 
     var question: Question?
 }
