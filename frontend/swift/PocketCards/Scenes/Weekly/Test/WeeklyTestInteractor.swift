@@ -30,23 +30,26 @@ extension WeeklyTestInteractor: WeeklyTestBusinessLogic {
     }
 
     func onChoice(choice: String) {
-        Task {
-            await manager.onChoice(choice: choice)
+        manager.onChoice(choice: choice)
 
+        Task {
             await next()
         }
     }
 
     func onAction(correct: Bool) {
-        Task {
-            await manager.onAction(correct: correct)
+        manager.onAction(correct: correct)
 
+        Task {
             await next()
         }
     }
 
     func next() async {
-        guard let question = await manager.next() else { return }
+        guard let question = await manager.next() else {
+            presenter?.showNothing()
+            return
+        }
 
         presenter?.showNext(q: question)
     }

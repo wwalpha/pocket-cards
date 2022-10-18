@@ -15,12 +15,14 @@ class QuestionManager {
     private var current: Question?
     private var index: Int = -1
     private var questions: [Question] = []
-    private var answered: [String?] = []
+    private var answered: [String] = []
     private var isSuspended: Bool = false
 
     // check value
     func checkAnswer(answer: String) -> Bool {
-        current?.answer == answer
+        guard let c = current?.answer else { return false }
+
+        return c == answer
     }
 
     // get all questions
@@ -41,52 +43,38 @@ class QuestionManager {
         }
     }
 
-    func onAction(correct: Bool) async {
-        do {
-            // correct answer
-            if correct {
-                // play sound
-                Audio.playCorrect()
-            } else {
-                // play sound
-                Audio.playInCorrect()
-            }
+    func onAction(correct: Bool) {
+        // correct answer
+        if correct {
+            // play sound
+            Audio.playCorrect()
+        } else {
+            // play sound
+            Audio.playInCorrect()
+        }
 
-            debugPrint(answered)
+        // delete answered question
+        removeQuestion(id: current!.id)
 
+        Task {
             // update flag
             try await onUpdate(qid: current?.id, correct: correct)
-
-        } catch {
-            debugPrint(error)
-        }
-    }
-
-    func onAction(correct: Bool) {
-        Task {
-            await onAction(correct: correct)
-        }
-    }
-
-    func onChoice(choice: String) async {
-        do {
-            if choice == current?.answer {
-                Audio.playCorrect()
-            } else {
-                Audio.playInCorrect()
-            }
-
-            // update question state
-            try await onUpdate(qid: current?.id, correct: choice == current?.answer)
-
-        } catch {
-            debugPrint(error)
         }
     }
 
     func onChoice(choice: String) {
+        if choice == current?.answer {
+            Audio.playCorrect()
+        } else {
+            Audio.playInCorrect()
+        }
+
+        // delete answered question
+        removeQuestion(id: current!.id)
+
         Task {
-            await onChoice(choice: choice)
+            // update question state
+            try await onUpdate(qid: current?.id, correct: choice == current?.answer)
         }
     }
 
@@ -118,6 +106,8 @@ class QuestionManager {
             index = 0
             // show next question
             current = questions[index]
+        } else {
+            current = nil
         }
 
         // show next question
@@ -166,9 +156,6 @@ class QuestionManager {
     private func onUpdate(qid: String?, correct: Bool) async throws {
         guard let id = qid else { return }
 
-        // delete answered question
-        removeQuestion(id: id)
-
         let params = ["correct": Correct.convert(value: correct)]
 
         if mode == MODE.STUDY {
@@ -181,7 +168,7 @@ class QuestionManager {
             _ = await API.request(URLs.STUDY_WEEKLY_ANSWER(qid: id), method: .post, parameters: params).serializingString().response
         }
 
-        if questions.count <= 8 {
+        if questions.count <= 5 {
             try await loadQuestions()
         }
     }

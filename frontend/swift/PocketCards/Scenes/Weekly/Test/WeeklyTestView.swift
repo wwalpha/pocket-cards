@@ -44,17 +44,16 @@ struct WeeklyTestView: View {
 }
 
 extension WeeklyTestView: WeeklyTestDisplayLogic {
-    func showError(index: String) {
+    func onUpdate(model: WeeklyTestViewModel) {
         DispatchQueue.main.async {
-            viewModel.isShowError = index
+            viewModel.isLoading = model.isLoading
+            viewModel.isFinish = model.isFinish
+            viewModel.isShowError = model.isShowError
         }
     }
 
     func showNext(model: WeeklyTestViewModel) {
         DispatchQueue.main.async {
-            viewModel.isLoading = model.isLoading
-            viewModel.isFinish = model.isFinish
-            viewModel.isShowError = model.isShowError
             viewModel.question = model.question
         }
     }
