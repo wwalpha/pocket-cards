@@ -1,5 +1,5 @@
 {
-  "count": 10,
+  "count": 15,
   "questions": [
     {
       "voiceTitle": "voices/oXwp1dFsUdrSjioTZUrrNG.mp3",
@@ -90,6 +90,51 @@
       "id": "8aqiGGBw5wH1beVMzouKXf",
       "title": "釧路港で水揚げされる主な魚は",
       "voiceAnswer": "voices/qHiqCB53Kh5rVYtUpxLuoF.mp3"
+    },
+    {
+      "answer": "[images/9naDYmb7BhmrTvfFXx21NA.gif]",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "cv7GPEhzeQndchMPBFqBTL",
+      "subject": "2",
+      "title": "2018年、京葉工業地域の工業別生産額は",
+      "voiceAnswer": "voices/bEfjS5EvxcdQpg1tTMnfgq.mp3",
+      "voiceTitle": "voices/1PjhDT7VE9wZUEREZmmJZp.mp3"
+    },
+    {
+      "answer": "境",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "8QZG2k5o43o1acnT2NCyDY",
+      "subject": "2",
+      "title": "水揚げ量１位の漁港は",
+      "voiceAnswer": "voices/tTdM5z6UtN5ESo984rmcDw.mp3",
+      "voiceTitle": "voices/qBQ4ELJ8RHWad9wfoMf9LF.mp3"
+    },
+    {
+      "answer": "[images/oXE9fE6tiZeTrGWq535NFX.gif]",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "oTaYhwJCYxMb9cD6XPofZA",
+      "subject": "2",
+      "title": "2018年、中京工業地帯の工業別生産額は",
+      "voiceAnswer": "voices/8oeMcCkh8RZua9wpxwC8V4.mp3",
+      "voiceTitle": "voices/axgCk9gaMjritLwMJBRtbS.mp3"
+    },
+    {
+      "answer": "機械(46%)、金属(14%)、化学(13%)、食料品(12%)",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "r5nYWub5z6SRxJtJtA1eBF",
+      "subject": "2",
+      "title": "2018年、工業生産額の割合",
+      "voiceAnswer": "voices/63KbL5Q96DnWxFKDaTrZti.mp3",
+      "voiceTitle": "voices/7r3M1tntb415pUJRorYGF3.mp3"
+    },
+    {
+      "answer": "[images/mfTUsMYJQGf6xxpq6fipt2.gif]",
+      "groupId": "uDf4fvg3yMAYKgvYBPydt9",
+      "id": "cZzGRFKHXCb3xmCbWBewSr",
+      "subject": "2",
+      "title": "2018年、関東内陸工業地域の工業別生産額は",
+      "voiceAnswer": "voices/btHhNkVB8grWgKeEpQUnmB.mp3",
+      "voiceTitle": "voices/3rZEmuCy9HXLBoonsuqX2U.mp3"
     }
   ]
 }

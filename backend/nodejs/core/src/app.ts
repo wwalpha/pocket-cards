@@ -107,7 +107,7 @@ app.get('/v1/study/weekly', express.json(), (req, res) => entry(req, res, Weekly
 app.post('/v1/study/weekly/:questionId', express.json(), (req, res) => entry(req, res, WeeklyAnswer));
 
 // カリキュラム順で学習
-app.post('/v1/study/daily/order/questions', express.json(), (req, res) => entry(req, res, QuestionOrder));
+app.get('/v1/study/daily/order/questions', express.json(), (req, res) => entry(req, res, QuestionOrder));
 // 復習問題取得
 app.get('/v1/study/daily/review/questions', express.json(), (req, res) => entry(req, res, QuestionReview));
 // 練習問題取得

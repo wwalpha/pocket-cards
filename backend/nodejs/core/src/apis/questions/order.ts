@@ -5,32 +5,17 @@ import { CurriculumService, LearningService, QuestionService } from '@services';
 import orderBy from 'lodash/orderBy';
 import { Environment } from '@consts';
 
-export default async (req: Request<any, any, APIs.QuestionOrderRequest, any>): Promise<APIs.QuestionOrderResponse> => {
-  let userId = Commons.getUserId(req);
+export default async (
+  req: Request<any, any, APIs.QuestionOrderRequest, APIs.QuestionOrderQuery>
+): Promise<APIs.QuestionOrderResponse> => {
+  const userId = Commons.getUserId(req);
   const guardianId = Commons.getGuardian(req);
-  const { subject, userId: username } = req.body;
+  const { subject } = req.query;
 
   // 科目選択されていない
   if (!subject) {
     throw new ValidationError('Please select subject.');
   }
-
-  // 保護者からのリクエスト
-  if (guardianId === userId) {
-    if (!username) {
-      throw new ValidationError('Required username.');
-    }
-
-    userId = username;
-  }
-
-  // const userInfo = await UserService.getUserInfo(userId, req.headers);
-  // const guardianId = userInfo.teacher;
-
-  // // 保護者の必須チェック
-  // if (!guardianId) {
-  //   throw new ValidationError('Guardian is not found.');
-  // }
 
   // ユーザのカリキュラム一覧を取得する
   const curriculums = await CurriculumService.getListByGuardian(guardianId, subject, userId);

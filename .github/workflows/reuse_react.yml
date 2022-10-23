@@ -76,12 +76,12 @@ jobs:
         run: |
           cd configs/terraform
           terraform init
-          terraform apply -auto-approve=true
+          terraform apply -auto-approve=true -lock-timeout=60s
           BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
           BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
-          echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
-          echo "::set-output name=bucket_name_frontend::$(terraform output -raw bucket_name_frontend)"
-          echo "::set-output name=source_tag::${GITHUB_REF#refs/tags/}"
+          echo "bucket_name_archive=$(terraform output -raw bucket_name_archive)" >> $GITHUB_OUTPUT
+          echo "bucket_name_frontend=$(terraform output -raw bucket_name_frontend)" >> $GITHUB_OUTPUT
+          echo "source_tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       # Pre Install
       - name: PreInstall

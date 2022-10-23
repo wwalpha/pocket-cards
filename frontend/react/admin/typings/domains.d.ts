@@ -60,6 +60,8 @@ export namespace Domains {
 
   interface StudyState {
     isOnline: boolean;
+    correctCount: number;
+    incorrectCount: number;
     answered: string[];
     questions: Tables.TQuestions[];
     index: number;

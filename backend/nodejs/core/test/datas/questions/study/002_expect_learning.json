@@ -1,5 +1,5 @@
 {
-  "count": 10,
+  "count": 15,
   "questions": [
     {
       "voiceTitle": "voices/5C5RV4M9xdykfz6BkRiK8j.mp3",
@@ -90,6 +90,51 @@
       "id": "eyKBX66pJSpZ4H4nCGHNKq",
       "title": "2018年、東海工業地域の工業別生産額は",
       "voiceAnswer": "voices/984S5u7P8zy7HqAbmJHHVM.mp3"
+    },
+    {
+      "answer": "フロンガス",
+      "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
+      "id": "faruTm3ozSq3EVnQE6qzrt",
+      "subject": "3",
+      "title": "オゾン層が破壊されていた原因物質は",
+      "voiceAnswer": "voices/hZL7cVPJ8hA3Vyk7PjqbKc.mp3",
+      "voiceTitle": "voices/kVcdEa1THZh5n5uhFKGYrN.mp3"
+    },
+    {
+      "answer": "親潮",
+      "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
+      "id": "ruDB5ZZhss2vccyLipoDcT",
+      "subject": "3",
+      "title": "太平洋を南下する海流は",
+      "voiceAnswer": "voices/sXcFvnmpKc1aBBAi1AHUJf.mp3",
+      "voiceTitle": "voices/qGzcNBJySPqPHFbh5epQoW.mp3"
+    },
+    {
+      "answer": "都市鉱山",
+      "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
+      "id": "h4LUgxnpUYhvv8JQ6U7WZz",
+      "subject": "3",
+      "title": "都市全体に貴重な資源が眠っている様子を鉱山に例える事はなんという",
+      "voiceAnswer": "voices/8fVpgvPupe3FxcfDjKtEDM.mp3",
+      "voiceTitle": "voices/wTWwqK6AY2JNk39f1SbJGz.mp3"
+    },
+    {
+      "answer": "ファインセラミックス",
+      "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
+      "id": "gY22RXjn1TPKzuh2TDcndb",
+      "subject": "3",
+      "title": "特殊な原料を焼き固めたのもとは",
+      "voiceAnswer": "voices/n1iLQeB1Beqq3BfacxCg75.mp3",
+      "voiceTitle": "voices/w4QMEeq3CfnyuZnKKiJQsn.mp3"
+    },
+    {
+      "answer": "金属(16.8%)、機械(40.8%)、化学(12.8%)、食品(9.4%)",
+      "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
+      "id": "vuSEbyMj3FY3tBG6Qyp5t1",
+      "subject": "3",
+      "title": "2018年、北陸工業地域の工業別生産額は",
+      "voiceAnswer": "voices/8awtg8MnVCJGqqeRwRhs9h.mp3",
+      "voiceTitle": "voices/pE9sv7BRhvAXdD3w76GYvW.mp3"
     }
   ]
 }
