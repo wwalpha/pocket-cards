@@ -26,7 +26,7 @@ export const correct = () => async (dispatch: AppDispatch) => {
 };
 
 export const failure = () => async (dispatch: AppDispatch) => {
-  dispatch(Actions.STUDY_SHOW_ANSWER());
+  dispatch(Actions.STUDY_SHOW_ANSWER(Consts.Commands.SHOW_ANSWER));
 };
 
 export const goNext = () => async (dispatch: AppDispatch) => {
