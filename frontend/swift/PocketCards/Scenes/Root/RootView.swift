@@ -271,8 +271,6 @@ struct RootView: View {
                         Text("Sign Out")
                             .frame(width: 120, height: 36, alignment: .center)
                             .foregroundColor(Color.white)
-//                            .foregroundColor(Color.white)
-//                            .background(Color.accent1)
                     }
                 }
             }
