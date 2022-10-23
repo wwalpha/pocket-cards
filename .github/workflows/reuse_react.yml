@@ -76,7 +76,7 @@ jobs:
         run: |
           cd configs/terraform
           terraform init
-          terraform apply -auto-approve=true
+          terraform apply -auto-approve=true -lock-timeout=60s
           BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
           BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
           echo "::set-output name=bucket_name_archive::$(terraform output -raw bucket_name_archive)"
