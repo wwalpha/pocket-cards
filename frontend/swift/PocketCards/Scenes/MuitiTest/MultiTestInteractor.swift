@@ -20,8 +20,6 @@ extension MultiTestInteractor: MultiTestBusinessLogic, WebSocketConnectionDelega
         Task {
             let params = ["correct": Correct.convert(value: correct)]
 
-            debugPrint("updateAnswer", q!.id, correct)
-
             // update answer
             _ = await API.request(URLs.STUDY_DAILY_ANSWER(id: q!.id), method: .post, parameters: params).serializingString().response
         }
@@ -45,7 +43,9 @@ extension MultiTestInteractor: MultiTestBusinessLogic, WebSocketConnectionDelega
         presenter?.onConnected()
     }
 
-    func onDisconnected(connection _: WebSocketConnection, error _: Error?) {}
+    func onDisconnected(connection _: WebSocketConnection, error _: Error?) {
+        presenter?.onDisconnected()
+    }
 
     func onError(connection: WebSocketConnection, error: Error) {
         debugPrint("connection", connection)
@@ -57,9 +57,6 @@ extension MultiTestInteractor: MultiTestBusinessLogic, WebSocketConnectionDelega
 
         guard let data = text.data(using: .utf8) else { return }
         guard let cmd = try? decoder.decode(Command.self, from: data) else { return }
-
-        debugPrint("command", cmd.command)
-        debugPrint("payload", cmd.payload)
 
         switch cmd.command {
         case "SHOW_CORRECT":
@@ -95,6 +92,8 @@ extension MultiTestInteractor: MultiTestBusinessLogic, WebSocketConnectionDelega
     func disconnect() {
         // disconnect
         task?.disconnect()
+
+        presenter?.onDisconnected()
     }
 
     func getQuestion(text: String) {
