@@ -58,7 +58,7 @@ struct MultiTestView: View {
                 Text("Hello1111")
             }
         }.onDisappear {
-            viewModel.isConnected = false
+            interactor?.disconnect()
         }
     }
 }
