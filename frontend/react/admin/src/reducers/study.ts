@@ -33,7 +33,7 @@ const slice = createSlice({
         state.isOnline = false;
       }
     },
-    STUDY_SHOW_ANSWER: (state) => {
+    STUDY_SHOW_ANSWER: (state, { payload }: PayloadAction<string>) => {
       const question = state.questions[state.index];
       // answerd question id
       state.answered.push(question.id);
