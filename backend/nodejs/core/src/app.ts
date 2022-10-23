@@ -15,7 +15,14 @@ import {
   QuestionDescribe,
   QuestionOrder,
 } from '@src/apis/questions';
-import { DailyTasks, LearningProgress, LearningOverall, OverallStatus, DailyStatus } from '@src/apis/reports';
+import {
+  DailyTasks,
+  LearningProgress,
+  LearningOverall,
+  OverallStatus,
+  DailyStatus,
+  GroupStatus,
+} from '@src/apis/reports';
 import {
   CurriculumRegist,
   CurriculumList,
@@ -70,12 +77,14 @@ app.delete('/v1/groups/:groupId/questions/:questionId', express.json(), (req, re
 app.get('/v1/reports/dailytasks', express.json(), (req, res) => entry(req, res, DailyTasks));
 // leaning progress
 app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, LearningProgress));
-// leaning progress
+// leaning overall
 app.get('/v1/reports/overall', express.json(), (req, res) => entry(req, res, LearningOverall));
-// 学習進捗
+// 全体学習進捗
 app.get('/v1/reports/status/overall', express.json(), (req, res) => entry(req, res, OverallStatus));
-// 学習進捗
+// 日次学習進捗
 app.get('/v1/reports/status/daily', express.json(), (req, res) => entry(req, res, DailyStatus));
+// グループ別の学習状況
+app.post('/v1/reports/status/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupStatus));
 
 // 問い合わせ登録
 app.post('/v1/inquiries', express.json(), (req, res) => entry(req, res, InquiryRegist));

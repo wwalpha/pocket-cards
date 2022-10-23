@@ -1,10 +1,10 @@
 import { Request } from 'express';
 import { defaultTo } from 'lodash';
+import { Consts } from '@consts';
 import { Commons, DateUtils, DBHelper, ValidationError } from '@utils';
+import { LearningService, CurriculumService } from '@services';
 import { Traces } from '@queries';
 import { APIs } from 'typings';
-import { LearningService, CurriculumService } from '@services';
-import { Consts } from '@consts';
 
 export default async (
   req: Request<APIs.QuestionAnswerParams, any, APIs.QuestionAnswerRequest, any>

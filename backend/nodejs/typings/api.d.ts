@@ -717,4 +717,20 @@ export namespace APIs {
   interface HandwritingResponse {
     results: string[];
   }
+
+  // ------------------------------------------------------------
+  // Learning - Status
+  // ------------------------------------------------------------
+  interface GroupStatusRequest {
+    userId: string;
+  }
+
+  interface GroupStatusParams {
+    groupId: string;
+  }
+
+  interface GroupStatusResponse {
+    count: number;
+    items: Tables.TLearning[];
+  }
 }
