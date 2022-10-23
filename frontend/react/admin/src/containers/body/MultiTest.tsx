@@ -22,7 +22,7 @@ export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
   const [incorrect, setIncorrect] = React.useState(false);
   const { isLoading, isConnecting, isConnectionEstablished } = useSelector(appState);
-  const { questions, index, student, isOnline } = useSelector(studyState);
+  const { questions, index, student, isOnline, correctCount, incorrectCount } = useSelector(studyState);
   const { students } = useSelector(userState);
 
   const {
@@ -111,8 +111,16 @@ export default () => {
       )}
       {isConnectionEstablished && questions.length !== 0 && (
         <React.Fragment>
-          <Box display="flex" sx={{ mt: 1, px: 2 }}>
-            {student}: <LightbulbIcon sx={{ ml: 2, color: isOnline === true ? 'green' : 'red' }} />
+          <Box display="flex">
+            <Box display="flex" sx={{ mt: 1, px: 2 }}>
+              {student}: <LightbulbIcon sx={{ ml: 2, color: isOnline === true ? 'green' : 'red' }} />
+            </Box>
+            <Box display="flex" sx={{ mt: 1, px: 2 }}>
+              正解：{correctCount}
+            </Box>
+            <Box display="flex" sx={{ mt: 1, px: 2 }}>
+              不正解：{incorrectCount}
+            </Box>
           </Box>
           <Box display="flex" flexDirection="column" sx={{ my: 1, mx: 2 }}>
             <Paper elevation={3} sx={{ my: 1, p: 4 }}>
@@ -151,6 +159,7 @@ export default () => {
                 variant="contained"
                 color="primary"
                 onClick={onNext}
+                disabled={!isOnline}
               >
                 次へ
               </LoadingButton>
@@ -160,6 +169,7 @@ export default () => {
                 variant="contained"
                 color="primary"
                 onClick={onFailure}
+                disabled={!isOnline}
               >
                 不正解
               </LoadingButton>
@@ -169,7 +179,7 @@ export default () => {
                 variant="contained"
                 color="secondary"
                 onClick={onCorrect}
-                disabled={incorrect}
+                disabled={incorrect || !isOnline}
               >
                 正解
               </LoadingButton>
