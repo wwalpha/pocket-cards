@@ -50,6 +50,8 @@ describe('Questions', () => {
   });
 
   test('Study02: デリー学習一覧_学習済のみ', async () => {
+    api.get.mockImplementationOnce(() => Promise.resolve({ status: 200, data: COMMONS.USER_STUDENT }));
+
     const apiPath = '/v1/study/daily/practice/questions';
 
     const res = await request(server)
