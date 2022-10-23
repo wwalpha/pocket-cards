@@ -22,9 +22,9 @@ struct OverallChart: UIViewRepresentable {
         dataset.stackLabels = xLabels
 
         let data = BarChartData(dataSet: dataset)
-        data.setValueFont(.systemFont(ofSize: 7, weight: .light))
-        data.setValueTextColor(.white)
-        data.setDrawValues(false)
+        data.setValueFont(.systemFont(ofSize: 16, weight: .medium))
+        data.setValueTextColor(.black)
+//        data.setDrawValues(false)
 
         let chartView = BarChartView()
         chartView.fitBars = true
