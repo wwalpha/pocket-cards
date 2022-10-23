@@ -1,4 +1,4 @@
-name: ECS Workflow
+name: COMMON) ECS ALL
 
 on:
   workflow_call:
@@ -115,7 +115,7 @@ jobs:
           docker build -t $ECR_REPOSITORY .
           docker tag $ECR_REPOSITORY $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       # Update Repository URL
       - name: Update ecs repository url
@@ -129,7 +129,7 @@ jobs:
           pwd
           printenv
           aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
-          echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
+          echo "definition=$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE" >> $GITHUB_OUTPUT
 
       # update task definition
       - name: Fill in the new image ID in the Amazon ECS task definition

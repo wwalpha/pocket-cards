@@ -82,8 +82,8 @@ jobs:
         run: |
           aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION_BACKEND | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
           image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_ECR/backend --with-decryption | jq -r .Parameter.Value)
-          echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
-          echo "::set-output name=image::$image"
+          echo "definition=$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE" >> $GITHUB_OUTPUT
+          echo "image=$image" >> $GITHUB_OUTPUT
 
       # update task definition
       - name: Fill in the new image ID in the Amazon ECS task definition
@@ -125,8 +125,8 @@ jobs:
         run: |
           aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION_AUTH | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
           image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_ECR/$ECS_SERVICE_NAME_AUTH --with-decryption | jq -r .Parameter.Value)
-          echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
-          echo "::set-output name=image::$image"
+          echo "definition=$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE" >> $GITHUB_OUTPUT
+          echo "image=$image" >> $GITHUB_OUTPUT
 
       # update task definition
       - name: Fill in the new image ID in the Amazon ECS task definition
@@ -168,8 +168,8 @@ jobs:
         run: |
           aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION_USERS | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
           image=$(aws ssm get-parameter --name $SSM_PARAMETER_NAME_ECR/$ECS_SERVICE_NAME_USER --with-decryption | jq -r .Parameter.Value)
-          echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
-          echo "::set-output name=image::$image"
+          echo "definition=$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE" >> $GITHUB_OUTPUT
+          echo "image=$image" >> $GITHUB_OUTPUT
 
       # update task definition
       - name: Fill in the new image ID in the Amazon ECS task definition
@@ -208,7 +208,6 @@ jobs:
   Frontend_Users:
     needs:
       - Terraform_Backend
-      - Frontend_Admin
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
