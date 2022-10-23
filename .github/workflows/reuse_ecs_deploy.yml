@@ -72,7 +72,7 @@ jobs:
           pwd
           printenv
           aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
-          echo "::set-output name=definition::$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE"
+          echo "definition=$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE" >> $GITHUB_OUTPUT
 
       # update task definition
       - name: Fill in the new image ID in the Amazon ECS task definition
