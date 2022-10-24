@@ -207,7 +207,7 @@ class QuestionManager {
             _ = await API.request(URLs.STUDY_WEEKLY_ANSWER(qid: id), method: .post, parameters: params).serializingString().response
         }
 
-        if questions.count <= 5 {
+        if questions.count <= 7 {
             try await loadQuestions()
         }
     }
