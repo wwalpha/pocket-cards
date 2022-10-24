@@ -208,6 +208,7 @@ jobs:
   Frontend_Users:
     needs:
       - Terraform_Backend
+      - Frontend_Admin
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
