@@ -136,8 +136,21 @@ export const listAll = async (): Promise<Tables.TLearning[]> => {
 };
 
 /** 学習任務一覧 */
-export const listByGroup = async (groupId: string): Promise<Tables.TLearning[]> => {
-  const results = await DBHelper().query<Tables.TLearning>(Queries.byGroupId(groupId));
+export const listByGroup = async (groupId: string, userId?: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.byGroupId(groupId, userId));
+
+  return results.Items;
+};
+
+/** グループ別学習進捗一覧 */
+export const listByGroupWithProjection = async (
+  groupId: string,
+  projections: string,
+  userId?: string
+): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(
+    Queries.byGroupIdWithProjections(groupId, projections, userId)
+  );
 
   return results.Items;
 };
