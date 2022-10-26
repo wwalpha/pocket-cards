@@ -35,7 +35,7 @@ import {
 import { WeeklyRegist, WeeklyList, WeeklyAnswer } from '@src/apis/weekly';
 import { InquiryList, InquiryRegist, InquiryRemove } from '@src/apis/inquiry';
 import { Handwriting } from '@src/apis/vision';
-
+import { LearningDescribe } from './apis/learning';
 import { Patchs } from '@src/apis/patch';
 import entry from './entry';
 
@@ -128,6 +128,9 @@ app.get('/v1/study/daily/practice/questions', express.json(), (req, res) => entr
 app.get('/v1/study/daily/test/questions', express.json(), (req, res) => entry(req, res, QuestionExam));
 // テスト問題更新
 app.post('/v1/study/daily/test/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionAnswer));
+
+// 対象問題の学習状況取得
+app.get('/v1/study/learning/:qid', express.json(), (req, res) => entry(req, res, LearningDescribe));
 
 // patch
 app.patch('/v1/patch', express.json(), (req, res) => entry(req, res, Patchs));
