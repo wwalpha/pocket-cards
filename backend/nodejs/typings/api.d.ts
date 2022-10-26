@@ -642,6 +642,18 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
+  // Reports - Daily Test Question list
+  // ------------------------------------------------------------
+  interface DailyTestQuestionsRequest {
+    uid: string;
+    subject: string;
+  }
+
+  interface DailyTestQuestionsResponse {
+    qid: string[];
+  }
+
+  // ------------------------------------------------------------
   // Curriculums - Curriculum Regist
   // ------------------------------------------------------------
   interface CurriculumRegistRequest {
