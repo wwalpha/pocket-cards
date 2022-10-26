@@ -6,7 +6,7 @@ resource "aws_apigatewayv2_api" "this" {
   protocol_type = "HTTP"
 
   cors_configuration {
-    allow_origins = ["*"]
+    allow_origins = ["https://www.${local.remote_setup.route53_zone_name}", "https://admin.${local.remote_setup.route53_zone_name}"]
     allow_headers = ["*"]
     allow_methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
   }
