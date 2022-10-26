@@ -745,4 +745,19 @@ export namespace APIs {
     count: number;
     items: Tables.TLearning[];
   }
+
+  // ------------------------------------------------------------
+  // Learning Describe (GET)
+  // ------------------------------------------------------------
+  interface LearningDescribeRequest {}
+
+  interface LearningDescribeParams {
+    qid: string;
+  }
+
+  interface LearningDescribeQuery {
+    uid: string;
+  }
+
+  type LearningDescribeResponse = Tables.TLearning;
 }
