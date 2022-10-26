@@ -16,11 +16,12 @@ import {
   QuestionOrder,
 } from '@src/apis/questions';
 import {
+  DailyStatus,
+  DailyTestQuestions,
   DailyTasks,
   LearningProgress,
   LearningOverall,
   OverallStatus,
-  DailyStatus,
   GroupStatus,
 } from '@src/apis/reports';
 import {
@@ -85,6 +86,8 @@ app.get('/v1/reports/status/overall', express.json(), (req, res) => entry(req, r
 app.get('/v1/reports/status/daily', express.json(), (req, res) => entry(req, res, DailyStatus));
 // グループ別の学習状況
 app.post('/v1/reports/status/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupStatus));
+// 科目別テスト問題の一覧
+app.post('/v1/reports/questions/dailytest', express.json(), (req, res) => entry(req, res, DailyTestQuestions));
 
 // 問い合わせ登録
 app.post('/v1/inquiries', express.json(), (req, res) => entry(req, res, InquiryRegist));
