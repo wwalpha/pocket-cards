@@ -1,4 +1,3 @@
-import { Consts } from '@constants';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains } from 'typings';
 import * as StudyActions from './studyActions';
@@ -10,26 +9,25 @@ const studyState: Domains.StudyState = {
   answered: [],
   questions: [],
   index: -1,
-  student: '',
-  subject: '',
+  searchConditions: {},
 };
 
 const slice = createSlice({
-  name: 'user',
+  name: 'study',
   initialState: studyState,
   reducers: {
     // save search conditions
     STUDY_CONDITIONS: (state, { payload }: PayloadAction<{ student: string; subject: string }>) => {
-      state.student = payload.student;
-      state.subject = payload.subject;
+      state.searchConditions.student = payload.student;
+      state.searchConditions.subject = payload.subject;
     },
     STUDY_ONLINE: (state, { payload }: PayloadAction<string>) => {
-      if (payload === state.student) {
+      if (payload === state.searchConditions.student) {
         state.isOnline = true;
       }
     },
     STUDY_OFFLINE: (state, { payload }: PayloadAction<string>) => {
-      if (payload === state.student) {
+      if (payload === state.searchConditions.student) {
         state.isOnline = false;
       }
     },

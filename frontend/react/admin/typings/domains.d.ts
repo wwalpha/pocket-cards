@@ -65,7 +65,19 @@ export namespace Domains {
     answered: string[];
     questions: Tables.TQuestions[];
     index: number;
-    student: string;
-    subject: string;
+    searchConditions: {
+      student?: string;
+      subject?: string;
+      userId?: string;
+    };
+  }
+
+  interface ProgressState {
+    searchConditions: {
+      student?: string;
+      subject?: string;
+      userId?: string;
+    };
+    searchResults: Tables.TQuestions[];
   }
 }
