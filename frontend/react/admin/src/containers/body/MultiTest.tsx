@@ -22,7 +22,7 @@ export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
   const [incorrect, setIncorrect] = React.useState(false);
   const { isLoading, isConnecting, isConnectionEstablished } = useSelector(appState);
-  const { questions, index, student, isOnline, correctCount, incorrectCount } = useSelector(studyState);
+  const { questions, index, searchConditions, isOnline, correctCount, incorrectCount } = useSelector(studyState);
   const { students } = useSelector(userState);
 
   const {
@@ -113,7 +113,7 @@ export default () => {
         <React.Fragment>
           <Box display="flex">
             <Box display="flex" sx={{ mt: 1, px: 2 }}>
-              {student}: <LightbulbIcon sx={{ ml: 2, color: isOnline === true ? 'green' : 'red' }} />
+              {searchConditions.student}: <LightbulbIcon sx={{ ml: 2, color: isOnline === true ? 'green' : 'red' }} />
             </Box>
             <Box display="flex" sx={{ mt: 1, px: 2 }}>
               正解：{correctCount}

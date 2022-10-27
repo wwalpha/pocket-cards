@@ -21,7 +21,9 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import TablePagination from '@mui/material/TablePagination';
 
+const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
+const groupState = (state: RootState) => state.group;
 const progressState = (state: RootState) => state.progress;
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -36,24 +38,33 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default () => {
   const actions = bindActionCreators(ProgressActions, useDispatch());
-  const { isSearching, searchConditions, searchResults } = useSelector(progressState);
-  const { students } = useSelector(userState);
+  const { isLoading } = useSelector(appState);
+  const { searchResults } = useSelector(progressState);
+  const { students, curriculums } = useSelector(userState);
+  const { groups } = useSelector(groupState);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
 
   const {
     control,
+    getValues,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<ProgressSearchForm>({
     defaultValues: {
-      subject: searchConditions.subject || '',
-      student: searchConditions.student || '',
+      subject: '',
+      student: '',
+      curriculum: '',
     },
   });
 
-  const onSubmit = handleSubmit(({ student, subject }) => {
-    actions.search(student, subject);
+  const onSubmit = handleSubmit(({ curriculum }) => {
+    actions.search(curriculum);
+
+    // 再検索の場合、初期値に戻る
+    setPage(0);
+    setRowsPerPage(50);
   });
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -64,6 +75,9 @@ export default () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  // 科目の選択を監視する
+  watch('subject');
 
   return (
     <form onSubmit={onSubmit}>
@@ -100,55 +114,99 @@ export default () => {
             </FormControl>
           )}
         />
+        <Controller
+          name="curriculum"
+          control={control}
+          rules={{ required: 'required' }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+              <InputLabel>カリキュラム *</InputLabel>
+              <Select
+                label="Curriculum *"
+                onChange={onChange}
+                value={value}
+                fullWidth
+                disabled={getValues('subject') === ''}
+              >
+                {curriculums
+                  .filter((item) => item.userId === getValues('student'))
+                  .filter((item) => item.subject === getValues('subject'))
+                  .map((item) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {groups.find((g) => g.id === item.groupId)?.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          )}
+        />
         <LoadingButton
           type="submit"
           sx={{ width: '120px', mx: 2 }}
-          loading={isSearching}
+          loading={isLoading}
           variant="contained"
           color="primary"
         >
           検 索
         </LoadingButton>
       </Box>
-      {searchResults.length !== 0 && (
-        <Paper>
-          <TableContainer component={Paper}>
-            <Table aria-label="customized table" size="small">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
-                  <StyledTableCell>問題</StyledTableCell>
-                  <StyledTableCell>解答回数</StyledTableCell>
-                  <StyledTableCell>前回学習日</StyledTableCell>
-                  <StyledTableCell>次回学習日</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {searchResults.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, idx) => (
-                  <TableRow hover key={idx}>
-                    <TableCell>{idx + 1}</TableCell>
-                    <TableCell>{item.qid}</TableCell>
-                    <TableCell>{item.times}</TableCell>
-                    <TableCell>{item.lastTime}</TableCell>
-                    <TableCell>{item.nextTime}</TableCell>
+      {(() => {
+        if (searchResults.length === 0) {
+          return;
+        }
+
+        return (
+          <Paper sx={{ px: 2 }}>
+            <TableContainer component={Paper} sx={{ maxHeight: 'calc(100vh - 216px)' }}>
+              <Table aria-label="customized table" size="small">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
+                    <StyledTableCell sx={{ width: 64 }}>解答回数</StyledTableCell>
+                    <StyledTableCell>問題</StyledTableCell>
+                    <StyledTableCell sx={{ width: 128 }}>前回学習日</StyledTableCell>
+                    <StyledTableCell sx={{ width: 128 }}>次回学習日</StyledTableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {searchResults.length > 0 && (
-            <TablePagination
-              rowsPerPageOptions={[25, 50, 100]}
-              component="div"
-              count={searchResults.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          )}
-        </Paper>
-      )}
+                </TableHead>
+                <TableBody>
+                  {searchResults.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, idx) => (
+                    <TableRow hover key={idx}>
+                      <TableCell>{idx + 1}</TableCell>
+                      <TableCell>{item.times}</TableCell>
+                      <TableCell>
+                        <Box
+                          sx={{ width: '560px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                        >
+                          {item.question}
+                        </Box>
+                      </TableCell>
+                      <TableCell>{`${item.lastTime?.substring(0, 4)}/${item.lastTime?.substring(
+                        4,
+                        6
+                      )}/${item.lastTime?.substring(6, 8)}`}</TableCell>
+                      <TableCell>{`${item.nextTime.substring(0, 4)}/${item.nextTime.substring(
+                        4,
+                        6
+                      )}/${item.nextTime.substring(6, 8)}`}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {searchResults.length > 0 && (
+              <TablePagination
+                rowsPerPageOptions={[25, 50, 100]}
+                component="div"
+                count={searchResults.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            )}
+          </Paper>
+        );
+      })()}
     </form>
   );
 };

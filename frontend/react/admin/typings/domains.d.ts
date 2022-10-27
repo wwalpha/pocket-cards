@@ -74,11 +74,10 @@ export namespace Domains {
   }
 
   interface ProgressState {
-    isSearching: boolean;
     searchConditions: {
       student?: string;
       subject?: string;
     };
-    searchResults: Tables.TLearning[];
+    searchResults: APIs.CurriculumStatusResponseItem[];
   }
 }
