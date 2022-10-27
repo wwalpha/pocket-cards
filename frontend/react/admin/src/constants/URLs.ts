@@ -70,3 +70,8 @@ export const WEBSOCKET_URL = async () => {
 export const INQUIRY_LIST = () => `${API_VERSION}/inquiries`;
 
 export const INQUIRY_REMOVE = (qid: string) => `${API_VERSION}/inquiries/${qid}`;
+
+// 日次テスト問題一覧
+export const REPORTS_DAILY_TEST = () => `${API_VERSION}/reports/questions/dailytest`;
+
+export const LEARNING_GET = () => ``;
