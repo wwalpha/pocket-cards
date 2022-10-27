@@ -137,6 +137,7 @@ const buildAuthPolicy = (
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/curriculums/*');
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/users/*');
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/study/*');
+      policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/reports/*');
       break;
     case 'STUDENT':
       policy.allowAllMethods();
