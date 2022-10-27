@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { Domains } from 'typings';
 import * as ProgressActions from './progressActions';
 
@@ -12,11 +12,9 @@ const slice = createSlice({
   initialState: progressState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(ProgressActions.PROGRESS_SEARCH.fulfilled, (state, { payload }) => {})
-      .addCase(ProgressActions.PROGRESS_GET_STATUS.fulfilled, (state, { payload }) => {
-        state.searchResults = payload;
-      });
+    builder.addCase(ProgressActions.PROGRESS_SEARCH.fulfilled, (state, { payload }) => {
+      state.searchResults = payload;
+    });
   },
 });
 

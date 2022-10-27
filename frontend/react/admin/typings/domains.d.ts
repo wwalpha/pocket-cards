@@ -78,6 +78,6 @@ export namespace Domains {
       student?: string;
       subject?: string;
     };
-    searchResults: Tables.TLearning[];
+    searchResults: APIs.CurriculumStatusResponseItem[];
   }
 }
