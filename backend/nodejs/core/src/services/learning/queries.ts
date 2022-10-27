@@ -217,6 +217,43 @@ export const past = (
   return query;
 };
 
+// 基準日以前全て未テスト問題一覧
+export const untested = (userId: string, nextTime: string, subject?: string): DynamoDB.DocumentClient.QueryInput => {
+  const query: DynamoDB.DocumentClient.QueryInput = {
+    TableName: Environment.TABLE_NAME_LEARNING,
+    ProjectionExpression: 'qid, groupId, subject, times',
+    KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
+    FilterExpression: '#lastTime <> :lastTime',
+    ExpressionAttributeNames: {
+      '#userId': 'userId',
+      '#nextTime': 'nextTime',
+      '#lastTime': 'lastTime',
+    },
+    ExpressionAttributeValues: {
+      ':userId': userId,
+      ':nextTime': nextTime,
+      ':lastTime': Consts.INITIAL_DATE,
+    },
+    IndexName: 'gsiIdx1',
+    ScanIndexForward: false,
+  };
+
+  // if exists
+  if (subject) {
+    query.FilterExpression = '#subject = :subject';
+    query.ExpressionAttributeNames = {
+      ...query.ExpressionAttributeNames,
+      '#subject': 'subject',
+    };
+    query.ExpressionAttributeValues = {
+      ...query.ExpressionAttributeValues,
+      ':subject': subject,
+    };
+  }
+
+  return query;
+};
+
 export const current = (userId: string, lastTime: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid, subject, times',

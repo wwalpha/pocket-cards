@@ -111,6 +111,13 @@ export const dailyPastTasks = async (
   return results.Items;
 };
 
+/** 基準日以前全て未テスト問題一覧 */
+export const untested = async (userId: string, nextTime: string, subject?: string) => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.untested(userId, nextTime, subject));
+
+  return results.Items;
+};
+
 /** 学習日は今日より前の全ての問題 */
 export const dailyPastsWithoutToday = async (
   userId: string,

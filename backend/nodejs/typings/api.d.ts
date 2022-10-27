@@ -531,10 +531,6 @@ export namespace APIs {
       archive: number;
       target: number;
     };
-    maths: {
-      archive: number;
-      target: number;
-    };
   }
 
   // ------------------------------------------------------------
