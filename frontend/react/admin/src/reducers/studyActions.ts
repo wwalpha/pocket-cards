@@ -28,7 +28,7 @@ export const STUDY_QUESTIONS_CONTINUE = createAsyncThunk<Tables.TQuestions[], { 
 export const STUDY_SHOW_QUESTION = createAsyncThunk<string | undefined, string>(
   'study/STUDY_SHOW_QUESTION',
   async (command, { getState, dispatch }) => {
-    const { questions, index, student, subject } = (getState() as RootState).study;
+    const { questions, index, searchConditions } = (getState() as RootState).study;
     const nextIndex = index + 1 === questions.length ? 0 : index + 1;
     const question = questions[nextIndex];
 
@@ -36,8 +36,8 @@ export const STUDY_SHOW_QUESTION = createAsyncThunk<string | undefined, string>(
     if (questions.length <= 3) {
       dispatch(
         STUDY_QUESTIONS_CONTINUE({
-          subject,
-          userId: student,
+          subject: searchConditions.subject || '',
+          userId: searchConditions.student || '',
         })
       );
     }
