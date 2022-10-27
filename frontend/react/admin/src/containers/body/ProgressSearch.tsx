@@ -7,164 +7,147 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import Paper from '@mui/material/Paper';
 import LoadingButton from '@mui/lab/LoadingButton';
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
-import { StudyActions } from '@actions';
+import { ProgressActions } from '@actions';
 import { Consts } from '@constants';
-import { MultiTestForm, RootState } from 'typings';
+import { ProgressSearchForm, RootState } from 'typings';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
+import TablePagination from '@mui/material/TablePagination';
 
-const studyState = (state: RootState) => state.study;
 const userState = (state: RootState) => state.user;
-const appState = (state: RootState) => state.app;
+const progressState = (state: RootState) => state.progress;
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
 export default () => {
-  const actions = bindActionCreators(StudyActions, useDispatch());
-  const [incorrect, setIncorrect] = React.useState(false);
-  const { isLoading, isConnecting, isConnectionEstablished } = useSelector(appState);
-  const { questions, index, student, isOnline, correctCount, incorrectCount } = useSelector(studyState);
+  const actions = bindActionCreators(ProgressActions, useDispatch());
+  const { isSearching, searchConditions, searchResults } = useSelector(progressState);
   const { students } = useSelector(userState);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(50);
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<MultiTestForm>({
+  } = useForm<ProgressSearchForm>({
     defaultValues: {
-      subject: '',
-      userId: '',
+      subject: searchConditions.subject || '',
+      student: searchConditions.student || '',
     },
   });
 
-  const onSubmit = handleSubmit(async ({ userId, subject }) => {
-    actions.dailyTest(userId, subject);
+  const onSubmit = handleSubmit(({ student, subject }) => {
+    actions.search(student, subject);
   });
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
     <form onSubmit={onSubmit}>
-      {!isConnectionEstablished && (
-        <Box display="flex" sx={{ py: 2 }}>
-          <Controller
-            name="userId"
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { onChange, value } }) => (
-              <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
-                <InputLabel>学生 *</InputLabel>
-                <Select label="Student *" value={value} onChange={onChange} disabled={students.length === 0}>
-                  {students.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.username}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            )}
-          />
-          <Controller
-            name="subject"
-            control={control}
-            rules={{ required: 'required' }}
-            render={({ field: { onChange, value } }) => (
-              <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
-                <InputLabel>科目 *</InputLabel>
-                <Select label="Subject *" onChange={onChange} value={value} fullWidth>
-                  <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
-                  <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
-                </Select>
-              </FormControl>
-            )}
-          />
-          <LoadingButton
-            type="submit"
-            sx={{ width: '120px', mx: 2 }}
-            loading={isLoading || isConnecting}
-            variant="contained"
-            color="primary"
-          >
-            接続
-          </LoadingButton>
-        </Box>
-      )}
-      {isConnectionEstablished && questions.length === 0 && (
-        <Box display="flex" justifyContent="center">
-          データありません
-        </Box>
-      )}
-      {isConnectionEstablished && questions.length !== 0 && (
-        <React.Fragment>
-          <Box display="flex">
-            <Box display="flex" sx={{ mt: 1, px: 2 }}>
-              {student}: <LightbulbIcon sx={{ ml: 2, color: isOnline === true ? 'green' : 'red' }} />
-            </Box>
-            <Box display="flex" sx={{ mt: 1, px: 2 }}>
-              正解：{correctCount}
-            </Box>
-            <Box display="flex" sx={{ mt: 1, px: 2 }}>
-              不正解：{incorrectCount}
-            </Box>
-          </Box>
-          <Box display="flex" flexDirection="column" sx={{ my: 1, mx: 2 }}>
-            <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-              {questions[index].title.replace(/\[.*\]/g, '')}
-              {(() => {
-                const title = questions[index].title;
-                // 画像がない
-                if (!title.match(/\[.*\]/g)) return;
-
-                const startIdx = title.indexOf('[');
-                const endIdx = title.indexOf(']', startIdx);
-                const url = title.substring(startIdx + 1, endIdx);
-
-                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
-              })()}
-            </Paper>
-            <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-              {questions[index].answer.replace(/\[.*\]/g, '')}
-              {(() => {
-                const answer = questions[index].answer;
-                // 画像がない
-                if (!answer.match(/\[.*\]/g)) return;
-
-                const startIdx = answer.indexOf('[');
-                const endIdx = answer.indexOf(']', startIdx);
-                const url = answer.substring(startIdx + 1, endIdx);
-
-                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
-              })()}
-            </Paper>
-
-            <Box display="flex" justifyContent="flex-end" sx={{ py: 2 }}>
-              <LoadingButton
-                sx={{ width: '120px', mx: 2 }}
-                loading={isLoading}
-                variant="contained"
-                color="primary"
-                disabled={!isOnline}
-              >
-                次へ
-              </LoadingButton>
-              <LoadingButton
-                sx={{ width: '120px', mx: 2 }}
-                loading={isLoading}
-                variant="contained"
-                color="primary"
-                disabled={!isOnline}
-              >
-                不正解
-              </LoadingButton>
-              <LoadingButton
-                sx={{ width: '120px', mx: 2 }}
-                loading={isLoading}
-                variant="contained"
-                color="secondary"
-                disabled={incorrect || !isOnline}
-              >
-                正解
-              </LoadingButton>
-            </Box>
-          </Box>
-        </React.Fragment>
+      <Box display="flex" sx={{ py: 2 }}>
+        <Controller
+          name="student"
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+              <InputLabel>学生 *</InputLabel>
+              <Select label="Student *" value={value} onChange={onChange} disabled={students.length === 0}>
+                {students.map((item) => (
+                  <MenuItem key={item.id} value={item.id}>
+                    {item.username}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+        />
+        <Controller
+          name="subject"
+          control={control}
+          rules={{ required: 'required' }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+              <InputLabel>科目 *</InputLabel>
+              <Select label="Subject *" onChange={onChange} value={value} fullWidth>
+                <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
+                <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
+                <MenuItem value={Consts.SUBJECT.JAPANESE}>国 語</MenuItem>
+              </Select>
+            </FormControl>
+          )}
+        />
+        <LoadingButton
+          type="submit"
+          sx={{ width: '120px', mx: 2 }}
+          loading={isSearching}
+          variant="contained"
+          color="primary"
+        >
+          検 索
+        </LoadingButton>
+      </Box>
+      {searchResults.length !== 0 && (
+        <Paper>
+          <TableContainer component={Paper}>
+            <Table aria-label="customized table" size="small">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
+                  <StyledTableCell>問題</StyledTableCell>
+                  <StyledTableCell>解答回数</StyledTableCell>
+                  <StyledTableCell>前回学習日</StyledTableCell>
+                  <StyledTableCell>次回学習日</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {searchResults.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, idx) => (
+                  <TableRow hover key={idx}>
+                    <TableCell>{idx + 1}</TableCell>
+                    <TableCell>{item.qid}</TableCell>
+                    <TableCell>{item.times}</TableCell>
+                    <TableCell>{item.lastTime}</TableCell>
+                    <TableCell>{item.nextTime}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {searchResults.length > 0 && (
+            <TablePagination
+              rowsPerPageOptions={[25, 50, 100]}
+              component="div"
+              count={searchResults.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          )}
+        </Paper>
       )}
     </form>
   );

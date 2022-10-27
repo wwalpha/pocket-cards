@@ -86,8 +86,8 @@ export default () => {
 
   const color = (() => {
     switch (subject) {
-      case Consts.SUBJECT.LANGUAGE:
-        return Consts.COLORS.LANGUAGE;
+      case Consts.SUBJECT.JAPANESE:
+        return Consts.COLORS.JAPANESE;
       case Consts.SUBJECT.SOCIETY:
         return Consts.COLORS.SOCIETY;
       case Consts.SUBJECT.SCIENCE:
@@ -107,7 +107,7 @@ export default () => {
           <Select labelId="subject-label" onChange={handleOnSubject} value={subject} label="Subject">
             <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
             <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
-            <MenuItem value={Consts.SUBJECT.LANGUAGE}>国 語</MenuItem>
+            <MenuItem value={Consts.SUBJECT.JAPANESE}>国 語</MenuItem>
             <MenuItem value={Consts.SUBJECT.ENGLISH}>英 語</MenuItem>
             <MenuItem value={Consts.SUBJECT.MATHS}>算 数</MenuItem>
             <MenuItem value={Consts.SUBJECT.HANDWRITING}>漢 字</MenuItem>
