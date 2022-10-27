@@ -35,7 +35,8 @@ describe('Curriculums', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
-    expect(res.body).toMatchObject(REPORTS.CURRICULUM_STATUS001_EXPECTS);
+    console.log(JSON.stringify(res.body));
+    expect(res.body).toEqual(REPORTS.CURRICULUM_STATUS001_EXPECTS);
   });
 
   test('CurriculumStatus002: カリキュラムが存在しない', async () => {
