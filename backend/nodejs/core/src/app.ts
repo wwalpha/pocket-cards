@@ -22,7 +22,7 @@ import {
   LearningProgress,
   LearningOverall,
   OverallStatus,
-  GroupStatus,
+  CurriculumStatus,
 } from '@src/apis/reports';
 import {
   CurriculumRegist,
@@ -84,8 +84,8 @@ app.get('/v1/reports/overall', express.json(), (req, res) => entry(req, res, Lea
 app.get('/v1/reports/status/overall', express.json(), (req, res) => entry(req, res, OverallStatus));
 // 日次学習進捗
 app.get('/v1/reports/status/daily', express.json(), (req, res) => entry(req, res, DailyStatus));
-// グループ別の学習状況
-app.post('/v1/reports/status/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupStatus));
+// カリキュラム別の学習状況
+app.get('/v1/reports/curriculums/:curriculumId', express.json(), (req, res) => entry(req, res, CurriculumStatus));
 // 科目別テスト問題の一覧
 app.post('/v1/reports/questions/dailytest', express.json(), (req, res) => entry(req, res, DailyTestQuestions));
 
