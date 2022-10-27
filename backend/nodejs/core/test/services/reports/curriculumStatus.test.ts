@@ -35,7 +35,6 @@ describe('Curriculums', () => {
     // status code
     expect(res.statusCode).toBe(200);
 
-    console.log(JSON.stringify(res.body));
     expect(res.body).toEqual(REPORTS.CURRICULUM_STATUS001_EXPECTS);
   });
 
