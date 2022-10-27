@@ -27,16 +27,11 @@ describe('Curriculums', () => {
     ]);
   });
 
-  test('GroupStatus001: 学習進捗取得', async () => {
-    const groupId = 'sGd6gX36nvnMaSCDTiYZ2Z';
-    const apiPath = `/v1/reports/status/groups/${groupId}`;
+  test('CurriculumStatus001: 学習進捗取得', async () => {
+    const curriculumId = 'f55JhAg711uNpW8DFT54fh';
+    const apiPath = `/v1/reports/curriculums/${curriculumId}`;
 
-    const res = await request(server)
-      .post(apiPath)
-      .set('username', HEADER_GUARDIAN)
-      .send({
-        userId: 'Google_109439805128280065775',
-      } as APIs.GroupStatusRequest);
+    const res = await request(server).get(apiPath).set('username', HEADER_GUARDIAN);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -53,7 +48,7 @@ describe('Curriculums', () => {
       .set('username', HEADER_USER)
       .send({
         userId: 'DUMMY',
-      } as APIs.GroupStatusRequest);
+      } as APIs.CurriculumStatusRequest);
 
     // status code
     expect(res.statusCode).toBe(400);
