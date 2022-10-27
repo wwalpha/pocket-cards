@@ -3,6 +3,7 @@ import { Domains } from 'typings';
 import * as ProgressActions from './progressActions';
 
 const progressState: Domains.ProgressState = {
+  isSearching: false,
   searchConditions: {},
   searchResults: [],
 };
@@ -18,15 +19,15 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(ProgressActions.PROGRESS_SEARCH.fulfilled, (state, { payload }) => {
-      state.searchResults = payload.map((item) => ({
-        id: item,
-        groupId: '',
-        subject: '',
-        answer: '',
-        title: '',
-      }));
-    });
+    builder
+      .addCase(ProgressActions.PROGRESS_SEARCH.fulfilled, (state, { payload }) => {
+        // 検索開始
+        state.isSearching = true;
+      })
+      .addCase(ProgressActions.PROGRESS_GET_STATUS.fulfilled, (state, { payload }) => {
+        state.isSearching = false;
+        state.searchResults = payload;
+      });
   },
 });
 

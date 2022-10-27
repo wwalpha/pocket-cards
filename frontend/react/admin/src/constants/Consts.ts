@@ -11,7 +11,7 @@ export const Authority = {
 
 export const SUBJECT = {
   ENGLISH: '0',
-  LANGUAGE: '1',
+  JAPANESE: '1',
   SCIENCE: '2',
   SOCIETY: '3',
   MATHS: '4',
@@ -32,7 +32,7 @@ export enum EDIT_MODE {
 }
 
 export const COLORS = {
-  LANGUAGE: '#b71927',
+  JAPANESE: '#b71927',
   SCIENCE: '#f19116',
   SOCIETY: '#288f46',
   ENGLISH: '#b71927',

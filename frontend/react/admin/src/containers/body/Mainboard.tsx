@@ -29,7 +29,7 @@ export default () => {
   const grpActions = bindActionCreators(GroupActions, useDispatch());
   const usrActions = bindActionCreators(UserActions, useDispatch());
 
-  const { subject = Consts.SUBJECT.LANGUAGE } = useParams<GroupParams>();
+  const { subject = Consts.SUBJECT.JAPANESE } = useParams<GroupParams>();
   const { groups } = useSelector(groupState);
   const { isLoading, authority } = useSelector(appState);
   const { curriculums, activeStudent } = useSelector(userState);
@@ -95,7 +95,8 @@ export default () => {
                       sx={{ p: 0.5 }}
                       onClick={() => {
                         handleQuestions(dataRow.id);
-                      }}>
+                      }}
+                    >
                       <PageviewIcon sx={{ fontSize: 32 }} />
                     </LoadingIconButton>
                     {(() => {
@@ -119,7 +120,8 @@ export default () => {
                             setGroupId(dataRow.id);
                             setCurriculumId(item?.id);
                             setOpen(true);
-                          }}>
+                          }}
+                        >
                           {icon}
                         </LoadingIconButton>
                       );
@@ -133,7 +135,8 @@ export default () => {
                         }}
                         component={React.forwardRef((props: any, ref: any) => (
                           <Link to={ROUTE_PATHS.GROUP_EDIT(subject, dataRow.id)} {...props} />
-                        ))}>
+                        ))}
+                      >
                         <EditIcon sx={{ fontSize: 32 }} />
                       </LoadingIconButton>
                     )}
