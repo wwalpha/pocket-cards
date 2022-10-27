@@ -59,8 +59,8 @@ export default () => {
     },
   });
 
-  const onSubmit = handleSubmit(({ student, subject, curriculum }) => {
-    actions.search(student, subject, curriculum);
+  const onSubmit = handleSubmit(({ curriculum }) => {
+    actions.search(curriculum);
 
     // 再検索の場合、初期値に戻る
     setPage(0);
@@ -132,7 +132,7 @@ export default () => {
                   .filter((item) => item.userId === getValues('student'))
                   .filter((item) => item.subject === getValues('subject'))
                   .map((item) => (
-                    <MenuItem key={item.id} value={item.groupId}>
+                    <MenuItem key={item.id} value={item.id}>
                       {groups.find((g) => g.id === item.groupId)?.name}
                     </MenuItem>
                   ))}
@@ -162,20 +162,32 @@ export default () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
-                    <StyledTableCell>問題</StyledTableCell>
                     <StyledTableCell sx={{ width: 64 }}>解答回数</StyledTableCell>
-                    <StyledTableCell>前回学習日</StyledTableCell>
-                    <StyledTableCell>次回学習日</StyledTableCell>
+                    <StyledTableCell>問題</StyledTableCell>
+                    <StyledTableCell sx={{ width: 128 }}>前回学習日</StyledTableCell>
+                    <StyledTableCell sx={{ width: 128 }}>次回学習日</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {searchResults.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, idx) => (
                     <TableRow hover key={idx}>
                       <TableCell>{idx + 1}</TableCell>
-                      <TableCell>{item.qid}</TableCell>
                       <TableCell>{item.times}</TableCell>
-                      <TableCell>{item.lastTime}</TableCell>
-                      <TableCell>{item.nextTime}</TableCell>
+                      <TableCell>
+                        <Box
+                          sx={{ width: '560px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                        >
+                          {item.question}
+                        </Box>
+                      </TableCell>
+                      <TableCell>{`${item.lastTime?.substring(0, 4)}/${item.lastTime?.substring(
+                        4,
+                        6
+                      )}/${item.lastTime?.substring(6, 8)}`}</TableCell>
+                      <TableCell>{`${item.nextTime.substring(0, 4)}/${item.nextTime.substring(
+                        4,
+                        6
+                      )}/${item.nextTime.substring(6, 8)}`}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
