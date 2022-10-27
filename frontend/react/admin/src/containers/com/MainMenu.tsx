@@ -18,6 +18,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import DirtyLensIcon from '@mui/icons-material/DirtyLens';
 import TrafficIcon from '@mui/icons-material/Traffic';
+import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import { AppActions, UserActions } from '@actions';
 import { Consts, ROUTE_PATHS } from '@constants';
 import { styles } from './MainMenu.style';
@@ -40,10 +41,6 @@ export default () => {
   const handleSettings = () => {
     dispatch(push(ROUTE_PATHS.SETTINGS));
   };
-  // history click handler
-  // const handleHistory = () => {
-  //   dispatch(push(ROUTE_PATHS.HISTORY));
-  // };
 
   const handleDispatch = (path: string) => {
     dispatch(push(path));
@@ -75,11 +72,11 @@ export default () => {
           button
           key="Japanese"
           onClick={() => {
-            handleClick(Consts.SUBJECT.LANGUAGE);
+            handleClick(Consts.SUBJECT.JAPANESE);
           }}
         >
           <ListItemIcon sx={styles.itemIcon}>
-            <BookIcon sx={{ color: Consts.COLORS.LANGUAGE }} />
+            <BookIcon sx={{ color: Consts.COLORS.JAPANESE }} />
           </ListItemIcon>
           <ListItemText primary="国 語" />
         </ListItem>
@@ -194,13 +191,19 @@ export default () => {
               <ListItemText primary="週テスト対策" />
             </ListItem>
             <Divider />
-            {/* <ListItem button key="history" onClick={handleHistory}>
+            <ListItem
+              button
+              key="progress"
+              onClick={() => {
+                handleDispatch(ROUTE_PATHS.PROGRESS);
+              }}
+            >
               <ListItemIcon sx={styles.itemIcon}>
-                <LocalFireDepartmentIcon sx={{ color: 'secondary.main' }} />
+                <RecentActorsIcon sx={{ color: 'secondary.main' }} />
               </ListItemIcon>
-              <ListItemText primary="学習履歴" />
+              <ListItemText primary="学習進捗" />
             </ListItem>
-            <Divider /> */}
+            <Divider />
             <ListItem button key="Students" onClick={handleStudents}>
               <ListItemIcon sx={styles.itemIcon}>
                 <PersonIcon sx={{ color: 'secondary.main' }} />

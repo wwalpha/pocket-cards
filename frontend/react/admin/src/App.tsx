@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import { ROUTE_PATHS } from '@constants';
 import { WeeklyRegist } from '@containers/ability';
-import { Students, Settings, GroupRouter, CurriculumOrder, MultiTest, Inquiry } from '@containers/body';
+import { Students, Settings, GroupRouter, CurriculumOrder, MultiTest, Inquiry, ProgressSearch } from '@containers/body';
 import { Header } from '@containers/com';
 import { MainMenu } from '@containers/com';
 
@@ -47,10 +47,10 @@ export default () => {
             <Header />
             <Inquiry />
           </Route>
-          {/* <Route path={ROUTE_PATHS.HISTORY}>
+          <Route path={ROUTE_PATHS.PROGRESS}>
             <Header />
-            <History />
-          </Route> */}
+            <ProgressSearch />
+          </Route>
         </Switch>
       </Box>
     </Box>
