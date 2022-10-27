@@ -74,7 +74,6 @@ export namespace Domains {
   }
 
   interface ProgressState {
-    isSearching: boolean;
     searchConditions: {
       student?: string;
       subject?: string;

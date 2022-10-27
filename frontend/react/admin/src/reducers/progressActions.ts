@@ -4,7 +4,7 @@ import { API } from '@utils';
 import { APIs, Tables } from 'typings';
 
 // 進捗検索
-export const PROGRESS_SEARCH = createAsyncThunk<string[], { student: string; subject: string }>(
+export const PROGRESS_SEARCH = createAsyncThunk<string[], { student: string; subject: string; curriculum: string }>(
   'progress/PROGRESS_SEARCH',
   async ({ subject, student }, { dispatch }) => {
     const res = await API.post<APIs.DailyTestQuestionsResponse, APIs.DailyTestQuestionsRequest>(
