@@ -38,6 +38,8 @@ export const CURRICULUM_REGIST = () => `${API_VERSION}/curriculums`;
 export const CURRICULUM_REMOVE = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}`;
 // カリキュラムの並べ順の更新
 export const CURRICULUM_ORDER = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}/order`;
+// カリキュラムの学習進捗
+export const CURRICULUM_PROGRESS = (curriculumId: string) => `${API_VERSION}/reports/curriculums/${curriculumId}`;
 
 // カリキュラムの並べ順の更新
 export const DAILY_TEST = (subject: string, userId: string) =>
@@ -73,5 +75,3 @@ export const INQUIRY_REMOVE = (qid: string) => `${API_VERSION}/inquiries/${qid}`
 
 // 日次テスト問題一覧
 export const REPORTS_DAILY_TEST = () => `${API_VERSION}/reports/questions/dailytest`;
-
-export const LEARNING_GET = (qid: string, uid: string) => `${API_VERSION}/study/learning/${qid}?uid=${uid}`;
