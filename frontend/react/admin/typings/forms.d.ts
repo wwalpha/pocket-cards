@@ -85,3 +85,8 @@ export interface MultiTestForm {
   userId: string;
   subject: string;
 }
+
+export interface ProgressSearchForm {
+  student: string;
+  subject: string;
+}

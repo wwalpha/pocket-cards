@@ -7,6 +7,7 @@ export namespace Domains {
     group: GroupState;
     user: UserState;
     study: StudyState;
+    progress: ProgressState;
   }
 
   interface AppState {
@@ -73,11 +74,11 @@ export namespace Domains {
   }
 
   interface ProgressState {
+    isSearching: boolean;
     searchConditions: {
       student?: string;
       subject?: string;
-      userId?: string;
     };
-    searchResults: Tables.TQuestions[];
+    searchResults: Tables.TLearning[];
   }
 }

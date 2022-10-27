@@ -74,4 +74,4 @@ export const INQUIRY_REMOVE = (qid: string) => `${API_VERSION}/inquiries/${qid}`
 // 日次テスト問題一覧
 export const REPORTS_DAILY_TEST = () => `${API_VERSION}/reports/questions/dailytest`;
 
-export const LEARNING_GET = () => ``;
+export const LEARNING_GET = (qid: string, uid: string) => `${API_VERSION}/study/learning/${qid}?uid=${uid}`;

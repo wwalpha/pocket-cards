@@ -58,7 +58,6 @@ const socket: Middleware = (store) => {
 
   return (next) => async (action) => {
     const state = store.getState() as RootState;
-    console.log(action);
 
     if (Actions.APP_CONNECT.type.match(action.type)) {
       const url = await URLs.WEBSOCKET_URL();
