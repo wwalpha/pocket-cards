@@ -36,6 +36,12 @@ locals {
   # API Gateway
   # ----------------------------------------------------------------------------------------------
   api_domain_name = aws_acm_certificate.api.domain_name
+  api_stage_name  = "v1"
+  api_allow_origins = [
+    "https://www.${local.remote_setup.route53_zone_name}",
+    "https://admin.${local.remote_setup.route53_zone_name}"
+  ]
+  api_allow_origins_dev = concat(local.api_allow_origins, ["http://localhost:3000"])
 
   # -----------------------------------------------
   # CloudFront
