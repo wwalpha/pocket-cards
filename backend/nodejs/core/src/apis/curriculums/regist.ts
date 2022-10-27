@@ -53,7 +53,7 @@ export default async (
     guardian: guardian,
     userId: userId,
     groupId: groupId,
-    order: 9999,
+    order: 0,
     unlearned: dataRows.length,
   };
 
