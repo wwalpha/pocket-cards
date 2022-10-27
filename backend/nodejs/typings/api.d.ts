@@ -731,19 +731,21 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
-  // Learning - Status
+  // Curriculum's learning status
   // ------------------------------------------------------------
-  interface GroupStatusRequest {
-    userId: string;
+  interface CurriculumStatusRequest {}
+
+  interface CurriculumStatusParams {
+    curriculumId: string;
   }
 
-  interface GroupStatusParams {
-    groupId: string;
-  }
+  type CurriculumStatusResponseItem = Tables.TLearning & {
+    question?: string;
+  };
 
-  interface GroupStatusResponse {
+  interface CurriculumStatusResponse {
     count: number;
-    items: Tables.TLearning[];
+    items: CurriculumStatusResponseItem[];
   }
 
   // ------------------------------------------------------------
