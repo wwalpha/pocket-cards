@@ -1,7 +1,7 @@
 require('dotenv').config({ path: '.env.test' });
 
 import { DynamodbHelper } from '@alphax/dynamodb';
-import AWS from 'aws-sdk';
+import AWS, { S3 } from 'aws-sdk';
 
 AWS.config.update({
   region: process.env['AWS_REGION'],
@@ -24,9 +24,11 @@ const setup = async () => {
   console.log('jest setup start...');
 
   const helper = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
+  const s3Client = new S3();
   const dbClient = helper.getClient();
 
   await Promise.all([
+    s3Client.createBucket({ Bucket: process.env['BUCKET_NAME_MATERAILS'] as string }).promise(),
     dbClient
       .createTable({
         TableName: TABLE_NAME_USERS,

@@ -11,19 +11,16 @@ export default async () => {
   // only student
   const students = await getStudents();
 
-  console.log(JSON.stringify(students));
-
-  const tasks = students.map(async (item) => {
+  const tasks = students.map(async (stu) => {
     // daily tests
-    const daily = await getUserDaily(item, current);
-
-    console.log(JSON.stringify(daily));
+    const daily = await getUserDaily(stu, current);
 
     const tests = daily
       .filter((item) => item.times !== 0)
       .map((item) => {
         // add test flag
         item.subject_status = `${item.subject}_TEST`;
+        item.userId = stu.id;
 
         return item;
       });
@@ -32,20 +29,18 @@ export default async () => {
     await DBHelper().bulk(Environments.TABLE_NAME_LEARNING, tests);
 
     // daily tests
-    const previous = await getUserDaily(item, yesterday);
-
-    console.log(JSON.stringify(previous));
+    const previous = await getUserDaily(stu, yesterday);
 
     const studies = previous
       .filter((item) => item.times === 0)
       .map((item) => {
         // add test flag
         item.subject_status = undefined;
+        item.userId = stu.id;
 
         return item;
       });
 
-    // update database
     await DBHelper().bulk(Environments.TABLE_NAME_LEARNING, studies);
   });
 

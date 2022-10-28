@@ -10,7 +10,7 @@ export default () => {
   helper = new DynamodbHelper({
     options: {
       region: process.env.AWS_DEFAULT_REGION,
-      endpoint: process.env.AWS_ENDPOINT,
+      endpoint: process.env['AWS_ENDPOINT_DYNAMODB'],
       sslEnabled: false,
     },
   });
