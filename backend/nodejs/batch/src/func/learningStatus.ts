@@ -1,34 +1,59 @@
+import moment from 'moment';
 import { Learning } from '@queries';
 import { Consts, DateUtils, DBHelper, Environments } from '@utils';
 import { Tables } from 'typings';
 
 export default async () => {
   // now
-  const date = DateUtils.getNow();
+  const current = DateUtils.getNow();
+  const yesterday = moment().add(-1, 'days').format('YYYYMMDD');
+
   // only student
   const students = await getStudents();
 
+  console.log(JSON.stringify(students));
+
   const tasks = students.map(async (item) => {
     // daily tests
-    const tests = await getDailyTests(item, date);
+    const daily = await getUserDaily(item, current);
 
-    const tasks = tests.map((item) =>
-      DBHelper().put(
-        Learning.put({
-          ...item,
-          subject_status: `${item.subject}_TEST`,
-        })
-      )
-    );
+    console.log(JSON.stringify(daily));
 
-    await Promise.all(tasks);
+    const tests = daily
+      .filter((item) => item.times !== 0)
+      .map((item) => {
+        // add test flag
+        item.subject_status = `${item.subject}_TEST`;
+
+        return item;
+      });
+
+    // update database
+    await DBHelper().bulk(Environments.TABLE_NAME_LEARNING, tests);
+
+    // daily tests
+    const previous = await getUserDaily(item, yesterday);
+
+    console.log(JSON.stringify(previous));
+
+    const studies = previous
+      .filter((item) => item.times === 0)
+      .map((item) => {
+        // add test flag
+        item.subject_status = undefined;
+
+        return item;
+      });
+
+    // update database
+    await DBHelper().bulk(Environments.TABLE_NAME_LEARNING, studies);
   });
 
   // execute all
   await Promise.all(tasks);
 };
 
-const getDailyTests = async (item: Tables.TUsers, date: string): Promise<Tables.TLearning[]> => {
+const getUserDaily = async (item: Tables.TUsers, date: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Learning.query.byUserDaily(item.id, date));
 
   return results.Items;
