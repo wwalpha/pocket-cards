@@ -7,12 +7,10 @@ export default async (): Promise<void> => {
     TableName: Environment.TABLE_NAME_LEARNING,
   });
 
-  const learnings = results.Items.filter((item) => item.userId === 'Google_109439805128280065775')
-    .filter((item) => item.times === 8)
-    .filter((item) => item.nextTime === '99991231');
+  const learnings = results.Items.filter((item) => item.times > 0).filter((item) => item.nextTime <= '20221028');
 
   const bulks = learnings.map((item) => {
-    item.nextTime = '20221222';
+    item.subject_status = `${item.subject}_TEST`;
     return item;
   });
 
