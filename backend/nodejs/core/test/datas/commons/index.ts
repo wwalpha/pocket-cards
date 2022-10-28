@@ -90,6 +90,8 @@ export const DB_LEARNING = (() => {
     userId: item['userId'] ?? '',
     subject: item['subject'],
     times: item['times'] ? Number(item['times']) : 0,
+    subject_status: item['subject_status'] !== '' ? item['subject_status'] : undefined,
+    subject_weekly: item['subject_weekly'] !== '' ? item['subject_weekly'] : undefined,
   }));
 
   return db_learning;

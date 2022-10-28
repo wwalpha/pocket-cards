@@ -126,7 +126,7 @@ describe('Groups', () => {
 
     // status code
     expect(res.statusCode).toBe(400);
-    expect(res.text).toEqual('Question not found. Q001');
+    expect(res.text).toEqual('Question was not found. Q001');
   });
 
   test('Answer05: 問題回答_正解_初回学習', async () => {
