@@ -1,4 +1,4 @@
-import { Consts, Environment } from '@consts';
+import { Consts, Environments } from '@utils';
 import { DBHelper } from '@utils';
 import moment from 'moment';
 import { Tables } from 'typings';
@@ -45,7 +45,7 @@ export const remove = async (qid: string, userId: string): Promise<void> => {
 
 /** 学習項目一括削除 */
 export const truncate = async (learnings: Tables.TLearning[]): Promise<void> => {
-  await DBHelper().truncate(Environment.TABLE_NAME_LEARNING, learnings);
+  await DBHelper().truncate(Environments.TABLE_NAME_LEARNING, learnings);
 };
 
 /** 日次復習 */
@@ -73,15 +73,6 @@ export const dailyTestByGroup = async (
   subject: string
 ): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Queries.testByGroup(groupId, userId, nextTime, subject));
-
-  return results.Items;
-};
-
-/** 日次練習 */
-export const dailyMaths = async (userId: string, nextTime: string): Promise<Tables.TLearning[]> => {
-  const results = await DBHelper().query<Tables.TLearning>(
-    Queries.practiceWithoutToday(userId, nextTime, Consts.SUBJECT.MATHS)
-  );
 
   return results.Items;
 };
@@ -130,7 +121,7 @@ export const dailyCurrentTasks = async (userId: string, lastTime: string): Promi
 
 /** 全件検索 */
 export const listAll = async (): Promise<Tables.TLearning[]> => {
-  const results = await DBHelper().scan<Tables.TLearning>({ TableName: Environment.TABLE_NAME_LEARNING });
+  const results = await DBHelper().scan<Tables.TLearning>({ TableName: Environments.TABLE_NAME_LEARNING });
 
   return results.Items;
 };
@@ -172,6 +163,13 @@ export const listByQuestion = async (questionId: string): Promise<Tables.TLearni
 /** 週テスト対策一覧 */
 export const listByWeekly = async (userId: string, subject: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Queries.byWeekly(userId, subject));
+
+  return results.Items;
+};
+
+/** テスト対象問題一覧 */
+export const listTests = async (userId: string, subject: string, lastTime?: string) => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.listTests(userId, subject, lastTime));
 
   return results.Items;
 };

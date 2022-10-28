@@ -4,11 +4,31 @@ import * as path from 'path';
 import { parse } from 'csv-parse/sync';
 import { Tables } from 'typings';
 
+let db_users: Tables.TUsers[] = [];
 let db_groups: Tables.TGroups[] = [];
 let db_questions: Tables.TQuestions[] = [];
 let db_curriculums: Tables.TCurriculums[] = [];
 let db_learning: Tables.TLearning[] = [];
 let db_inquiry: Tables.TInquiry[] = [];
+
+export const DB_USERS = ((): Tables.TUsers[] => {
+  if (db_users.length > 0) return db_users;
+
+  const datas = parse(fs.readFileSync(path.join(__dirname, './db_users.csv')), {
+    columns: true,
+  }) as Record<string, string>[];
+
+  db_users = datas.map<Tables.TUsers>((item) => ({
+    id: item['id'] ?? '',
+    authority: item['authority'] ?? '',
+    role: item['role'] ?? '',
+    username: item['username'] ?? '',
+    teacher: item['teacher'] ?? '',
+    sub: item['sub'] ?? '',
+  }));
+
+  return db_users;
+})();
 
 export const DB_GROUPS = ((): Tables.TGroups[] => {
   if (db_groups.length > 0) return db_groups;

@@ -1,5 +1,5 @@
 {
-  "count": 4,
+  "count": 3,
   "questions": [
     {
       "answer": "フロンガス",
@@ -9,15 +9,6 @@
       "title": "オゾン層が破壊されていた原因物質は",
       "voiceAnswer": "voices/hZL7cVPJ8hA3Vyk7PjqbKc.mp3",
       "voiceTitle": "voices/kVcdEa1THZh5n5uhFKGYrN.mp3"
-    },
-    {
-      "answer": "[images/9UfsoVZkEdGUkZHR8NyYUk.gif]",
-      "groupId": "sGd6gX36nvnMaSCDTiYZ2Z",
-      "id": "eyKBX66pJSpZ4H4nCGHNKq",
-      "subject": "3",
-      "title": "2018年、東海工業地域の工業別生産額は",
-      "voiceAnswer": "voices/984S5u7P8zy7HqAbmJHHVM.mp3",
-      "voiceTitle": "voices/3jx3zsKByHQFC7u9RwPLHy.mp3"
     },
     {
       "answer": "境",

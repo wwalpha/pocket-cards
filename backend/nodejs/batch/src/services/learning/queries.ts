@@ -1,22 +1,22 @@
-import { Consts, Environment } from '@consts';
+import { Consts, Environments } from '@utils';
 import { DynamoDB } from 'aws-sdk';
 import { Tables } from 'typings';
 
 /** データ取得 */
 export const get = (key: Tables.TLearningKey): DynamoDB.DocumentClient.GetItemInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   Key: key,
 });
 
 /** データ登録 */
 export const put = (item: Tables.TLearning): DynamoDB.DocumentClient.PutItemInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   Item: item,
 });
 
 /** データ削除 */
 export const del = (key: Tables.TLearningKey): DynamoDB.DocumentClient.DeleteItemInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   Key: key,
 });
 
@@ -25,7 +25,7 @@ export const del = (key: Tables.TLearningKey): DynamoDB.DocumentClient.DeleteIte
  * 対象: Times = 0, NextTime = now + 1
  */
 export const review = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
   FilterExpression: '#times = :times and #subject = :subject and #lastTime = :lastTime',
@@ -59,7 +59,7 @@ export const practiceWithoutToday = (
   nextTime: string,
   subject: string
 ): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#userId = :userId AND #nextTime <= :nextTime',
   FilterExpression: '#times = :times AND #subject = :subject AND #lastTime <> :lastTime1 AND #lastTime <> :lastTime2',
@@ -87,7 +87,7 @@ export const practiceWithoutToday = (
  * 対象: Times <> 0, NextTime <= now, NextTime DESC, Top 10
  */
 export const test = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
   FilterExpression: '#times <> :times and #subject = :subject',
@@ -118,7 +118,7 @@ export const testByGroup = (
   nextTime: string,
   subject: string
 ): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#groupId = :groupId and #nextTime <= :nextTime',
   FilterExpression: '#userId = :userId and #subject = :subject and #times <> :times',
@@ -148,7 +148,7 @@ export const testByGroup = (
  * 対象：Times = 0, NextTime <= now, NextTime DESC, Top 10
  */
 export const practice = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
   FilterExpression: '#times = :times and #subject = :subject and #lastTime <> :lastTime',
@@ -186,7 +186,7 @@ export const past = (
   expression: string = '#userId = :userId and #nextTime <= :nextTime'
 ): DynamoDB.DocumentClient.QueryInput => {
   const query: DynamoDB.DocumentClient.QueryInput = {
-    TableName: Environment.TABLE_NAME_LEARNING,
+    TableName: Environments.TABLE_NAME_LEARNING,
     ProjectionExpression: 'qid, groupId, subject, times',
     KeyConditionExpression: expression,
     ExpressionAttributeNames: {
@@ -217,8 +217,41 @@ export const past = (
   return query;
 };
 
+// テスト対象問題一覧
+export const listTests = (userId: string, subject: string, lastTime?: string): DynamoDB.DocumentClient.QueryInput => {
+  const query: DynamoDB.DocumentClient.QueryInput = {
+    TableName: Environments.TABLE_NAME_LEARNING,
+    ProjectionExpression: 'qid',
+    KeyConditionExpression: '#userId = :userId and #subject_status = :subject_status',
+    ExpressionAttributeNames: {
+      '#userId': 'userId',
+      '#subject_status': 'subject_status',
+    },
+    ExpressionAttributeValues: {
+      ':userId': userId,
+      ':subject_status': `${subject}_TEST`,
+    },
+    IndexName: 'gsiIdx4',
+  };
+
+  // if exists
+  if (lastTime) {
+    query.FilterExpression = '#lastTime = :lastTime';
+    query.ExpressionAttributeNames = {
+      ...query.ExpressionAttributeNames,
+      '#lastTime': 'lastTime',
+    };
+    query.ExpressionAttributeValues = {
+      ...query.ExpressionAttributeValues,
+      ':lastTime': lastTime,
+    };
+  }
+
+  return query;
+};
+
 export const current = (userId: string, lastTime: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid, subject, times',
   KeyConditionExpression: '#userId = :userId',
   FilterExpression: '#lastTime = :lastTime',
@@ -235,7 +268,7 @@ export const current = (userId: string, lastTime: string): DynamoDB.DocumentClie
 
 export const byGroupId = (groupId: string, userId?: string): DynamoDB.DocumentClient.QueryInput => {
   const query: DynamoDB.DocumentClient.QueryInput = {
-    TableName: Environment.TABLE_NAME_LEARNING,
+    TableName: Environments.TABLE_NAME_LEARNING,
     ProjectionExpression: 'qid, userId',
     KeyConditionExpression: '#groupId = :groupId',
     ExpressionAttributeNames: {
@@ -269,7 +302,7 @@ export const byGroupIdWithProjections = (
   userId?: string
 ): DynamoDB.DocumentClient.QueryInput => {
   const query: DynamoDB.DocumentClient.QueryInput = {
-    TableName: Environment.TABLE_NAME_LEARNING,
+    TableName: Environments.TABLE_NAME_LEARNING,
     ProjectionExpression: projections,
     KeyConditionExpression: '#groupId = :groupId',
     ExpressionAttributeNames: {
@@ -298,7 +331,7 @@ export const byGroupIdWithProjections = (
 };
 
 export const byQuestionId = (questionId: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid, userId',
   KeyConditionExpression: '#qid = :qid',
   ExpressionAttributeNames: {
@@ -311,7 +344,7 @@ export const byQuestionId = (questionId: string): DynamoDB.DocumentClient.QueryI
 
 export const byUserId = (userId: string, groupId?: string): DynamoDB.DocumentClient.QueryInput => {
   const query: DynamoDB.DocumentClient.QueryInput = {
-    TableName: Environment.TABLE_NAME_LEARNING,
+    TableName: Environments.TABLE_NAME_LEARNING,
     ProjectionExpression: 'qid, userId, groupId, subject, times, lastTime',
     KeyConditionExpression: '#userId = :userId',
     ExpressionAttributeNames: {
@@ -340,7 +373,7 @@ export const byUserId = (userId: string, groupId?: string): DynamoDB.DocumentCli
 };
 
 export const unlearned = (userId: string, groupId: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid,lastTime,times',
   KeyConditionExpression: '#groupId = :groupId',
   FilterExpression: '#lastTime = :lastTime AND #userId = :userId',
@@ -358,7 +391,7 @@ export const unlearned = (userId: string, groupId: string): DynamoDB.DocumentCli
 });
 
 export const byWeekly = (userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
-  TableName: Environment.TABLE_NAME_LEARNING,
+  TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#userId = :userId AND begins_with(#subject, :subject)',
   ExpressionAttributeNames: {

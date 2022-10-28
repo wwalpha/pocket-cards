@@ -3,7 +3,7 @@ import { Environments } from '@utils';
 
 export const byUserDaily = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid, subject, nextTime',
+  ProjectionExpression: 'qid, subject, times',
   KeyConditionExpression: '#userId = :userId AND #nextTime = :nextTime',
   ExpressionAttributeNames: {
     '#userId': 'userId',
