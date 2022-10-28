@@ -8,13 +8,13 @@
 
 import Foundation
 
-class DailyTasksPresenter {
-    var view: DailyTasksDisplayLogic?
+class DailyStatusPresenter {
+    var view: DailyStatusDisplayLogic?
 }
 
-extension DailyTasksPresenter: DailyTasksPresentationLogic {
-    func show(res: ReportServices.DailyTasks.Response) {
-        let model = DailyTasksViewModel()
+extension DailyStatusPresenter: DailyStatusPresentationLogic {
+    func show(res: ReportServices.DailyStatus.Response) {
+        let model = DailyStatusViewModel()
 
         model.lanTarget = Double(res.language.target)
         model.lanArchive = Double(res.language.archive)
@@ -22,8 +22,6 @@ extension DailyTasksPresenter: DailyTasksPresentationLogic {
         model.sciArchive = Double(res.science.archive)
         model.socTarget = Double(res.society.target)
         model.socArchive = Double(res.society.archive)
-        model.mathsTarget = Double(res.maths.target)
-        model.mathsArchive = Double(res.maths.archive)
 
         view?.showTasks(model: model)
     }

@@ -20,20 +20,18 @@ enum ReportServices {
         }
     }
 
-    enum DailyTasks {
+    enum DailyStatus {
         struct Request {}
 
         struct Response: Codable {
             var language: DailyTask
             var society: DailyTask
             var science: DailyTask
-            var maths: DailyTask
 
             private enum CodingKeys: String, CodingKey {
                 case language
                 case science
                 case society
-                case maths
             }
         }
     }

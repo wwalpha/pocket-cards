@@ -8,10 +8,10 @@
 
 import SwiftUI
 
-struct DailyTasksView: View {
-    var interactor: DailyTasksBusinessLogic?
+struct DailyStatusView: View {
+    var interactor: DailyStatusBusinessLogic?
 
-    @ObservedObject var viewModel = DailyTasksViewModel()
+    @ObservedObject var viewModel = DailyStatusViewModel()
 
     var body: some View {
         if viewModel.isLoaded {
@@ -38,7 +38,7 @@ struct DailyTasksView: View {
                         .background(Color.science)
                         .foregroundColor(Color.white)
 
-                    Dailytasks(target: viewModel.sciTarget, completed: viewModel.sciArchive)
+                    DailyStatus(target: viewModel.sciTarget, completed: viewModel.sciArchive)
                         .padding(.leading, 32)
 
                     Text("社会")
@@ -49,7 +49,7 @@ struct DailyTasksView: View {
                         .background(Color.society)
                         .foregroundColor(Color.white)
 
-                    Dailytasks(target: viewModel.socTarget, completed: viewModel.socArchive)
+                    DailyStatus(target: viewModel.socTarget, completed: viewModel.socArchive)
                         .padding(.leading, 32)
 
                     Text("国語")
@@ -60,7 +60,7 @@ struct DailyTasksView: View {
                         .background(Color.language)
                         .foregroundColor(Color.white)
 
-                    Dailytasks(target: viewModel.lanTarget, completed: viewModel.lanArchive)
+                    DailyStatus(target: viewModel.lanTarget, completed: viewModel.lanArchive)
                         .padding(.leading, 32)
 
                     Spacer()
@@ -78,8 +78,8 @@ struct DailyTasksView: View {
     }
 }
 
-extension DailyTasksView: DailyTasksDisplayLogic {
-    func showTasks(model: DailyTasksViewModel) {
+extension DailyStatusView: DailyStatusDisplayLogic {
+    func showTasks(model: DailyStatusViewModel) {
         viewModel.lanTarget = model.lanTarget
         viewModel.lanArchive = model.lanArchive
         viewModel.sciTarget = model.sciTarget
@@ -90,11 +90,11 @@ extension DailyTasksView: DailyTasksDisplayLogic {
     }
 }
 
-extension DailyTasksView {
+extension DailyStatusView {
     func configureView() -> some View {
         var view = self
-        let interactor = DailyTasksInteractor()
-        let presenter = DailyTasksPresenter()
+        let interactor = DailyStatusInteractor()
+        let presenter = DailyStatusPresenter()
 
         view.interactor = interactor
         interactor.presenter = presenter
@@ -106,7 +106,7 @@ extension DailyTasksView {
 
 struct ChartsView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyTasksView()
+        DailyStatusView()
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }
