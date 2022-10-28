@@ -111,13 +111,6 @@ export const dailyPastTasks = async (
   return results.Items;
 };
 
-/** 基準日以前全て未テスト問題一覧 */
-export const untested = async (userId: string, nextTime: string, subject?: string) => {
-  const results = await DBHelper().query<Tables.TLearning>(Queries.untested(userId, nextTime, subject));
-
-  return results.Items;
-};
-
 /** 学習日は今日より前の全ての問題 */
 export const dailyPastsWithoutToday = async (
   userId: string,
@@ -179,6 +172,13 @@ export const listByQuestion = async (questionId: string): Promise<Tables.TLearni
 /** 週テスト対策一覧 */
 export const listByWeekly = async (userId: string, subject: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(Queries.byWeekly(userId, subject));
+
+  return results.Items;
+};
+
+/** テスト対象問題一覧 */
+export const listTests = async (userId: string, subject: string, lastTime?: string) => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.listTests(userId, subject, lastTime));
 
   return results.Items;
 };

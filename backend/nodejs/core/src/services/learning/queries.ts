@@ -217,37 +217,33 @@ export const past = (
   return query;
 };
 
-// 基準日以前全て未テスト問題一覧
-export const untested = (userId: string, nextTime: string, subject?: string): DynamoDB.DocumentClient.QueryInput => {
+// テスト対象問題一覧
+export const listTests = (userId: string, subject: string, lastTime?: string): DynamoDB.DocumentClient.QueryInput => {
   const query: DynamoDB.DocumentClient.QueryInput = {
     TableName: Environment.TABLE_NAME_LEARNING,
-    ProjectionExpression: 'qid, groupId, subject, times',
-    KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
-    FilterExpression: '#lastTime <> :lastTime',
+    ProjectionExpression: 'qid',
+    KeyConditionExpression: '#userId = :userId and #subject_status = :subject_status',
     ExpressionAttributeNames: {
       '#userId': 'userId',
-      '#nextTime': 'nextTime',
-      '#lastTime': 'lastTime',
+      '#subject_status': 'subject_status',
     },
     ExpressionAttributeValues: {
       ':userId': userId,
-      ':nextTime': nextTime,
-      ':lastTime': Consts.INITIAL_DATE,
+      ':subject_status': `${subject}_TEST`,
     },
-    IndexName: 'gsiIdx1',
-    ScanIndexForward: false,
+    IndexName: 'gsiIdx4',
   };
 
   // if exists
-  if (subject) {
-    query.FilterExpression = '#subject = :subject';
+  if (lastTime) {
+    query.FilterExpression = '#lastTime = :lastTime';
     query.ExpressionAttributeNames = {
       ...query.ExpressionAttributeNames,
-      '#subject': 'subject',
+      '#lastTime': 'lastTime',
     };
     query.ExpressionAttributeValues = {
       ...query.ExpressionAttributeValues,
-      ':subject': subject,
+      ':lastTime': lastTime,
     };
   }
 

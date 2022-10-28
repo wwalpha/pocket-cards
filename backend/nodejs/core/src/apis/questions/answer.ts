@@ -16,7 +16,7 @@ export default async (
   const learning = await LearningService.describe(questionId, userId);
 
   if (!learning) {
-    throw new ValidationError(`Question not found. ${questionId}`);
+    throw new ValidationError(`Question was not found. ${questionId}`);
   }
 
   // 学習回数が0以外、且つ、当日すでに更新済みの場合、無視する

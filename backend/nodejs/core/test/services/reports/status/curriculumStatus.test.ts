@@ -1,9 +1,9 @@
 import server from '@src/app';
 import request from 'supertest';
-import * as COMMONS from '../../datas/commons';
-import * as REPORTS from '../../datas/reports/curriculumStatus';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
+import * as COMMONS from '@test/datas/commons';
+import * as REPORTS from '@test/datas/reports/curriculumStatus';
 
 jest.setTimeout(10000);
 
