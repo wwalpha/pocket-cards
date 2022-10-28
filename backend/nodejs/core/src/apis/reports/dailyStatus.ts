@@ -1,31 +1,39 @@
 import { Request } from 'express';
+import { DateUtils, Commons } from '@utils';
 import { APIs } from 'typings';
-import { QuestionService, TraceService } from '@services';
+import { Consts } from '@consts';
+import { LearningService } from '@services';
 
-export default async (
-  req: Request<any, any, APIs.DailyStatusResquest, APIs.DailyStatusQuery>
-): Promise<APIs.DailyStatusResponse> => {
-  const { datetime, userId, groupId } = req.query;
+export default async (req: Request<any, any, APIs.DailyTasksResquest, any>): Promise<APIs.DailyTasksResponse> => {
+  const userId = Commons.getUserId(req);
 
-  // 日次学習進捗
-  const traces = await TraceService.dailyStatus(userId, datetime, groupId);
-
-  const tasks = traces.map<Promise<APIs.DailyStatusResponseItem | undefined>>(async (item) => {
-    const question = await QuestionService.describe(item.qid);
-
-    if (!question) return undefined;
-
-    return {
-      qid: item.qid,
-      title: question.title,
-      before: item.timesBefore ?? 0,
-      after: item.timesAfter ?? 0,
-    };
-  });
-
-  const results = await Promise.all(tasks);
+  // next study date
+  const date = DateUtils.getNow();
+  // 問題一覧
+  const tests = await Promise.all([
+    LearningService.listTests(userId, Consts.SUBJECT.LANGUAGE),
+    LearningService.listTests(userId, Consts.SUBJECT.SCIENCE),
+    LearningService.listTests(userId, Consts.SUBJECT.SOCIETY),
+  ]);
+  // 完了問題一覧
+  const archives = await Promise.all([
+    LearningService.listTests(userId, Consts.SUBJECT.LANGUAGE, date),
+    LearningService.listTests(userId, Consts.SUBJECT.SCIENCE, date),
+    LearningService.listTests(userId, Consts.SUBJECT.SOCIETY, date),
+  ]);
 
   return {
-    items: results.filter((item): item is Exclude<typeof item, undefined> => item !== undefined),
+    language: {
+      archive: archives[0].length,
+      target: tests[0].length,
+    },
+    science: {
+      archive: archives[1].length,
+      target: tests[1].length,
+    },
+    society: {
+      archive: archives[2].length,
+      target: tests[2].length,
+    },
   };
 };

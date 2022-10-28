@@ -3,6 +3,7 @@ export enum SUBJECT {
   JAPANESE,
   SCIENCE,
   SOCIETY,
+  MATHS,
 }
 
 export const Authority = {
@@ -17,3 +18,5 @@ export const REPORT_TYPE = {
   // 前回学習進捗
   OVERALL_TIMES: 'OVERALL_TIMES',
 };
+
+export const INITIAL_DATE = '19900101';

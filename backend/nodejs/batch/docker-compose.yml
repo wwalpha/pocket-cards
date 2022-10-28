@@ -1,0 +1,17 @@
+version: '3'
+services:
+  # localstack
+  localstack:
+    image: localstack/localstack:0.12.14
+    container_name: localstack
+    ports:
+      - '4566:4566'
+    environment:
+      - DEFAULT_REGION=us-east-1
+      - SERVICES=sqs,s3,sns
+  # dynamodb
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: dynamodb
+    ports:
+      - '8000:8000'
