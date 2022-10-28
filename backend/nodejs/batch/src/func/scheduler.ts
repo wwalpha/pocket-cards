@@ -26,9 +26,9 @@ export default async () => {
 
 const getStudentProgress = async (userId: string): Promise<Tables.TLearning[][]> => {
   const results = await Promise.all([
-    DBHelper().query<Tables.TLearning>(Learning.query.byUserDaily(userId, moment().add(0, 'days').format('YYYYMMDD'))),
-    DBHelper().query<Tables.TLearning>(Learning.query.byUserDaily(userId, moment().add(1, 'days').format('YYYYMMDD'))),
-    DBHelper().query<Tables.TLearning>(Learning.query.byUserDaily(userId, moment().add(2, 'days').format('YYYYMMDD'))),
+    DBHelper().query<Tables.TLearning>(Learning.query.byUserTests(userId, moment().add(0, 'days').format('YYYYMMDD'))),
+    DBHelper().query<Tables.TLearning>(Learning.query.byUserTests(userId, moment().add(1, 'days').format('YYYYMMDD'))),
+    DBHelper().query<Tables.TLearning>(Learning.query.byUserTests(userId, moment().add(2, 'days').format('YYYYMMDD'))),
   ]);
 
   return results.map((item) => item.Items);
