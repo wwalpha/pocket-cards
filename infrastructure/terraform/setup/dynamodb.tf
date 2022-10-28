@@ -274,7 +274,7 @@ resource "aws_dynamodb_table" "learning" {
     hash_key           = "userId"
     range_key          = "subject_status"
     projection_type    = "INCLUDE"
-    non_key_attributes = ["qid"]
+    non_key_attributes = ["qid", "lastTime"]
   }
 
   tags = {
