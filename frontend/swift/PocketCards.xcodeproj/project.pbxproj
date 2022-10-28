@@ -44,12 +44,12 @@
 		9A3A56C328D95E4C001CC4B0 /* CommandService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56C128D95E4C001CC4B0 /* CommandService.swift */; };
 		9A3F50BF27EB2D9000D9A305 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50BE27EB2D9000D9A305 /* History.swift */; };
 		9A3F50C127EB2E3500D9A305 /* ReportServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C027EB2E3500D9A305 /* ReportServices.swift */; };
-		9A3F50C727EB2E9A00D9A305 /* DailyTasksContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C227EB2E9A00D9A305 /* DailyTasksContract.swift */; };
-		9A3F50C827EB2E9A00D9A305 /* DailyTasksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C327EB2E9A00D9A305 /* DailyTasksPresenter.swift */; };
-		9A3F50C927EB2E9A00D9A305 /* DailyTasksInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C427EB2E9A00D9A305 /* DailyTasksInteractor.swift */; };
-		9A3F50CA27EB2E9A00D9A305 /* DailyTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C527EB2E9A00D9A305 /* DailyTasksView.swift */; };
-		9A3F50CB27EB2E9A00D9A305 /* DailyTasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C627EB2E9A00D9A305 /* DailyTasksViewModel.swift */; };
-		9A3F50CE27EB326C00D9A305 /* Dailytasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50CD27EB326C00D9A305 /* Dailytasks.swift */; };
+		9A3F50C727EB2E9A00D9A305 /* DailyStatusContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C227EB2E9A00D9A305 /* DailyStatusContract.swift */; };
+		9A3F50C827EB2E9A00D9A305 /* DailyStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C327EB2E9A00D9A305 /* DailyStatusPresenter.swift */; };
+		9A3F50C927EB2E9A00D9A305 /* DailyStatusInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C427EB2E9A00D9A305 /* DailyStatusInteractor.swift */; };
+		9A3F50CA27EB2E9A00D9A305 /* DailyStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C527EB2E9A00D9A305 /* DailyStatusView.swift */; };
+		9A3F50CB27EB2E9A00D9A305 /* DailyStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C627EB2E9A00D9A305 /* DailyStatusViewModel.swift */; };
+		9A3F50CE27EB326C00D9A305 /* DailyStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50CD27EB326C00D9A305 /* DailyStatus.swift */; };
 		9A3F50D827EC401400D9A305 /* HistoriesChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50D727EC401400D9A305 /* HistoriesChart.swift */; };
 		9A3F50DF27EC412E00D9A305 /* HistoriesContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DA27EC412E00D9A305 /* HistoriesContract.swift */; };
 		9A3F50E027EC412E00D9A305 /* HistoriesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DB27EC412E00D9A305 /* HistoriesPresenter.swift */; };
@@ -194,20 +194,20 @@
 		9AF1275228EEF48300856DF9 /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1275028EEF48300856DF9 /* QuestionManager.swift */; };
 		9AF1275428F2B9A700856DF9 /* IntAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1275328F2B9A700856DF9 /* IntAxisValueFormatter.swift */; };
 		9AF1275528F2B9A700856DF9 /* IntAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1275328F2B9A700856DF9 /* IntAxisValueFormatter.swift */; };
-		9AF2AC9A2814273300F80DB4 /* Dailytasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50CD27EB326C00D9A305 /* Dailytasks.swift */; };
+		9AF2AC9A2814273300F80DB4 /* DailyStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50CD27EB326C00D9A305 /* DailyStatus.swift */; };
 		9AF2AC9B2814273300F80DB4 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E7027D96624002B1F32 /* StringUtils.swift */; };
-		9AF2AC9C2814273300F80DB4 /* DailyTasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C627EB2E9A00D9A305 /* DailyTasksViewModel.swift */; };
+		9AF2AC9C2814273300F80DB4 /* DailyStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C627EB2E9A00D9A305 /* DailyStatusViewModel.swift */; };
 		9AF2AC9D2814273300F80DB4 /* DailyStudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD28227D7394C0000A16B /* DailyStudyViewModel.swift */; };
 		9AF2AC9E2814273300F80DB4 /* HistoriesChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50D727EC401400D9A305 /* HistoriesChart.swift */; };
 		9AF2AC9F2814273300F80DB4 /* DateValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7327EC8F85005A716D /* DateValueFormatter.swift */; };
-		9AF2ACA02814273300F80DB4 /* DailyTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C527EB2E9A00D9A305 /* DailyTasksView.swift */; };
+		9AF2ACA02814273300F80DB4 /* DailyStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C527EB2E9A00D9A305 /* DailyStatusView.swift */; };
 		9AF2ACA12814273300F80DB4 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD27D27D7394C0000A16B /* RootRouter.swift */; };
 		9AF2ACA22814273300F80DB4 /* OverallFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09A150280AD4D3001500EB /* OverallFormatter.swift */; };
 		9AF2ACA32814273300F80DB4 /* ChoiceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD27327D7394C0000A16B /* ChoiceButton.swift */; };
 		9AF2ACA52814273300F80DB4 /* ReportServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C027EB2E3500D9A305 /* ReportServices.swift */; };
 		9AF2ACA62814273300F80DB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD26427D738CF0000A16B /* AppDelegate.swift */; };
 		9AF2ACA72814273300F80DB4 /* OverallTimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAE28043AD60001F15C /* OverallTimesView.swift */; };
-		9AF2ACA92814273300F80DB4 /* DailyTasksPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C327EB2E9A00D9A305 /* DailyTasksPresenter.swift */; };
+		9AF2ACA92814273300F80DB4 /* DailyStatusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C327EB2E9A00D9A305 /* DailyStatusPresenter.swift */; };
 		9AF2ACAA2814273300F80DB4 /* OverallTimesContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAB28043AD60001F15C /* OverallTimesContract.swift */; };
 		9AF2ACAB2814273300F80DB4 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD28927D7394C0000A16B /* Consts.swift */; };
 		9AF2ACAC2814273300F80DB4 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD28C27D7394C0000A16B /* Alamofire.swift */; };
@@ -248,11 +248,11 @@
 		9AF2ACD32814273300F80DB4 /* LoginSamlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD28727D7394C0000A16B /* LoginSamlView.swift */; };
 		9AF2ACD42814273300F80DB4 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */; };
 		9AF2ACD52814273300F80DB4 /* DailyTestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6C27D96292002B1F32 /* DailyTestPresenter.swift */; };
-		9AF2ACD62814273300F80DB4 /* DailyTasksInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C427EB2E9A00D9A305 /* DailyTasksInteractor.swift */; };
+		9AF2ACD62814273300F80DB4 /* DailyStatusInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C427EB2E9A00D9A305 /* DailyStatusInteractor.swift */; };
 		9AF2ACD72814273300F80DB4 /* DailyTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7527ECA374005A716D /* DailyTasks.swift */; };
 		9AF2ACD82814273300F80DB4 /* OverallTimesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB63BAC28043AD60001F15C /* OverallTimesPresenter.swift */; };
 		9AF2ACD92814273300F80DB4 /* HistoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50DC27EC412E00D9A305 /* HistoriesInteractor.swift */; };
-		9AF2ACDA2814273300F80DB4 /* DailyTasksContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C227EB2E9A00D9A305 /* DailyTasksContract.swift */; };
+		9AF2ACDA2814273300F80DB4 /* DailyStatusContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3F50C227EB2E9A00D9A305 /* DailyStatusContract.swift */; };
 		9AF2ACDB2814273300F80DB4 /* RootContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD27F27D7394C0000A16B /* RootContract.swift */; };
 		9AF2ACDF2814273300F80DB4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A1FD25327D7369C0000A16B /* Preview Assets.xcassets */; };
 		9AF2ACE02814273300F80DB4 /* incorrect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9A61EEB727E481C1002C73D0 /* incorrect.mp3 */; };
@@ -305,12 +305,12 @@
 		9A3A56C128D95E4C001CC4B0 /* CommandService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandService.swift; sourceTree = "<group>"; };
 		9A3F50BE27EB2D9000D9A305 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		9A3F50C027EB2E3500D9A305 /* ReportServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportServices.swift; sourceTree = "<group>"; };
-		9A3F50C227EB2E9A00D9A305 /* DailyTasksContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksContract.swift; sourceTree = "<group>"; };
-		9A3F50C327EB2E9A00D9A305 /* DailyTasksPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksPresenter.swift; sourceTree = "<group>"; };
-		9A3F50C427EB2E9A00D9A305 /* DailyTasksInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksInteractor.swift; sourceTree = "<group>"; };
-		9A3F50C527EB2E9A00D9A305 /* DailyTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksView.swift; sourceTree = "<group>"; };
-		9A3F50C627EB2E9A00D9A305 /* DailyTasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTasksViewModel.swift; sourceTree = "<group>"; };
-		9A3F50CD27EB326C00D9A305 /* Dailytasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dailytasks.swift; sourceTree = "<group>"; };
+		9A3F50C227EB2E9A00D9A305 /* DailyStatusContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStatusContract.swift; sourceTree = "<group>"; };
+		9A3F50C327EB2E9A00D9A305 /* DailyStatusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStatusPresenter.swift; sourceTree = "<group>"; };
+		9A3F50C427EB2E9A00D9A305 /* DailyStatusInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStatusInteractor.swift; sourceTree = "<group>"; };
+		9A3F50C527EB2E9A00D9A305 /* DailyStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStatusView.swift; sourceTree = "<group>"; };
+		9A3F50C627EB2E9A00D9A305 /* DailyStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStatusViewModel.swift; sourceTree = "<group>"; };
+		9A3F50CD27EB326C00D9A305 /* DailyStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStatus.swift; sourceTree = "<group>"; };
 		9A3F50D727EC401400D9A305 /* HistoriesChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesChart.swift; sourceTree = "<group>"; };
 		9A3F50DA27EC412E00D9A305 /* HistoriesContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesContract.swift; sourceTree = "<group>"; };
 		9A3F50DB27EC412E00D9A305 /* HistoriesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoriesPresenter.swift; sourceTree = "<group>"; };
@@ -642,7 +642,7 @@
 		9A3F50CC27EB325100D9A305 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
-				9A3F50CD27EB326C00D9A305 /* Dailytasks.swift */,
+				9A3F50CD27EB326C00D9A305 /* DailyStatus.swift */,
 				9A3F50D727EC401400D9A305 /* HistoriesChart.swift */,
 				9A276A7127EC4CC6005A716D /* TestChart.swift */,
 				9A276A7327EC8F85005A716D /* DateValueFormatter.swift */,
@@ -668,11 +668,11 @@
 		9A3F50E527EC415D00D9A305 /* DailyTasks */ = {
 			isa = PBXGroup;
 			children = (
-				9A3F50C227EB2E9A00D9A305 /* DailyTasksContract.swift */,
-				9A3F50C327EB2E9A00D9A305 /* DailyTasksPresenter.swift */,
-				9A3F50C427EB2E9A00D9A305 /* DailyTasksInteractor.swift */,
-				9A3F50C527EB2E9A00D9A305 /* DailyTasksView.swift */,
-				9A3F50C627EB2E9A00D9A305 /* DailyTasksViewModel.swift */,
+				9A3F50C227EB2E9A00D9A305 /* DailyStatusContract.swift */,
+				9A3F50C327EB2E9A00D9A305 /* DailyStatusPresenter.swift */,
+				9A3F50C427EB2E9A00D9A305 /* DailyStatusInteractor.swift */,
+				9A3F50C527EB2E9A00D9A305 /* DailyStatusView.swift */,
+				9A3F50C627EB2E9A00D9A305 /* DailyStatusViewModel.swift */,
 			);
 			path = DailyTasks;
 			sourceTree = "<group>";
@@ -1038,14 +1038,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A3F50CE27EB326C00D9A305 /* Dailytasks.swift in Sources */,
+				9A3F50CE27EB326C00D9A305 /* DailyStatus.swift in Sources */,
 				9AF57E7127D96624002B1F32 /* StringUtils.swift in Sources */,
-				9A3F50CB27EB2E9A00D9A305 /* DailyTasksViewModel.swift in Sources */,
+				9A3F50CB27EB2E9A00D9A305 /* DailyStatusViewModel.swift in Sources */,
 				9A1FD29B27D7394C0000A16B /* DailyStudyViewModel.swift in Sources */,
 				9A3F50D827EC401400D9A305 /* HistoriesChart.swift in Sources */,
 				9A276A7427EC8F85005A716D /* DateValueFormatter.swift in Sources */,
 				9A9E57A22817D0C90025C74F /* WeeklyChoiceRouter.swift in Sources */,
-				9A3F50CA27EB2E9A00D9A305 /* DailyTasksView.swift in Sources */,
+				9A3F50CA27EB2E9A00D9A305 /* DailyStatusView.swift in Sources */,
 				9A1FD29727D7394C0000A16B /* RootRouter.swift in Sources */,
 				9ACC362C28D5F2C700B9EC46 /* MultiTestView.swift in Sources */,
 				9A09A151280AD4D3001500EB /* OverallFormatter.swift in Sources */,
@@ -1056,7 +1056,7 @@
 				9A9E5767281554000025C74F /* WeeklyChoicePresenter.swift in Sources */,
 				9A1FD26527D738CF0000A16B /* AppDelegate.swift in Sources */,
 				9AB63BB328043AD60001F15C /* OverallTimesView.swift in Sources */,
-				9A3F50C827EB2E9A00D9A305 /* DailyTasksPresenter.swift in Sources */,
+				9A3F50C827EB2E9A00D9A305 /* DailyStatusPresenter.swift in Sources */,
 				9A9E575D28154E210025C74F /* WeeklyTestViewModel.swift in Sources */,
 				9A9E5788281631D50025C74F /* Group.swift in Sources */,
 				9AB63BB028043AD60001F15C /* OverallTimesContract.swift in Sources */,
@@ -1149,7 +1149,7 @@
 				9A9E57852816316A0025C74F /* GroupServices.swift in Sources */,
 				9AF57E6D27D96292002B1F32 /* DailyTestPresenter.swift in Sources */,
 				9A310F1828F3BE6900FB5305 /* Handwriting.swift in Sources */,
-				9A3F50C927EB2E9A00D9A305 /* DailyTasksInteractor.swift in Sources */,
+				9A3F50C927EB2E9A00D9A305 /* DailyStatusInteractor.swift in Sources */,
 				9A61E86B2855EAC50037FA82 /* DailyReviewView.swift in Sources */,
 				9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */,
 				9A9E575928154E210025C74F /* WeeklyTestInteractor.swift in Sources */,
@@ -1157,7 +1157,7 @@
 				9A3A56B828D9599D001CC4B0 /* Command.swift in Sources */,
 				9A9E57CA2829696F0025C74F /* TestInteractor.swift in Sources */,
 				9A3F50E127EC412E00D9A305 /* HistoriesInteractor.swift in Sources */,
-				9A3F50C727EB2E9A00D9A305 /* DailyTasksContract.swift in Sources */,
+				9A3F50C727EB2E9A00D9A305 /* DailyStatusContract.swift in Sources */,
 				9A1FD29927D7394C0000A16B /* RootContract.swift in Sources */,
 				9AF1275128EEF48300856DF9 /* QuestionManager.swift in Sources */,
 				9AA6952E28EEB15000176C3D /* ActionButton.swift in Sources */,
@@ -1168,14 +1168,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AF2AC9A2814273300F80DB4 /* Dailytasks.swift in Sources */,
+				9AF2AC9A2814273300F80DB4 /* DailyStatus.swift in Sources */,
 				9AF2AC9B2814273300F80DB4 /* StringUtils.swift in Sources */,
-				9AF2AC9C2814273300F80DB4 /* DailyTasksViewModel.swift in Sources */,
+				9AF2AC9C2814273300F80DB4 /* DailyStatusViewModel.swift in Sources */,
 				9AF2AC9D2814273300F80DB4 /* DailyStudyViewModel.swift in Sources */,
 				9AF2AC9E2814273300F80DB4 /* HistoriesChart.swift in Sources */,
 				9AF2AC9F2814273300F80DB4 /* DateValueFormatter.swift in Sources */,
 				9A9E57A32817D0C90025C74F /* WeeklyChoiceRouter.swift in Sources */,
-				9AF2ACA02814273300F80DB4 /* DailyTasksView.swift in Sources */,
+				9AF2ACA02814273300F80DB4 /* DailyStatusView.swift in Sources */,
 				9AF2ACA12814273300F80DB4 /* RootRouter.swift in Sources */,
 				9AF2ACA22814273300F80DB4 /* OverallFormatter.swift in Sources */,
 				9A5639A12814D86E006D6C96 /* UserServices.swift in Sources */,
@@ -1186,7 +1186,7 @@
 				9AF2ACA62814273300F80DB4 /* AppDelegate.swift in Sources */,
 				9AF2ACA72814273300F80DB4 /* OverallTimesView.swift in Sources */,
 				9AE3FB0F28DDF57F0007865E /* Command.swift in Sources */,
-				9AF2ACA92814273300F80DB4 /* DailyTasksPresenter.swift in Sources */,
+				9AF2ACA92814273300F80DB4 /* DailyStatusPresenter.swift in Sources */,
 				9A9E575E28154E210025C74F /* WeeklyTestViewModel.swift in Sources */,
 				9A9E5789281631D50025C74F /* Group.swift in Sources */,
 				9AF2ACAA2814273300F80DB4 /* OverallTimesContract.swift in Sources */,
@@ -1277,7 +1277,7 @@
 				9A9E57862816316A0025C74F /* GroupServices.swift in Sources */,
 				9AF2ACD52814273300F80DB4 /* DailyTestPresenter.swift in Sources */,
 				9ACC362B28D5F2C700B9EC46 /* MultiTestInteractor.swift in Sources */,
-				9AF2ACD62814273300F80DB4 /* DailyTasksInteractor.swift in Sources */,
+				9AF2ACD62814273300F80DB4 /* DailyStatusInteractor.swift in Sources */,
 				9A310F1928F3BE6900FB5305 /* Handwriting.swift in Sources */,
 				9A61E86C2855EAC50037FA82 /* DailyReviewView.swift in Sources */,
 				9AF2ACD72814273300F80DB4 /* DailyTasks.swift in Sources */,
@@ -1286,7 +1286,7 @@
 				9AF2ACD82814273300F80DB4 /* OverallTimesPresenter.swift in Sources */,
 				9A9E57CB2829696F0025C74F /* TestInteractor.swift in Sources */,
 				9AF2ACD92814273300F80DB4 /* HistoriesInteractor.swift in Sources */,
-				9AF2ACDA2814273300F80DB4 /* DailyTasksContract.swift in Sources */,
+				9AF2ACDA2814273300F80DB4 /* DailyStatusContract.swift in Sources */,
 				9ACC362F28D5F2C700B9EC46 /* MultiTestViewModel.swift in Sources */,
 				9AF2ACDB2814273300F80DB4 /* RootContract.swift in Sources */,
 				9AF1275228EEF48300856DF9 /* QuestionManager.swift in Sources */,

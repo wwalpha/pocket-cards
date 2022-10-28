@@ -29,7 +29,7 @@ struct ContentView: View {
                     }
                     .tag(0)
 
-                    DailyTasksView().configureView()
+                    DailyStatusView().configureView()
                         .tabItem {
                             Image(systemName: "gear")
                         }

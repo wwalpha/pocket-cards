@@ -8,15 +8,15 @@
 
 import Foundation
 
-class DailyTasksInteractor {
-    var presenter: DailyTasksPresentationLogic?
+class DailyStatusInteractor {
+    var presenter: DailyStatusPresentationLogic?
 }
 
-extension DailyTasksInteractor: DailyTasksBusinessLogic {
+extension DailyStatusInteractor: DailyStatusBusinessLogic {
     func load() {
-        API.request(URLs.REPORTS_DAILY_TASKS, method: .get)
+        API.request(URLs.REPORTS_DAILY_STATUS, method: .get)
             .validate()
-            .responseDecodable(of: ReportServices.DailyTasks.Response.self) { response in
+            .responseDecodable(of: ReportServices.DailyStatus.Response.self) { response in
 
                 guard let res = response.value else { return }
 

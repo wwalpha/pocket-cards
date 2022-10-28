@@ -1,5 +1,5 @@
 //
-//  Dailytasks.swift
+//  DailyStatus.swift
 //  PocketCards
 //
 //  Created by macmini on 2022/03/23.
@@ -8,7 +8,7 @@
 import Charts
 import SwiftUI
 
-struct Dailytasks: UIViewRepresentable {
+struct DailyStatus: UIViewRepresentable {
     private var target: Double
     private var completed: Double
 

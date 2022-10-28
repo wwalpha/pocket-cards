@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class DailyTasksViewModel: ObservableObject {
+class DailyStatusViewModel: ObservableObject {
     @Published var lanArchive: Double = 0
     @Published var lanTarget: Double = 0
     @Published var socArchive: Double = 0
