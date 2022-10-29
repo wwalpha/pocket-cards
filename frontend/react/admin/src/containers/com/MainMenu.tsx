@@ -167,6 +167,19 @@ export default () => {
             <Divider />
             <ListItem
               button
+              key="progress"
+              onClick={() => {
+                handleDispatch(ROUTE_PATHS.PROGRESS);
+              }}
+            >
+              <ListItemIcon sx={styles.itemIcon}>
+                <RecentActorsIcon sx={{ color: Consts.COLORS.PROGRESS }} />
+              </ListItemIcon>
+              <ListItemText primary="学習進捗" />
+            </ListItem>
+            <Divider />
+            <ListItem
+              button
               key="order"
               onClick={() => {
                 handleDispatch(ROUTE_PATHS.CURRICULUM_ORDER);
@@ -191,19 +204,7 @@ export default () => {
               <ListItemText primary="週テスト対策" />
             </ListItem>
             <Divider />
-            <ListItem
-              button
-              key="progress"
-              onClick={() => {
-                handleDispatch(ROUTE_PATHS.PROGRESS);
-              }}
-            >
-              <ListItemIcon sx={styles.itemIcon}>
-                <RecentActorsIcon sx={{ color: 'secondary.main' }} />
-              </ListItemIcon>
-              <ListItemText primary="学習進捗" />
-            </ListItem>
-            <Divider />
+
             <ListItem button key="Students" onClick={handleStudents}>
               <ListItemIcon sx={styles.itemIcon}>
                 <PersonIcon sx={{ color: 'secondary.main' }} />
