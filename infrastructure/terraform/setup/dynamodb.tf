@@ -32,6 +32,10 @@ resource "aws_dynamodb_table" "users" {
     non_key_attributes = ["id"]
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     Project = local.project_name_uc
   }
@@ -61,6 +65,11 @@ resource "aws_dynamodb_table" "groups" {
     range_key       = "id"
     projection_type = "ALL"
   }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     Project = local.project_name_uc
   }
@@ -97,6 +106,10 @@ resource "aws_dynamodb_table" "words" {
     projection_type = "ALL"
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     Project = local.project_name_uc
   }
@@ -113,6 +126,10 @@ resource "aws_dynamodb_table" "word_master" {
   attribute {
     name = "id"
     type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
   }
 
   tags = {
@@ -148,6 +165,10 @@ resource "aws_dynamodb_table" "traces" {
     projection_type = "ALL"
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     Project = local.project_name_uc
   }
@@ -170,6 +191,10 @@ resource "aws_dynamodb_table" "word_ignore" {
   attribute {
     name = "word"
     type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
   }
 
   tags = {
@@ -201,6 +226,10 @@ resource "aws_dynamodb_table" "questions" {
     hash_key        = "groupId"
     range_key       = "id"
     projection_type = "ALL"
+  }
+
+  point_in_time_recovery {
+    enabled = true
   }
 
   tags = {
@@ -277,6 +306,10 @@ resource "aws_dynamodb_table" "learning" {
     non_key_attributes = ["qid", "lastTime"]
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     Project = local.project_name_uc
   }
@@ -294,6 +327,10 @@ resource "aws_dynamodb_table" "settings" {
   attribute {
     name = "id"
     type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
   }
 
   tags = {
@@ -343,6 +380,10 @@ resource "aws_dynamodb_table" "curriculums" {
     projection_type = "ALL"
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     Project = local.project_name_uc
   }
@@ -365,6 +406,10 @@ resource "aws_dynamodb_table" "reports" {
   attribute {
     name = "typeDate"
     type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
   }
 
   tags = {
@@ -391,6 +436,10 @@ resource "aws_dynamodb_table" "wss" {
     type = "S"
   }
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     Project = local.project_name_uc
   }
@@ -407,6 +456,10 @@ resource "aws_dynamodb_table" "inquiry" {
   attribute {
     name = "qid"
     type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
   }
 
   tags = {
