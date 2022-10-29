@@ -45,7 +45,7 @@ describe('LearningStatus', () => {
 
     const result = await LearningService.describe(qid, HEADER_USER);
 
-    expect(result).toMatchObject(DATAS.LEARNINGSTATUS_001_EXCEPTS);
+    expect(result).toEqual(DATAS.LEARNINGSTATUS_001_EXCEPTS);
   });
 
   test('LearningStatus002: 当日、且つ times = 0', async () => {
@@ -68,7 +68,7 @@ describe('LearningStatus', () => {
 
     const result = await LearningService.describe(qid, HEADER_USER);
 
-    expect(result).toMatchObject(DATAS.LEARNINGSTATUS_002_EXCEPTS);
+    expect(result).toEqual(DATAS.LEARNINGSTATUS_002_EXCEPTS);
   });
 
   test('LearningStatus003: 前日、且つ times = 0', async () => {
@@ -93,6 +93,6 @@ describe('LearningStatus', () => {
 
     const result = await LearningService.describe(qid, HEADER_USER);
 
-    expect(result).toMatchObject(DATAS.LEARNINGSTATUS_003_EXCEPTS);
+    expect(result).toEqual(DATAS.LEARNINGSTATUS_003_EXCEPTS);
   });
 });
