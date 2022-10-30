@@ -15,6 +15,27 @@ export const byUserDaily = (userId: string, nextTime: string): DynamoDB.Document
   IndexName: 'gsiIdx1',
 });
 
+export const byUserDailyTested = (
+  userId: string,
+  nextTime: string,
+  lastTime: string
+): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environments.TABLE_NAME_LEARNING,
+  KeyConditionExpression: '#userId = :userId AND #nextTime >= :nextTime',
+  FilterExpression: '#lastTime = :lastTime',
+  ExpressionAttributeNames: {
+    '#userId': 'userId',
+    '#nextTime': 'nextTime',
+    '#lastTime': 'lastTime',
+  },
+  ExpressionAttributeValues: {
+    ':userId': userId,
+    ':nextTime': nextTime,
+    ':lastTime': lastTime,
+  },
+  IndexName: 'gsiIdx1',
+});
+
 export const byUserTests = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
