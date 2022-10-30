@@ -30,8 +30,16 @@ export default async (
     times: times,
     nextTime: nextTime,
     lastTime: DateUtils.getNow(),
-    subject_weekly: undefined,
   });
+
+  // ステータス削除
+  await LearningService.removeAttribute(
+    {
+      qid: learning.qid,
+      userId: learning.userId,
+    },
+    'REMOVE subject_weekly'
+  );
 
   // 初めて勉強の場合
   if (learning.lastTime === Consts.INITIAL_DATE) {
