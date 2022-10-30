@@ -20,6 +20,16 @@ export const del = (key: Tables.TLearningKey): DynamoDB.DocumentClient.DeleteIte
   Key: key,
 });
 
+/** データ削除 */
+export const removeAttributes = (
+  key: Tables.TLearningKey,
+  updateExpression: string
+): DynamoDB.DocumentClient.UpdateItemInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  Key: key,
+  UpdateExpression: updateExpression,
+});
+
 /**
  * 問題一覧を取得する
  * 対象: Times = 0, NextTime = now + 1

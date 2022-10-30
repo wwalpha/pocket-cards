@@ -33,7 +33,7 @@ export const update = async (item: Tables.TLearning): Promise<void> => {
   );
 };
 
-/** カリキュラム削除 */
+/** 学習レコード削除 */
 export const remove = async (qid: string, userId: string): Promise<void> => {
   await DBHelper().delete(
     Queries.del({
@@ -41,6 +41,19 @@ export const remove = async (qid: string, userId: string): Promise<void> => {
       userId,
     })
   );
+};
+
+/** カラム削除 */
+export const removeAttribute = async (key: Tables.TLearningKey, updateExpression: string): Promise<void> => {
+  await DBHelper().update(Queries.removeAttributes(key, updateExpression));
+};
+
+export const scan = async (): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().scan({
+    TableName: Environment.TABLE_NAME_LEARNING,
+  });
+
+  return results.Items;
 };
 
 /** 学習項目一括削除 */
