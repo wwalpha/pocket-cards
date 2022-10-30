@@ -53,11 +53,11 @@ const slice = createSlice({
         // answerd question
         if (payload) {
           state.answered.push(payload);
+          // count correct
+          state.correctCount += 1;
         }
         // remove question
         state.questions = state.questions.filter((item) => item.id !== state.questions[state.index].id);
-        // count correct
-        state.correctCount += 1;
         // recalculate index
         if (state.index + 1 >= state.questions.length) {
           state.index = 0;
