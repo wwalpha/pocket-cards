@@ -45,7 +45,8 @@ describe('LearningStatus', () => {
 
     const result = await LearningService.describe(qid, HEADER_USER);
 
-    expect(result).toEqual(DATAS.LEARNINGSTATUS_001_EXCEPTS);
+    expect(result).toMatchObject(DATAS.LEARNINGSTATUS_001_EXCEPTS);
+    expect(result?.subject_status).not.toBeUndefined();
   });
 
   test('LearningStatus002: 当日、且つ times = 0', async () => {
@@ -68,7 +69,8 @@ describe('LearningStatus', () => {
 
     const result = await LearningService.describe(qid, HEADER_USER);
 
-    expect(result).toEqual(DATAS.LEARNINGSTATUS_002_EXCEPTS);
+    expect(result).toMatchObject(DATAS.LEARNINGSTATUS_002_EXCEPTS);
+    expect(result?.subject_status).toBeUndefined();
   });
 
   test('LearningStatus003: 前日、且つ times = 0', async () => {
@@ -93,6 +95,37 @@ describe('LearningStatus', () => {
 
     const result = await LearningService.describe(qid, HEADER_USER);
 
-    expect(result).toEqual(DATAS.LEARNINGSTATUS_003_EXCEPTS);
+    expect(result).not.toBeUndefined();
+    expect(result).toMatchObject(DATAS.LEARNINGSTATUS_003_EXCEPTS);
+    expect(result?.subject_status).toBeUndefined();
+  });
+
+  test('LearningStatus004: 未来、且つ lastTime = yesterday', async () => {
+    const qid = '85EuLteEPQ4pzcYN442PUX';
+    const yesterday = moment().add(-1, 'days').format('YYYYMMDD');
+    const tomorrow = moment().add(1, 'days').format('YYYYMMDD');
+
+    // get item
+    const item = await LearningService.describe(qid, HEADER_USER);
+
+    // if not found
+    if (!item) throw new Error('');
+
+    item.nextTime = tomorrow;
+    item.lastTime = yesterday;
+    item.times = 3;
+    item.subject_status = '3_TEST';
+
+    // update data
+    await LearningService.update(item);
+
+    // テスト実行
+    await LearningStatus();
+
+    const result = await LearningService.describe(qid, HEADER_USER);
+
+    expect(result).not.toBeUndefined();
+    expect(result).toMatchObject(DATAS.LEARNINGSTATUS_004_EXCEPTS);
+    expect(result?.subject_status).toBeUndefined();
   });
 });

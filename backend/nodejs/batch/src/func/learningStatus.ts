@@ -42,10 +42,33 @@ export default async () => {
       });
 
     await DBHelper().bulk(Environments.TABLE_NAME_LEARNING, studies);
+
+    // daily tests
+    const future = await getUserTested(stu, current, yesterday);
+
+    const futures = future
+      .filter((item) => item.times !== 0)
+      .map((item) => {
+        // add test flag
+        item.subject_status = undefined;
+        item.userId = stu.id;
+
+        return item;
+      });
+
+    await DBHelper().bulk(Environments.TABLE_NAME_LEARNING, futures);
   });
 
   // execute all
   await Promise.all(tasks);
+};
+
+const getUserTested = async (item: Tables.TUsers, nextTime: string, lastTime: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(
+    Learning.query.byUserDailyTested(item.id, nextTime, lastTime)
+  );
+
+  return results.Items;
 };
 
 const getUserDaily = async (item: Tables.TUsers, date: string): Promise<Tables.TLearning[]> => {
