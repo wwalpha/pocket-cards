@@ -7,40 +7,40 @@
 ## Core
 
 | Status | Path                   | Http Method | Function ID      | Comment              |
-| ------ | ---------------------- | ----------- | ---------------- | -------------------- |
-| OK     | /health                | GET         |                  | ヘルスチェック       |
-| OK     | /groups                | POST        | GroupRegist      | グループ新規登録     |
-| OK     | /groups                | GET         | GroupList        | グループ一覧取得     |
-| OK     | /groups/:groupId       | GET         | GroupDescribe    | グループ詳細情報取得 |
-| OK     | /groups/:groupId       | PUT         | GroupUpdate      | グループ詳細情報更新 |
-| OK     | /groups/:groupId       | DELETE      | GroupRemove      | グループ削除         |
-| OK     | /questions             | POST        | QuestionRegist   | 問題新規登録         |
-| OK     | /questions             | GET         | QuestionList     | 問題一覧取得         |
-| OK     | /questions/:questionId | GET         | QuestionDescribe | 問題詳細取得         |
-| OK     | /questions/:questionId | PUT         | QuestionUpdate   | 問題詳細情報更新     |
-| OK     | /questions/:questionId | DELETE      | QuestionDelete   | 問題削除             |
-| OK     | /inquiries             | POST        | InquiryRegist    | 問い合わせ新規登録   |
-| OK     | /inquiries             | GET         | InquiryList      | 問い合わせ一覧取得   |
-| OK     | /inquiries/:id         | DELETE      | InquiryRemove    | 問い合わせ削除       |
+| :----: | ---------------------- | ----------- | ---------------- | -------------------- |
+|   OK   | /health                | GET         |                  | ヘルスチェック       |
+|   OK   | /groups                | POST        | GroupRegist      | グループ新規登録     |
+|   OK   | /groups                | GET         | GroupList        | グループ一覧取得     |
+|   OK   | /groups/:groupId       | GET         | GroupDescribe    | グループ詳細情報取得 |
+|   OK   | /groups/:groupId       | PUT         | GroupUpdate      | グループ詳細情報更新 |
+|   OK   | /groups/:groupId       | DELETE      | GroupRemove      | グループ削除         |
+|   OK   | /questions             | POST        | QuestionRegist   | 問題新規登録         |
+|   OK   | /questions             | GET         | QuestionList     | 問題一覧取得         |
+|   OK   | /questions/:questionId | GET         | QuestionDescribe | 問題詳細取得         |
+|   OK   | /questions/:questionId | PUT         | QuestionUpdate   | 問題詳細情報更新     |
+|   OK   | /questions/:questionId | DELETE      | QuestionDelete   | 問題削除             |
+|   OK   | /inquiries             | POST        | InquiryRegist    | 問い合わせ新規登録   |
+|   OK   | /inquiries             | GET         | InquiryList      | 問い合わせ一覧取得   |
+|   OK   | /inquiries/:id         | DELETE      | InquiryRemove    | 問い合わせ削除       |
 
 ## Core API Permission
 
 | Path                   | Description          | Admin | Guardian | Student |
-| ---------------------- | -------------------- | ----- | -------- | ------- |
-| /health                | ヘルスチェック       | 〇    | 〇       | 〇      |
-| /groups                | グループ新規登録     | 〇    |          |         |
-| /groups                | グループ一覧取得     | 〇    | 〇       |         |
-| /groups/:groupId       | グループ詳細情報取得 | 〇    | 〇       |         |
-| /groups/:groupId       | グループ詳細情報更新 | 〇    |          |         |
-| /groups/:groupId       | グループ削除         | 〇    |          |         |
-| /questions             | 問題新規登録         | 〇    |          |         |
-| /questions             | 問題一覧取得         | 〇    | 〇       |         |
-| /questions/:questionId | 問題詳細取得         | 〇    | 〇       |         |
-| /questions/:questionId | 問題詳細情報更新     | 〇    |          |         |
-| /questions/:questionId | 問題削除             | 〇    |          |         |
-| /inquiries             | 問い合わせ新規登録   |       |          | 〇      |
-| /inquiries             | 問い合わせ一覧取得   | 〇    |          |         |
-| /inquiries/:id         | 問い合わせ削除       | 〇    |          |         |
+| ---------------------- | -------------------- | :---: | :------: | :-----: |
+| /health                | ヘルスチェック       |  〇   |    〇    |   〇    |
+| /groups                | グループ新規登録     |  〇   |          |         |
+| /groups                | グループ一覧取得     |  〇   |    〇    |         |
+| /groups/:groupId       | グループ詳細情報取得 |  〇   |    〇    |         |
+| /groups/:groupId       | グループ詳細情報更新 |  〇   |          |         |
+| /groups/:groupId       | グループ削除         |  〇   |          |         |
+| /questions             | 問題新規登録         |  〇   |          |         |
+| /questions             | 問題一覧取得         |  〇   |    〇    |         |
+| /questions/:questionId | 問題詳細取得         |  〇   |    〇    |         |
+| /questions/:questionId | 問題詳細情報更新     |  〇   |          |         |
+| /questions/:questionId | 問題削除             |  〇   |          |         |
+| /inquiries             | 問い合わせ新規登録   |       |          |   〇    |
+| /inquiries             | 問い合わせ一覧取得   |  〇   |          |         |
+| /inquiries/:id         | 問い合わせ削除       |  〇   |          |         |
 
 ```
 // 問題無視機能
@@ -105,21 +105,43 @@ app.post('/v1/vision/handwriting', express.json(), (req, res) => entry(req, res,
 ## Auth Manager
 
 | Status | Path          | Http Method | Function ID  | Comment        |
-| ------ | ------------- | ----------- | ------------ | -------------- |
-| OK     | /health       | GET         |              | ヘルスチェック |
-| OK     | /auth/login   | POST        | Login        | ユーザログイン |
-| OK     | /auth/refresh | POST        | TokenRefresh | Token Refresh  |
+| :----: | ------------- | ----------- | ------------ | -------------- |
+|   OK   | /health       | GET         |              | ヘルスチェック |
+|   OK   | /auth/login   | POST        | Login        | ユーザログイン |
+|   OK   | /auth/refresh | POST        | TokenRefresh | Token Refresh  |
+
+## Auth Manager API Permission
+
+| Path          | Description    | Admin | Guardian | Student |
+| ------------- | -------------- | :---: | :------: | :-----: |
+| /health       | ヘルスチェック |  〇   |    〇    |   〇    |
+| /auth/login   | ユーザログイン |  〇   |    〇    |   〇    |
+| /auth/refresh | Token Refresh  |  〇   |    〇    |   〇    |
 
 ## User Manager
 
 | Status | Path            | Http Method | Function ID     | Comment          |
-| ------ | --------------- | ----------- | --------------- | ---------------- |
-| OK     | /health         | GET         | HealthCheck     | ヘルスチェック   |
-| OK     | /users/admins   | POST        | CreateAdminUser | Admin ユーザ作成 |
-| OK     | /users/admins   | GET         | ListAdminUsers  | Admin ユーザ一覧 |
-| OK     | /users          | POST        | CreateUser      | ユーザ作成       |
-| OK     | /users/:userId  | GET         | DescribeUser    | ユーザ情報取得   |
-| OK     | /users/:userId  | UPDATE      | UpdateUser      | ユーザ情報更新   |
-| OK     | /users/students | POST        | CreateStudent   | 生徒作成         |
-| OK     | /users/students | GET         | ListStudents    | 生徒一覧取得     |
-| OK     | /users/pool/:id | GET         | LookupUser      | ユーザ検索       |
+| :----: | --------------- | ----------- | --------------- | ---------------- |
+|   OK   | /health         | GET         | HealthCheck     | ヘルスチェック   |
+|   OK   | /users/admins   | POST        | CreateAdminUser | Admin ユーザ作成 |
+|   OK   | /users/admins   | GET         | ListAdminUsers  | Admin ユーザ一覧 |
+|   OK   | /users          | POST        | CreateUser      | ユーザ作成       |
+|   OK   | /users/:userId  | GET         | DescribeUser    | ユーザ情報取得   |
+|   OK   | /users/:userId  | UPDATE      | UpdateUser      | ユーザ情報更新   |
+|   OK   | /users/students | POST        | CreateStudent   | 生徒作成         |
+|   OK   | /users/students | GET         | ListStudents    | 生徒一覧取得     |
+|   OK   | /users/pool/:id | GET         | LookupUser      | ユーザ検索       |
+
+## User Manager API Permission
+
+| Path            | Description      | Admin | Guardian | Student |
+| --------------- | ---------------- | :---: | :------: | :-----: |
+| /health         | ヘルスチェック   |  〇   |    〇    |         |
+| /users/admins   | Admin ユーザ作成 |  〇   |          |
+| /users/admins   | Admin ユーザ一覧 |  〇   |          |
+| /users          | ユーザ作成       |  〇   |          |
+| /users/:userId  | ユーザ情報取得   |  〇   |          |
+| /users/:userId  | ユーザ情報更新   |  〇   |          |
+| /users/students | 生徒作成         |       |    〇    |
+| /users/students | 生徒一覧取得     |       |    〇    |
+| /users/pool/:id | ユーザ検索       |       |    〇    |
