@@ -38,6 +38,7 @@
 		9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7527ECA374005A716D /* DailyTasks.swift */; };
 		9A310F1828F3BE6900FB5305 /* Handwriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A310F1728F3BE6900FB5305 /* Handwriting.swift */; };
 		9A310F1928F3BE6900FB5305 /* Handwriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A310F1728F3BE6900FB5305 /* Handwriting.swift */; };
+		9A310F1A290BDD1000FB5305 /* Pods_PocketCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7351D11F778221BCB3F656B /* Pods_PocketCards.framework */; };
 		9A3A56B628D95012001CC4B0 /* WebSocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */; };
 		9A3A56B828D9599D001CC4B0 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56B728D9599D001CC4B0 /* Command.swift */; };
 		9A3A56C228D95E4C001CC4B0 /* CommandService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56C128D95E4C001CC4B0 /* CommandService.swift */; };
@@ -418,6 +419,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A310F1A290BDD1000FB5305 /* Pods_PocketCards.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

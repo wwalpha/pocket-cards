@@ -18,10 +18,10 @@ class MultiTestInteractor {
 extension MultiTestInteractor: MultiTestBusinessLogic, WebSocketConnectionDelegate {
     func updateAnswer(correct: Bool) {
         Task {
-            let params = ["correct": Correct.convert(value: correct)]
+            let params = ["correct": Correct.convert(value: correct), "qid": q!.id]
 
             // update answer
-            _ = await API.request(URLs.STUDY_DAILY_ANSWER(id: q!.id), method: .post, parameters: params).serializingString().response
+            _ = await API.request(URLs.STUDY_DAILY_ANSWER, method: .post, parameters: params).serializingString().response
         }
     }
 
