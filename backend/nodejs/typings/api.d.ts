@@ -382,12 +382,9 @@ export namespace APIs {
   // ------------------------------------------------------------
   // Question Answer
   // ------------------------------------------------------------
-  interface QuestionAnswerParams {
-    questionId: string;
-  }
-
   interface QuestionAnswerRequest {
-    correct?: string;
+    qid: string;
+    correct: string;
   }
 
   type QuestionAnswerResponse = void;
