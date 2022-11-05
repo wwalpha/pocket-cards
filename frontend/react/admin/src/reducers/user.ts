@@ -73,7 +73,8 @@ const slice = createSlice({
         console.log('SIGN UP Success');
       })
       .addCase(UserActions.USER_CURRICULUM_REGIST.fulfilled, (state, { payload }) => {
-        state.curriculums.push(payload);
+        // カリキュラム新規登録
+        state.curriculums.unshift(payload);
       })
       .addCase(UserActions.USER_CURRICULUM_REMOVE.fulfilled, (state, { payload }) => {
         state.curriculums = state.curriculums.filter((item) => item.id !== payload);
