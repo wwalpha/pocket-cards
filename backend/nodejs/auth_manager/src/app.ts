@@ -111,7 +111,7 @@ export const login = async (
  * @param req request
  * @returns
  */
-export const initiateAuth = async (
+export const refreshToken = async (
   req: express.Request<any, any, Auth.InitiateAuthRequest>
 ): Promise<Auth.InitiateAuthResponse> => {
   const accessToken = decodeAccessToken(req.body.accessToken);
