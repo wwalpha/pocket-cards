@@ -299,11 +299,10 @@ resource "aws_dynamodb_table" "learning" {
   }
 
   global_secondary_index {
-    name               = "gsiIdx4"
-    hash_key           = "userId"
-    range_key          = "subject_status"
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["qid", "lastTime", "times"]
+    name            = "gsiIdx4"
+    hash_key        = "userId"
+    range_key       = "subject_status"
+    projection_type = "ALL"
   }
 
   point_in_time_recovery {
