@@ -40,6 +40,7 @@ export const COLORS = {
   MULTI_TEST: '#6F38C5',
   INQUIRY: '#233163',
   HANDWRITING: '#242424',
+  PROGRESS: '#FF6464',
 };
 
 export const PATH_IMAGE = 'images';
