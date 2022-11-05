@@ -34,7 +34,7 @@
 |   OK   | /reports/status/daily??              | GET         | DailyStatus         | 日次学習状況           |
 |   OK   | /reports/questions/daily??           | POST        | DailyTestQuestions  | 科目別テスト問題の一覧 |
 |   OK   | /study/daily/practice                | POST        | QuestionStudy       | 自己練習問題取得       |
-|   OK   | /study/daily/test                    | POST        | QuestionExam        | 自己テスト問題取得     |
+|   OK   | /study/daily/exam                    | POST        | QuestionExam        | 自己テスト問題取得     |
 |   NG   | /study/daily/answer                  | POST        | QuestionAnswer      | 自己テスト問題更新     |
 |   OK   | /study/weekly                        | POST        | WeeklyRegist        | 週テスト対策の問題登録 |
 |   OK   | /study/weekly                        | GET         | WeeklyList          | 週テスト対策の問題一覧 |
