@@ -16,12 +16,12 @@ class DailyTestInteractor: TestInteractor {
         removeQuestion(id: qid)
 
         Task {
-            let params = ["correct": Correct.convert(value: correct)]
+            let params = ["correct": Correct.convert(value: correct), "qid": id]
 
             debugPrint("updateAnswer", qid, correct)
 
             // update answer
-            _ = await API.request(URLs.STUDY_DAILY_ANSWER(id: qid), method: .post, parameters: params).serializingString().response
+            _ = await API.request(URLs.STUDY_DAILY_ANSWER, method: .post, parameters: params).serializingString().response
 
             // add questions
             if questions.count < 5 {

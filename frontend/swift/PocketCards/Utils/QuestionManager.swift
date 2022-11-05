@@ -195,11 +195,11 @@ class QuestionManager {
     private func onUpdate(qid: String?, correct: Bool) async throws {
         guard let id = qid else { return }
 
-        let params = ["correct": Correct.convert(value: correct)]
+        let params = ["correct": Correct.convert(value: correct), "qid": id]
 
         if mode == MODE.STUDY || mode == MODE.TEST {
             // update answer
-            _ = await API.request(URLs.STUDY_DAILY_ANSWER(id: id), method: .post, parameters: params).serializingString().response
+            _ = await API.request(URLs.STUDY_DAILY_ANSWER, method: .post, parameters: params).serializingString().response
         }
 
         if mode == MODE.WEEKLY {

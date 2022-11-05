@@ -21,9 +21,7 @@ class URLs {
     static let STUDY_DAILY_TEST = "\(HOST)/v1/study/daily/test/questions"
     static let STUDY_DAILY_REVIEW = "\(HOST)/v1/study/daily/review/questions"
 
-    static func STUDY_DAILY_ANSWER(id: String) -> String {
-        "\(HOST)/v1/study/daily/test/questions/\(id)"
-    }
+    static let STUDY_DAILY_ANSWER = "\(HOST)/v1/study/daily/answer"
 
     static let STUDY_WEEKLY_QUESTIONS = "\(HOST)/v1/study/weekly"
 
