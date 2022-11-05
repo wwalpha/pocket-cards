@@ -49,29 +49,37 @@ app.options('*', (_, res) => res.sendStatus(200));
 // health check
 app.get('/v1/health', (_, res) => res.send('backend'));
 
-// グループ新規
+// グループ新規登録
 app.post('/v1/groups', express.json(), (req, res) => entry(req, res, GroupRegist));
-// グループ一覧
+// グループ一覧取得
 app.get('/v1/groups', express.json(), (req, res) => entry(req, res, GroupList));
-// グループ一覧
+// グループ詳細取得
 app.get('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupDescribe));
-// グループ更新
+// グループ情報更新
 app.put('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupUpdate));
 // グループ削除
 app.delete('/v1/groups/:groupId', express.json(), (req, res) => entry(req, res, GroupRemove));
 
+// 問題新規登録
+app.post('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
+// 問題一覧取得
+app.get('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionList));
+// 問題詳細取得
+app.get('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionDescribe));
+// 問題詳細情報更新
+app.put('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionUpdate));
+// 問題削除
+app.delete('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionDelete));
+
+// 問い合わせ新規登録
+app.post('/v1/inquiries', express.json(), (req, res) => entry(req, res, InquiryRegist));
+// 問い合わせ一覧取得
+app.get('/v1/inquiries', express.json(), (req, res) => entry(req, res, InquiryList));
+// 問い合わせ削除
+app.delete('/v1/inquiries/:id', express.json(), (req, res) => entry(req, res, InquiryRemove));
+
 // 問題無視機能
 app.post('/v1/groups/:groupId/questions/ignore', express.json(), (req, res) => entry(req, res, QuestionIgnore));
-// 問題一括登録
-app.post('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionRegist));
-// 問題詳細一括取得
-app.get('/v1/groups/:groupId/questions', express.json(), (req, res) => entry(req, res, QuestionList));
-// 問題集詳細更新
-app.put('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionUpdate));
-// 問題集詳細取得
-app.get('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionDescribe));
-// 問題集削除
-app.delete('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionDelete));
 
 // leaning progress
 app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, LearningProgress));
@@ -86,13 +94,6 @@ app.get('/v1/reports/status/daily', express.json(), (req, res) => entry(req, res
 app.get('/v1/reports/curriculums/:curriculumId', express.json(), (req, res) => entry(req, res, CurriculumStatus));
 // 科目別テスト問題の一覧
 app.post('/v1/reports/questions/dailytest', express.json(), (req, res) => entry(req, res, DailyTestQuestions));
-
-// 問い合わせ登録
-app.post('/v1/inquiries', express.json(), (req, res) => entry(req, res, InquiryRegist));
-// 問い合わせ一覧
-app.get('/v1/inquiries', express.json(), (req, res) => entry(req, res, InquiryList));
-// 問い合わせ一覧
-app.delete('/v1/inquiries/:id', express.json(), (req, res) => entry(req, res, InquiryRemove));
 
 // カリキュラム登録
 app.post('/v1/curriculums', express.json(), (req, res) => entry(req, res, CurriculumRegist));
