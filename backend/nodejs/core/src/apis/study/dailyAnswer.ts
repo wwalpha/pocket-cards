@@ -7,16 +7,19 @@ import { Traces } from '@queries';
 import { APIs } from 'typings';
 
 export default async (
-  req: Request<APIs.QuestionAnswerParams, any, APIs.QuestionAnswerRequest, any>
+  req: Request<any, any, APIs.QuestionAnswerRequest, any>
 ): Promise<APIs.QuestionAnswerResponse> => {
-  const input = req.body;
+  // 入力値
+  const { qid, correct } = validate(req);
+  // ユーザID
   const userId = Commons.getUserId(req);
-  const { questionId } = req.params;
 
-  const learning = await LearningService.describe(questionId, userId);
+  // 学習状況取得
+  const learning = await LearningService.describe(qid, userId);
 
+  // 学習状況存在しない
   if (!learning) {
-    throw new ValidationError(`Question was not found. ${questionId}`);
+    throw new ValidationError(`Question was not found. ${qid}`);
   }
 
   // 学習回数が0以外、且つ、当日すでに更新済みの場合、無視する
@@ -25,8 +28,8 @@ export default async (
   }
 
   // 正解の場合
-  const times = input.correct === '1' ? defaultTo(learning.times, 0) + 1 : 0;
-  const nextTime = input.correct === '1' ? DateUtils.getNextTime(times, learning.subject) : DateUtils.getNextTime(0);
+  const times = correct === '1' ? defaultTo(learning.times, 0) + 1 : 0;
+  const nextTime = correct === '1' ? DateUtils.getNextTime(times, learning.subject) : DateUtils.getNextTime(0);
 
   // 学習情報更新
   await LearningService.update({
@@ -65,4 +68,18 @@ export default async (
       },
     ],
   });
+};
+
+// リクエスト検証
+const validate = (
+  request: Request<any, any, APIs.QuestionAnswerRequest, any>
+): Required<APIs.QuestionAnswerRequest> => {
+  const { qid, correct } = request.body;
+
+  // validation
+  if (!qid || !correct) {
+    throw new ValidationError('Bad request.');
+  }
+
+  return { qid, correct };
 };
