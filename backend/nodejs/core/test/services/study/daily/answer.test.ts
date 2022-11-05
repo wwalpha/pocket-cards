@@ -1,7 +1,7 @@
 import server from '@src/app';
 import request from 'supertest';
-import * as COMMONS from '../../datas/commons';
-import * as QUESTIONS from '../../datas/questions/answer';
+import * as COMMONS from '../../../datas/commons';
+import * as QUESTIONS from '../../../datas/questions/answer';
 import { HEADER_USER } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
@@ -13,7 +13,7 @@ const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOI
 
 jest.setTimeout(10000);
 
-describe('Questions', () => {
+describe('Study', () => {
   beforeEach(async () => {
     await Promise.all([
       client.bulk(Environment.TABLE_NAME_GROUPS, COMMONS.DB_GROUPS),
@@ -33,20 +33,22 @@ describe('Questions', () => {
   });
 
   test('Answer01: 問題回答_正解', async () => {
-    const before = await LearningService.describe('xtk4W9TSsxSMmTifVxeFLA', 'Google_109439805128280065775');
-    const apiPath = '/v1/study/daily/test/questions/xtk4W9TSsxSMmTifVxeFLA';
+    const qid = 'xtk4W9TSsxSMmTifVxeFLA';
+    const before = await LearningService.describe(qid, HEADER_USER);
+    const apiPath = '/v1/study/daily/answer';
 
     const res = await request(server)
       .post(apiPath)
       .set('username', HEADER_USER)
       .send({
+        qid: qid,
         correct: '1',
       } as APIs.QuestionAnswerRequest);
 
     // status code
     expect(res.statusCode).toBe(200);
 
-    const after = await LearningService.describe('xtk4W9TSsxSMmTifVxeFLA', 'Google_109439805128280065775');
+    const after = await LearningService.describe(qid, HEADER_USER);
 
     expect(after).not.toBeUndefined();
 
@@ -60,21 +62,23 @@ describe('Questions', () => {
   });
 
   test('Answer02: 問題回答_不正解', async () => {
-    const before = await LearningService.describe('xtk4W9TSsxSMmTifVxeFLA', 'Google_109439805128280065775');
-
-    const apiPath = '/v1/study/daily/test/questions/xtk4W9TSsxSMmTifVxeFLA';
+    const qid = 'xtk4W9TSsxSMmTifVxeFLA';
+    const userId = HEADER_USER;
+    const before = await LearningService.describe(qid, userId);
+    const apiPath = '/v1/study/daily/answer';
 
     const res = await request(server)
       .post(apiPath)
-      .set('username', HEADER_USER)
+      .set('username', userId)
       .send({
+        qid: qid,
         correct: '0',
       } as APIs.QuestionAnswerRequest);
 
     // status code
     expect(res.statusCode).toBe(200);
 
-    const after = await LearningService.describe('xtk4W9TSsxSMmTifVxeFLA', 'Google_109439805128280065775');
+    const after = await LearningService.describe(qid, userId);
 
     expect(after).not.toBeUndefined();
 
@@ -87,40 +91,16 @@ describe('Questions', () => {
     expect(before).toMatchObject(after);
   });
 
-  test('Answer03: 問題回答_正解_算数6回', async () => {
-    const before = await LearningService.describe('fBTFsyZGVkknQtKBBpfuhJ', 'Google_109439805128280065775');
-    const apiPath = '/v1/study/daily/test/questions/fBTFsyZGVkknQtKBBpfuhJ';
-
-    const res = await request(server)
-      .post(apiPath)
-      .set('username', HEADER_USER)
-      .send({
-        correct: '1',
-      } as APIs.QuestionAnswerRequest);
-
-    // status code
-    expect(res.statusCode).toBe(200);
-
-    const after = await LearningService.describe('fBTFsyZGVkknQtKBBpfuhJ', 'Google_109439805128280065775');
-
-    expect(after).not.toBeUndefined();
-
-    if (!before || !after) return;
-
-    before.lastTime = moment().format('YYYYMMDD');
-    before.nextTime = '99991231';
-    before.times += 1;
-
-    expect(before).toMatchObject(after);
-  });
-
   test('Answer04: 問題存在しない', async () => {
-    const apiPath = '/v1/study/daily/test/questions/Q001';
+    const qid = 'Q001';
+    const userId = HEADER_USER;
+    const apiPath = '/v1/study/daily/answer';
 
     const res = await request(server)
       .post(apiPath)
-      .set('username', HEADER_USER)
+      .set('username', userId)
       .send({
+        qid: qid,
         correct: '1',
       } as APIs.QuestionAnswerRequest);
 
@@ -130,21 +110,25 @@ describe('Questions', () => {
   });
 
   test('Answer05: 問題回答_正解_初回学習', async () => {
-    const before = await LearningService.describe('8QZG2k5o43o1acnT2NCyDY', 'Google_109439805128280065775');
-    const apiPath = '/v1/study/daily/test/questions/8QZG2k5o43o1acnT2NCyDY';
+    const qid = '8QZG2k5o43o1acnT2NCyDY';
+    const curriculumId = 'vB6cUPdMB8TJFSrypGwoML';
+    const userId = HEADER_USER;
+    const before = await LearningService.describe(qid, userId);
+    const apiPath = '/v1/study/daily/answer';
 
     const res = await request(server)
       .post(apiPath)
-      .set('username', HEADER_USER)
+      .set('username', userId)
       .send({
+        qid: qid,
         correct: '1',
       } as APIs.QuestionAnswerRequest);
 
     // status code
     expect(res.statusCode).toBe(200);
 
-    const after = await LearningService.describe('8QZG2k5o43o1acnT2NCyDY', 'Google_109439805128280065775');
-    const curriculum = await CurriculumService.describe('vB6cUPdMB8TJFSrypGwoML');
+    const after = await LearningService.describe(qid, userId);
+    const curriculum = await CurriculumService.describe(curriculumId);
 
     expect(after).not.toBeUndefined();
 
