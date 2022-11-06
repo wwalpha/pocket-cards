@@ -18,7 +18,7 @@ export const STUDY_CONTINUE = createAsyncThunk<void, void>(
       dispatch(STUDY_PRACTICE());
     } else {
       // テストモード
-      dispatch(STUDY_TEST());
+      dispatch(STUDY_EXAM());
     }
   }
 );
@@ -34,7 +34,7 @@ export const STUDY_IGNORE = createAsyncThunk<string, WordItem>('study/STUDY_IGNO
 
 // 学習
 export const STUDY_PRACTICE = createAsyncThunk<WordItem[], void>('study/STUDY_PRACTICE', async () => {
-  const res = await API.get<APIs.QuestionStudyResponse>(URLs.DAILY_PRACTICE());
+  const res = await API.get<APIs.DailyPracticeResponse>(URLs.DAILY_PRACTICE());
 
   return res.questions.map((item) => ({
     id: item.id,
@@ -48,8 +48,8 @@ export const STUDY_PRACTICE = createAsyncThunk<WordItem[], void>('study/STUDY_PR
 });
 
 // テスト
-export const STUDY_TEST = createAsyncThunk<WordItem[], void>('study/STUDY_TEST', async () => {
-  const res = await API.get<APIs.QuestionTestResponse>(URLs.DAILY_TEST());
+export const STUDY_EXAM = createAsyncThunk<WordItem[], void>('study/STUDY_EXAM', async () => {
+  const res = await API.get<APIs.DailyExamResponse>(URLs.DAILY_EXAM());
 
   return res.questions.map((item) => ({
     id: item.id,
@@ -79,7 +79,8 @@ export const STUDY_ANSWER = createAsyncThunk<boolean, boolean>(
     }
 
     // update question answer
-    await API.post<APIs.QuestionAnswerResponse, APIs.QuestionAnswerRequest>(URLs.DAILY_ANSWER(current.id), {
+    await API.post<APIs.QuestionAnswerResponse, APIs.QuestionAnswerRequest>(URLs.DAILY_ANSWER(), {
+      qid: current.id,
       correct: param,
     });
 
