@@ -8,6 +8,7 @@ on:
       - .github/workflows/reuse_lambda.yml
     branches-ignore:
       - releases/**
+      - master
   workflow_dispatch:
 
 jobs:
