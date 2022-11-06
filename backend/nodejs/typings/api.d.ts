@@ -341,12 +341,12 @@ export namespace APIs {
   // ------------------------------------------------------------
   interface QuestionStudyRequest {}
 
-  interface QuestionStudyResponse {
+  interface DailyPracticeResponse {
     count: number;
     questions: Tables.TQuestions[];
   }
 
-  interface QuestionStudyQuery {
+  interface DailyPracticeQuery {
     subject?: string;
   }
 

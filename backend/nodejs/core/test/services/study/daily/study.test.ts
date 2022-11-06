@@ -1,8 +1,8 @@
 import axios, { AxiosStatic } from 'axios';
 import server from '@src/app';
 import request from 'supertest';
-import * as COMMONS from '../../datas/commons';
-import * as QUESTIONS from '../../datas/questions/study';
+import * as COMMONS from '../../../datas/commons';
+import * as QUESTIONS from '../../../datas/questions/study';
 import { HEADER_AUTH, HEADER_USER, HEADER_USER2 } from '@test/Commons';
 import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
@@ -35,7 +35,7 @@ describe('Questions', () => {
   test('Study01: デリー学習一覧_未学習のみ', async () => {
     api.get.mockImplementationOnce(() => Promise.resolve({ status: 200, data: COMMONS.USER_STUDENT }));
 
-    const apiPath = '/v1/study/daily/practice/questions';
+    const apiPath = '/v1/study/daily/practice';
 
     const res = await request(server)
       .get(apiPath)
@@ -52,7 +52,7 @@ describe('Questions', () => {
   test('Study02: デリー学習一覧_学習済のみ', async () => {
     api.get.mockImplementationOnce(() => Promise.resolve({ status: 200, data: COMMONS.USER_STUDENT }));
 
-    const apiPath = '/v1/study/daily/practice/questions';
+    const apiPath = '/v1/study/daily/practice';
 
     const res = await request(server)
       .get(apiPath)
@@ -67,7 +67,7 @@ describe('Questions', () => {
   });
 
   test('Study03: 対象ユーザ学習データ存在しない', async () => {
-    const apiPath = '/v1/study/daily/practice/questions';
+    const apiPath = '/v1/study/daily/practice';
 
     const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
 
@@ -77,7 +77,7 @@ describe('Questions', () => {
   });
 
   test('Study04: 科目未選択', async () => {
-    const apiPath = '/v1/study/daily/practice/questions';
+    const apiPath = '/v1/study/daily/practice';
 
     const res = await request(server).get(apiPath).set('username', HEADER_USER);
 
