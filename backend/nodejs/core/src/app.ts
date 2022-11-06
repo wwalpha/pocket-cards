@@ -5,7 +5,6 @@ import { GroupRegist, GroupList, GroupDescribe, GroupUpdate, GroupRemove } from 
 import {
   QuestionRegist,
   QuestionStudy,
-  QuestionExam,
   QuestionList,
   QuestionUpdate,
   QuestionDelete,
@@ -35,7 +34,7 @@ import { InquiryList, InquiryRegist, InquiryRemove } from '@src/apis/inquiry';
 import { Handwriting } from '@src/apis/vision';
 import { LearningDescribe } from './apis/learning';
 import { Patchs } from '@src/apis/patch';
-import { DailyAnswer } from '@src/apis/study';
+import { DailyAnswer, DailyExam } from '@src/apis/study';
 import entry from './entry';
 
 const app = express();
@@ -110,6 +109,8 @@ app.get('/v1/curriculums/:curriculumId/questions/:questionId/ignore', express.js
   entry(req, res, CurriculumIgnore)
 );
 
+// 自己試験問題取得
+app.get('/v1/study/daily/exam', express.json(), (req, res) => entry(req, res, DailyExam));
 // 自己試験問題更新
 app.post('/v1/study/daily/answer', express.json(), (req, res) => entry(req, res, DailyAnswer));
 
@@ -126,8 +127,6 @@ app.get('/v1/study/daily/order/questions', express.json(), (req, res) => entry(r
 app.get('/v1/study/daily/review/questions', express.json(), (req, res) => entry(req, res, QuestionReview));
 // 練習問題取得
 app.get('/v1/study/daily/practice/questions', express.json(), (req, res) => entry(req, res, QuestionStudy));
-// テスト問題取得
-app.get('/v1/study/daily/test/questions', express.json(), (req, res) => entry(req, res, QuestionExam));
 
 // 対象問題の学習状況取得
 app.get('/v1/study/learning/:qid', express.json(), (req, res) => entry(req, res, LearningDescribe));
