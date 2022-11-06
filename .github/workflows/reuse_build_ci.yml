@@ -11,10 +11,10 @@ on:
 jobs:
   BUILD:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: DUMMY
+      AWS_SECRET_ACCESS_KEY: DUMMY
     defaults:
-      env:
-        AWS_ACCESS_KEY_ID: DUMMY
-        AWS_SECRET_ACCESS_KEY: DUMMY
       run:
         working-directory: ${{ inputs.working-directory }}
 
@@ -45,4 +45,4 @@ jobs:
       # docker build
       - name: Docker Image Build
         run: |
-          docker build -t .
+          docker build .

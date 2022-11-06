@@ -32,14 +32,14 @@ describe('Questions', () => {
     ]);
   });
 
-  test('Study01: デリー学習一覧_未学習のみ', async () => {
+  test('Practice01: デリー学習一覧_未学習のみ', async () => {
     api.get.mockImplementationOnce(() => Promise.resolve({ status: 200, data: COMMONS.USER_STUDENT }));
 
     const apiPath = '/v1/study/daily/practice';
 
     const res = await request(server)
-      .get(apiPath)
-      .query({
+      .post(apiPath)
+      .send({
         subject: '2',
       })
       .set('username', HEADER_USER);
@@ -55,8 +55,8 @@ describe('Questions', () => {
     const apiPath = '/v1/study/daily/practice';
 
     const res = await request(server)
-      .get(apiPath)
-      .query({
+      .post(apiPath)
+      .send({
         subject: '3',
       })
       .set('username', HEADER_USER2);
@@ -69,7 +69,7 @@ describe('Questions', () => {
   test('Study03: 対象ユーザ学習データ存在しない', async () => {
     const apiPath = '/v1/study/daily/practice';
 
-    const res = await request(server).get(apiPath).set('username', HEADER_AUTH);
+    const res = await request(server).post(apiPath).set('username', HEADER_AUTH);
 
     // status code
     expect(res.statusCode).toBe(400);
@@ -79,7 +79,7 @@ describe('Questions', () => {
   test('Study04: 科目未選択', async () => {
     const apiPath = '/v1/study/daily/practice';
 
-    const res = await request(server).get(apiPath).set('username', HEADER_USER);
+    const res = await request(server).post(apiPath).set('username', HEADER_USER);
 
     // status code
     expect(res.statusCode).toBe(400);

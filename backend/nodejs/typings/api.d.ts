@@ -346,19 +346,17 @@ export namespace APIs {
     questions: Tables.TQuestions[];
   }
 
-  interface DailyPracticeQuery {
-    subject?: string;
+  interface DailyPracticeRequest {
+    subject: string;
   }
 
   // ------------------------------------------------------------
   // Daily Exam
   // ------------------------------------------------------------
-  interface DailyExamQuery {
+  interface DailyExamRequest {
     subject: string;
     userId?: string;
   }
-
-  interface DailyExamRequest {}
 
   interface DailyExamResponse {
     count: number;
