@@ -60,7 +60,7 @@ export default async (
   };
 };
 
-const EmptyResponse = (): APIs.QuestionTestResponse => ({
+const EmptyResponse = (): APIs.DailyExamResponse => ({
   count: 0,
   questions: [],
 });

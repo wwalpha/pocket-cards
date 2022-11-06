@@ -2,7 +2,7 @@ import { createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
 import differenceBy from 'lodash/differenceBy';
 import { Consts } from '@constants';
 import { Domains } from 'typings';
-import { STUDY_PRACTICE, STUDY_TEST, STUDY_ANSWER, STUDY_IGNORE } from './studyActions';
+import { STUDY_PRACTICE, STUDY_EXAM, STUDY_ANSWER, STUDY_IGNORE } from './studyActions';
 
 const studyState: Domains.StudyState = {
   current: undefined,
@@ -31,7 +31,7 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addMatcher(isAnyOf(STUDY_PRACTICE.fulfilled, STUDY_TEST.fulfilled), (state, { payload }) => {
+      .addMatcher(isAnyOf(STUDY_PRACTICE.fulfilled, STUDY_EXAM.fulfilled), (state, { payload }) => {
         // 差分を抽出する
         const differ = differenceBy(payload, state.history, 'id');
 
