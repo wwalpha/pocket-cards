@@ -1,0 +1,28 @@
+name: PR_MERGED) Build CI/CD
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  Auth_Manager:
+    if: github.event.pull_request.merged == true
+    uses: ./.github/workflows/reuse_build_ci_cd.yml
+    
+    
+  # Auth Manager
+  Auth_Manager:
+    uses: ./.github/workflows/reuse_ecs_build.yml
+    with:
+      region: us-east-1
+      working-directory: backend/nodejs/auth_manager
+      environment: prod
+      ECS_SERVICE_NAME: auth_manager
+      ECR_REPOSITORY: pkc/auth
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+
+
