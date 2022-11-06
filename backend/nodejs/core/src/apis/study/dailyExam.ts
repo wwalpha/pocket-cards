@@ -5,10 +5,10 @@ import { APIs, Tables } from 'typings';
 import { CurriculumService, LearningService } from '@services';
 import orderBy from 'lodash/orderBy';
 
-/** 今日のテスト */
+/** 自己試験問題取得 */
 export default async (
-  req: Request<any, any, APIs.QuestionTestRequest, APIs.QuestionTestQuery>
-): Promise<APIs.QuestionTestResponse> => {
+  req: Request<any, any, APIs.DailyExamRequest, APIs.DailyExamQuery>
+): Promise<APIs.DailyExamResponse> => {
   let userId = Commons.getUserId(req);
   const guardianId = Commons.getGuardian(req);
   const { subject, userId: username } = req.query;
