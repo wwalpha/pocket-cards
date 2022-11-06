@@ -7,7 +7,7 @@ import { APIs, Tables } from 'typings';
 import { IncomingHttpHeaders } from 'http';
 
 /** 今日の学習 */
-export default async (req: Request<any, any, any, APIs.QuestionStudyQuery>): Promise<APIs.QuestionStudyResponse> => {
+export default async (req: Request<any, any, any, APIs.DailyPracticeQuery>): Promise<APIs.DailyPracticeResponse> => {
   // ユーザID
   const userId = Commons.getUserId(req);
   const subject = req.query.subject;
@@ -52,7 +52,7 @@ const getDailyPractice = async (userId: string, subject: string) => {
 };
 
 /** 質問詳細を取得する */
-const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.QuestionStudyResponse> => {
+const getQuestions = async (dataRows: Tables.TLearning[]): Promise<APIs.DailyPracticeResponse> => {
   Logger.info(`Count: ${dataRows.length}`);
   // 時間順で上位N件を対象とします
   const targets = dataRows.slice(0, Environment.WORDS_LIMIT);
@@ -80,7 +80,7 @@ const getUnlearned = async (
   userId: string,
   subject: string,
   header: IncomingHttpHeaders
-): Promise<APIs.QuestionStudyResponse> => {
+): Promise<APIs.DailyPracticeResponse> => {
   const userInfo = await UserService.getUserInfo(userId, header);
 
   if (!userInfo.teacher) {
