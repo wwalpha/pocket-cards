@@ -3,7 +3,7 @@ import { SxProps } from '@mui/system';
 
 type Keys = 'root' | 'users' | 'infos' | 'tools';
 
-export const styles: Record<Keys, SxProps<Theme>> = {
+export const styles: Record<Keys, SxProps<Theme> | undefined> = {
   root: {
     display: 'flex',
     m: 2,
