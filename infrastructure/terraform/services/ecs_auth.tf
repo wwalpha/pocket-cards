@@ -4,7 +4,7 @@
 resource "aws_ecs_service" "auth" {
   depends_on = [aws_ecs_cluster.this]
 
-  name                               = "auth_manager"
+  name                               = aws_ecs_task_definition.auth.family
   cluster                            = aws_ecs_cluster.this.id
   desired_count                      = 0
   platform_version                   = "LATEST"
