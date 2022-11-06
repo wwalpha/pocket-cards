@@ -22,9 +22,6 @@ on:
       ECS_SERVICE_NAME:
         required: true
         type: string
-      ECS_TASK_DEF:
-        required: true
-        type: string
       ECS_WAIT_FOR_STABILITY:
         type: boolean
         default: true
@@ -43,7 +40,6 @@ jobs:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
       ECR_REPOSITORY: ${{ inputs.ECR_REPOSITORY }}
       ECS_SERVICE_NAME: ${{ inputs.ECS_SERVICE_NAME }}
-      ECS_TAKS_DEFINITION: ${{ inputs.ECS_TASK_DEF }}
       ECS_TAKS_DEFINITION_FILE: task_definition.json
       SSM_PARAMETER_NAME: /pkc/repository_url
     defaults:
@@ -109,7 +105,7 @@ jobs:
       - name: Update ecs task definition
         id: filepath
         run: |
-          aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
+          aws ecs describe-task-definition --task-definition $ECS_SERVICE_NAME | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
           echo "definition=$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE" >> $GITHUB_OUTPUT
 
       # update task definition
