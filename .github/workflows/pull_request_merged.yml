@@ -12,7 +12,7 @@ on:
 jobs:
   # Auth Manager
   Auth_Manager:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     uses: ./.github/workflows/reuse_build_ci_cd.yml
     with:
       environment: dev
@@ -26,7 +26,7 @@ jobs:
 
   # Users Manager
   Users_Manager:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     uses: ./.github/workflows/reuse_build_ci_cd.yml
     with:
       environment: dev
@@ -40,7 +40,7 @@ jobs:
 
   # Backend
   Backend:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     uses: ./.github/workflows/reuse_build_ci_cd.yml
     with:
       environment: dev
