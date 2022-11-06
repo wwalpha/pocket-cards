@@ -4,7 +4,7 @@
 resource "aws_ecs_service" "users" {
   depends_on = [aws_ecs_cluster.this]
 
-  name                               = "user_manager"
+  name                               = aws_ecs_task_definition.users.family
   cluster                            = aws_ecs_cluster.this.id
   desired_count                      = 0
   platform_version                   = "LATEST"

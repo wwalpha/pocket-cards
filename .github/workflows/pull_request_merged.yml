@@ -1,0 +1,75 @@
+name: PR_MERGED) Build CI/CD
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  # Auth Manager
+  Auth_Manager:
+    if: github.event.pull_request.merged == true
+    uses: ./.github/workflows/reuse_build_ci_cd.yml
+    with:
+      environment: dev
+      region: ap-northeast-1
+      working-directory: backend/nodejs/auth_manager
+      ECR_REPOSITORY: pkc/auth
+      ECS_SERVICE_NAME: pkc-auth
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  # Users Manager
+  Users_Manager:
+    if: github.event.pull_request.merged == true
+    uses: ./.github/workflows/reuse_build_ci_cd.yml
+    with:
+      environment: dev
+      region: ap-northeast-1
+      working-directory: backend/nodejs/user_manager
+      ECR_REPOSITORY: pkc/users
+      ECS_SERVICE_NAME: pkc-users
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  # Backend
+  Backend:
+    if: github.event.pull_request.merged == true
+    uses: ./.github/workflows/reuse_build_ci_cd.yml
+    with:
+      environment: dev
+      region: ap-northeast-1
+      working-directory: backend/nodejs/core
+      ECR_REPOSITORY: pkc/backend
+      ECS_SERVICE_NAME: pkc-backend
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  # Terraform
+  Terraform_Setup:
+    uses: ./.github/workflows/reuse_terraform.yml
+    with:
+      region: ap-northeast-1
+      working-directory: infrastructure/terraform/setup
+      environment: dev
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_VARS: ${{ secrets.TERRAFORM_VARS }}
+
+  Terraform_Service:
+    needs: Terraform_Setup
+    uses: ./.github/workflows/reuse_terraform.yml
+    with:
+      region: ap-northeast-1
+      working-directory: infrastructure/terraform/services
+      environment: dev
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_VARS: ${{ secrets.TERRAFORM_VARS }}
