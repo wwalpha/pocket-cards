@@ -16,3 +16,6 @@ jobs:
     uses: ./.github/workflows/reuse_build_ci.yml
     with:
       working-directory: backend/nodejs/core
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
