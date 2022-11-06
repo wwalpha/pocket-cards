@@ -114,7 +114,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ${{ steps.filepath.outputs.definition }}
-          container-name: ${{ env.ECS_TAKS_DEFINITION }}
+          container-name: ${{ env.ECS_SERVICE_NAME }}
           image: ${{ env.ECR_IMAGE }}
 
       - name: Deploy Amazon ECS task definition
