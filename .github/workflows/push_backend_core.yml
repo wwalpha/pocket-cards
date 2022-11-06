@@ -9,19 +9,10 @@ on:
       - .github/workflows/reuse_ecs_all.yml
     branches-ignore:
       - releases/**
+      - master
 
 jobs:
   Build:
-    uses: ./.github/workflows/reuse_ecs_all.yml
+    uses: ./.github/workflows/reuse_build_ci.yml
     with:
-      region: ap-northeast-1
       working-directory: backend/nodejs/core
-      environment: dev
-      save-coverage: true
-      ECS_SERVICE_NAME: backend
-      ECR_REPOSITORY: pkc/backend
-      ECS_TASK_DEF: pkc-backend
-      ECS_WAIT_FOR_STABILITY: true
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
