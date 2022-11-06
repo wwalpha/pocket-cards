@@ -351,16 +351,16 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
-  // Question Daily Test
+  // Daily Exam
   // ------------------------------------------------------------
-  interface QuestionTestQuery {
+  interface DailyExamQuery {
     subject: string;
     userId?: string;
   }
 
-  interface QuestionTestRequest {}
+  interface DailyExamRequest {}
 
-  interface QuestionTestResponse {
+  interface DailyExamResponse {
     count: number;
     questions: Tables.TQuestions[];
   }
