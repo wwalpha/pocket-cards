@@ -7,10 +7,10 @@ import { APIs, Tables } from 'typings';
 import { IncomingHttpHeaders } from 'http';
 
 /** 今日の学習 */
-export default async (req: Request<any, any, any, APIs.DailyPracticeQuery>): Promise<APIs.DailyPracticeResponse> => {
+export default async (req: Request<any, any, APIs.DailyPracticeRequest, any>): Promise<APIs.DailyPracticeResponse> => {
   // ユーザID
   const userId = Commons.getUserId(req);
-  const subject = req.query.subject;
+  const { subject } = req.body;
 
   // 科目選択されていない
   if (!subject) {

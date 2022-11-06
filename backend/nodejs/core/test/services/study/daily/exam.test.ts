@@ -33,13 +33,9 @@ describe('Study', () => {
   test('Exam01: デリー学習一覧_未学習のみ', async () => {
     const apiPath = `/v1/study/daily/exam`;
 
-    const res = await request(server)
-      .get(apiPath)
-      .query({
-        subject: '3',
-      })
-      .set('username', HEADER_USER)
-      .set('guardian', HEADER_GUARDIAN);
+    const res = await request(server).post(apiPath).set('username', HEADER_USER).set('guardian', HEADER_GUARDIAN).send({
+      subject: '3',
+    });
 
     // status code
     expect(res.statusCode).toBe(200);
