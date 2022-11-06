@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import { json, urlencoded } from 'body-parser';
+import { collectDefaultMetrics, register } from 'prom-client';
 import { GroupRegist, GroupList, GroupDescribe, GroupUpdate, GroupRemove } from '@src/apis/groups';
 import {
   QuestionRegist,
@@ -35,6 +36,9 @@ import { Patchs } from '@src/apis/patch';
 import { DailyAnswer, DailyPractice, DailyExam } from '@src/apis/study';
 import entry from './entry';
 
+// collect prometheus default metrics
+collectDefaultMetrics();
+
 const app = express();
 
 app.use(json({ limit: '50mb' }));
@@ -45,6 +49,12 @@ app.disable('x-powered-by');
 app.options('*', (_, res) => res.sendStatus(200));
 // health check
 app.get('/v1/health', (_, res) => res.send('backend'));
+
+// prometheus metrics
+app.get('/metrics', (_, res) => {
+  res.set('Content-Type', 'text/plain');
+  res.send(register.metrics());
+});
 
 // グループ新規登録
 app.post('/v1/groups', express.json(), (req, res) => entry(req, res, GroupRegist));

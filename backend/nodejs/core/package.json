@@ -8,7 +8,7 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "test": "jest",
-    "test:local": "jest test/services/questions/study.test.ts",
+    "test:local": "jest test/services/study/daily/exam.test.ts",
     "debug": "ts-node -r tsconfig-paths/register -r dotenv/config src/debug.ts",
     "coverage": "ts-node test/coverage.ts"
   },
@@ -45,6 +45,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "p-limit": "^3.1.0",
+    "prom-client": "^14.1.0",
     "short-uuid": "^4.2.0",
     "winston": "^3.3.3"
   },
