@@ -1,4 +1,4 @@
-name: React Build Workflow
+name: COM) React Build
 
 on:
   workflow_call:
