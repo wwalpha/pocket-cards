@@ -12,7 +12,7 @@ on:
       - master
 
 jobs:
-  Build:
+  AuthManager:
     uses: ./.github/workflows/reuse_build_ci.yml
     with:
       working-directory: backend/nodejs/auth_manager
