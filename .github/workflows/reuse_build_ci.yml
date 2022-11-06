@@ -12,6 +12,9 @@ jobs:
   BUILD:
     runs-on: ubuntu-latest
     defaults:
+      env:
+        AWS_ACCESS_KEY_ID: DUMMY
+        AWS_SECRET_ACCESS_KEY: DUMMY
       run:
         working-directory: ${{ inputs.working-directory }}
 
