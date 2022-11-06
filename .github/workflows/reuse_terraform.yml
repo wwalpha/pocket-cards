@@ -1,4 +1,4 @@
-name: Terraform Workflow
+name: COM) Terraform Build
 
 on:
   workflow_call:
