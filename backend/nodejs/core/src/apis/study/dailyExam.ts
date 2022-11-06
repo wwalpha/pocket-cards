@@ -6,12 +6,10 @@ import { CurriculumService, LearningService } from '@services';
 import orderBy from 'lodash/orderBy';
 
 /** 自己試験問題取得 */
-export default async (
-  req: Request<any, any, APIs.DailyExamRequest, APIs.DailyExamQuery>
-): Promise<APIs.DailyExamResponse> => {
+export default async (req: Request<any, any, APIs.DailyExamRequest, any>): Promise<APIs.DailyExamResponse> => {
   let userId = Commons.getUserId(req);
   const guardianId = Commons.getGuardian(req);
-  const { subject, userId: username } = req.query;
+  const { subject, userId: username } = req.body;
 
   // 科目選択されていない
   if (!subject) {

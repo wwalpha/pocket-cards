@@ -108,9 +108,9 @@ app.get('/v1/curriculums/:curriculumId/questions/:questionId/ignore', express.js
 );
 
 // 自己練習問題取得
-app.get('/v1/study/daily/practice', express.json(), (req, res) => entry(req, res, DailyPractice));
+app.post('/v1/study/daily/practice', express.json(), (req, res) => entry(req, res, DailyPractice));
 // 自己試験問題取得
-app.get('/v1/study/daily/exam', express.json(), (req, res) => entry(req, res, DailyExam));
+app.post('/v1/study/daily/exam', express.json(), (req, res) => entry(req, res, DailyExam));
 // 自己試験問題更新
 app.post('/v1/study/daily/answer', express.json(), (req, res) => entry(req, res, DailyAnswer));
 
