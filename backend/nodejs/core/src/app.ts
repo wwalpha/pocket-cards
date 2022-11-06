@@ -10,7 +10,6 @@ import {
   QuestionUpdate,
   QuestionDelete,
   QuestionIgnore,
-  QuestionReview,
   QuestionDescribe,
   QuestionOrder,
 } from '@src/apis/questions';
@@ -122,8 +121,6 @@ app.post('/v1/study/weekly/:questionId', express.json(), (req, res) => entry(req
 
 // カリキュラム順で学習
 app.get('/v1/study/daily/order/questions', express.json(), (req, res) => entry(req, res, QuestionOrder));
-// 復習問題取得
-app.get('/v1/study/daily/review/questions', express.json(), (req, res) => entry(req, res, QuestionReview));
 // 練習問題取得
 app.get('/v1/study/daily/practice/questions', express.json(), (req, res) => entry(req, res, QuestionStudy));
 // テスト問題取得
@@ -139,3 +136,6 @@ app.patch('/v1/patch', express.json(), (req, res) => entry(req, res, Patchs));
 app.post('/v1/vision/handwriting', express.json(), (req, res) => entry(req, res, Handwriting));
 
 export default app;
+
+// 復習問題取得
+// app.get('/v1/study/daily/review/questions', express.json(), (req, res) => entry(req, res, QuestionReview));
