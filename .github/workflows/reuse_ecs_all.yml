@@ -1,4 +1,4 @@
-name: COMMON) ECS ALL
+name: COM) ECS ALL
 
 on:
   workflow_call:

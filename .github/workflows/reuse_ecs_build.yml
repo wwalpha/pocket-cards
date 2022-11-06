@@ -1,4 +1,4 @@
-name: COMMON) ECS Build
+name: COM) ECS Build
 
 on:
   workflow_call:

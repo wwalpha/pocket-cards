@@ -1,4 +1,4 @@
-name: COMMON) ECS Deploy
+name: COM) ECS Deploy
 
 on:
   workflow_call:
