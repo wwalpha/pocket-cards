@@ -51,9 +51,9 @@ app.options('*', (_, res) => res.sendStatus(200));
 app.get('/v1/health', (_, res) => res.send('backend'));
 
 // prometheus metrics
-app.get('/metrics', (_, res) => {
+app.get('/metrics', async (_, res) => {
   res.set('Content-Type', 'text/plain');
-  res.send(register.metrics());
+  res.send(await register.metrics());
 });
 
 // グループ新規登録
