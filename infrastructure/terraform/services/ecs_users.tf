@@ -72,11 +72,12 @@ resource "aws_ecs_task_definition" "users" {
   container_definitions = templatefile(
     "taskdefs/definition.tpl",
     {
-      aws_region      = local.region
-      container_name  = local.task_def_family_users
-      container_image = "${local.repo_url_users}:latest"
-      container_port  = 8080
-      env_file_arn    = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.users.key}"
+      aws_region            = local.region
+      container_name        = local.task_def_family_users
+      container_image       = "${local.repo_url_users}:latest"
+      container_port        = 8080
+      env_file_arn          = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.users.key}"
+      remote_write_endpoint = "${aws_prometheus_workspace.this.prometheus_endpoint}api/v1/remote_write"
       # healthCheck     = "curl -f http://127.0.0.1:8080/v1/users/health || exit 1"
     }
   )

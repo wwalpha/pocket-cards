@@ -282,3 +282,18 @@ output "sns_arn_errors_notify" {
   sensitive = true
   value     = aws_sns_topic.error_notify.arn
 }
+
+# ----------------------------------------------------------------------------------------------
+# Prometheus Remote Write Endpoint
+# ----------------------------------------------------------------------------------------------
+output "remote_write_endpoint" {
+  value = "${aws_prometheus_workspace.this.prometheus_endpoint}api/v1/remote_write"
+}
+
+# ----------------------------------------------------------------------------------------------
+# Prometheus Query Endpoint
+# ----------------------------------------------------------------------------------------------
+output "remote_write_endpoint" {
+  value = "${aws_prometheus_workspace.this.prometheus_endpoint}api/v1/query"
+}
+
