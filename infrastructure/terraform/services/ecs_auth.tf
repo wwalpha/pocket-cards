@@ -8,7 +8,7 @@ resource "aws_ecs_service" "auth" {
   cluster                            = aws_ecs_cluster.this.id
   desired_count                      = 0
   platform_version                   = "LATEST"
-  task_definition                    = "arn:aws:ecs:${local.region}:${local.account_id}:task-definition/${aws_ecs_task_definition.auth.family}:${local.task_def_rev_auth}"
+  task_definition                    = data.aws_ecs_task_definition.auth.arn
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 100
   health_check_grace_period_seconds  = 0
@@ -65,6 +65,7 @@ resource "aws_ecs_task_definition" "auth" {
   cpu                = "256"
   memory             = "512"
 
+
   requires_compatibilities = [
     "FARGATE"
   ]
@@ -85,4 +86,11 @@ resource "aws_ecs_task_definition" "auth" {
     when    = destroy
     command = "sh ${path.module}/scripts/deregister-taskdef.sh ${self.family}"
   }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Service - Auth Service Task Definition
+# ----------------------------------------------------------------------------------------------
+data "aws_ecs_task_definition" "auth" {
+  task_definition = aws_ecs_task_definition.auth.family
 }
