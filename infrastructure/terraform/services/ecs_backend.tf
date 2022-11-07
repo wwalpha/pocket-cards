@@ -30,7 +30,7 @@ resource "aws_ecs_task_definition" "this" {
     {
       aws_region            = local.region
       container_name        = local.task_def_family_backend
-      container_image       = "${local.repo_url_backend}:latest"
+      container_image       = data.aws_ssm_parameter.repo_url_backend.value
       container_port        = 8080
       env_file_arn          = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.backend.key}"
       remote_write_endpoint = "${aws_prometheus_workspace.this.prometheus_endpoint}api/v1/remote_write"
@@ -53,7 +53,7 @@ resource "aws_ecs_service" "this" {
   cluster                            = aws_ecs_cluster.this.id
   desired_count                      = 0
   platform_version                   = "LATEST"
-  task_definition                    = "arn:aws:ecs:${local.region}:${local.account_id}:task-definition/${aws_ecs_task_definition.this.family}:${local.task_def_rev}"
+  task_definition                    = data.aws_ecs_task_definition.backend.arn
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 100
   health_check_grace_period_seconds  = 0
@@ -97,4 +97,11 @@ resource "aws_ecs_service" "this" {
       desired_count
     ]
   }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Service - Backend Service Task Definition
+# ----------------------------------------------------------------------------------------------
+data "aws_ecs_task_definition" "backend" {
+  task_definition = aws_ecs_task_definition.this.family
 }

@@ -8,7 +8,7 @@ resource "aws_ecs_service" "users" {
   cluster                            = aws_ecs_cluster.this.id
   desired_count                      = 0
   platform_version                   = "LATEST"
-  task_definition                    = "arn:aws:ecs:${local.region}:${local.account_id}:task-definition/${aws_ecs_task_definition.users.family}:${local.task_def_rev_users}"
+  task_definition                    = data.aws_ecs_task_definition.users.arn
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 100
   health_check_grace_period_seconds  = 0
@@ -74,7 +74,7 @@ resource "aws_ecs_task_definition" "users" {
     {
       aws_region            = local.region
       container_name        = local.task_def_family_users
-      container_image       = "${local.repo_url_users}:latest"
+      container_image       = data.aws_ssm_parameter.repo_url_users.value
       container_port        = 8080
       env_file_arn          = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.users.key}"
       remote_write_endpoint = "${aws_prometheus_workspace.this.prometheus_endpoint}api/v1/remote_write"
@@ -86,4 +86,11 @@ resource "aws_ecs_task_definition" "users" {
     when    = destroy
     command = "sh ${path.module}/scripts/deregister-taskdef.sh ${self.family}"
   }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS ECS Service - User Service Task Definition
+# ----------------------------------------------------------------------------------------------
+data "aws_ecs_task_definition" "users" {
+  task_definition = aws_ecs_task_definition.users.family
 }
