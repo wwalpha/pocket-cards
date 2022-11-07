@@ -69,8 +69,6 @@ jobs:
       - name: Update ecs task definition
         id: filepath
         run: |
-          pwd
-          printenv
           aws ecs describe-task-definition --task-definition $ECS_TAKS_DEFINITION | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
           echo "definition=$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE" >> $GITHUB_OUTPUT
 
