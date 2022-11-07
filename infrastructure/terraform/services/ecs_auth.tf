@@ -75,7 +75,7 @@ resource "aws_ecs_task_definition" "auth" {
     {
       aws_region            = local.region
       container_name        = local.task_def_family_auth
-      container_image       = data.aws_ssm_parameter.repo_url_auth.value
+      container_image       = "${local.repo_url_auth}:latest"
       container_port        = 8080
       env_file_arn          = "${data.aws_s3_bucket.archive.arn}/${aws_s3_object.auth.key}"
       remote_write_endpoint = "${aws_prometheus_workspace.this.prometheus_endpoint}api/v1/remote_write"
