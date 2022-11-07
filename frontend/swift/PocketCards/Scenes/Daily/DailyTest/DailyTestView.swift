@@ -15,7 +15,7 @@ struct DailyTestView: View {
             Text("Loading....")
                 .onAppear {
                     Task {
-                        await interactor?.loadQuestions()
+                        await interactor?.initialize()
                     }
                 }
         } else if viewModel.isFinish {
@@ -37,17 +37,25 @@ struct DailyTestView: View {
 }
 
 extension DailyTestView: DailyTestDisplayLogic {
+    func onUpdate(model: DailyTestViewModel) {
+        DispatchQueue.main.async {
+            viewModel.isLoading = model.isLoading
+            viewModel.isFinish = model.isFinish
+            viewModel.question = model.question
+        }
+    }
+
     func showNext(model: DailyTestViewModel) {
-        viewModel.isLoading = model.isLoading
-        viewModel.isFinish = model.isFinish
-        viewModel.question = model.question
+        DispatchQueue.main.async {
+            viewModel.question = model.question
+        }
     }
 }
 
 extension DailyTestView {
     func configureView(subject: String, loadUrl: String) -> some View {
         var view = self
-        let interactor = DailyTestInteractor(subject: subject, loadUrl: loadUrl)
+        let interactor = DailyTestInteractor(loadUrl: loadUrl, subject: subject)
         let presenter = DailyTestPresenter()
 
         view.interactor = interactor
@@ -63,6 +71,6 @@ extension DailyTestView {
 
 struct DailyTestView_Previews: PreviewProvider {
     static var previews: some View {
-        DailyTestView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_TEST)
+        DailyTestView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_EXAM)
     }
 }

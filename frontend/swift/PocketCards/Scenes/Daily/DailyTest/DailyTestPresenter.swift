@@ -12,13 +12,15 @@ class DailyTestPresenter {
 }
 
 extension DailyTestPresenter: DailyTestPresentationLogic {
-    func showNext(q: Question, count _: Int? = 0) {
+    func showLoading() {}
+
+    func showNext(q: Question) {
         let model = DailyTestViewModel()
         model.question = q
-        model.isFinish = false
         model.isLoading = false
-        model.question?.title = q.description == nil ? q.title : "\(q.title)\n\n\(q.description!)"
+        model.isFinish = false
 
+        view?.onUpdate(model: model)
         view?.showNext(model: model)
     }
 
@@ -27,6 +29,7 @@ extension DailyTestPresenter: DailyTestPresentationLogic {
         model.isFinish = true
         model.isLoading = false
 
+        view?.onUpdate(model: model)
         view?.showNext(model: model)
     }
 

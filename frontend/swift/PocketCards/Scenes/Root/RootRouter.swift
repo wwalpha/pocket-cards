@@ -25,7 +25,7 @@ class RootRouter {
     }
 
     func makeLanguageTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_TEST)
+        DailyTestView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_EXAM)
     }
 
     func makeScienceStudyiew() -> some View {
@@ -33,7 +33,7 @@ class RootRouter {
     }
 
     func makeScienceTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.SCIENCE, loadUrl: URLs.STUDY_DAILY_TEST)
+        DailyTestView().configureView(subject: SUBJECT.SCIENCE, loadUrl: URLs.STUDY_DAILY_EXAM)
     }
 
     func makeSocietyStudyiew() -> some View {
@@ -41,7 +41,7 @@ class RootRouter {
     }
 
     func makeSocietyTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.SOCIETY, loadUrl: URLs.STUDY_DAILY_TEST)
+        DailyTestView().configureView(subject: SUBJECT.SOCIETY, loadUrl: URLs.STUDY_DAILY_EXAM)
     }
 
     func makeScienceWeeklyTestView() -> some View {
