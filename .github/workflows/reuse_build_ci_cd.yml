@@ -107,6 +107,8 @@ jobs:
         run: |
           aws ecs describe-task-definition --task-definition $ECS_SERVICE_NAME | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
           echo "definition=$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE" >> $GITHUB_OUTPUT
+          pwd
+          printenv
 
       # update task definition
       - name: Fill in the new image ID in the Amazon ECS task definition
