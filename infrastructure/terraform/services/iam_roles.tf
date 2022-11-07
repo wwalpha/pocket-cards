@@ -35,6 +35,14 @@ resource "aws_iam_role_policy_attachment" "ecs_task_dynamodb" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy - Prometheus Remote Write Access
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "ecs_task_prometheus_remote_write" {
+  role       = aws_iam_role.ecs_task.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonPrometheusRemoteWriteAccess"
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS ECS Task Role Policy - App Mesh Envoy Access
 # ----------------------------------------------------------------------------------------------
 # resource "aws_iam_role_policy_attachment" "ecs_task_envoy" {
@@ -99,14 +107,6 @@ resource "aws_iam_role_policy_attachment" "ecs_task_exec_cloudwatch" {
 resource "aws_iam_role_policy_attachment" "ecs_task_exec_ssm" {
   role       = aws_iam_role.ecs_task_exec.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
-}
-
-# ----------------------------------------------------------------------------------------------
-# AWS ECS Task Role Policy - Prometheus Remote Write Access
-# ----------------------------------------------------------------------------------------------
-resource "aws_iam_role_policy_attachment" "ecs_task_exec_prometheus_remote_write" {
-  role       = aws_iam_role.ecs_task_exec.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonPrometheusRemoteWriteAccess"
 }
 
 # ----------------------------------------------------------------------------------------------
