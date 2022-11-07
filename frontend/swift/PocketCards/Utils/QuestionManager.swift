@@ -4,7 +4,6 @@
 //
 //  Created by macmini on 2022/10/06.
 //
-
 import Foundation
 
 class QuestionManager {
@@ -123,7 +122,7 @@ class QuestionManager {
         }
 
         do {
-            if questions.count == 0 {
+            if questions.count <= 0 {
                 try await loadQuestions()
             }
 
@@ -135,7 +134,9 @@ class QuestionManager {
             return nil
         }
 
-//      index = (index + 1) % questions.count
+        if mode == MODE.PRACTICE {
+            index = (index + 1) % questions.count
+        }
 
         if questions.count > index {
             // get next question
@@ -205,10 +206,6 @@ class QuestionManager {
         if mode == MODE.WEEKLY {
             // update answer
             _ = await API.request(URLs.STUDY_WEEKLY_ANSWER(qid: id), method: .post, parameters: params).serializingString().response
-        }
-
-        if questions.count <= 7 {
-            try await loadQuestions()
         }
     }
 
