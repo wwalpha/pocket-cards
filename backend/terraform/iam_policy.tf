@@ -82,7 +82,7 @@ resource "aws_iam_role_policy" "ecs_task_status_basic" {
 # AWS Lambda Role - ECS Policy
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy" "vision_s3_delete" {
-  name = "S3_Policy"
+  name = "${local.project_name_uc}_S3Policy"
   role = aws_iam_role.vision.id
 
   policy = jsonencode({
