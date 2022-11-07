@@ -119,7 +119,7 @@ extension HandwritingView: HandwritingDisplayLogic {
 extension HandwritingView {
     func configureView() -> some View {
         var view = self
-        let interactor = HandwritingInteractor(loadUrl: URLs.STUDY_DAILY_TEST, subject: SUBJECT.HANDWRITING)
+        let interactor = HandwritingInteractor(loadUrl: URLs.STUDY_DAILY_EXAM, subject: SUBJECT.HANDWRITING)
         let presenter = HandwritingPresenter()
 
         view.interactor = interactor
