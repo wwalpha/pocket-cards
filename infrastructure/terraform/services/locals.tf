@@ -28,9 +28,6 @@ locals {
   task_def_family_backend = "${local.project_name}-backend"
   task_def_family_users   = "${local.project_name}-users"
   task_def_family_auth    = "${local.project_name}-auth"
-  task_def_rev            = max(aws_ecs_task_definition.this.revision, data.aws_ecs_task_definition.backend.revision)
-  task_def_rev_users      = max(aws_ecs_task_definition.users.revision, data.aws_ecs_task_definition.users.revision)
-  task_def_rev_auth       = max(aws_ecs_task_definition.auth.revision, data.aws_ecs_task_definition.auth.revision)
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -82,6 +79,13 @@ locals {
   repo_url_batch   = local.remote_setup.repo_url_batch
   repo_url_auth    = local.remote_setup.repo_url_auth
   repo_url_users   = local.remote_setup.repo_url_users
+
+  # ----------------------------------------------------------------------------------------------
+  # SSM
+  # ----------------------------------------------------------------------------------------------
+  ssm_repo_url_backend = local.remote_setup.ssm_repo_url_backend
+  ssm_repo_url_auth    = local.remote_setup.ssm_repo_url_auth
+  ssm_repo_url_users   = local.remote_setup.ssm_repo_url_users
 
   # ----------------------------------------------------------------------------------------------
   # S3 Bucket
@@ -137,38 +141,6 @@ data "aws_s3_bucket" "uploads" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# ECS Task Definition - Backend
-# ----------------------------------------------------------------------------------------------
-data "aws_ecs_task_definition" "backend" {
-  depends_on      = [aws_ecs_task_definition.this]
-  task_definition = aws_ecs_task_definition.this.family
-}
-
-# ----------------------------------------------------------------------------------------------
-# ECS Task Definition - Users
-# ----------------------------------------------------------------------------------------------
-data "aws_ecs_task_definition" "users" {
-  depends_on      = [aws_ecs_task_definition.users]
-  task_definition = aws_ecs_task_definition.users.family
-}
-
-# ----------------------------------------------------------------------------------------------
-# ECS Task Definition - Auth
-# ----------------------------------------------------------------------------------------------
-data "aws_ecs_task_definition" "auth" {
-  depends_on      = [aws_ecs_task_definition.auth]
-  task_definition = aws_ecs_task_definition.auth.family
-}
-
-# ----------------------------------------------------------------------------------------------
-# ECS Task Definition - WSS
-# ----------------------------------------------------------------------------------------------
-# data "aws_ecs_task_definition" "wss" {
-#   depends_on      = [aws_ecs_task_definition.wss]
-#   task_definition = aws_ecs_task_definition.wss.family
-# }
-
-# ----------------------------------------------------------------------------------------------
 # AWS Route53 Zone
 # ----------------------------------------------------------------------------------------------
 data "aws_route53_zone" "this" {
@@ -188,4 +160,25 @@ data "aws_dynamodb_table" "settings" {
 # ----------------------------------------------------------------------------------------------
 data "aws_dynamodb_table" "users" {
   name = local.dynamodb_name_users
+}
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Backend repository url
+# ----------------------------------------------------------------------------------------------
+data "aws_ssm_parameter" "repo_url_backend" {
+  name = local.ssm_repo_url_backend
+}
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Auth repository url
+# ----------------------------------------------------------------------------------------------
+data "aws_ssm_parameter" "repo_url_auth" {
+  name = local.ssm_repo_url_auth
+}
+
+# ----------------------------------------------------------------------------------------------
+# SSM Parameter Store - Users repository url
+# ----------------------------------------------------------------------------------------------
+data "aws_ssm_parameter" "repo_url_users" {
+  name = local.ssm_repo_url_users
 }
