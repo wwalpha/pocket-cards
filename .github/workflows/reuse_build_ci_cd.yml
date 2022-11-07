@@ -38,6 +38,7 @@ jobs:
     environment: ${{ inputs.environment }}
     env:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
+      WORKING_DIR: ${{ inputs.working-directory }}
       ECR_REPOSITORY: ${{ inputs.ECR_REPOSITORY }}
       ECS_SERVICE_NAME: ${{ inputs.ECS_SERVICE_NAME }}
       ECS_TAKS_DEFINITION_FILE: task_definition.json
@@ -72,7 +73,6 @@ jobs:
 
       # Unit Test
       - name: Unit Test
-        if: ${{ inputs.run-tests == true }}
         run: |
           docker-compose up -d --build
           sleep 10
@@ -107,8 +107,6 @@ jobs:
         run: |
           aws ecs describe-task-definition --task-definition $ECS_SERVICE_NAME | jq .taskDefinition > $ECS_TAKS_DEFINITION_FILE
           echo "definition=$GITHUB_WORKSPACE/$WORKING_DIR/$ECS_TAKS_DEFINITION_FILE" >> $GITHUB_OUTPUT
-          pwd
-          printenv
 
       # update task definition
       - name: Fill in the new image ID in the Amazon ECS task definition
