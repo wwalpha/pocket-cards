@@ -161,24 +161,3 @@ data "aws_dynamodb_table" "settings" {
 data "aws_dynamodb_table" "users" {
   name = local.dynamodb_name_users
 }
-
-# ----------------------------------------------------------------------------------------------
-# SSM Parameter Store - Backend repository url
-# ----------------------------------------------------------------------------------------------
-data "aws_ssm_parameter" "repo_url_backend" {
-  name = local.ssm_repo_url_backend
-}
-
-# ----------------------------------------------------------------------------------------------
-# SSM Parameter Store - Auth repository url
-# ----------------------------------------------------------------------------------------------
-data "aws_ssm_parameter" "repo_url_auth" {
-  name = local.ssm_repo_url_auth
-}
-
-# ----------------------------------------------------------------------------------------------
-# SSM Parameter Store - Users repository url
-# ----------------------------------------------------------------------------------------------
-data "aws_ssm_parameter" "repo_url_users" {
-  name = local.ssm_repo_url_users
-}
