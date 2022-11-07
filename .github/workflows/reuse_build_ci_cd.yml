@@ -40,6 +40,7 @@ jobs:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
       WORKING_DIR: ${{ inputs.working-directory }}
       ECR_REPOSITORY: ${{ inputs.ECR_REPOSITORY }}
+      ECS_CLUSTER_NAME: ${{ inputs.ECS_CLUSTER_NAME }}
       ECS_SERVICE_NAME: ${{ inputs.ECS_SERVICE_NAME }}
       ECS_TAKS_DEFINITION_FILE: task_definition.json
       SSM_PARAMETER_NAME: /pkc/repository_url
@@ -121,7 +122,7 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.render-web-container.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE_NAME }}
-          cluster: ${{ env.ECS_CLUSTER_NAME }}
-          wait-for-service-stability: ${{ env.ECS_WAIT_FOR_STABILITY }}
+          service: ${{ inputs.ECS_SERVICE_NAME }}
+          cluster: ${{ inputs.ECS_CLUSTER_NAME }}
+          wait-for-service-stability: ${{ inputs.ECS_WAIT_FOR_STABILITY }}
           force-new-deployment: true
