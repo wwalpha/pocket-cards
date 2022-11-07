@@ -15,7 +15,7 @@ class DailyStudyInteractor {
     init(loadUrl: String, subject: String) {
         manager.subject = subject
         manager.loadUrl = loadUrl
-        manager.mode = MODE.STUDY
+        manager.mode = MODE.PRACTICE
     }
 }
 

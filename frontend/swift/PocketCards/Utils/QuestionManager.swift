@@ -10,10 +10,10 @@ import Foundation
 class QuestionManager {
     var loadUrl: String = ""
     var subject: String = ""
-    var mode = MODE.STUDY
+    var mode = MODE.PRACTICE
 
     private var current: Question?
-    private var index: Int = -1
+    private var index: Int = 0
     private var questions: [Question] = []
     private var answered: [String] = []
     private var isSuspended: Bool = false
@@ -35,7 +35,7 @@ class QuestionManager {
         let params = ["subject": subject]
 
         do {
-            let res = try await API.request(loadUrl, method: .get, parameters: params).serializingDecodable(QuestionServices.LoadQuestion.Response.self).value
+            let res = try await API.request(loadUrl, method: .post, parameters: params).serializingDecodable(QuestionServices.LoadQuestion.Response.self).value
 
             print("==HUB== \(res)")
 
@@ -53,7 +53,7 @@ class QuestionManager {
         playSound(correct: correct)
 
         // 学習モード、かつ回答不正解の場合、スキップする
-        if mode == MODE.STUDY, correct == false {
+        if mode == MODE.PRACTICE, correct == false {
             return
         }
 
@@ -73,7 +73,7 @@ class QuestionManager {
         playSound(correct: result)
 
         // 学習モードの場合、かつ不正解の場合
-        if mode == MODE.STUDY, result == false {
+        if mode == MODE.PRACTICE, result == false {
             // set flag
             current?.isAnswered = true
 
@@ -81,7 +81,7 @@ class QuestionManager {
         }
 
         // 学習モードの場合、かつ正解の場合
-        if mode == MODE.STUDY, result == true {
+        if mode == MODE.PRACTICE, result == true {
             // first time
             if current?.isAnswered == nil || current?.isAnswered == false {
                 Task {
@@ -135,7 +135,7 @@ class QuestionManager {
             return nil
         }
 
-        index = (index + 1) % questions.count
+//      index = (index + 1) % questions.count
 
         if questions.count > index {
             // get next question
@@ -197,7 +197,7 @@ class QuestionManager {
 
         let params = ["correct": Correct.convert(value: correct), "qid": id]
 
-        if mode == MODE.STUDY || mode == MODE.TEST {
+        if mode == MODE.PRACTICE || mode == MODE.EXAM {
             // update answer
             _ = await API.request(URLs.STUDY_DAILY_ANSWER, method: .post, parameters: params).serializingString().response
         }

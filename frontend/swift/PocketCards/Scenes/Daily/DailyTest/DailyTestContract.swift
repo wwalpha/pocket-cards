@@ -8,8 +8,28 @@ import Foundation
 
 protocol DailyTestDisplayLogic {
     func showNext(model: DailyTestViewModel)
+
+    func onUpdate(model: DailyTestViewModel)
 }
 
-protocol DailyTestBusinessLogic: StudyBusinessLogic {}
+protocol DailyTestBusinessLogic {
+    func initialize() async
 
-protocol DailyTestPresentationLogic: StudyPresentationLogic {}
+    func onChoice(choice: String)
+
+    func onAction(correct: Bool)
+
+    func next() async
+
+    func destory()
+}
+
+protocol DailyTestPresentationLogic {
+    func showNext(q: Question)
+
+    func showNothing()
+
+    func showLoading()
+
+    func showError(index: String)
+}
