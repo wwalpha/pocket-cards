@@ -53,13 +53,13 @@ resource "aws_iam_role_policy" "ecs_task" {
     Version = "2012-10-17"
     Statement = [
       {
+        Effect = "Allow"
         Action = [
           "polly:SynthesizeSpeech",
           "s3:PutObject",
           "s3:GetObject",
           "cognito-idp:AdminInitiateAuth"
         ]
-        Effect   = "Allow"
         Resource = "*"
       }
     ]
@@ -102,10 +102,18 @@ resource "aws_iam_role_policy_attachment" "ecs_task_exec_ssm" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS ECS Task Role Policy - Prometheus Remote Write Access
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "ecs_task_exec_prometheus_remote_write" {
+  role       = aws_iam_role.ecs_task_exec.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonPrometheusRemoteWriteAccess"
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS ECS Task Role Policy
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy" "ecs_task_exec" {
-  name = "s3_policy"
+  name = "${local.project_name_uc}_S3Policy"
   role = aws_iam_role.ecs_task_exec.id
 
   policy = jsonencode({
