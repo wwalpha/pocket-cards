@@ -17,10 +17,9 @@ class URLs {
     static let VISION_HANDWRITING = "\(HOST)/v1/vision/handwriting"
 
     static let STUDY_DAILY_CURRICULUM_ORDER = "\(HOST)/v1/study/daily/order/questions"
-    static let STUDY_DAILY_PRACTICE = "\(HOST)/v1/study/daily/practice/questions"
-    static let STUDY_DAILY_TEST = "\(HOST)/v1/study/daily/test/questions"
-    static let STUDY_DAILY_REVIEW = "\(HOST)/v1/study/daily/review/questions"
 
+    static let STUDY_DAILY_PRACTICE = "\(HOST)/v1/study/daily/practice"
+    static let STUDY_DAILY_EXAM = "\(HOST)/v1/study/daily/exam"
     static let STUDY_DAILY_ANSWER = "\(HOST)/v1/study/daily/answer"
 
     static let STUDY_WEEKLY_QUESTIONS = "\(HOST)/v1/study/weekly"
@@ -56,6 +55,9 @@ class URLs {
     }
 
     static let REPORT_DAILY = "\(HOST)/v1/reports/daily"
+
+    // deprecated
+    static let STUDY_DAILY_REVIEW = "\(HOST)/v1/study/daily/review/questions"
 }
 
 enum SUBJECT {
@@ -68,8 +70,8 @@ enum SUBJECT {
 }
 
 enum MODE {
-    static let STUDY = "1"
-    static let TEST = "2"
+    static let PRACTICE = "1"
+    static let EXAM = "2"
     static let WEEKLY = "3"
 }
 
