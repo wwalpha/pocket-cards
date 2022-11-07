@@ -37,7 +37,7 @@
     "environment": [
       {
         "name": "AWS_PROMETHEUS_ENDPOINT",
-        "value": "${workspace_endpoint}"
+        "value": "${remote_write_endpoint}"
       }
     ],
     "logConfiguration": {
