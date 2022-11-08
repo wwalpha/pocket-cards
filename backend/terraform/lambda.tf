@@ -3,8 +3,8 @@
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "ecs_task_start" {
   function_name     = "${local.project_name}-ecs-task-start"
-  s3_bucket         = local.bucket_name_archive
-  s3_key            = "lambda/start.zip"
+  s3_bucket         = aws_s3_object.lambda_start.bucket
+  s3_key            = aws_s3_object.lambda_start.key
   s3_object_version = aws_s3_object.lambda_start.version_id
   handler           = local.lambda_handler
   memory_size       = 128
@@ -36,8 +36,8 @@ resource "aws_lambda_permission" "ecs_task_start" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "ecs_task_stop" {
   function_name     = "${local.project_name}-ecs-task-stop"
-  s3_bucket         = local.bucket_name_archive
-  s3_key            = "lambda/stop.zip"
+  s3_bucket         = aws_s3_object.lambda_stop.bucket
+  s3_key            = aws_s3_object.lambda_stop.key
   s3_object_version = aws_s3_object.lambda_stop.version_id
   handler           = local.lambda_handler
   memory_size       = 128
@@ -69,8 +69,8 @@ resource "aws_lambda_permission" "ecs_task_stop" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "ecs_task_status" {
   function_name     = "${local.project_name}-ecs-task-status"
-  s3_bucket         = local.bucket_name_archive
-  s3_key            = "lambda/status.zip"
+  s3_bucket         = aws_s3_object.lambda_status.bucket
+  s3_key            = aws_s3_object.lambda_status.key
   s3_object_version = aws_s3_object.lambda_status.version_id
   handler           = local.lambda_handler
   memory_size       = 128
@@ -137,8 +137,8 @@ resource "aws_lambda_function_event_invoke_config" "batch" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "vision" {
   function_name     = "${local.project_name}-vision"
-  s3_bucket         = local.bucket_name_archive
-  s3_key            = "lambda/vision.zip"
+  s3_bucket         = aws_s3_object.lambda_vision.bucket
+  s3_key            = aws_s3_object.lambda_vision.key
   s3_object_version = aws_s3_object.lambda_vision.version_id
   handler           = local.lambda_handler
   memory_size       = 128
@@ -157,3 +157,24 @@ resource "aws_lambda_function" "vision" {
   }
 }
 
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Function - EventBridge Rule
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_function" "sns_notify" {
+  function_name     = "${local.project_name}-notify"
+  s3_bucket         = aws_s3_object.lambda_notify.bucket
+  s3_key            = aws_s3_object.lambda_notify.key
+  s3_object_version = aws_s3_object.lambda_notify.version_id
+  handler           = local.lambda_handler
+  memory_size       = 128
+  role              = aws_iam_role.notify.arn
+  runtime           = local.lambda_runtime
+  timeout           = 5
+
+  environment {
+    variables = {
+      SNS_TOPIC_ARN = local.sns_arn_errors_notify
+    }
+  }
+}

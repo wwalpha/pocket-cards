@@ -138,3 +138,20 @@ resource "aws_iam_role_policy" "authenticated" {
     ]
   })
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS IAM Policy - SNS Topic Policy
+# ----------------------------------------------------------------------------------------------
+data "aws_iam_policy_document" "sns_topic_policy" {
+  statement {
+    effect  = "Allow"
+    actions = ["sns:Publish"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+
+    resources = ["*"]
+  }
+}
