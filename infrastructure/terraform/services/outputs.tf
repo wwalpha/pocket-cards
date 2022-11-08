@@ -29,22 +29,6 @@ output "cognito_identity_pool_arn_users" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Cognito User Pool ID
-# ----------------------------------------------------------------------------------------------
-output "cognito_user_pool_id" {
-  sensitive = true
-  value     = aws_cognito_user_pool.this.id
-}
-
-# ----------------------------------------------------------------------------------------------
-# Cognito User Pool Client ID
-# ----------------------------------------------------------------------------------------------
-output "cognito_user_pool_client_id" {
-  sensitive = true
-  value     = aws_cognito_user_pool_client.this.id
-}
-
-# ----------------------------------------------------------------------------------------------
 # Cognito User Pool Client ID - iOS
 # ----------------------------------------------------------------------------------------------
 output "cognito_user_pool_client_id_ios" {
@@ -58,28 +42,6 @@ output "cognito_user_pool_client_id_ios" {
 output "cognito_identity_pool_id" {
   sensitive = true
   value     = aws_cognito_identity_pool.this.id
-}
-
-# ----------------------------------------------------------------------------------------------
-# Cognito Identity Pool ID
-# ----------------------------------------------------------------------------------------------
-output "cognito_user_pool_domain" {
-  sensitive = true
-  value     = "${aws_cognito_user_pool_domain.this.id}.auth.${local.region}.amazoncognito.com"
-}
-
-# ----------------------------------------------------------------------------------------------
-# Cognito Callback URL
-# ----------------------------------------------------------------------------------------------
-output "cognito_callback_url" {
-  value = one(aws_cognito_user_pool_client.this.callback_urls)
-}
-
-# ----------------------------------------------------------------------------------------------
-# Cognito Logout URL
-# ----------------------------------------------------------------------------------------------
-output "cognito_logout_url" {
-  value = one(aws_cognito_user_pool_client.this.logout_urls)
 }
 
 # ----------------------------------------------------------------------------------------------

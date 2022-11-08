@@ -46,10 +46,10 @@ jobs:
     steps:
       # source checkout
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Setup Node.js
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 14.x
 
@@ -76,7 +76,6 @@ jobs:
         run: |
           cd configs/terraform
           terraform init
-          terraform apply -auto-approve=true -lock-timeout=60s
           BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
           BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
           echo "bucket_name_archive=$(terraform output -raw bucket_name_archive)" >> $GITHUB_OUTPUT
@@ -95,8 +94,8 @@ jobs:
           BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
           VERSION: ${{ steps.terraform.outputs.source_tag }}
         run: |
-          aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/frontend.env .
-          echo VERSION=$(echo $VERSION | cut -c 1-6) >> frontend.env
+          aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/react.env .
+          echo VERSION=$(echo $VERSION | cut -c 1-6) >> react.env
           yarn install --production=false
           yarn build
 

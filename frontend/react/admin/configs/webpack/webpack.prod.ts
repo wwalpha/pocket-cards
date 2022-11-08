@@ -9,7 +9,7 @@ const prod: Configuration = {
   mode: 'production',
   plugins: [
     // @ts-ignore
-    new Dotenv({ path: 'frontend.env' }),
+    new Dotenv({ path: 'react.env' }),
     new HtmlWebpackPlugin({
       title: 'Chat',
       filename: 'index.html',
