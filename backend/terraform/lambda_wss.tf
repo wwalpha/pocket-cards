@@ -3,9 +3,9 @@
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "wss_connect" {
   function_name     = "${local.project_name}-wss-connect"
-  s3_bucket         = local.bucket_name_archive
-  s3_key            = local.bucket_key_lambda_wss_connect
-  s3_object_version = aws_s3_object.lambda_wss_connect.version_id
+  s3_bucket         = data.aws_s3_object.lambda_wss_connect.bucket
+  s3_key            = data.aws_s3_object.lambda_wss_connect.key
+  s3_object_version = data.aws_s3_object.lambda_wss_connect.version_id
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.wss.arn
@@ -37,9 +37,9 @@ resource "aws_lambda_permission" "wss_connect" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "wss_disconnect" {
   function_name     = "${local.project_name}-wss-disconnect"
-  s3_bucket         = local.bucket_name_archive
-  s3_key            = local.bucket_key_lambda_wss_disconnect
-  s3_object_version = aws_s3_object.lambda_wss_disconnect.version_id
+  s3_bucket         = data.aws_s3_object.lambda_wss_disconnect.bucket
+  s3_key            = data.aws_s3_object.lambda_wss_disconnect.key
+  s3_object_version = data.aws_s3_object.lambda_wss_disconnect.version_id
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.wss.arn
@@ -66,13 +66,13 @@ resource "aws_lambda_permission" "wss_disconnect" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Lambda Function - ECS Task Status
+# Lambda Function - WSS Commands
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "wss_commands" {
   function_name     = "${local.project_name}-wss-commands"
-  s3_bucket         = local.bucket_name_archive
-  s3_key            = local.bucket_key_lambda_wss_commands
-  s3_object_version = aws_s3_object.lambda_wss_commands.version_id
+  s3_bucket         = data.aws_s3_object.lambda_wss_commands.bucket
+  s3_key            = data.aws_s3_object.lambda_wss_commands.key
+  s3_object_version = data.aws_s3_object.lambda_wss_commands.version_id
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.wss_commands.arn
@@ -102,8 +102,8 @@ resource "aws_lambda_permission" "wss_commands" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "wss_relay" {
   function_name     = "${local.project_name}-wss-relay"
-  s3_bucket         = local.bucket_name_archive
-  s3_key            = local.bucket_key_lambda_wss_relay
+  s3_bucket         = data.aws_s3_object.lambda_wss_relay.bucket
+  s3_key            = data.aws_s3_object.lambda_wss_relay.key
   s3_object_version = data.aws_s3_object.lambda_wss_relay.version_id
   handler           = local.lambda_handler
   memory_size       = 128

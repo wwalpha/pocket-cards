@@ -230,20 +230,6 @@ output "lambda_source_key_cognito_post_signup" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Lambda source key - API Gateway Authorizer v2
-# ----------------------------------------------------------------------------------------------
-output "lambda_source_key_authorizer_v2" {
-  value = aws_s3_object.lambda_authorizer_v2.key
-}
-
-# ----------------------------------------------------------------------------------------------
-# Lambda source key - API Gateway Authorizer v1
-# ----------------------------------------------------------------------------------------------
-output "lambda_source_key_authorizer_v1" {
-  value = aws_s3_object.lambda_authorizer_v1.key
-}
-
-# ----------------------------------------------------------------------------------------------
 # IAM Policy Arn - CloudWatch Logs
 # ----------------------------------------------------------------------------------------------
 output "iam_policy_arn_cloudwatch_logs" {
@@ -297,3 +283,86 @@ output "prometheus_query_endpoint" {
   value = "${aws_prometheus_workspace.this.prometheus_endpoint}api/v1/query"
 }
 
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - wss_connect
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_wss_connect" {
+  value = local.bucket_key_lambda_wss_connect
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - wss_disconnect
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_wss_disconnect" {
+  value = local.bucket_key_lambda_wss_disconnect
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - wss_commands
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_wss_commands" {
+  value = local.bucket_key_lambda_wss_commands
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - wss_relay
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_wss_relay" {
+  value = local.bucket_key_lambda_wss_relay
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - Notify
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_notify" {
+  value = local.bucket_key_lambda_notify
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - Start
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_start" {
+  value = local.bucket_key_lambda_start
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - Stop
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_stop" {
+  value = local.bucket_key_lambda_stop
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - Status
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_status" {
+  value = local.bucket_key_lambda_status
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - Vision
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_vision" {
+  value = local.bucket_key_lambda_vision
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - API Gateway Authorizer v2
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_authorizer_v2" {
+  value = local.bucket_key_lambda_authorizer_v2
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - API Gateway Authorizer V1
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_authorizer_v1" {
+  value = local.bucket_key_lambda_authorizer_v1
+}
+
+# ----------------------------------------------------------------------------------------------
+# Lambda module bucket key - Cognito
+# ----------------------------------------------------------------------------------------------
+output "bucket_key_lambda_cognito" {
+  value = local.bucket_key_lambda_cognito
+}
