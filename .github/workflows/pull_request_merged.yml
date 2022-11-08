@@ -109,6 +109,7 @@ jobs:
 
   # Frontend Users
   Frontend_Users:
+    needs: Terraform_Service
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: dev
