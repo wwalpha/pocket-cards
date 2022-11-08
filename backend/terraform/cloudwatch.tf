@@ -82,3 +82,42 @@ resource "aws_lambda_permission" "stopat_2400" {
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.stopat_2400.arn
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS CloudWatch Event Rule - ECS Task Start Failure
+# ----------------------------------------------------------------------------------------------
+resource "aws_cloudwatch_event_rule" "ecs_task_start_failure" {
+  name = "${local.project_name}-ecs-task-failure"
+
+  event_pattern = <<EOF
+{
+  "source": ["aws.ecs"],
+  "detail-type": ["ECS Task State Change"],
+  "detail": {
+    "clusterArn": ["${data.aws_ecs_cluster.this.arn}"],
+    "desiredStatus": ["STOPPED"],
+    "lastStatus": ["STOPPED"],
+    "stopCode": ["TaskFailedToStart"]
+  }
+}
+EOF
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS CloudWatch Event Rule Target - Email Notify
+# ----------------------------------------------------------------------------------------------
+resource "aws_cloudwatch_event_target" "email_notify" {
+  rule      = aws_cloudwatch_event_rule.ecs_task_start_failure.name
+  target_id = "SendToLambda"
+  arn       = aws_lambda_function.sns_notify.arn
+}
+
+# ---------------------------------------------------------------------------------------------
+# AWS CloudWatch Event Rule Permission - Email Notify
+# ---------------------------------------------------------------------------------------------
+resource "aws_lambda_permission" "email_notify" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.sns_notify.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.ecs_task_start_failure.arn
+}

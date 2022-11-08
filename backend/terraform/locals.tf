@@ -34,13 +34,13 @@ locals {
   iam_policy_arn_dynamodb        = local.remote_services.iam_policy_arn_dynamodb
   iam_policy_arn_ses             = local.remote_services.iam_policy_arn_ses
   iam_policy_arn_sns             = local.remote_services.iam_policy_arn_sns
+  iam_policy_arn_lambda_basic    = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 
   # ----------------------------------------------------------------------------------------------
   # Lambda
   # ----------------------------------------------------------------------------------------------
-  lambda_handler          = "index.handler"
-  lambda_runtime          = "nodejs14.x"
-  lambda_basic_policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  lambda_handler = "index.handler"
+  lambda_runtime = "nodejs14.x"
 
   # ----------------------------------------------------------------------------------------------
   # DynamoDB
@@ -92,6 +92,7 @@ locals {
   bucket_key_lambda_wss_disconnect = "lambda/wss_disconnect.zip"
   bucket_key_lambda_wss_commands   = "lambda/wss_commands.zip"
   bucket_key_lambda_wss_relay      = local.remote_setup.bucket_key_lambda_wss_relay
+  bucket_key_lambda_notify         = "lambda/notify.zip"
 
   # ----------------------------------------------------------------------------------------------
   # SSM
@@ -165,7 +166,6 @@ data "aws_apigatewayv2_api" "admin" {
 data "aws_apigatewayv2_api" "wss" {
   api_id = local.apigw_id_wss
 }
-
 
 # ----------------------------------------------------------------------------------------------
 # SSM Parameter - IPA URL
