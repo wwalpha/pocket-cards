@@ -11,17 +11,6 @@ env:
 jobs:
   # Terraform
   Terraform_Setup:
-    needs:
-      - Lambda_Cognito
-      - Lambda_AuthorizerV1
-      - Lambda_AuthorizerV2
-      - Lambda_Status
-      - Lambda_Start
-      - Lambda_Stop
-      - Lambda_WSS_Connect
-      - Lambda_WSS_Disconnect
-      - Lambda_WSS_Commands
-      - Lambda_WSS_Relay
     uses: ./.github/workflows/reuse_terraform.yml
     with:
       region: us-east-1
@@ -34,7 +23,18 @@ jobs:
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
   Terraform_Service:
-    needs: Terraform_Setup
+    needs:
+      - Terraform_Setup
+      - Lambda_Cognito
+      - Lambda_AuthorizerV1
+      - Lambda_AuthorizerV2
+      - Lambda_Status
+      - Lambda_Start
+      - Lambda_Stop
+      - Lambda_WSS_Connect
+      - Lambda_WSS_Disconnect
+      - Lambda_WSS_Commands
+      - Lambda_WSS_Relay
     uses: ./.github/workflows/reuse_terraform.yml
     with:
       region: us-east-1
