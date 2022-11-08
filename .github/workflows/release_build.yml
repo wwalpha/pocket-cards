@@ -11,6 +11,17 @@ env:
 jobs:
   # Terraform
   Terraform_Setup:
+    needs:
+      - Lambda_Cognito
+      - Lambda_AuthorizerV1
+      - Lambda_AuthorizerV2
+      - Lambda_Status
+      - Lambda_Start
+      - Lambda_Stop
+      - Lambda_WSS_Connect
+      - Lambda_WSS_Disconnect
+      - Lambda_WSS_Commands
+      - Lambda_WSS_Relay
     uses: ./.github/workflows/reuse_terraform.yml
     with:
       region: us-east-1
@@ -162,7 +173,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  WSS_Connect:
+  Lambda_WSS_Connect:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
       region: us-east-1
@@ -174,7 +185,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  WSS_Disconnect:
+  Lambda_WSS_Disconnect:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
       region: us-east-1
@@ -186,7 +197,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  WSS_Commands:
+  Lambda_WSS_Commands:
     uses: ./.github/workflows/reuse_lambda.yml
     with:
       region: us-east-1
@@ -198,7 +209,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  WSS_Relay:
+  Lambda_WSS_Relay:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_lambda.yml
     with:
