@@ -11,9 +11,9 @@ env:
   WORKING_DIR_BACKEND: backend
   TF_WORKSPACE: prod
   ECS_CLUSTER_NAME: pkc-cluster
-  ECS_SERVICE_NAME_BACKEND: backend
-  ECS_SERVICE_NAME_AUTH: auth_manager
-  ECS_SERVICE_NAME_USER: user_manager
+  ECS_SERVICE_NAME_BACKEND: pkc-backend
+  ECS_SERVICE_NAME_AUTH: pkc-auth
+  ECS_SERVICE_NAME_USER: pkc-users
   ECS_TAKS_DEFINITION_FILE: task_definition.json
   ECS_TAKS_DEFINITION_AUTH: pkc-auth
   ECS_TAKS_DEFINITION_USERS: pkc-users
