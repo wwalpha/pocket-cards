@@ -88,11 +88,16 @@ locals {
   bucket_name_materials = local.remote_setup.bucket_name_materials
   bucket_name_uploads   = local.remote_setup.bucket_name_uploads
 
-  bucket_key_lambda_wss_connect    = "lambda/wss_connect.zip"
-  bucket_key_lambda_wss_disconnect = "lambda/wss_disconnect.zip"
-  bucket_key_lambda_wss_commands   = "lambda/wss_commands.zip"
-  bucket_key_lambda_wss_relay      = local.remote_setup.bucket_key_lambda_wss_relay
-  bucket_key_lambda_notify         = "lambda/notify.zip"
+  bucket_key_lambda_wss_connect    = local.remote_services.bucket_key_lambda_wss_connect
+  bucket_key_lambda_wss_disconnect = local.remote_services.bucket_key_lambda_wss_disconnect
+  bucket_key_lambda_wss_commands   = local.remote_services.bucket_key_lambda_wss_commands
+  bucket_key_lambda_wss_relay      = local.remote_services.bucket_key_lambda_wss_relay
+  bucket_key_lambda_notify         = local.remote_services.bucket_key_lambda_notify
+  bucket_key_lambda_start          = local.remote_services.bucket_key_lambda_start
+  bucket_key_lambda_stop           = local.remote_services.bucket_key_lambda_stop
+  bucket_key_lambda_status         = local.remote_services.bucket_key_lambda_status
+  bucket_key_lambda_vision         = local.remote_services.bucket_key_lambda_vision
+  bucket_key_lambda_cognito        = local.remote_services.bucket_key_lambda_cognito
 
   # ----------------------------------------------------------------------------------------------
   # SSM
@@ -220,12 +225,4 @@ data "aws_ssm_parameter" "vision_api_key" {
 # ----------------------------------------------------------------------------------------------
 data "aws_ssm_parameter" "repo_url_batch" {
   name = local.ssm_repo_url_batch
-}
-
-# ----------------------------------------------------------------------------------------------
-# Bucket Object - Lambda WSS Relay
-# ----------------------------------------------------------------------------------------------
-data "aws_s3_object" "lambda_wss_relay" {
-  bucket = local.bucket_name_archive
-  key    = local.bucket_key_lambda_wss_relay
 }

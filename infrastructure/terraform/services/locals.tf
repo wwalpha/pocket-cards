@@ -95,6 +95,19 @@ locals {
   bucket_name_materials = local.remote_setup.bucket_name_materials
   bucket_name_uploads   = local.remote_setup.bucket_name_uploads
 
+  bucket_key_lambda_wss_connect    = "lambda_modules/wss_connect.zip"
+  bucket_key_lambda_wss_disconnect = "lambda_modules/wss_disconnect.zip"
+  bucket_key_lambda_wss_commands   = "lambda_modules/wss_commands.zip"
+  bucket_key_lambda_wss_relay      = "lambda_modules/wss_relay.zip"
+  bucket_key_lambda_notify         = "lambda_modules/notify.zip"
+  bucket_key_lambda_start          = "lambda_modules/start.zip"
+  bucket_key_lambda_stop           = "lambda_modules/stop.zip"
+  bucket_key_lambda_status         = "lambda_modules/status.zip"
+  bucket_key_lambda_vision         = "lambda_modules/vision.zip"
+  bucket_key_lambda_authorizer_v1  = "lambda_modules/authorizer_v1.zip"
+  bucket_key_lambda_authorizer_v2  = "lambda_modules/authorizer_v2.zip"
+  bucket_key_lambda_cognito  = "lambda_modules/cognito.zip"
+
   # ----------------------------------------------------------------------------------------------
   # Route53
   # ----------------------------------------------------------------------------------------------
