@@ -70,20 +70,20 @@ data "aws_s3_object" "lambda_status" {
   key    = local.bucket_key_lambda_status
 }
 
-# ----------------------------------------------------------------------------------------------
-# S3 Object - Lambda cognito module
-# ----------------------------------------------------------------------------------------------
-resource "aws_s3_object" "lambda_tester" {
-  bucket = local.bucket_name_archive
-  key    = local.bucket_key_lambda_cognito
-  source = data.archive_file.lambda_cognito.output_path
+# # ----------------------------------------------------------------------------------------------
+# # S3 Object - Lambda cognito module
+# # ----------------------------------------------------------------------------------------------
+# resource "aws_s3_object" "lambda_tester" {
+#   bucket = local.bucket_name_archive
+#   key    = local.bucket_key_lambda_cognito
+#   source = data.archive_file.lambda_cognito.output_path
 
-  lifecycle {
-    ignore_changes = [
-      etag
-    ]
-  }
-}
+#   lifecycle {
+#     ignore_changes = [
+#       etag
+#     ]
+#   }
+# }
 
 # # ----------------------------------------------------------------------------------------------
 # # Archive file - Lambda default module
