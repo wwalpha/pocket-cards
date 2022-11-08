@@ -27,7 +27,7 @@ resource "aws_iam_role" "ecs_task_start" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "ecs_task_start_basic" {
   role       = aws_iam_role.ecs_task_start.name
-  policy_arn = local.lambda_basic_policy_arn
+  policy_arn = local.iam_policy_arn_lambda_basic
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ resource "aws_iam_role" "ecs_task_stop" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "ecs_task_stop_basic" {
   role       = aws_iam_role.ecs_task_stop.name
-  policy_arn = local.lambda_basic_policy_arn
+  policy_arn = local.iam_policy_arn_lambda_basic
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ resource "aws_iam_role" "ecs_task_status" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "ecs_task_status_basic" {
   role       = aws_iam_role.ecs_task_status.name
-  policy_arn = local.lambda_basic_policy_arn
+  policy_arn = local.iam_policy_arn_lambda_basic
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ resource "aws_iam_role" "batch" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "batch" {
   role       = aws_iam_role.batch.name
-  policy_arn = local.lambda_basic_policy_arn
+  policy_arn = local.iam_policy_arn_lambda_basic
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -131,7 +131,7 @@ resource "aws_iam_role" "vision" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "vision_basic" {
   role       = aws_iam_role.vision.name
-  policy_arn = local.lambda_basic_policy_arn
+  policy_arn = local.iam_policy_arn_lambda_basic
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -187,7 +187,7 @@ resource "aws_iam_role_policy" "wss_lambda" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "wss_basic" {
   role       = aws_iam_role.wss.name
-  policy_arn = local.lambda_basic_policy_arn
+  policy_arn = local.iam_policy_arn_lambda_basic
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -215,7 +215,7 @@ resource "aws_iam_role" "wss_commands" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "wss_commands_basic" {
   role       = aws_iam_role.wss_commands.name
-  policy_arn = local.lambda_basic_policy_arn
+  policy_arn = local.iam_policy_arn_lambda_basic
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -253,7 +253,7 @@ resource "aws_iam_role" "wss_relay" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "wss_relay_basic" {
   role       = aws_iam_role.wss_relay.name
-  policy_arn = local.lambda_basic_policy_arn
+  policy_arn = local.iam_policy_arn_lambda_basic
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -264,4 +264,33 @@ resource "aws_iam_role_policy" "wss_relay_apigw" {
   role = aws_iam_role.wss_relay.id
 
   policy = data.aws_iam_policy_document.wss_apigw.json
+}
+
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - Notify
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "notify" {
+  name               = "${local.project_name_uc}_Lambda_NotifyRole"
+  assume_role_policy = data.aws_iam_policy_document.lambda.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role Policy - Notify Basic Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "notify_basic" {
+  role       = aws_iam_role.notify.name
+  policy_arn = local.iam_policy_arn_lambda_basic
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - Notify SNS Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "notify_sns" {
+  role       = aws_iam_role.notify.name
+  policy_arn = local.iam_policy_arn_sns
 }

@@ -34,11 +34,3 @@ module "ecr_repo_auth" {
   repo_name = "${var.project_name}/auth"
 }
 
-# ----------------------------------------------------------------------------------------------
-# ECR Repository - WSS
-# ----------------------------------------------------------------------------------------------
-module "ecr_repo_wss" {
-  source = "./m_ecr"
-
-  repo_name = "${var.project_name}/wss"
-}
