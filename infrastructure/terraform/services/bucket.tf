@@ -151,3 +151,23 @@ EOT
     filename = "index.js"
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# React Environment file
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "frontend" {
+  bucket  = local.bucket_name_archive
+  key     = "envs/react.env"
+  content = <<EOT
+AWS_REGION=${local.region}
+IDENTITY_POOL_ID=${aws_cognito_identity_pool.this.id}
+USER_POOL_ID=${aws_cognito_user_pool.this.id}
+USER_POOL_WEB_CLIENT_ID=${aws_cognito_user_pool_client.this.id}
+AUTH_DOMAIN="${aws_cognito_user_pool_domain.this.id}.auth.${local.region}.amazoncognito.com"
+AUTH_SIGN_IN_URL=${one(aws_cognito_user_pool_client.this.callback_urls)}
+AUTH_SIGN_OUT_URL=${one(aws_cognito_user_pool_client.this.logout_urls)}
+API_URL=https://api.${local.route53_zone_name}
+WSS_URL=wss://socket.${local.route53_zone_name}
+DOMAIN_HOST=https://www.${local.route53_zone_name}
+EOT
+}

@@ -109,7 +109,6 @@ jobs:
 
   # Frontend Users
   Frontend_Users:
-    needs: Frontend_Admin
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: dev
