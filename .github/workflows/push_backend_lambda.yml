@@ -143,3 +143,15 @@ jobs:
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  SNS_Notify:
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      region: ap-northeast-1
+      working-directory: backend/nodejs/lambda/notify
+      environment: dev
+      outputs-bucket: pkc-archive-376965
+      function-name: notify
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
