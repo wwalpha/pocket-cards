@@ -23,10 +23,6 @@ on:
       ECS_SERVICE_NAME:
         required: true
         type: string
-    # outputs
-    outputs:
-      image:
-        value: ${{ jobs.ECS_BUILD.outputs.image }}
     # secrets
     secrets:
       AWS_ACCESS_KEY_ID:

@@ -27,7 +27,6 @@ on:
       ECR_IMAGE:
         required: true
         type: string
-
     secrets:
       AWS_ACCESS_KEY_ID:
         required: true
