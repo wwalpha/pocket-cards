@@ -59,4 +59,4 @@ jobs:
         run: |
           yarn install
           yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda/$FUNCTION_NAME.zip
+          aws s3 cp dist.zip s3://$S3_BUCKET/lambda_modules/$FUNCTION_NAME.zip
