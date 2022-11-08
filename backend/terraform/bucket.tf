@@ -185,6 +185,21 @@ resource "aws_s3_object" "lambda_wss_relay" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda notify module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "lambda_notify" {
+  bucket = local.bucket_name_archive
+  key    = local.bucket_key_lambda_notify
+  source = data.archive_file.lambda_default.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
 # Archive file - Lambda default module
 # ----------------------------------------------------------------------------------------------
 data "archive_file" "lambda_default" {
