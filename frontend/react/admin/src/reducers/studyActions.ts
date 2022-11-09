@@ -4,7 +4,10 @@ import { API } from '@utils';
 import { Tables, APIs, RootState } from 'typings';
 
 const getQuestions = async (subject: string, userId: string) => {
-  const res = await API.get<APIs.DailyExamResponse>(URLs.DAILY_EXAM(subject, userId));
+  const res = await API.post<APIs.DailyExamResponse, APIs.DailyExamRequest>(URLs.DAILY_EXAM(), {
+    subject: subject,
+    userId: userId,
+  });
 
   return res.questions;
 };
