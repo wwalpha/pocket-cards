@@ -4,6 +4,11 @@ import { Users } from 'typings';
 import { IncomingHttpHeaders } from 'http';
 
 export const getUserInfo = async (userId: string, headers: IncomingHttpHeaders) => {
+  console.log(headers['authorization']);
+  console.log(headers['username']);
+
+  console.log(JSON.stringify(headers));
+
   // get user information
   const response = await axios.get<Users.DescribeUserResponse>(Consts.API_URLs.describeUser(userId), {
     headers: {
