@@ -7,6 +7,8 @@ import { GetItemOutput } from '@alphax/dynamodb';
 export const DescribeUser = async (
   req: express.Request<Users.DescribeUserParameter, any, Users.DescribeUserRequest>
 ): Promise<Users.DescribeUserResponse> => {
+  console.log(JSON.stringify(req.headers));
+
   const userId = req.params.userId;
   const request = getUserId(req);
 
