@@ -9,9 +9,9 @@ export const SIGN_UP = () => `${API_VERSION}/users`;
 export const REFRESH_TOKEN = () => `${API_VERSION}/auth/refresh`;
 
 // 学習練習
-export const DAILY_PRACTICE = () => `${API_VERSION}/study/daily/practice?subject=${Consts.SUBJECT.ENGLISH}`;
+export const DAILY_PRACTICE = () => `${API_VERSION}/study/daily/practice`;
 // 学習テスト
-export const DAILY_EXAM = () => `${API_VERSION}/study/daily/exam?subject=${Consts.SUBJECT.ENGLISH}`;
+export const DAILY_EXAM = () => `${API_VERSION}/study/daily/exam`;
 // 学習テスト
 export const DAILY_ANSWER = () => `${API_VERSION}/study/daily/answer`;
 
