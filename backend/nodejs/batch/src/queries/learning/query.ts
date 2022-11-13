@@ -21,7 +21,7 @@ export const byUserDailyTested = (
   lastTime: string
 ): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
-  KeyConditionExpression: '#userId = :userId AND #nextTime >= :nextTime',
+  KeyConditionExpression: '#userId = :userId AND #nextTime > :nextTime',
   FilterExpression: '#lastTime = :lastTime',
   ExpressionAttributeNames: {
     '#userId': 'userId',
