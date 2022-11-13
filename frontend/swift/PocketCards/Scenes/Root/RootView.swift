@@ -30,6 +30,10 @@ struct RootView: View {
         )
 
         VStack(alignment: .leading, spacing: 32) {
+            HStack {
+                Text("v0.9.5")
+            }.padding(0)
+
             Spacer()
 
 //            HStack {
@@ -89,7 +93,7 @@ struct RootView: View {
 
             HStack {
                 Text("国語")
-                    .frame(height: 96, alignment: .topLeading)
+                    .frame(height: 120, alignment: .topLeading)
                     .font(.system(size: 32))
                     .padding(.trailing, 64)
 
@@ -144,7 +148,7 @@ struct RootView: View {
 
             HStack {
                 Text("社会")
-                    .frame(height: 96, alignment: .topLeading)
+                    .frame(height: 120, alignment: .topLeading)
                     .font(.system(size: 32))
                     .padding(.trailing, 64)
 
@@ -199,7 +203,7 @@ struct RootView: View {
 
             HStack {
                 Text("理科")
-                    .frame(height: 96, alignment: .topLeading)
+                    .frame(height: 120, alignment: .topLeading)
                     .font(.system(size: 32))
                     .padding(.trailing, 64)
 
@@ -263,7 +267,6 @@ struct RootView: View {
                         .accessibilityAddTraits(.isHeader)
                         .foregroundColor(Color.white)
                 }
-
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         Auth.signOut()
