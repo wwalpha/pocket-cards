@@ -48,6 +48,7 @@ export default async () => {
 
     const futures = future
       .filter((item) => item.times !== 0)
+      .filter((item) => item.nextTime > current)
       .map((item) => {
         // add test flag
         item.subject_status = undefined;
