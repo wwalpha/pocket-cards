@@ -38,7 +38,6 @@
 		9A276A7627ECA374005A716D /* DailyTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A276A7527ECA374005A716D /* DailyTasks.swift */; };
 		9A310F1828F3BE6900FB5305 /* Handwriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A310F1728F3BE6900FB5305 /* Handwriting.swift */; };
 		9A310F1928F3BE6900FB5305 /* Handwriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A310F1728F3BE6900FB5305 /* Handwriting.swift */; };
-		9A310F1A290BDD1000FB5305 /* Pods_PocketCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7351D11F778221BCB3F656B /* Pods_PocketCards.framework */; };
 		9A3A56B628D95012001CC4B0 /* WebSocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */; };
 		9A3A56B828D9599D001CC4B0 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56B728D9599D001CC4B0 /* Command.swift */; };
 		9A3A56C228D95E4C001CC4B0 /* CommandService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A56C128D95E4C001CC4B0 /* CommandService.swift */; };
@@ -265,11 +264,16 @@
 		9AF57E6D27D96292002B1F32 /* DailyTestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6C27D96292002B1F32 /* DailyTestPresenter.swift */; };
 		9AF57E6F27D962A0002B1F32 /* DailyTestContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E6E27D962A0002B1F32 /* DailyTestContract.swift */; };
 		9AF57E7127D96624002B1F32 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF57E7027D96624002B1F32 /* StringUtils.swift */; };
+		DBB2D76A7D7DD6F3DB8ACAAD /* Pods_PocketCards2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0433E133FD31B96AD5565D /* Pods_PocketCards2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		021B2C534CC0088159BEFBDD /* Pods-PocketCards.releasecat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.releasecat.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.releasecat.xcconfig"; sourceTree = "<group>"; };
+		0FA7ABCE0CC2EC3368C71D59 /* Pods-PocketCards2.releasedog.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards2.releasedog.xcconfig"; path = "Target Support Files/Pods-PocketCards2/Pods-PocketCards2.releasedog.xcconfig"; sourceTree = "<group>"; };
+		1D0433E133FD31B96AD5565D /* Pods_PocketCards2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketCards2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A4E6B5CCDA854F07613B0B1 /* Pods-PocketCards2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards2.debug.xcconfig"; path = "Target Support Files/Pods-PocketCards2/Pods-PocketCards2.debug.xcconfig"; sourceTree = "<group>"; };
 		649D2D7B80C8ACD590324CBC /* Pods-PocketCards.releasedog.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards.releasedog.xcconfig"; path = "Target Support Files/Pods-PocketCards/Pods-PocketCards.releasedog.xcconfig"; sourceTree = "<group>"; };
+		8D24864FF8B8486075B8D13C /* Pods-PocketCards2.releasecat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards2.releasecat.xcconfig"; path = "Target Support Files/Pods-PocketCards2/Pods-PocketCards2.releasecat.xcconfig"; sourceTree = "<group>"; };
 		9A09A14C280AA770001500EB /* OverallChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallChart.swift; sourceTree = "<group>"; };
 		9A09A150280AD4D3001500EB /* OverallFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallFormatter.swift; sourceTree = "<group>"; };
 		9A1FD24927D7369B0000A16B /* 勉強にゃん.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "勉強にゃん.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -419,7 +423,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A310F1A290BDD1000FB5305 /* Pods_PocketCards.framework in Frameworks */,
+				DBB2D76A7D7DD6F3DB8ACAAD /* Pods_PocketCards2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				B7351D11F778221BCB3F656B /* Pods_PocketCards.framework */,
+				1D0433E133FD31B96AD5565D /* Pods_PocketCards2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -852,6 +857,9 @@
 				D4590A5D883912B335DAAF95 /* Pods-PocketCards.debug.xcconfig */,
 				021B2C534CC0088159BEFBDD /* Pods-PocketCards.releasecat.xcconfig */,
 				649D2D7B80C8ACD590324CBC /* Pods-PocketCards.releasedog.xcconfig */,
+				2A4E6B5CCDA854F07613B0B1 /* Pods-PocketCards2.debug.xcconfig */,
+				8D24864FF8B8486075B8D13C /* Pods-PocketCards2.releasecat.xcconfig */,
+				0FA7ABCE0CC2EC3368C71D59 /* Pods-PocketCards2.releasedog.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -867,7 +875,7 @@
 				9A1FD24527D7369B0000A16B /* Sources */,
 				9A1FD24627D7369B0000A16B /* Frameworks */,
 				9A1FD24727D7369B0000A16B /* Resources */,
-				9A039D4E27E6A0D70052FAF0 /* ShellScript */,
+				9A039D4E27E6A0D70052FAF0 /* Swift Format */,
 				DB35EA2902C604FEBB109CB5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -883,10 +891,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9AF2ACE52814273300F80DB4 /* Build configuration list for PBXNativeTarget "PocketCards2" */;
 			buildPhases = (
+				8703FE69E265C775505A558D /* [CP] Check Pods Manifest.lock */,
 				9AF2AC992814273300F80DB4 /* Sources */,
 				9AF2ACDC2814273300F80DB4 /* Frameworks */,
 				9AF2ACDE2814273300F80DB4 /* Resources */,
-				9AF2ACE32814273300F80DB4 /* Run Script */,
+				9AF2ACE32814273300F80DB4 /* Swift Format */,
+				9A2CE82D29192D52009BED11 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -981,7 +991,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9A039D4E27E6A0D70052FAF0 /* ShellScript */ = {
+		8703FE69E265C775505A558D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PocketCards2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A039D4E27E6A0D70052FAF0 /* Swift Format */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -990,6 +1022,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Swift Format";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -998,7 +1031,24 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\" --exclude Pods\n";
 		};
-		9AF2ACE32814273300F80DB4 /* Run Script */ = {
+		9A2CE82D29192D52009BED11 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PocketCards2/Pods-PocketCards2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PocketCards2/Pods-PocketCards2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PocketCards2/Pods-PocketCards2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9AF2ACE32814273300F80DB4 /* Swift Format */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1007,7 +1057,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = "Swift Format";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -1344,7 +1394,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--generate-entitlement-der";
@@ -1441,7 +1491,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1496,7 +1546,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--generate-entitlement-der";
@@ -1577,6 +1627,7 @@
 		};
 		9AF2ACE62814273300F80DB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A4E6B5CCDA854F07613B0B1 /* Pods-PocketCards2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDog;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1609,6 +1660,7 @@
 		};
 		9AF2ACE72814273300F80DB4 /* ReleaseCat */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D24864FF8B8486075B8D13C /* Pods-PocketCards2.releasecat.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDog;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1641,6 +1693,7 @@
 		};
 		9AF2ACE82814273300F80DB4 /* ReleaseDog */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FA7ABCE0CC2EC3368C71D59 /* Pods-PocketCards2.releasedog.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDog;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
