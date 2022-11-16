@@ -35,7 +35,20 @@ class Authentication: ObservableObject {
                 DispatchQueue.main.async {
                     self.isSignedIn = false
                 }
-            //                self.initialize()
+            case HubPayload.EventName.Auth.socialWebUISignInAPI:
+                guard let results = payload.data as? Swift.Result<[AuthUserAttribute], AuthError> else { return }
+
+                switch results {
+                case let .success(attributes):
+                    debugPrint(attributes)
+                case let .failure(error):
+                    print("SocialWebUISignInAPI failed with error \(error)")
+
+                    DispatchQueue.main.async {
+                        self.isSignedIn = false
+                    }
+                }
+
             case HubPayload.EventName.Auth.fetchSessionAPI:
                 print("==HUB== fetchSessionAPI")
             case HubPayload.EventName.Auth.fetchUserAttributesAPI:
