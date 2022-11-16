@@ -21,27 +21,27 @@ class RootRouter {
     }
 
     func makeLanguageStudyiew() -> some View {
-        DailyStudyView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_PRACTICE)
+        DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_PRACTICE, subject: SUBJECT.LANGUAGE)
     }
 
     func makeLanguageTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.LANGUAGE, loadUrl: URLs.STUDY_DAILY_EXAM)
+        DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_EXAM, subject: SUBJECT.LANGUAGE)
     }
 
     func makeScienceStudyiew() -> some View {
-        DailyStudyView().configureView(subject: SUBJECT.SCIENCE, loadUrl: URLs.STUDY_DAILY_PRACTICE)
+        DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_PRACTICE, subject: SUBJECT.SCIENCE)
     }
 
     func makeScienceTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.SCIENCE, loadUrl: URLs.STUDY_DAILY_EXAM)
+        DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_EXAM, subject: SUBJECT.SCIENCE)
     }
 
     func makeSocietyStudyiew() -> some View {
-        DailyStudyView().configureView(subject: SUBJECT.SOCIETY, loadUrl: URLs.STUDY_DAILY_PRACTICE)
+        DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_PRACTICE, subject: SUBJECT.SOCIETY)
     }
 
     func makeSocietyTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.SOCIETY, loadUrl: URLs.STUDY_DAILY_EXAM)
+        DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_EXAM, subject: SUBJECT.SOCIETY)
     }
 
     func makeScienceWeeklyTestView() -> some View {
