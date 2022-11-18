@@ -13,10 +13,10 @@ class DailyPracticeInteractor {
 
     var presenter: DailyPracticePresenter?
 
-    init(loadUrl: String, subject: String) {
+    init(loadUrl: String, subject: String, mode: String) {
         manager.subject = subject
         manager.loadUrl = loadUrl
-        manager.mode = MODE.PRACTICE
+        manager.mode = mode
     }
 }
 
@@ -29,7 +29,17 @@ extension DailyPracticeInteractor: DailyPracticeBusinessLogic {
         manager.onChoice(choice: choice)
 
         Task {
-            await next()
+            if manager.mode == MODE.PRACTICE {
+                // 正解の場合
+                if manager.checkAnswer(answer: choice) {
+                    await next()
+                } else {
+                    // 不正解の場合、回答を表示する
+                    presenter?.showError(index: manager.getAnswer()!)
+                }
+            } else {
+                await next()
+            }
         }
     }
 
