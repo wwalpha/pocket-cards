@@ -14,52 +14,53 @@ struct MultiTestView: View {
     @ObservedObject var viewModel = MultiTestViewModel()
 
     var body: some View {
-        VStack {
-            if viewModel.isShowQuestion {
-                if viewModel.question?.choices != nil {
-                    ChoiceQuestion(
-                        question: viewModel.question!,
-                        isShowError: "",
-                        onChoice: interactor!.onChoice
-                    )
-                } else if viewModel.question != nil {
-                    // Society or Science
-                    FlashCard(flipped: false, readOnly: true, question: viewModel.question!, action: interactor!.onAction)
-                }
-            } else if viewModel.isShowAnswer {
-                let _ = debugPrint("show answer")
-                if viewModel.question?.choices != nil {
-                    ChoiceQuestion(
-                        question: viewModel.question!,
-                        isShowError: viewModel.question!.answer,
-                        onChoice: interactor!.onChoice
-                    )
-                } else if viewModel.question != nil {
-                    // Society or Science
-                    FlashCard(flipped: true, readOnly: true, question: viewModel.question!, action: interactor!.onAction)
-                }
+        NavigationView {
+            VStack {
+                if viewModel.isShowQuestion {
+                    if viewModel.question?.choices != nil {
+                        ChoiceQuestion(
+                            question: viewModel.question!,
+                            isShowError: "",
+                            onChoice: interactor!.onChoice
+                        )
+                    } else if viewModel.question != nil {
+                        // Society or Science
+                        FlashCard(flipped: false, readOnly: true, question: viewModel.question!, action: interactor!.onAction)
+                    }
+                } else if viewModel.isShowAnswer {
+                    if viewModel.question?.choices != nil {
+                        ChoiceQuestion(
+                            question: viewModel.question!,
+                            isShowError: viewModel.question!.answer,
+                            onChoice: interactor!.onChoice
+                        )
+                    } else if viewModel.question != nil {
+                        // Society or Science
+                        FlashCard(flipped: true, readOnly: true, question: viewModel.question!, action: interactor!.onAction)
+                    }
 
-            } else if viewModel.isConnecting {
-                Text("Connecting...")
-            } else if !viewModel.isConnected {
-                Button(action: {
-                    interactor?.connect()
-                }, label: {
-                    Text("入室")
-                        .frame(maxWidth: 100, maxHeight: 64, alignment: .center)
-                        .padding()
-                        .font(.largeTitle)
-                        .foregroundColor(Color.white)
-                        .background(Color.green)
-                })
-            } else if viewModel.isConnected {
-                Text("Waiting show question...")
-            } else {
-                Text("Hello1111")
-            }
-        }.onDisappear {
-            interactor?.disconnect()
-        }
+                } else if viewModel.isConnecting {
+                    Text("Connecting...")
+                } else if !viewModel.isConnected {
+                    Button(action: {
+                        interactor?.connect()
+                    }, label: {
+                        Text("入室")
+                            .frame(maxWidth: 100, maxHeight: 64, alignment: .center)
+                            .padding()
+                            .font(.largeTitle)
+                            .foregroundColor(Color.white)
+                            .background(Color.green)
+                    })
+                } else if viewModel.isConnected {
+                    Text("Waiting show question...")
+                } else {
+                    Text("Hello1111")
+                }
+            }.onDisappear {
+                interactor?.disconnect()
+            }.navigationBarTitleDisplayMode(.inline)
+        }.navigationViewStyle(.stack)
     }
 }
 
