@@ -19,7 +19,6 @@ extension DailyPracticePresenter: DailyPracticePresentationLogic {
         model.isLoading = false
         model.isFinish = false
 
-        view?.onUpdate(model: model)
         view?.showNext(model: model)
     }
 
@@ -41,7 +40,7 @@ extension DailyPracticePresenter: DailyPracticePresentationLogic {
 
     func showError(index: String) {
         let model = DailyPracticeViewModel()
-        model.isLoading = true
+        model.isLoading = false
         model.isFinish = false
         model.isShowError = index
 

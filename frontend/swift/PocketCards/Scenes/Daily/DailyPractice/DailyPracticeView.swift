@@ -18,26 +18,34 @@ struct DailyPracticeView: View {
             if viewModel.isLoading {
                 Text("Loading....").onAppear {
                     Task {
-                        await interactor?.initialize()
+                        if viewModel.question == nil {
+                            await interactor?.initialize()
+                        }
                     }
                 }
             } else if viewModel.isFinish {
                 Text("学習は終わりました")
                     .font(.system(size: 64, design: .default))
             } else {
-                if viewModel.question?.choices != nil {
-                    ChoiceQuestion(
-                        question: viewModel.question!,
-                        isShowError: viewModel.isShowError,
-                        onChoice: interactor!.onChoice
-                    )
+                if let question = viewModel.question {
+                    if question.choices != nil {
+                        ChoiceQuestion(
+                            question: question,
+                            isShowError: viewModel.isShowError,
+                            onChoice: interactor!.onChoice
+                        )
+                    } else {
+                        // Society or Science
+                        FlashCard(question: question, action: interactor!.onAction)
+                    }
                 } else {
-                    // Society or Science
-                    FlashCard(question: viewModel.question!, action: interactor!.onAction)
+                    Text("想定外のエラーが発生しました。")
                 }
             }
         }.onDisappear {
             viewModel.isLoading = true
+            viewModel.question = nil
+
             interactor?.destory()
         }
     }
@@ -45,7 +53,9 @@ struct DailyPracticeView: View {
 
 extension DailyPracticeView: DailyPracticeDisplayLogic {
     func showNext(model: DailyPracticeViewModel) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            onUpdate(model: model)
+
             viewModel.question = model.question
         }
     }
@@ -60,9 +70,9 @@ extension DailyPracticeView: DailyPracticeDisplayLogic {
 }
 
 extension DailyPracticeView {
-    func configureView(loadUrl: String, subject: String) -> some View {
+    func configureView(loadUrl: String, subject: String, mode: String) -> some View {
         var view = self
-        let interactor = DailyPracticeInteractor(loadUrl: loadUrl, subject: subject)
+        let interactor = DailyPracticeInteractor(loadUrl: loadUrl, subject: subject, mode: mode)
         let presenter = DailyPracticePresenter()
 
         view.interactor = interactor

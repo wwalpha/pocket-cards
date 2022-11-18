@@ -81,18 +81,13 @@ class QuestionManager {
 
         // 学習モードの場合、かつ正解の場合
         if mode == MODE.PRACTICE, result == true {
-            // first time
-            if current?.isAnswered == nil || current?.isAnswered == false {
-                Task {
-                    // update question state
-                    try await onUpdate(qid: current?.id, correct: result)
-                }
+            // 訂正の場合
+            if current?.isAnswered == true {
+                // set flag
+                current?.isAnswered = false
+
+                return
             }
-
-            // set flag
-            current?.isAnswered = false
-
-            return
         }
 
         // 学習モード以外の場合
