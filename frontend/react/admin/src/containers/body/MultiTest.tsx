@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
@@ -35,6 +35,13 @@ export default () => {
       userId: '',
     },
   });
+
+  useEffect(() => {
+    // 接続切断後、画面設定値初期化
+    if (isConnectionEstablished === false) {
+      setIncorrect(false);
+    }
+  }, [isConnectionEstablished]);
 
   const onFailure = () => {
     actions.failure();
