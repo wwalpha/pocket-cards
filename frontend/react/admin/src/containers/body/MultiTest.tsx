@@ -111,15 +111,15 @@ export default () => {
       )}
       {isConnectionEstablished && questions.length !== 0 && (
         <React.Fragment>
-          <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
+          <Box display="flex" alignItems="center" sx={{ mt: 2, mr: 1 }}>
             <Box display="flex" sx={{ px: 2 }}>
               {searchConditions.student}: <LightbulbIcon sx={{ ml: 2, color: isOnline === true ? 'green' : 'red' }} />
             </Box>
             <Box display="flex" sx={{ px: 2 }}>
-              正解：{correctCount}
+              正解数：{correctCount}
             </Box>
             <Box display="flex" sx={{ px: 2 }}>
-              不正解：{incorrectCount}
+              不正解数：{incorrectCount}
             </Box>
 
             <Box display="flex" flexGrow="1" justifyContent="flex-end">
@@ -167,23 +167,34 @@ export default () => {
                 const endIdx = title.indexOf(']', startIdx);
                 const url = title.substring(startIdx + 1, endIdx);
 
-                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
+                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="200" height="200" />;
               })()}
             </Paper>
-            <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-              {questions[index].answer.replace(/\[.*\]/g, '')}
-              {(() => {
-                const answer = questions[index].answer;
-                // 画像がない
-                if (!answer.match(/\[.*\]/g)) return;
+            {questions[index].choices === undefined && (
+              <Paper elevation={3} sx={{ my: 1, p: 4 }}>
+                {questions[index].answer.replace(/\[.*\]/g, '')}
+                {(() => {
+                  const answer = questions[index].answer;
+                  // 画像がない
+                  if (!answer.match(/\[.*\]/g)) return;
 
-                const startIdx = answer.indexOf('[');
-                const endIdx = answer.indexOf(']', startIdx);
-                const url = answer.substring(startIdx + 1, endIdx);
+                  const startIdx = answer.indexOf('[');
+                  const endIdx = answer.indexOf(']', startIdx);
+                  const url = answer.substring(startIdx + 1, endIdx);
 
-                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
-              })()}
-            </Paper>
+                  return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="200" height="200" />;
+                })()}
+              </Paper>
+            )}
+            {questions[index].choices !== undefined && (
+              <Paper elevation={3} sx={{ my: 1, p: 4 }}>
+                {questions[index].choices?.map((choiceItems, idx) => (
+                  <Box color={questions[index].answer === (idx + 1).toString() ? 'blue' : 'black'}>
+                    {idx + 1}. {choiceItems}
+                  </Box>
+                ))}
+              </Paper>
+            )}
           </Box>
         </React.Fragment>
       )}
