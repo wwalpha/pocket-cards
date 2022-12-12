@@ -111,15 +111,48 @@ export default () => {
       )}
       {isConnectionEstablished && questions.length !== 0 && (
         <React.Fragment>
-          <Box display="flex">
-            <Box display="flex" sx={{ mt: 1, px: 2 }}>
+          <Box display="flex" alignItems="center" sx={{ mt: 2 }}>
+            <Box display="flex" sx={{ px: 2 }}>
               {searchConditions.student}: <LightbulbIcon sx={{ ml: 2, color: isOnline === true ? 'green' : 'red' }} />
             </Box>
-            <Box display="flex" sx={{ mt: 1, px: 2 }}>
+            <Box display="flex" sx={{ px: 2 }}>
               正解：{correctCount}
             </Box>
-            <Box display="flex" sx={{ mt: 1, px: 2 }}>
+            <Box display="flex" sx={{ px: 2 }}>
               不正解：{incorrectCount}
+            </Box>
+
+            <Box display="flex" flexGrow="1" justifyContent="flex-end">
+              <LoadingButton
+                sx={{ width: '120px', mx: 1 }}
+                loading={isLoading}
+                variant="contained"
+                color="primary"
+                onClick={onNext}
+                disabled={!isOnline}
+              >
+                次へ
+              </LoadingButton>
+              <LoadingButton
+                sx={{ width: '120px', mx: 1 }}
+                loading={isLoading}
+                variant="contained"
+                color="primary"
+                onClick={onFailure}
+                disabled={!isOnline}
+              >
+                不正解
+              </LoadingButton>
+              <LoadingButton
+                sx={{ width: '120px', mx: 1 }}
+                loading={isLoading}
+                variant="contained"
+                color="secondary"
+                onClick={onCorrect}
+                disabled={incorrect || !isOnline}
+              >
+                正解
+              </LoadingButton>
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" sx={{ my: 1, mx: 2 }}>
@@ -151,39 +184,6 @@ export default () => {
                 return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
               })()}
             </Paper>
-
-            <Box display="flex" justifyContent="flex-end" sx={{ py: 2 }}>
-              <LoadingButton
-                sx={{ width: '120px', mx: 2 }}
-                loading={isLoading}
-                variant="contained"
-                color="primary"
-                onClick={onNext}
-                disabled={!isOnline}
-              >
-                次へ
-              </LoadingButton>
-              <LoadingButton
-                sx={{ width: '120px', mx: 2 }}
-                loading={isLoading}
-                variant="contained"
-                color="primary"
-                onClick={onFailure}
-                disabled={!isOnline}
-              >
-                不正解
-              </LoadingButton>
-              <LoadingButton
-                sx={{ width: '120px', mx: 2 }}
-                loading={isLoading}
-                variant="contained"
-                color="secondary"
-                onClick={onCorrect}
-                disabled={incorrect || !isOnline}
-              >
-                正解
-              </LoadingButton>
-            </Box>
           </Box>
         </React.Fragment>
       )}
