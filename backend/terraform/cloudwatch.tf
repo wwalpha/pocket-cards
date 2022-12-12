@@ -6,6 +6,7 @@ resource "aws_cloudwatch_event_rule" "this" {
   description = "Scheduled batch"
 
   schedule_expression = "cron(0 16 * * ? *)"
+  is_enabled          = local.is_dev ? false : true
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -28,11 +29,12 @@ resource "aws_lambda_permission" "this" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS CloudWatch Event Rule - Start at 20:00 weekday
+# AWS CloudWatch Event Rule - Start at 21:00 weekday
 # ----------------------------------------------------------------------------------------------
 resource "aws_cloudwatch_event_rule" "startat_2000" {
-  name                = "${local.project_name}-ecs-start-at-2000"
-  schedule_expression = "cron(0 11/22 * * ? *)"
+  name                = "${local.project_name}-ecs-start-at-2100"
+  schedule_expression = "cron(0 12 * * ? *)"
+  is_enabled          = local.is_dev ? false : true
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -61,7 +63,8 @@ resource "aws_lambda_permission" "startat_2000" {
 # ----------------------------------------------------------------------------------------------
 resource "aws_cloudwatch_event_rule" "stopat_2400" {
   name                = "${local.project_name}-ecs-stop-at-2400"
-  schedule_expression = "cron(0 15/23 * * ? *)"
+  schedule_expression = "cron(0 15 * * ? *)"
+  is_enabled          = local.is_dev ? false : true
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -87,7 +90,8 @@ resource "aws_lambda_permission" "stopat_2400" {
 # AWS CloudWatch Event Rule - ECS Task Start Failure
 # ----------------------------------------------------------------------------------------------
 resource "aws_cloudwatch_event_rule" "ecs_task_start_failure" {
-  name = "${local.project_name}-ecs-task-failure"
+  name       = "${local.project_name}-ecs-task-failure"
+  is_enabled = local.is_dev ? false : true
 
   event_pattern = <<EOF
 {
