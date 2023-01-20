@@ -261,7 +261,7 @@ const createImage = async (text: string): Promise<string> => {
 };
 
 export const removeImage = async (text: string): Promise<void> => {
-  if (!text.match(/\[.*.(jpg|png)\]/)) {
+  if (!/\[.*.(jpg|png)\]/.test(text)) {
     return;
   }
 
