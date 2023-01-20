@@ -38,8 +38,8 @@ export const byUserDailyTested = (
 
 export const byUserTests = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid',
-  KeyConditionExpression: '#userId = :userId AND #nextTime <= :nextTime',
+  ProjectionExpression: 'qid, subject',
+  KeyConditionExpression: '#userId = :userId AND #nextTime = :nextTime',
   FilterExpression: '#times <> :times',
   ExpressionAttributeNames: {
     '#userId': 'userId',
