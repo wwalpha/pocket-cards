@@ -261,13 +261,19 @@ const createImage = async (text: string): Promise<string> => {
 };
 
 export const removeImage = async (text: string): Promise<void> => {
+  console.log('removeImage', text);
+
   if (!/\[.*.(jpg|png)\]/.test(text)) {
     return;
   }
 
+  console.log('Start remove image', text);
+
   const startIdx = text.indexOf('[');
   const endIdx = text.indexOf(']', startIdx);
   const key = text.substring(startIdx + 1, endIdx);
+
+  console.log('Key', Environment.BUCKET_NAME_MATERAILS, key);
 
   // S3に保存する
   await ClientUtils.s3()
