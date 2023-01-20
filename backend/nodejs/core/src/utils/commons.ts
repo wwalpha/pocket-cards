@@ -259,3 +259,21 @@ const createImage = async (text: string): Promise<string> => {
 
   return text.replace(/\[http(s?):\/\/.*\]/, `[${s3Key}]`);
 };
+
+export const removeImage = async (text: string): Promise<void> => {
+  if (!text.match(/\[.*.(jpg|png)\]/)) {
+    return;
+  }
+
+  const startIdx = text.indexOf('[');
+  const endIdx = text.indexOf(']', startIdx);
+  const key = text.substring(startIdx + 1, endIdx);
+
+  // S3に保存する
+  await ClientUtils.s3()
+    .deleteObject({
+      Bucket: Environment.BUCKET_NAME_MATERAILS,
+      Key: key,
+    })
+    .promise();
+};
