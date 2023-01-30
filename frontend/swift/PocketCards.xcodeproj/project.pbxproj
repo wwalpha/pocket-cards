@@ -1448,7 +1448,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 649D2D7B80C8ACD590324CBC /* Pods-PocketCards.releasedog.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat2;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1600,7 +1600,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D4590A5D883912B335DAAF95 /* Pods-PocketCards.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat2;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1633,7 +1633,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 021B2C534CC0088159BEFBDD /* Pods-PocketCards.releasecat.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCat2;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
