@@ -13,14 +13,24 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { StudyActions } from '@actions';
 import { Consts } from '@constants';
 import { MultiTestForm, RootState } from 'typings';
+import Modal from '@mui/material/Modal';
 
 const studyState = (state: RootState) => state.study;
 const userState = (state: RootState) => state.user;
 const appState = (state: RootState) => state.app;
 
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+};
+
 export default () => {
   const actions = bindActionCreators(StudyActions, useDispatch());
   const [incorrect, setIncorrect] = React.useState(false);
+  const [qImageOpen, setQImageOpen] = React.useState(false);
+  const [aImageOpen, setAImageOpen] = React.useState(false);
   const { isLoading, isConnecting, isConnectionEstablished } = useSelector(appState);
   const { questions, index, searchConditions, isOnline, correctCount, incorrectCount } = useSelector(studyState);
   const { students } = useSelector(userState);
@@ -64,6 +74,19 @@ export default () => {
   const onSubmit = handleSubmit(async ({ userId, subject }) => {
     actions.dailyTest(userId, subject);
   });
+
+  const handleImageOpen = (position: number) => {
+    // question
+    if (position === 0) setQImageOpen(true);
+    // answer
+    if (position === 1) setAImageOpen(true);
+  };
+  const handleImageClose = (position: number) => {
+    // question
+    if (position === 0) setQImageOpen(false);
+    // answer
+    if (position === 1) setAImageOpen(false);
+  };
 
   return (
     <form onSubmit={onSubmit}>
@@ -174,7 +197,26 @@ export default () => {
                 const endIdx = title.indexOf(']', startIdx);
                 const url = title.substring(startIdx + 1, endIdx);
 
-                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="200" height="200" />;
+                return [
+                  <img
+                    src={`${Consts.DOMAIN_HOST}\\${url}`}
+                    width="200"
+                    height="200"
+                    onClick={() => {
+                      handleImageOpen(0);
+                    }}
+                  />,
+                  <Modal
+                    open={qImageOpen}
+                    onClose={() => {
+                      handleImageClose(0);
+                    }}
+                  >
+                    <Box sx={style}>
+                      <img src={`${Consts.DOMAIN_HOST}\\${url}`} />
+                    </Box>
+                  </Modal>,
+                ];
               })()}
             </Paper>
             {questions[index].choices === undefined && (
@@ -189,7 +231,26 @@ export default () => {
                   const endIdx = answer.indexOf(']', startIdx);
                   const url = answer.substring(startIdx + 1, endIdx);
 
-                  return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="200" height="200" />;
+                  return [
+                    <img
+                      src={`${Consts.DOMAIN_HOST}\\${url}`}
+                      width="200"
+                      height="200"
+                      onClick={() => {
+                        handleImageOpen(1);
+                      }}
+                    />,
+                    <Modal
+                      open={aImageOpen}
+                      onClose={() => {
+                        handleImageClose(1);
+                      }}
+                    >
+                      <Box sx={style}>
+                        <img src={`${Consts.DOMAIN_HOST}\\${url}`} />
+                      </Box>
+                    </Modal>,
+                  ];
                 })()}
               </Paper>
             )}
