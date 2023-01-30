@@ -131,12 +131,29 @@ const generateImage = async (url: string): Promise<string> => {
     Bucket: Environment.BUCKET_NAME_MATERAILS,
     Key: key,
     Body: filedata,
+    ContentType: getContentType(extension),
   };
 
   // S3に保存する
   await ClientUtils.s3().putObject(putRequest).promise();
 
   return key;
+};
+
+const getContentType = (extension: string = '') => {
+  switch (extension.toLowerCase()) {
+    case 'jpg':
+    case 'jpeg':
+      return 'image/jpeg';
+    case 'png':
+      return 'image/png';
+    case 'gif':
+      return 'image/gif';
+    case 'bmp':
+      return 'image/bmp';
+    default:
+      return '';
+  }
 };
 
 const createJapaneseVoice = async (text: string, groupId: string, s3Key?: string) => {
