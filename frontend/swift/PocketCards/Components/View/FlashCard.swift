@@ -122,6 +122,30 @@ struct FlashCard: View {
             // answer page
             answerView(size: size)
         }
+        .gesture(DragGesture()
+            .onEnded { value in
+                if abs(value.translation.width) < 10 { return } // too small movement, ignore note: 10 is default value for minimumDistance
+                if readOnly { return }
+
+                withAnimation(Animation.spring()) {
+                    if value.translation.width < 0 {
+                        // swiped to left
+                        self.angle -= 180
+                    } else if value.translation.width > 0 {
+                        // swiped to right
+                        self.angle += 180
+                    }
+                }
+                withAnimation(nil) {
+                    if self.angle < 0 {
+                        self.angle = 360 - self.angle
+                    }
+                    if self.angle >= 360 {
+                        self.angle = self.angle.truncatingRemainder(dividingBy: 360)
+                    }
+                }
+            }
+        )
         .onTapGesture {
             withAnimation(Animation.spring()) {
                 if readOnly {
