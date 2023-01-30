@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
@@ -35,6 +35,13 @@ export default () => {
       userId: '',
     },
   });
+
+  useEffect(() => {
+    // 接続切断後、画面設定値初期化
+    if (isConnectionEstablished === false) {
+      setIncorrect(false);
+    }
+  }, [isConnectionEstablished]);
 
   const onFailure = () => {
     actions.failure();
@@ -111,15 +118,48 @@ export default () => {
       )}
       {isConnectionEstablished && questions.length !== 0 && (
         <React.Fragment>
-          <Box display="flex">
-            <Box display="flex" sx={{ mt: 1, px: 2 }}>
+          <Box display="flex" alignItems="center" sx={{ mt: 2, mr: 1 }}>
+            <Box display="flex" sx={{ px: 2 }}>
               {searchConditions.student}: <LightbulbIcon sx={{ ml: 2, color: isOnline === true ? 'green' : 'red' }} />
             </Box>
-            <Box display="flex" sx={{ mt: 1, px: 2 }}>
-              正解：{correctCount}
+            <Box display="flex" sx={{ px: 2 }}>
+              正解数：{correctCount}
             </Box>
-            <Box display="flex" sx={{ mt: 1, px: 2 }}>
-              不正解：{incorrectCount}
+            <Box display="flex" sx={{ px: 2 }}>
+              不正解数：{incorrectCount}
+            </Box>
+
+            <Box display="flex" flexGrow="1" justifyContent="flex-end">
+              <LoadingButton
+                sx={{ width: '120px', mx: 1 }}
+                loading={isLoading}
+                variant="contained"
+                color="primary"
+                onClick={onNext}
+                disabled={!isOnline}
+              >
+                次へ
+              </LoadingButton>
+              <LoadingButton
+                sx={{ width: '120px', mx: 1 }}
+                loading={isLoading}
+                variant="contained"
+                color="primary"
+                onClick={onFailure}
+                disabled={!isOnline}
+              >
+                不正解
+              </LoadingButton>
+              <LoadingButton
+                sx={{ width: '120px', mx: 1 }}
+                loading={isLoading}
+                variant="contained"
+                color="secondary"
+                onClick={onCorrect}
+                disabled={incorrect || !isOnline}
+              >
+                正解
+              </LoadingButton>
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" sx={{ my: 1, mx: 2 }}>
@@ -134,56 +174,34 @@ export default () => {
                 const endIdx = title.indexOf(']', startIdx);
                 const url = title.substring(startIdx + 1, endIdx);
 
-                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
+                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="200" height="200" />;
               })()}
             </Paper>
-            <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-              {questions[index].answer.replace(/\[.*\]/g, '')}
-              {(() => {
-                const answer = questions[index].answer;
-                // 画像がない
-                if (!answer.match(/\[.*\]/g)) return;
+            {questions[index].choices === undefined && (
+              <Paper elevation={3} sx={{ my: 1, p: 4 }}>
+                {questions[index].answer.replace(/\[.*\]/g, '')}
+                {(() => {
+                  const answer = questions[index].answer;
+                  // 画像がない
+                  if (!answer.match(/\[.*\]/g)) return;
 
-                const startIdx = answer.indexOf('[');
-                const endIdx = answer.indexOf(']', startIdx);
-                const url = answer.substring(startIdx + 1, endIdx);
+                  const startIdx = answer.indexOf('[');
+                  const endIdx = answer.indexOf(']', startIdx);
+                  const url = answer.substring(startIdx + 1, endIdx);
 
-                return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="300" height="300" />;
-              })()}
-            </Paper>
-
-            <Box display="flex" justifyContent="flex-end" sx={{ py: 2 }}>
-              <LoadingButton
-                sx={{ width: '120px', mx: 2 }}
-                loading={isLoading}
-                variant="contained"
-                color="primary"
-                onClick={onNext}
-                disabled={!isOnline}
-              >
-                次へ
-              </LoadingButton>
-              <LoadingButton
-                sx={{ width: '120px', mx: 2 }}
-                loading={isLoading}
-                variant="contained"
-                color="primary"
-                onClick={onFailure}
-                disabled={!isOnline}
-              >
-                不正解
-              </LoadingButton>
-              <LoadingButton
-                sx={{ width: '120px', mx: 2 }}
-                loading={isLoading}
-                variant="contained"
-                color="secondary"
-                onClick={onCorrect}
-                disabled={incorrect || !isOnline}
-              >
-                正解
-              </LoadingButton>
-            </Box>
+                  return <img src={`${Consts.DOMAIN_HOST}\\${url}`} width="200" height="200" />;
+                })()}
+              </Paper>
+            )}
+            {questions[index].choices !== undefined && (
+              <Paper elevation={3} sx={{ my: 1, p: 4 }}>
+                {questions[index].choices?.map((choiceItems, idx) => (
+                  <Box color={questions[index].answer === (idx + 1).toString() ? 'blue' : 'black'}>
+                    {idx + 1}. {choiceItems}
+                  </Box>
+                ))}
+              </Paper>
+            )}
           </Box>
         </React.Fragment>
       )}

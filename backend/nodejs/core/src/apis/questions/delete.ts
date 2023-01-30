@@ -1,6 +1,7 @@
 import { Request } from 'express';
-import { APIs } from 'typings';
+import { APIs, Tables } from 'typings';
 import { GroupService, LearningService, QuestionService } from '@services';
+import { Commons } from '@utils';
 
 /** 問題削除 */
 export default async (
@@ -16,8 +17,23 @@ export default async (
 
   await Promise.all(tasks);
 
+  const qInfo = await QuestionService.describe(questionId);
+
+  // if image exist, delete file from s3 async
+  checkImageExist(qInfo);
+
   // delete question
   await QuestionService.remove(questionId);
   // minus question count
   await GroupService.minusCount(groupId, 1);
+};
+
+const checkImageExist = async (question: Tables.TQuestions | undefined) => {
+  if (question?.title) {
+    await Commons.removeImage(question.title);
+  }
+
+  if (question?.answer) {
+    await Commons.removeImage(question.answer);
+  }
 };

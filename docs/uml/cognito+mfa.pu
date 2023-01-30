@@ -1,0 +1,38 @@
+@startuml cognito+pu
+
+skinparam {
+   defaultFontName Noto Sans CJK JP Black
+ }
+ 
+' title API Gateway + Cognito + SAML Authentication
+skinparam responseMessageBelowArrow true
+autonumber "<b>(##)"
+actor       "Frontend"       as User
+
+User -> Cognito: Hosted UI でログインをクリック
+Cognito -> "User": (302) SAML プロバイダー認証画面へリダイレクトさせる
+User -> "SAML Provider": SAML プロバイダー認証画面でログインする
+"SAML Provider" -> User: (302) 認証後、SAML Tokens をユーザに返し、Cognito へリダイレクトさせる
+User -> Cognito: SAML tokens を Cognito に提供し、Cognito が Token の有効性を検証する
+Cognito -> User: Cognito 発行した tokens をユーザに返す
+User -> "Auth Server": Cognito token を共通認証サーバに送信する
+"Auth Server" -> Cognito: Token の有効性を確認する
+"Auth Server" -> "Cognito(MFA)": Token をデコードし、\nユーザ名 + 固定パスワードで Cognito(MFA) に認証する
+"Cognito(MFA)" -> "Auth Server": 認証後、MFA が要求される
+"Auth Server" -> User: MFAの入力を求める
+User -> "Auth Server": Cognito Token + MFA Codeで再認証
+"Auth Server" -> Cognito: Token の有効性を確認する
+"Auth Server" -> "Cognito(MFA)": Token をデコードし、\nユーザ名 + 固定パスワード + MFA コードで認証する
+"Cognito(MFA)" -> "Auth Server": API Gateway 用の token が発行される
+"Auth Server" -> User: Token をユーザに返す
+User -> "API Gateway": Token で API Gateway にアクセスする
+activate "API Gateway"
+"API Gateway" -> "Cognito(MFA)": Verify tokens
+"Cognito(MFA)" -> "API Gateway": Verify result (success/failure)
+"API Gateway" -> User: Verify failure: return status code 403
+"API Gateway" -> "Backend App": Verify success: transfer request to backend
+"Backend App" <- "Backend App": Decode tokens \ncheck API policy with user permission
+"Backend App" -> User: Response
+deactivate "API Gateway"
+
+@enduml
