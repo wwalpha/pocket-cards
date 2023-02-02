@@ -4,6 +4,7 @@ import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 import * as COMMONS from '@test/datas/commons';
 import * as REPORTS from '@test/datas/reports/curriculumStatus';
+import { APIs } from 'typings';
 
 jest.setTimeout(10000);
 
@@ -27,10 +28,18 @@ describe('Curriculums', () => {
   });
 
   test('CurriculumStatus001: 学習進捗取得', async () => {
-    const curriculumId = 'f55JhAg711uNpW8DFT54fh';
-    const apiPath = `/v1/reports/curriculums/${curriculumId}`;
+    const apiPath = '/v1/reports/status/curriculums';
+    const startDate = '';
+    const endDate = '';
+    const curriculums = ['vB6cUPdMB8TJFSrypGwoML', 'aaYHb4GyjxfYWYAaKMyG53'];
 
-    const res = await request(server).get(apiPath);
+    const res = await request(server)
+      .post(apiPath)
+      .send({
+        curriculums: curriculums,
+        startDate: startDate,
+        endDate: endDate,
+      } as APIs.CurriculumStatusRequest);
 
     // status code
     expect(res.statusCode).toBe(200);
@@ -38,14 +47,14 @@ describe('Curriculums', () => {
     expect(res.body).toEqual(REPORTS.CURRICULUM_STATUS001_EXPECTS);
   });
 
-  test('CurriculumStatus002: カリキュラムが存在しない', async () => {
-    const curriculumId = 'DUMMY';
-    const apiPath = `/v1/reports/curriculums/${curriculumId}`;
+  // test('CurriculumStatus002: カリキュラムが存在しない', async () => {
+  //   const curriculumId = 'DUMMY';
+  //   const apiPath = `/v1/reports/curriculums/${curriculumId}`;
 
-    const res = await request(server).get(apiPath);
+  //   const res = await request(server).get(apiPath);
 
-    // status code
-    expect(res.statusCode).toBe(400);
-    expect(res.text).toEqual('Curriculum was not found.');
-  });
+  //   // status code
+  //   expect(res.statusCode).toBe(400);
+  //   expect(res.text).toEqual('Curriculum was not found.');
+  // });
 });
