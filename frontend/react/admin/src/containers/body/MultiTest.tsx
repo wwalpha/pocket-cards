@@ -199,7 +199,7 @@ export default () => {
 
                 return [
                   <img
-                    src={`${Consts.DOMAIN_HOST}\\${url}`}
+                    src={`${Consts.DOMAIN_HOST}/${url}`}
                     width="200"
                     height="200"
                     onClick={() => {
@@ -213,7 +213,7 @@ export default () => {
                     }}
                   >
                     <Box sx={style}>
-                      <img src={`${Consts.DOMAIN_HOST}\\${url}`} />
+                      <img src={`${Consts.DOMAIN_HOST}/${url}`} width="100%" height="100%" />
                     </Box>
                   </Modal>,
                 ];
@@ -233,7 +233,7 @@ export default () => {
 
                   return [
                     <img
-                      src={`${Consts.DOMAIN_HOST}\\${url}`}
+                      src={`${Consts.DOMAIN_HOST}/${url}`}
                       width="200"
                       height="200"
                       onClick={() => {
@@ -247,7 +247,7 @@ export default () => {
                       }}
                     >
                       <Box sx={style}>
-                        <img src={`${Consts.DOMAIN_HOST}\\${url}`} />
+                        <img src={`${Consts.DOMAIN_HOST}/${url}`} width="100%" height="100%" />
                       </Box>
                     </Modal>,
                   ];
