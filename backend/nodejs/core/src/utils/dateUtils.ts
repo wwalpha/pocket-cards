@@ -4,7 +4,7 @@ import moment from 'moment';
 export const getNow = () => `${moment().format('YYYYMMDD')}`;
 
 // 算数以外の科目の日数
-const days = [1, 2, 4, 7, 15, 30, 60, 90, 180, 360];
+const days = [1, 2, 5, 10, 20, 60, 90, 90, 90, 90];
 // 算数の日数
 const daysM = [1, 3, 7, 15, 60];
 
