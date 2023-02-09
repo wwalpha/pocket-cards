@@ -146,14 +146,8 @@ export default () => {
                   .filter((item) => item.subject === getValues('subject'))
                   .map((item) => (
                     <MenuItem key={item.id} value={item.id}>
-                      {(() => {
-                        const name = groups.find((g) => g.id === item.groupId)?.name;
-
-                        return [
-                          <Checkbox checked={name ? value.indexOf(name) > -1 : false} />,
-                          <ListItemText primary={name} />,
-                        ];
-                      })()}
+                      <Checkbox checked={value.indexOf(item.id) > -1} />
+                      <ListItemText primary={groups.find((g) => g.id === item.groupId)?.name} />
                     </MenuItem>
                   ))}
               </Select>
@@ -182,9 +176,9 @@ export default () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
+                    <StyledTableCell sx={{ width: 100 }}>カリキュラム</StyledTableCell>
                     <StyledTableCell sx={{ width: 64 }}>解答回数</StyledTableCell>
                     <StyledTableCell>問題</StyledTableCell>
-                    <StyledTableCell sx={{ width: 128 }}>前回学習日</StyledTableCell>
                     <StyledTableCell sx={{ width: 128 }}>次回学習日</StyledTableCell>
                   </TableRow>
                 </TableHead>
@@ -192,6 +186,7 @@ export default () => {
                   {searchResults.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, idx) => (
                     <TableRow hover key={idx}>
                       <TableCell>{idx + 1}</TableCell>
+                      <TableCell>{groups.find((g) => g.id === item.gid)?.name}</TableCell>
                       <TableCell>{item.times}</TableCell>
                       <TableCell>
                         <Box
@@ -200,10 +195,6 @@ export default () => {
                           {item.question}
                         </Box>
                       </TableCell>
-                      <TableCell>{`${item.lastTime?.substring(0, 4)}/${item.lastTime?.substring(
-                        4,
-                        6
-                      )}/${item.lastTime?.substring(6, 8)}`}</TableCell>
                       <TableCell>{`${item.nextTime.substring(0, 4)}/${item.nextTime.substring(
                         4,
                         6
