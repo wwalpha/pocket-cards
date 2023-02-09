@@ -16,8 +16,6 @@ on:
       - PUSH_F) Admin React Build
       - PUSH_F) Users React Build
       - PUSH_T) Terraform Build
-    branches:
-      - master
     types:
       - completed
   workflow_dispatch:
