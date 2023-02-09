@@ -97,7 +97,7 @@ app.get('/v1/reports/status/overall', express.json(), (req, res) => entry(req, r
 // 日次学習進捗
 app.get('/v1/reports/status/daily', express.json(), (req, res) => entry(req, res, DailyStatus));
 // カリキュラム別の学習状況
-app.get('/v1/reports/status/curriculums', express.json(), (req, res) => entry(req, res, CurriculumStatus));
+app.post('/v1/reports/status/curriculums', express.json(), (req, res) => entry(req, res, CurriculumStatus));
 
 // 科目別テスト問題の一覧
 app.post('/v1/reports/questions/dailytest', express.json(), (req, res) => entry(req, res, DailyTestQuestions));
