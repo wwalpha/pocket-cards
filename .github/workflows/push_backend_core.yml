@@ -6,14 +6,14 @@ on:
       - backend/nodejs/core/**
       - backend/nodejs/typings/**
       - .github/workflows/push_backend_core.yml
-      - .github/workflows/reuse_build_ci.yml
+      - .github/workflows/reuse_build_ci_cd.yml
     branches-ignore:
       - releases/**
       - master
 
 jobs:
   Backend:
-    uses: ./.github/workflows/reuse_build_ci.yml
+    uses: ./.github/workflows/reuse_build_ci_cd.yml
     with:
       working-directory: backend/nodejs/core
     secrets:

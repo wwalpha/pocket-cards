@@ -45,6 +45,11 @@ export default () => {
     const dataRows = curriculums.filter((item) => item.subject === Consts.SUBJECT.SOCIETY && item.userId === student);
 
     setDataRows(dataRows);
+
+    // initialize
+    setSubject(Consts.SUBJECT.SOCIETY);
+    // initialize
+    setStudent(activeStudent);
   }, [curriculums]);
 
   const handleDragEnd = (result: DropResult) => {

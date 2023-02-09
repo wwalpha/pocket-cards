@@ -21,6 +21,8 @@ class TokenManager {
         print(idToken)
     }
 
+    func renewToken() {}
+
     func updateToken(idToken: String) {
         self.idToken = idToken
     }
