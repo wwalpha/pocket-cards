@@ -36,7 +36,7 @@ export default async (
       return {
         ...item,
         question: question?.title,
-        cid: curriculumId,
+        gid: cInfo.groupId,
       };
     });
   });
