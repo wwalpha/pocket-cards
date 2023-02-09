@@ -31,7 +31,7 @@ struct RootView: View {
 
         VStack(alignment: .leading, spacing: 32) {
             HStack {
-                Text("v0.9.6")
+                Text("v0.9.8")
             }.padding(0)
 
             Spacer()
