@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -20,6 +20,8 @@ import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import TablePagination from '@mui/material/TablePagination';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
 
 const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
@@ -55,12 +57,12 @@ export default () => {
     defaultValues: {
       subject: '',
       student: '',
-      curriculum: '',
+      curriculums: [],
     },
   });
 
-  const onSubmit = handleSubmit(({ curriculum }) => {
-    actions.search(curriculum);
+  const onSubmit = handleSubmit(({ curriculums }) => {
+    actions.search(curriculums);
 
     // 再検索の場合、初期値に戻る
     setPage(0);
@@ -87,7 +89,7 @@ export default () => {
           control={control}
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+            <FormControl sx={{ mx: 2, width: '25%' }} fullWidth>
               <InputLabel>学生 *</InputLabel>
               <Select label="Student *" value={value} onChange={onChange} disabled={students.length === 0}>
                 {students.map((item) => (
@@ -104,7 +106,7 @@ export default () => {
           control={control}
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+            <FormControl sx={{ mx: 2, width: '25%' }} fullWidth>
               <InputLabel>科目 *</InputLabel>
               <Select label="Subject *" onChange={onChange} value={value} fullWidth>
                 <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
@@ -115,25 +117,37 @@ export default () => {
           )}
         />
         <Controller
-          name="curriculum"
+          name="curriculums"
           control={control}
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+            <FormControl sx={{ mx: 2, width: '50%' }} fullWidth>
               <InputLabel>カリキュラム *</InputLabel>
               <Select
                 label="Curriculum *"
+                multiple
                 onChange={onChange}
                 value={value}
                 fullWidth
                 disabled={getValues('subject') === ''}
+                renderValue={(selected) =>
+                  selected
+                    .map((item) => {
+                      const curriculum = curriculums.find((c) => c.id === item);
+                      const name = groups.find((g) => g.id === curriculum?.groupId)?.name;
+
+                      return name;
+                    })
+                    .join(', ')
+                }
               >
                 {curriculums
                   .filter((item) => item.userId === getValues('student'))
                   .filter((item) => item.subject === getValues('subject'))
                   .map((item) => (
                     <MenuItem key={item.id} value={item.id}>
-                      {groups.find((g) => g.id === item.groupId)?.name}
+                      <Checkbox checked={value.indexOf(item.id) > -1} />
+                      <ListItemText primary={groups.find((g) => g.id === item.groupId)?.name} />
                     </MenuItem>
                   ))}
               </Select>
@@ -162,9 +176,9 @@ export default () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
+                    <StyledTableCell sx={{ width: 100 }}>カリキュラム</StyledTableCell>
                     <StyledTableCell sx={{ width: 64 }}>解答回数</StyledTableCell>
                     <StyledTableCell>問題</StyledTableCell>
-                    <StyledTableCell sx={{ width: 128 }}>前回学習日</StyledTableCell>
                     <StyledTableCell sx={{ width: 128 }}>次回学習日</StyledTableCell>
                   </TableRow>
                 </TableHead>
@@ -172,6 +186,7 @@ export default () => {
                   {searchResults.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, idx) => (
                     <TableRow hover key={idx}>
                       <TableCell>{idx + 1}</TableCell>
+                      <TableCell>{groups.find((g) => g.id === item.gid)?.name}</TableCell>
                       <TableCell>{item.times}</TableCell>
                       <TableCell>
                         <Box
@@ -180,10 +195,6 @@ export default () => {
                           {item.question}
                         </Box>
                       </TableCell>
-                      <TableCell>{`${item.lastTime?.substring(0, 4)}/${item.lastTime?.substring(
-                        4,
-                        6
-                      )}/${item.lastTime?.substring(6, 8)}`}</TableCell>
                       <TableCell>{`${item.nextTime.substring(0, 4)}/${item.nextTime.substring(
                         4,
                         6
