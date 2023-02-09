@@ -1,0 +1,719 @@
+{
+  "count": 102,
+  "items": [
+    {
+      "qid": "qwTBc8RL38RaBa7nPiPaqP",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "晴れた日、地温最も高いのは何時",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "4BYM1or8wgdL2uLUv6hAkH",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "くもりや雨の日に気温が下がりにくい理由は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "dwG3T5bkk1Hwy2GfuPYaPL",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "乱層雲の別名は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "faX4XU4SfLqRhMSExUF9Wn",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "層積雲の別名は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "dSrx1Y6rZcvqauEgqKPjXm",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "高層雲の別名は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "9oGUFK8QZ7iPQseUbNgJDN",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "雨の日の湿度はどうなる",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "tUEYUCC4pHAJ3o9wA4mRwv",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱はなんのために、よろい戸、よろい板を作った壁を使う",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "ko5mgjahasqbSaWpepbp5D",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "気温の正しいはかり方法",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "t22ML2Y4aSSY9mqzR3ct5e",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱はどんな場所に設置される",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "65ra9hch1kMYzc8ufWmyET",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱はなんのために、外側、内側とも白いペンキで塗ってる",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "4fCuNZuLTtrwE5Zqdy4fHN",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "これは何雲？[images/5Lxoq8ZtBHL5W1XgDt29Kn.jpg]",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "datEu655TpdofBk6jnRDmh",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱はなんのために、周辺をしばふにする",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "f4qn7WA1uerCPMk7TmBzAs",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱に入ってる物は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "mNqeXxrxVGU8vB4ReD7R6F",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "これは何雲？[images/etbvERam2issQWfbXAZPcD.jpg]",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "rHZtEzyfoFjasbn9oKeAZ3",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "積雲の別名は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "rGNSwpQ6kyVfExp7qL8KUM",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "気温を測る道具とは",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "81GonJ2f5fguswVFhEFuVb",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "風向は、観測時刻前の何分間で風向計が最も多くさした方向の方位",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "bCPRWexyDFDUAeCGn84iCg",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "1日の平均気温に近いのは何時",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "fgX5ESUxJZnkt4gxTRqfAo",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "温度と天気の関係（雨）",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "wQCwGsC7pj82RzZ3oZ9mKg",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "巻層雲の別名は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "uf3uHocjFGzMhsFy5N8VN7",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱中の温度計の球部はちょうど地面より何mの高さになる",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "nd6oGXPG2V1WcnXxLpdQXL",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "これは何雲？[images/7JeRy5ivMh8YyP3zUZiesT.jpg]",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "uq6pEjHN4WaEeWrGSFf59m",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "風速（ｍ／秒）の公式",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "5v8iKwNRKMPHK6ri8iT8xE",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "晴れの天気記号は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "hEsLCWWrjB9Yhp2uNmLiKq",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "雨の天気記号は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "aBamKsawq3szQEAYwkomEw",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "雲量２～８の時はなんという",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "dwhJP2o94M2qDVSiz1wvhz",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "水蒸気が水に変化し始めた温度とは",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "prQ9kNK9m25EjBHQ64FhFc",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱は太陽熱の反射を防ぐための工夫は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "iJnFMG4GXuV16wgoxqAzZR",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "上層雲（高度5000m ~ 13000m)は何",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "7GvUmcMvkFsQmA1tXWuZ1K",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "気体の水蒸気が液体になる原因は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "7wtnEmu5uFvSYcreuUTjst",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "雨を降らせる雲は何",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "sBYnhPpzLLvnDwZNS75KqQ",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "温度と天気の関係（積乱雲）",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "sEnJg8M5wibZ3sPUp7gyjV",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "巻積雲の別名は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "8D4cpvgc9hQuTPMMi3Pc3t",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "くもりの天気記号は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "iza53Pd6M8BVpc7QBobvt6",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "積乱雲の別名は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "pKm4S5xgHvMdcA43VYkEvz",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "湿度を測定する器具は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "o2YNTo6fbiBt1aAwyy6wZ2",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "これは何雲？[images/uWgTLBe9KzPU39DuuXYTta.jpg]",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "bFU5amt9EXAnmUvuJ1eY8J",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "これは何雲？[images/qpQF6iwqwXMiEe2oj5PxYE.jpg]",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "3XLnsBfwGqBxXY3GqXGmNg",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱はなんのために、とびらを北向きにする",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "4t7aSSW2WijLFmJzJotFEH",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "空気中に含む事のできる水蒸気の限度量とは",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "54KWutCKVALvZhVFmXSmJZ",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "地温の正しいはかり方",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "v8XL3BVnekgQKt9eL7Cfjd",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "雨量の単位は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "jgUMHRE7XbjPhchWJYbdvK",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "20℃はどう読む",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "xyVgu2E296Kd5SNtu95oRw",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "温度と天気の関係（晴れ）",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "sHZ64XCEwqR2ZCW5AF5AGL",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱は日光がさしこまないようの工夫は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "w3Akry9aedhYkXmYb98gbS",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "空を10等分し、雲を合わせた面積がどれだけを占めるかを示した値とは",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "qPeR8VHEmePMmKmXHjtoJt",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "気温の日較差の大きい順の天気は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "jQn8Mcfh774n6UCFYoMBur",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "コップの水に氷水を入れて、コップの表面に水滴が付き始めた現象とは",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "d7gtdEYNLcpxy7vLyUNzcR",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "風向の16方位",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "nEy1HDFMkEQsUGNLE1Fypn",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "雨量のはかり方",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "m481x628nc5xuUxno7kEgH",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "地面や地中温度の日較差はどうなる",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "7kzLSfPvhKBjLJ5bezHTHi",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱は太陽熱の吸収を防ぐための工夫は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "7AAEHkqd3Vd57dFoDMhrvU",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "これは何雲？[images/29bRRuemuujnf1DXGaRa26.jpg]",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "t5YW4dYL3z8zFsVt6e2R4t",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "湿度の公式",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "fUhDcH2YkbEGw26mCAyVB3",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "下層雲（地上付近 ~ 高度2000m)は何",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "8CZnAYqYcEdeK4sLWwRVRG",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "太陽高度最も高いのは何時",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "bAc4LhXqTAw2k36SAsqm7m",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "晴れた日の湿度はどうなる",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "9UeWQLZaaxsCKP7r6DRnxD",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "晴れた日、気温最も高いのは何時",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "acRTCzQvrYyoAs35x3di93",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "巻雲の別名は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "x7HtmFj7KmpuvVtTMEPkPc",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "温度計の目盛りの正しい読み方は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "12aRqJFUysyi4veiZRh2UK",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "これは何雲？[images/3EpQb4zJ7rk75wd23St9Qf.jpg]",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "8qJssfFyZ5hTESR1VPFJCM",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "快晴の天気記号は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "g9DsGejVaHytSzj3QoZ7s3",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "雲量０～１の時はなんという",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "jLURCrZuaRUbwM95yXJAiq",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱は風通し良くするための工夫は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "hEHSCAm2DmnTaRGfiHukhN",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "風力の強さは何段階ある",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "b7f3C7odWRLRKpX2hixoyP",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "高積雲の別名は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "6pwhFRcRp1A8gDatYmVzHQ",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "層雲の別名は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "3sEf7xKhEoEGfRYDK4xKTR",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "これは何雲？[images/7svwMyZ4Ay5G3RdDzUc4Et.jpg]",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "ifNaswTFvhXy4oxrVoNkF9",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "気温を測る高さは",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "9njSvnBpwWHadHMfxT1spi",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "降った雨が地面に溜まった深さとは",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "uvfn55zbPJa6RkvD21B4b6",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "風が吹いてくる方向とは",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "mEsNmcRw9Qh3JfzonW5LWy",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "これは何雲？[images/rB7SY3SvLm3Wck5pvy4PPP.jpg]",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "3tmJ28gaou8pGwitZV61AQ",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "風向の測る道具は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "bQ9bMTuRo4WqTFJX65cwcN",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "これは何雲？[images/mpzUQsExp9Cr3o6KBUxjTN.jpg]",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "8vk3muUWg2rU8MYDiqKUA5",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "百葉箱は熱を伝えにくくするための工夫は",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "1Mq3LbhfEqmFZaQ4jy35WT",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "空気中に含める水蒸気の量は、何で決める",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "gSGGmfNmo2dtVR4ETxU1G3",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "中層雲（高度2000m ~ 7000m)は何",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "vYhG8LFQLAcnVB6VJVTxxM",
+      "times": 1,
+      "nextTime": "20200101",
+      "question": "雲量９～１０の時はなんという",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "nqJCHZXCxBNBzLHVGLYd8D",
+      "times": 1,
+      "nextTime": "20210101",
+      "question": "地面近くから上空へ発達し、雷を伴う夕立を降らせる雲とは",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "5eZjobt2GxuP9HJnnv4MPH",
+      "times": 1,
+      "nextTime": "20220101",
+      "question": "百葉箱はなんのために、金具があまり使わない",
+      "cid": "aaYHb4GyjxfYWYAaKMyG53"
+    },
+    {
+      "qid": "oBEhNZMKfRyz9KMDQkDSnT",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "2018年、瀬戸内工業地域の工業別生産額は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "ohgBMXMjMVSKgzPF47L37F",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "2018年、北陸工業地域の工業別生産額は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "kK4c44qM2nJXrUrJatqsnt",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "動植物が自然環境の中でたがいに関係しあって生きている仕組みとは",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "rbBtN7oBSWymDfirnmu7w5",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "焼津港で水揚げされる主な魚は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "gvEs23Nk5ZBssHhFMvKsbp",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "パソコンや携帯電話、ゲーム機などに使用される貴重金属は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "8AYbNN4jhnViq5wtZKXnxs",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "太平洋を南下する海流は4",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "fkVuwVtgk3rCiFJeXRDxUm",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "2018年、北九州工業地域の工業別生産額は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "jfcRECgpY6xcREfdMy88FR",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "2018年、東海工業地域の工業別生産額は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "jUriZBr91HNtfHVcQ6KozX",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "2018年、阪神工業地帯の工業別生産額は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "8aqiGGBw5wH1beVMzouKXf",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "釧路港で水揚げされる主な魚は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "cv7GPEhzeQndchMPBFqBTL",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "2018年、京葉工業地域の工業別生産額は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "8QZG2k5o43o1acnT2NCyDY",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "水揚げ量１位の漁港は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "oTaYhwJCYxMb9cD6XPofZA",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "2018年、中京工業地帯の工業別生産額は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "r5nYWub5z6SRxJtJtA1eBF",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "2018年、工業生産額の割合",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "cZzGRFKHXCb3xmCbWBewSr",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "2018年、関東内陸工業地域の工業別生産額は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "qWpCz2PCA1CLpi2TCttpMe",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "四大公害病のまとめ",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "7DdD7n9mfvvGFkUHHMKTB8",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "工業生産額の前３位の工業地帯・工業地域は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "s4EpqUBzhyou4rxc6FECKX",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "都市全体に貴重な資源が眠っている様子を鉱山に例える事はなんという",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "d5xxadqM7jHUwpjk1FYSo6",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "オゾン層が破壊されていた原因物質は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "mrY8zATbNbJ1QtvxGCD3GL",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "特殊な原料を焼き固めたのもとは",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "iKJon7FHtnpTSayEajCnhh",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "2018年、京浜工業地帯の工業別生産額は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    },
+    {
+      "qid": "5gvoEENPkKKqj1W2uhw428",
+      "times": 0,
+      "nextTime": "19900101",
+      "question": "八戸港で水揚げされる主な魚は",
+      "cid": "vB6cUPdMB8TJFSrypGwoML"
+    }
+  ]
+}
