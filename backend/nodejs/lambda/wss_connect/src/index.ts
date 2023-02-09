@@ -104,6 +104,7 @@ const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]>
 };
 
 const clearConnections = async (connections: Tables.TWSSConnections[]): Promise<void> => {
+  // remove all records
   const tasks = connections.map((item) =>
     client
       .delete({
