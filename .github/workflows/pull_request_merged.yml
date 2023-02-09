@@ -3,7 +3,7 @@ name: PR_MERGED) Build CI/CD
 on:
   pull_request:
     types:
-      - closed
+      - opened
     branches:
       - master
   workflow_dispatch:
