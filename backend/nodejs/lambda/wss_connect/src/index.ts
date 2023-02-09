@@ -1,4 +1,4 @@
-import { ApiGatewayManagementApi, DynamoDB, Lambda } from 'aws-sdk';
+import { ApiGatewayManagementApi, AWSError, DynamoDB, Lambda } from 'aws-sdk';
 import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
@@ -20,9 +20,10 @@ export const handler = async (
 
   let statusCode = 200;
 
-  const connections = await getConnections(guardian);
+  let connections: Tables.TWSSConnections[] = [];
 
   try {
+    // update self connection id
     await client
       .put({
         TableName: TABLE_NAME_CONNECTIONS,
@@ -33,6 +34,9 @@ export const handler = async (
         } as Tables.TWSSConnections,
       })
       .promise();
+
+    // get all connections
+    connections = await getConnections(guardian);
 
     // 一括実行
     await Promise.all(
@@ -64,6 +68,13 @@ export const handler = async (
     }
   } catch (err) {
     console.log(err);
+
+    const error = err as unknown as AWSError;
+
+    if (error.code === 'GoneException') {
+      await clearConnections(connections);
+    }
+
     statusCode = 500;
   }
 
@@ -94,6 +105,23 @@ const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]>
 
   // return client connections
   return items;
+};
+
+const clearConnections = async (connections: Tables.TWSSConnections[]): Promise<void> => {
+  // remove all records
+  const tasks = connections.map((item) =>
+    client
+      .delete({
+        TableName: TABLE_NAME_CONNECTIONS,
+        Key: {
+          guardian: item.guardian,
+          userId: item.userId,
+        },
+      })
+      .promise()
+  );
+
+  await Promise.all(tasks);
 };
 
 interface TAuthorizer {
