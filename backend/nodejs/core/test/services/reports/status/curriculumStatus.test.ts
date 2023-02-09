@@ -61,7 +61,6 @@ describe('Curriculums', () => {
 
     // status code
     expect(res.statusCode).toBe(200);
-
     expect(res.body).toEqual(REPORTS.CURRICULUM_STATUS002_EXPECTS);
   });
 

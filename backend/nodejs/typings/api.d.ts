@@ -732,7 +732,7 @@ export namespace APIs {
 
   type CurriculumStatusResponseItem = Tables.TLearning & {
     question?: string;
-    cid?: string;
+    gid?: string;
   };
 
   interface CurriculumStatusResponse {
