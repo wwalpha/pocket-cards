@@ -3,10 +3,25 @@ name: PR_MERGED) Build CI/CD
 on:
   pull_request:
     types:
-      - opened
+      - closed
     branches:
       - master
+  workflow_run:
+    workflows:
+      - PUSH_B) Auth Manager Build
+      - PUSH_B) Batch Build
+      - PUSH_B) Core Build
+      - PUSH_B) Lambda Build
+      - PUSH_B) Users Manager Build
+      - PUSH_F) Admin React Build
+      - PUSH_F) Users React Build
+      - PUSH_T) Terraform Build
+    branches:
+      - master
+    types:
+      - completed
   workflow_dispatch:
+
 
 jobs:
   # Auth Manager
