@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PageviewIcon from '@mui/icons-material/Pageview';
@@ -36,6 +37,14 @@ export default () => {
   const [open, setOpen] = useState(false);
   const [curriculumId, setCurriculumId] = useState<string | undefined>(undefined);
   const [groupId, setGroupId] = useState('');
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  useEffect(() => {
+    setRowsPerPage(10);
+    setPage(0);
+    return;
+  }, [subject]);
 
   // get question list
   const handleApply = (groupId: string) => {
@@ -71,84 +80,107 @@ export default () => {
     grpActions.editable(editable);
   };
 
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const displayGroups = groups.filter((item) => item.subject === subject);
   const curriculumItems = curriculums.filter((item) => item.userId === activeStudent);
 
   return (
     <Box sx={styles.root}>
-      <TableContainer component={Paper}>
-        <Table aria-label="customized table" size="small">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell sx={{ width: 100 }}></StyledTableCell>
-              <StyledTableCell>Title</StyledTableCell>
-              <StyledTableCell>Description</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {displayGroups.map((dataRow) => (
-              <TableRow key={dataRow.id}>
-                <TableCell>
-                  <Box sx={{ display: 'flex' }}>
-                    <LoadingIconButton
-                      loading={isLoading}
-                      sx={{ p: 0.5 }}
-                      onClick={() => {
-                        handleQuestions(dataRow.id);
-                      }}
-                    >
-                      <PageviewIcon sx={{ fontSize: 32 }} />
-                    </LoadingIconButton>
-                    {(() => {
-                      if (authority !== Consts.Authority.PARENT) return;
+      <Paper>
+        <TableContainer component={Paper}>
+          <Table aria-label="customized table" size="small">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell sx={{ width: 100 }}></StyledTableCell>
+                <StyledTableCell>Title</StyledTableCell>
+                <StyledTableCell>Description</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {displayGroups.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((dataRow) => (
+                <TableRow key={dataRow.id}>
+                  <TableCell>
+                    <Box sx={{ display: 'flex' }}>
+                      <LoadingIconButton
+                        loading={isLoading}
+                        sx={{ p: 0.5 }}
+                        onClick={() => {
+                          handleQuestions(dataRow.id);
+                        }}
+                      >
+                        <PageviewIcon sx={{ fontSize: 32 }} />
+                      </LoadingIconButton>
+                      {(() => {
+                        if (authority !== Consts.Authority.PARENT) return;
 
-                      const item = curriculumItems.find((item) => item.groupId === dataRow.id);
-                      const icon = !item ? (
-                        <CheckCircleIcon sx={{ fontSize: 32 }} />
-                      ) : (
-                        <CancelIcon sx={{ fontSize: 32 }} />
-                      );
-                      const color = item ? 'error' : 'success';
+                        const item = curriculumItems.find((item) => item.groupId === dataRow.id);
+                        const icon = !item ? (
+                          <CheckCircleIcon sx={{ fontSize: 32 }} />
+                        ) : (
+                          <CancelIcon sx={{ fontSize: 32 }} />
+                        );
+                        const color = item ? 'error' : 'success';
 
-                      return (
+                        return (
+                          <LoadingIconButton
+                            sx={{ p: 0.5 }}
+                            loading={isLoading}
+                            color={color}
+                            disabled={authority !== Consts.Authority.ADMIN && dataRow.count === 0}
+                            onClick={() => {
+                              setGroupId(dataRow.id);
+                              setCurriculumId(item?.id);
+                              setOpen(true);
+                            }}
+                          >
+                            {icon}
+                          </LoadingIconButton>
+                        );
+                      })()}
+                      {authority === Consts.Authority.ADMIN && (
                         <LoadingIconButton
                           sx={{ p: 0.5 }}
                           loading={isLoading}
-                          color={color}
-                          disabled={authority !== Consts.Authority.ADMIN && dataRow.count === 0}
                           onClick={() => {
-                            setGroupId(dataRow.id);
-                            setCurriculumId(item?.id);
-                            setOpen(true);
+                            handleEdit(dataRow.id, Consts.EDIT_MODE.EDIT);
                           }}
+                          component={React.forwardRef((props: any, ref: any) => (
+                            <Link to={ROUTE_PATHS.GROUP_EDIT(subject, dataRow.id)} {...props} />
+                          ))}
                         >
-                          {icon}
+                          <EditIcon sx={{ fontSize: 32 }} />
                         </LoadingIconButton>
-                      );
-                    })()}
-                    {authority === Consts.Authority.ADMIN && (
-                      <LoadingIconButton
-                        sx={{ p: 0.5 }}
-                        loading={isLoading}
-                        onClick={() => {
-                          handleEdit(dataRow.id, Consts.EDIT_MODE.EDIT);
-                        }}
-                        component={React.forwardRef((props: any, ref: any) => (
-                          <Link to={ROUTE_PATHS.GROUP_EDIT(subject, dataRow.id)} {...props} />
-                        ))}
-                      >
-                        <EditIcon sx={{ fontSize: 32 }} />
-                      </LoadingIconButton>
-                    )}
-                  </Box>
-                </TableCell>
-                <TableCell sx={styles.tableCell}>{dataRow.name}</TableCell>
-                <TableCell sx={styles.tableCell}>{dataRow.description}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                      )}
+                    </Box>
+                  </TableCell>
+                  <TableCell sx={styles.tableCell}>{dataRow.name}</TableCell>
+                  <TableCell sx={styles.tableCell}>{dataRow.description}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {displayGroups.length > 0 && (
+          <TablePagination
+            rowsPerPageOptions={[10, 20, 50]}
+            component="div"
+            count={displayGroups.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        )}
+      </Paper>
+
       <ConfirmDialog
         open={open}
         maxWidth="md"
