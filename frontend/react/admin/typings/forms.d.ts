@@ -89,5 +89,5 @@ export interface MultiTestForm {
 export interface ProgressSearchForm {
   student: string;
   subject: string;
-  curriculum: string;
+  curriculums: string[];
 }

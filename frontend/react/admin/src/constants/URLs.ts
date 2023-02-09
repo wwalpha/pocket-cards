@@ -39,7 +39,7 @@ export const CURRICULUM_REMOVE = (curriculumId: string) => `${API_VERSION}/curri
 // カリキュラムの並べ順の更新
 export const CURRICULUM_ORDER = (curriculumId: string) => `${API_VERSION}/curriculums/${curriculumId}/order`;
 // カリキュラムの学習進捗
-export const CURRICULUM_PROGRESS = (curriculumId: string) => `${API_VERSION}/reports/curriculums/${curriculumId}`;
+export const CURRICULUM_PROGRESS = () => `${API_VERSION}/reports/status/curriculums`;
 
 // カリキュラムの並べ順の更新
 export const DAILY_EXAM = () => `${API_VERSION}/study/daily/exam`;
