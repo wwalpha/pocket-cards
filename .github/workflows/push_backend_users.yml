@@ -6,20 +6,16 @@ on:
       - backend/nodejs/user_manager/**
       - backend/nodejs/typings/**
       - .github/workflows/push_backend_users.yml
-      - .github/workflows/reuse_build_ci_cd.yml
+      - .github/workflows/reuse_build_ci.yml
     branches-ignore:
       - releases/**
       - master
 
 jobs:
   UserManager:
-    uses: ./.github/workflows/reuse_build_ci_cd.yml
+    uses: ./.github/workflows/reuse_build_ci.yml
     with:
       working-directory: backend/nodejs/user_manager
-      environment: dev
-      region: ap-northeast-1
-      ECR_REPOSITORY: pkc/backend
-      ECS_SERVICE_NAME: pkc-backend
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
