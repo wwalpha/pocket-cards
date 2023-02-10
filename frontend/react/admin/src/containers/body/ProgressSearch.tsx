@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -176,7 +176,7 @@ export default () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
-                    <StyledTableCell sx={{ width: 100 }}>カリキュラム</StyledTableCell>
+                    <StyledTableCell sx={{ width: 150 }}>カリキュラム</StyledTableCell>
                     <StyledTableCell sx={{ width: 64 }}>解答回数</StyledTableCell>
                     <StyledTableCell>問題</StyledTableCell>
                     <StyledTableCell sx={{ width: 128 }}>次回学習日</StyledTableCell>
