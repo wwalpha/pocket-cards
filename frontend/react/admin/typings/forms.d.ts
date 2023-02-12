@@ -21,6 +21,7 @@ export interface GroupEditForm {
   name: string;
   description: string;
   subject: string;
+  grade: string;
 }
 
 export interface UserForm {
