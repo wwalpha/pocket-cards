@@ -39,6 +39,8 @@ export namespace Tables {
   interface TGroups extends TGroupsKey {
     // 科目
     subject: string;
+    // 学年
+    grade: string;
     // グループ名
     name?: string;
     // 説明
