@@ -18,6 +18,7 @@ export const regist = (datas: Group.Regist) => async (dispatch: AppDispatch) => 
     name: datas.name,
     description: datas.description,
     subject: datas.subject,
+    grade: datas.grade,
   });
 
   // データ保存
@@ -25,6 +26,7 @@ export const regist = (datas: Group.Regist) => async (dispatch: AppDispatch) => 
     Actions.GROUP_REGIST({
       id: res.groupId,
       subject: datas.subject,
+      grade: datas.grade,
       count: 0,
       name: datas.name,
       description: datas.description,
@@ -56,6 +58,7 @@ export const edit = (details: Group.Details) => async (dispatch: AppDispatch) =>
   await API.put<void, APIs.GroupUpdateRequest>(URLs.GROUP_UPDATE(details.id), {
     name: details.name,
     description: details.description,
+    grade: details.grade,
   });
 
   // グループ再取得
