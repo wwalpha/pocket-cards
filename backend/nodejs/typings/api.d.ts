@@ -99,6 +99,7 @@ export namespace APIs {
   }
 
   interface GroupUpdateRequest {
+    grade: string;
     name?: string;
     description?: string;
   }
