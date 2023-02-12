@@ -56,6 +56,7 @@ export namespace APIs {
   interface GroupRegistRequest {
     name: string;
     subject: string;
+    grade: string;
     description?: string;
   }
 
