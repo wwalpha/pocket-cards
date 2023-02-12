@@ -50,6 +50,7 @@ export default () => {
   const {
     control,
     getValues,
+    setValue,
     watch,
     handleSubmit,
     formState: { errors },
@@ -108,7 +109,15 @@ export default () => {
           render={({ field: { onChange, value } }) => (
             <FormControl sx={{ mx: 2, width: '25%' }} fullWidth>
               <InputLabel>科目 *</InputLabel>
-              <Select label="Subject *" onChange={onChange} value={value} fullWidth>
+              <Select
+                label="Subject *"
+                onChange={(e) => {
+                  onChange(e);
+                  setValue('curriculums', []);
+                }}
+                value={value}
+                fullWidth
+              >
                 <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
                 <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
                 <MenuItem value={Consts.SUBJECT.JAPANESE}>国 語</MenuItem>
@@ -186,7 +195,13 @@ export default () => {
                   {searchResults.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, idx) => (
                     <TableRow hover key={idx}>
                       <TableCell>{idx + 1}</TableCell>
-                      <TableCell>{groups.find((g) => g.id === item.gid)?.name}</TableCell>
+                      <TableCell>
+                        <Box
+                          sx={{ width: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                        >
+                          {groups.find((g) => g.id === item.gid)?.name}
+                        </Box>
+                      </TableCell>
                       <TableCell>{item.times}</TableCell>
                       <TableCell>
                         <Box
