@@ -2,7 +2,7 @@
 # AWS Athena Workgroup
 # -----------------------------------------------------------------------------------------------------
 resource "aws_athena_workgroup" "this" {
-  name = "${local.project_name}-workspace"
+  name = "${local.project_name}-workgroup"
 
   configuration {
     enforce_workgroup_configuration    = true
