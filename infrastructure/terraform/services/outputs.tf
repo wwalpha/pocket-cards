@@ -328,3 +328,10 @@ output "bucket_key_lambda_authorizer_v1" {
 output "bucket_key_lambda_cognito" {
   value = local.bucket_key_lambda_cognito
 }
+
+# ----------------------------------------------------------------------------------------------
+# Athena workgroup
+# ----------------------------------------------------------------------------------------------
+output "athena_workgroup_name" {
+  value = aws_athena_workgroup.this.name
+}
