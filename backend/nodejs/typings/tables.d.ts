@@ -119,6 +119,8 @@ export namespace Tables {
     subject_weekly?: string;
     // 科目別学習ステータス
     subject_status?: string;
+    // 優先度
+    priority?: string;
   }
 
   interface TLearningGSI1Key {
