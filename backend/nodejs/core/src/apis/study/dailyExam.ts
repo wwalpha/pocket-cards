@@ -72,8 +72,16 @@ const EmptyResponse = (): APIs.DailyExamResponse => ({
  * @returns
  */
 const getLearnings = async (guardianId: string, userId: string, subject: string): Promise<Tables.TLearning[]> => {
+  const [curriculums, priorities] = await Promise.all([
+    // ユーザのカリキュラム一覧を取得する
+    CurriculumService.getListByGuardian(guardianId, subject, userId),
+    // 優先度ありの問題
+    LearningService.dailyPriority(userId, subject),
+  ]);
+
   // ユーザのカリキュラム一覧を取得する
-  const curriculums = await CurriculumService.getListByGuardian(guardianId, subject, userId);
+  // const curriculums = await CurriculumService.getListByGuardian(guardianId, subject, userId);
+
   // 学習順でソートする
   const dataRows = orderBy(curriculums, 'order');
 

@@ -414,3 +414,19 @@ export const byWeekly = (userId: string, subject: string): DynamoDB.DocumentClie
   },
   IndexName: 'gsiIdx3',
 });
+
+export const priority = (userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
+  TableName: Environment.TABLE_NAME_LEARNING,
+  ProjectionExpression: 'qid, groupId',
+  KeyConditionExpression: '#userId = :userId',
+  FilterExpression: '#subject = :subject',
+  ExpressionAttributeNames: {
+    '#userId': 'userId',
+    '#subject': 'subject',
+  },
+  ExpressionAttributeValues: {
+    ':userId': userId,
+    ':subject': subject,
+  },
+  IndexName: 'gsiIdx5',
+});
