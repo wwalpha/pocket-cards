@@ -315,7 +315,7 @@ resource "aws_dynamodb_table" "learning" {
     hash_key           = "userId"
     range_key          = "priority"
     projection_type    = "INCLUDE"
-    non_key_attributes = ["qid", "groupId"]
+    non_key_attributes = ["qid", "groupId", "subject"]
   }
 
   point_in_time_recovery {
