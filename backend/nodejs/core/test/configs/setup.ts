@@ -188,7 +188,7 @@ const setup = async () => {
               { AttributeName: 'userId', KeyType: 'HASH' },
               { AttributeName: 'subject_status', KeyType: 'RANGE' },
             ],
-            Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['qid', 'lastTime'] },
+            Projection: { ProjectionType: 'ALL' },
           },
           {
             IndexName: 'gsiIdx5',
@@ -196,7 +196,7 @@ const setup = async () => {
               { AttributeName: 'userId', KeyType: 'HASH' },
               { AttributeName: 'priority', KeyType: 'RANGE' },
             ],
-            Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['qid', 'groupId', 'subject'] },
+            Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['qid', 'groupId', 'subject', 'nextTime'] },
           },
         ],
       })
