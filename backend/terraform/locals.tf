@@ -130,6 +130,7 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # Athena
   # ----------------------------------------------------------------------------------------------
+  athena_schema_name    = local.remote_services.athena_schema_name
   athena_workgroup_name = local.remote_services.athena_workgroup_name
 }
 
