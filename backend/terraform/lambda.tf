@@ -117,6 +117,7 @@ resource "aws_lambda_function" "batch" {
       ATHENA_WORKGROUP_NAME = local.athena_workgroup_name
       MASTER_EMAIL_ADDRESS  = "master@${local.domain_name}"
       TZ                    = "Asia/Tokyo"
+      ACCURACY_RATE         = "75"
     }
   }
 }

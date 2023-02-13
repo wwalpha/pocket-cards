@@ -10,3 +10,4 @@ export const AWS_REGION = process.env['DEFAULT_REGION'] as string;
 export const ATHENA_SCHEMA_NAME = process.env['ATHENA_SCHEMA_NAME'] as string;
 export const ATHENA_WORKGROUP_NAME = process.env['ATHENA_WORKGROUP_NAME'] as string;
 export const ATHENA_TIMESTAMP = process.env['ATHENA_TIMESTAMP'] as string;
+export const ACCURACY_RATE = process.env['ACCURACY_RATE'] as string;

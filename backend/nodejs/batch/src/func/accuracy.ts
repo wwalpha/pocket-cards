@@ -61,7 +61,7 @@ export default async () => {
       };
     })
     .filter((item): item is Exclude<typeof item, undefined> => item !== undefined)
-    .filter((item) => item.accuracy < 75);
+    .filter((item) => item.accuracy < Number(Environments.ACCURACY_RATE));
 
   // 理科、社会の６年のグループ一覧
   const groups = await getGradeSixGroups();

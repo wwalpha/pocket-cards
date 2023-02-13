@@ -121,7 +121,8 @@ resource "aws_iam_policy" "athena_basic" {
           "s3:AbortMultipartUpload",
           "s3:PutObject",
           "s3:ListMultipartUploadParts",
-          "glue:GetTable"
+          "glue:GetTable",
+          "glue:GetDatabases"
         ]
         Resource = "*"
       },
