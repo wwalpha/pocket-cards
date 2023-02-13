@@ -155,6 +155,7 @@ const setup = async () => {
           { AttributeName: 'groupId', AttributeType: 'S' },
           { AttributeName: 'subject_weekly', AttributeType: 'S' },
           { AttributeName: 'subject_status', AttributeType: 'S' },
+          { AttributeName: 'priority', AttributeType: 'S' },
         ],
         GlobalSecondaryIndexes: [
           {
@@ -188,6 +189,14 @@ const setup = async () => {
               { AttributeName: 'subject_status', KeyType: 'RANGE' },
             ],
             Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['qid', 'lastTime'] },
+          },
+          {
+            IndexName: 'gsiIdx5',
+            KeySchema: [
+              { AttributeName: 'userId', KeyType: 'HASH' },
+              { AttributeName: 'priority', KeyType: 'RANGE' },
+            ],
+            Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['qid', 'groupId', 'subject'] },
           },
         ],
       })

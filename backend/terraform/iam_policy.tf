@@ -100,6 +100,36 @@ resource "aws_iam_role_policy" "vision_s3_delete" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - Athena Basic Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_policy" "athena_basic" {
+  name = "${local.project_name_uc}_AthenaPolicy"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "athena:StartQueryExecution",
+          "athena:GetQueryExecution",
+          "athena:GetQueryResults",
+          "s3:GetBucketLocation",
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:ListBucketMultipartUploads",
+          "s3:AbortMultipartUpload",
+          "s3:PutObject",
+          "s3:ListMultipartUploadParts",
+          "glue:GetTable"
+        ]
+        Resource = "*"
+      },
+    ]
+  })
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS Role Policy - API Gateway
 # ----------------------------------------------------------------------------------------------
 data "aws_iam_policy_document" "wss_apigw" {
