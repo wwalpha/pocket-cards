@@ -111,7 +111,7 @@ resource "aws_lambda_function" "batch" {
       TABLE_NAME_TRACES     = local.dynamodb_name_traces
       TABLE_NAME_LEARNING   = local.dynamodb_name_learning
       TABLE_NAME_REPORTS    = local.dynamodb_name_reports
-      TABLE_NAME_GROUP      = local.dynamodb_name_groups
+      TABLE_NAME_GROUPS     = local.dynamodb_name_groups
       TABLE_NAME_ACCURACY   = local.dynamodb_name_accuracy
       ATHENA_SCHEMA_NAME    = local.athena_schema_name
       ATHENA_WORKGROUP_NAME = local.athena_workgroup_name
