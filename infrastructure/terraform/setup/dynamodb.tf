@@ -314,7 +314,6 @@ resource "aws_dynamodb_table" "learning" {
   }
 }
 
-
 # ----------------------------------------------------------------------------------------------
 # Dynamodb Table - Settings
 # ----------------------------------------------------------------------------------------------
@@ -445,7 +444,7 @@ resource "aws_dynamodb_table" "wss" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Dynamodb Table - WSS connections
+# Dynamodb Table - Inquiry
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "inquiry" {
   name         = local.dynamodb_name_inquiry
@@ -459,6 +458,36 @@ resource "aws_dynamodb_table" "inquiry" {
 
   point_in_time_recovery {
     enabled = true
+  }
+
+  tags = {
+    Project = local.project_name_uc
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Accuracy
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "accuracy" {
+  name         = local.dynamodb_name_accuracy
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "qid"
+
+  attribute {
+    name = "qid"
+    type = "S"
+  }
+
+  attribute {
+    name = "uid"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "gsiIdx1"
+    hash_key        = "uid"
+    range_key       = "qid"
+    projection_type = "ALL"
   }
 
   tags = {
