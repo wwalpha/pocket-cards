@@ -36,6 +36,7 @@ export default () => {
       name: groupInfo?.name || '',
       description: groupInfo?.description || '',
       subject: subject,
+      grade: groupInfo?.grade || Consts.GRADE.GRADE_6,
     },
   });
 
@@ -47,12 +48,14 @@ export default () => {
         name: datas.name,
         description: datas.description,
         subject: subject,
+        grade: datas.grade,
       });
     } else if (editable === Consts.EDIT_MODE.REGIST) {
       actions.regist({
         name: datas.name,
         description: datas.description,
         subject: datas.subject,
+        grade: datas.grade,
       });
     }
   });
@@ -120,6 +123,24 @@ export default () => {
               <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
               <MenuItem value={Consts.SUBJECT.ENGLISH}>英 語</MenuItem>
               <MenuItem value={Consts.SUBJECT.HANDWRITING}>漢 字</MenuItem>
+            </Select>
+          )}
+        />
+        <Controller
+          name="grade"
+          control={control}
+          rules={{ required: 'required' }}
+          render={({ field: { onChange, value } }) => (
+            <Select
+              disabled={!(editable === Consts.EDIT_MODE.REGIST)}
+              onChange={onChange}
+              value={value}
+              fullWidth
+              sx={{ mt: 2 }}
+            >
+              <MenuItem value={Consts.GRADE.GRADE_4}>４年生</MenuItem>
+              <MenuItem value={Consts.GRADE.GRADE_5}>５年生</MenuItem>
+              <MenuItem value={Consts.GRADE.GRADE_6}>６年生</MenuItem>
             </Select>
           )}
         />

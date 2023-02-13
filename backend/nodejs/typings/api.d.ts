@@ -56,6 +56,7 @@ export namespace APIs {
   interface GroupRegistRequest {
     name: string;
     subject: string;
+    grade: string;
     description?: string;
   }
 
@@ -98,6 +99,7 @@ export namespace APIs {
   }
 
   interface GroupUpdateRequest {
+    grade: string;
     name?: string;
     description?: string;
   }
