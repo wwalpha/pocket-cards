@@ -1,5 +1,5 @@
 import { Consts, Environment } from '@consts';
-import { DBHelper } from '@utils';
+import { DateUtils, DBHelper } from '@utils';
 import moment from 'moment';
 import { Tables } from 'typings';
 import * as Queries from './queries';
@@ -142,7 +142,7 @@ export const dailyCurrentTasks = async (userId: string, lastTime: string): Promi
 };
 
 export const dailyPriority = async (userId: string, subject: string): Promise<Tables.TLearning[]> => {
-  const results = await DBHelper().query<Tables.TLearning>(Queries.priority(userId, subject));
+  const results = await DBHelper().query<Tables.TLearning>(Queries.priority(userId, subject, DateUtils.getNow()));
 
   return results.Items;
 };
