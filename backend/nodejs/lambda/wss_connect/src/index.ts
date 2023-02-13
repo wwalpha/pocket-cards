@@ -23,6 +23,9 @@ export const handler = async (
   let connections: Tables.TWSSConnections[] = [];
 
   try {
+    // get all connections
+    connections = await getConnections(guardian);
+
     // update self connection id
     await client
       .put({
@@ -34,9 +37,6 @@ export const handler = async (
         } as Tables.TWSSConnections,
       })
       .promise();
-
-    // get all connections
-    connections = await getConnections(guardian);
 
     // 一括実行
     await Promise.all(
