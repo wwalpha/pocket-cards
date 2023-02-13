@@ -107,13 +107,14 @@ resource "aws_lambda_function" "batch" {
 
   environment {
     variables = {
-      TABLE_NAME_USERS     = local.dynamodb_name_users
-      TABLE_NAME_TRACES    = local.dynamodb_name_traces
-      TABLE_NAME_LEARNING  = local.dynamodb_name_learning
-      TABLE_NAME_REPORTS   = local.dynamodb_name_reports
-      TABLE_NAME_ACCURACY  = local.dynamodb_name_accuracy
-      MASTER_EMAIL_ADDRESS = "master@${local.domain_name}"
-      TZ                   = "Asia/Tokyo"
+      TABLE_NAME_USERS       = local.dynamodb_name_users
+      TABLE_NAME_TRACES      = local.dynamodb_name_traces
+      TABLE_NAME_LEARNING    = local.dynamodb_name_learning
+      TABLE_NAME_REPORTS     = local.dynamodb_name_reports
+      TABLE_NAME_ACCURACY    = local.dynamodb_name_accuracy
+      ATHENAM_WORKGROUP_NAME = local.athena_workgroup_name
+      MASTER_EMAIL_ADDRESS   = "master@${local.domain_name}"
+      TZ                     = "Asia/Tokyo"
     }
   }
 }
