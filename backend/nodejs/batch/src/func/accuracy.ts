@@ -68,6 +68,17 @@ export default async () => {
 
   // create update sql
   const tasks = dataRows.map(async (item) => {
+    // update accuracy
+    await DBHelper().put<Tables.TAccuracy>({
+      TableName: Environments.TABLE_NAME_ACCURACY,
+      Item: {
+        qid: item.qid,
+        accuracy: item.accuracy,
+        uid: userId,
+      },
+    });
+
+    // search learning info
     const learning = await DBHelper().get<Tables.TLearning>({
       TableName: Environments.TABLE_NAME_LEARNING,
       Key: {
