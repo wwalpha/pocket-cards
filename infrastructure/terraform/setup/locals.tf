@@ -46,6 +46,7 @@ locals {
   dynamodb_name_reports         = "${var.project_name}-reports-${local.suffix}"
   dynamodb_name_wss_connections = "${var.project_name}-wssconnections-${local.suffix}"
   dynamodb_name_inquiry         = "${var.project_name}-inquiry-${local.suffix}"
+  dynamodb_name_accuracy        = "${var.project_name}-accuracy-${local.suffix}"
 
   bucket_key_lambda_wss_relay = "lambda/wss_relay.zip"
 
