@@ -58,6 +58,7 @@ locals {
   dynamodb_name_reports     = local.remote_setup.dynamodb_name_reports
   dynamodb_name_wss         = local.remote_setup.dynamodb_name_wss
   dynamodb_name_inquiry     = local.remote_setup.dynamodb_name_inquiry
+  dynamodb_name_accuracy    = local.remote_setup.dynamodb_name_accuracy
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -125,6 +126,12 @@ locals {
   # SNS
   # ----------------------------------------------------------------------------------------------
   sns_arn_errors_notify = local.remote_services.sns_arn_errors_notify
+
+  # ----------------------------------------------------------------------------------------------
+  # Athena
+  # ----------------------------------------------------------------------------------------------
+  athena_schema_name    = local.remote_services.athena_schema_name
+  athena_workgroup_name = local.remote_services.athena_workgroup_name
 }
 
 # ----------------------------------------------------------------------------------------------

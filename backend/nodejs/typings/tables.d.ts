@@ -119,6 +119,8 @@ export namespace Tables {
     subject_weekly?: string;
     // 科目別学習ステータス
     subject_status?: string;
+    // 優先度
+    priority?: string;
   }
 
   interface TLearningGSI1Key {
@@ -306,7 +308,7 @@ export namespace Tables {
   }
 
   // ------------------------------------------------------------
-  // WSS Connections
+  // Inquiry
   // ------------------------------------------------------------
   interface TInquiryKey {
     // question id
@@ -314,4 +316,17 @@ export namespace Tables {
   }
 
   interface TInquiry extends TInquiryKey {}
+
+  // ------------------------------------------------------------
+  // Accuracy
+  // ------------------------------------------------------------
+  interface TAccuracyKey {
+    // question id
+    qid: string;
+  }
+
+  interface TAccuracy extends TAccuracyKey {
+    uid: string;
+    accuracy: number;
+  }
 }
