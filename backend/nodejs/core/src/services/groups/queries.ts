@@ -22,15 +22,18 @@ export const del = (key: Tables.TGroupsKey): DynamoDB.DocumentClient.DeleteItemI
   },
 });
 
-/** グループ一覧を取得する */
-export const byUserId = (userId: string): DynamoDB.DocumentClient.QueryInput => ({
+/** 科目別学年別のグループ一覧 */
+export const byGrade = (subject: string, grade: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_GROUPS,
-  KeyConditionExpression: '#userId = :userId',
+  KeyConditionExpression: '#subject = :subject',
+  FilterExpression: '#grade = :grade',
   ExpressionAttributeNames: {
-    '#userId': 'userId',
+    '#subject': 'subject',
+    '#grade': 'subject',
   },
   ExpressionAttributeValues: {
-    ':userId': userId,
+    ':subject': subject,
+    ':grade': grade,
   },
   IndexName: 'gsiIdx1',
 });
