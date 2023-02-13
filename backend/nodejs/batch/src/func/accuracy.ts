@@ -61,7 +61,7 @@ export default async () => {
       };
     })
     .filter((item): item is Exclude<typeof item, undefined> => item !== undefined)
-    .filter((item) => item.accuracy < 75);
+    .filter((item) => item.accuracy < Number(Environments.ACCURACY_RATE));
 
   // 理科、社会の６年のグループ一覧
   const groups = await getGradeSixGroups();
@@ -130,7 +130,7 @@ DAILY AS (
 )
 SELECT DAILY.qid,
 (
-  CAST(sum(correct) AS decimal(7, 4)) / CAST(count(*) AS decimal(7, 4)) * 100
+  CAST(sum(correct) AS decimal(7, 2)) / CAST(count(*) AS decimal(7, 2)) * 100
 ) AS percent
 FROM COUNTED, DAILY
 WHERE COUNTED.qid = DAILY.qid
