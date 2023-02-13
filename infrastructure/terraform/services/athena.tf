@@ -11,6 +11,10 @@ resource "aws_athena_workgroup" "this" {
     result_configuration {
       output_location = "s3://${local.bucket_name_archive}/athena/"
     }
+
+    engine_version {
+      selected_engine_version = "Athena engine version 3"
+    }
   }
 }
 
