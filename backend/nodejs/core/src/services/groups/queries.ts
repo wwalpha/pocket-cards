@@ -29,7 +29,7 @@ export const byGrade = (subject: string, grade: string): DynamoDB.DocumentClient
   FilterExpression: '#grade = :grade',
   ExpressionAttributeNames: {
     '#subject': 'subject',
-    '#grade': 'subject',
+    '#grade': 'grade',
   },
   ExpressionAttributeValues: {
     ':subject': subject,
