@@ -58,6 +58,7 @@ locals {
   dynamodb_name_reports     = local.remote_setup.dynamodb_name_reports
   dynamodb_name_wss         = local.remote_setup.dynamodb_name_wss
   dynamodb_name_inquiry     = local.remote_setup.dynamodb_name_inquiry
+  dynamodb_name_accuracy    = local.remote_setup.dynamodb_name_accuracy
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
