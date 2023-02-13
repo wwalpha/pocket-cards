@@ -130,7 +130,7 @@ DAILY AS (
 )
 SELECT DAILY.qid,
 (
-  CAST(sum(correct) AS decimal(7, 4)) / CAST(count(*) AS decimal(7, 4)) * 100
+  CAST(sum(correct) AS decimal(7, 2)) / CAST(count(*) AS decimal(7, 2)) * 100
 ) AS percent
 FROM COUNTED, DAILY
 WHERE COUNTED.qid = DAILY.qid
