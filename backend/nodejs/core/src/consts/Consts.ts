@@ -9,6 +9,12 @@ export const SUBJECT = {
   HANDWRITING: '5',
 };
 
+export const GRADE = {
+  GRADE_4: '4',
+  GRADE_5: '5',
+  GRADE_6: '6',
+};
+
 export const PATH_PATTERN = 'audios';
 export const PATH_IMAGE = 'images';
 export const PATH_VOICE = 'voices';

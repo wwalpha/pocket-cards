@@ -141,6 +141,12 @@ export const dailyCurrentTasks = async (userId: string, lastTime: string): Promi
   return results.Items;
 };
 
+export const dailyPriority = async (userId: string, subject: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.priority(userId, subject));
+
+  return results.Items;
+};
+
 /** 全件検索 */
 export const listAll = async (): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().scan<Tables.TLearning>({ TableName: Environment.TABLE_NAME_LEARNING });
