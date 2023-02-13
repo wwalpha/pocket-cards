@@ -69,6 +69,9 @@ output "dynamodb_name_wss" {
 output "dynamodb_name_inquiry" {
   value = aws_dynamodb_table.inquiry.name
 }
+output "dynamodb_name_accuracy" {
+  value = aws_dynamodb_table.accuracy.name
+}
 # ----------------------------------------------------------------------------------------------
 # Route53 DNS Servers
 # ----------------------------------------------------------------------------------------------
