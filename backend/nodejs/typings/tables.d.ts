@@ -306,7 +306,7 @@ export namespace Tables {
   }
 
   // ------------------------------------------------------------
-  // WSS Connections
+  // Inquiry
   // ------------------------------------------------------------
   interface TInquiryKey {
     // question id
@@ -314,4 +314,17 @@ export namespace Tables {
   }
 
   interface TInquiry extends TInquiryKey {}
+
+  // ------------------------------------------------------------
+  // Accuracy
+  // ------------------------------------------------------------
+  interface TAccuracyKey {
+    // question id
+    qid: string;
+  }
+
+  interface TAccuracy extends TAccuracyKey {
+    uid: string;
+    accuracy: number;
+  }
 }
