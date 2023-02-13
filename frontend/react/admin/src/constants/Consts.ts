@@ -18,6 +18,12 @@ export const SUBJECT = {
   HANDWRITING: '5',
 };
 
+export const GRADE = {
+  GRADE_4: '4',
+  GRADE_5: '5',
+  GRADE_6: '6',
+};
+
 export enum SIGN_STATUS {
   NOT_LOGIN,
   NEW_PASSWORD_REQUIRED,

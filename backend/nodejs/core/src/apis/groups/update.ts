@@ -18,6 +18,7 @@ export default async (req: Request<APIs.GroupUpdateParams, void, APIs.GroupUpdat
     // データ更新
     await GroupService.update({
       ...result,
+      grade: item.grade,
       name: item.name,
       description: item.description,
     });

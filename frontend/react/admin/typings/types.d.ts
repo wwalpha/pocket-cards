@@ -51,6 +51,7 @@ export namespace Group {
     name: string;
     description?: string;
     subject: string;
+    grade: string;
   }
 
   interface Details {
@@ -58,6 +59,7 @@ export namespace Group {
     name: string;
     description?: string;
     subject: string;
+    grade: string;
   }
 
   type GroupWords = Record<string, WordSimple[]>;

@@ -22,6 +22,7 @@ export default async (req: Request<any, any, APIs.GroupRegistRequest, any>): Pro
     id: uuid,
     subject: item.subject,
     count: 0,
+    grade: item.grade,
     ...values,
   });
 
