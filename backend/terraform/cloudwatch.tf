@@ -13,9 +13,17 @@ resource "aws_cloudwatch_event_rule" "this" {
 # AWS CloudWatch Event Rule Target
 # ----------------------------------------------------------------------------------------------
 resource "aws_cloudwatch_event_target" "this" {
-  rule      = aws_cloudwatch_event_rule.this.name
-  target_id = "SendToLambda"
-  arn       = aws_lambda_function.batch.arn
+  rule     = aws_cloudwatch_event_rule.this.name
+  arn      = aws_sfn_state_machine.this.arn
+  role_arn = aws_iam_role.batch_event.arn
+  input    = <<DOC
+{
+  "S3Bucket": "${local.bucket_name_archive}",
+  "TableArn": "arn:aws:dynamodb:${local.region}:${local.account_id}:table/${local.dynamodb_name_traces}",
+  "AthenaDB": "${local.athena_schema_name}",
+  "AthenaWG": "${local.athena_workgroup_name}"
+}
+DOC
 }
 
 # ---------------------------------------------------------------------------------------------
@@ -124,4 +132,12 @@ resource "aws_lambda_permission" "email_notify" {
   function_name = aws_lambda_function.sns_notify.function_name
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.ecs_task_start_failure.arn
+}
+
+# ---------------------------------------------------------------------------------------------
+# CloudWatch Log Group - State machine
+# ---------------------------------------------------------------------------------------------
+resource "aws_cloudwatch_log_group" "sfn" {
+  name              = "/aws/vendedlogs/states/pkc-batchflow-Logs"
+  retention_in_days = 7
 }

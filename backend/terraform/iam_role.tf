@@ -302,3 +302,27 @@ resource "aws_iam_role_policy_attachment" "notify_sns" {
   role       = aws_iam_role.notify.name
   policy_arn = local.iam_policy_arn_sns
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - State Machine
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "sfn" {
+  name               = "${local.project_name_uc}_SfnRole"
+  assume_role_policy = data.aws_iam_policy_document.sfn.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - CloudWatch Events
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "batch_event" {
+  name               = "${local.project_name_uc}_BatchEventRole"
+  assume_role_policy = data.aws_iam_policy_document.events.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
