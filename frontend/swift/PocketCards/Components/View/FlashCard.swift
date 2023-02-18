@@ -54,6 +54,9 @@ struct FlashCard: View {
             }
             .padding(.vertical, 16)
             .background(Color.grey50)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.primaryColor, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

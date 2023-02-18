@@ -14,7 +14,7 @@ struct MultiTestView: View {
     @ObservedObject var viewModel = MultiTestViewModel()
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 if viewModel.isShowQuestion {
                     if viewModel.question?.choices != nil {
@@ -59,8 +59,8 @@ struct MultiTestView: View {
                 }
             }.onDisappear {
                 interactor?.disconnect()
-            }.navigationBarTitleDisplayMode(.inline)
-        }.navigationViewStyle(.stack)
+            }
+        }
     }
 }
 
