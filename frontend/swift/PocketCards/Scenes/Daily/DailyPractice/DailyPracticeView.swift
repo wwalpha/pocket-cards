@@ -16,13 +16,7 @@ struct DailyPracticeView: View {
     var body: some View {
         VStack {
             if viewModel.isLoading {
-                Text("Loading....").onAppear {
-                    Task {
-                        if viewModel.question == nil {
-                            await interactor?.initialize()
-                        }
-                    }
-                }
+                Text("Loading....")
             } else if viewModel.isFinish {
                 Text("学習は終わりました")
                     .font(.system(size: 64, design: .default))
@@ -43,20 +37,20 @@ struct DailyPracticeView: View {
                 }
             }
         }.onDisappear {
-            viewModel.isLoading = true
-            viewModel.question = nil
-
-            interactor?.destory()
+//            viewModel.question = nil
+//            viewModel.isLoading = true
+//            interactor?.destory()
         }
     }
 }
 
 extension DailyPracticeView: DailyPracticeDisplayLogic {
     func showNext(model: DailyPracticeViewModel) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            onUpdate(model: model)
-
-            viewModel.question = model.question
+        DispatchQueue.main.async {
+            self.viewModel.isLoading = model.isLoading
+            self.viewModel.isFinish = model.isFinish
+            self.viewModel.isShowError = model.isShowError
+            self.viewModel.question = model.question
         }
     }
 
@@ -72,6 +66,8 @@ extension DailyPracticeView: DailyPracticeDisplayLogic {
 extension DailyPracticeView {
     func configureView(loadUrl: String, subject: String, mode: String) -> some View {
         var view = self
+        view.viewModel.isLoading = true
+
         let interactor = DailyPracticeInteractor(loadUrl: loadUrl, subject: subject, mode: mode)
         let presenter = DailyPracticePresenter()
 
@@ -79,7 +75,11 @@ extension DailyPracticeView {
         interactor.presenter = presenter
         presenter.view = view
 
-        view.viewModel.isLoading = true
+        debugPrint(configureView, loadUrl, subject, mode)
+
+        Task {
+            await interactor.initialize()
+        }
 
         return view
     }

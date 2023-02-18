@@ -17,7 +17,6 @@ struct CardButton: View {
             self.onClick()
         } label: {
             Text(self.text)
-//                .frame(maxWidth: .infinity, maxHeight: 32, alignment: .leading)
                 .frame(height: 64, alignment: .center)
                 .background(backgroudColor)
                 .foregroundColor(foregroundColor)

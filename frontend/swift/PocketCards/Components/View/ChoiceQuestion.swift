@@ -53,7 +53,7 @@ struct ChoiceQuestion: View {
                                         isPresented = true
                                     }
                                     .fullScreenCover(isPresented: $isPresented) {
-                                        ImageViewer(isShowing: $isPresented, name: qImage)
+                                        ImageViewer(isShowing: $isPresented, imageName: qImage)
                                     }
                             } else {
                                 // download image
@@ -66,7 +66,7 @@ struct ChoiceQuestion: View {
                                         isPresented = true
                                     }
                                     .fullScreenCover(isPresented: $isPresented) {
-                                        ImageViewer(isShowing: $isPresented, name: qImage)
+                                        ImageViewer(isShowing: $isPresented, imageName: qImage)
                                     }
                             }
                         }

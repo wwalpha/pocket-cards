@@ -18,7 +18,7 @@ struct PopupView: View {
                         isPresented = true
                     }
                     .fullScreenCover(isPresented: $isPresented) {
-                        ImageViewer(isShowing: $isPresented, name: "002.png")
+                        ImageViewer(isShowing: $isPresented, imageName: "002.png")
                     }
 //                    .overlay(
 //                        ImageViewer(isShowing: $isShowing, name: "002.png")

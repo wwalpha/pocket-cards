@@ -40,7 +40,6 @@ struct LoginView: View {
                 .cornerRadius(20.0)
 
             Button(action: {
-                debugPrint(username, password)
                 interactor?.login(username: username, password: password)
 
             }, label: {
