@@ -186,7 +186,7 @@ struct FlashCard: View {
                             isPresented = true
                         }
                         .fullScreenCover(isPresented: $isPresented) {
-                            ImageViewer(isShowing: $isPresented, name: qImage)
+                            ImageViewer(isShowing: $isPresented, imageName: qImage)
                         }
                 } else {
                     // download image
@@ -199,7 +199,7 @@ struct FlashCard: View {
                             isPresented = true
                         }
                         .fullScreenCover(isPresented: $isPresented) {
-                            ImageViewer(isShowing: $isPresented, name: qImage)
+                            ImageViewer(isShowing: $isPresented, imageName: qImage)
                         }
                 }
             }
@@ -232,7 +232,7 @@ struct FlashCard: View {
                             isPresented = true
                         }
                         .fullScreenCover(isPresented: $isPresented) {
-                            ImageViewer(isShowing: $isPresented, name: aImage)
+                            ImageViewer(isShowing: $isPresented, imageName: aImage)
                         }
                 } else {
                     // download image
@@ -245,7 +245,7 @@ struct FlashCard: View {
                             isPresented = true
                         }
                         .fullScreenCover(isPresented: $isPresented) {
-                            ImageViewer(isShowing: $isPresented, name: aImage)
+                            ImageViewer(isShowing: $isPresented, imageName: aImage)
                         }
                 }
             }

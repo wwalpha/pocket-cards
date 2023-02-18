@@ -68,7 +68,6 @@ struct RootView: View {
                 }
             }
             .navigationDestination(for: String.self) { text in
-
                 switch text {
                 case "10":
                     router?.makeLanguageStudyiew()
@@ -83,7 +82,7 @@ struct RootView: View {
                 case "31":
                     router?.makeSocietyTestView()
                 default:
-                    router?.makeLanguageStudyiew()
+                    Text("")
                 }
             }
         }
@@ -104,7 +103,7 @@ struct RootView: View {
             Spacer()
         })
         .padding(16)
-        .frame(width: 1000)
+        .frame(width: 900)
         .background(getLinearGradient(subject: subject))
         .clipped()
         .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)

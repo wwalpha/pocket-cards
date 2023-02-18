@@ -36,7 +36,7 @@ class QuestionManager {
         do {
             let res = try await API.request(loadUrl, method: .post, parameters: params).serializingDecodable(QuestionServices.LoadQuestion.Response.self).value
 
-            print("==HUB== \(res)")
+            // print("==HUB== \(res)")
 
             addQuestions(questions: res.questions)
 

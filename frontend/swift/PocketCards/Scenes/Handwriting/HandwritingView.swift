@@ -76,11 +76,11 @@ struct HandwritingView: View {
                     .frame(height: 96)
                     .border(Color.gray, width: 6)
 
-                    HStack {
-                        CanvasView(canvasView: self.$canvasView)
-                            .padding(10.0)
-                            .background(Color.gray)
-                    }.padding()
+//                    HStack {
+//                        CanvasView(canvasView: self.$canvasView)
+//                            .padding(10.0)
+//                            .background(Color.gray)
+//                    }.padding()
                 }.padding(.top, 16)
             }.onDisappear {
                 interactor?.destroy()
