@@ -37,6 +37,7 @@ export default async (
     times: times,
     nextTime: nextTime,
     lastTime: DateUtils.getNow(),
+    priority: undefined,
   });
 
   // 初めて勉強の場合

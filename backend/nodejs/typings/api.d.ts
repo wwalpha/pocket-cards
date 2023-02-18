@@ -56,6 +56,7 @@ export namespace APIs {
   interface GroupRegistRequest {
     name: string;
     subject: string;
+    grade: string;
     description?: string;
   }
 
@@ -98,6 +99,7 @@ export namespace APIs {
   }
 
   interface GroupUpdateRequest {
+    grade: string;
     name?: string;
     description?: string;
   }
@@ -724,14 +726,15 @@ export namespace APIs {
   // ------------------------------------------------------------
   // Curriculum's learning status
   // ------------------------------------------------------------
-  interface CurriculumStatusRequest {}
-
-  interface CurriculumStatusParams {
-    curriculumId: string;
+  interface CurriculumStatusRequest {
+    curriculums: string[];
+    startDate?: string;
+    endDate?: string;
   }
 
   type CurriculumStatusResponseItem = Tables.TLearning & {
     question?: string;
+    gid?: string;
   };
 
   interface CurriculumStatusResponse {

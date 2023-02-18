@@ -20,6 +20,10 @@ import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import TablePagination from '@mui/material/TablePagination';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
 
 const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
@@ -44,10 +48,14 @@ export default () => {
   const { groups } = useSelector(groupState);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const popoverOpen = Boolean(anchorEl);
+  const [popoverValue, setPopoverValue] = React.useState<string | undefined>(undefined);
 
   const {
     control,
     getValues,
+    setValue,
     watch,
     handleSubmit,
     formState: { errors },
@@ -55,12 +63,12 @@ export default () => {
     defaultValues: {
       subject: '',
       student: '',
-      curriculum: '',
+      curriculums: [],
     },
   });
 
-  const onSubmit = handleSubmit(({ curriculum }) => {
-    actions.search(curriculum);
+  const onSubmit = handleSubmit(({ curriculums }) => {
+    actions.search(curriculums);
 
     // 再検索の場合、初期値に戻る
     setPage(0);
@@ -76,6 +84,15 @@ export default () => {
     setPage(0);
   };
 
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>, value?: string) => {
+    setAnchorEl(event.currentTarget);
+    setPopoverValue(value);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
   // 科目の選択を監視する
   watch('subject');
 
@@ -87,7 +104,7 @@ export default () => {
           control={control}
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+            <FormControl sx={{ mx: 2, width: '25%' }} fullWidth>
               <InputLabel>学生 *</InputLabel>
               <Select label="Student *" value={value} onChange={onChange} disabled={students.length === 0}>
                 {students.map((item) => (
@@ -104,9 +121,17 @@ export default () => {
           control={control}
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+            <FormControl sx={{ mx: 2, width: '25%' }} fullWidth>
               <InputLabel>科目 *</InputLabel>
-              <Select label="Subject *" onChange={onChange} value={value} fullWidth>
+              <Select
+                label="Subject *"
+                onChange={(e) => {
+                  onChange(e);
+                  setValue('curriculums', []);
+                }}
+                value={value}
+                fullWidth
+              >
                 <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
                 <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
                 <MenuItem value={Consts.SUBJECT.JAPANESE}>国 語</MenuItem>
@@ -115,25 +140,37 @@ export default () => {
           )}
         />
         <Controller
-          name="curriculum"
+          name="curriculums"
           control={control}
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+            <FormControl sx={{ mx: 2, width: '50%', maxWidth: '50%' }} fullWidth>
               <InputLabel>カリキュラム *</InputLabel>
               <Select
                 label="Curriculum *"
+                multiple
                 onChange={onChange}
                 value={value}
                 fullWidth
                 disabled={getValues('subject') === ''}
+                renderValue={(selected) =>
+                  selected
+                    .map((item) => {
+                      const curriculum = curriculums.find((c) => c.id === item);
+                      const name = groups.find((g) => g.id === curriculum?.groupId)?.name;
+
+                      return name;
+                    })
+                    .join(', ')
+                }
               >
                 {curriculums
                   .filter((item) => item.userId === getValues('student'))
                   .filter((item) => item.subject === getValues('subject'))
                   .map((item) => (
                     <MenuItem key={item.id} value={item.id}>
-                      {groups.find((g) => g.id === item.groupId)?.name}
+                      <Checkbox checked={value.indexOf(item.id) > -1} />
+                      <ListItemText primary={groups.find((g) => g.id === item.groupId)?.name} />
                     </MenuItem>
                   ))}
               </Select>
@@ -162,9 +199,9 @@ export default () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell sx={{ width: 32 }}>No.</StyledTableCell>
+                    <StyledTableCell sx={{ width: 200 }}>カリキュラム</StyledTableCell>
                     <StyledTableCell sx={{ width: 64 }}>解答回数</StyledTableCell>
                     <StyledTableCell>問題</StyledTableCell>
-                    <StyledTableCell sx={{ width: 128 }}>前回学習日</StyledTableCell>
                     <StyledTableCell sx={{ width: 128 }}>次回学習日</StyledTableCell>
                   </TableRow>
                 </TableHead>
@@ -172,18 +209,49 @@ export default () => {
                   {searchResults.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, idx) => (
                     <TableRow hover key={idx}>
                       <TableCell>{idx + 1}</TableCell>
+                      <TableCell>
+                        {(() => {
+                          const name = groups.find((g) => g.id === item.gid)?.name;
+
+                          return (
+                            <Typography
+                              sx={{
+                                width: '200px',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                              }}
+                              aria-owns={popoverOpen ? 'mouse-over-popover' : undefined}
+                              aria-haspopup="true"
+                              onMouseEnter={(e) => {
+                                handlePopoverOpen(e, name);
+                              }}
+                              onMouseLeave={handlePopoverClose}
+                            >
+                              {name}
+                            </Typography>
+                          );
+                        })()}
+                      </TableCell>
                       <TableCell>{item.times}</TableCell>
                       <TableCell>
-                        <Box
-                          sx={{ width: '560px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                        <Typography
+                          sx={{
+                            width: '560px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                          aria-owns={popoverOpen ? 'mouse-over-popover' : undefined}
+                          aria-haspopup="true"
+                          onMouseEnter={(e: any) => {
+                            handlePopoverOpen(e, item.question);
+                          }}
+                          onMouseLeave={handlePopoverClose}
                         >
                           {item.question}
-                        </Box>
+                        </Typography>
                       </TableCell>
-                      <TableCell>{`${item.lastTime?.substring(0, 4)}/${item.lastTime?.substring(
-                        4,
-                        6
-                      )}/${item.lastTime?.substring(6, 8)}`}</TableCell>
                       <TableCell>{`${item.nextTime.substring(0, 4)}/${item.nextTime.substring(
                         4,
                         6
@@ -204,6 +272,26 @@ export default () => {
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />
             )}
+            <Popover
+              id="mouse-over-popover"
+              sx={{
+                pointerEvents: 'none',
+              }}
+              open={popoverOpen}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              onClose={handlePopoverClose}
+              disableRestoreFocus
+            >
+              <Typography sx={{ p: 1 }}>{popoverValue}</Typography>
+            </Popover>
           </Paper>
         );
       })()}

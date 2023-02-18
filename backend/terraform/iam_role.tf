@@ -115,6 +115,14 @@ resource "aws_iam_role_policy_attachment" "batch_ses" {
 }
 
 # ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - Batch Athena Policy
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role_policy_attachment" "batch_athena" {
+  role       = aws_iam_role.batch.name
+  policy_arn = aws_iam_policy.athena_basic.arn
+}
+
+# ----------------------------------------------------------------------------------------------
 # AWS Lambda Role - Vision
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role" "vision" {
@@ -293,4 +301,28 @@ resource "aws_iam_role_policy_attachment" "notify_basic" {
 resource "aws_iam_role_policy_attachment" "notify_sns" {
   role       = aws_iam_role.notify.name
   policy_arn = local.iam_policy_arn_sns
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - State Machine
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "sfn" {
+  name               = "${local.project_name_uc}_SfnRole"
+  assume_role_policy = data.aws_iam_policy_document.sfn.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Lambda Role - CloudWatch Events
+# ----------------------------------------------------------------------------------------------
+resource "aws_iam_role" "batch_event" {
+  name               = "${local.project_name_uc}_BatchEventRole"
+  assume_role_policy = data.aws_iam_policy_document.events.json
+
+  lifecycle {
+    create_before_destroy = false
+  }
 }

@@ -1,38 +1,54 @@
 import { Request } from 'express';
-import { APIs } from 'typings';
+import { APIs, Tables } from 'typings';
 import { CurriculumService, LearningService, QuestionService } from '@services';
 import { ValidationError } from '@utils';
 
 export default async (
-  req: Request<APIs.CurriculumStatusParams, any, APIs.CurriculumStatusRequest, any>
+  req: Request<void, any, APIs.CurriculumStatusRequest, any>
 ): Promise<APIs.CurriculumStatusResponse> => {
-  const { curriculumId } = req.params;
+  const { curriculums, startDate = '19900101', endDate = '20991231' } = req.body;
 
-  const curriculum = await CurriculumService.describe(curriculumId);
-
-  if (!curriculum) {
+  // validation
+  if (!curriculums || curriculums.length === 0) {
     throw new ValidationError('Curriculum was not found.');
   }
 
-  // 問題一覧
-  const learnings = await LearningService.listByGroupWithProjection(
-    curriculum.groupId,
-    'qid, times, nextTime, lastTime',
-    curriculum.userId
-  );
+  const tasks = curriculums.map<Promise<Tables.TLearning[]>>(async (curriculumId) => {
+    const cInfo = await CurriculumService.describe(curriculumId);
 
-  // 問題分を検索する
-  const questions = await Promise.all(learnings.map((item) => QuestionService.describe(item.qid)));
+    // curriculum not found
+    if (!cInfo) return [];
 
-  return {
-    count: learnings.length,
-    items: learnings.map((item) => {
+    // 問題一覧、開始終了期間内
+    const learnings = (
+      await LearningService.listByGroupWithProjection(cInfo.groupId, 'qid, times, nextTime', cInfo.userId)
+    ).filter((item) => startDate <= item.nextTime && item.nextTime <= endDate);
+
+    // 対象問題存在しない
+    if (learnings.length === 0) return [];
+
+    // 問題の詳細情報を検索する
+    const questions = await Promise.all(learnings.map((item) => QuestionService.describe(item.qid)));
+
+    return learnings.map<APIs.CurriculumStatusResponseItem>((item) => {
       const question = questions.find((q) => q?.id === item.qid);
 
       return {
         ...item,
         question: question?.title,
+        gid: cInfo.groupId,
       };
-    }),
+    });
+  });
+
+  // カリキュラム一括実行
+  const results = await Promise.all(tasks);
+  const items = results.reduce((prev, curr) => {
+    return curr.concat(prev);
+  }, []);
+
+  return {
+    count: items.length,
+    items: items,
   };
 };
