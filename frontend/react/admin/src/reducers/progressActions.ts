@@ -4,10 +4,15 @@ import { API } from '@utils';
 import { APIs } from 'typings';
 
 // 進捗検索
-export const PROGRESS_SEARCH = createAsyncThunk<APIs.CurriculumStatusResponseItem[], { curriculum: string }>(
+export const PROGRESS_SEARCH = createAsyncThunk<APIs.CurriculumStatusResponseItem[], { curriculums: string[] }>(
   'progress/PROGRESS_SEARCH',
-  async ({ curriculum }) => {
-    const res = await API.get<APIs.CurriculumStatusResponse>(URLs.CURRICULUM_PROGRESS(curriculum));
+  async ({ curriculums }) => {
+    const res = await API.post<APIs.CurriculumStatusResponse, APIs.CurriculumStatusRequest>(
+      URLs.CURRICULUM_PROGRESS(),
+      {
+        curriculums: curriculums,
+      }
+    );
 
     return res.items;
   }

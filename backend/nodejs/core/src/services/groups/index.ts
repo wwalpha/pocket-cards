@@ -39,9 +39,9 @@ export const remove = async (id: string): Promise<void> => {
   );
 };
 
-/** ユーザグループ一覧 */
-export const listGroupsByUserId = async (userId: string): Promise<Tables.TGroups[]> => {
-  const results = await DBHelper().query<Tables.TGroups>(Queries.byUserId(userId));
+/** 科目別学年別のグループ一覧 */
+export const listGroupByGrade = async (subject: string, grade: string): Promise<Tables.TGroups[]> => {
+  const results = await DBHelper().query<Tables.TGroups>(Queries.byGrade(subject, grade));
 
   return results.Items;
 };

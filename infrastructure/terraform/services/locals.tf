@@ -66,6 +66,7 @@ locals {
   # ----------------------------------------------------------------------------------------------
   dynamodb_name_users    = local.remote_setup.dynamodb_name_users
   dynamodb_name_settings = local.remote_setup.dynamodb_name_settings
+  dynamodb_name_accuracy = local.remote_setup.dynamodb_name_accuracy
 
   # ----------------------------------------------------------------------------------------------
   # CloudTrail
@@ -106,7 +107,7 @@ locals {
   bucket_key_lambda_vision         = "lambda_modules/vision.zip"
   bucket_key_lambda_authorizer_v1  = "lambda_modules/authorizer_v1.zip"
   bucket_key_lambda_authorizer_v2  = "lambda_modules/authorizer_v2.zip"
-  bucket_key_lambda_cognito  = "lambda_modules/cognito.zip"
+  bucket_key_lambda_cognito        = "lambda_modules/cognito.zip"
 
   # ----------------------------------------------------------------------------------------------
   # Route53

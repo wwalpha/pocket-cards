@@ -276,6 +276,11 @@ resource "aws_dynamodb_table" "learning" {
     type = "S"
   }
 
+  attribute {
+    name = "priority"
+    type = "S"
+  }
+
   global_secondary_index {
     name            = "gsiIdx1"
     hash_key        = "userId"
@@ -305,6 +310,14 @@ resource "aws_dynamodb_table" "learning" {
     projection_type = "ALL"
   }
 
+  global_secondary_index {
+    name               = "gsiIdx5"
+    hash_key           = "userId"
+    range_key          = "priority"
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["qid", "groupId", "subject", "nextTime"]
+  }
+
   point_in_time_recovery {
     enabled = true
   }
@@ -313,7 +326,6 @@ resource "aws_dynamodb_table" "learning" {
     Project = local.project_name_uc
   }
 }
-
 
 # ----------------------------------------------------------------------------------------------
 # Dynamodb Table - Settings
@@ -445,7 +457,7 @@ resource "aws_dynamodb_table" "wss" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# Dynamodb Table - WSS connections
+# Dynamodb Table - Inquiry
 # ----------------------------------------------------------------------------------------------
 resource "aws_dynamodb_table" "inquiry" {
   name         = local.dynamodb_name_inquiry
@@ -459,6 +471,36 @@ resource "aws_dynamodb_table" "inquiry" {
 
   point_in_time_recovery {
     enabled = true
+  }
+
+  tags = {
+    Project = local.project_name_uc
+  }
+}
+
+# ----------------------------------------------------------------------------------------------
+# Dynamodb Table - Accuracy
+# ----------------------------------------------------------------------------------------------
+resource "aws_dynamodb_table" "accuracy" {
+  name         = local.dynamodb_name_accuracy
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "qid"
+
+  attribute {
+    name = "qid"
+    type = "S"
+  }
+
+  attribute {
+    name = "uid"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "gsiIdx1"
+    hash_key        = "uid"
+    range_key       = "qid"
+    projection_type = "ALL"
   }
 
   tags = {

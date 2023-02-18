@@ -23,6 +23,7 @@ export const DB_GROUPS = ((): Tables.TGroups[] => {
     subject: item['subject'] ?? '',
     description: item['description'],
     name: item['name'],
+    grade: item['grade'] ?? '',
   }));
 
   return db_groups;

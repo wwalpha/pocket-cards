@@ -2,6 +2,8 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # Environment
   # ----------------------------------------------------------------------------------------------
+  account_id      = data.aws_caller_identity.this.account_id
+  region          = data.aws_region.this.name
   environment     = terraform.workspace
   is_dev          = local.environment == "dev"
   prod_only       = local.is_dev ? 0 : 1
@@ -58,6 +60,7 @@ locals {
   dynamodb_name_reports     = local.remote_setup.dynamodb_name_reports
   dynamodb_name_wss         = local.remote_setup.dynamodb_name_wss
   dynamodb_name_inquiry     = local.remote_setup.dynamodb_name_inquiry
+  dynamodb_name_accuracy    = local.remote_setup.dynamodb_name_accuracy
 
   # ----------------------------------------------------------------------------------------------
   # API Gateway
@@ -125,7 +128,23 @@ locals {
   # SNS
   # ----------------------------------------------------------------------------------------------
   sns_arn_errors_notify = local.remote_services.sns_arn_errors_notify
+
+  # ----------------------------------------------------------------------------------------------
+  # Athena
+  # ----------------------------------------------------------------------------------------------
+  athena_schema_name    = local.remote_services.athena_schema_name
+  athena_workgroup_name = local.remote_services.athena_workgroup_name
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS Region
+# ----------------------------------------------------------------------------------------------
+data "aws_region" "this" {}
+
+# ----------------------------------------------------------------------------------------------
+# AWS Account
+# ----------------------------------------------------------------------------------------------
+data "aws_caller_identity" "this" {}
 
 # ----------------------------------------------------------------------------------------------
 # ECS Cluster

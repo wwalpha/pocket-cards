@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { Logger, DateUtils, Commons, QueryUtils, ValidationError } from '@utils';
 import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
-import { CurriculumService, LearningService } from '@services';
+import { CurriculumService, GroupService, LearningService } from '@services';
 import orderBy from 'lodash/orderBy';
 
 /** 自己試験問題取得 */
@@ -72,8 +72,25 @@ const EmptyResponse = (): APIs.DailyExamResponse => ({
  * @returns
  */
 const getLearnings = async (guardianId: string, userId: string, subject: string): Promise<Tables.TLearning[]> => {
-  // ユーザのカリキュラム一覧を取得する
-  const curriculums = await CurriculumService.getListByGuardian(guardianId, subject, userId);
+  const [curriculums, priorities, groups] = await Promise.all([
+    // ユーザのカリキュラム一覧を取得する
+    CurriculumService.getListByGuardian(guardianId, subject, userId),
+    // 優先度ありの問題
+    LearningService.dailyPriority(userId, subject),
+    // 六年生のグループ一覧
+    GroupService.listGroupByGrade(subject, Consts.GRADE.GRADE_6),
+  ]);
+
+  // グループID一覧
+  const groupIds = groups.map((item) => item.id);
+  // 質問一覧
+  const priLearnings = priorities.filter((item) => groupIds.includes(item.groupId));
+
+  // 優先問題は先に登録
+  if (priLearnings.length > 0) {
+    return priLearnings;
+  }
+
   // 学習順でソートする
   const dataRows = orderBy(curriculums, 'order');
 

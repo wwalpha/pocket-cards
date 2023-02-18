@@ -1,159 +1,19 @@
 {
-  "count": 22,
+  "count": 2,
   "items": [
     {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "byxXCRyAL7738ymCXLN2v5",
-      "nextTime": "19900101",
-      "question": "動植物が自然環境の中でたがいに関係しあって生きている仕組みとは"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "2djucRKrC56oxsrYR8d2e5",
-      "nextTime": "19900101",
-      "question": "2018年、京浜工業地帯の工業別生産額は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "1ngzKDHdx5KCccY5NkjQdG",
-      "nextTime": "19900101",
-      "question": "2018年、工業生産額の割合1"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "wehhx6dMp7iUW7f9u1Z8HS",
-      "nextTime": "19900101",
-      "question": "工業生産額の前３位の工業地帯・工業地域は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "vAzZHGm1wviQL7f9aiBDve",
-      "nextTime": "19900101",
-      "question": "2018年、関東内陸工業地域の工業別生産額は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "irmfiabTpcbiCCaWRZdMze",
-      "nextTime": "19900101",
-      "question": "釧路港で水揚げされる主な魚は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "hvUfqvh3UdUELxom4RBPCu",
-      "nextTime": "19900101",
-      "question": "パソコンや携帯電話、ゲーム機などに使用される貴重金属は"
-    },
-    {
-      "lastTime": "19900101",
+      "qid": "vYhG8LFQLAcnVB6VJVTxxM",
       "times": 1,
-      "qid": "iH5npmyKLnsmVFN7vK1tZL",
-      "nextTime": "19900101",
-      "question": "水揚げ量１位の漁港は"
+      "nextTime": "20200101",
+      "question": "雲量９～１０の時はなんという",
+      "gid": "tS4d9h5Rn644uf3Wf3cy19"
     },
     {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "ruDB5ZZhss2vccyLipoDcT",
-      "nextTime": "19900101",
-      "question": "太平洋を南下する海流は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "1mPXd1ahot8Aw2SrWjBE2N",
-      "nextTime": "19900101",
-      "question": "八戸港で水揚げされる主な魚は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "eyKBX66pJSpZ4H4nCGHNKq",
-      "nextTime": "19900101",
-      "question": "2018年、東海工業地域の工業別生産額は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "gqY2PrTD7UPD2QZ59biGjH",
-      "nextTime": "19900101",
-      "question": "2018年、瀬戸内工業地域の工業別生産額は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "v1FcPB74DdX8b7Z3hGiFSC",
-      "nextTime": "19900101",
-      "question": "2018年、北九州工業地域の工業別生産額は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "vuSEbyMj3FY3tBG6Qyp5t1",
-      "nextTime": "19900101",
-      "question": "2018年、北陸工業地域の工業別生産額は"
-    },
-    {
-      "lastTime": "19900101",
+      "qid": "nqJCHZXCxBNBzLHVGLYd8D",
       "times": 1,
-      "qid": "faruTm3ozSq3EVnQE6qzrt",
-      "nextTime": "19900101",
-      "question": "オゾン層が破壊されていた原因物質は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "oFgR7ThFNX8g4fWESc6g3q",
-      "nextTime": "19900101",
-      "question": "2018年、京葉工業地域の工業別生産額は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "85EuLteEPQ4pzcYN442PUX",
-      "nextTime": "19900101",
-      "question": "2018年、阪神工業地帯の工業別生産額は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "gY22RXjn1TPKzuh2TDcndb",
-      "nextTime": "19900101",
-      "question": "特殊な原料を焼き固めたのもとは"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "1ru9gaWEcsbdVR1PGioyXi",
-      "nextTime": "19900101",
-      "question": "四大公害病のまとめ"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "h4LUgxnpUYhvv8JQ6U7WZz",
-      "nextTime": "19900101",
-      "question": "都市全体に貴重な資源が眠っている様子を鉱山に例える事はなんという"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "mneXrH9td9kq5Szk2Pr3Kc",
-      "nextTime": "19900101",
-      "question": "2018年、中京工業地帯の工業別生産額は"
-    },
-    {
-      "lastTime": "19900101",
-      "times": 0,
-      "qid": "i2PcurCkbSJQPaLwSKpYVm",
-      "nextTime": "19900101",
-      "question": "焼津港で水揚げされる主な魚は"
+      "nextTime": "20210101",
+      "question": "地面近くから上空へ発達し、雷を伴う夕立を降らせる雲とは",
+      "gid": "tS4d9h5Rn644uf3Wf3cy19"
     }
   ]
 }
