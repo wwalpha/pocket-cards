@@ -16,7 +16,11 @@ struct PocketCardsApp: App {
             ContentView().onAppear {
                 Auth.initialize()
             }.environmentObject(Auth)
-//            SwiftUIView2()
+            //            SwiftUIView2()
         }
+
+//        WindowGroup {
+//            TestUIView()
+//        }
     }
 }

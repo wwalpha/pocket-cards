@@ -10,6 +10,10 @@
 		91F08E8867A437AEB6DD8356 /* Pods_PocketCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7351D11F778221BCB3F656B /* Pods_PocketCards.framework */; };
 		9A09A14D280AA770001500EB /* OverallChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09A14C280AA770001500EB /* OverallChart.swift */; };
 		9A09A151280AD4D3001500EB /* OverallFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A09A150280AD4D3001500EB /* OverallFormatter.swift */; };
+		9A0C38ED29A05D3200B0DAAB /* TestUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C38EC29A05D3200B0DAAB /* TestUIView.swift */; };
+		9A0C38EE29A05D3200B0DAAB /* TestUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C38EC29A05D3200B0DAAB /* TestUIView.swift */; };
+		9A0C38F029A063EA00B0DAAB /* Test2UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C38EF29A063EA00B0DAAB /* Test2UIView.swift */; };
+		9A0C38F129A063EA00B0DAAB /* Test2UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C38EF29A063EA00B0DAAB /* Test2UIView.swift */; };
 		9A1FD24D27D7369B0000A16B /* PocketCardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD24C27D7369B0000A16B /* PocketCardsApp.swift */; };
 		9A1FD24F27D7369B0000A16B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1FD24E27D7369B0000A16B /* ContentView.swift */; };
 		9A1FD25127D7369C0000A16B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A1FD25027D7369C0000A16B /* Assets.xcassets */; };
@@ -286,6 +290,8 @@
 		8D24864FF8B8486075B8D13C /* Pods-PocketCards2.releasecat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketCards2.releasecat.xcconfig"; path = "Target Support Files/Pods-PocketCards2/Pods-PocketCards2.releasecat.xcconfig"; sourceTree = "<group>"; };
 		9A09A14C280AA770001500EB /* OverallChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallChart.swift; sourceTree = "<group>"; };
 		9A09A150280AD4D3001500EB /* OverallFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallFormatter.swift; sourceTree = "<group>"; };
+		9A0C38EC29A05D3200B0DAAB /* TestUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUIView.swift; sourceTree = "<group>"; };
+		9A0C38EF29A063EA00B0DAAB /* Test2UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2UIView.swift; sourceTree = "<group>"; };
 		9A1FD24927D7369B0000A16B /* 勉強にゃん.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "勉強にゃん.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A1FD24C27D7369B0000A16B /* PocketCardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketCardsApp.swift; sourceTree = "<group>"; };
 		9A1FD24E27D7369B0000A16B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -454,6 +460,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9A0C38EB29A05D1300B0DAAB /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */,
+				9A7F876B27D7498600446E9D /* FlippingView.swift */,
+				9A0C38EC29A05D3200B0DAAB /* TestUIView.swift */,
+				9A0C38EF29A063EA00B0DAAB /* Test2UIView.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		9A1FD24027D7369B0000A16B = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +493,7 @@
 		9A1FD24B27D7369B0000A16B /* PocketCards */ = {
 			isa = PBXGroup;
 			children = (
+				9A0C38EB29A05D1300B0DAAB /* Tests */,
 				9A61EEB627E481B5002C73D0 /* Resources */,
 				9A1FD27127D7394C0000A16B /* Components */,
 				9A1FD28E27D7394C0000A16B /* Domain */,
@@ -488,8 +506,6 @@
 				9A1FD2A727D7406B0000A16B /* Info.plist */,
 				9A48B056281418FC00878C72 /* Info2.plist */,
 				9A1FD25227D7369C0000A16B /* Preview Content */,
-				9A7F876B27D7498600446E9D /* FlippingView.swift */,
-				9AED5AED27DC22A1009A7A76 /* SwiftUIView.swift */,
 			);
 			path = PocketCards;
 			sourceTree = "<group>";
@@ -1129,6 +1145,7 @@
 				9A1FD29727D7394C0000A16B /* RootRouter.swift in Sources */,
 				9ACC362C28D5F2C700B9EC46 /* MultiTestView.swift in Sources */,
 				9A09A151280AD4D3001500EB /* OverallFormatter.swift in Sources */,
+				9A0C38F029A063EA00B0DAAB /* Test2UIView.swift in Sources */,
 				9A5639A02814D86E006D6C96 /* UserServices.swift in Sources */,
 				9A1FD29327D7394C0000A16B /* ChoiceButton.swift in Sources */,
 				9A9E5765281554000025C74F /* WeeklyChoiceContract.swift in Sources */,
@@ -1211,6 +1228,7 @@
 				9A1FD29C27D7394C0000A16B /* DailyStudyInteractor.swift in Sources */,
 				9AA6952528EEA94600176C3D /* HandwritingView.swift in Sources */,
 				9A9E577C281598860025C74F /* WeeklyRootView.swift in Sources */,
+				9A0C38ED29A05D3200B0DAAB /* TestUIView.swift in Sources */,
 				9A1FD2A127D7394C0000A16B /* Authencation.swift in Sources */,
 				9A9E5781281599930025C74F /* WeeklyRootRouter.swift in Sources */,
 				9A9E57B6281D054A0025C74F /* CheckList.swift in Sources */,
@@ -1264,6 +1282,7 @@
 				9AF2ACA12814273300F80DB4 /* RootRouter.swift in Sources */,
 				9AF2ACA22814273300F80DB4 /* OverallFormatter.swift in Sources */,
 				9A5639A12814D86E006D6C96 /* UserServices.swift in Sources */,
+				9A0C38F129A063EA00B0DAAB /* Test2UIView.swift in Sources */,
 				9AF2ACA32814273300F80DB4 /* ChoiceButton.swift in Sources */,
 				9A9E5766281554000025C74F /* WeeklyChoiceContract.swift in Sources */,
 				9AF2ACA52814273300F80DB4 /* ReportServices.swift in Sources */,
@@ -1346,6 +1365,7 @@
 				9A9E577D281598860025C74F /* WeeklyRootView.swift in Sources */,
 				9AA6952628EEA94600176C3D /* HandwritingView.swift in Sources */,
 				9AF2ACC62814273300F80DB4 /* Authencation.swift in Sources */,
+				9A0C38EE29A05D3200B0DAAB /* TestUIView.swift in Sources */,
 				9A9E5782281599930025C74F /* WeeklyRootRouter.swift in Sources */,
 				9A9E57B7281D054A0025C74F /* CheckList.swift in Sources */,
 				9AF2ACC92814273300F80DB4 /* ContentView.swift in Sources */,

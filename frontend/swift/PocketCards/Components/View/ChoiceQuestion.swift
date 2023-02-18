@@ -92,6 +92,9 @@ struct ChoiceQuestion: View {
         }
         .padding(.horizontal, 32)
         .padding(.vertical, 16)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(Color.primaryColor, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {

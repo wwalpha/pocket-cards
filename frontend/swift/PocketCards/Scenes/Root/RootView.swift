@@ -11,256 +11,46 @@ import SwiftUI
 
 struct RootView: View {
     private var router: RootRouter?
+    @State var path = [String]()
+
+    private let gradient1 = LinearGradient(
+        colors: [Color(hex: 0x2193B0), Color(hex: 0x6DD5ED)],
+        startPoint: .topTrailing,
+        endPoint: .bottomLeading
+    )
+    private let gradient2 = LinearGradient(
+        colors: [Color(hex: 0xC21500), Color(hex: 0xFFC500)],
+        startPoint: .topTrailing,
+        endPoint: .bottomLeading
+    )
+
+    private let gradient3 = LinearGradient(
+        colors: [Color(hex: 0x5D26C1), Color(hex: 0xA17FE0)],
+        startPoint: .topTrailing,
+        endPoint: .bottomLeading
+    )
 
     var body: some View {
-        let gradient1 = LinearGradient(
-            colors: [Color(hex: 0x2193B0), Color(hex: 0x6DD5ED)],
-            startPoint: .topTrailing,
-            endPoint: .bottomLeading
-        )
-        let gradient2 = LinearGradient(
-            colors: [Color(hex: 0xC21500), Color(hex: 0xFFC500)],
-            startPoint: .topTrailing,
-            endPoint: .bottomLeading
-        )
-        let gradient3 = LinearGradient(
-            colors: [Color(hex: 0x5D26C1), Color(hex: 0xA17FE0)],
-            startPoint: .topTrailing,
-            endPoint: .bottomLeading
-        )
+        NavigationStack(path: $path) {
+            VStack(alignment: .leading, spacing: 32) {
+                // 国語
+                getHStack(subject: SUBJECT.LANGUAGE)
 
-        VStack(alignment: .leading, spacing: 32) {
-            HStack {
-                Text("v0.9.8")
-            }.padding(0)
+                // 社会
+                getHStack(subject: SUBJECT.SOCIETY)
 
-            Spacer()
-
-//            HStack {
-//                Text("算数")
-//                    .frame(height: 96, alignment: .topLeading)
-//                    .font(.system(size: 32))
-//                    .padding(.trailing, 64)
-//
-//                NavigationLink(destination: router?.makeMathsTestView()) {
-//                    Text("日々の演習")
-//                        .font(.system(size: 24, design: .default))
-//                        .fontWeight(.bold)
-//                        .frame(width: 200, height: 72, alignment: .center)
-//                        .background(gradient1)
-//                        .foregroundColor(Color.white)
-//                }
-//                .padding(.trailing, 32)
-//                .clipped()
-//                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-//
-//                NavigationLink(destination: router?.makeMathsReviewView()) {
-//                    Text("日々の復習")
-//                        .font(.system(size: 24, design: .default))
-//                        .fontWeight(.bold)
-//                        .frame(width: 200, height: 72, alignment: .center)
-//                        .background(gradient2)
-//                        .foregroundColor(Color.white)
-//                }
-//                .padding(.trailing, 32)
-//                .clipped()
-//                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-//
-//                NavigationLink(destination: router?.makeMathsWeeklyTestView()) {
-//                    Text("週テスト対策")
-//                        .font(.system(size: 24, design: .default))
-//                        .fontWeight(.bold)
-//                        .frame(width: 200, height: 72, alignment: .center)
-//                        .background(gradient3)
-//                        .foregroundColor(Color.white)
-//                }
-//                .padding(.trailing, 32)
-//                .clipped()
-//                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-//
-//                Spacer()
-//            }
-//            .padding(16)
-//            .background(
-//                LinearGradient(
-//                    colors: [Color(hex: 0x3F2B96), Color(hex: 0xA8C0FF)],
-//                    startPoint: .topTrailing,
-//                    endPoint: .bottomLeading
-//                )
-//            )
-//            .clipped()
-//            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-            HStack {
-                Text("国語")
-                    .frame(height: 120, alignment: .topLeading)
-                    .font(.system(size: 32))
-                    .padding(.trailing, 64)
-
-                NavigationLink(destination: router?.makeLanguageStudyiew()) {
-                    Text("日々の演習")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient1)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                NavigationLink(destination: router?.makeLanguageTestView()) {
-                    Text("日々のテスト")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient2)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-//                NavigationLink(destination: router?.makeScienceWeeklyTestView()) {
-//                    Text("週テスト対策")
-//                        .font(.system(size: 24, design: .default))
-//                        .fontWeight(.bold)
-//                        .frame(width: 200, height: 72, alignment: .center)
-//                        .background(gradient3)
-//                        .foregroundColor(Color.white)
-//                }
-//                .padding(.trailing, 32)
-//                .clipped()
-//                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                Spacer()
+                // 理科
+                getHStack(subject: SUBJECT.SCIENCE)
             }
-            .padding(16)
-            .background(
-                LinearGradient(
-                    colors: [Color(hex: 0xF2B0B7), Color(hex: 0xFAE3E5)],
-                    startPoint: .topTrailing,
-                    endPoint: .bottomLeading
-                )
-            )
-            .clipped()
-            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-            HStack {
-                Text("社会")
-                    .frame(height: 120, alignment: .topLeading)
-                    .font(.system(size: 32))
-                    .padding(.trailing, 64)
-
-                NavigationLink(destination: router?.makeSocietyStudyiew()) {
-                    Text("日々の演習")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient1)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                NavigationLink(destination: router?.makeSocietyTestView()) {
-                    Text("日々のテスト")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient2)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                NavigationLink(destination: router?.makeSocietyWeeklyTestView()) {
-                    Text("週テスト対策")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient3)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                Spacer()
-            }
-            .padding(16)
-            .background(
-                LinearGradient(
-                    colors: [Color(hex: 0xBCEAC7), Color(hex: 0xDAF4E0)],
-                    startPoint: .topTrailing,
-                    endPoint: .bottomLeading
-                )
-            )
-            .clipped()
-            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-            HStack {
-                Text("理科")
-                    .frame(height: 120, alignment: .topLeading)
-                    .font(.system(size: 32))
-                    .padding(.trailing, 64)
-
-                NavigationLink(destination: router?.makeScienceStudyiew()) {
-                    Text("日々の演習")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient1)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                NavigationLink(destination: router?.makeScienceTestView()) {
-                    Text("日々のテスト")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 72, alignment: .center)
-                        .background(gradient2)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                NavigationLink(destination: router?.makeScienceWeeklyTestView()) {
-                    Text("週テスト対策")
-                        .font(.system(size: 24, design: .default))
-                        .fontWeight(.bold)
-                        .frame(width: 200, height: 84, alignment: .center)
-                        .background(gradient3)
-                        .foregroundColor(Color.white)
-                }
-                .padding(.trailing, 32)
-                .clipped()
-                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-                Spacer()
-            }
-            .padding(16)
-            .background(
-                LinearGradient(
-                    colors: [Color(hex: 0xF4C9B0), Color(hex: 0xFBECE4)],
-                    startPoint: .topTrailing,
-                    endPoint: .bottomLeading
-                )
-            )
-            .clipped()
-            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
-
-            Spacer()
-        }.padding(.horizontal, 64)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarColor(UIColor(Color.primaryColor), UIColor(Color.white))
+            .toolbarBackground(Color.primaryColor, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text(APP_VERSION)
+                        .accessibilityAddTraits(.isHeader)
+                        .foregroundColor(Color.white)
+                }
                 ToolbarItem(placement: .principal) {
                     Text("Home")
                         .font(.largeTitle.bold())
@@ -277,6 +67,82 @@ struct RootView: View {
                     }
                 }
             }
+            .navigationDestination(for: String.self) { text in
+
+                switch text {
+                case "10":
+                    router?.makeLanguageStudyiew()
+                case "11":
+                    router?.makeLanguageTestView()
+                case "20":
+                    router?.makeScienceStudyiew()
+                case "21":
+                    router?.makeScienceTestView()
+                case "30":
+                    router?.makeSocietyStudyiew()
+                case "31":
+                    router?.makeSocietyTestView()
+                default:
+                    router?.makeLanguageStudyiew()
+                }
+            }
+        }
+    }
+
+    func getHStack(subject: String) -> some View {
+        HStack(alignment: .center, content: {
+            Text(SUBJECT_TITLE[subject]!)
+                .frame(height: 120, alignment: .topLeading)
+                .font(.system(size: 32))
+                .padding(.trailing, 64)
+                .padding(.leading, 48)
+
+            getButton(action: "\(subject)0", text: Consts.PRACTICE_TITLE, background: gradient1)
+
+            getButton(action: "\(subject)1", text: Consts.TEST_TITLE, background: gradient2)
+
+            Spacer()
+        })
+        .padding(16)
+        .frame(width: 1000)
+        .background(getLinearGradient(subject: subject))
+        .clipped()
+        .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+    }
+
+    @ViewBuilder
+    func getButton(action: String, text: String, background: LinearGradient) -> some View {
+        Button {
+            path.append(action)
+        } label: {
+            Text(text)
+                .font(.system(size: 24, design: .default))
+                .fontWeight(.bold)
+                .frame(width: 200, height: 72, alignment: .center)
+                .background(background)
+                .foregroundColor(Color.white)
+                .padding(.trailing, 32)
+                .clipped()
+                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+        }
+    }
+
+    func getLinearGradient(subject: String) -> LinearGradient {
+        var colors: [Color] = [Color(hex: 0xF2B0B7), Color(hex: 0xFAE3E5)]
+
+        if subject == SUBJECT.SCIENCE {
+            colors = [Color(hex: 0xF4C9B0), Color(hex: 0xFBECE4)]
+        }
+
+        if subject == SUBJECT.SOCIETY {
+            colors = [Color(hex: 0xBCEAC7), Color(hex: 0xDAF4E0)]
+        }
+
+        return LinearGradient(
+            colors: colors,
+            startPoint: .topTrailing,
+            endPoint: .bottomLeading
+        )
     }
 }
 

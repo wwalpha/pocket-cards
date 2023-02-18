@@ -7,7 +7,9 @@
 
 import Foundation
 
-class URLs {
+let APP_VERSION = "v0.9.11"
+
+enum URLs {
     private static let HOST = API_URL
 
     static func WSS_URL(token: String) -> String {
@@ -59,6 +61,17 @@ class URLs {
     // deprecated
     static let STUDY_DAILY_REVIEW = "\(HOST)/v1/study/daily/review/questions"
 }
+
+enum Consts {
+    static let PRACTICE_TITLE = "日々の演習"
+    static let TEST_TITLE = "日々のテスト"
+}
+
+let SUBJECT_TITLE: [String: String] = [
+    SUBJECT.LANGUAGE: "国語",
+    SUBJECT.SCIENCE: "理科",
+    SUBJECT.SOCIETY: "社会",
+]
 
 enum SUBJECT {
     static let ENGLISH = "0"
