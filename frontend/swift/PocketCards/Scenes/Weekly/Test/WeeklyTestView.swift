@@ -28,6 +28,7 @@ struct WeeklyTestView: View {
                 if viewModel.question?.choices != nil {
                     ChoiceQuestion(
                         question: viewModel.question!,
+                        qCount: 10,
                         isShowError: viewModel.isShowError,
                         onChoice: interactor!.onChoice
                     )

@@ -8,17 +8,6 @@
 import SwiftUI
 
 class RootRouter {
-    func makeMathsTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.MATHS, loadUrl: URLs.STUDY_DAILY_PRACTICE)
-    }
-
-    func makeMathsReviewView() -> some View {
-        DailyReviewView().configureView(subject: SUBJECT.MATHS)
-    }
-
-    func makeMathsWeeklyTestView() -> some View {
-        DailyTestView().configureView(subject: SUBJECT.MATHS, loadUrl: URLs.STUDY_DAILY_CURRICULUM_ORDER)
-    }
 
     func makeLanguageStudyiew() -> some View {
         DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_PRACTICE, subject: SUBJECT.LANGUAGE, mode: MODE.PRACTICE)

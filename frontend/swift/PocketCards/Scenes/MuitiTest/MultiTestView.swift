@@ -20,6 +20,7 @@ struct MultiTestView: View {
                     if viewModel.question?.choices != nil {
                         ChoiceQuestion(
                             question: viewModel.question!,
+                            qCount: 10,
                             isShowError: "",
                             onChoice: interactor!.onChoice
                         )
@@ -31,6 +32,7 @@ struct MultiTestView: View {
                     if viewModel.question?.choices != nil {
                         ChoiceQuestion(
                             question: viewModel.question!,
+                            qCount: 10,
                             isShowError: viewModel.question!.answer,
                             onChoice: interactor!.onChoice
                         )

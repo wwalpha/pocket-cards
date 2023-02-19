@@ -16,57 +16,20 @@ struct ImageViewer: View {
     var imageName: String = ""
 
     var body: some View {
-        GeometryReader { geo in
-            VStack {
-                if isShowing {
-                    VStack {
-                        Button {
-                            isShowing = false
-                            toolPickerIsActive = false
-                        } label: {
-                            Text("Close")
-                                .frame(height: 48, alignment: .center)
-                        }
-
-                        CanvasView(canvasView: self.$canvasView, toolPickerIsActive: $toolPickerIsActive)
-                            .padding(24.0)
-                            .background(Color.gray)
-                            .onAppear {
-                                let width = geo.size.width - 48
-                                let height = geo.size.height - 48
-
-                                let uiImage = FileManager.default.loadImage(fileName: imageName)!
-                                let imageView = UIImageView(image: uiImage)
-
-                                let imageWidth = uiImage.size.width
-                                let imageHeight = uiImage.size.height
-
-                                let scaleHeight = width / imageWidth
-                                let scaleWidth = height / imageHeight
-                                let scale = scaleHeight > scaleWidth ? scaleWidth : scaleHeight
-
-                                imageView.frame = CGRect(x: 0,
-                                                         y: 0,
-                                                         width: imageWidth * scale,
-                                                         height: imageHeight * scale)
-
-                                imageView.center = CGPoint(x: width / 2,
-                                                           y: (height - 60) / 2)
-
-                                canvasView.addSubview(imageView)
-                                canvasView.sendSubviewToBack(imageView)
-
-                                toolPickerIsActive = true
-                            }
+        VStack {
+            if isShowing {
+                Image(uiImage: FileManager.default.loadImage(fileName: imageName)!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .onTapGesture {
+                        isShowing = false
                     }
-
-                } else {
-                    Text("")
-                }
+            } else {
+                Text("")
             }
-            .padding()
-            .background(Color.black)
         }
+        .padding()
+        .background(Color.black)
     }
 }
 
