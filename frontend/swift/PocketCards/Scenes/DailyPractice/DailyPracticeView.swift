@@ -25,6 +25,7 @@ struct DailyPracticeView: View {
                     if question.choices != nil {
                         ChoiceQuestion(
                             question: question,
+                            qCount: 10,
                             isShowError: viewModel.isShowError,
                             onChoice: interactor!.onChoice
                         )
