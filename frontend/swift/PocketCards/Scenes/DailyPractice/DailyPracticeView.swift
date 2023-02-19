@@ -38,9 +38,10 @@ struct DailyPracticeView: View {
                 }
             }
         }.onDisappear {
-//            viewModel.question = nil
-//            viewModel.isLoading = true
-//            interactor?.destory()
+            viewModel.question = nil
+            viewModel.isLoading = true
+
+            interactor?.destory()
         }
     }
 }
@@ -75,8 +76,6 @@ extension DailyPracticeView {
         view.interactor = interactor
         interactor.presenter = presenter
         presenter.view = view
-
-        debugPrint(configureView, loadUrl, subject, mode)
 
         Task {
             await interactor.initialize()

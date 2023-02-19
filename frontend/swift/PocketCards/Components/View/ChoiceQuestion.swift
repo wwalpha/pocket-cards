@@ -17,6 +17,7 @@ struct ChoiceQuestion: View {
     @State private var fontIndex = 2
 
     var question: Question
+    var qCount: Int
     var isShowError: String
     var onChoice: (_: String) -> Void
 
@@ -96,6 +97,12 @@ struct ChoiceQuestion: View {
         .toolbarBackground(Color.primaryColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(String(qCount))
+                    .font(.largeTitle.bold())
+                    .accessibilityAddTraits(.isHeader)
+                    .foregroundColor(Color.black)
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     self.fontIndex = self.fontIndex == 2 ? 2 : self.fontIndex + 1
@@ -170,7 +177,7 @@ struct ChoiceQuestion: View {
 
 struct ChoiceQuestion_Previews: PreviewProvider {
     static var previews: some View {
-        ChoiceQuestion(question: Question(id: "", groupId: "", title: "AAAA", choices: ["AAA", "BBBBB", "CCCCC", "DDDDD"], answer: "BBBB"), isShowError: "AAA", onChoice: { data in
+        ChoiceQuestion(question: Question(id: "", groupId: "", title: "AAAA", choices: ["AAA", "BBBBB", "CCCCC", "DDDDD"], answer: "BBBB"), qCount: 10, isShowError: "AAA", onChoice: { data in
             debugPrint(data)
         })
         .previewInterfaceOrientation(.landscapeLeft)
