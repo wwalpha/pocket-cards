@@ -323,10 +323,11 @@ export namespace Tables {
   interface TAccuracyKey {
     // question id
     qid: string;
+    // user id
+    uid: string;
   }
 
   interface TAccuracy extends TAccuracyKey {
-    uid: string;
     accuracy: number;
   }
 }
