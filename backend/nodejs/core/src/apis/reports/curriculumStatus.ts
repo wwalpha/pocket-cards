@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { APIs, Tables } from 'typings';
-import { CurriculumService, LearningService, QuestionService } from '@services';
+import { AccuracyService, CurriculumService, LearningService, QuestionService } from '@services';
 import { ValidationError } from '@utils';
 
 export default async (
@@ -28,7 +28,25 @@ export default async (
     if (learnings.length === 0) return [];
 
     // 問題の詳細情報を検索する
-    const questions = await Promise.all(learnings.map((item) => QuestionService.describe(item.qid)));
+    const questions = await Promise.all(
+      learnings.map(async (item) => {
+        const r = await Promise.all([
+          QuestionService.describe(item.qid),
+          AccuracyService.describe({
+            qid: item.qid,
+            uid: cInfo.userId,
+          }),
+        ]);
+
+        const question = r[0];
+        const rate = r[1];
+
+        return {
+          ...question,
+          accuracy: rate?.accuracy,
+        };
+      })
+    );
 
     return learnings.map<APIs.CurriculumStatusResponseItem>((item) => {
       const question = questions.find((q) => q?.id === item.qid);
@@ -37,6 +55,7 @@ export default async (
         ...item,
         question: question?.title,
         gid: cInfo.groupId,
+        accuracy: question?.accuracy,
       };
     });
   });
