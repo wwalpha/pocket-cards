@@ -23,6 +23,7 @@ TABLE_NAME_TRACES=${local.dynamodb_name_traces}
 TABLE_NAME_CURRICULUMS=${local.dynamodb_name_curriculums}
 TABLE_NAME_REPORTS=${local.dynamodb_name_reports}
 TABLE_NAME_INQUIRY=${local.dynamodb_name_inquiry}
+TABLE_NAME_ACCURACY=${local.dynamodb_name_accuracy}
 BUCKET_NAME_FRONTEND=${local.bucket_name_frontend}
 BUCKET_NAME_MATERAILS=${local.bucket_name_materials}
 BUCKET_NAME_UPLOADS=${local.bucket_name_uploads}
