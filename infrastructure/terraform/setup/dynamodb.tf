@@ -485,6 +485,7 @@ resource "aws_dynamodb_table" "accuracy" {
   name         = local.dynamodb_name_accuracy
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "qid"
+  range_key    = "uid"
 
   attribute {
     name = "qid"
@@ -494,13 +495,6 @@ resource "aws_dynamodb_table" "accuracy" {
   attribute {
     name = "uid"
     type = "S"
-  }
-
-  global_secondary_index {
-    name            = "gsiIdx1"
-    hash_key        = "uid"
-    range_key       = "qid"
-    projection_type = "ALL"
   }
 
   tags = {
