@@ -219,6 +219,7 @@ export default () => {
                     <StyledTableCell sx={{ width: 200 }}>カリキュラム</StyledTableCell>
                     <StyledTableCell sx={{ width: 64 }}>解答回数</StyledTableCell>
                     <StyledTableCell>問題</StyledTableCell>
+                    <StyledTableCell sx={{ width: 64 }}>正解率</StyledTableCell>
                     <StyledTableCell sx={{ width: 128 }}>次回学習日</StyledTableCell>
                   </TableRow>
                 </TableHead>
@@ -269,10 +270,8 @@ export default () => {
                           {item.question}
                         </Typography>
                       </TableCell>
-                      <TableCell>{`${item.nextTime.substring(0, 4)}/${item.nextTime.substring(
-                        4,
-                        6
-                      )}/${item.nextTime.substring(6, 8)}`}</TableCell>
+                      <TableCell>{item.accuracy}</TableCell>
+                      <TableCell>{dayjs(item.nextTime, 'YYYYMMDD').format('YYYY/MM/DD')}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
