@@ -6,11 +6,12 @@ import { APIs } from 'typings';
 // 進捗検索
 export const PROGRESS_SEARCH = createAsyncThunk<
   APIs.CurriculumStatusResponseItem[],
-  { curriculums: string[]; period?: string }
->('progress/PROGRESS_SEARCH', async ({ curriculums, period }) => {
+  { curriculums: string[]; startDate: string; endDate: string }
+>('progress/PROGRESS_SEARCH', async ({ curriculums, startDate, endDate }) => {
   const res = await API.post<APIs.CurriculumStatusResponse, APIs.CurriculumStatusRequest>(URLs.CURRICULUM_PROGRESS(), {
     curriculums: curriculums,
-    endDate: period,
+    startDate: startDate,
+    endDate: endDate,
   });
 
   return res.items;
