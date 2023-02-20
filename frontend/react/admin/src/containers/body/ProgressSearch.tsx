@@ -67,12 +67,13 @@ export default () => {
       subject: '',
       student: '',
       curriculums: [],
-      period: dayjs(),
+      startDate: dayjs(),
+      endDate: dayjs(),
     },
   });
 
-  const onSubmit = handleSubmit(({ curriculums, period }) => {
-    actions.search(curriculums, (period as any)?.format('YYYYMMDD'));
+  const onSubmit = handleSubmit(({ curriculums, startDate, endDate }) => {
+    actions.search(curriculums, (startDate as any)?.format('YYYYMMDD'), (endDate as any)?.format('YYYYMMDD'));
 
     // 再検索の場合、初期値に戻る
     setPage(0);
@@ -144,12 +145,25 @@ export default () => {
           )}
         />
         <Controller
-          name="period"
+          name="startDate"
           control={control}
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
             <DesktopDatePicker
-              label="Period"
+              label="Start"
+              value={value}
+              onChange={onChange}
+              renderInput={(params) => <TextField {...params} size="small" sx={{ mx: 1, width: '160px' }} />}
+            />
+          )}
+        />
+        <Controller
+          name="endDate"
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <DesktopDatePicker
+              label="End"
               value={value}
               onChange={onChange}
               renderInput={(params) => <TextField {...params} size="small" sx={{ mx: 1, width: '160px' }} />}
@@ -161,7 +175,7 @@ export default () => {
           control={control}
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 1, maxWidth: '50%' }} fullWidth size="small">
+            <FormControl sx={{ mx: 1, width: '460px', maxWidth: '50%' }} fullWidth size="small">
               <InputLabel>カリキュラム *</InputLabel>
               <Select
                 label="Curriculum *"
@@ -185,8 +199,8 @@ export default () => {
                   .filter((item) => item.userId === getValues('student'))
                   .filter((item) => item.subject === getValues('subject'))
                   .map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      <Checkbox checked={value.indexOf(item.id) > -1} />
+                    <MenuItem key={item.id} value={item.id} sx={{ py: 0 }}>
+                      <Checkbox checked={value.indexOf(item.id) > -1} size="small" />
                       <ListItemText primary={groups.find((g) => g.id === item.groupId)?.name} />
                     </MenuItem>
                   ))}

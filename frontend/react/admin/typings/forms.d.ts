@@ -92,5 +92,6 @@ export interface ProgressSearchForm {
   student: string;
   subject: string;
   curriculums: string[];
-  period?: Dayjs;
+  startDate?: Dayjs;
+  endDate?: Dayjs;
 }
