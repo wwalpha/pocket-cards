@@ -7,3 +7,4 @@ export * as UserService from './users';
 export * as WordService from './words';
 export * as TraceService from './traces';
 export * as InquiryService from './inquiry';
+export * as AccuracyService from './accuracy';
