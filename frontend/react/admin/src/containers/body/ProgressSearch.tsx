@@ -2,15 +2,14 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
+import dayjs, { Dayjs } from 'dayjs';
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { ProgressActions } from '@actions';
-import { Consts } from '@constants';
-import { ProgressSearchForm, RootState } from 'typings';
+import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import TableContainer from '@mui/material/TableContainer';
@@ -24,6 +23,10 @@ import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { ProgressActions } from '@actions';
+import { Consts } from '@constants';
+import { ProgressSearchForm, RootState } from 'typings';
 
 const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
@@ -64,11 +67,12 @@ export default () => {
       subject: '',
       student: '',
       curriculums: [],
+      period: dayjs(),
     },
   });
 
-  const onSubmit = handleSubmit(({ curriculums }) => {
-    actions.search(curriculums);
+  const onSubmit = handleSubmit(({ curriculums, period }) => {
+    actions.search(curriculums, (period as any)?.format('YYYYMMDD'));
 
     // 再検索の場合、初期値に戻る
     setPage(0);
@@ -104,7 +108,7 @@ export default () => {
           control={control}
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 2, width: '25%' }} fullWidth>
+            <FormControl sx={{ mx: 1, width: '160px' }} fullWidth size="small">
               <InputLabel>学生 *</InputLabel>
               <Select label="Student *" value={value} onChange={onChange} disabled={students.length === 0}>
                 {students.map((item) => (
@@ -121,7 +125,7 @@ export default () => {
           control={control}
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 2, width: '25%' }} fullWidth>
+            <FormControl sx={{ mx: 1, width: '160px' }} fullWidth size="small">
               <InputLabel>科目 *</InputLabel>
               <Select
                 label="Subject *"
@@ -140,11 +144,24 @@ export default () => {
           )}
         />
         <Controller
+          name="period"
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <DesktopDatePicker
+              label="Period"
+              value={value}
+              onChange={onChange}
+              renderInput={(params) => <TextField {...params} size="small" sx={{ mx: 1, width: '160px' }} />}
+            />
+          )}
+        />
+        <Controller
           name="curriculums"
           control={control}
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 2, width: '50%', maxWidth: '50%' }} fullWidth>
+            <FormControl sx={{ mx: 1, maxWidth: '50%' }} fullWidth size="small">
               <InputLabel>カリキュラム *</InputLabel>
               <Select
                 label="Curriculum *"
@@ -202,6 +219,7 @@ export default () => {
                     <StyledTableCell sx={{ width: 200 }}>カリキュラム</StyledTableCell>
                     <StyledTableCell sx={{ width: 64 }}>解答回数</StyledTableCell>
                     <StyledTableCell>問題</StyledTableCell>
+                    <StyledTableCell sx={{ width: 64 }}>正解率</StyledTableCell>
                     <StyledTableCell sx={{ width: 128 }}>次回学習日</StyledTableCell>
                   </TableRow>
                 </TableHead>
@@ -252,10 +270,8 @@ export default () => {
                           {item.question}
                         </Typography>
                       </TableCell>
-                      <TableCell>{`${item.nextTime.substring(0, 4)}/${item.nextTime.substring(
-                        4,
-                        6
-                      )}/${item.nextTime.substring(6, 8)}`}</TableCell>
+                      <TableCell>{item.accuracy}</TableCell>
+                      <TableCell>{dayjs(item.nextTime, 'YYYYMMDD').format('YYYY/MM/DD')}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
