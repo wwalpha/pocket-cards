@@ -366,15 +366,14 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
-  // Question Daily Review
+  // Daily Review
   // ------------------------------------------------------------
-  interface QuestionReviewRequest {}
-
-  interface QuestionReviewQuery {
+  interface DailyReviewRequest {
     subject?: string;
+    userId?: string;
   }
 
-  interface QuestionReviewResponse {
+  interface DailyReviewResponse {
     count: number;
     questions: Tables.TQuestions[];
   }
