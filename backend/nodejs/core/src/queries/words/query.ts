@@ -8,7 +8,7 @@ export const queryByDate = (groupId: string, nextTime: string): DynamoDB.Documen
   TableName: Environment.TABLE_NAME_WORDS,
   ProjectionExpression: 'word',
   KeyConditionExpression: '#id = :id and #nextTime = :nextTime',
-  FilterExpression: '#times <> :times',
+  FilterExpression: '#times > :times',
   ExpressionAttributeNames: {
     '#id': 'id',
     '#times': 'times',
@@ -108,13 +108,13 @@ export const review = (groupId: string): DynamoDB.DocumentClient.QueryInput => (
 
 /**
  * テスト単語対象一覧を取得する
- * 対象： Times <> 0, NextTime <= now
+ * 対象： Times > 0, NextTime <= now
  */
 export const test = (groupId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   ProjectionExpression: 'id, groupId, lastTime, nextTime, times',
   KeyConditionExpression: '#groupId = :groupId and #nextTime <= :nextTime',
-  FilterExpression: '#times <> :times',
+  FilterExpression: '#times > :times',
   ExpressionAttributeNames: {
     '#groupId': 'groupId',
     '#nextTime': 'nextTime',
@@ -146,7 +146,7 @@ export const news = (groupId: string, nextTime: string): DynamoDB.DocumentClient
   },
   ExpressionAttributeValues: {
     ':groupId': groupId,
-    ':times': 0,
+    ':times': -1,
     ':nextTime': nextTime,
   },
   IndexName: 'gsiIdx1',

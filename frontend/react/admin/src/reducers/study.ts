@@ -17,9 +17,10 @@ const slice = createSlice({
   initialState: studyState,
   reducers: {
     // save search conditions
-    STUDY_CONDITIONS: (state, { payload }: PayloadAction<{ student: string; subject: string }>) => {
+    STUDY_CONDITIONS: (state, { payload }: PayloadAction<{ student: string; subject: string; review: boolean }>) => {
       state.searchConditions.student = payload.student;
       state.searchConditions.subject = payload.subject;
+      state.searchConditions.review = payload.review;
     },
     STUDY_ONLINE: (state, { payload }: PayloadAction<string>) => {
       if (payload === state.searchConditions.student) {

@@ -14,6 +14,9 @@ import { StudyActions } from '@actions';
 import { Consts } from '@constants';
 import { MultiTestForm, RootState } from 'typings';
 import Modal from '@mui/material/Modal';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const studyState = (state: RootState) => state.study;
 const userState = (state: RootState) => state.user;
@@ -43,6 +46,7 @@ export default () => {
     defaultValues: {
       subject: '',
       userId: '',
+      review: false,
     },
   });
 
@@ -61,6 +65,7 @@ export default () => {
 
   const onCorrect = () => {
     actions.correct();
+
     // set status
     setIncorrect(false);
   };
@@ -71,8 +76,8 @@ export default () => {
     setIncorrect(false);
   };
 
-  const onSubmit = handleSubmit(async ({ userId, subject }) => {
-    actions.dailyTest(userId, subject);
+  const onSubmit = handleSubmit(async ({ userId, subject, review }) => {
+    actions.dailyTest(userId, subject, review);
   });
 
   const handleImageOpen = (position: number) => {
@@ -97,7 +102,7 @@ export default () => {
             control={control}
             rules={{ required: true }}
             render={({ field: { onChange, value } }) => (
-              <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+              <FormControl sx={{ mx: 2, width: '35%' }} fullWidth size="small">
                 <InputLabel>学生 *</InputLabel>
                 <Select label="Student *" value={value} onChange={onChange} disabled={students.length === 0}>
                   {students.map((item) => (
@@ -114,13 +119,23 @@ export default () => {
             control={control}
             rules={{ required: 'required' }}
             render={({ field: { onChange, value } }) => (
-              <FormControl sx={{ mx: 2, width: '35%' }} fullWidth>
+              <FormControl sx={{ mx: 2, width: '35%' }} fullWidth size="small">
                 <InputLabel>科目 *</InputLabel>
                 <Select label="Subject *" onChange={onChange} value={value} fullWidth>
                   <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
                   <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
+                  <MenuItem value={Consts.SUBJECT.JAPANESE}>国 語</MenuItem>
                 </Select>
               </FormControl>
+            )}
+          />
+          <Controller
+            name="review"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <FormGroup>
+                <FormControlLabel control={<Checkbox checked={value} onChange={onChange} />} label="復習" />
+              </FormGroup>
             )}
           />
           <LoadingButton
