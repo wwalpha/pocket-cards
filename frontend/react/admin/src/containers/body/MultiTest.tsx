@@ -64,12 +64,7 @@ export default () => {
   };
 
   const onCorrect = () => {
-    // 復習モードの場合、次の問題を表示する
-    if (searchConditions.review === true) {
-      actions.goNext();
-    } else {
-      actions.correct();
-    }
+    actions.correct();
 
     // set status
     setIncorrect(false);
@@ -129,6 +124,7 @@ export default () => {
                 <Select label="Subject *" onChange={onChange} value={value} fullWidth>
                   <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
                   <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
+                  <MenuItem value={Consts.SUBJECT.JAPANESE}>国 語</MenuItem>
                 </Select>
               </FormControl>
             )}
