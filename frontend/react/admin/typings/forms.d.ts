@@ -1,4 +1,5 @@
 import { Users } from 'typings';
+import { Dayjs } from 'dayjs';
 
 export interface SignInForm {
   username: string;
@@ -85,10 +86,13 @@ export interface HistorySearchForm {
 export interface MultiTestForm {
   userId: string;
   subject: string;
+  review: boolean;
 }
 
 export interface ProgressSearchForm {
   student: string;
   subject: string;
   curriculums: string[];
+  startDate?: Dayjs;
+  endDate?: Dayjs;
 }

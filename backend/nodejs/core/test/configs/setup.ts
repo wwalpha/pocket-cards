@@ -19,6 +19,7 @@ const TABLE_NAME_LEARNING = process.env['TABLE_NAME_LEARNING'] as string;
 const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;
 const TABLE_NAME_CURRICULUMS = process.env['TABLE_NAME_CURRICULUMS'] as string;
 const TABLE_NAME_INQUIRY = process.env['TABLE_NAME_INQUIRY'] as string;
+const TABLE_NAME_ACCURACY = process.env['TABLE_NAME_ACCURACY'] as string;
 
 const setup = async () => {
   console.log('jest setup start...');
@@ -238,6 +239,20 @@ const setup = async () => {
         BillingMode: 'PAY_PER_REQUEST',
         KeySchema: [{ AttributeName: 'qid', KeyType: 'HASH' }],
         AttributeDefinitions: [{ AttributeName: 'qid', AttributeType: 'S' }],
+      })
+      .promise(),
+    dbClient
+      .createTable({
+        TableName: TABLE_NAME_ACCURACY,
+        BillingMode: 'PAY_PER_REQUEST',
+        KeySchema: [
+          { AttributeName: 'qid', KeyType: 'HASH' },
+          { AttributeName: 'uid', KeyType: 'RANGE' },
+        ],
+        AttributeDefinitions: [
+          { AttributeName: 'qid', AttributeType: 'S' },
+          { AttributeName: 'uid', AttributeType: 'S' },
+        ],
       })
       .promise(),
   ]);

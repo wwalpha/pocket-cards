@@ -1,0 +1,30 @@
+@startuml MultiTest
+
+skinparam {
+   defaultFontName Noto Sans CJK JP Black
+ }
+
+' title API Gateway + Cognito + SAML Authentication
+skinparam responseMessageBelowArrow true
+autonumber "<b>(##)"
+actor       "Student"       as Student
+actor       "Teacher"       as Teacher
+
+Student -> 教室: 入室
+
+Teacher -> 教室: 入室
+Teacher -> Server: 選んだ教科でテスト問題を取得する
+Server -> Teacher: 問題一覧を返却する
+
+教室 -> Teacher: 生徒が入室或いはすでに入室された場合、お知らせする
+Teacher -> 教室: 生徒に表示させる問題IDを送信する
+教室 -> Student: 指定された問題IDを送信する
+
+Student->Server: 詳細を取得するため、サーバに問い合わせ
+Server->Student: 問題文の詳細を返却する
+
+Teacher -> 教室: 回答の是非を判断し、正解／不正解を送信する
+教室->Student:正解／不正解の結果を送信する
+Student->Server: 回答の結果を更新する
+
+@enduml

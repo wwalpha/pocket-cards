@@ -115,10 +115,9 @@ resource "aws_lambda_function" "batch" {
       TABLE_NAME_ACCURACY   = local.dynamodb_name_accuracy
       ATHENA_SCHEMA_NAME    = local.athena_schema_name
       ATHENA_WORKGROUP_NAME = local.athena_workgroup_name
-      ATHENA_TIMESTAMP      = "ATHENA_TIMESTAMP"
       MASTER_EMAIL_ADDRESS  = "master@${local.domain_name}"
       TZ                    = "Asia/Tokyo"
-      ACCURACY_RATE         = "75"
+      ACCURACY_RATE         = "51"
     }
   }
 }
