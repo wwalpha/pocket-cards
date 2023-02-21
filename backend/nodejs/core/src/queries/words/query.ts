@@ -16,7 +16,7 @@ export const queryByDate = (groupId: string, nextTime: string): DynamoDB.Documen
   },
   ExpressionAttributeValues: {
     ':id': groupId,
-    ':times': 0,
+    ':times': -1,
     ':nextTime': nextTime,
   },
   IndexName: 'lsiIdx1',
@@ -123,7 +123,7 @@ export const test = (groupId: string, nextTime: string): DynamoDB.DocumentClient
   ExpressionAttributeValues: {
     ':groupId': groupId,
     ':nextTime': nextTime,
-    ':times': 0,
+    ':times': -1,
   },
   IndexName: 'gsiIdx1',
   ScanIndexForward: false,
@@ -146,7 +146,7 @@ export const news = (groupId: string, nextTime: string): DynamoDB.DocumentClient
   },
   ExpressionAttributeValues: {
     ':groupId': groupId,
-    ':times': 0,
+    ':times': -1,
     ':nextTime': nextTime,
   },
   IndexName: 'gsiIdx1',

@@ -86,7 +86,7 @@ describe('Study', () => {
 
     before.lastTime = moment().format('YYYYMMDD');
     before.nextTime = moment().format('YYYYMMDD');
-    before.times = 0;
+    before.times = -1;
 
     expect(before).toMatchObject(after);
   });
