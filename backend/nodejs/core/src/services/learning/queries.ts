@@ -33,7 +33,7 @@ export const removeAttributes = (
 
 /**
  * 再学習済みの問題一覧を取得する
- * 対象: Times = 1, NextTime = Now + 1, LastTime = Now
+ * 対象: Times = 0, NextTime = Now + 1, LastTime = Now
  */
 export const review = (userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
@@ -51,7 +51,7 @@ export const review = (userId: string, subject: string): DynamoDB.DocumentClient
     ':userId': userId,
     ':nextTime': DateUtils.addDays(1),
     ':lastTime': DateUtils.getNow(),
-    ':times': 1,
+    ':times': 0,
     ':subject': subject,
   },
   IndexName: 'gsiIdx1',
