@@ -135,8 +135,8 @@ describe('Study', () => {
     if (!before || !after) return;
 
     before.lastTime = moment().format('YYYYMMDD');
-    before.nextTime = moment().add(1, 'days').format('YYYYMMDD');
-    before.times = 1;
+    before.nextTime = moment().format('YYYYMMDD');
+    before.times = 0;
 
     expect(before).toMatchObject(after);
     expect(curriculum).toMatchObject(QUESTIONS.ANSWER005_EXPECT_LEARNING);
