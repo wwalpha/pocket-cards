@@ -10,7 +10,7 @@ const daysM = [1, 3, 7, 15, 60];
 
 /** 次回学習時間を計算する */
 export const getNextTime = (times: number, subject?: string) => {
-  if (times === 0) return getNow();
+  if (times < 1) return getNow();
   // 算数以外の場合、10 回学習後表示しないようにする
   if (times > 7 && subject !== Consts.SUBJECT.MATHS) return '99991231';
   // 7 回学習後表示しないようにする
