@@ -86,6 +86,7 @@ export interface HistorySearchForm {
 export interface MultiTestForm {
   userId: string;
   subject: string;
+  review: boolean;
 }
 
 export interface ProgressSearchForm {
