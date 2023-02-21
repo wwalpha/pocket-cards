@@ -1,4 +1,5 @@
 import { Consts, Environment } from '@consts';
+import { DateUtils } from '@utils';
 import { DynamoDB } from 'aws-sdk';
 import { Tables } from 'typings';
 
@@ -31,13 +32,13 @@ export const removeAttributes = (
 });
 
 /**
- * 問題一覧を取得する
- * 対象: Times = 0, NextTime = now + 1
+ * 再学習済みの問題一覧を取得する
+ * 対象: Times = 1, NextTime = Now + 1, LastTime = Now
  */
-export const review = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
+export const review = (userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
-  KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
+  KeyConditionExpression: '#userId = :userId and #nextTime = :nextTime',
   FilterExpression: '#times = :times and #subject = :subject and #lastTime = :lastTime',
   ExpressionAttributeNames: {
     '#userId': 'userId',
@@ -48,13 +49,12 @@ export const review = (userId: string, nextTime: string, subject: string): Dynam
   },
   ExpressionAttributeValues: {
     ':userId': userId,
-    ':nextTime': nextTime,
-    ':lastTime': nextTime,
-    ':times': 0,
+    ':nextTime': DateUtils.addDays(1),
+    ':lastTime': DateUtils.getNow(),
+    ':times': 1,
     ':subject': subject,
   },
   IndexName: 'gsiIdx1',
-  ScanIndexForward: false,
 });
 
 /**
