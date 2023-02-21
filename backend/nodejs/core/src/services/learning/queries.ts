@@ -171,7 +171,7 @@ export const practice = (userId: string, nextTime: string, subject: string): Dyn
   },
   ExpressionAttributeValues: {
     ':userId': userId,
-    ':times': 0,
+    ':times': -1,
     ':nextTime': nextTime,
     ':subject': subject,
     ':lastTime': Consts.INITIAL_DATE,
