@@ -33,7 +33,7 @@ import { InquiryList, InquiryRegist, InquiryRemove } from '@src/apis/inquiry';
 import { Handwriting } from '@src/apis/vision';
 import { LearningDescribe } from './apis/learning';
 import { Patchs } from '@src/apis/patch';
-import { DailyAnswer, DailyPractice, DailyExam } from '@src/apis/study';
+import { DailyAnswer, DailyPractice, DailyExam, DailyReview } from '@src/apis/study';
 import entry from './entry';
 
 // collect prometheus default metrics
@@ -123,6 +123,8 @@ app.post('/v1/study/daily/practice', express.json(), (req, res) => entry(req, re
 app.post('/v1/study/daily/exam', express.json(), (req, res) => entry(req, res, DailyExam));
 // 自己試験問題更新
 app.post('/v1/study/daily/answer', express.json(), (req, res) => entry(req, res, DailyAnswer));
+// 自己試験問題更新
+app.post('/v1/study/daily/review', express.json(), (req, res) => entry(req, res, DailyReview));
 
 // 週テスト対策の問題登録
 app.post('/v1/study/weekly', express.json(), (req, res) => entry(req, res, WeeklyRegist));

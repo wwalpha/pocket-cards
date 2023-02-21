@@ -70,6 +70,7 @@ export namespace Domains {
       student?: string;
       subject?: string;
       userId?: string;
+      review?: boolean;
     };
   }
 

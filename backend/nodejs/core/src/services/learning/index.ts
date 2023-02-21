@@ -1,6 +1,5 @@
 import { Consts, Environment } from '@consts';
 import { DateUtils, DBHelper } from '@utils';
-import moment from 'moment';
 import { Tables } from 'typings';
 import * as Queries from './queries';
 
@@ -63,10 +62,8 @@ export const truncate = async (learnings: Tables.TLearning[]): Promise<void> => 
 
 /** 日次復習 */
 export const dailyReview = async (userId: string, subject: string): Promise<Tables.TLearning[]> => {
-  // 当日の日付
-  const nextTime = moment().format('YYYYMMDD');
   // 演習で間違った問題一覧を取得する
-  const results = await DBHelper().query<Tables.TLearning>(Queries.review(userId, nextTime, subject));
+  const results = await DBHelper().query<Tables.TLearning>(Queries.review(userId, subject));
 
   return results.Items;
 };

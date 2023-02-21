@@ -2,7 +2,7 @@ import { Actions } from '@reducers';
 import { Consts } from '@constants';
 import { AppDispatch } from 'typings';
 
-export const dailyTest = (student: string, subject: string) => async (dispatch: AppDispatch) => {
+export const dailyTest = (student: string, subject: string, review: boolean) => async (dispatch: AppDispatch) => {
   // websocket connect
   dispatch(Actions.APP_CONNECT());
   // save search condition
@@ -10,6 +10,7 @@ export const dailyTest = (student: string, subject: string) => async (dispatch: 
     Actions.STUDY_CONDITIONS({
       student: student,
       subject: subject,
+      review: review,
     })
   );
   // get questions
@@ -17,6 +18,7 @@ export const dailyTest = (student: string, subject: string) => async (dispatch: 
     Actions.STUDY_QUESTIONS({
       userId: student,
       subject: subject,
+      review: review,
     })
   ).unwrap();
 };
