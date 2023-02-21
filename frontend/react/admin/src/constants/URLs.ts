@@ -43,6 +43,8 @@ export const CURRICULUM_PROGRESS = () => `${API_VERSION}/reports/status/curricul
 
 // カリキュラムの並べ順の更新
 export const DAILY_EXAM = () => `${API_VERSION}/study/daily/exam`;
+// 日次復習問題
+export const DAILY_REVIEW = () => `${API_VERSION}/study/daily/review`;
 
 // 生徒登録
 export const STUDENT_REGIST = () => `${API_VERSION}/users/students`;

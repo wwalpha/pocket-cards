@@ -12,14 +12,27 @@ const getQuestions = async (subject: string, userId: string) => {
   return res.questions;
 };
 
-export const STUDY_QUESTIONS = createAsyncThunk<Tables.TQuestions[], { subject: string; userId: string }>(
-  'study/STUDY_QUESTIONS',
-  async ({ subject, userId }) => {
-    const questions = await getQuestions(subject, userId);
+const getReview = async (subject: string, userId: string) => {
+  const res = await API.post<APIs.DailyReviewResponse, APIs.DailyReviewRequest>(URLs.DAILY_REVIEW(), {
+    subject: subject,
+    userId: userId,
+  });
 
-    return questions;
+  return res.questions;
+};
+
+export const STUDY_QUESTIONS = createAsyncThunk<
+  Tables.TQuestions[],
+  { subject: string; userId: string; review: boolean }
+>('study/STUDY_QUESTIONS', async ({ subject, userId, review }) => {
+  // 復習問題
+  if (review === true) {
+    return await getReview(subject, userId);
   }
-);
+
+  // テスト問題
+  return await getQuestions(subject, userId);
+});
 
 export const STUDY_QUESTIONS_CONTINUE = createAsyncThunk<Tables.TQuestions[], { subject: string; userId: string }>(
   'study/STUDY_QUESTIONS_CONTINUE',
@@ -36,7 +49,7 @@ export const STUDY_SHOW_QUESTION = createAsyncThunk<string | undefined, string>(
     const question = questions[nextIndex];
 
     // データ不足の場合、再検索を行う
-    if (questions.length <= 3) {
+    if (questions.length <= 3 && searchConditions.review === false) {
       dispatch(
         STUDY_QUESTIONS_CONTINUE({
           subject: searchConditions.subject || '',
