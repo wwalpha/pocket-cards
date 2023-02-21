@@ -2,7 +2,7 @@
   {
     "qid": "Q001",
     "lastTime": "19000101",
-    "times": 0,
+    "times": -1,
     "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1",
     "nextTime": "19000101",
     "subject": "2",
@@ -11,7 +11,7 @@
   {
     "qid": "Q002",
     "lastTime": "19000101",
-    "times": 0,
+    "times": -1,
     "userId": "84d95083-9ee8-4187-b6e7-8123558ef2c1",
     "nextTime": "19000101",
     "subject": "2",
