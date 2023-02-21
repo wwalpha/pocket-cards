@@ -100,7 +100,7 @@ export const test = (userId: string, nextTime: string, subject: string): DynamoD
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
-  FilterExpression: '#times <> :times and #subject = :subject',
+  FilterExpression: '#times > :times and #subject = :subject',
   ExpressionAttributeNames: {
     '#userId': 'userId',
     '#nextTime': 'nextTime',
@@ -131,7 +131,7 @@ export const testByGroup = (
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#groupId = :groupId and #nextTime <= :nextTime',
-  FilterExpression: '#userId = :userId and #subject = :subject and #times <> :times',
+  FilterExpression: '#userId = :userId and #subject = :subject and #times > :times',
   ExpressionAttributeNames: {
     '#groupId': 'groupId',
     '#nextTime': 'nextTime',
