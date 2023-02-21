@@ -40,7 +40,7 @@ export const byUserTests = (userId: string, nextTime: string): DynamoDB.Document
   TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid, subject',
   KeyConditionExpression: '#userId = :userId AND #nextTime = :nextTime',
-  FilterExpression: '#times <> :times',
+  FilterExpression: '#times > :times',
   ExpressionAttributeNames: {
     '#userId': 'userId',
     '#nextTime': 'nextTime',
