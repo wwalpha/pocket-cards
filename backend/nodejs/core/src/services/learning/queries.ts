@@ -33,24 +33,24 @@ export const removeAttributes = (
 
 /**
  * 再学習済みの問題一覧を取得する
- * 対象: Times = 0, NextTime = Now + 1, LastTime = Now
+ * 対象: Times = 0, NextTime = Now
  */
 export const review = (userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
-  KeyConditionExpression: '#userId = :userId and #nextTime = :nextTime',
-  FilterExpression: '#times = :times and #subject = :subject and #lastTime = :lastTime',
+  KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
+  FilterExpression: '#times = :times and #subject = :subject',
   ExpressionAttributeNames: {
     '#userId': 'userId',
     '#nextTime': 'nextTime',
-    '#lastTime': 'lastTime',
+    // '#lastTime': 'lastTime',
     '#times': 'times',
     '#subject': 'subject',
   },
   ExpressionAttributeValues: {
     ':userId': userId,
-    ':nextTime': DateUtils.addDays(1),
-    ':lastTime': DateUtils.getNow(),
+    ':nextTime': DateUtils.getNow(),
+    // ':lastTime': DateUtils.getNow(),
     ':times': 0,
     ':subject': subject,
   },
