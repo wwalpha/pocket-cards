@@ -1,4 +1,5 @@
 import { Consts, Environment } from '@consts';
+import { DateUtils } from '@utils';
 import { DynamoDB } from 'aws-sdk';
 import { Tables } from 'typings';
 
@@ -31,30 +32,29 @@ export const removeAttributes = (
 });
 
 /**
- * 問題一覧を取得する
- * 対象: Times = 0, NextTime = now + 1
+ * 再学習済みの問題一覧を取得する
+ * 対象: Times = 0, NextTime = Now
  */
-export const review = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
+export const review = (userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
-  FilterExpression: '#times = :times and #subject = :subject and #lastTime = :lastTime',
+  FilterExpression: '#times = :times and #subject = :subject',
   ExpressionAttributeNames: {
     '#userId': 'userId',
     '#nextTime': 'nextTime',
-    '#lastTime': 'lastTime',
+    // '#lastTime': 'lastTime',
     '#times': 'times',
     '#subject': 'subject',
   },
   ExpressionAttributeValues: {
     ':userId': userId,
-    ':nextTime': nextTime,
-    ':lastTime': nextTime,
+    ':nextTime': DateUtils.getNow(),
+    // ':lastTime': DateUtils.getNow(),
     ':times': 0,
     ':subject': subject,
   },
   IndexName: 'gsiIdx1',
-  ScanIndexForward: false,
 });
 
 /**
@@ -100,7 +100,7 @@ export const test = (userId: string, nextTime: string, subject: string): DynamoD
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#userId = :userId and #nextTime <= :nextTime',
-  FilterExpression: '#times <> :times and #subject = :subject',
+  FilterExpression: '#times > :times and #subject = :subject',
   ExpressionAttributeNames: {
     '#userId': 'userId',
     '#nextTime': 'nextTime',
@@ -131,7 +131,7 @@ export const testByGroup = (
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid',
   KeyConditionExpression: '#groupId = :groupId and #nextTime <= :nextTime',
-  FilterExpression: '#userId = :userId and #subject = :subject and #times <> :times',
+  FilterExpression: '#userId = :userId and #subject = :subject and #times > :times',
   ExpressionAttributeNames: {
     '#groupId': 'groupId',
     '#nextTime': 'nextTime',
