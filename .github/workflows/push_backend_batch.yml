@@ -8,6 +8,7 @@ on:
       - .github/workflows/push_backend_batch.yml
     branches-ignore:
       - releases/**
+      - master
 
 jobs:
   Build:
