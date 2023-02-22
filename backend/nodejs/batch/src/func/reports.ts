@@ -75,5 +75,5 @@ const getCount = (array: Tables.TTraces[], subject: string): number => {
     (item) => item.qid
   );
   // max timestamp -> times after answer -> filter 0 times -> count
-  return _.map(grouped, (item) => _.maxBy(item, 'timestamp')?.timesAfter).filter((item) => item !== 0).length;
+  return _.map(grouped, (item) => _.maxBy(item, 'timestamp')?.timesAfter).filter((item) => item && item > 0).length;
 };
