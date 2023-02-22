@@ -23,7 +23,7 @@ export default async (
   }
 
   // 学習回数が0以外、且つ、当日すでに更新済みの場合、無視する
-  if (learning.lastTime === DateUtils.getNow() && learning.times !== 0) {
+  if (learning.lastTime === DateUtils.getNow() && learning.times > 0) {
     return;
   }
 
