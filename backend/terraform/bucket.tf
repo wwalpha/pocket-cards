@@ -17,6 +17,7 @@ TABLE_NAME_GROUPS=${local.dynamodb_name_groups}
 TABLE_NAME_WORDS=${local.dynamodb_name_words}
 TABLE_NAME_WORD_MASTER=${local.dynamodb_name_word_master}
 TABLE_NAME_WORD_IGNORE=${local.dynamodb_name_word_ignore}
+TABLE_NAME_TRACES=${local.dynamodb_name_traces}
 TABLE_NAME_QUESTIONS=${local.dynamodb_name_questions}
 TABLE_NAME_LEARNING=${local.dynamodb_name_learning}
 TABLE_NAME_CURRICULUMS=${local.dynamodb_name_curriculums}

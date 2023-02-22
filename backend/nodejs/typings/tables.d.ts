@@ -207,6 +207,8 @@ export namespace Tables {
     timesAfter?: number;
     // 科目
     subject?: string;
+    // Timestamp
+    timestamp?: string;
   }
 
   // ------------------------------------------------------------

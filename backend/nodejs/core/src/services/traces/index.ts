@@ -3,7 +3,7 @@ import { ClientUtils, DateUtils } from '@utils';
 import { Tables } from 'typings';
 
 /** データ登録 */
-export const regist = async (item: Tables.TTraces) => {
+export const regist = async (item: Tables.TTraces, timestamp?: string) => {
   const client = ClientUtils.timestreamWrite();
 
   // insert record
@@ -42,7 +42,7 @@ export const regist = async (item: Tables.TTraces) => {
         },
       ],
       CommonAttributes: {
-        Time: DateUtils.getTimestamp(),
+        Time: timestamp ? timestamp : DateUtils.getUnixIime().toString(),
         TimeUnit: 'SECONDS',
       },
     })
