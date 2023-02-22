@@ -16,8 +16,7 @@ const TABLE_NAME_WORD_MASTER = process.env['TABLE_NAME_WORD_MASTER'] as string;
 const TABLE_NAME_WORD_IGNORE = process.env['TABLE_NAME_WORD_IGNORE'] as string;
 const TABLE_NAME_QUESTIONS = process.env['TABLE_NAME_QUESTIONS'] as string;
 const TABLE_NAME_LEARNING = process.env['TABLE_NAME_LEARNING'] as string;
-// TODO: NEED TO REMOVE
-// const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;
+const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;
 const TABLE_NAME_CURRICULUMS = process.env['TABLE_NAME_CURRICULUMS'] as string;
 const TABLE_NAME_INQUIRY = process.env['TABLE_NAME_INQUIRY'] as string;
 const TABLE_NAME_ACCURACY = process.env['TABLE_NAME_ACCURACY'] as string;
@@ -107,21 +106,20 @@ const setup = async () => {
         ],
       })
       .promise(),
-    // TODO: NEED TO REMOVE
-    // dbClient
-    //   .createTable({
-    //     TableName: TABLE_NAME_TRACES,
-    //     BillingMode: 'PAY_PER_REQUEST',
-    //     KeySchema: [
-    //       { AttributeName: 'qid', KeyType: 'HASH' },
-    //       { AttributeName: 'timestamp', KeyType: 'RANGE' },
-    //     ],
-    //     AttributeDefinitions: [
-    //       { AttributeName: 'qid', AttributeType: 'S' },
-    //       { AttributeName: 'timestamp', AttributeType: 'S' },
-    //     ],
-    //   })
-    //   .promise(),
+    dbClient
+      .createTable({
+        TableName: TABLE_NAME_TRACES,
+        BillingMode: 'PAY_PER_REQUEST',
+        KeySchema: [
+          { AttributeName: 'qid', KeyType: 'HASH' },
+          { AttributeName: 'timestamp', KeyType: 'RANGE' },
+        ],
+        AttributeDefinitions: [
+          { AttributeName: 'qid', AttributeType: 'S' },
+          { AttributeName: 'timestamp', AttributeType: 'S' },
+        ],
+      })
+      .promise(),
     dbClient
       .createTable({
         TableName: TABLE_NAME_QUESTIONS,

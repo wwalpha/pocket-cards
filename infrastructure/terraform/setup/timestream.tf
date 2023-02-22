@@ -14,7 +14,17 @@ resource "aws_timestreamwrite_table" "traces" {
 
   retention_properties {
     memory_store_retention_period_in_hours  = 1
-    magnetic_store_retention_period_in_days = 1
+    magnetic_store_retention_period_in_days = 3650
+  }
+
+  magnetic_store_write_properties {
+    enable_magnetic_store_writes = true
+    magnetic_store_rejected_data_location {
+      s3_configuration {
+        bucket_name       = aws_s3_bucket.archive.bucket
+        encryption_option = "SSE_S3"
+      }
+    }
   }
 }
 

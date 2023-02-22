@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { Consts } from '@consts';
 import { CurriculumService, LearningService, TraceService } from '@services';
-import { APIs } from 'typings';
+import { APIs, Tables } from 'typings';
 import { Commons, DateUtils, ValidationError } from '@utils';
 import { defaultTo } from 'lodash';
 
@@ -62,23 +62,18 @@ export default async (
     lastTime: learning.lastTime,
   });
 
-  // TODO: NEED TO REMOVE
+  const traceItem: Tables.TTraces = {
+    qid: learning.qid,
+    timestamp: DateUtils.getTimestamp(),
+    groupId: learning.groupId,
+    userId: learning.userId,
+    subject: learning.subject,
+    timesBefore: learning.times,
+    timesAfter: times,
+    lastTime: learning.lastTime,
+  };
+
   // 履歴登録
-  // await DBHelper().transactWrite({
-  //   TransactItems: [
-  //     {
-  //       // 履歴登録
-  //       Put: Traces.put({
-  //         qid: learning.qid,
-  //         timestamp: DateUtils.getTimestamp(),
-  //         groupId: learning.groupId,
-  //         userId: learning.userId,
-  //         subject: learning.subject,
-  //         timesBefore: learning.times,
-  //         timesAfter: times,
-  //         lastTime: learning.lastTime,
-  //       }),
-  //     },
-  //   ],
-  // });
+  await TraceService.registStream(traceItem);
+  await TraceService.regist(traceItem);
 };

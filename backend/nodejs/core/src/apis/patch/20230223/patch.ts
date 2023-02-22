@@ -2,6 +2,7 @@ import { Environment } from '@consts';
 import { TraceService } from '@services';
 import { DBHelper } from '@utils';
 import moment from 'moment';
+import { random } from 'lodash';
 import { Tables } from 'typings';
 
 export default async () => {
@@ -9,8 +10,42 @@ export default async () => {
     TableName: Environment.TABLE_NAME_TRACES,
   });
 
-  const tasks = results.Items.map((item) =>
-    TraceService.regist(
+  const hashset = new Set<string>();
+  const newer = results.Items.map((item) => ({
+    ...item,
+    timestamp: (moment(item.timestamp, 'YYYYMMDDHHmmss').unix() + random(0, 999)).toString(),
+  }));
+
+  newer.forEach((item) => {
+    if (hashset.has(item.timestamp)) {
+      item.timestamp = (Number(item.timestamp) + random(0, 999)).toString();
+    } else {
+      hashset.add(item.timestamp);
+    }
+  });
+
+  hashset.clear();
+
+  newer.forEach((item) => {
+    if (hashset.has(item.timestamp)) {
+      item.timestamp = (Number(item.timestamp) + random(0, 999)).toString();
+    } else {
+      hashset.add(item.timestamp);
+    }
+  });
+
+  hashset.clear();
+
+  newer.forEach((item) => {
+    if (hashset.has(item.timestamp)) {
+      item.timestamp = (Number(item.timestamp) + random(0, 999)).toString();
+    } else {
+      hashset.add(item.timestamp);
+    }
+  });
+
+  const tasks = newer.map((item) =>
+    TraceService.registStream(
       {
         qid: item.qid,
         groupId: item.groupId,
@@ -20,7 +55,7 @@ export default async () => {
         timesBefore: item.timesBefore,
         userId: item.userId,
       },
-      moment(item.timestamp, 'YYYYMMDDHHmmss').unix().toString()
+      item.timestamp
     )
   );
 
