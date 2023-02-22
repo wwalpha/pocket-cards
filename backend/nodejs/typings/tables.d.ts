@@ -190,16 +190,11 @@ export namespace Tables {
   export interface TWordIgnore extends TWordIgnoreKey {}
 
   // ------------------------------------------------------------
-  // Trace
+  // Traces
   // ------------------------------------------------------------
-  interface TracesKey {
+  interface TTraces {
     // 問題ID
     qid: string;
-    // Timestamp
-    timestamp: string;
-  }
-
-  interface TTraces extends TracesKey {
     // ユーザID
     userId?: string;
     // グループID

@@ -19,7 +19,6 @@ TABLE_NAME_WORD_MASTER=${local.dynamodb_name_word_master}
 TABLE_NAME_WORD_IGNORE=${local.dynamodb_name_word_ignore}
 TABLE_NAME_QUESTIONS=${local.dynamodb_name_questions}
 TABLE_NAME_LEARNING=${local.dynamodb_name_learning}
-TABLE_NAME_TRACES=${local.dynamodb_name_traces}
 TABLE_NAME_CURRICULUMS=${local.dynamodb_name_curriculums}
 TABLE_NAME_REPORTS=${local.dynamodb_name_reports}
 TABLE_NAME_INQUIRY=${local.dynamodb_name_inquiry}
@@ -32,6 +31,8 @@ PATH_PATTERN=audio
 TZ=Asia/Tokyo
 AWS_NODEJS_CONNECTION_REUSE_ENABLED=1
 ENDPOINT_USERS_SERVICE=http://${local.cloudmap_service_users}.${local.cloudmap_namespace}:8080/v1
+TIMESTREAM_DATABASE=${local.timestream_database}
+TIMESTREAM_TABLE_TRACES=${local.timestream_table_traces}
 EOT
 }
 
