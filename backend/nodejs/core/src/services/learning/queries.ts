@@ -43,14 +43,12 @@ export const review = (userId: string, subject: string): DynamoDB.DocumentClient
   ExpressionAttributeNames: {
     '#userId': 'userId',
     '#nextTime': 'nextTime',
-    // '#lastTime': 'lastTime',
     '#times': 'times',
     '#subject': 'subject',
   },
   ExpressionAttributeValues: {
     ':userId': userId,
     ':nextTime': DateUtils.getNow(),
-    // ':lastTime': DateUtils.getNow(),
     ':times': 0,
     ':subject': subject,
   },
