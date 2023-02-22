@@ -73,14 +73,20 @@ struct RootView: View {
                     router?.makeLanguageStudyiew()
                 case "11":
                     router?.makeLanguageTestView()
+                case "12":
+                    router?.makeLanguageReviewView()
                 case "20":
                     router?.makeScienceStudyiew()
                 case "21":
                     router?.makeScienceTestView()
+                case "22":
+                    router?.makeScienceReviewView()
                 case "30":
                     router?.makeSocietyStudyiew()
                 case "31":
                     router?.makeSocietyTestView()
+                case "32":
+                    router?.makeSocietyReviewView()
                 default:
                     Text("")
                 }
@@ -95,10 +101,14 @@ struct RootView: View {
                 .font(.system(size: 32))
                 .padding(.trailing, 64)
                 .padding(.leading, 48)
+            // テスト
+            getButton(action: "\(subject)1", text: Consts.TEST_TITLE, background: gradient2)
 
+            // 学習
             getButton(action: "\(subject)0", text: Consts.PRACTICE_TITLE, background: gradient1)
 
-            getButton(action: "\(subject)1", text: Consts.TEST_TITLE, background: gradient2)
+            // 復習
+            getButton(action: "\(subject)2", text: Consts.REVIEW_TITLE, background: gradient3)
 
             Spacer()
         })

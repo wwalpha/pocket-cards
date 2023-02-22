@@ -15,9 +15,13 @@ struct DailyPracticeView: View {
 
     var body: some View {
         VStack {
-            if viewModel.isLoading {
-                Text("Loading....")
-            } else if viewModel.isFinish {
+            if viewModel.status == ScreenStatus.LOADING {
+                Text("Loading....").onAppear {
+                    Task {
+                        await interactor?.initialize()
+                    }
+                }
+            } else if viewModel.status == ScreenStatus.FINISHED {
                 Text("学習は終わりました")
                     .font(.system(size: 64, design: .default))
             } else {
@@ -34,12 +38,12 @@ struct DailyPracticeView: View {
                         FlashCard(question: question, action: interactor!.onAction)
                     }
                 } else {
-                    Text("想定外のエラーが発生しました。")
+                    Text("Loading2....")
                 }
             }
         }.onDisappear {
             viewModel.question = nil
-            viewModel.isLoading = true
+            viewModel.status = ScreenStatus.LOADING
 
             interactor?.destory()
         }
@@ -49,17 +53,15 @@ struct DailyPracticeView: View {
 extension DailyPracticeView: DailyPracticeDisplayLogic {
     func showNext(model: DailyPracticeViewModel) {
         DispatchQueue.main.async {
-            self.viewModel.isLoading = model.isLoading
-            self.viewModel.isFinish = model.isFinish
-            self.viewModel.isShowError = model.isShowError
-            self.viewModel.question = model.question
+            viewModel.status = model.status
+            viewModel.isShowError = model.isShowError
+            viewModel.question = model.question
         }
     }
 
     func onUpdate(model: DailyPracticeViewModel) {
         DispatchQueue.main.async {
-            viewModel.isLoading = model.isLoading
-            viewModel.isFinish = model.isFinish
+            viewModel.status = model.status
             viewModel.isShowError = model.isShowError
         }
     }
@@ -68,7 +70,6 @@ extension DailyPracticeView: DailyPracticeDisplayLogic {
 extension DailyPracticeView {
     func configureView(loadUrl: String, subject: String, mode: String) -> some View {
         var view = self
-        view.viewModel.isLoading = true
 
         let interactor = DailyPracticeInteractor(loadUrl: loadUrl, subject: subject, mode: mode)
         let presenter = DailyPracticePresenter()

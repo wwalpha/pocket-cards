@@ -17,6 +17,7 @@ struct FlashCard: View {
     @State private var showingAlert = false
     @State private var showingConfirm = false
     @State private var isPresented = false
+    @State private var isEditorPresented = false
 
     @State var flipped = false
 
@@ -36,6 +37,8 @@ struct FlashCard: View {
     }
 
     var body: some View {
+        let qImage = question.title.getImage()
+
         GeometryReader { geo in
             VStack {
                 if readOnly {
@@ -58,6 +61,22 @@ struct FlashCard: View {
             .toolbarBackground(Color.primaryColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
+                if !qImage.isEmpty {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            isEditorPresented = true
+                        } label: {
+                            Text("編集")
+                                .frame(width: 64, height: 36, alignment: .center)
+                                .background(Color.secondaryColor)
+                                .foregroundColor(Color.white)
+                                .cornerRadius(2)
+                                .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                        }.fullScreenCover(isPresented: $isEditorPresented) {
+                            CanvasEditor(isShowing: $isEditorPresented, imageName: qImage)
+                        }
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         self.fontIndex = self.fontIndex == 5 ? 5 : self.fontIndex + 1
