@@ -153,7 +153,7 @@ export const testByGroup = (
  *
  * 当日を含めて、過去少なくとも１回学習した事がある、且つ最後の１回は間違った
  *
- * 対象：Times = 0, NextTime <= now, NextTime DESC, Top 10
+ * 対象：Times = 0, NextTime <= now, NextTime DESC
  */
 export const practice = (userId: string, nextTime: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
