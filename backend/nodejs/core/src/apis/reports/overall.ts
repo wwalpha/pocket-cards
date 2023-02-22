@@ -20,16 +20,16 @@ export default async (
 
   return {
     language: countBy(language, (item) => {
-      return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
+      return item.lastTime === Consts.INITIAL_DATE ? -2 : item.times;
     }),
     science: countBy(science, (item) => {
-      return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
+      return item.lastTime === Consts.INITIAL_DATE ? -2 : item.times;
     }),
     society: countBy(society, (item) => {
-      return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
+      return item.lastTime === Consts.INITIAL_DATE ? -2 : item.times;
     }),
     maths: countBy(maths, (item) => {
-      return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
+      return item.lastTime === Consts.INITIAL_DATE ? -2 : item.times;
     }),
   };
 };

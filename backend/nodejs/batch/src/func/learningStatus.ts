@@ -16,7 +16,7 @@ export default async () => {
     const daily = await getUserDaily(stu, current);
 
     const tests = daily
-      .filter((item) => item.times !== 0)
+      .filter((item) => item.times > 0)
       .map((item) => {
         // add test flag
         item.subject_status = `${item.subject}_TEST`;
@@ -47,7 +47,7 @@ export default async () => {
     const future = await getUserTested(stu, current, yesterday);
 
     const futures = future
-      .filter((item) => item.times !== 0)
+      .filter((item) => item.times > 0)
       .filter((item) => item.nextTime > current)
       .map((item) => {
         // add test flag
