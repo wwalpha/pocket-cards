@@ -9,8 +9,7 @@
 import SwiftUI
 
 class DailyPracticeViewModel: ObservableObject {
-    @Published var isLoading = false
-    @Published var isFinish = false
+    @Published var status = ScreenStatus.INITIALIZE
     @Published var isShowError: String = ""
 
     var question: Question?

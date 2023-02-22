@@ -13,6 +13,7 @@ struct ChoiceQuestion: View {
     @State private var showingAlert = false
     @State private var showingConfirm = false
     @State private var isPresented = false
+    @State private var isEditorPresented = false
     @State private var fontSize: [CGFloat] = [24, 32, 40]
     @State private var fontIndex = 2
 
@@ -102,6 +103,22 @@ struct ChoiceQuestion: View {
                     .font(.largeTitle.bold())
                     .accessibilityAddTraits(.isHeader)
                     .foregroundColor(Color.black)
+            }
+            if !qImage.isEmpty {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isEditorPresented = true
+                    } label: {
+                        Text("編集")
+                            .frame(width: 64, height: 36, alignment: .center)
+                            .background(Color.secondaryColor)
+                            .foregroundColor(Color.white)
+                            .cornerRadius(2)
+                            .shadow(color: Color.black.opacity(0.3), radius: 5, x: 5, y: 5)
+                    }.fullScreenCover(isPresented: $isEditorPresented) {
+                        CanvasEditor(isShowing: $isEditorPresented, imageName: qImage)
+                    }
+                }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {

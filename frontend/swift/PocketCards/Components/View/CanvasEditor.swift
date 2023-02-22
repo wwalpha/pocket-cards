@@ -16,7 +16,7 @@ struct CanvasEditor: View {
     var imageName: String = ""
 
     var body: some View {
-        GeometryReader { _ in
+        GeometryReader { geo in
             VStack {
                 if isShowing {
                     VStack {
@@ -34,6 +34,7 @@ struct CanvasEditor: View {
                             .onAppear {
                                 let uiImage = FileManager.default.loadImage(fileName: imageName)!
                                 let imageView = UIImageView(image: uiImage)
+                                imageView.frame = CGRect(x: 0, y: 0, width: geo.size.width - 72, height: geo.size.height - 140)
 
                                 imageView.contentMode = .scaleAspectFit
 

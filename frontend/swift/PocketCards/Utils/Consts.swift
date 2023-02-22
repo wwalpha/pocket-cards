@@ -22,6 +22,7 @@ enum URLs {
 
     static let STUDY_DAILY_PRACTICE = "\(HOST)/v1/study/daily/practice"
     static let STUDY_DAILY_EXAM = "\(HOST)/v1/study/daily/exam"
+    static let STUDY_DAILY_REVIEW = "\(HOST)/v1/study/daily/review"
     static let STUDY_DAILY_ANSWER = "\(HOST)/v1/study/daily/answer"
 
     static let STUDY_WEEKLY_QUESTIONS = "\(HOST)/v1/study/weekly"
@@ -57,14 +58,12 @@ enum URLs {
     }
 
     static let REPORT_DAILY = "\(HOST)/v1/reports/daily"
-
-    // deprecated
-    static let STUDY_DAILY_REVIEW = "\(HOST)/v1/study/daily/review/questions"
 }
 
 enum Consts {
     static let PRACTICE_TITLE = "日々の演習"
     static let TEST_TITLE = "日々のテスト"
+    static let REVIEW_TITLE = "繰り替え学習"
 }
 
 let SUBJECT_TITLE: [String: String] = [
@@ -72,6 +71,13 @@ let SUBJECT_TITLE: [String: String] = [
     SUBJECT.SCIENCE: "理科",
     SUBJECT.SOCIETY: "社会",
 ]
+
+enum ScreenStatus {
+    static let INITIALIZE = "0"
+    static let LOADING = "1"
+    static let STUDING = "2"
+    static let FINISHED = "3"
+}
 
 enum SUBJECT {
     static let ENGLISH = "0"
@@ -86,6 +92,7 @@ enum MODE {
     static let PRACTICE = "1"
     static let EXAM = "2"
     static let WEEKLY = "3"
+    static let REVIEW = "4"
 }
 
 enum Correct {
