@@ -2,7 +2,7 @@ import { Environment } from '@consts';
 import { TraceService } from '@services';
 import { DBHelper } from '@utils';
 import moment from 'moment';
-import { random } from 'lodash';
+import { padStart, random } from 'lodash';
 import { Tables } from 'typings';
 
 export default async () => {
@@ -13,7 +13,7 @@ export default async () => {
   const hashset = new Set<string>();
   const newer = results.Items.map((item) => ({
     ...item,
-    timestamp: (moment(item.timestamp, 'YYYYMMDDHHmmss').unix() + random(0, 999)).toString(),
+    timestamp: `${moment(item.timestamp, 'YYYYMMDDHHmmss').unix()}${padStart(random(0, 999).toString(), 3)}`,
   }));
 
   newer.forEach((item) => {

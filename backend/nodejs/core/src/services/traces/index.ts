@@ -49,7 +49,6 @@ export const registStream = async (item: Tables.TTraces, timestamp?: string) => 
     ],
     CommonAttributes: {
       Time: timestamp ? timestamp : DateUtils.getUnixTime(),
-      TimeUnit: 'SECONDS',
       Dimensions: [
         {
           Name: 'Region',

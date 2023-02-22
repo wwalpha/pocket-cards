@@ -51,17 +51,6 @@ export default async (
     }
   }
 
-  // 履歴登録
-  await TraceService.regist({
-    qid: learning.qid,
-    groupId: learning.groupId,
-    userId: learning.userId,
-    subject: learning.subject,
-    timesBefore: learning.times,
-    timesAfter: times,
-    lastTime: learning.lastTime,
-  });
-
   const traceItem: Tables.TTraces = {
     qid: learning.qid,
     timestamp: DateUtils.getTimestamp(),
