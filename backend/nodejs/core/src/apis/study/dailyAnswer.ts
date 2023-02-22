@@ -1,9 +1,8 @@
 import { Request } from 'express';
 import { defaultTo } from 'lodash';
 import { Consts } from '@consts';
-import { Commons, DateUtils, DBHelper, ValidationError } from '@utils';
-import { LearningService, CurriculumService } from '@services';
-import { Traces } from '@queries';
+import { Commons, DateUtils, ValidationError } from '@utils';
+import { LearningService, CurriculumService, TraceService } from '@services';
 import { APIs } from 'typings';
 
 export default async (
@@ -51,24 +50,36 @@ export default async (
     }
   }
 
-  // 登録実行
-  await DBHelper().transactWrite({
-    TransactItems: [
-      {
-        // 履歴登録
-        Put: Traces.put({
-          qid: learning.qid,
-          timestamp: DateUtils.getTimestamp(),
-          groupId: learning.groupId,
-          userId: learning.userId,
-          subject: learning.subject,
-          timesBefore: learning.times,
-          timesAfter: times,
-          lastTime: learning.lastTime,
-        }),
-      },
-    ],
+  // 履歴登録
+  await TraceService.regist({
+    qid: learning.qid,
+    groupId: learning.groupId,
+    userId: learning.userId,
+    subject: learning.subject,
+    timesBefore: learning.times,
+    timesAfter: times,
+    lastTime: learning.lastTime,
   });
+
+  // TODO: NEED TO REMOVE
+  // 登録実行
+  // await DBHelper().transactWrite({
+  //   TransactItems: [
+  //     {
+  //       // 履歴登録
+  //       Put: Traces.put({
+  //         qid: learning.qid,
+  //         timestamp: DateUtils.getTimestamp(),
+  //         groupId: learning.groupId,
+  //         userId: learning.userId,
+  //         subject: learning.subject,
+  //         timesBefore: learning.times,
+  //         timesAfter: times,
+  //         lastTime: learning.lastTime,
+  //       }),
+  //     },
+  //   ],
+  // });
 };
 
 // リクエスト検証

@@ -1,10 +1,9 @@
 import { Request } from 'express';
 import { Consts } from '@consts';
-import { CurriculumService, LearningService } from '@services';
+import { CurriculumService, LearningService, TraceService } from '@services';
 import { APIs } from 'typings';
-import { Commons, DateUtils, DBHelper, ValidationError } from '@utils';
+import { Commons, DateUtils, ValidationError } from '@utils';
 import { defaultTo } from 'lodash';
-import { Traces } from '@queries';
 
 /** 週テスト対策の回答 */
 export default async (
@@ -53,21 +52,33 @@ export default async (
   }
 
   // 履歴登録
-  await DBHelper().transactWrite({
-    TransactItems: [
-      {
-        // 履歴登録
-        Put: Traces.put({
-          qid: learning.qid,
-          timestamp: DateUtils.getTimestamp(),
-          groupId: learning.groupId,
-          userId: learning.userId,
-          subject: learning.subject,
-          timesBefore: learning.times,
-          timesAfter: times,
-          lastTime: learning.lastTime,
-        }),
-      },
-    ],
+  await TraceService.regist({
+    qid: learning.qid,
+    groupId: learning.groupId,
+    userId: learning.userId,
+    subject: learning.subject,
+    timesBefore: learning.times,
+    timesAfter: times,
+    lastTime: learning.lastTime,
   });
+
+  // TODO: NEED TO REMOVE
+  // 履歴登録
+  // await DBHelper().transactWrite({
+  //   TransactItems: [
+  //     {
+  //       // 履歴登録
+  //       Put: Traces.put({
+  //         qid: learning.qid,
+  //         timestamp: DateUtils.getTimestamp(),
+  //         groupId: learning.groupId,
+  //         userId: learning.userId,
+  //         subject: learning.subject,
+  //         timesBefore: learning.times,
+  //         timesAfter: times,
+  //         lastTime: learning.lastTime,
+  //       }),
+  //     },
+  //   ],
+  // });
 };

@@ -1,5 +1,5 @@
 import * as AWSSDK from 'aws-sdk';
-import { DynamoDB, Polly, S3, Translate, SSM, Lambda } from 'aws-sdk';
+import { DynamoDB, Polly, S3, Translate, SSM, Lambda, TimestreamWrite } from 'aws-sdk';
 
 // export const AWS = process.env.ENVIRONMENT === 'local' ? AWSSDK : XRay.captureAWS(AWSSDK);
 const AWS = AWSSDK;
@@ -10,6 +10,7 @@ let s3Client: S3;
 let translateClient: Translate;
 let ssmClient: SSM;
 let lambdaClient: Lambda;
+let writeClient: TimestreamWrite;
 
 /** Dynamodb Client初期化 */
 export const dynamoDB = (
@@ -92,6 +93,19 @@ export const lambda = (options?: Lambda.ClientConfiguration): Lambda => {
 
   // 初期化設定なし
   return new AWS.Lambda({
+    region: process.env['DEFAULT_REGION'],
+  });
+};
+
+export const timestreamWrite = (options?: Lambda.ClientConfiguration): TimestreamWrite => {
+  // 初期化済み
+  if (writeClient) return writeClient;
+
+  // 初期化設定あり
+  if (options) return new AWS.TimestreamWrite(options);
+
+  // 初期化設定なし
+  return new AWS.TimestreamWrite({
     region: process.env['DEFAULT_REGION'],
   });
 };

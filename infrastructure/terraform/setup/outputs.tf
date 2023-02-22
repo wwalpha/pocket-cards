@@ -219,6 +219,6 @@ output "timestream_database_name" {
 # ----------------------------------------------------------------------------------------------
 # AWS TimeStream Table - Traces
 # ----------------------------------------------------------------------------------------------
-output "timestream_table_name" {
+output "timestream_table_traces" {
   value = aws_timestreamwrite_table.traces.table_name
 }

@@ -53,8 +53,8 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # TimeStream
   # ----------------------------------------------------------------------------------------------
-  timestream_database = "${var.project_name}-database"
-  timestream_table_traces = "${var.project_name}-traces"
+  timestream_database     = "${var.project_name}-database-${local.suffix}"
+  timestream_table_traces = "${var.project_name}-traces-${local.suffix}"
 }
 
 # ----------------------------------------------------------------------------------------------
