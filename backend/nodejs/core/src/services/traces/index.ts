@@ -59,7 +59,7 @@ export const registStream = async (item: Tables.TTraces, timestamp?: string) => 
     },
   });
 
-  await request.promise().then(
+  await request.then(
     () => {},
     (err) => {
       console.log('Error writing records:', err);
