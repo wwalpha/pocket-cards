@@ -45,9 +45,9 @@ extension OverallTimesView: OverallTimesDisplayLogic {
     func getBarChartData() -> [BarChartDataEntry] {
         let entries = (1 ..< 11).map { i -> BarChartDataEntry in
 //            let val1 = self.viewModel.maths[String(i - 2)] ?? 0
-            let val2 = self.viewModel.language[String(i - 2)] ?? 0
-            let val3 = self.viewModel.society[String(i - 2)] ?? 0
-            let val4 = self.viewModel.science[String(i - 2)] ?? 0
+            let val2 = self.viewModel.language[String(i - 3)] ?? 0
+            let val3 = self.viewModel.society[String(i - 3)] ?? 0
+            let val4 = self.viewModel.science[String(i - 3)] ?? 0
 
 //            return BarChartDataEntry(x: Double(i), yValues: [Double(val1), Double(val2), Double(val3), Double(val4)])
             return BarChartDataEntry(x: Double(i), yValues: [Double(val2), Double(val3), Double(val4)])
