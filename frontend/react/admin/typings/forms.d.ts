@@ -95,4 +95,5 @@ export interface ProgressSearchForm {
   curriculums: string[];
   startDate?: Dayjs;
   endDate?: Dayjs;
+  unlearned: boolean;
 }
