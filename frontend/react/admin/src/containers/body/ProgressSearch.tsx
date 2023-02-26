@@ -27,6 +27,8 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { ProgressActions } from '@actions';
 import { Consts } from '@constants';
 import { ProgressSearchForm, RootState } from 'typings';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const appState = (state: RootState) => state.app;
 const userState = (state: RootState) => state.user;
@@ -69,11 +71,17 @@ export default () => {
       curriculums: [],
       startDate: dayjs(),
       endDate: dayjs(),
+      unlearned: false,
     },
   });
 
-  const onSubmit = handleSubmit(({ curriculums, startDate, endDate }) => {
-    actions.search(curriculums, (startDate as any)?.format('YYYYMMDD'), (endDate as any)?.format('YYYYMMDD'));
+  const onSubmit = handleSubmit(({ curriculums, startDate, endDate, unlearned }) => {
+    const flag = unlearned === true ? '1' : undefined;
+    const sDate = (startDate as any)?.format('YYYYMMDD');
+    const eDate = (endDate as any)?.format('YYYYMMDD');
+
+    // 検索処理
+    actions.search(curriculums, sDate, eDate, flag);
 
     // 再検索の場合、初期値に戻る
     setPage(0);
@@ -175,7 +183,7 @@ export default () => {
           control={control}
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 1, width: '460px', maxWidth: '50%' }} fullWidth size="small">
+            <FormControl sx={{ mx: 1, width: '360px', maxWidth: '50%' }} fullWidth size="small">
               <InputLabel>カリキュラム *</InputLabel>
               <Select
                 label="Curriculum *"
@@ -206,6 +214,18 @@ export default () => {
                   ))}
               </Select>
             </FormControl>
+          )}
+        />
+        <Controller
+          name="unlearned"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <FormGroup>
+              <FormControlLabel
+                control={<Checkbox checked={value} onChange={onChange} size="small" />}
+                label="未学習"
+              />
+            </FormGroup>
           )}
         />
         <LoadingButton
