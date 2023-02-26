@@ -6,7 +6,7 @@ import { ValidationError } from '@utils';
 export default async (
   req: Request<void, any, APIs.CurriculumStatusRequest, any>
 ): Promise<APIs.CurriculumStatusResponse> => {
-  const { curriculums, startDate = '19900101', endDate = '20991231' } = req.body;
+  const { curriculums, startDate = '19900101', endDate = '20991231', testing } = req.body;
 
   // validation
   if (!curriculums || curriculums.length === 0) {
@@ -22,7 +22,12 @@ export default async (
     // 問題一覧、開始終了期間内
     const learnings = (
       await LearningService.listByGroupWithProjection(cInfo.groupId, 'qid, times, nextTime', cInfo.userId)
-    ).filter((item) => startDate <= item.nextTime && item.nextTime <= endDate);
+    ).filter((item) => {
+      if (startDate > item.nextTime) return false;
+      if (item.nextTime > endDate) return false;
+      if (testing === '1' && item.times < 1) return false;
+      return true;
+    });
 
     // 対象問題存在しない
     if (learnings.length === 0) return [];
