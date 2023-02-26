@@ -208,3 +208,17 @@ output "ssm_repo_url_users" {
 output "bucket_key_lambda_wss_relay" {
   value = local.bucket_key_lambda_wss_relay
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS TimeStream Database
+# ----------------------------------------------------------------------------------------------
+output "timestream_database_name" {
+  value = aws_timestreamwrite_database.this.database_name
+}
+
+# ----------------------------------------------------------------------------------------------
+# AWS TimeStream Table - Traces
+# ----------------------------------------------------------------------------------------------
+output "timestream_table_traces" {
+  value = aws_timestreamwrite_table.traces.table_name
+}

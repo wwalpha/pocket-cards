@@ -1,10 +1,9 @@
 import { Request } from 'express';
 import { defaultTo } from 'lodash';
 import { Consts } from '@consts';
-import { Commons, DateUtils, DBHelper, ValidationError } from '@utils';
-import { LearningService, CurriculumService } from '@services';
-import { Traces } from '@queries';
-import { APIs } from 'typings';
+import { Commons, DateUtils, ValidationError } from '@utils';
+import { LearningService, CurriculumService, TraceService } from '@services';
+import { APIs, Tables } from 'typings';
 
 export default async (
   req: Request<any, any, APIs.QuestionAnswerRequest, any>
@@ -51,24 +50,20 @@ export default async (
     }
   }
 
-  // 登録実行
-  await DBHelper().transactWrite({
-    TransactItems: [
-      {
-        // 履歴登録
-        Put: Traces.put({
-          qid: learning.qid,
-          timestamp: DateUtils.getTimestamp(),
-          groupId: learning.groupId,
-          userId: learning.userId,
-          subject: learning.subject,
-          timesBefore: learning.times,
-          timesAfter: times,
-          lastTime: learning.lastTime,
-        }),
-      },
-    ],
-  });
+  const traceItem: Tables.TTraces = {
+    qid: learning.qid,
+    timestamp: DateUtils.getTimestamp(),
+    groupId: learning.groupId,
+    userId: learning.userId,
+    subject: learning.subject,
+    timesBefore: learning.times,
+    timesAfter: times,
+    lastTime: learning.lastTime,
+  };
+
+  // 履歴登録
+  await TraceService.registStream(traceItem);
+  await TraceService.regist(traceItem);
 };
 
 // リクエスト検証

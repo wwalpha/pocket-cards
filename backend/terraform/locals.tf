@@ -63,6 +63,12 @@ locals {
   dynamodb_name_accuracy    = local.remote_setup.dynamodb_name_accuracy
 
   # ----------------------------------------------------------------------------------------------
+  # TimeStream
+  # ----------------------------------------------------------------------------------------------
+  timestream_database     = local.remote_setup.timestream_database_name
+  timestream_table_traces = local.remote_setup.timestream_table_traces
+
+  # ----------------------------------------------------------------------------------------------
   # API Gateway
   # ----------------------------------------------------------------------------------------------
   apigw_id                     = local.remote_services.apigw_id
