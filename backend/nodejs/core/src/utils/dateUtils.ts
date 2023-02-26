@@ -29,4 +29,6 @@ export const getNextTime = (times: number, subject?: string) => {
 
 export const getTimestamp = () => moment().format('YYYYMMDDHHmmss');
 
+export const getUnixTime = () => Date.now().toString();
+
 export const addDays = (days: number) => moment().add(days, 'days').format('YYYYMMDD');
