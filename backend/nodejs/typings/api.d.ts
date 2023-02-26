@@ -727,7 +727,7 @@ export namespace APIs {
   // ------------------------------------------------------------
   interface CurriculumStatusRequest {
     curriculums: string[];
-    testing?: string;
+    unlearned?: string;
     startDate?: string;
     endDate?: string;
   }
