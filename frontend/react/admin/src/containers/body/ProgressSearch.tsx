@@ -183,7 +183,7 @@ export default () => {
           control={control}
           rules={{ required: 'required' }}
           render={({ field: { onChange, value } }) => (
-            <FormControl sx={{ mx: 1, width: '460px', maxWidth: '50%' }} fullWidth size="small">
+            <FormControl sx={{ mx: 1, width: '360px', maxWidth: '50%' }} fullWidth size="small">
               <InputLabel>カリキュラム *</InputLabel>
               <Select
                 label="Curriculum *"
