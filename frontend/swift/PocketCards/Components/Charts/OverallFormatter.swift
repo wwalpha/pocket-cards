@@ -19,6 +19,8 @@ public class OverallFormatter: NSObject, AxisValueFormatter {
             return "未学習"
         case 2:
             return "再学習"
+        case 3:
+            return "復習"
         default:
             return String(Int(value - 2)) + "回"
         }
