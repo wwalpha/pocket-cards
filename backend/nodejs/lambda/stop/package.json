@@ -9,7 +9,7 @@
     "postbuild": "cd dist && yarn install --production && zip -rq ../dist.zip ."
   },
   "dependencies": {
-    "aws-sdk": "^2.966.0"
+    "@aws-sdk/client-ecs": "^3.279.0"
   },
   "devDependencies": {
     "@types/node": "^16.4.6",
