@@ -1,12 +1,19 @@
+import { DynamoDB } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
+import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
 import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
 } from 'aws-lambda';
-import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
 import { Tables } from 'typings';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
-const client = new DynamoDB.DocumentClient();
+
+const client = DynamoDBDocument.from(
+  new DynamoDB({
+    region: process.env.AWS_DEFAULT_REGION,
+  })
+);
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
@@ -18,19 +25,19 @@ export const handler = async (
 
   const { connectionId, domainName, authorizer } = event.requestContext;
   const request = JSON.parse(event.body) as RequestBody;
-  const apigateway = new ApiGatewayManagementApi({ endpoint: domainName });
+  const apigateway = new ApiGatewayManagementApiClient({ endpoint: domainName });
 
   const connections = await getConnections(authorizer.principalId, connectionId);
 
   await Promise.all(
-    connections.map((item) =>
-      apigateway
-        .postToConnection({
-          ConnectionId: item.connId,
-          Data: JSON.stringify(request),
-        })
-        .promise()
-    )
+    connections.map((item) => {
+      const cmd = new PostToConnectionCommand({
+        ConnectionId: item.connId,
+        Data: Buffer.from(JSON.stringify(request)),
+      });
+
+      return apigateway.send(cmd);
+    })
   );
 
   return {
@@ -39,19 +46,16 @@ export const handler = async (
 };
 
 const getConnections = async (userId: string, connectionId: string) => {
-  const results = await client
-    .query({
-      TableName: TABLE_NAME_CONNECTIONS,
-      KeyConditionExpression: '#guardian = :guardian',
-      ExpressionAttributeNames: {
-        '#guardian': 'guardian',
-      },
-      ExpressionAttributeValues: {
-        ':guardian': userId,
-      },
-    })
-    .promise();
-
+  const results = await client.query({
+    TableName: TABLE_NAME_CONNECTIONS,
+    KeyConditionExpression: '#guardian = :guardian',
+    ExpressionAttributeNames: {
+      '#guardian': 'guardian',
+    },
+    ExpressionAttributeValues: {
+      ':guardian': userId,
+    },
+  });
   if (!results.Items) {
     return [];
   }
