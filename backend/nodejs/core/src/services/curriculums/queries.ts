@@ -1,28 +1,28 @@
-import { DynamoDB } from 'aws-sdk';
+import { GetItemInput, PutItemInput, DeleteItemInput, QueryInput, UpdateInput } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 import { Tables } from 'typings';
 
 /** データ取得 */
-export const get = (key: Tables.TCurriculumsKey): DynamoDB.DocumentClient.GetItemInput => ({
+export const get = (key: Tables.TCurriculumsKey): GetItemInput => ({
   TableName: Environment.TABLE_NAME_CURRICULUMS,
   Key: key,
 });
 
 /** データ登録 */
-export const put = (item: Tables.TCurriculums): DynamoDB.DocumentClient.PutItemInput => ({
+export const put = (item: Tables.TCurriculums): PutItemInput<Tables.TCurriculums> => ({
   TableName: Environment.TABLE_NAME_CURRICULUMS,
   Item: item,
 });
 
 /** データ削除 */
-export const del = (key: Tables.TCurriculumsKey): DynamoDB.DocumentClient.DeleteItemInput => ({
+export const del = (key: Tables.TCurriculumsKey): DeleteItemInput => ({
   TableName: Environment.TABLE_NAME_CURRICULUMS,
   Key: key,
 });
 
 /** カリキュラム一覧を取得する */
-export const byGuardian = (guardian: string, subject?: string, userId?: string): DynamoDB.DocumentClient.QueryInput => {
-  const query: DynamoDB.DocumentClient.QueryInput = {
+export const byGuardian = (guardian: string, subject?: string, userId?: string): QueryInput => {
+  const query: QueryInput = {
     TableName: Environment.TABLE_NAME_CURRICULUMS,
     KeyConditionExpression: '#guardian = :guardian',
     ExpressionAttributeNames: {
@@ -76,8 +76,8 @@ export const byGuardian = (guardian: string, subject?: string, userId?: string):
 };
 
 /** カリキュラム一覧を取得する */
-export const byGroupId = (groupId: string, userId?: string): DynamoDB.DocumentClient.QueryInput => {
-  const query: DynamoDB.DocumentClient.QueryInput = {
+export const byGroupId = (groupId: string, userId?: string): QueryInput => {
+  const query: QueryInput = {
     TableName: Environment.TABLE_NAME_CURRICULUMS,
     KeyConditionExpression: '#groupId = :groupId',
     ExpressionAttributeNames: {
@@ -106,7 +106,7 @@ export const byGroupId = (groupId: string, userId?: string): DynamoDB.DocumentCl
 };
 
 /** カリキュラム一覧を取得する（未学習のみ） */
-export const byUnlearned = (guardian: string, userId: string, subject: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byUnlearned = (guardian: string, userId: string, subject: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_CURRICULUMS,
   KeyConditionExpression: '#guardian = :guardian',
   FilterExpression: '#userId = :userId and #unlearned <> :unlearned and #subject = :subject',
@@ -126,10 +126,7 @@ export const byUnlearned = (guardian: string, userId: string, subject: string): 
 });
 
 /** カリキュラム一覧を取得する（未学習のみ） */
-export const updateUnlearned = (
-  key: Tables.TCurriculumsKey,
-  count: number
-): DynamoDB.DocumentClient.UpdateItemInput => ({
+export const updateUnlearned = (key: Tables.TCurriculumsKey, count: number): UpdateInput => ({
   TableName: Environment.TABLE_NAME_CURRICULUMS,
   Key: key,
   UpdateExpression: 'set #unlearned = #unlearned + :nums',
