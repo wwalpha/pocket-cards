@@ -36,11 +36,9 @@ export const CreateUser = async (
     const newUser = await createCognitoUser(userPoolId, tenantUser);
 
     // send verify address email
-    await sesClient
-      .verifyEmailAddress({
-        EmailAddress: email,
-      })
-      .promise();
+    await sesClient.verifyEmailAddress({
+      EmailAddress: email,
+    });
 
     // set sub
     if (newUser.Attributes) {

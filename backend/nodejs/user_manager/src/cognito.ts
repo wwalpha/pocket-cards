@@ -112,17 +112,14 @@ export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers)
   const username = user.authority === Authority.STUDENT ? user.username : (user.email as string);
 
   // create new user
-  const result = await provider
-    .adminCreateUser({
-      MessageAction: action,
-      UserPoolId: userPoolId,
-      Username: username,
-      DesiredDeliveryMediums: ['EMAIL'],
-      ForceAliasCreation: true,
-      UserAttributes: attributes,
-    })
-    .promise();
-
+  const result = await provider.adminCreateUser({
+    MessageAction: action,
+    UserPoolId: userPoolId,
+    Username: username,
+    DesiredDeliveryMediums: ['EMAIL'],
+    ForceAliasCreation: true,
+    UserAttributes: attributes,
+  });
   const cognitoUser = result.User;
 
   if (!cognitoUser) throw new Error('Create new user failed.');
@@ -147,13 +144,10 @@ const listUsers = async (
   userPoolId: string,
   token?: string
 ): Promise<string[]> => {
-  const result = await provider
-    .listUsers({
-      UserPoolId: userPoolId,
-      PaginationToken: token,
-    })
-    .promise();
-
+  const result = await provider.listUsers({
+    UserPoolId: userPoolId,
+    PaginationToken: token,
+  });
   // validation
   if (!result.Users) return [];
 
@@ -175,22 +169,18 @@ const listUsers = async (
 
 /** force change password */
 export const adminSetUserPassword = async (UserPoolId: string, Username: string, Password: string) => {
-  await provider
-    .adminSetUserPassword({
-      UserPoolId,
-      Username,
-      Password,
-      Permanent: true,
-    })
-    .promise();
+  await provider.adminSetUserPassword({
+    UserPoolId,
+    Username,
+    Password,
+    Permanent: true,
+  });
 };
 
 /** remove cognito user */
 export const adminDeleteUser = async (UserPoolId: string, Username: string) => {
-  await provider
-    .adminDeleteUser({
-      UserPoolId,
-      Username,
-    })
-    .promise();
+  await provider.adminDeleteUser({
+    UserPoolId,
+    Username,
+  });
 };
