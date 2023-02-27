@@ -58,7 +58,7 @@ locals {
   # Lambda
   # ----------------------------------------------------------------------------------------------
   lambda_handler          = "index.handler"
-  lambda_runtime          = "nodejs14.x"
+  lambda_runtime          = "nodejs18.x"
   lambda_basic_policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 
   # ----------------------------------------------------------------------------------------------
