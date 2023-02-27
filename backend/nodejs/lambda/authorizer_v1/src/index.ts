@@ -1,4 +1,5 @@
-import { DynamoDB } from 'aws-sdk';
+import { DynamoDB } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
 import { APIGatewayAuthorizerResult, APIGatewayRequestAuthorizerEvent } from 'aws-lambda';
 import { JwtPayload } from 'jsonwebtoken';
 import winston from 'winston';
@@ -16,9 +17,11 @@ const Logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-const client = new DynamoDB.DocumentClient({
-  region: process.env.AWS_DEFAULT_REGION,
-});
+const client = DynamoDBDocument.from(
+  new DynamoDB({
+    region: process.env.AWS_DEFAULT_REGION,
+  })
+);
 
 export const handler = async (event: APIGatewayRequestAuthorizerEvent): Promise<APIGatewayAuthorizerResult> => {
   Logger.info('event', omit(event, ['identitySource', 'headers.authorization']));
@@ -118,15 +121,12 @@ const authorizationFailure = (): APIGatewayAuthorizerResult => {
 
 const getGuardian = async (userId: string): Promise<string | undefined> => {
   // get user role from db
-  const result = await client
-    .get({
-      TableName: TABLE_NAME_USERS,
-      Key: {
-        id: userId,
-      } as Tables.TUsersKey,
-    })
-    .promise();
-
+  const result = await client.get({
+    TableName: TABLE_NAME_USERS,
+    Key: {
+      id: userId,
+    } as Tables.TUsersKey,
+  });
   // user not found
   if (!result.Item) return undefined;
 
