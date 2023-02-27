@@ -15,4 +15,4 @@ export const userInfo = (id: string, studyQuery: string) =>
     ExpressionAttributeValues: {
       ':studyQuery': studyQuery,
     },
-  } as DynamoDB.DocumentClient.UpdateItemInput);
+  } as UpdateItemInput);

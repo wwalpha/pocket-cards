@@ -4,19 +4,19 @@ import { Tables } from 'typings';
 import * as query from './query';
 
 /** データ取得 */
-export const get = (key: Tables.TCurriculumsKey): DynamoDB.DocumentClient.GetItemInput => ({
+export const get = (key: Tables.TCurriculumsKey): GetItemInput => ({
   TableName: Environments.TABLE_NAME_CURRICULUMS,
   Key: key,
 });
 
 /** データ登録 */
-export const put = (item: Tables.TCurriculums): DynamoDB.DocumentClient.PutItemInput => ({
+export const put = (item: Tables.TCurriculums): PutItemInput => ({
   TableName: Environments.TABLE_NAME_CURRICULUMS,
   Item: item,
 });
 
 /** データ削除 */
-export const del = (key: Tables.TCurriculumsKey): DynamoDB.DocumentClient.DeleteItemInput => ({
+export const del = (key: Tables.TCurriculumsKey): DeleteItemInput => ({
   TableName: Environments.TABLE_NAME_CURRICULUMS,
   Key: key,
 });

@@ -11,13 +11,13 @@ export const get = (id: string) =>
     Key: {
       id,
     },
-  } as DynamoDB.DocumentClient.GetItemInput);
+  } as GetItemInput);
 
 /** データ更新 */
 export const put = (item: Tables.TUsers) =>
   ({
     TableName: Environments.TABLE_NAME_USERS,
     Item: item,
-  } as DynamoDB.DocumentClient.PutItemInput);
+  } as PutItemInput);
 
 export { update, query };

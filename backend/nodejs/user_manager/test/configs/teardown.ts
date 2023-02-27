@@ -13,7 +13,7 @@ const TABLE_NAME_SETTINGS = process.env.TABLE_NAME_SETTINGS as string;
 const dbClient = new DynamoDB();
 
 const teardown = async () => {
-  await dbClient.deleteTable({ TableName: TABLE_NAME_SETTINGS }).promise();
+  await dbClient.deleteTable({ TableName: TABLE_NAME_SETTINGS });
 };
 
 export default teardown;

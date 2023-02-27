@@ -1,7 +1,7 @@
 import { DynamoDB } from 'aws-sdk';
 import { Environments } from '../../consts';
 
-export const byTeacher = (userId: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byTeacher = (userId: string): QueryInput => ({
   TableName: Environments.TABLE_NAME_USERS,
   KeyConditionExpression: '#teacher = :teacher',
   ExpressionAttributeNames: {
