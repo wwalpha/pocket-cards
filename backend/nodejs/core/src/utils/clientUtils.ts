@@ -5,6 +5,7 @@ import { Translate, TranslateClientConfig } from '@aws-sdk/client-translate';
 import { SSM, SSMClientConfig } from '@aws-sdk/client-ssm';
 import { Lambda, LambdaClientConfig } from '@aws-sdk/client-lambda';
 import { TimestreamWrite, TimestreamWriteClientConfig } from '@aws-sdk/client-timestream-write';
+import { SES, SESClientConfig } from '@aws-sdk/client-ses';
 
 let dynamoDBClient: DynamoDB;
 let pollyClient: Polly;
@@ -13,6 +14,7 @@ let translateClient: Translate;
 let ssmClient: SSM;
 let lambdaClient: Lambda;
 let writeClient: TimestreamWrite;
+let sesClient: SES;
 
 /** Dynamodb Client初期化 */
 export const dynamoDB = (options?: DynamoDBClientConfig): DynamoDB => {
@@ -108,4 +110,19 @@ export const timestreamWrite = (options?: TimestreamWriteClientConfig): Timestre
   return new TimestreamWrite({
     region: process.env['DEFAULT_REGION'],
   });
+};
+
+export const ses = (options?: SESClientConfig): SES => {
+  // 初期化済み
+  if (sesClient) return sesClient;
+
+  const config: SESClientConfig = options
+    ? options
+    : {
+        region: process.env['DEFAULT_REGION'],
+      };
+
+  sesClient = new SES(config);
+
+  return sesClient;
 };

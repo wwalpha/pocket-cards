@@ -1,9 +1,8 @@
-import { Polly } from 'aws-sdk';
+import { SynthesizeSpeechCommandInput } from '@aws-sdk/client-polly';
 import { PutObjectCommandInput } from '@aws-sdk/client-s3';
 import * as short from 'short-uuid';
 import { Request } from 'express';
 import { decode } from 'jsonwebtoken';
-import { GetItemOutput } from '@alphax/dynamodb';
 import pLimit from 'p-limit';
 import { ClientUtils, DateUtils, Logger } from '@utils';
 import { ssm } from './clientUtils';
@@ -11,6 +10,7 @@ import { Environment, Consts } from '@consts';
 import { getImage } from './apis';
 import { Tables } from 'typings';
 import { QuestionService } from '@services';
+import { GetItemOutput } from '@alphax/dynamodb';
 
 // Sleep
 export const sleep = (timeout: number) => new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
@@ -79,7 +79,7 @@ export const getSSMValue = async (key: string) => {
 export const saveWithMP3 = async (word: string): Promise<string> => {
   const client = ClientUtils.polly();
 
-  const request: Polly.SynthesizeSpeechInput = {
+  const request: SynthesizeSpeechCommandInput = {
     Text: getOriginal(word),
     TextType: 'text',
     VoiceId: 'Joanna',
@@ -158,7 +158,7 @@ const getContentType = (extension: string = '') => {
 const createJapaneseVoice = async (text: string, groupId: string, s3Key?: string) => {
   const client = ClientUtils.polly();
 
-  const request: Polly.SynthesizeSpeechInput = {
+  const request: SynthesizeSpeechCommandInput = {
     Text: text,
     TextType: 'text',
     VoiceId: 'Takumi',

@@ -1,21 +1,21 @@
-import { DynamoDB } from 'aws-sdk';
+import { DeleteItemInput, GetItemInput, PutItemInput, QueryInput, UpdateInput } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 import { Tables } from 'typings';
 
 /** データ取得 */
-export const get = (key: Tables.TGroupsKey): DynamoDB.DocumentClient.GetItemInput => ({
+export const get = (key: Tables.TGroupsKey): GetItemInput => ({
   TableName: Environment.TABLE_NAME_GROUPS,
   Key: key,
 });
 
 /** データ登録 */
-export const put = (item: Tables.TGroups): DynamoDB.DocumentClient.PutItemInput => ({
+export const put = (item: Tables.TGroups): PutItemInput<Tables.TGroups> => ({
   TableName: Environment.TABLE_NAME_GROUPS,
   Item: item,
 });
 
 /** データ削除 */
-export const del = (key: Tables.TGroupsKey): DynamoDB.DocumentClient.DeleteItemInput => ({
+export const del = (key: Tables.TGroupsKey): DeleteItemInput => ({
   TableName: Environment.TABLE_NAME_GROUPS,
   Key: {
     id: key.id,
@@ -23,7 +23,7 @@ export const del = (key: Tables.TGroupsKey): DynamoDB.DocumentClient.DeleteItemI
 });
 
 /** 科目別学年別のグループ一覧 */
-export const byGrade = (subject: string, grade: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byGrade = (subject: string, grade: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_GROUPS,
   KeyConditionExpression: '#subject = :subject',
   FilterExpression: '#grade = :grade',
@@ -38,7 +38,7 @@ export const byGrade = (subject: string, grade: string): DynamoDB.DocumentClient
   IndexName: 'gsiIdx1',
 });
 
-export const plusCount = (key: Tables.TGroupsKey, count: number): DynamoDB.DocumentClient.UpdateItemInput => ({
+export const plusCount = (key: Tables.TGroupsKey, count: number): UpdateInput => ({
   TableName: Environment.TABLE_NAME_GROUPS,
   Key: key,
   UpdateExpression: 'set #count = #count + :nums',
@@ -50,7 +50,7 @@ export const plusCount = (key: Tables.TGroupsKey, count: number): DynamoDB.Docum
   },
 });
 
-export const minusCount = (key: Tables.TGroupsKey, count: number): DynamoDB.DocumentClient.Update => ({
+export const minusCount = (key: Tables.TGroupsKey, count: number): UpdateInput => ({
   TableName: Environment.TABLE_NAME_GROUPS,
   Key: key,
   UpdateExpression: 'set #count = #count - :nums',
