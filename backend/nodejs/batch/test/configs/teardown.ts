@@ -1,16 +1,19 @@
 require('dotenv').config({ path: '.env.test' });
 
-import AWS, { DynamoDB, S3 } from 'aws-sdk';
+import { DynamodbHelper } from '@alphax/dynamodb';
+import { S3, _Object } from '@aws-sdk/client-s3';
 
-AWS.config.update({
+const s3Client = new S3({
   region: process.env['AWS_REGION'],
-  s3: { endpoint: process.env['AWS_ENDPOINT'] },
-  sqs: { endpoint: process.env['AWS_ENDPOINT'] },
-  dynamodb: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] },
+  endpoint: process.env['AWS_ENDPOINT'],
 });
 
-const s3Client = new S3();
-const dbClient = new DynamoDB();
+const dbClient = new DynamodbHelper({
+  options: {
+    region: process.env['AWS_REGION'],
+    endpoint: process.env['AWS_ENDPOINT_DYNAMODB'],
+  },
+}).getClient();
 
 const TABLE_NAME_USERS = process.env['TABLE_NAME_USERS'] as string;
 const TABLE_NAME_GROUPS = process.env['TABLE_NAME_GROUPS'] as string;
@@ -32,35 +35,32 @@ const teardown = async () => {
 
   // remove all objects
   await Promise.all(
-    objects.map((item) => s3Client.deleteObject({ Bucket: BUCKET_NAME_MATERAILS, Key: item.Key as string }).promise())
+    objects.map((item) => s3Client.deleteObject({ Bucket: BUCKET_NAME_MATERAILS, Key: item.Key as string }))
   );
 
   // delete bucket
-  await s3Client.deleteBucket({ Bucket: BUCKET_NAME_MATERAILS }).promise();
+  await s3Client.deleteBucket({ Bucket: BUCKET_NAME_MATERAILS });
 
-  await dbClient.deleteTable({ TableName: TABLE_NAME_USERS }).promise();
-  await dbClient.deleteTable({ TableName: TABLE_NAME_GROUPS }).promise();
-  await dbClient.deleteTable({ TableName: TABLE_NAME_WORDS }).promise();
-  await dbClient.deleteTable({ TableName: TABLE_NAME_WORD_MASTER }).promise();
-  await dbClient.deleteTable({ TableName: TABLE_NAME_WORD_IGNORE }).promise();
-  await dbClient.deleteTable({ TableName: TABLE_NAME_QUESTIONS }).promise();
-  await dbClient.deleteTable({ TableName: TABLE_NAME_LEARNING }).promise();
-  await dbClient.deleteTable({ TableName: TABLE_NAME_TRACES }).promise();
-  await dbClient.deleteTable({ TableName: TABLE_NAME_CURRICULUMS }).promise();
-  await dbClient.deleteTable({ TableName: TABLE_NAME_INQUIRY }).promise();
+  await dbClient.deleteTable({ TableName: TABLE_NAME_USERS });
+  await dbClient.deleteTable({ TableName: TABLE_NAME_GROUPS });
+  await dbClient.deleteTable({ TableName: TABLE_NAME_WORDS });
+  await dbClient.deleteTable({ TableName: TABLE_NAME_WORD_MASTER });
+  await dbClient.deleteTable({ TableName: TABLE_NAME_WORD_IGNORE });
+  await dbClient.deleteTable({ TableName: TABLE_NAME_QUESTIONS });
+  await dbClient.deleteTable({ TableName: TABLE_NAME_LEARNING });
+  await dbClient.deleteTable({ TableName: TABLE_NAME_TRACES });
+  await dbClient.deleteTable({ TableName: TABLE_NAME_CURRICULUMS });
+  await dbClient.deleteTable({ TableName: TABLE_NAME_INQUIRY });
 
   console.log('jest teardown end...');
 };
 
-export const listObject = async (token?: string): Promise<S3.Object[]> => {
-  const results = await s3Client
-    .listObjectsV2({
-      Bucket: BUCKET_NAME_MATERAILS,
-      ContinuationToken: token,
-    })
-    .promise();
-
-  let contents: S3.ObjectList = [];
+export const listObject = async (token?: string): Promise<_Object[]> => {
+  const results = await s3Client.listObjectsV2({
+    Bucket: BUCKET_NAME_MATERAILS,
+    ContinuationToken: token,
+  });
+  let contents: _Object[] = [];
 
   if (results.Contents) {
     contents = results.Contents;

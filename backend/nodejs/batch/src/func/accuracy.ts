@@ -1,6 +1,6 @@
 import { SUBJECT } from '@src/utils/consts';
 import { DBHelper, Environments } from '@utils';
-import { Athena } from 'aws-sdk';
+import { Athena } from '@aws-sdk/client-athena';
 import moment from 'moment';
 import { AccuracyRow, Tables } from 'typings';
 
@@ -18,13 +18,10 @@ export default async () => {
   console.log('Athena start query...');
 
   // start query
-  const { QueryExecutionId } = await client
-    .startQueryExecution({
-      QueryString: query,
-      WorkGroup: Environments.ATHENA_WORKGROUP_NAME,
-    })
-    .promise();
-
+  const { QueryExecutionId } = await client.startQueryExecution({
+    QueryString: query,
+    WorkGroup: Environments.ATHENA_WORKGROUP_NAME,
+  });
   // validation
   if (!QueryExecutionId) throw new Error('Athena excution has errors.');
 
@@ -32,12 +29,9 @@ export default async () => {
   await waitForAthenaExecution(QueryExecutionId);
 
   // get query results
-  const results = await client
-    .getQueryResults({
-      QueryExecutionId: QueryExecutionId,
-    })
-    .promise();
-
+  const results = await client.getQueryResults({
+    QueryExecutionId: QueryExecutionId,
+  });
   const originRows = results.ResultSet?.Rows;
 
   // no results
@@ -140,12 +134,9 @@ GROUP BY DAILY.qid
 const waitForAthenaExecution = async (executionId: string) => {
   // wait for execution complete
   while (true) {
-    const execution = await client
-      .getQueryExecution({
-        QueryExecutionId: executionId,
-      })
-      .promise();
-
+    const execution = await client.getQueryExecution({
+      QueryExecutionId: executionId,
+    });
     // RUNNING or QUEUED
     if (execution.QueryExecution?.Status?.State === 'RUNNING' || execution.QueryExecution?.Status?.State === 'QUEUED') {
       console.info('Athena query waiting...');
