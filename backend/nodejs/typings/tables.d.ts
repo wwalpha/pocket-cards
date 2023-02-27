@@ -199,7 +199,7 @@ export namespace Tables {
     timestamp: string;
   }
 
-  interface TTraces {
+  interface TTraces extends TracesKey {
     // ユーザID
     userId?: string;
     // グループID
