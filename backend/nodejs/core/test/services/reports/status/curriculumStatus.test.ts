@@ -57,6 +57,7 @@ describe('Curriculums', () => {
       .post(apiPath)
       .send({
         curriculums: curriculums,
+        unlearned: '1',
       } as APIs.CurriculumStatusRequest);
 
     // status code
