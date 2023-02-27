@@ -196,7 +196,7 @@ export namespace Tables {
     // 問題ID
     qid: string;
     // Timestamp
-    timestamp: string;
+    timestamp?: string;
   }
 
   interface TTraces extends TracesKey {
