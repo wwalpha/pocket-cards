@@ -9,6 +9,7 @@ export const search =
         curriculums: curriculums,
         startDate: startDate,
         endDate: endDate,
+        unlearned: unlearned,
       })
     );
   };

@@ -192,9 +192,14 @@ export namespace Tables {
   // ------------------------------------------------------------
   // Traces
   // ------------------------------------------------------------
-  interface TTraces {
+  interface TracesKey {
     // 問題ID
     qid: string;
+    // Timestamp
+    timestamp: string;
+  }
+
+  interface TTraces {
     // ユーザID
     userId?: string;
     // グループID
@@ -207,8 +212,6 @@ export namespace Tables {
     timesAfter?: number;
     // 科目
     subject?: string;
-    // Timestamp
-    timestamp?: string;
   }
 
   // ------------------------------------------------------------
