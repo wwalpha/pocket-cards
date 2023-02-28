@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { UpdateInput } from '@alphax/dynamodb';
 import { Environments } from '../../consts';
 
 /** ユーザ情報を更新する */
@@ -15,4 +15,4 @@ export const userInfo = (id: string, studyQuery: string) =>
     ExpressionAttributeValues: {
       ':studyQuery': studyQuery,
     },
-  } as DynamoDB.DocumentClient.UpdateItemInput);
+  } as UpdateInput);

@@ -3,15 +3,13 @@ import server from '@src/app';
 import request from 'supertest';
 import * as COMMONS from '../../datas/commons';
 import * as CURRICULUMS from '../../datas/curriculums/list';
-
-import { HEADER_GUARDIAN, HEADER_USER } from '@test/Commons';
-import { DynamodbHelper } from '@alphax/dynamodb';
+import { DynamoDBClient, HEADER_GUARDIAN, HEADER_USER } from '@test/Commons';
 import { Environment } from '@consts';
 
 jest.mock('axios');
 jest.setTimeout(10000);
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
+const client = DynamoDBClient;
 const api = axios as jest.Mocked<AxiosStatic>;
 
 describe('Curriculums', () => {

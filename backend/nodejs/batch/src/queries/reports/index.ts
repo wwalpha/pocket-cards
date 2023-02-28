@@ -1,9 +1,9 @@
-import { DynamoDB } from 'aws-sdk';
+import { GetItemInput, PutItemInput } from '@alphax/dynamodb';
 import { Environments } from '@utils';
 import { Tables } from 'typings';
 
 /** データ取得 */
-export const get = (key: Tables.TReports): DynamoDB.DocumentClient.GetItemInput => ({
+export const get = (key: Tables.TReports): GetItemInput => ({
   TableName: Environments.TABLE_NAME_REPORTS,
   Key: key,
 });
@@ -13,4 +13,4 @@ export const put = (item: Tables.TReports) =>
   ({
     TableName: Environments.TABLE_NAME_REPORTS,
     Item: item,
-  } as DynamoDB.DocumentClient.PutItemInput);
+  } as PutItemInput<Tables.TReports>);

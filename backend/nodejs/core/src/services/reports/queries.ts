@@ -1,9 +1,9 @@
+import { GetItemInput, PutItemInput, QueryInput } from '@alphax/dynamodb';
 import { Consts, Environment } from '@consts';
-import { DynamoDB } from 'aws-sdk';
 import { Tables } from 'typings';
 
 /** データ取得 */
-export const get = (key: Tables.TReports): DynamoDB.DocumentClient.GetItemInput => ({
+export const get = (key: Tables.TReports): GetItemInput => ({
   TableName: Environment.TABLE_NAME_REPORTS,
   Key: key,
 });
@@ -13,7 +13,7 @@ export const put = (item: Tables.TReports) =>
   ({
     TableName: Environment.TABLE_NAME_REPORTS,
     Item: item,
-  } as DynamoDB.DocumentClient.PutItemInput);
+  } as PutItemInput<Tables.TReports>);
 
 /**
  * グループIDより、ユーザIDを検索する
@@ -29,4 +29,4 @@ export const byDailyProgress = (userId: string) =>
       ':userId': userId,
       ':typeDate': Consts.REPORT_TYPE.DAILY_PROGRESS,
     },
-  } as DynamoDB.DocumentClient.QueryInput);
+  } as QueryInput);
