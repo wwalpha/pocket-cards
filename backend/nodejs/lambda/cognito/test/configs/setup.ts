@@ -26,8 +26,8 @@ const setup = async () => {
   //     .createTopic({
   //       Name: 'arms-admin',
   //     })
-  //     .promise(),
-  //   s3Client.createBucket({ Bucket: process.env.S3_BUCKET as string }).promise(),
+  //     ,
+  //   s3Client.createBucket({ Bucket: process.env.S3_BUCKET as string }),
   //   sqsClient
   //     .createQueue({
   //       QueueName: process.env.SQS_QUEUE as string,
@@ -35,7 +35,7 @@ const setup = async () => {
   //         VisibilityTimeout: '0',
   //       },
   //     })
-  //     .promise(),
+  //     ,
   //   helper
   //     .getClient()
   //     .createTable({
@@ -51,7 +51,7 @@ const setup = async () => {
   //         { AttributeName: 'EventSource', AttributeType: 'S' },
   //       ],
   //     })
-  //     .promise(),
+  //     ,
   //   helper
   //     .getClient()
   //     .createTable({
@@ -89,7 +89,7 @@ const setup = async () => {
   //         },
   //       ],
   //     })
-  //     .promise(),
+  //     ,
   //   helper
   //     .getClient()
   //     .createTable({
@@ -105,7 +105,7 @@ const setup = async () => {
   //         { AttributeName: 'EventTime', AttributeType: 'S' },
   //       ],
   //     })
-  //     .promise(),
+  //     ,
   //   helper
   //     .getClient()
   //     .createTable({
@@ -115,7 +115,7 @@ const setup = async () => {
   //       KeySchema: [{ AttributeName: 'EventId', KeyType: 'HASH' }],
   //       AttributeDefinitions: [{ AttributeName: 'EventId', AttributeType: 'S' }],
   //     })
-  //     .promise(),
+  //     ,
   // ]);
 
   // await helper.bulk(TABLE_NAME_EVENT_TYPE, Events);
