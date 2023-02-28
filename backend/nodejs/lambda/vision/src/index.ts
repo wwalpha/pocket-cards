@@ -1,9 +1,10 @@
+import { DeleteObjectCommand, GetObjectCommand, S3 } from '@aws-sdk/client-s3';
+import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
 import Axios from 'axios';
 import { S3Handler } from 'aws-lambda';
-import { S3, SES } from 'aws-sdk';
 
-const client = new S3({ region: process.env.DEFAULT_REGION });
-const mail = new SES({ region: process.env.DEFAULT_REGION });
+const client = new S3({ region: process.env['AWS_REGION'] });
+const mail = new SESClient({ region: process.env['AWS_REGION'] });
 
 const VISION_API_URL = process.env.VISION_API_URL;
 const VISION_API_KEY = process.env.VISION_API_KEY;
@@ -14,15 +15,15 @@ export const handler: S3Handler = async (e) => {
   const bucket = e.Records[0].s3.bucket.name;
   const key = e.Records[0].s3.object.key;
 
-  const object = await client
-    .getObject({
+  const object = await client.send(
+    new GetObjectCommand({
       Bucket: bucket,
       Key: key,
     })
-    .promise();
+  );
 
   const res = await Axios.post(`${VISION_API_URL}/image2texts?key=${VISION_API_KEY}`, {
-    content: object.Body?.toString('base64'),
+    content: object.Body?.toString(),
   });
 
   const datas = res.data as string[];
@@ -35,8 +36,8 @@ export const handler: S3Handler = async (e) => {
     return chars.length !== filters.length;
   });
 
-  await mail
-    .sendEmail({
+  await mail.send(
+    new SendEmailCommand({
       Source: MASTER_EMAIL_ADDRESS,
       Destination: {
         ToAddresses: [TARGET_EMAIL_ADDRESS],
@@ -54,14 +55,14 @@ export const handler: S3Handler = async (e) => {
         },
       },
     })
-    .promise();
+  );
 
-  await client
-    .deleteObject({
+  await client.send(
+    new DeleteObjectCommand({
       Bucket: bucket,
       Key: key,
     })
-    .promise();
+  );
 };
 
 const japanese = [
