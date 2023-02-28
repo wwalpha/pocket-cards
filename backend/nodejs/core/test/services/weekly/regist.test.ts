@@ -4,11 +4,11 @@ import * as COMMONS from '../../datas/commons';
 import * as WEEKLY from '../../datas/weekly';
 import { LearningService } from '@services';
 import { Environment } from '@consts';
-import { HEADER_AUTH, HEADER_USER } from '@test/Commons';
-import { DynamodbHelper } from '@alphax/dynamodb';
+import { DynamoDBClient, HEADER_AUTH, HEADER_USER } from '@test/Commons';
+
 import { APIs } from 'typings';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
+const client = DynamoDBClient;
 
 describe('Weekly', () => {
   beforeAll(async () => {

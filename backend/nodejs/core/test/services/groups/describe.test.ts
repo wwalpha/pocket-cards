@@ -2,10 +2,10 @@ import server from '@src/app';
 import request from 'supertest';
 import * as COMMONS from '../../datas/commons';
 import * as GROUPS from '../../datas/groups/describe';
-import { DynamodbHelper } from '@alphax/dynamodb';
 import { Environment } from '@consts';
+import { DynamoDBClient } from '@test/Commons';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
+const client = DynamoDBClient;
 
 jest.setTimeout(10000);
 

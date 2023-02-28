@@ -2,15 +2,14 @@ import server from '@src/app';
 import request from 'supertest';
 import * as COMMONS from '../../datas/commons';
 import * as CURRICULUMS from '../../datas/curriculums/order';
-import { HEADER_GUARDIAN } from '@test/Commons';
-import { DynamodbHelper } from '@alphax/dynamodb';
+import { DynamoDBClient, HEADER_GUARDIAN } from '@test/Commons';
 import { Environment } from '@consts';
 import { APIs } from 'typings';
 import { CurriculumService } from '@services';
 
 jest.setTimeout(10000);
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
+const client = DynamoDBClient;
 
 describe('Curriculums', () => {
   beforeEach(async () => {
