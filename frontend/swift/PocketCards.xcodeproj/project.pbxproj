@@ -80,6 +80,12 @@
 		9A61EEA927E4684B002C73D0 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61EEA827E4684B002C73D0 /* TabBar.swift */; };
 		9A61EEB827E481C1002C73D0 /* incorrect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9A61EEB727E481C1002C73D0 /* incorrect.mp3 */; };
 		9A61EEBA27E481C8002C73D0 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9A61EEB927E481C8002C73D0 /* correct.mp3 */; };
+		9A67685F29AE03FD0062F3B4 /* OAuthAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A67685E29AE03FD0062F3B4 /* OAuthAuthenticator.swift */; };
+		9A67686029AE03FD0062F3B4 /* OAuthAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A67685E29AE03FD0062F3B4 /* OAuthAuthenticator.swift */; };
+		9A67686229AE04120062F3B4 /* OAuthCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A67686129AE04120062F3B4 /* OAuthCredential.swift */; };
+		9A67686329AE04120062F3B4 /* OAuthCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A67686129AE04120062F3B4 /* OAuthCredential.swift */; };
+		9A67686529AE098E0062F3B4 /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A67686429AE098E0062F3B4 /* AuthServices.swift */; };
+		9A67686629AE098E0062F3B4 /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A67686429AE098E0062F3B4 /* AuthServices.swift */; };
 		9A6E044D27DC28D6005D87EE /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */; };
 		9A6E044F27DC3682005D87EE /* CardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6E044E27DC3681005D87EE /* CardButton.swift */; };
 		9A7F876A27D747C800446E9D /* FlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7F876927D747C700446E9D /* FlashCard.swift */; };
@@ -320,6 +326,9 @@
 		9A61EEA827E4684B002C73D0 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		9A61EEB727E481C1002C73D0 /* incorrect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = incorrect.mp3; sourceTree = "<group>"; };
 		9A61EEB927E481C8002C73D0 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
+		9A67685E29AE03FD0062F3B4 /* OAuthAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthAuthenticator.swift; sourceTree = "<group>"; };
+		9A67686129AE04120062F3B4 /* OAuthCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthCredential.swift; sourceTree = "<group>"; };
+		9A67686429AE098E0062F3B4 /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
 		9A6E044C27DC28D6005D87EE /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 		9A6E044E27DC3681005D87EE /* CardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButton.swift; sourceTree = "<group>"; };
 		9A7F876927D747C700446E9D /* FlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCard.swift; sourceTree = "<group>"; };
@@ -451,6 +460,7 @@
 		9A1FD24B27D7369B0000A16B /* PocketCards */ = {
 			isa = PBXGroup;
 			children = (
+				9A67685D29AE03DE0062F3B4 /* Libraries */,
 				9A0C38EB29A05D1300B0DAAB /* Tests */,
 				9A61EEB627E481B5002C73D0 /* Resources */,
 				9A1FD27127D7394C0000A16B /* Components */,
@@ -600,6 +610,7 @@
 				9A9E57AE281C15940025C74F /* WeeklyServices.swift */,
 				9A3A56C128D95E4C001CC4B0 /* CommandService.swift */,
 				9A310F1728F3BE6900FB5305 /* Handwriting.swift */,
+				9A67686429AE098E0062F3B4 /* AuthServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -692,6 +703,15 @@
 				9A61EEB727E481C1002C73D0 /* incorrect.mp3 */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		9A67685D29AE03DE0062F3B4 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				9A67685E29AE03FD0062F3B4 /* OAuthAuthenticator.swift */,
+				9A67686129AE04120062F3B4 /* OAuthCredential.swift */,
+			);
+			path = Libraries;
 			sourceTree = "<group>";
 		};
 		9A9E574F28154BA20025C74F /* Test */ = {
@@ -1060,6 +1080,7 @@
 				9A5639A02814D86E006D6C96 /* UserServices.swift in Sources */,
 				9A1FD29327D7394C0000A16B /* ChoiceButton.swift in Sources */,
 				9A9E5765281554000025C74F /* WeeklyChoiceContract.swift in Sources */,
+				9A67686229AE04120062F3B4 /* OAuthCredential.swift in Sources */,
 				9A3F50C127EB2E3500D9A305 /* ReportServices.swift in Sources */,
 				9A9E5767281554000025C74F /* WeeklyChoicePresenter.swift in Sources */,
 				9A1FD26527D738CF0000A16B /* AppDelegate.swift in Sources */,
@@ -1068,6 +1089,7 @@
 				9A9E575D28154E210025C74F /* WeeklyTestViewModel.swift in Sources */,
 				9A9E5788281631D50025C74F /* Group.swift in Sources */,
 				9AB63BB028043AD60001F15C /* OverallTimesContract.swift in Sources */,
+				9A67686529AE098E0062F3B4 /* AuthServices.swift in Sources */,
 				9A9E577A281598860025C74F /* WeeklyRootInteractor.swift in Sources */,
 				9A1FD2A027D7394C0000A16B /* Consts.swift in Sources */,
 				9ACC362628D5F2C700B9EC46 /* MultiTestContract.swift in Sources */,
@@ -1138,6 +1160,7 @@
 				9A1FD24F27D7369B0000A16B /* ContentView.swift in Sources */,
 				9A7F876A27D747C800446E9D /* FlashCard.swift in Sources */,
 				9A7F877A27D8269600446E9D /* Environments.swift in Sources */,
+				9A67685F29AE03FD0062F3B4 /* OAuthAuthenticator.swift in Sources */,
 				9A2CE83A2925231C009BED11 /* DailyPracticeView.swift in Sources */,
 				9A7F876C27D7498600446E9D /* FlippingView.swift in Sources */,
 				9ACC362E28D5F2C700B9EC46 /* MultiTestViewModel.swift in Sources */,
@@ -1183,6 +1206,7 @@
 				9AF2ACA32814273300F80DB4 /* ChoiceButton.swift in Sources */,
 				9A9E5766281554000025C74F /* WeeklyChoiceContract.swift in Sources */,
 				9AF2ACA52814273300F80DB4 /* ReportServices.swift in Sources */,
+				9A67686329AE04120062F3B4 /* OAuthCredential.swift in Sources */,
 				9A9E5768281554000025C74F /* WeeklyChoicePresenter.swift in Sources */,
 				9AF2ACA62814273300F80DB4 /* AppDelegate.swift in Sources */,
 				9AF2ACA72814273300F80DB4 /* OverallTimesView.swift in Sources */,
@@ -1191,6 +1215,7 @@
 				9A9E575E28154E210025C74F /* WeeklyTestViewModel.swift in Sources */,
 				9A9E5789281631D50025C74F /* Group.swift in Sources */,
 				9AF2ACAA2814273300F80DB4 /* OverallTimesContract.swift in Sources */,
+				9A67686629AE098E0062F3B4 /* AuthServices.swift in Sources */,
 				9A9E577B281598860025C74F /* WeeklyRootInteractor.swift in Sources */,
 				9AF2ACAB2814273300F80DB4 /* Consts.swift in Sources */,
 				9AF2ACAC2814273300F80DB4 /* Alamofire.swift in Sources */,
@@ -1261,6 +1286,7 @@
 				9AF2ACCA2814273300F80DB4 /* FlashCard.swift in Sources */,
 				9AF2ACCB2814273300F80DB4 /* Environments.swift in Sources */,
 				9A2CE83B2925231C009BED11 /* DailyPracticeView.swift in Sources */,
+				9A67686029AE03FD0062F3B4 /* OAuthAuthenticator.swift in Sources */,
 				9AF2ACCD2814273300F80DB4 /* FlippingView.swift in Sources */,
 				9AF2ACCF2814273300F80DB4 /* OverallChart.swift in Sources */,
 				9AF2ACD12814273300F80DB4 /* Overalls.swift in Sources */,

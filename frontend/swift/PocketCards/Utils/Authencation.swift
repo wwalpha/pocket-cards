@@ -147,7 +147,7 @@ class Authentication: ObservableObject {
                 guard let res = response.value else { return }
 
                 // save token
-                TokenManager.shared.updateToken(idToken: res.idToken)
+                TokenManager.shared.updateIdToken(idToken: res.idToken)
                 self.isSignedIn = true
             }
     }

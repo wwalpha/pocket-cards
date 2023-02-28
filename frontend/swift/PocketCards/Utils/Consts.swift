@@ -7,7 +7,7 @@
 
 import Foundation
 
-let APP_VERSION = "v0.9.11"
+let APP_VERSION = "v0.9.20"
 
 enum URLs {
     private static let HOST = API_URL
@@ -44,6 +44,8 @@ enum URLs {
     static let REPORTS_OVERALL = "\(HOST)/v1/reports/overall"
     static let REPORTS_DAILY_STATUS = "\(HOST)/v1/reports/status/daily"
     static let REPORTS_INQUIRY = "\(HOST)/v1/inquiries"
+
+    static let REFRESH_TOKEN = "\(HOST)/v1/auth/refresh"
 
     static func QUESTION_LIST(groupId: String) -> String {
         "\(HOST)/v1/groups/\(groupId)/questions"
