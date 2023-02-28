@@ -3,14 +3,14 @@ import request from 'supertest';
 import * as COMMONS from '../../../datas/commons';
 import * as REPORTS from '../../../datas/reports/dailytest';
 
-import { HEADER_GUARDIAN } from '@test/Commons';
-import { DynamodbHelper } from '@alphax/dynamodb';
+import { DynamoDBClient, HEADER_GUARDIAN } from '@test/Commons';
+
 import { Environment } from '@consts';
 import { APIs } from '../../../../../typings';
 
 jest.setTimeout(10000);
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
+const client = DynamoDBClient;
 
 describe('Reports', () => {
   beforeAll(async () => {
