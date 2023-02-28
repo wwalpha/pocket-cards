@@ -1,5 +1,5 @@
-import { DynamoDB } from 'aws-sdk';
 import { Environments } from '@consts';
+import { QueryInput } from '@alphax/dynamodb';
 
 /** グループ一覧を取得する */
 export const byUserId = (userId: string): QueryInput => ({

@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { QueryInput } from '@alphax/dynamodb';
 import { Environments } from '../../consts';
 
 export const byTeacher = (userId: string): QueryInput => ({

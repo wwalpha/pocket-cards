@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { DeleteItemInput, GetItemInput, PutItemInput } from '@alphax/dynamodb';
 import { Environments } from '@consts';
 import { Tables } from 'typings';
 import * as query from './query';
@@ -10,7 +10,7 @@ export const get = (key: Tables.TCurriculumsKey): GetItemInput => ({
 });
 
 /** データ登録 */
-export const put = (item: Tables.TCurriculums): PutItemInput => ({
+export const put = (item: Tables.TCurriculums): PutItemInput<Tables.TCurriculums> => ({
   TableName: Environments.TABLE_NAME_CURRICULUMS,
   Item: item,
 });

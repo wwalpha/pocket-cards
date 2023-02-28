@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { DeleteItemInput, GetItemInput, PutItemInput } from '@alphax/dynamodb';
 import { Environments } from '@consts';
 import { Tables } from 'typings';
 import * as query from './query';
@@ -11,7 +11,7 @@ export const get = (key: Tables.TGroupsKey): GetItemInput => ({
 });
 
 /** データ登録 */
-export const put = (item: Tables.TGroups): PutItemInput => ({
+export const put = (item: Tables.TGroups): PutItemInput<Tables.TGroups> => ({
   TableName: Environments.TABLE_NAME_GROUPS,
   Item: item,
 });

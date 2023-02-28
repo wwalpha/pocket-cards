@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { QueryInput } from '@alphax/dynamodb';
 import { Environments } from '@consts';
 
 /** カリキュラム一覧を取得する */
