@@ -12,7 +12,19 @@ let API: Session = {
     let configuration = URLSessionConfiguration.af.default
     configuration.timeoutIntervalForRequest = 30
 
-    return Session(configuration: configuration, interceptor: RequestInterceptor())
+    // Generally load from keychain if it exists
+    let credential = OAuthCredential(accessToken: TokenManager.shared.getAccessToken(),
+                                     idToken: TokenManager.shared.getIdToken(),
+                                     refreshToken: TokenManager.shared.getRefreshToken(),
+                                     userID: "U0",
+                                     expiration: Date(timeIntervalSinceNow: 60 * 60))
+
+    // Create the interceptor
+    let authenticator = OAuthAuthenticator()
+
+    let authInterceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
+
+    return Session(configuration: configuration, interceptor: authInterceptor)
 }()
 
 // Mark

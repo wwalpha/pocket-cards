@@ -17,13 +17,13 @@ class TokenManager {
         accessToken = tokens.accessToken
         idToken = tokens.idToken
         refreshToken = tokens.refreshToken
-
-        print(idToken)
     }
 
-    func renewToken() {}
+    func updateAccessToken(accessToken: String) {
+        self.accessToken = accessToken
+    }
 
-    func updateToken(idToken: String) {
+    func updateIdToken(idToken: String) {
         self.idToken = idToken
     }
 
@@ -39,5 +39,9 @@ class TokenManager {
 
     func getAccessToken() -> String {
         accessToken
+    }
+
+    func getRefreshToken() -> String {
+        refreshToken
     }
 }
