@@ -57,9 +57,10 @@ locals {
   # ----------------------------------------------------------------------------------------------
   # Lambda
   # ----------------------------------------------------------------------------------------------
-  lambda_handler          = "index.handler"
-  lambda_runtime          = "nodejs18.x"
-  lambda_basic_policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  lambda_handler           = "index.handler"
+  lambda_runtime_nodejs_16 = "nodejs16.x"
+  lambda_runtime_nodejs_18 = "nodejs18.x"
+  lambda_basic_policy_arn  = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 
   # ----------------------------------------------------------------------------------------------
   # DynamoDB
