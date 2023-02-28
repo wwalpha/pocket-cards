@@ -9,7 +9,7 @@
     "postbuild": "cd dist && yarn install --production && zip -rq ../dist.zip ."
   },
   "dependencies": {
-    "@aws-sdk/client-apigatewaymanagementapi": "^3.279.0"
+    "aws-sdk": "^2.1324.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.103",
