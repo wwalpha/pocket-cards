@@ -34,6 +34,7 @@
   "dependencies": {
     "@alphax/dynamodb": "^1.2.6",
     "@aws-sdk/client-cognito-identity-provider": "^3.279.0",
+    "@aws-sdk/client-ses": "^3.279.0",
     "axios": "^0.26.1",
     "body-parser": "^1.19.0",
     "express": "^4.17.3",
