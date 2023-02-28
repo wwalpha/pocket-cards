@@ -38,9 +38,11 @@ export const polly = (options?: PollyClientConfig): Polly => {
   // 初期化設定あり
   if (options) return new Polly(options);
 
-  return new Polly({
+  pollyClient = new Polly({
     region: process.env['DEFAULT_REGION'],
   });
+
+  return pollyClient;
 };
 
 /** S3 Client初期化 */
@@ -52,10 +54,12 @@ export const s3 = (options?: S3ClientConfig): S3 => {
   if (options) return new S3(options);
 
   // 初期化設定なし
-  return new S3({
+  s3Client = new S3({
     region: process.env['DEFAULT_REGION'],
     endpoint: process.env['AWS_ENDPOINT'],
   });
+
+  return s3Client;
 };
 
 /** Translate初期化 */

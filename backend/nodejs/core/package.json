@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@alphax/dynamodb": "^1.2.6",
+    "@aws-sdk/abort-controller": "^3.272.0",
     "@aws-sdk/client-dynamodb": "^3.276.0",
     "@aws-sdk/client-lambda": "^3.276.0",
     "@aws-sdk/client-polly": "^3.276.0",
@@ -44,6 +45,7 @@
     "@aws-sdk/client-ssm": "^3.276.0",
     "@aws-sdk/client-timestream-write": "^3.276.0",
     "@aws-sdk/client-translate": "^3.276.0",
+    "@aws-sdk/lib-storage": "^3.279.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.2",
     "express": "^4.17.3",
