@@ -16,7 +16,6 @@ export const DynamoDBClient = new DynamodbHelper({
   logger: {
     levels: winston.config.syslog.levels,
     transports: [
-      new winston.transports.Console({ level: 'error' }),
       new winston.transports.File({ filename: path.join(__dirname, '../test_error.log'), level: 'error' }),
       new winston.transports.File({ filename: path.join(__dirname, '../test_info.log'), level: 'info' }),
       new winston.transports.File({ filename: path.join(__dirname, '../test_debug.log'), level: 'debug' }),

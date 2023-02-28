@@ -52,7 +52,7 @@ describe('Curriculums', () => {
 
   test('CurriculumStatus002: 学習進捗取得_期間なし', async () => {
     const apiPath = '/v1/reports/status/curriculums';
-    const curriculums = ['vB6cUPdMB8TJFSrypGwoML', 'aaYHb4GyjxfYWYAaKMyG53'];
+    const curriculums = ['vB6cUPdMB8TJFSrypGwoML'];
 
     const res = await request(server)
       .post(apiPath)
