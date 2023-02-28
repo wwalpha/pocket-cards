@@ -1,8 +1,8 @@
-import { DynamoDB } from 'aws-sdk';
+import { QueryInput } from '@alphax/dynamodb';
 import { Environments } from '@consts';
 
 /** カリキュラム一覧を取得する */
-export const byGuardian = (guardian: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byGuardian = (guardian: string): QueryInput => ({
   TableName: Environments.TABLE_NAME_CURRICULUMS,
   KeyConditionExpression: '#guardian = :guardian',
   ExpressionAttributeNames: {
@@ -15,7 +15,7 @@ export const byGuardian = (guardian: string): DynamoDB.DocumentClient.QueryInput
 });
 
 /** カリキュラム一覧を取得する */
-export const byGroupId = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byGroupId = (groupId: string): QueryInput => ({
   TableName: Environments.TABLE_NAME_CURRICULUMS,
   KeyConditionExpression: '#groupId = :groupId',
   ExpressionAttributeNames: {

@@ -1,13 +1,13 @@
 import { DynamodbHelper } from '@alphax/dynamodb';
-import { AWSError, CognitoIdentityServiceProvider, Request, Response, HttpRequest, Endpoint } from 'aws-sdk';
-import { mocked } from 'jest-mock';
+import { CognitoIdentityProviderClient, ListUsersCommand } from '@aws-sdk/client-cognito-identity-provider';
+import { mockClient } from 'aws-sdk-client-mock';
 import { Users as UserQuery } from '../src/queries';
 import request from 'supertest';
 import { Users } from 'typings';
 import Server from '../src/server';
-import { mockedAdminCreateUser } from './mockUtils';
 
 const client = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
+const cognitoMock = mockClient(CognitoIdentityProviderClient);
 
 describe('user manager', () => {
   test('get /users/health', async () => {
@@ -21,15 +21,13 @@ describe('user manager', () => {
   });
 
   test.skip('get /v1/users/admins', async () => {
-    mocked(CognitoIdentityServiceProvider).prototype.listUsers = jest.fn().mockImplementationOnce(() => ({
-      promise: () =>
-        Promise.resolve({
-          Users: [
-            { Attributes: [{ Name: 'name', Value: 'test001@test.com' }] },
-            { Attributes: [{ Name: 'name', Value: 'test002@test.com' }] },
-          ],
-        }),
-    }));
+    cognitoMock.reset();
+    cognitoMock.on(ListUsersCommand).resolves({
+      Users: [
+        { Attributes: [{ Name: 'name', Value: 'test001@test.com' }] },
+        { Attributes: [{ Name: 'name', Value: 'test002@test.com' }] },
+      ],
+    });
 
     const response = await request(Server).get('/v1/users/admins');
 
@@ -40,36 +38,15 @@ describe('user manager', () => {
   });
 
   test.skip('Create student success', async () => {
-    // mockedAdminCreateUser('test001');
-    // mocked(CognitoIdentityServiceProvider).prototype.adminCreateUser = jest.fn().mockImplementationOnce(() => ({
-    //   promise: (): Promise<CognitoIdentityServiceProvider.Types.UserType> =>
-    //     Promise.resolve({
-    //       Enabled: true,
-    //       UserStatus: 'TTT',
-    //       Username: username,
-    //     }),
-    // }));
-
-    CognitoIdentityServiceProvider.prototype.adminCreateUser = jest.fn().mockReturnValueOnce({
-      promise: () => {
-        console.log(1111111);
-        return jest.fn().mockResolvedValueOnce({
-          User: {
-            Enabled: true,
-            UserStatus: 'TTT',
-            Username: 'aaaa',
-          },
-        });
+    cognitoMock.reset();
+    cognitoMock.onAnyCommand().resolves({
+      User: {
+        Enabled: true,
+        UserStatus: 'TTT',
+        Username: 'aaaa',
       },
     });
 
-    //   promise: (): Promise<CognitoIdentityServiceProvider.Types.UserType> =>
-    //     Promise.resolve({
-    //       Enabled: true,
-    //       UserStatus: 'TTT',
-    //       Username: username,
-    //     }),
-    // }));
     const results = await client.scan({ TableName: 'pkc-settings' });
 
     console.log(results);

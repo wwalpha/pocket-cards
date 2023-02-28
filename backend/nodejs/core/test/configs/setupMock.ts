@@ -2,7 +2,7 @@ import winston, { format } from 'winston';
 import * as path from 'path';
 
 const logger = winston.createLogger({
-  level: 'debug',
+  levels: winston.config.syslog.levels,
   format: format.json(),
   transports: [
     new winston.transports.File({ filename: path.join(__dirname, '../../test_error.log'), level: 'error' }),

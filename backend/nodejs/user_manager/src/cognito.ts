@@ -1,4 +1,11 @@
-import { CognitoIdentityServiceProvider } from 'aws-sdk';
+import {
+  AdminCreateUserCommand,
+  AdminDeleteUserCommand,
+  AdminSetUserPasswordCommand,
+  AttributeType,
+  CognitoIdentityProviderClient,
+  ListUsersCommand,
+} from '@aws-sdk/client-cognito-identity-provider';
 import express from 'express';
 import { decode } from 'jsonwebtoken';
 import { DynamodbHelper } from '@alphax/dynamodb';
@@ -8,7 +15,7 @@ import { Environments, Authority } from './consts';
 
 const helper = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
 // init service provider
-const provider = new CognitoIdentityServiceProvider();
+const provider = new CognitoIdentityProviderClient({ region: process.env['AWS_REGION'] });
 
 /**
  * Lookup a user's pool data in the user table
@@ -95,7 +102,7 @@ const decodeToken = (token?: string) => {
  *
  */
 export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers) => {
-  const attributes: CognitoIdentityServiceProvider.AttributeListType = [
+  const attributes: AttributeType[] = [
     { Name: 'name', Value: user.username },
     { Name: 'custom:role', Value: user.role },
   ];
@@ -112,8 +119,8 @@ export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers)
   const username = user.authority === Authority.STUDENT ? user.username : (user.email as string);
 
   // create new user
-  const result = await provider
-    .adminCreateUser({
+  const result = await provider.send(
+    new AdminCreateUserCommand({
       MessageAction: action,
       UserPoolId: userPoolId,
       Username: username,
@@ -121,7 +128,7 @@ export const createCognitoUser = async (userPoolId: string, user: Tables.TUsers)
       ForceAliasCreation: true,
       UserAttributes: attributes,
     })
-    .promise();
+  );
 
   const cognitoUser = result.User;
 
@@ -143,16 +150,16 @@ export const getUsers = async (userPoolId: string) => {
  * @returns
  */
 const listUsers = async (
-  provider: CognitoIdentityServiceProvider,
+  provider: CognitoIdentityProviderClient,
   userPoolId: string,
   token?: string
 ): Promise<string[]> => {
-  const result = await provider
-    .listUsers({
+  const result = await provider.send(
+    new ListUsersCommand({
       UserPoolId: userPoolId,
       PaginationToken: token,
     })
-    .promise();
+  );
 
   // validation
   if (!result.Users) return [];
@@ -175,22 +182,22 @@ const listUsers = async (
 
 /** force change password */
 export const adminSetUserPassword = async (UserPoolId: string, Username: string, Password: string) => {
-  await provider
-    .adminSetUserPassword({
+  await provider.send(
+    new AdminSetUserPasswordCommand({
       UserPoolId,
       Username,
       Password,
       Permanent: true,
     })
-    .promise();
+  );
 };
 
 /** remove cognito user */
 export const adminDeleteUser = async (UserPoolId: string, Username: string) => {
-  await provider
-    .adminDeleteUser({
+  await provider.send(
+    new AdminDeleteUserCommand({
       UserPoolId,
       Username,
     })
-    .promise();
+  );
 };

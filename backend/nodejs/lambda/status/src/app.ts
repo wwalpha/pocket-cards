@@ -1,19 +1,18 @@
-import { ECS, EC2, ApiGatewayV2 } from 'aws-sdk';
+import { DescribeTasksCommand, ECSClient, ListTasksCommand } from '@aws-sdk/client-ecs';
 
 const CLUSTER_ARN = process.env.CLUSTER_ARN;
-const API_ID = process.env.API_ID;
-const INTEGRATION_ID = process.env.INTEGRATION_ID;
 
 export default async () => {
-  const ecs = new ECS();
-  const ec2 = new EC2();
+  const ecs = new ECSClient({
+    region: process.env['AWS_REGION'],
+  });
 
   // list tasks
-  const tasks = await ecs
-    .listTasks({
+  const tasks = await ecs.send(
+    new ListTasksCommand({
       cluster: CLUSTER_ARN,
     })
-    .promise();
+  );
 
   // list numbers check
   if (!tasks.taskArns || tasks.taskArns.length === 0) {
@@ -22,12 +21,12 @@ export default async () => {
     };
   }
 
-  const details = await ecs
-    .describeTasks({
+  const details = await ecs.send(
+    new DescribeTasksCommand({
       cluster: CLUSTER_ARN,
       tasks: tasks.taskArns,
     })
-    .promise();
+  );
 
   if (!details.tasks || details.tasks.length === 0) {
     return {
@@ -40,42 +39,4 @@ export default async () => {
   return {
     status: task.lastStatus,
   };
-
-  // if (task.lastStatus !== 'RUNNING') {
-  //   return {
-  //     status: task.lastStatus,
-  //   };
-  // }
-
-  // // find eni infomation
-  // const enis = task.attachments.map((item) => {
-  //   const f = item.details.find((i) => i.name === 'networkInterfaceId');
-
-  //   return f.value;
-  // });
-
-  // // get eni details
-  // const eniDetails = await ec2
-  //   .describeNetworkInterfaces({
-  //     NetworkInterfaceIds: enis,
-  //   })
-  //   .promise();
-
-  // // get public ip
-  // const publicIp = eniDetails.NetworkInterfaces[0].Association.PublicIp;
-
-  // const api = new ApiGatewayV2();
-
-  // // update integration target ip
-  // await api
-  //   .updateIntegration({
-  //     ApiId: API_ID,
-  //     IntegrationId: INTEGRATION_ID,
-  //     IntegrationUri: `http://${publicIp}/{proxy}`,
-  //   })
-  //   .promise();
-
-  // return {
-  //   status: task.lastStatus,
-  // };
 };

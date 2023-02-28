@@ -1,10 +1,10 @@
-import { DynamoDB } from 'aws-sdk';
+import { QueryInput } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 
 /**
  * 日付ごとの単語量を計算する
  */
-export const queryByDate = (groupId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
+export const queryByDate = (groupId: string, nextTime: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   ProjectionExpression: 'word',
   KeyConditionExpression: '#id = :id and #nextTime = :nextTime',
@@ -22,7 +22,7 @@ export const queryByDate = (groupId: string, nextTime: string): DynamoDB.Documen
   IndexName: 'lsiIdx1',
 });
 
-export const queryByGroupId02 = (groupId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
+export const queryByGroupId02 = (groupId: string, nextTime: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   ProjectionExpression: 'word',
   KeyConditionExpression: '#id = :id and #nextTime = :nextTime',
@@ -41,7 +41,7 @@ export const queryByGroupId02 = (groupId: string, nextTime: string): DynamoDB.Do
 });
 
 /** 最後の学習日を取得する */
-export const lastStudyDate = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
+export const lastStudyDate = (groupId: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   IndexName: 'lsiIdx2',
   ProjectionExpression: 'lastTime',
@@ -57,7 +57,7 @@ export const lastStudyDate = (groupId: string): DynamoDB.DocumentClient.QueryInp
 });
 
 /** 単語一覧 */
-export const listByGroup = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
+export const listByGroup = (groupId: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   KeyConditionExpression: '#groupId = :groupId',
   ExpressionAttributeNames: {
@@ -71,7 +71,7 @@ export const listByGroup = (groupId: string): DynamoDB.DocumentClient.QueryInput
 });
 
 /** 単語一覧 */
-export const listByWord = (id: string): DynamoDB.DocumentClient.QueryInput => ({
+export const listByWord = (id: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   KeyConditionExpression: '#id = :id',
   ExpressionAttributeNames: {
@@ -88,7 +88,7 @@ export const listByWord = (id: string): DynamoDB.DocumentClient.QueryInput => ({
  *
  * 対象： Times = 1, NextTime = now
  */
-export const review = (groupId: string): DynamoDB.DocumentClient.QueryInput => ({
+export const review = (groupId: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   ProjectionExpression: 'id, groupId, nextTime, times',
   // KeyConditionExpression: '#id = :id and begins_with(#nextTime, :nextTime)',
@@ -110,7 +110,7 @@ export const review = (groupId: string): DynamoDB.DocumentClient.QueryInput => (
  * テスト単語対象一覧を取得する
  * 対象： Times > 0, NextTime <= now
  */
-export const test = (groupId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
+export const test = (groupId: string, nextTime: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   ProjectionExpression: 'id, groupId, lastTime, nextTime, times',
   KeyConditionExpression: '#groupId = :groupId and #nextTime <= :nextTime',
@@ -134,7 +134,7 @@ export const test = (groupId: string, nextTime: string): DynamoDB.DocumentClient
  *
  * 対象：Times = 0, NextTime <= now, NextTime DESC
  */
-export const news = (groupId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
+export const news = (groupId: string, nextTime: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   ProjectionExpression: 'id, groupId, nextTime, lastTime, times',
   KeyConditionExpression: '#groupId = :groupId and #nextTime <= :nextTime',

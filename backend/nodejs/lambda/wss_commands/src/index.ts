@@ -1,12 +1,17 @@
+import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
 import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
 } from 'aws-lambda';
-import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
+
 import { Tables } from 'typings';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
-const client = new DynamoDB.DocumentClient();
+const AWS_REGION = process.env.AWS_REGION as string;
+
+const client = new DynamoDB.DocumentClient({
+  region: process.env.AWS_DEFAULT_REGION,
+});
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
@@ -16,11 +21,33 @@ export const handler = async (
     return { statusCode: 400 };
   }
 
-  const { connectionId, domainName, authorizer } = event.requestContext;
+  const { connectionId, domainName, authorizer, stage } = event.requestContext;
   const request = JSON.parse(event.body) as RequestBody;
-  const apigateway = new ApiGatewayManagementApi({ endpoint: domainName });
+
+  // sdk v3
+  // const apigateway = new ApiGatewayManagementApiClient({
+  //   region: AWS_REGION,
+  //   endpoint: `wss://${domainName}/${stage}`,
+  // });
+
+  const apigateway = new ApiGatewayManagementApi({
+    region: AWS_REGION,
+    endpoint: domainName,
+  });
 
   const connections = await getConnections(authorizer.principalId, connectionId);
+
+  // sdk v3
+  // await Promise.all(
+  //   connections.map((item) => {
+  //     const cmd = new {
+  //       ConnectionId: item.connId,
+  //       Data: Buffer.from(JSON.stringify(request)),
+  //     }();
+
+  //     return apigateway.send(cmd);
+  //   })
+  // );
 
   await Promise.all(
     connections.map((item) =>

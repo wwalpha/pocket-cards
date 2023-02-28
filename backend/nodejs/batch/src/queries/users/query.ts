@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { QueryInput } from '@alphax/dynamodb';
 import { Environments } from '@utils';
 
 /**
@@ -18,4 +18,4 @@ export const getTeachers = (userId: string, timestamp: string) =>
       ':timestamp': timestamp,
     },
     IndexName: 'gsiIdx1',
-  } as DynamoDB.DocumentClient.QueryInput);
+  } as QueryInput);

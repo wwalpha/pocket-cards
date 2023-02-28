@@ -1,13 +1,13 @@
 import express from 'express';
 import { defaultTo } from 'lodash';
 import { DynamodbHelper } from '@alphax/dynamodb';
-import { CognitoIdentityServiceProvider } from 'aws-sdk';
+import { AdminInitiateAuthCommand, CognitoIdentityProviderClient } from '@aws-sdk/client-cognito-identity-provider';
 import { AuthenticationDetails, CognitoUser, CognitoUserPool, CognitoUserSession } from 'amazon-cognito-identity-js';
 import { authenticateUser, decodeAccessToken, isAuthenticateFailure, Logger, lookupUser } from './utils';
 import { Auth } from 'typings';
 
 const helper = new DynamodbHelper({ options: { endpoint: process.env.AWS_ENDPOINT } });
-const cognito = new CognitoIdentityServiceProvider({ endpoint: process.env.AWS_ENDPOINT });
+const cognito = new CognitoIdentityProviderClient({ endpoint: process.env.AWS_ENDPOINT });
 
 // health check
 export const healthCheck = () => {
@@ -125,16 +125,16 @@ export const refreshToken = async (
     throw new Error('Refresh token failed. iss is invalidate');
   }
 
-  const results = await cognito
-    .adminInitiateAuth({
-      AuthFlow: 'REFRESH_TOKEN_AUTH',
-      AuthParameters: {
-        REFRESH_TOKEN: refreshToken,
-      },
-      ClientId: clientId,
-      UserPoolId: userPoolId,
-    })
-    .promise();
+  const command = new AdminInitiateAuthCommand({
+    AuthFlow: 'REFRESH_TOKEN_AUTH',
+    AuthParameters: {
+      REFRESH_TOKEN: refreshToken,
+    },
+    ClientId: clientId,
+    UserPoolId: userPoolId,
+  });
+
+  const results = await cognito.send(command);
 
   const authenticationResult = results.AuthenticationResult;
 

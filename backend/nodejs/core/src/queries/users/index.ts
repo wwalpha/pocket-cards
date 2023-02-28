@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { GetItemInput, PutItemInput } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 import { Tables } from 'typings';
 import * as update from './update';
@@ -10,13 +10,13 @@ export const get = (id: string) =>
     Key: {
       id,
     },
-  } as DynamoDB.DocumentClient.GetItemInput);
+  } as GetItemInput);
 
 /** データ更新 */
 export const put = (item: Tables.TUsers) =>
   ({
     TableName: Environment.TABLE_NAME_USERS,
     Item: item,
-  } as DynamoDB.DocumentClient.PutItemInput);
+  } as PutItemInput<Tables.TUsers>);
 
 export { update };

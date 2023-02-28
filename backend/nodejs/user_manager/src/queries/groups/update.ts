@@ -1,8 +1,8 @@
+import { UpdateInput } from '@alphax/dynamodb';
 import { Environments } from '@consts';
-import { DynamoDB } from 'aws-sdk';
 import { Tables } from 'typings';
 
-export const addCount = (key: Tables.TGroupsKey, count: number): DynamoDB.DocumentClient.UpdateItemInput => ({
+export const addCount = (key: Tables.TGroupsKey, count: number): UpdateInput => ({
   TableName: Environments.TABLE_NAME_GROUPS,
   Key: key,
   UpdateExpression: 'set #count = #count + :nums',
@@ -14,7 +14,7 @@ export const addCount = (key: Tables.TGroupsKey, count: number): DynamoDB.Docume
   },
 });
 
-export const minusCount = (key: Tables.TGroupsKey, count: number): DynamoDB.DocumentClient.Update => ({
+export const minusCount = (key: Tables.TGroupsKey, count: number): UpdateInput => ({
   TableName: Environments.TABLE_NAME_GROUPS,
   Key: key,
   UpdateExpression: 'set #count = #count - :nums',

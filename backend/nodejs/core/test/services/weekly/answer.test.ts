@@ -1,13 +1,13 @@
 import server from '@src/app';
 import request from 'supertest';
-import { DynamodbHelper } from '@alphax/dynamodb';
+
 import * as COMMONS from '../../datas/commons';
 import * as WEEKLY from '../../datas/weekly';
 import { Environment } from '@consts';
-import { HEADER_USER } from '@test/Commons';
+import { DynamoDBClient, HEADER_USER } from '@test/Commons';
 import { LearningService } from '@services';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
+const client = DynamoDBClient;
 
 describe('Weekly', () => {
   beforeAll(async () => {

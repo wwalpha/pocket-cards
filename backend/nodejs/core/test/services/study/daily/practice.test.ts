@@ -3,11 +3,10 @@ import server from '@src/app';
 import request from 'supertest';
 import * as COMMONS from '../../../datas/commons';
 import * as QUESTIONS from '../../../datas/questions/study';
-import { HEADER_AUTH, HEADER_USER, HEADER_USER2 } from '@test/Commons';
-import { DynamodbHelper } from '@alphax/dynamodb';
+import { HEADER_AUTH, HEADER_USER, HEADER_USER2, DynamoDBClient } from '@test/Commons';
 import { Environment } from '@consts';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
+const client = DynamoDBClient;
 const api = axios as jest.Mocked<AxiosStatic>;
 
 jest.mock('axios');
@@ -34,16 +33,13 @@ describe('Questions', () => {
 
   test('Practice01: デリー学習一覧_未学習のみ', async () => {
     api.get.mockImplementationOnce(() => Promise.resolve({ status: 200, data: COMMONS.USER_STUDENT }));
-
     const apiPath = '/v1/study/daily/practice';
-
     const res = await request(server)
       .post(apiPath)
       .send({
         subject: '2',
       })
       .set('username', HEADER_USER);
-
     // status code
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(QUESTIONS.STUDY001_EXPECT_LEARNING);
