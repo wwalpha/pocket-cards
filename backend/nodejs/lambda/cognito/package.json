@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@alphax/dynamodb": "^1.1.2",
+    "@alphax/dynamodb": "^1.2.6",
     "aws-sdk": "^2.966.0"
   },
   "devDependencies": {

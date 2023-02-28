@@ -151,15 +151,12 @@ const buildAuthPolicy = (
 
 const getUserInfo = async (userId: string): Promise<Tables.TUsers | undefined> => {
   // get user role from db
-  const result = await client
-    .get({
-      TableName: Environments.TABLE_NAME_USERS,
-      Key: {
-        id: userId,
-      } as Tables.TUsersKey,
-    })
-    .promise();
-
+  const result = await client.get({
+    TableName: Environments.TABLE_NAME_USERS,
+    Key: {
+      id: userId,
+    } as Tables.TUsersKey,
+  }).promise();
   const userInfo = result.Item;
 
   if (!userInfo) return undefined;
