@@ -9,10 +9,7 @@
     "postbuild": "cd dist && yarn install --production && zip -rq ../dist.zip ."
   },
   "dependencies": {
-    "@aws-sdk/client-apigatewaymanagementapi": "^3.279.0",
-    "@aws-sdk/client-dynamodb": "^3.279.0",
-    "@aws-sdk/lib-dynamodb": "^3.279.0",
-    "@aws-sdk/smithy-client": "^3.279.0"
+    "aws-sdk": "^2.1324.0"
   },
   "devDependencies": {
     "@aws-sdk/types": "^3.272.0",

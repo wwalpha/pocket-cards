@@ -1,27 +1,19 @@
-import { DynamoDB } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
-import {
-  ApiGatewayManagementApiClient,
-  PostToConnectionCommand,
-  GoneException,
-} from '@aws-sdk/client-apigatewaymanagementapi';
+import { ApiGatewayManagementApi, AWSError, DynamoDB, Lambda } from 'aws-sdk';
 import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
 } from 'aws-lambda';
 import { Tables, WSSConnectionEvent } from 'typings';
-import { LambdaClient, InvokeCommand } from '@aws-sdk/client-lambda';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
 const FUNCTION_NAME = process.env.FUNCTION_NAME as string;
 const AWS_REGION = process.env.AWS_REGION as string;
 
-const client = DynamoDBDocument.from(
-  new DynamoDB({
-    region: AWS_REGION,
-  })
-);
-const lambda = new LambdaClient({
+const client = new DynamoDB.DocumentClient({
+  region: AWS_REGION,
+});
+
+const lambda = new Lambda({
   region: AWS_REGION,
 });
 
@@ -30,9 +22,15 @@ export const handler = async (
 ): Promise<any> => {
   const { connectionId, domainName, stage } = event.requestContext;
   const { principalId, guardian } = event.requestContext.authorizer;
-  const apigateway = new ApiGatewayManagementApiClient({
+
+  // sdk v3
+  // const apigateway = new ApiGatewayManagementApiClient({
+  //   region: AWS_REGION,
+  //   endpoint: `https://${domainName}/${stage}`,
+  // });
+  const apigateway = new ApiGatewayManagementApi({
     region: AWS_REGION,
-    endpoint: `wss://${domainName}/${stage}/`,
+    endpoint: domainName,
   });
 
   let statusCode = 200;
@@ -44,52 +42,76 @@ export const handler = async (
     connections = await getConnections(guardian);
 
     // update self connection id
-    await client.put({
-      TableName: TABLE_NAME_CONNECTIONS,
-      Item: {
-        guardian: guardian,
-        userId: principalId,
-        connId: connectionId,
-      } as Tables.TWSSConnections,
-    });
+    await client
+      .put({
+        TableName: TABLE_NAME_CONNECTIONS,
+        Item: {
+          guardian: guardian,
+          userId: principalId,
+          connId: connectionId,
+        } as Tables.TWSSConnections,
+      })
+      .promise();
 
     // 一括実行
     await Promise.all(
       connections.map((item) => {
-        const cmd = new PostToConnectionCommand({
-          ConnectionId: item.connId,
-          Data: Buffer.from(
-            JSON.stringify({
-              ON_LINE: principalId,
-            })
-          ),
-        });
+        // sdk v3
+        // const cmd = new PostToConnectionCommand({
+        //   ConnectionId: item.connId,
+        //   Data: Buffer.from(
+        //     JSON.stringify({
+        //       ON_LINE: principalId,
+        //     })
+        //   ),
+        // });
+        // return apigateway.send(cmd);
 
-        return apigateway.send(cmd);
+        return apigateway
+          .postToConnection({
+            ConnectionId: item.connId,
+            Data: JSON.stringify({
+              ON_LINE: principalId,
+            }),
+          })
+          .promise();
       })
     );
 
     // 保護者且つ、対象者すでにログインの場合
     if (principalId === guardian && connections.length > 0) {
-      const cmd = new InvokeCommand({
-        FunctionName: FUNCTION_NAME,
-        InvocationType: 'Event',
-        Payload: Buffer.from(
-          JSON.stringify({
+      // sdk v3
+      // const cmd = new InvokeCommand({
+      //   FunctionName: FUNCTION_NAME,
+      //   InvocationType: 'Event',
+      //   Payload: Buffer.from(
+      //     JSON.stringify({
+      //       connectionId: connectionId,
+      //       domainName: domainName,
+      //       principalId: connections[0].userId,
+      //       stage: stage,
+      //     } as WSSConnectionEvent)
+      //   ),
+      // });
+      // await lambda.send(cmd);
+      await lambda
+        .invoke({
+          FunctionName: FUNCTION_NAME,
+          InvocationType: 'Event',
+          Payload: JSON.stringify({
             connectionId: connectionId,
             domainName: domainName,
             principalId: connections[0].userId,
             stage: stage,
-          } as WSSConnectionEvent)
-        ),
-      });
-
-      await lambda.send(cmd);
+          } as WSSConnectionEvent),
+        })
+        .promise();
     }
   } catch (err) {
     console.log(err);
+    const error = err as AWSError;
 
-    if (err instanceof GoneException) {
+    if (error.code === 'GoneException') {
       await clearConnections(connections);
     }
 
@@ -102,16 +124,19 @@ export const handler = async (
 };
 
 const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]> => {
-  const results = await client.query({
-    TableName: TABLE_NAME_CONNECTIONS,
-    KeyConditionExpression: '#guardian = :guardian',
-    ExpressionAttributeNames: {
-      '#guardian': 'guardian',
-    },
-    ExpressionAttributeValues: {
-      ':guardian': userId,
-    },
-  });
+  const results = await client
+    .query({
+      TableName: TABLE_NAME_CONNECTIONS,
+      KeyConditionExpression: '#guardian = :guardian',
+      ExpressionAttributeNames: {
+        '#guardian': 'guardian',
+      },
+      ExpressionAttributeValues: {
+        ':guardian': userId,
+      },
+    })
+    .promise();
+
   if (!results.Items) {
     return [];
   }
