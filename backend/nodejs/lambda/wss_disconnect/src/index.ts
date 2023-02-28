@@ -8,14 +8,23 @@ import {
 import { Tables } from 'typings';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
-const client = DynamoDBDocument.from(new DynamoDB({}));
+const AWS_REGION = process.env.AWS_REGION as string;
+
+const client = DynamoDBDocument.from(
+  new DynamoDB({
+    region: AWS_REGION,
+  })
+);
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
 ): Promise<any> => {
-  const { connectionId, domainName } = event.requestContext;
+  const { connectionId, domainName, stage } = event.requestContext;
   const { principalId, guardian } = event.requestContext.authorizer;
-  const apigateway = new ApiGatewayManagementApiClient({ endpoint: domainName });
+  const apigateway = new ApiGatewayManagementApiClient({
+    region: AWS_REGION,
+    endpoint: `wss://${domainName}/${stage}/`,
+  });
 
   let statusCode = 200;
   const connections = await getConnections(guardian, connectionId);

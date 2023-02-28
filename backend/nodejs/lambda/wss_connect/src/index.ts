@@ -14,22 +14,26 @@ import { LambdaClient, InvokeCommand } from '@aws-sdk/client-lambda';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
 const FUNCTION_NAME = process.env.FUNCTION_NAME as string;
+const AWS_REGION = process.env.AWS_REGION as string;
 
 const client = DynamoDBDocument.from(
   new DynamoDB({
-    region: process.env.AWS_DEFAULT_REGION,
+    region: AWS_REGION,
   })
 );
 const lambda = new LambdaClient({
-  region: process.env.AWS_DEFAULT_REGION,
+  region: AWS_REGION,
 });
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
 ): Promise<any> => {
-  const { connectionId, domainName } = event.requestContext;
+  const { connectionId, domainName, stage } = event.requestContext;
   const { principalId, guardian } = event.requestContext.authorizer;
-  const apigateway = new ApiGatewayManagementApiClient({ endpoint: domainName });
+  const apigateway = new ApiGatewayManagementApiClient({
+    region: AWS_REGION,
+    endpoint: `wss://${domainName}/${stage}/`,
+  });
 
   let statusCode = 200;
 
@@ -75,6 +79,7 @@ export const handler = async (
             connectionId: connectionId,
             domainName: domainName,
             principalId: connections[0].userId,
+            stage: stage,
           } as WSSConnectionEvent)
         ),
       });

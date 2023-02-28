@@ -8,6 +8,7 @@ import {
 import { Tables } from 'typings';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
+const AWS_REGION = process.env.AWS_REGION as string;
 
 const client = DynamoDBDocument.from(
   new DynamoDB({
@@ -23,9 +24,12 @@ export const handler = async (
     return { statusCode: 400 };
   }
 
-  const { connectionId, domainName, authorizer } = event.requestContext;
+  const { connectionId, domainName, authorizer, stage } = event.requestContext;
   const request = JSON.parse(event.body) as RequestBody;
-  const apigateway = new ApiGatewayManagementApiClient({ endpoint: domainName });
+  const apigateway = new ApiGatewayManagementApiClient({
+    region: AWS_REGION,
+    endpoint: `wss://${domainName}/${stage}/`,
+  });
 
   const connections = await getConnections(authorizer.principalId, connectionId);
 
