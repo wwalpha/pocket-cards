@@ -1,12 +1,13 @@
-import { AWSError, SES } from 'aws-sdk';
 import express from 'express';
 import { Authority } from '@consts';
 import { createCognitoUser } from '@cognito';
 import { DBHelper, getSettings, Logger } from '@utils';
 import { Users as UserQueries } from '@queries';
 import { Tables, Users } from 'typings';
+import { UsernameExistsException } from '@aws-sdk/client-cognito-identity-provider';
+import { SES, VerifyEmailAddressCommand } from '@aws-sdk/client-ses';
 
-const sesClient = new SES();
+const sesClient = new SES({});
 
 /**
  * Create a new user
@@ -36,9 +37,11 @@ export const CreateUser = async (
     const newUser = await createCognitoUser(userPoolId, tenantUser);
 
     // send verify address email
-    await sesClient.verifyEmailAddress({
-      EmailAddress: email,
-    });
+    await sesClient.send(
+      new VerifyEmailAddressCommand({
+        EmailAddress: email,
+      })
+    );
 
     // set sub
     if (newUser.Attributes) {
@@ -53,15 +56,12 @@ export const CreateUser = async (
       userId: tenantUser.email,
     };
   } catch (err) {
-    // log
-    const error = err as AWSError;
-
-    Logger.error(error.message);
+    Logger.error((err as unknown as any).message);
     let message = 'Unknown Error.';
 
     // user exists
-    if (error.code === 'UsernameExistsException') {
-      message = error.message;
+    if (err instanceof UsernameExistsException) {
+      message = (err as UsernameExistsException).message;
     }
 
     return {

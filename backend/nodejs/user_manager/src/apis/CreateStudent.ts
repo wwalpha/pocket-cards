@@ -1,10 +1,10 @@
-import { AWSError } from 'aws-sdk';
 import express from 'express';
 import { Authority } from '@consts';
 import { adminDeleteUser, adminSetUserPassword, createCognitoUser } from '@cognito';
 import { DBHelper, getSettings, getUserId, Logger } from '@utils';
 import { Users as UserQueries } from '@queries';
 import { Tables, Users } from 'typings';
+import { InvalidPasswordException } from '@aws-sdk/client-cognito-identity-provider';
 
 export const CreateStudent = async (
   req: express.Request<any, any, Users.CreateStudentRequest>
@@ -41,15 +41,13 @@ export const CreateStudent = async (
     // success
     return { success: 'true' };
   } catch (err) {
-    const error = err as AWSError;
-
-    if (error.code === 'InvalidPasswordException') {
+    if (err instanceof InvalidPasswordException) {
       await adminDeleteUser(userPoolId, username);
 
       // failure
       return { success: 'false' };
     }
 
-    throw error;
+    throw err;
   }
 };
