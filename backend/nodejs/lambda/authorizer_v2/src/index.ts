@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import { DynamoDB } from '@aws-sdk/client-dynamodb';
 import { APIGatewayAuthorizerResult, APIGatewayRequestAuthorizerEventV2 } from 'aws-lambda';
 import { JwtPayload } from 'jsonwebtoken';
 import winston from 'winston';
@@ -7,6 +7,7 @@ import { decodeToken, getPublicKeys, validateToken } from './utils';
 import { Environments } from './consts';
 import { ApiOptions, AuthPolicy } from './AuthPolicy';
 import { Tables } from 'typings';
+import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
 
 const PEM_KEYS: Record<string, Record<string, string>> = {};
 const API_KEYS: string[] = [];
@@ -16,9 +17,11 @@ const Logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-const client = new DynamoDB.DocumentClient({
-  region: process.env.AWS_DEFAULT_REGION,
-});
+const client = DynamoDBDocument.from(
+  new DynamoDB({
+    region: process.env.AWS_DEFAULT_REGION,
+  })
+);
 
 export const handler = async (event: APIGatewayRequestAuthorizerEventV2): Promise<APIGatewayAuthorizerResult> => {
   Logger.info('event', omit(event, ['identitySource', 'headers.authorization']));
@@ -156,7 +159,8 @@ const getUserInfo = async (userId: string): Promise<Tables.TUsers | undefined> =
     Key: {
       id: userId,
     } as Tables.TUsersKey,
-  }).promise();
+  });
+
   const userInfo = result.Item;
 
   if (!userInfo) return undefined;
