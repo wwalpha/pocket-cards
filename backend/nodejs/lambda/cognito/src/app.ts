@@ -1,8 +1,8 @@
-import { DynamoDB } from 'aws-sdk';
+import { DynamodbHelper, PutItemInput } from '@alphax/dynamodb';
 import { PostConfirmationConfirmSignUpTriggerEvent } from 'aws-lambda';
 import { Tables } from 'typings';
 
-const client = new DynamoDB.DocumentClient();
+const client = new DynamodbHelper({});
 
 export default async (e: PostConfirmationConfirmSignUpTriggerEvent) => {
   console.log(e);
@@ -34,4 +34,4 @@ const put = (item: Tables.TUsers) =>
     TableName: process.env.TABLE_USERS as string,
     Item: item,
     ConditionExpression: 'attribute_not_exists(id)',
-  } as PutItemInput);
+  } as PutItemInput<Tables.TUsers>);
