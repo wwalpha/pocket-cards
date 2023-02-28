@@ -1,4 +1,6 @@
-import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
+import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
+import { DynamoDB } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
 import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
@@ -6,39 +8,39 @@ import {
 import { Tables } from 'typings';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
-const client = new DynamoDB.DocumentClient();
+const client = DynamoDBDocument.from(new DynamoDB({}));
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
 ): Promise<any> => {
   const { connectionId, domainName } = event.requestContext;
   const { principalId, guardian } = event.requestContext.authorizer;
-  const apigateway = new ApiGatewayManagementApi({ endpoint: domainName });
+  const apigateway = new ApiGatewayManagementApiClient({ endpoint: domainName });
 
   let statusCode = 200;
   const connections = await getConnections(guardian, connectionId);
 
   try {
-    await client
-      .delete({
-        TableName: TABLE_NAME_CONNECTIONS,
-        Key: {
-          guardian: guardian,
-          userId: principalId,
-        } as Tables.TWSSConnectionsKey,
-      })
-      .promise();
+    await client.delete({
+      TableName: TABLE_NAME_CONNECTIONS,
+      Key: {
+        guardian: guardian,
+        userId: principalId,
+      } as Tables.TWSSConnectionsKey,
+    });
 
     await Promise.all(
       connections.map((item) =>
-        apigateway
-          .postToConnection({
+        apigateway.send(
+          new PostToConnectionCommand({
             ConnectionId: item.connId,
-            Data: JSON.stringify({
-              OFF_LINE: principalId,
-            }),
+            Data: Buffer.from(
+              JSON.stringify({
+                OFF_LINE: principalId,
+              })
+            ),
           })
-          .promise()
+        )
       )
     );
   } catch (err) {
@@ -51,18 +53,16 @@ export const handler = async (
 };
 
 const getConnections = async (userId: string, connectionId: string): Promise<Tables.TWSSConnections[]> => {
-  const results = await client
-    .query({
-      TableName: TABLE_NAME_CONNECTIONS,
-      KeyConditionExpression: '#guardian = :guardian',
-      ExpressionAttributeNames: {
-        '#guardian': 'guardian',
-      },
-      ExpressionAttributeValues: {
-        ':guardian': userId,
-      },
-    })
-    .promise();
+  const results = await client.query({
+    TableName: TABLE_NAME_CONNECTIONS,
+    KeyConditionExpression: '#guardian = :guardian',
+    ExpressionAttributeNames: {
+      '#guardian': 'guardian',
+    },
+    ExpressionAttributeValues: {
+      ':guardian': userId,
+    },
+  });
 
   if (!results.Items) {
     return [];
