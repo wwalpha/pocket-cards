@@ -2,8 +2,7 @@ import { push } from 'connected-react-router';
 import { Consts, ROUTE_PATHS, URLs } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
-import { showSuccess } from './app';
-import { APIs, AppDispatch, Group, QuestionUpdateParameter } from 'typings';
+import { APIs, AppDispatch, Group, QuestionTransferParameter, QuestionUpdateParameter } from 'typings';
 
 /** グループリスト */
 export const list = () => async (dispatch: AppDispatch) => {
@@ -77,6 +76,11 @@ export const transitToGroupRegist = (subject: string) => (dispatch: AppDispatch)
 /** 問題集更新 */
 export const questionUpdate = (param: QuestionUpdateParameter) => (dispatch: AppDispatch) => {
   dispatch(Actions.GROUP_QUESTION_UPDATE(param));
+};
+
+/** 問題集更新 */
+export const questionTransfer = (param: QuestionTransferParameter) => (dispatch: AppDispatch) => {
+  dispatch(Actions.GROUP_QUESTION_TRANSFER(param));
 };
 
 /** 質問リスト */

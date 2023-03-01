@@ -6,6 +6,7 @@ import {
   GROUP_QUESTION_DELETE,
   GROUP_QUESTION_IGNORE,
   GROUP_QUESTION_LIST,
+  GROUP_QUESTION_TRANSFER,
   GROUP_QUESTION_UPDATE,
   GROUP_REMOVE,
 } from './groupActions';
@@ -99,6 +100,9 @@ const slice = createSlice({
         state.questions = state.questions.filter((item) => item.id !== payload);
       })
       .addCase(GROUP_QUESTION_IGNORE.fulfilled, (state, { payload }) => {
+        state.questions = state.questions.filter((item) => item.id !== payload);
+      })
+      .addCase(GROUP_QUESTION_TRANSFER.fulfilled, (state, { payload }) => {
         state.questions = state.questions.filter((item) => item.id !== payload);
       });
   },

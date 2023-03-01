@@ -462,6 +462,20 @@ export namespace APIs {
   type QuestionIgnoreResponse = void;
 
   // ------------------------------------------------------------
+  // Question Transfer
+  // ------------------------------------------------------------
+  interface QuestionTransferParams {
+    groupId: string;
+    questionId: string;
+  }
+
+  interface QuestionTransferRequest {
+    newGroupId: string;
+  }
+
+  type QuestionTransferResponse = void;
+
+  // ------------------------------------------------------------
   // Curriculum Ignore
   // ------------------------------------------------------------
   interface CurriculumIgnoreParams {

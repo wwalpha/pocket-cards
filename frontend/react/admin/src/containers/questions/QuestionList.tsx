@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { QuestionTable } from '@components/questions';
 import { GroupActions } from '@actions';
 import { Consts } from '@constants';
-import { QuestionForm, QuestionParams, RootState } from 'typings';
+import { QuestionForm, QuestionParams, QuestionTransferForm, RootState } from 'typings';
 import { useParams } from 'react-router';
 
 const groupState = (state: RootState) => state.group;
@@ -31,6 +31,14 @@ export default () => {
     }
   };
 
+  const handleTransfer = (datas: QuestionTransferForm) => {
+    actions.questionTransfer({
+      groupId: datas.groupId,
+      questionId: datas.id,
+      newGroupId: datas.newGroupId,
+    });
+  };
+
   const handleDelete = (index: number) => {
     const q = questions[index];
 
@@ -47,8 +55,10 @@ export default () => {
     <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       <QuestionTable
         datas={questions}
+        groups={groups}
         loading={isLoading}
         onSubmit={authority === Consts.Authority.ADMIN ? handleSubmit : undefined}
+        onTransfer={authority === Consts.Authority.ADMIN ? handleTransfer : undefined}
         onDelete={authority === Consts.Authority.ADMIN ? handleDelete : undefined}
         onIgnore={authority === Consts.Authority.ADMIN && subject === Consts.SUBJECT.ENGLISH ? handleIgnore : undefined}
       />
