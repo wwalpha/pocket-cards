@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { URLs } from '@constants';
 import { RootState } from '@store';
 import { API } from '@utils';
-import { Tables, APIs, QuestionUpdateParameter } from 'typings';
+import { Tables, APIs, QuestionUpdateParameter, QuestionTransferParameter } from 'typings';
 import omit from 'lodash/omit';
 
 export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST', async () => {
@@ -88,6 +88,25 @@ export const GROUP_QUESTION_UPDATE = createAsyncThunk<APIs.QuestionUpdateRespons
       URLs.QUESTION_UPDATE(groupId, questionId),
       req
     );
+  }
+);
+
+/** Question Transfer */
+export const GROUP_QUESTION_TRANSFER = createAsyncThunk<string, QuestionTransferParameter>(
+  'group/GROUP_QUESTION_TRANSFER',
+  async (params) => {
+    // request parameter
+    const { newGroupId, groupId, questionId } = params;
+
+    // 質問更新
+    await API.post<APIs.QuestionTransferResponse, APIs.QuestionTransferRequest>(
+      URLs.QUESTION_TRANSFER(groupId, questionId),
+      {
+        newGroupId: newGroupId,
+      }
+    );
+
+    return questionId;
   }
 );
 
