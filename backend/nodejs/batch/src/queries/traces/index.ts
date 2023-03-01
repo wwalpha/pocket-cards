@@ -4,7 +4,7 @@ import { Tables } from 'typings';
 export * as query from './query';
 
 /** データ取得 */
-export const get = (key: Tables.TracesKey): GetItemInput => ({
+export const get = (key: Tables.TTracesKey): GetItemInput => ({
   TableName: Environments.TABLE_NAME_TRACES,
   Key: key,
 });
