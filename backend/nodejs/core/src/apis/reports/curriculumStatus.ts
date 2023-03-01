@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { APIs, Tables } from 'typings';
 import { AccuracyService, CurriculumService, LearningService, QuestionService } from '@services';
 import { ValidationError } from '@utils';
+import pLimit from 'p-limit';
 
 export default async (
   req: Request<void, any, APIs.CurriculumStatusRequest, any>
@@ -12,6 +13,8 @@ export default async (
   if (!curriculums || curriculums.length === 0) {
     throw new ValidationError('Curriculum was not found.');
   }
+
+  const limit = pLimit(10);
 
   const tasks = curriculums.map<Promise<Tables.TLearning[]>>(async (curriculumId) => {
     const cInfo = await CurriculumService.describe(curriculumId);
@@ -40,23 +43,22 @@ export default async (
 
     // 問題の詳細情報を検索する
     const questions = await Promise.all(
-      learnings.map(async (item) => {
-        const r = await Promise.all([
-          QuestionService.describe(item.qid),
-          AccuracyService.describe({
-            qid: item.qid,
-            uid: cInfo.userId,
-          }),
-        ]);
+      learnings.map((item) =>
+        limit(async () => {
+          const [question, rate] = await Promise.all([
+            QuestionService.describe(item.qid),
+            AccuracyService.describe({
+              qid: item.qid,
+              uid: cInfo.userId,
+            }),
+          ]);
 
-        const question = r[0];
-        const rate = r[1];
-
-        return {
-          ...question,
-          accuracy: rate?.accuracy,
-        };
-      })
+          return {
+            ...question,
+            accuracy: rate?.accuracy,
+          };
+        })
+      )
     );
 
     return learnings.map<APIs.CurriculumStatusResponseItem>((item) => {
