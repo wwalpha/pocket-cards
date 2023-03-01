@@ -15,9 +15,11 @@ export default async (req: Request<any, any, APIs.HandwritingRequest, any>): Pro
     Key: `${Consts.PATH_PUBLIC}/${key}`,
   });
 
+  const content = await object.Body?.transformToString('base64');
+
   // convert image to texts
   const res = await Axios.post(`${Environment.VISION_API_URL}/image2texts?key=${Environment.VISION_API_KEY}`, {
-    content: object.Body?.toString(),
+    content: content,
   });
 
   const results = Array.isArray(res.data) ? res.data : [];

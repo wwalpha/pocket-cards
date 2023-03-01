@@ -192,14 +192,14 @@ export namespace Tables {
   // ------------------------------------------------------------
   // Traces
   // ------------------------------------------------------------
-  interface TracesKey {
+  interface TTracesKey {
     // 問題ID
     qid: string;
     // Timestamp
     timestamp?: string;
   }
 
-  interface TTraces extends TracesKey {
+  interface TTraces extends TTracesKey {
     // ユーザID
     userId?: string;
     // グループID
