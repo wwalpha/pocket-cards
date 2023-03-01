@@ -46,6 +46,14 @@ export interface QuestionForm {
   groupId: string;
 }
 
+export interface QuestionTransferForm {
+  id: string;
+  title: string;
+  groupId: string;
+  groupName?: string;
+  newGroupId: string;
+}
+
 export interface AbilityForm {
   student: string;
   subject: string;

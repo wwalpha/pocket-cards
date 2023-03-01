@@ -59,3 +59,9 @@ export const Commands = {
 };
 
 export const MSG_001 = '登録成功しました';
+
+export const DIALOG_STATUS = {
+  CLOSE: '0',
+  EDIT: '1',
+  TRANSFER: '2',
+};
