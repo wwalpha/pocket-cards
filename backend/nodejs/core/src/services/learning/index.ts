@@ -21,7 +21,7 @@ export const update = async (item: Tables.TLearning): Promise<void> => {
 
   // if exists
   if (!result) {
-    throw new Error(`Leaning task not exists. ${item.qid}`);
+    throw new Error(`Learning task not exists. ${item.qid}`);
   }
 
   await DBHelper().put(

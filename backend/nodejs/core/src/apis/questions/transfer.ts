@@ -14,7 +14,7 @@ export default async (
   const qInfo = await validate(req);
 
   const [learnings, traces, oldCurrculums, newCurrculumns] = await Promise.all([
-    LearningService.listByQuestion(qInfo.id, 'qid, userId, lastTime'),
+    LearningService.listByQuestion(qInfo.id, 'qid, userId, groupId, lastTime'),
     TraceService.listByQuestion(qInfo.id),
     CurriculumService.listByGroup(groupId),
     CurriculumService.listByGroup(newGroupId),
@@ -35,28 +35,71 @@ export default async (
   // 旧グループ問題数ー１
   tasks.push(GroupService.minusCount(groupId, 1));
 
-  // 学習グループID変更
-  learnings.forEach((item) => {
-    // 未学習の場合
-    if (item.lastTime === Consts.INITIAL_DATE) {
-      // 旧カリキュラムの未学習数更新
-      oldCurrculums.forEach((item) => {
-        tasks.push(CurriculumService.updateUnlearned(item.id, -1));
-      });
+  // 旧カリキュラムで考える、不要な学習タスクを削除する
+  oldCurrculums.forEach((o) => {
+    const finded = newCurrculumns.find((n) => o.userId === n.userId);
 
-      // 新カリキュラムの未学習数更新
-      newCurrculumns.forEach((item) => {
-        tasks.push(CurriculumService.updateUnlearned(item.id, 1));
-      });
+    // 両方学習中の場合、アカウントを更新
+    if (finded) {
+      // 旧カリキュラム学習中の問題はグループIDのみ更新
+      const usrLearning = learnings.filter((item) => item.groupId === o.groupId && item.userId === o.userId);
+      const count = usrLearning.filter((item) => item.lastTime === Consts.INITIAL_DATE).length;
+
+      // 旧カリキュラムの未学習数更新
+      if (count > 0) {
+        // 旧カリキュラムの未学習数更新
+        tasks.push(CurriculumService.updateUnlearned(o.id, -1));
+        // 新カリキュラムの未学習数更新
+        tasks.push(CurriculumService.updateUnlearned(finded.id, 1));
+      }
+
+      usrLearning.forEach((item) =>
+        tasks.push(
+          LearningService.update({
+            ...item,
+            groupId: newGroupId,
+          })
+        )
+      );
+    } else {
+      // 新カリキュラムは学習中ではない場合は、学習進捗を削除する
+      const usrLearning = learnings.filter((item) => item.groupId === o.groupId && item.userId === o.userId);
+
+      const count = usrLearning.filter((item) => item.lastTime === Consts.INITIAL_DATE).length;
+
+      // 旧カリキュラムの未学習数更新
+      if (count > 0) {
+        tasks.push(CurriculumService.updateUnlearned(o.id, -1 * count));
+      }
+
+      usrLearning.forEach((item) => tasks.push(LearningService.remove(item.qid, item.userId)));
+    }
+  });
+
+  // 新カリキュラムで考える、不足な学習タスクを追加する
+  newCurrculumns.forEach((n) => {
+    const finded = oldCurrculums.find((o) => n.userId === o.userId);
+
+    // 既に処理済み
+    if (finded) {
+      return;
     }
 
-    // 学習進捗の変更
+    // 新カリキュラムにしかないので、新タスクを追加する
     tasks.push(
-      LearningService.update({
-        ...item,
-        groupId: newGroupId,
+      LearningService.regist({
+        qid: qInfo.id,
+        userId: n.userId,
+        groupId: n.groupId,
+        subject: qInfo.subject,
+        lastTime: Consts.INITIAL_DATE,
+        nextTime: Consts.INITIAL_DATE,
+        times: -1,
       })
     );
+
+    // 新カリキュラムの未学習数更新
+    tasks.push(CurriculumService.updateUnlearned(n.id, 1));
   });
 
   // 履歴の変更
