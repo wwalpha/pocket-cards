@@ -318,9 +318,9 @@ export const byGroupIdWithProjections = (groupId: string, projections: string, u
   return query;
 };
 
-export const byQuestionId = (questionId: string): QueryInput => ({
+export const byQuestionId = (questionId: string, projection: string = 'qid, userId'): QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid, userId',
+  ProjectionExpression: projection,
   KeyConditionExpression: '#qid = :qid',
   ExpressionAttributeNames: {
     '#qid': 'qid',

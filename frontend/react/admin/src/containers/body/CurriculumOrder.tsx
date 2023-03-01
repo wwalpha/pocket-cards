@@ -148,7 +148,12 @@ export default () => {
                     {(provided, snapshot) => {
                       const row = groups.find((g) => g.id === item.groupId);
                       return (
-                        <ListItem ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <ListItem
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          sx={{ py: 0 }}
+                        >
                           <ListItemIcon>
                             <BookIcon sx={{ color: color }} />
                           </ListItemIcon>

@@ -123,3 +123,5 @@ interface ScreenInfo {
 type QuestionUpdateParameter = APIs.QuestionUpdateParams & APIs.QuestionUpdateRequest;
 
 type CurriculumOrderUpdate = APIs.CurriculumOrderRequest & { curriculumId: string };
+
+type QuestionTransferParameter = APIs.QuestionTransferParams & APIs.QuestionTransferRequest;

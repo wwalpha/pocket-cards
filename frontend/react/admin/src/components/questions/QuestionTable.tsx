@@ -14,11 +14,14 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ConfirmDialog from '@components/dialogs/ConfirmDialog';
 import { LoadingIconButton } from '@components/buttons';
 import QuestionDetails from './QuestionDetails';
-import { Group, QuestionForm } from 'typings';
+import QuestionTransfer from './QuestionTransfer';
+import { Group, QuestionForm, QuestionTransferForm, Tables } from 'typings';
+import { Consts } from '@constants';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -44,8 +47,16 @@ const styles = {
   iconCell: { display: 'flex' },
 };
 
-const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onDelete, onIgnore }) => {
-  const [open, setOpen] = React.useState(false);
+const table: FunctionComponent<QuestionTable> = ({
+  datas,
+  groups,
+  loading,
+  onSubmit,
+  onDelete,
+  onIgnore,
+  onTransfer,
+}) => {
+  const [open, setOpen] = React.useState(Consts.DIALOG_STATUS.CLOSE);
   const [deleteFlag, setDeleteFlag] = React.useState(false);
   const [ignoreFlag, setIgnoreFlag] = React.useState(false);
   const [index, setIndex] = React.useState(-1);
@@ -54,7 +65,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
 
   /** popup close */
   const handleClose = () => {
-    setOpen(false);
+    setOpen(Consts.DIALOG_STATUS.CLOSE);
     setDeleteFlag(false);
     setIgnoreFlag(false);
   };
@@ -62,7 +73,7 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
   /** edit open */
   const handleEditClick = (index: number) => {
     setIndex(page * rowsPerPage + index);
-    setOpen(true);
+    setOpen(Consts.DIALOG_STATUS.EDIT);
   };
 
   /** delete button click */
@@ -77,20 +88,30 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
     setIgnoreFlag(true);
   };
 
+  const handleTransferClick = (index: number) => {
+    setIndex(page * rowsPerPage + index);
+    setOpen(Consts.DIALOG_STATUS.TRANSFER);
+  };
+
   const handleOnDelete = () => {
-    onDelete && onDelete(index);
+    onDelete?.(index);
     setDeleteFlag(false);
   };
 
   const handleOnIgnore = () => {
-    onIgnore && onIgnore(index);
+    onIgnore?.(index);
     setIgnoreFlag(false);
   };
 
-  const handleDialogClick = (datas: QuestionForm) => {
-    onSubmit?.(datas);
+  const handleDialogClick = (datas: QuestionForm | QuestionTransferForm) => {
+    if (open === Consts.DIALOG_STATUS.EDIT) {
+      onSubmit?.(datas as QuestionForm);
+    }
+    if (open === Consts.DIALOG_STATUS.TRANSFER) {
+      onTransfer?.(datas as QuestionTransferForm);
+    }
 
-    setOpen(false);
+    setOpen(Consts.DIALOG_STATUS.CLOSE);
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -132,7 +153,8 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
                           color="error"
                           onClick={() => {
                             handleDeleteClick(idx);
-                          }}>
+                          }}
+                        >
                           <DeleteIcon sx={{ fontSize: 32 }} />
                         </LoadingIconButton>
                         {onIgnore && (
@@ -142,7 +164,8 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
                             loading={loading}
                             onClick={() => {
                               handleIgnoreClick(idx);
-                            }}>
+                            }}
+                          >
                             <VisibilityOffIcon sx={{ fontSize: 32 }} />
                           </LoadingIconButton>
                         )}
@@ -151,8 +174,18 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
                           loading={loading}
                           onClick={() => {
                             handleEditClick(idx);
-                          }}>
+                          }}
+                        >
                           <EditIcon sx={{ fontSize: 32 }} />
+                        </LoadingIconButton>
+                        <LoadingIconButton
+                          sx={{ p: 0.5 }}
+                          loading={loading}
+                          onClick={() => {
+                            handleTransferClick(idx);
+                          }}
+                        >
+                          <DriveFileMoveIcon sx={{ fontSize: 32 }} />
                         </LoadingIconButton>
                       </Box>
                     </StyledTableCell>
@@ -207,12 +240,28 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
           maxWidth="md"
         />
       )}
-      <Dialog open={open} onClose={handleClose} maxWidth="lg">
+      <Dialog open={open !== Consts.DIALOG_STATUS.CLOSE} onClose={handleClose} maxWidth="lg">
         <DialogTitle>問題</DialogTitle>
         <DialogContent>
-          {dataRow && (
-            <QuestionDetails loading={loading} dataRow={dataRow} onClose={handleClose} onClick={handleDialogClick} />
-          )}
+          {(() => {
+            // editing
+            if (dataRow && open === Consts.DIALOG_STATUS.EDIT) {
+              return (
+                <QuestionDetails
+                  loading={loading}
+                  dataRow={dataRow}
+                  onClose={handleClose}
+                  onClick={handleDialogClick}
+                />
+              );
+            }
+
+            if (dataRow && open === Consts.DIALOG_STATUS.TRANSFER) {
+              return (
+                <QuestionTransfer dataRow={dataRow} groups={groups} onClose={handleClose} onClick={handleDialogClick} />
+              );
+            }
+          })()}
         </DialogContent>
       </Dialog>
     </React.Fragment>
@@ -222,7 +271,9 @@ const table: FunctionComponent<QuestionTable> = ({ datas, loading, onSubmit, onD
 interface QuestionTable {
   loading?: boolean;
   datas: Group.Question[];
+  groups?: Tables.TGroups[];
   onSubmit?: (datas: QuestionForm) => void;
+  onTransfer?: (datas: QuestionTransferForm) => void;
   onDelete?: (index: number) => void;
   onIgnore?: (index: number) => void;
 }

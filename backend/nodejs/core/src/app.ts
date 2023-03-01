@@ -11,6 +11,7 @@ import {
   QuestionIgnore,
   QuestionDescribe,
   QuestionOrder,
+  QuestionTransfer,
 } from '@src/apis/questions';
 import {
   DailyStatus,
@@ -77,6 +78,10 @@ app.get('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) 
 app.put('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionUpdate));
 // 問題削除
 app.delete('/v1/groups/:groupId/questions/:questionId', express.json(), (req, res) => entry(req, res, QuestionDelete));
+// 問題新規登録
+app.post('/v1/groups/:groupId/questions/:questionId/transfer', express.json(), (req, res) =>
+  entry(req, res, QuestionTransfer)
+);
 
 // 問い合わせ新規登録
 app.post('/v1/inquiries', express.json(), (req, res) => entry(req, res, InquiryRegist));
