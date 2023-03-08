@@ -157,7 +157,7 @@ export const practice = (userId: string, nextTime: string, subject: string): Que
   },
   ExpressionAttributeValues: {
     ':userId': userId,
-    ':times': -1,
+    ':times': Consts.SUBJECT.LANGUAGE === subject ? 0 : -1,
     ':nextTime': nextTime,
     ':subject': subject,
     ':lastTime': Consts.INITIAL_DATE,

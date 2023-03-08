@@ -12,6 +12,11 @@ export const describe = async (qid: string, userId: string): Promise<Tables.TLea
 
 /** レポート新規作成 */
 export const regist = async (item: Tables.TLearning): Promise<void> => {
+  // 国語の場合、復習はない
+  if (item.subject === Consts.SUBJECT.LANGUAGE && item.times === -1) {
+    item.times = 0;
+  }
+
   await DBHelper().put(Queries.put(item));
 };
 
@@ -22,6 +27,11 @@ export const update = async (item: Tables.TLearning): Promise<void> => {
   // if exists
   if (!result) {
     throw new Error(`Learning task not exists. ${item.qid}`);
+  }
+
+  // 国語の場合、復習はない
+  if (result.subject === Consts.SUBJECT.LANGUAGE && item.times === -1) {
+    item.times = 0;
   }
 
   await DBHelper().put(
