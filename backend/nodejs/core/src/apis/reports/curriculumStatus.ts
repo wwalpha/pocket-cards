@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { APIs, Tables } from 'typings';
-import { AccuracyService, CurriculumService, LearningService, QuestionService } from '@services';
+import { CurriculumService, LearningService, QuestionService } from '@services';
 import { ValidationError } from '@utils';
 import pLimit from 'p-limit';
 
@@ -45,18 +45,19 @@ export default async (
     const questions = await Promise.all(
       learnings.map((item) =>
         limit(async () => {
-          const [question, rate] = await Promise.all([
+          const [question] = await Promise.all([
             QuestionService.describe(item.qid),
-            AccuracyService.describe({
-              qid: item.qid,
-              uid: cInfo.userId,
-            }),
+            // AccuracyService.describe({
+            //   qid: item.qid,
+            //   uid: cInfo.userId,
+            // }),
           ]);
 
-          return {
-            ...question,
-            accuracy: rate?.accuracy,
-          };
+          // return {
+          //   ...question,
+          //   accuracy: rate?.accuracy,
+          // };
+          return question;
         })
       )
     );
@@ -68,7 +69,7 @@ export default async (
         ...item,
         question: question?.title,
         gid: cInfo.groupId,
-        accuracy: question?.accuracy,
+        // accuracy: question?.accuracy,
       };
     });
   });
