@@ -1,4 +1,5 @@
 import { LearningService } from '@services';
+import pLimit from 'p-limit';
 
 const patch = async (): Promise<void> => {
   const userId = 'Google_109439805128280065775';
@@ -7,16 +8,18 @@ const patch = async (): Promise<void> => {
 
   const targets = learnings.filter((item) => item.subject === '1').filter((item) => item.times === 0);
 
-  console.log(targets);
+  const limit = pLimit(100);
 
-  // await Promise.all(
-  //   targets.map((item) =>
-  //     LearningService.update({
-  //       ...item,
-  //       times: 1,
-  //     })
-  //   )
-  // );
+  const tasks = targets.map((item) =>
+    limit(async () =>
+      LearningService.update({
+        ...item,
+        times: 1,
+      })
+    )
+  );
+
+  await Promise.all(tasks);
 };
 
 patch();
