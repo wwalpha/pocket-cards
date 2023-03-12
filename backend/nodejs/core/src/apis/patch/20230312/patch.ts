@@ -1,6 +1,6 @@
 import { LearningService } from '@services';
 
-export default async (): Promise<void> => {
+const patch = async (): Promise<void> => {
   const userId = 'Google_109439805128280065775';
 
   const learnings = await LearningService.listByUser(userId);
@@ -18,3 +18,5 @@ export default async (): Promise<void> => {
   //   )
   // );
 };
+
+patch();
