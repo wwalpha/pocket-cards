@@ -7,12 +7,14 @@ export default async (): Promise<void> => {
 
   const targets = learnings.filter((item) => item.subject === '1').filter((item) => item.times === 0);
 
-  await Promise.all(
-    targets.map((item) =>
-      LearningService.update({
-        ...item,
-        times: 1,
-      })
-    )
-  );
+  console.log(targets);
+
+  // await Promise.all(
+  //   targets.map((item) =>
+  //     LearningService.update({
+  //       ...item,
+  //       times: 1,
+  //     })
+  //   )
+  // );
 };
