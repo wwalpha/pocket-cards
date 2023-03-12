@@ -94,7 +94,7 @@ export default async (
         subject: qInfo.subject,
         lastTime: Consts.INITIAL_DATE,
         nextTime: Consts.INITIAL_DATE,
-        times: -1,
+        times: qInfo.subject === Consts.SUBJECT.LANGUAGE ? 0 : -1,
       })
     );
 
