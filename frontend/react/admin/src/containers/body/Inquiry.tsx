@@ -31,7 +31,7 @@ export default () => {
         answer: datas.answer,
         description: datas.description,
         category: datas.category,
-        tags: datas.tags,
+        tags: datas.tags ? [datas.tags] : [],
         difficulty: datas.difficulty,
         qNo: datas.qNo,
       });

@@ -28,8 +28,9 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
       original: dataRow.original,
       groupId: dataRow.groupId,
       category: dataRow.category ?? '',
-      tags: dataRow.tags ?? [],
+      tags: dataRow.tags ? dataRow.tags[0] : '',
       difficulty: dataRow.difficulty ?? '',
+      qNo: dataRow.qNo ?? '',
     },
   });
 
@@ -181,6 +182,25 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
                 margin="normal"
                 fullWidth
                 label="Difficulty"
+                value={value}
+                onChange={onChange}
+                size={size}
+              />
+            )}
+          />
+        )}
+
+        {subject === Consts.SUBJECT.MATHS && (
+          <Controller
+            name="qNo"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                disabled={!onClick}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                label="QuestionNo"
                 value={value}
                 onChange={onChange}
                 size={size}
