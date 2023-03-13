@@ -22,8 +22,11 @@ export default async (
   }
 
   let qItems: Tables.TQuestions[] = [];
+
   if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
     qItems = await registEnglish(groupInfo, questions);
+  } else if (groupInfo.subject === Consts.SUBJECT.MATHS) {
+    qItems = await registMaths(groupInfo, questions);
   } else {
     qItems = await registDefault(groupInfo, questions);
   }
@@ -160,6 +163,39 @@ const registEnglish = async (groupInfo: Tables.TGroups, questions: string[]) => 
     qItems.map(async (item) => QuestionService.regist(item)),
     GroupService.plusCount(groupInfo.id, qItems.length),
   ]);
+
+  return qItems;
+};
+
+const registMaths = async (groupInfo: Tables.TGroups, questions: string[]) => {
+  // create question
+  const qItems = questions.map<Tables.TQuestions>((item) => {
+    const items = item.split('|');
+    const id = generate();
+
+    return {
+      id: id,
+      subject: groupInfo.subject,
+      groupId: groupInfo.id,
+      description: items[0],
+      source: items[1],
+      category: items[2],
+      tags: items[3]?.split(','),
+      difficulty: items[4],
+      qNo: items[5],
+      title: items[6] as string,
+      answer: items[7] as string,
+    };
+  });
+
+  // regist all questions
+  await Promise.all([
+    qItems.map((item) => QuestionService.regist(item)),
+    GroupService.plusCount(groupInfo.id, qItems.length),
+  ]);
+
+  // 質問の情報を更新する(非同期)
+  await Commons.updateQuestion(qItems);
 
   return qItems;
 };

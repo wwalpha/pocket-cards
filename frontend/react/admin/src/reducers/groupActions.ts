@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { URLs } from '@constants';
+import { Consts, URLs } from '@constants';
 import { RootState } from '@store';
 import { API } from '@utils';
 import { Tables, APIs, QuestionUpdateParameter, QuestionTransferParameter } from 'typings';
@@ -57,15 +57,27 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, string>(
   'group/GROUP_QUESTION_REGIST',
   async (groupId, { getState }) => {
     // request parameter
-    const { uploads } = (getState() as RootState).group;
+    const { uploads, groups } = (getState() as RootState).group;
+    const subject = groups.find((g) => g.id === groupId)?.subject;
 
-    const questions = uploads.map(
-      ({ title, answer, description, choices }) =>
-        `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`
-    );
+    let questions: string[] = [];
+
+    // 算数の場合
+    if (subject === Consts.SUBJECT.MATHS) {
+      questions = uploads.map(
+        ({ title, answer, description, source, category, tags, difficulty, qNo }) =>
+          `${description}|${source}|${category}|${tags}|${difficulty}|${qNo}|${title}|${answer}`
+      );
+    } else {
+      // 算数以外の場合
+      questions = uploads.map(
+        ({ title, answer, description, choices }) =>
+          `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`
+      );
+    }
 
     for (; questions.length > 0; ) {
-      const datas = questions.splice(0, 100);
+      const datas = questions.splice(0, 1);
 
       // request
       await API.post<APIs.QuestionRegistResponse, APIs.QuestionRegistRequest>(URLs.QUESTION_REGIST(groupId), {

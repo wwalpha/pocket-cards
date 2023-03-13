@@ -60,7 +60,7 @@ const slice = createSlice({
               description: columns[0],
               source: columns[1],
               category: columns[2],
-              mCategory: columns[3],
+              tags: columns[3],
               difficulty: columns[4],
               qNo: columns[5],
               answer: columns[6],
