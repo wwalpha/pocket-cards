@@ -45,7 +45,7 @@ export interface QuestionForm {
   description?: string;
   groupId: string;
   category: string;
-  tags?: string[];
+  tags?: string;
   qNo?: string;
   difficulty?: string;
 }

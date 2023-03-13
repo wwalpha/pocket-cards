@@ -124,7 +124,6 @@ const table: FunctionComponent<QuestionMath> = ({
   };
 
   const dataRow = index !== -1 ? datas[index] : undefined;
-  const hasChoices = datas.filter((item) => item.choices !== undefined).length > 0;
 
   return (
     <React.Fragment>
