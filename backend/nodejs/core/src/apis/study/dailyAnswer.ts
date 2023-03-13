@@ -31,7 +31,7 @@ export default async (
   let times = 0;
 
   // 国語の場合、復習が必要ない
-  if (learning.subject === SUBJECT.LANGUAGE) {
+  if (learning.subject === SUBJECT.LANGUAGE || learning.subject === SUBJECT.MATHS) {
     times = correct === '1' ? defaultTo(learning.times, 0) + 1 : 0;
   } else {
     times = correct === '1' ? defaultTo(learning.times, 0) + 1 : -1;

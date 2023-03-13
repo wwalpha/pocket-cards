@@ -17,6 +17,10 @@ export const regist = async (item: Tables.TLearning): Promise<void> => {
     item.times = 0;
   }
 
+  if (item.subject === Consts.SUBJECT.MATHS && item.times === -1) {
+    item.times = 0;
+  }
+
   await DBHelper().put(Queries.put(item));
 };
 
@@ -31,6 +35,10 @@ export const update = async (item: Tables.TLearning): Promise<void> => {
 
   // 国語の場合、復習はない
   if (result.subject === Consts.SUBJECT.LANGUAGE && item.times === -1) {
+    item.times = 0;
+  }
+
+  if (item.subject === Consts.SUBJECT.MATHS && item.times === -1) {
     item.times = 0;
   }
 

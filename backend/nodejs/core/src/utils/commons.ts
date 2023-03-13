@@ -300,3 +300,9 @@ export const removeImage = async (text: string): Promise<void> => {
     })
   );
 };
+
+export const getTimes = (subject: string) => {
+  if (subject === Consts.SUBJECT.LANGUAGE) return 0;
+  if (subject === Consts.SUBJECT.MATHS) return 0;
+  return -1;
+};

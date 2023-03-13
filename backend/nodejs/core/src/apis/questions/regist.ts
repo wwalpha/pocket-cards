@@ -49,7 +49,7 @@ export default async (
       subject: groupInfo.subject,
       lastTime: Consts.INITIAL_DATE,
       nextTime: Consts.INITIAL_DATE,
-      times: groupInfo.subject === Consts.SUBJECT.LANGUAGE ? 0 : -1,
+      times: Commons.getTimes(groupInfo.subject),
     }));
 
     return DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
