@@ -39,17 +39,38 @@ const slice = createSlice({
     },
 
     // アップロード一覧を保存する
-    GROUP_QUESTION_UPLOADS: (state, { payload }: PayloadAction<string>) => {
+    GROUP_QUESTION_UPLOADS: (
+      state,
+      { payload: { subject, texts } }: PayloadAction<{ subject: string; texts: string }>
+    ) => {
       const strLf = '\n';
       const strRfLf = '\r\n';
-      const newLine = payload.split(strRfLf).length === 1 ? strLf : strRfLf;
-      const questions = payload.split(newLine);
+      const newLine = texts.split(strRfLf).length === 1 ? strLf : strRfLf;
+      const questions = texts.split(newLine);
 
       const jsonQuestions = questions
         .filter((item) => item !== '')
         .map((item) => {
+          // 算数の場合
+          if (subject === Consts.SUBJECT.MATHS) {
+            const columns = item.split('|');
+
+            return {
+              title: columns[7],
+              description: columns[0],
+              source: columns[1],
+              category: columns[2],
+              mCategory: columns[3],
+              difficulty: columns[4],
+              qNo: columns[5],
+              answer: columns[6],
+            };
+          }
+
+          // 算数以外の場合
           let items = item.split(',');
 
+          // 選択肢がある場合
           if (items.length === 4) {
             return {
               title: items[0],
@@ -59,6 +80,7 @@ const slice = createSlice({
             };
           }
 
+          // 選択肢がない場合
           items = item.split('|');
 
           return {
