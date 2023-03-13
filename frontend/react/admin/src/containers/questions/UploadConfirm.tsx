@@ -14,10 +14,9 @@ export default () => {
   const { groupId } = useParams<QuestionParams>();
   const subject = groups.find((item) => item.id === groupId)?.subject;
 
-  console.log(uploads);
   return (
     <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-      {subject === Consts.SUBJECT.MATHS && <MathQuestionTable datas={uploads} />}
+      {subject === Consts.SUBJECT.MATHS && <MathQuestionTable datas={uploads} subject={subject} />}
       {subject !== Consts.SUBJECT.MATHS && <QuestionTable datas={uploads} />}
     </Box>
   );
