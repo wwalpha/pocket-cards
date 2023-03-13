@@ -110,13 +110,17 @@ const slice = createSlice({
         state.groups = state.groups.filter((item) => item.id !== payload);
       })
       .addCase(GROUP_QUESTION_UPDATE.fulfilled, (state, { payload }) => {
-        const question = state.questions.find((item) => item.id === payload.id);
+        const qIndex = state.questions.findIndex((item) => item.id === payload.id);
 
         // 存在しない場合は更新しない
-        if (!question) return;
+        if (qIndex === -1) return;
 
-        question.title = payload.title;
-        question.answer = payload.answer;
+        const newQuestion = {
+          ...state.questions[qIndex],
+          ...payload,
+        };
+
+        state.questions[qIndex] = newQuestion;
       })
       .addCase(GROUP_QUESTION_DELETE.fulfilled, (state, { payload }) => {
         state.questions = state.questions.filter((item) => item.id !== payload);
