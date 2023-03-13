@@ -77,10 +77,8 @@ export namespace Tables {
     voiceAnswer?: string;
     // 大分類
     category?: string;
-    // 中分類
-    mCategory?: string;
-    // 小分類
-    sCategory?: string;
+    // タグ
+    tags?: string[];
     // 難易度
     difficulty?: string;
     // 問題の出所

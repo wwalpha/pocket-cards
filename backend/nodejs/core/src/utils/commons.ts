@@ -195,52 +195,32 @@ const createJapaneseVoice = async (text: string, groupId: string, s3Key?: string
   return key;
 };
 
-export const updateQuestion = async (q: Tables.TQuestions[]) => {
+export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolean = true) => {
   const limit = pLimit(25);
 
   const tasks = q.map((item) =>
     limit(async () => {
-      const results = await Promise.all([
-        createQuestionVoice(item),
-        createAnswerVoice(item),
-        createImage(item.title),
-        createImage(item.answer),
-      ]);
+      const tasks: Promise<string | undefined>[] = [createImage(item.title), createImage(item.answer)];
 
-      // const info = await DBHelper().get<Tables.TQuestions>(
-      //   Questions.get({
-      //     id: item.id,
-      //   })
-      // );
+      // 音声作成する場合
+      if (createVoice === true) {
+        tasks.push(createQuestionVoice(item));
+        tasks.push(createAnswerVoice(item));
+      }
 
-      // if (!info?.Item) return;
+      // 一括実行する
+      const results = await Promise.all(tasks);
 
-      // const tasks: Promise<void>[] = [
-      //   async () => {
-      //     if (info.Item?.title === item.title) return;
+      item.title = results[0] ?? item.title;
+      item.answer = results[1] ?? item.answer;
 
-      //     item.voiceTitle = await createQuestionVoice(item);
-      //   },
-      // ];
+      // 音声作成する場合
+      if (createVoice === true) {
+        item.voiceTitle = results[2];
+        item.voiceAnswer = results[3];
+      }
 
-      // if (info.Item.title !== item.title) {
-      //   tasks.push(createQuestionVoice(item));
-      // }
-
-      // if (info.Item.answer !== item.answer) {
-      //   tasks.push(createAnswerVoice(item));
-      // }
-
-      // tasks.push(createImage(item.title));
-      // tasks.push(createImage(item.answer));
-
-      // const results = await Promise.all(tasks);
-
-      item.voiceTitle = results[0];
-      item.voiceAnswer = results[1];
-      item.title = results[2];
-      item.answer = results[3];
-
+      // 問題更新する
       await QuestionService.update(item);
     })
   );

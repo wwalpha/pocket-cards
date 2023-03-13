@@ -27,6 +27,10 @@ export default () => {
         choices: datas.choices,
         answer: datas.answer,
         description: datas.description,
+        category: datas.category,
+        tags: datas.tags ? [datas.tags] : [],
+        difficulty: datas.difficulty,
+        qNo: datas.qNo,
       });
     }
   };
@@ -56,6 +60,7 @@ export default () => {
       {subject === Consts.SUBJECT.MATHS && (
         <MathQuestionTable
           datas={questions}
+          subject={subject}
           groups={groups}
           loading={isLoading}
           onSubmit={authority === Consts.Authority.ADMIN ? handleSubmit : undefined}

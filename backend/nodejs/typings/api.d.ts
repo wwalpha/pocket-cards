@@ -443,6 +443,10 @@ export namespace APIs {
     choices?: string;
     answer: string;
     description?: string;
+    category: string;
+    tags?: string[];
+    qNo?: string;
+    difficulty?: string;
   }
 
   type QuestionUpdateResponse = Tables.TQuestions;
