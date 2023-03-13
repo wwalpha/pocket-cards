@@ -195,7 +195,7 @@ const registMaths = async (groupInfo: Tables.TGroups, questions: string[]) => {
   ]);
 
   // 質問の情報を更新する(非同期)
-  await Commons.updateQuestion(qItems);
+  await Commons.updateQuestion(qItems, false);
 
   return qItems;
 };
