@@ -56,6 +56,7 @@ export default () => {
       {subject === Consts.SUBJECT.MATHS && (
         <MathQuestionTable
           datas={questions}
+          subject={subject}
           groups={groups}
           loading={isLoading}
           onSubmit={authority === Consts.Authority.ADMIN ? handleSubmit : undefined}
