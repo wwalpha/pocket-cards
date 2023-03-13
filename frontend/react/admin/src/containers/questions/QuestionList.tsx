@@ -27,6 +27,10 @@ export default () => {
         choices: datas.choices,
         answer: datas.answer,
         description: datas.description,
+        category: datas.category,
+        tags: datas.tags,
+        difficulty: datas.difficulty,
+        qNo: datas.qNo,
       });
     }
   };
