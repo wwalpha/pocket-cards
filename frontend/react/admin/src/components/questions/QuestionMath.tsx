@@ -211,7 +211,7 @@ const table: FunctionComponent<QuestionMath> = ({
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.mCategory}
+                      {item.tags?.join(', ')}
                     </Box>
                   </TableCell>
                   <TableCell>
