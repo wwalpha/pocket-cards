@@ -17,7 +17,7 @@ export default () => {
   return (
     <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
       {subject === Consts.SUBJECT.MATHS && <MathQuestionTable datas={uploads} subject={subject} />}
-      {subject !== Consts.SUBJECT.MATHS && <QuestionTable datas={uploads} subject={subject} />}
+      {subject !== Consts.SUBJECT.MATHS && <QuestionTable datas={uploads} />}
     </Box>
   );
 };
