@@ -75,12 +75,18 @@ export namespace Tables {
     voiceTitle?: string;
     // 回答音声
     voiceAnswer?: string;
-    // /** @deprecated 次の学習時間 */
-    // nextTime?: string;
-    // /** @deprecated 最後の学習時間 */
-    // lastTime?: string;
-    // /** @deprecated 学習回数 */
-    // times?: number;
+    // 大分類
+    category?: string;
+    // 中分類
+    mCategory?: string;
+    // 小分類
+    sCategory?: string;
+    // 難易度
+    difficulty?: string;
+    // 問題の出所
+    source?: string;
+    // 問題の番号
+    qNo?: string;
     /**  */
     original?: string;
   }
