@@ -49,6 +49,7 @@ const styles = {
 
 const table: FunctionComponent<QuestionTable> = ({
   datas,
+  subject,
   groups,
   loading,
   onSubmit,
@@ -250,6 +251,7 @@ const table: FunctionComponent<QuestionTable> = ({
                 <QuestionDetails
                   loading={loading}
                   dataRow={dataRow}
+                  subject={subject}
                   onClose={handleClose}
                   onClick={handleDialogClick}
                 />
@@ -271,6 +273,7 @@ const table: FunctionComponent<QuestionTable> = ({
 interface QuestionTable {
   loading?: boolean;
   datas: Group.Question[];
+  subject?: string;
   groups?: Tables.TGroups[];
   onSubmit?: (datas: QuestionForm) => void;
   onTransfer?: (datas: QuestionTransferForm) => void;

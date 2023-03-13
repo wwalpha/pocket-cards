@@ -8,7 +8,7 @@ import { Consts } from '@consts';
 export default async (
   req: Request<APIs.QuestionUpdateParams, any, APIs.QuestionUpdateRequest, any>
 ): Promise<APIs.QuestionUpdateResponse> => {
-  const { title, answer, choices, description } = req.body;
+  const { title, answer, choices, description, category, difficulty, qNo, tags } = req.body;
   const { questionId } = req.params;
 
   // ユーザのグループID 一覧
@@ -25,10 +25,14 @@ export default async (
     answer,
     choices: choices?.split('|'),
     description,
+    category,
+    difficulty,
+    qNo,
+    tags,
   };
 
   // 音声、画像情報を更新する
-  await Commons.updateQuestion([item]);
+  await Commons.updateQuestion([item], question.subject !== Consts.SUBJECT.MATHS);
 
   // 英語の場合、Masterも更新する
   if (question.subject === Consts.SUBJECT.ENGLISH) {
