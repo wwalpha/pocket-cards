@@ -121,6 +121,11 @@ export namespace Tables {
     subject_status?: string;
     // 優先度
     priority?: string;
+    // 学習履歴
+    histories?: {
+      date: string;
+      correct: string;
+    }[];
   }
 
   interface TLearningGSI1Key {
