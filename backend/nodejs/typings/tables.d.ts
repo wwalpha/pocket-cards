@@ -81,6 +81,12 @@ export namespace Tables {
     mCategory?: string;
     // 小分類
     sCategory?: string;
+    // 難易度
+    difficulty?: string;
+    // 問題の出所
+    source?: string;
+    // 問題の番号
+    qNo?: string;
     /**  */
     original?: string;
   }

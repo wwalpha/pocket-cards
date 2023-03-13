@@ -105,7 +105,12 @@ export const questionIgnore = (groupId: string, qid: string) => async (dispatch:
 
 /** 質問リスト */
 export const uploadConfirm = (subject: string, groupId: string, texts: string) => (dispatch: AppDispatch) => {
-  dispatch(Actions.GROUP_QUESTION_UPLOADS(texts));
+  dispatch(
+    Actions.GROUP_QUESTION_UPLOADS({
+      subject,
+      texts,
+    })
+  );
 
   // transit to upload confirm
   dispatch(push(ROUTE_PATHS.GROUP_UPLOAD_CONFIRM_PUSH(subject, groupId)));
