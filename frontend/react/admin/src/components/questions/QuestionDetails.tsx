@@ -12,20 +12,7 @@ import { Consts } from '@constants';
 const titleRef = createRef<HTMLAudioElement>();
 const answerRef = createRef<HTMLAudioElement>();
 
-const styles = {
-  container: {
-    width: 'calc(100vw - 232px)',
-  },
-  tableCell: {
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    display: 'inline-block',
-    width: 95 / 100,
-  },
-};
-
-const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick, onClose }) => {
+const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading, onClick, onClose }) => {
   const {
     control,
     register,
@@ -40,8 +27,13 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
       description: dataRow.description ?? '',
       original: dataRow.original,
       groupId: dataRow.groupId,
+      category: dataRow.category ?? '',
+      tags: dataRow.tags ?? [],
+      difficulty: dataRow.difficulty ?? '',
     },
   });
+
+  const size = subject === Consts.SUBJECT.MATHS ? 'small' : 'medium';
 
   // 編集
   const onSubmit = handleSubmit((datas) => onClick?.(datas));
@@ -66,7 +58,15 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
           name="id"
           control={control}
           render={({ field: { value } }) => (
-            <TextField disabled={true} variant="outlined" margin="normal" fullWidth label="ID" value={value} />
+            <TextField
+              disabled={true}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="ID"
+              value={value}
+              size={size}
+            />
           )}
         />
         <Box sx={{ display: 'flex' }}>
@@ -83,6 +83,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
                 label="Title"
                 value={value}
                 onChange={onChange}
+                size={size}
               />
             )}
           />
@@ -126,9 +127,68 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
               label="Description"
               value={value}
               onChange={onChange}
+              size={size}
             />
           )}
         />
+
+        {subject === Consts.SUBJECT.MATHS && (
+          <Controller
+            name="category"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                disabled={!onClick}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                label="Category"
+                value={value}
+                onChange={onChange}
+                size={size}
+              />
+            )}
+          />
+        )}
+
+        {subject === Consts.SUBJECT.MATHS && (
+          <Controller
+            name="tags"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                disabled={!onClick}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                label="Tags"
+                value={value}
+                onChange={onChange}
+                size={size}
+              />
+            )}
+          />
+        )}
+
+        {subject === Consts.SUBJECT.MATHS && (
+          <Controller
+            name="difficulty"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                disabled={!onClick}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                label="Difficulty"
+                value={value}
+                onChange={onChange}
+                size={size}
+              />
+            )}
+          />
+        )}
+
         {dataRow.choices && (
           <Controller
             name="choices"
@@ -142,6 +202,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
                 label="Choices"
                 value={value}
                 onChange={onChange}
+                size={size}
               />
             )}
           />
@@ -160,6 +221,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, loading, onClick
                 label="Answer"
                 value={value}
                 onChange={onChange}
+                size={size}
               />
             )}
           />
@@ -208,6 +270,7 @@ interface QuestionDetails {
   readonly?: boolean;
   loading?: boolean;
   dataRow: Group.Question;
+  subject?: string;
   onClick?: (form: QuestionForm) => void;
   onClose?: () => void;
 }

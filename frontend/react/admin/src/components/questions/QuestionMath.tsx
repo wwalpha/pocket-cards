@@ -49,6 +49,7 @@ const styles = {
 const table: FunctionComponent<QuestionMath> = ({
   datas,
   groups,
+  subject,
   loading,
   onSubmit,
   onDelete,
@@ -211,7 +212,7 @@ const table: FunctionComponent<QuestionMath> = ({
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.tags?.join(', ')}
+                      {item.tags?.join(' ')}
                     </Box>
                   </TableCell>
                   <TableCell>
@@ -277,6 +278,7 @@ const table: FunctionComponent<QuestionMath> = ({
                 <QuestionDetails
                   loading={loading}
                   dataRow={dataRow}
+                  subject={subject}
                   onClose={handleClose}
                   onClick={handleDialogClick}
                 />
@@ -298,6 +300,7 @@ const table: FunctionComponent<QuestionMath> = ({
 interface QuestionMath {
   loading?: boolean;
   datas: Group.Question[];
+  subject: string;
   groups?: Tables.TGroups[];
   onSubmit?: (datas: QuestionForm) => void;
   onTransfer?: (datas: QuestionTransferForm) => void;
