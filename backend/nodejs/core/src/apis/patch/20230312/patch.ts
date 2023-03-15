@@ -15,6 +15,8 @@ const patch = async (): Promise<void> => {
       LearningService.update({
         ...item,
         times: 1,
+        lastTime: '20200101',
+        nextTime: '20200101',
       })
     )
   );
