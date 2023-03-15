@@ -6,7 +6,10 @@ const patch = async (): Promise<void> => {
 
   const learnings = await LearningService.listByUser(userId);
 
-  const targets = learnings.filter((item) => item.subject === '1').filter((item) => item.times === 0);
+  const targets = learnings
+    .filter((item) => item.subject === '1')
+    .filter((item) => item.times === 1)
+    .filter((item) => item.lastTime === '19900101');
 
   const limit = pLimit(100);
 
