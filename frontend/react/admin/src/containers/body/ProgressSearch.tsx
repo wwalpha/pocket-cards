@@ -69,7 +69,7 @@ export default () => {
       subject: '',
       student: '',
       curriculums: [],
-      startDate: dayjs(),
+      startDate: dayjs().add(-1, 'years'),
       endDate: dayjs(),
       unlearned: false,
     },
