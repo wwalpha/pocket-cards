@@ -1,0 +1,199 @@
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Controller, useForm } from 'react-hook-form';
+import Box from '@mui/material/Box';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import LoadingButton from '@mui/lab/LoadingButton';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ChartOptions,
+  ChartData,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { faker } from '@faker-js/faker';
+import { ProgressActions } from '@actions';
+import { Consts } from '@constants';
+import { OverallProgressForm, RootState } from 'typings';
+
+const appState = (state: RootState) => state.app;
+const userState = (state: RootState) => state.user;
+const groupState = (state: RootState) => state.group;
+const progressState = (state: RootState) => state.progress;
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+export const options: ChartOptions<'bar'> = {
+  indexAxis: 'y' as const,
+  plugins: {
+    title: { display: false },
+  },
+  responsive: true,
+  scales: {
+    x: { stacked: true },
+    y: { stacked: true },
+  },
+};
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+export const data: ChartData<'bar'> = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      backgroundColor: 'rgb(255, 99, 132)',
+    },
+    {
+      label: 'Dataset 2',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      backgroundColor: 'rgb(75, 192, 192)',
+    },
+    {
+      label: 'Dataset 3',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      backgroundColor: 'rgb(53, 162, 235)',
+    },
+  ],
+};
+
+export default () => {
+  const actions = bindActionCreators(ProgressActions, useDispatch());
+  const { isLoading } = useSelector(appState);
+  const { searchResults } = useSelector(progressState);
+  const { students, curriculums } = useSelector(userState);
+  const { groups } = useSelector(groupState);
+
+  const {
+    control,
+    getValues,
+    setValue,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<OverallProgressForm>({
+    defaultValues: {
+      subject: '',
+      student: '',
+      curriculums: [],
+    },
+  });
+
+  const onSubmit = handleSubmit(({ curriculums }) => {
+    // 検索処理
+    actions.overall(curriculums);
+  });
+
+  // 科目の選択を監視する
+  watch('subject');
+
+  return (
+    <form onSubmit={onSubmit}>
+      <Box display="flex" sx={{ py: 2 }}>
+        <Controller
+          name="student"
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl sx={{ mx: 1, width: '160px' }} fullWidth size="small">
+              <InputLabel>学生 *</InputLabel>
+              <Select label="Student *" value={value} onChange={onChange} disabled={students.length === 0}>
+                {students.map((item) => (
+                  <MenuItem key={item.id} value={item.id}>
+                    {item.username}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+        />
+        <Controller
+          name="subject"
+          control={control}
+          rules={{ required: 'required' }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl sx={{ mx: 1, width: '160px' }} fullWidth size="small">
+              <InputLabel>科目 *</InputLabel>
+              <Select
+                label="Subject *"
+                onChange={(e) => {
+                  onChange(e);
+                  setValue('curriculums', []);
+                }}
+                value={value}
+                fullWidth
+              >
+                <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
+                <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
+                <MenuItem value={Consts.SUBJECT.JAPANESE}>国 語</MenuItem>
+              </Select>
+            </FormControl>
+          )}
+        />
+        <Controller
+          name="curriculums"
+          control={control}
+          rules={{ required: 'required' }}
+          render={({ field: { onChange, value } }) => (
+            <FormControl sx={{ mx: 1, width: '360px', maxWidth: '50%' }} fullWidth size="small">
+              <InputLabel>カリキュラム *</InputLabel>
+              <Select
+                label="Curriculum *"
+                multiple
+                onChange={onChange}
+                value={value}
+                fullWidth
+                disabled={getValues('subject') === ''}
+                renderValue={(selected) =>
+                  selected
+                    .map((item) => {
+                      const curriculum = curriculums.find((c) => c.id === item);
+                      const name = groups.find((g) => g.id === curriculum?.groupId)?.name;
+
+                      return name;
+                    })
+                    .join(', ')
+                }
+              >
+                {curriculums
+                  .filter((item) => item.userId === getValues('student'))
+                  .filter((item) => item.subject === getValues('subject'))
+                  .map((item) => (
+                    <MenuItem key={item.id} value={item.id} sx={{ py: 0 }}>
+                      <Checkbox checked={value.indexOf(item.id) > -1} size="small" />
+                      <ListItemText primary={groups.find((g) => g.id === item.groupId)?.name} />
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          )}
+        />
+        <LoadingButton
+          type="submit"
+          sx={{ width: '120px', mx: 2 }}
+          loading={isLoading}
+          variant="contained"
+          color="primary"
+        >
+          検 索
+        </LoadingButton>
+      </Box>
+      <Paper sx={{ py: 2, mx: 1, height: '550px' }}>
+        <Bar options={options} data={data} />
+      </Paper>
+    </form>
+  );
+};

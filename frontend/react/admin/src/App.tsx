@@ -6,7 +6,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ROUTE_PATHS } from '@constants';
 import { WeeklyRegist } from '@containers/ability';
-import { Students, Settings, GroupRouter, CurriculumOrder, MultiTest, Inquiry, ProgressSearch } from '@containers/body';
+import {
+  Students,
+  Settings,
+  GroupRouter,
+  CurriculumOrder,
+  MultiTest,
+  Inquiry,
+  ProgressSearch,
+  OverallProgress,
+} from '@containers/body';
 import { Header } from '@containers/com';
 import { MainMenu } from '@containers/com';
 
@@ -53,6 +62,10 @@ export default () => {
             <Route path={ROUTE_PATHS.PROGRESS}>
               <Header />
               <ProgressSearch />
+            </Route>
+            <Route path={ROUTE_PATHS.OVERALL_PROGRESS}>
+              <Header />
+              <OverallProgress />
             </Route>
           </Switch>
         </Box>

@@ -27,7 +27,6 @@ import { RootState } from 'typings';
 const appState = (state: RootState) => state.app;
 
 export default () => {
-  const location = useLocation();
   const dispatch = useDispatch();
   const actions = bindActionCreators(AppActions, dispatch);
   const usrActions = bindActionCreators(UserActions, dispatch);
@@ -176,6 +175,19 @@ export default () => {
                 <RecentActorsIcon sx={{ color: Consts.COLORS.PROGRESS }} />
               </ListItemIcon>
               <ListItemText primary="学習進捗" />
+            </ListItem>
+            <Divider />
+            <ListItem
+              button
+              key="overallprogress"
+              onClick={() => {
+                handleDispatch(ROUTE_PATHS.OVERALL_PROGRESS);
+              }}
+            >
+              <ListItemIcon sx={styles.itemIcon}>
+                <RecentActorsIcon sx={{ color: Consts.COLORS.PROGRESS }} />
+              </ListItemIcon>
+              <ListItemText primary="学習完成度" />
             </ListItem>
             <Divider />
             <ListItem

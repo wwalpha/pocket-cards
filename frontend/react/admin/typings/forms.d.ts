@@ -109,3 +109,9 @@ export interface ProgressSearchForm {
   endDate?: Dayjs;
   unlearned: boolean;
 }
+
+export interface OverallProgressForm {
+  student: string;
+  subject: string;
+  curriculums: string[];
+}
