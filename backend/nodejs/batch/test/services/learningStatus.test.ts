@@ -29,6 +29,7 @@ describe('LearningStatus', () => {
   test('LearningStatus001: 当日、且つ times > 0', async () => {
     const qid = '85EuLteEPQ4pzcYN442PUX';
     const date = DateUtils.getNow();
+    const yesterday = moment().add(-1, 'days').format('YYYYMMDD');
     // get item
     const item = await LearningService.describe(qid, HEADER_USER);
 
@@ -36,6 +37,7 @@ describe('LearningStatus', () => {
     if (!item) throw new Error('');
 
     item.nextTime = date;
+    item.lastTime = yesterday;
 
     // update data
     await LearningService.update(item);
@@ -52,13 +54,16 @@ describe('LearningStatus', () => {
   test('LearningStatus002: 当日、且つ times = 0', async () => {
     const qid = '85EuLteEPQ4pzcYN442PUX';
     const date = DateUtils.getNow();
+    const yesterday = moment().add(-1, 'days').format('YYYYMMDD');
+
     // get item
     const item = await LearningService.describe(qid, HEADER_USER);
 
     // if not found
     if (!item) throw new Error('');
 
-    item.nextTime = date;
+    item.nextTime = yesterday;
+    item.lastTime = yesterday;
     item.times = 0;
 
     // update data
