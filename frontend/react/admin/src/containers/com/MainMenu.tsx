@@ -19,6 +19,7 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import DirtyLensIcon from '@mui/icons-material/DirtyLens';
 import TrafficIcon from '@mui/icons-material/Traffic';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
+import CastleIcon from '@mui/icons-material/Castle';
 import { AppActions, UserActions } from '@actions';
 import { Consts, ROUTE_PATHS } from '@constants';
 import { styles } from './MainMenu.style';
@@ -185,7 +186,7 @@ export default () => {
               }}
             >
               <ListItemIcon sx={styles.itemIcon}>
-                <RecentActorsIcon sx={{ color: Consts.COLORS.PROGRESS }} />
+                <CastleIcon sx={{ color: Consts.COLORS.PROGRESS }} />
               </ListItemIcon>
               <ListItemText primary="学習完成度" />
             </ListItem>
