@@ -15,6 +15,7 @@ const patch = async (): Promise<void> => {
       return item;
     });
 
+  console.log(targets.length);
   // clear status
   await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, targets);
 
@@ -25,6 +26,8 @@ const patch = async (): Promise<void> => {
       item.subject_status = `${item.subject}_TEST`;
       return item;
     });
+
+  console.log(tests.length);
 
   await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, tests);
 };
