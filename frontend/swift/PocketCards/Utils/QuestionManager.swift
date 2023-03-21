@@ -36,7 +36,7 @@ class QuestionManager {
         do {
             let res = try await API.request(loadUrl, method: .post, parameters: params).serializingDecodable(QuestionServices.LoadQuestion.Response.self).value
 
-            // print("==HUB== \(res)")
+            // print("==HUB== \(res)", subject, loadUrl)
 
             addQuestions(questions: res.questions)
 
@@ -133,7 +133,7 @@ class QuestionManager {
             index = (index + 1) % questions.count
         }
 
-        if questions.count > index {
+        if questions.count > index, index > 0 {
             // get next question
             current = questions[index]
         } else if questions.count != 0 {

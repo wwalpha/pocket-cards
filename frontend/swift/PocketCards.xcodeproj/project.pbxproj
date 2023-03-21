@@ -563,16 +563,11 @@
 			isa = PBXGroup;
 			children = (
 				9A1FD28927D7394C0000A16B /* Consts.swift */,
-				9A1FD28A27D7394C0000A16B /* Authencation.swift */,
-				9A1FD28B27D7394C0000A16B /* TokenManager.swift */,
-				9A1FD28C27D7394C0000A16B /* Alamofire.swift */,
 				9A1FD28D27D7394C0000A16B /* Colors.swift */,
 				9A7F877927D8269600446E9D /* Environments.swift */,
 				9AF57E7027D96624002B1F32 /* StringUtils.swift */,
 				9ADD155727DF83AD00C9CE64 /* Commons.swift */,
-				9A9E57A5281A03C90025C74F /* DownloadManager.swift */,
 				9A9E57A8281A0A0F0025C74F /* FileManager.swift */,
-				9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */,
 				9AF1275028EEF48300856DF9 /* QuestionManager.swift */,
 			);
 			path = Utils;
@@ -708,10 +703,31 @@
 		9A67685D29AE03DE0062F3B4 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				9A67686829AE10200062F3B4 /* Networking */,
+				9A67686729AE0FF90062F3B4 /* Auth */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		9A67686729AE0FF90062F3B4 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				9A1FD28A27D7394C0000A16B /* Authencation.swift */,
+				9A1FD28B27D7394C0000A16B /* TokenManager.swift */,
 				9A67685E29AE03FD0062F3B4 /* OAuthAuthenticator.swift */,
 				9A67686129AE04120062F3B4 /* OAuthCredential.swift */,
 			);
-			path = Libraries;
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		9A67686829AE10200062F3B4 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9A3A56B528D95012001CC4B0 /* WebSocketConnection.swift */,
+				9A1FD28C27D7394C0000A16B /* Alamofire.swift */,
+				9A9E57A5281A03C90025C74F /* DownloadManager.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		9A9E574F28154BA20025C74F /* Test */ = {
