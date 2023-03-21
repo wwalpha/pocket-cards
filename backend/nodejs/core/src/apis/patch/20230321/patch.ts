@@ -10,7 +10,6 @@ const patch = async (): Promise<void> => {
 
   const targets = learnings
     .filter((item) => item.subject_status !== undefined)
-    .filter((item) => item.times > 0)
     .map((item) => {
       item.subject_status = undefined;
       return item;
@@ -21,6 +20,7 @@ const patch = async (): Promise<void> => {
 
   const tests = learnings
     .filter((item) => item.nextTime >= now)
+    .filter((item) => item.times > 0)
     .map((item) => {
       item.subject_status = `${item.subject}_TEST`;
       return item;
