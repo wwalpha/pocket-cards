@@ -19,6 +19,7 @@
     "@mui/x-date-pickers": "^5.0.19",
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.21.0",
+    "chart.js": "^4.2.1",
     "connected-react-router": "^6.9.2",
     "date-fns": "^2.29.1",
     "dayjs": "^1.11.7",
@@ -27,6 +28,7 @@
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.13.0",
     "react-redux": "^7.2.4",
@@ -39,6 +41,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
+    "@faker-js/faker": "^7.6.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "@types/compression-webpack-plugin": "^6.0.6",
     "@types/dotenv-webpack": "^7.0.3",

@@ -47,6 +47,7 @@ export const COLORS = {
   INQUIRY: '#233163',
   HANDWRITING: '#242424',
   PROGRESS: '#FF6464',
+  OVERALL: '#1a237e',
 };
 
 export const PATH_IMAGE = 'images';
@@ -65,3 +66,5 @@ export const DIALOG_STATUS = {
   EDIT: '1',
   TRANSFER: '2',
 };
+
+export const CHART_COLORS = ['#f44336', '#ffeb3b', '#357a38', '#3f51b5', '#673ab7', '#9c27b0', '#795548', '#212121'];

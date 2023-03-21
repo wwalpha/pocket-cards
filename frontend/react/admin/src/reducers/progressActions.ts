@@ -17,3 +17,18 @@ export const PROGRESS_SEARCH = createAsyncThunk<
 
   return res.items;
 });
+
+// 全体進捗
+export const CURRICULUM_OVERALL = createAsyncThunk<APIs.CurriculumOverallResponseItem[], { curriculums: string[] }>(
+  'progress/CURRICULUM_OVERALL',
+  async ({ curriculums }) => {
+    const res = await API.post<APIs.CurriculumOverallResponse, APIs.CurriculumOverallResquest>(
+      URLs.REPORTS_OVERALL_CURRICULUMS(),
+      {
+        curriculums: curriculums,
+      }
+    );
+
+    return res.items;
+  }
+);
