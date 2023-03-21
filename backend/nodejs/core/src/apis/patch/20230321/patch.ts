@@ -16,8 +16,11 @@ const patch = async (): Promise<void> => {
     });
 
   console.log(targets.length);
-  // clear status
-  await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, targets);
+
+  if (targets.length > 0) {
+    // clear status
+    await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, targets);
+  }
 
   const tests = learnings
     .filter((item) => item.nextTime >= now)
@@ -28,8 +31,9 @@ const patch = async (): Promise<void> => {
     });
 
   console.log(tests.length);
-
-  await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, tests);
+  if (tests.length > 0) {
+    await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, tests);
+  }
 };
 
 patch();
