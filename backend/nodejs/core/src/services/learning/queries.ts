@@ -258,10 +258,10 @@ export const current = (userId: string, lastTime: string): QueryInput => ({
   IndexName: 'gsiIdx1',
 });
 
-export const byGroupId = (groupId: string, userId?: string): QueryInput => {
+export const byGroupId = (groupId: string, userId?: string, projection: string = 'qid, userId'): QueryInput => {
   const query: QueryInput = {
     TableName: Environment.TABLE_NAME_LEARNING,
-    ProjectionExpression: 'qid, userId',
+    ProjectionExpression: projection,
     KeyConditionExpression: '#groupId = :groupId',
     ExpressionAttributeNames: {
       '#groupId': 'groupId',
