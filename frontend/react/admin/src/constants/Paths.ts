@@ -33,4 +33,4 @@ export const HISTORY = '/history';
 export const MULTI_TEST = '/multitest';
 export const INQUIRY = '/inquiry';
 export const PROGRESS = '/progress';
-export const OVERALL_PROGRESS = '/overallprogress';
+export const OVERALL_PROGRESS = '/overall';

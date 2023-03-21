@@ -14,7 +14,7 @@ import {
   MultiTest,
   Inquiry,
   ProgressSearch,
-  OverallProgress,
+  CurriculumOverall,
 } from '@containers/body';
 import { Header } from '@containers/com';
 import { MainMenu } from '@containers/com';
@@ -65,7 +65,7 @@ export default () => {
             </Route>
             <Route path={ROUTE_PATHS.OVERALL_PROGRESS}>
               <Header />
-              <OverallProgress />
+              <CurriculumOverall />
             </Route>
           </Switch>
         </Box>

@@ -5,6 +5,7 @@ import * as ProgressActions from './progressActions';
 const progressState: Domains.ProgressState = {
   searchConditions: {},
   searchResults: [],
+  overalls: [],
 };
 
 const slice = createSlice({
@@ -16,7 +17,7 @@ const slice = createSlice({
       state.searchResults = payload;
     });
     builder.addCase(ProgressActions.CURRICULUM_OVERALL.fulfilled, (state, { payload }) => {
-      state.searchResults = payload;
+      state.overalls = payload;
     });
   },
 });

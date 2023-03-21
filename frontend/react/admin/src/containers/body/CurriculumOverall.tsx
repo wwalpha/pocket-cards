@@ -26,6 +26,7 @@ import { Bar } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import { ProgressActions } from '@actions';
 import { Consts } from '@constants';
+import { ChartUtils } from '@utils';
 import { OverallProgressForm, RootState } from 'typings';
 
 const appState = (state: RootState) => state.app;
@@ -43,37 +44,14 @@ export const options: ChartOptions<'bar'> = {
   responsive: true,
   scales: {
     x: { stacked: true },
-    y: { stacked: true },
+    y: { stacked: true, position: 'right' },
   },
-};
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data: ChartData<'bar'> = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgb(255, 99, 132)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgb(75, 192, 192)',
-    },
-    {
-      label: 'Dataset 3',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgb(53, 162, 235)',
-    },
-  ],
 };
 
 export default () => {
   const actions = bindActionCreators(ProgressActions, useDispatch());
   const { isLoading } = useSelector(appState);
-  const { searchResults } = useSelector(progressState);
+  const { overalls } = useSelector(progressState);
   const { students, curriculums } = useSelector(userState);
   const { groups } = useSelector(groupState);
 
@@ -99,6 +77,41 @@ export default () => {
 
   // 科目の選択を監視する
   watch('subject');
+
+  const labels = overalls
+    .map((item) => {
+      const curriculum = curriculums.find((c) => c.id === item.id);
+      const name = groups.find((g) => g.id === curriculum?.groupId)?.name;
+      return name;
+    })
+    .filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
+
+  const datas = [
+    overalls.map((o) => o.progress[0]),
+    overalls.map((o) => o.progress[1] + o.progress[2]),
+    overalls.map((o) => o.progress[3]),
+    overalls.map((o) => o.progress[4]),
+    overalls.map((o) => o.progress[5]),
+    overalls.map((o) => o.progress[6] + o.progress[7]),
+    overalls.map((o) => o.progress[8] + o.progress[9]),
+    overalls.map((o) => o.progress[10]),
+  ];
+
+  const data: ChartData<'bar'> = {
+    labels,
+    datasets: [
+      ChartUtils.getBarChartData('未学習', datas[0], 0),
+      ChartUtils.getBarChartData('再学習', datas[1], 1),
+      ChartUtils.getBarChartData('1回', datas[2], 2),
+      ChartUtils.getBarChartData('2回', datas[3], 3),
+      ChartUtils.getBarChartData('3回', datas[4], 4),
+      ChartUtils.getBarChartData('4~5回', datas[5], 5),
+      ChartUtils.getBarChartData('6~7回', datas[6], 6),
+      ChartUtils.getBarChartData('8回以上', datas[7], 7),
+    ],
+  };
+
+  const t = labels.map(() => faker.datatype.number({ min: 0, max: 1000 }));
 
   return (
     <form onSubmit={onSubmit}>
@@ -191,9 +204,11 @@ export default () => {
           検 索
         </LoadingButton>
       </Box>
-      <Paper sx={{ py: 2, mx: 1, height: '550px' }}>
-        <Bar options={options} data={data} />
-      </Paper>
+      {labels.length > 0 && (
+        <Paper sx={{ py: 2, mx: 1, maxHeight: '550px' }}>
+          <Bar options={options} data={data} style={{ padding: '0 32px' }} />
+        </Paper>
+      )}
     </form>
   );
 };
