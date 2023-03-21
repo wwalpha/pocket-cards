@@ -13,3 +13,12 @@ export const search =
       })
     );
   };
+
+export const overall = (curriculums: string[]) => async (dispatch: AppDispatch) => {
+  // 検索する
+  dispatch(
+    Actions.OVERALL_PROGRESS({
+      curriculums: curriculums,
+    })
+  );
+};
