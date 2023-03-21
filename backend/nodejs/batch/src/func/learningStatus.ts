@@ -12,52 +12,27 @@ export default async () => {
   const students = await getStudents();
 
   const tasks = students.map(async (stu) => {
-    // daily tests
-    const daily = await getUserDaily(stu, current);
+    // 当日学習／テスト分のみ取得
+    let dailyTested = await getUserTested(stu, yesterday, yesterday);
 
-    const tests = daily
-      .filter((item) => item.times > 0)
-      .map((item) => {
-        // add test flag
+    // テストステータス全て削除する
+    dailyTested = dailyTested.map((item) => {
+      item.subject_status = undefined;
+      return item;
+    });
+
+    dailyTested.forEach((item) => {
+      // テスト対象かつ、テスト日当日より前の場合、テストフラグを追加
+      if (item.times > 0 && item.nextTime <= current) {
+        // set test flag
         item.subject_status = `${item.subject}_TEST`;
-        item.userId = stu.id;
-
-        return item;
-      });
+      }
+    });
 
     // update database
-    await DBHelper().bulk(Environments.TABLE_NAME_LEARNING, tests);
-
-    // daily tests
-    const previous = await getUserDaily(stu, yesterday);
-
-    const studies = previous
-      .filter((item) => item.times === 0)
-      .map((item) => {
-        // add test flag
-        item.subject_status = undefined;
-        item.userId = stu.id;
-
-        return item;
-      });
-
-    await DBHelper().bulk(Environments.TABLE_NAME_LEARNING, studies);
-
-    // daily tests
-    const future = await getUserTested(stu, current, yesterday);
-
-    const futures = future
-      .filter((item) => item.times > 0)
-      .filter((item) => item.nextTime > current)
-      .map((item) => {
-        // add test flag
-        item.subject_status = undefined;
-        item.userId = stu.id;
-
-        return item;
-      });
-
-    await DBHelper().bulk(Environments.TABLE_NAME_LEARNING, futures);
+    if (dailyTested.length > 0) {
+      await DBHelper().bulk(Environments.TABLE_NAME_LEARNING, dailyTested);
+    }
   });
 
   // execute all
@@ -68,12 +43,6 @@ const getUserTested = async (item: Tables.TUsers, nextTime: string, lastTime: st
   const results = await DBHelper().query<Tables.TLearning>(
     Learning.query.byUserDailyTested(item.id, nextTime, lastTime)
   );
-
-  return results.Items;
-};
-
-const getUserDaily = async (item: Tables.TUsers, date: string): Promise<Tables.TLearning[]> => {
-  const results = await DBHelper().query<Tables.TLearning>(Learning.query.byUserDaily(item.id, date));
 
   return results.Items;
 };
