@@ -17,7 +17,7 @@ export const byUserDaily = (userId: string, nextTime: string): QueryInput => ({
 
 export const byUserDailyTested = (userId: string, nextTime: string, lastTime: string): QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
-  KeyConditionExpression: '#userId = :userId AND #nextTime > :nextTime',
+  KeyConditionExpression: '#userId = :userId AND #nextTime >= :nextTime',
   FilterExpression: '#lastTime = :lastTime',
   ExpressionAttributeNames: {
     '#userId': 'userId',
