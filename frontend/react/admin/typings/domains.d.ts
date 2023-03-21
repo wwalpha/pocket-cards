@@ -80,5 +80,6 @@ export namespace Domains {
       subject?: string;
     };
     searchResults: APIs.CurriculumStatusResponseItem[];
+    overalls: APIs.CurriculumStatusResponseItem[];
   }
 }
