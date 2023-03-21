@@ -7,7 +7,7 @@
 
 import Foundation
 
-let APP_VERSION = "v0.9.20"
+let APP_VERSION = "v0.9.26"
 
 enum URLs {
     private static let HOST = API_URL

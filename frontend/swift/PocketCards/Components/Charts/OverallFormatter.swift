@@ -22,7 +22,7 @@ public class OverallFormatter: NSObject, AxisValueFormatter {
         case 3:
             return "復習"
         default:
-            return String(Int(value - 2)) + "回"
+            return String(Int(value - 3)) + "回"
         }
     }
 }
