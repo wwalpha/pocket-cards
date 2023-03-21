@@ -149,12 +149,7 @@ export default () => {
           </LoadingButton>
         </Box>
       )}
-      {isConnectionEstablished && questions.length === 0 && (
-        <Box display="flex" justifyContent="center">
-          データありません
-        </Box>
-      )}
-      {isConnectionEstablished && questions.length !== 0 && (
+      {isConnectionEstablished && (
         <React.Fragment>
           <Box display="flex" alignItems="center" sx={{ mt: 2, mr: 1 }}>
             <Box display="flex" sx={{ px: 2 }}>
@@ -200,51 +195,24 @@ export default () => {
               </LoadingButton>
             </Box>
           </Box>
-          <Box display="flex" flexDirection="column" sx={{ my: 1, mx: 2 }}>
-            <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-              {questions[index].title.replace(/\[.*\]/g, '')}
-              {(() => {
-                const title = questions[index].title;
-                // 画像がない
-                if (!title.match(/\[.*\]/g)) return;
 
-                const startIdx = title.indexOf('[');
-                const endIdx = title.indexOf(']', startIdx);
-                const url = title.substring(startIdx + 1, endIdx);
-
-                return [
-                  <img
-                    src={`${Consts.DOMAIN_HOST}/${url}`}
-                    width="200"
-                    height="200"
-                    onClick={() => {
-                      handleImageOpen(0);
-                    }}
-                  />,
-                  <Modal
-                    open={qImageOpen}
-                    onClose={() => {
-                      handleImageClose(0);
-                    }}
-                  >
-                    <Box sx={style}>
-                      <img src={`${Consts.DOMAIN_HOST}/${url}`} width="100%" height="100%" />
-                    </Box>
-                  </Modal>,
-                ];
-              })()}
-            </Paper>
-            {questions[index].choices === undefined && (
+          {questions.length === 0 && (
+            <Box display="flex" justifyContent="center">
+              データありません
+            </Box>
+          )}
+          {questions.length !== 0 && (
+            <Box display="flex" flexDirection="column" sx={{ my: 1, mx: 2 }}>
               <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-                {questions[index].answer.replace(/\[.*\]/g, '')}
+                {questions[index].title.replace(/\[.*\]/g, '')}
                 {(() => {
-                  const answer = questions[index].answer;
+                  const title = questions[index].title;
                   // 画像がない
-                  if (!answer.match(/\[.*\]/g)) return;
+                  if (!title.match(/\[.*\]/g)) return;
 
-                  const startIdx = answer.indexOf('[');
-                  const endIdx = answer.indexOf(']', startIdx);
-                  const url = answer.substring(startIdx + 1, endIdx);
+                  const startIdx = title.indexOf('[');
+                  const endIdx = title.indexOf(']', startIdx);
+                  const url = title.substring(startIdx + 1, endIdx);
 
                   return [
                     <img
@@ -252,13 +220,13 @@ export default () => {
                       width="200"
                       height="200"
                       onClick={() => {
-                        handleImageOpen(1);
+                        handleImageOpen(0);
                       }}
                     />,
                     <Modal
-                      open={aImageOpen}
+                      open={qImageOpen}
                       onClose={() => {
-                        handleImageClose(1);
+                        handleImageClose(0);
                       }}
                     >
                       <Box sx={style}>
@@ -268,17 +236,52 @@ export default () => {
                   ];
                 })()}
               </Paper>
-            )}
-            {questions[index].choices !== undefined && (
-              <Paper elevation={3} sx={{ my: 1, p: 4 }}>
-                {questions[index].choices?.map((choiceItems, idx) => (
-                  <Box color={questions[index].answer === (idx + 1).toString() ? 'blue' : 'black'}>
-                    {idx + 1}. {choiceItems}
-                  </Box>
-                ))}
-              </Paper>
-            )}
-          </Box>
+              {questions[index].choices === undefined && (
+                <Paper elevation={3} sx={{ my: 1, p: 4 }}>
+                  {questions[index].answer.replace(/\[.*\]/g, '')}
+                  {(() => {
+                    const answer = questions[index].answer;
+                    // 画像がない
+                    if (!answer.match(/\[.*\]/g)) return;
+
+                    const startIdx = answer.indexOf('[');
+                    const endIdx = answer.indexOf(']', startIdx);
+                    const url = answer.substring(startIdx + 1, endIdx);
+
+                    return [
+                      <img
+                        src={`${Consts.DOMAIN_HOST}/${url}`}
+                        width="200"
+                        height="200"
+                        onClick={() => {
+                          handleImageOpen(1);
+                        }}
+                      />,
+                      <Modal
+                        open={aImageOpen}
+                        onClose={() => {
+                          handleImageClose(1);
+                        }}
+                      >
+                        <Box sx={style}>
+                          <img src={`${Consts.DOMAIN_HOST}/${url}`} width="100%" height="100%" />
+                        </Box>
+                      </Modal>,
+                    ];
+                  })()}
+                </Paper>
+              )}
+              {questions[index].choices !== undefined && (
+                <Paper elevation={3} sx={{ my: 1, p: 4 }}>
+                  {questions[index].choices?.map((choiceItems, idx) => (
+                    <Box color={questions[index].answer === (idx + 1).toString() ? 'blue' : 'black'}>
+                      {idx + 1}. {choiceItems}
+                    </Box>
+                  ))}
+                </Paper>
+              )}
+            </Box>
+          )}
         </React.Fragment>
       )}
     </form>

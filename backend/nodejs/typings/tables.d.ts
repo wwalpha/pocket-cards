@@ -75,12 +75,16 @@ export namespace Tables {
     voiceTitle?: string;
     // 回答音声
     voiceAnswer?: string;
-    // /** @deprecated 次の学習時間 */
-    // nextTime?: string;
-    // /** @deprecated 最後の学習時間 */
-    // lastTime?: string;
-    // /** @deprecated 学習回数 */
-    // times?: number;
+    // 大分類
+    category?: string;
+    // タグ
+    tags?: string[];
+    // 難易度
+    difficulty?: string;
+    // 問題の出所
+    source?: string;
+    // 問題の番号
+    qNo?: string;
     /**  */
     original?: string;
   }
@@ -121,6 +125,11 @@ export namespace Tables {
     subject_status?: string;
     // 優先度
     priority?: string;
+    // 学習履歴
+    histories?: {
+      date: string;
+      correct: string;
+    }[];
   }
 
   interface TLearningGSI1Key {
@@ -192,9 +201,14 @@ export namespace Tables {
   // ------------------------------------------------------------
   // Traces
   // ------------------------------------------------------------
-  interface TTraces {
+  interface TTracesKey {
     // 問題ID
     qid: string;
+    // Timestamp
+    timestamp?: string;
+  }
+
+  interface TTraces extends TTracesKey {
     // ユーザID
     userId?: string;
     // グループID
@@ -207,8 +221,6 @@ export namespace Tables {
     timesAfter?: number;
     // 科目
     subject?: string;
-    // Timestamp
-    timestamp?: string;
   }
 
   // ------------------------------------------------------------

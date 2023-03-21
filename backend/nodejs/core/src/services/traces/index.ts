@@ -79,13 +79,31 @@ export const regist = async (item: Tables.TTraces): Promise<void> => {
   await DBHelper().put(Queries.put(item));
 };
 
-// registStream({
-//   qid: 'rnpttwZau3dK1bfv4hwULb',
-//   timestamp: '20221107183139',
-//   groupId: 'wXtkuF2vzjHPsohPoyuxRg',
-//   lastTime: '20221017',
-//   subject: '3',
-//   timesAfter: 0,
-//   timesBefore: 1,
-//   userId: 'Google_109439805128280065775',
-// });
+/** 問題詳細取得 */
+export const describe = async (key: Tables.TTracesKey): Promise<Tables.TTraces | undefined> => {
+  const results = await DBHelper().get<Tables.TTraces>(Queries.get(key));
+
+  return results?.Item;
+};
+
+/** 問題詳細更新 */
+export const update = async (item: Tables.TTraces): Promise<void> => {
+  const question = await describe({
+    qid: item.qid,
+    timestamp: item.timestamp,
+  });
+
+  // if exists
+  if (!question) {
+    throw new Error(`Trace is not exists. ${item.qid}`);
+  }
+
+  await DBHelper().put(Queries.put(item));
+};
+
+/** 学習任務一覧 */
+export const listByQuestion = async (qid: string): Promise<Tables.TTraces[]> => {
+  const results = await DBHelper().query<Tables.TTraces>(Queries.byQuestionId(qid));
+
+  return results.Items;
+};

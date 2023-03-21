@@ -2,8 +2,7 @@ import { push } from 'connected-react-router';
 import { Consts, ROUTE_PATHS, URLs } from '@constants';
 import { Actions } from '@reducers';
 import { API } from '@utils';
-import { showSuccess } from './app';
-import { APIs, AppDispatch, Group, QuestionUpdateParameter } from 'typings';
+import { APIs, AppDispatch, Group, QuestionTransferParameter, QuestionUpdateParameter } from 'typings';
 
 /** グループリスト */
 export const list = () => async (dispatch: AppDispatch) => {
@@ -79,6 +78,11 @@ export const questionUpdate = (param: QuestionUpdateParameter) => (dispatch: App
   dispatch(Actions.GROUP_QUESTION_UPDATE(param));
 };
 
+/** 問題集更新 */
+export const questionTransfer = (param: QuestionTransferParameter) => (dispatch: AppDispatch) => {
+  dispatch(Actions.GROUP_QUESTION_TRANSFER(param));
+};
+
 /** 質問リスト */
 export const questionList = (groupId: string, routePath: string) => async (dispatch: AppDispatch) => {
   // Get question lists
@@ -101,7 +105,12 @@ export const questionIgnore = (groupId: string, qid: string) => async (dispatch:
 
 /** 質問リスト */
 export const uploadConfirm = (subject: string, groupId: string, texts: string) => (dispatch: AppDispatch) => {
-  dispatch(Actions.GROUP_QUESTION_UPLOADS(texts));
+  dispatch(
+    Actions.GROUP_QUESTION_UPLOADS({
+      subject,
+      texts,
+    })
+  );
 
   // transit to upload confirm
   dispatch(push(ROUTE_PATHS.GROUP_UPLOAD_CONFIRM_PUSH(subject, groupId)));

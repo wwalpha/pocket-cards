@@ -20,7 +20,14 @@ export default async (
 
   return {
     language: countBy(language, (item) => {
-      return item.lastTime === Consts.INITIAL_DATE ? -2 : item.times;
+      if (item.lastTime === Consts.INITIAL_DATE) {
+        return -2;
+      }
+      if (item.times === 0) {
+        return -1;
+      }
+
+      return item.times;
     }),
     science: countBy(science, (item) => {
       return item.lastTime === Consts.INITIAL_DATE ? -2 : item.times;

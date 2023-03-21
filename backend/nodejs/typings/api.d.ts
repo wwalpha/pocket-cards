@@ -443,6 +443,10 @@ export namespace APIs {
     choices?: string;
     answer: string;
     description?: string;
+    category: string;
+    tags?: string[];
+    qNo?: string;
+    difficulty?: string;
   }
 
   type QuestionUpdateResponse = Tables.TQuestions;
@@ -460,6 +464,20 @@ export namespace APIs {
   }
 
   type QuestionIgnoreResponse = void;
+
+  // ------------------------------------------------------------
+  // Question Transfer
+  // ------------------------------------------------------------
+  interface QuestionTransferParams {
+    groupId: string;
+    questionId: string;
+  }
+
+  interface QuestionTransferRequest {
+    newGroupId: string;
+  }
+
+  type QuestionTransferResponse = void;
 
   // ------------------------------------------------------------
   // Curriculum Ignore

@@ -12,6 +12,11 @@ export const describe = async (qid: string, userId: string): Promise<Tables.TLea
 
 /** レポート新規作成 */
 export const regist = async (item: Tables.TLearning): Promise<void> => {
+  // 国語の場合、復習はない
+  if (item.subject === Consts.SUBJECT.LANGUAGE && item.times === -1) {
+    item.times = 0;
+  }
+
   await DBHelper().put(Queries.put(item));
 };
 
@@ -21,7 +26,12 @@ export const update = async (item: Tables.TLearning): Promise<void> => {
 
   // if exists
   if (!result) {
-    throw new Error(`Leaning task not exists. ${item.qid}`);
+    throw new Error(`Learning task not exists. ${item.qid}`);
+  }
+
+  // 国語の場合、復習はない
+  if (result.subject === Consts.SUBJECT.LANGUAGE && item.times === -1) {
+    item.times = 0;
   }
 
   await DBHelper().put(
@@ -179,8 +189,8 @@ export const listByUser = async (userId: string, groupId?: string): Promise<Tabl
 };
 
 /** 学習任務一覧 */
-export const listByQuestion = async (questionId: string): Promise<Tables.TLearning[]> => {
-  const results = await DBHelper().query<Tables.TLearning>(Queries.byQuestionId(questionId));
+export const listByQuestion = async (questionId: string, projection?: string): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Queries.byQuestionId(questionId, projection));
 
   return results.Items;
 };

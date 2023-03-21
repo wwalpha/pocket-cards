@@ -3,14 +3,13 @@ import server from '@src/app';
 import request from 'supertest';
 import * as CURRICULUMS from '../../datas/curriculums/regist';
 import * as COMMONS from '../../datas/commons';
-import { HEADER_GUARDIAN, HEADER_USER } from '@test/Commons';
-import { DynamodbHelper } from '@alphax/dynamodb';
+import { DynamoDBClient, HEADER_GUARDIAN, HEADER_USER } from '@test/Commons';
 import { Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 import { orderBy } from 'lodash';
 import { LearningService } from '@services';
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
+const client = DynamoDBClient;
 
 jest.setTimeout(10000);
 
