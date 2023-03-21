@@ -1,9 +1,9 @@
-import { DynamoDB } from 'aws-sdk';
+import { UpdateInput } from '@alphax/dynamodb';
 import { Environment } from '@consts';
 import { Tables } from 'typings';
 
 /** 次の学習時間を調整する */
-export const nextTime = (word: string, groupId: string, nextTime: string): DynamoDB.DocumentClient.UpdateItemInput => ({
+export const nextTime = (word: string, groupId: string, nextTime: string): UpdateInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   Key: {
     id: word,
@@ -19,12 +19,7 @@ export const nextTime = (word: string, groupId: string, nextTime: string): Dynam
 });
 
 /** 単語情報を更新する */
-export const info = (
-  key: Tables.TWordsKey,
-  times: number,
-  lastTime: string,
-  nextTime: string
-): DynamoDB.DocumentClient.Update => ({
+export const info = (key: Tables.TWordsKey, times: number, lastTime: string, nextTime: string): UpdateInput => ({
   TableName: Environment.TABLE_NAME_WORDS,
   Key: key,
   UpdateExpression: 'set #times = :times, #lastTime = :lastTime, #nextTime = :nextTime',

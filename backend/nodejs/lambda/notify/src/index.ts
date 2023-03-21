@@ -1,5 +1,5 @@
+import { SNS } from '@aws-sdk/client-sns';
 import { EventBridgeEvent } from 'aws-lambda';
-import { SNS } from 'aws-sdk';
 import { DetailType, ECSTaskStateChange } from 'typings';
 
 const SNS_TOPIC_ARN = process.env['SNS_TOPIC_ARN'] as string;
@@ -24,17 +24,15 @@ const ecsTaskFailure = async (event: EventBridgeEvent<DetailType, ECSTaskStateCh
   const stopReason = event.detail.stoppedReason;
 
   // send notification
-  await client
-    .publish({
-      TopicArn: SNS_TOPIC_ARN,
-      Subject: 'ECS Task Provisioning Failure',
-      Message: `Region: ${region}
+  await client.publish({
+    TopicArn: SNS_TOPIC_ARN,
+    Subject: 'ECS Task Provisioning Failure',
+    Message: `Region: ${region}
     Time: ${time.toLocaleString()}
     Cluster: ${cluster}
     Service: ${service}
     Stop Code: ${stopCode}
     Stop Reason: ${stopReason}
     `,
-    })
-    .promise();
+  });
 };

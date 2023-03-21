@@ -1,14 +1,15 @@
 import server from '@src/app';
 import request from 'supertest';
-import { DynamodbHelper } from '@alphax/dynamodb';
+
 import { Environment } from '@consts';
 import * as COMMONS from '@test/datas/commons';
 import * as REPORTS from '@test/datas/reports/curriculumStatus';
 import { APIs } from 'typings';
+import { DynamoDBClient } from '@test/Commons';
 
 jest.setTimeout(10000);
 
-const client = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
+const client = DynamoDBClient;
 
 describe('Curriculums', () => {
   beforeAll(async () => {
@@ -51,12 +52,13 @@ describe('Curriculums', () => {
 
   test('CurriculumStatus002: 学習進捗取得_期間なし', async () => {
     const apiPath = '/v1/reports/status/curriculums';
-    const curriculums = ['vB6cUPdMB8TJFSrypGwoML', 'aaYHb4GyjxfYWYAaKMyG53'];
+    const curriculums = ['vB6cUPdMB8TJFSrypGwoML'];
 
     const res = await request(server)
       .post(apiPath)
       .send({
         curriculums: curriculums,
+        unlearned: '1',
       } as APIs.CurriculumStatusRequest);
 
     // status code

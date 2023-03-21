@@ -42,4 +42,5 @@ export interface WSSConnectionEvent {
   domainName: string;
   principalId: string;
   connectionId: string;
+  stage: string;
 }

@@ -1,10 +1,10 @@
-import { SES } from 'aws-sdk';
+import { SES } from '@aws-sdk/client-ses';
 import moment from 'moment';
 import { Learning } from '@queries';
 import { DBHelper, Environments, Consts } from '@utils';
 import { Tables } from 'typings';
 
-const client = new SES();
+const client = new SES({});
 
 export default async () => {
   // get teachers
@@ -35,26 +35,24 @@ const getStudentProgress = async (userId: string): Promise<Tables.TLearning[][]>
 };
 
 const sendmail = async (datas: Tables.TLearning[][], username: string, email: string) => {
-  await client
-    .sendEmail({
-      Source: Environments.MASTER_EMAIL_ADDRESS,
-      Destination: {
-        ToAddresses: [email],
+  await client.sendEmail({
+    Source: Environments.MASTER_EMAIL_ADDRESS,
+    Destination: {
+      ToAddresses: [email],
+    },
+    Message: {
+      Subject: {
+        Charset: 'UTF-8',
+        Data: '【勉強にゃん】の週間予定',
       },
-      Message: {
-        Subject: {
+      Body: {
+        Text: {
           Charset: 'UTF-8',
-          Data: '【勉強にゃん】の週間予定',
-        },
-        Body: {
-          Text: {
-            Charset: 'UTF-8',
-            Data: getMessageBody(datas, username),
-          },
+          Data: getMessageBody(datas, username),
         },
       },
-    })
-    .promise();
+    },
+  });
 };
 
 const getMessageBody = (datas: Tables.TLearning[][], username: string): string => {

@@ -11,7 +11,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@alphax/dynamodb": "^1.1.3",
+    "@alphax/dynamodb": "^1.2.6",
     "axios": "^0.26.1"
   }
 }

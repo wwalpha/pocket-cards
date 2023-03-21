@@ -4,6 +4,7 @@ import { Consts } from '@consts';
 import { Commons, DateUtils, ValidationError } from '@utils';
 import { LearningService, CurriculumService, TraceService } from '@services';
 import { APIs, Tables } from 'typings';
+import { SUBJECT } from '@src/consts/Consts';
 
 export default async (
   req: Request<any, any, APIs.QuestionAnswerRequest, any>
@@ -27,7 +28,15 @@ export default async (
   }
 
   // 正解の場合
-  const times = correct === '1' ? defaultTo(learning.times, 0) + 1 : -1;
+  let times = 0;
+
+  // 国語の場合、復習が必要ない
+  if (learning.subject === SUBJECT.LANGUAGE) {
+    times = correct === '1' ? defaultTo(learning.times, 0) + 1 : 0;
+  } else {
+    times = correct === '1' ? defaultTo(learning.times, 0) + 1 : -1;
+  }
+
   const nextTime = correct === '1' ? DateUtils.getNextTime(times, learning.subject) : DateUtils.getNextTime(-1);
 
   // 学習情報更新

@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { URLs } from '@constants';
+import { Consts, URLs } from '@constants';
 import { RootState } from '@store';
 import { API } from '@utils';
-import { Tables, APIs, QuestionUpdateParameter } from 'typings';
+import { Tables, APIs, QuestionUpdateParameter, QuestionTransferParameter } from 'typings';
 import omit from 'lodash/omit';
 
 export const GROUP_LIST = createAsyncThunk<Tables.TGroups[]>('group/GROUP_LIST', async () => {
@@ -57,15 +57,27 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, string>(
   'group/GROUP_QUESTION_REGIST',
   async (groupId, { getState }) => {
     // request parameter
-    const { uploads } = (getState() as RootState).group;
+    const { uploads, groups } = (getState() as RootState).group;
+    const subject = groups.find((g) => g.id === groupId)?.subject;
 
-    const questions = uploads.map(
-      ({ title, answer, description, choices }) =>
-        `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`
-    );
+    let questions: string[] = [];
+
+    // 算数の場合
+    if (subject === Consts.SUBJECT.MATHS) {
+      questions = uploads.map(
+        ({ title, answer, description, source, category, tags, difficulty, qNo }) =>
+          `${description}|${source}|${category}|${tags}|${difficulty}|${qNo}|${title}|${answer}`
+      );
+    } else {
+      // 算数以外の場合
+      questions = uploads.map(
+        ({ title, answer, description, choices }) =>
+          `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`
+      );
+    }
 
     for (; questions.length > 0; ) {
-      const datas = questions.splice(0, 100);
+      const datas = questions.splice(0, 1);
 
       // request
       await API.post<APIs.QuestionRegistResponse, APIs.QuestionRegistRequest>(URLs.QUESTION_REGIST(groupId), {
@@ -88,6 +100,25 @@ export const GROUP_QUESTION_UPDATE = createAsyncThunk<APIs.QuestionUpdateRespons
       URLs.QUESTION_UPDATE(groupId, questionId),
       req
     );
+  }
+);
+
+/** Question Transfer */
+export const GROUP_QUESTION_TRANSFER = createAsyncThunk<string, QuestionTransferParameter>(
+  'group/GROUP_QUESTION_TRANSFER',
+  async (params) => {
+    // request parameter
+    const { newGroupId, groupId, questionId } = params;
+
+    // 質問更新
+    await API.post<APIs.QuestionTransferResponse, APIs.QuestionTransferRequest>(
+      URLs.QUESTION_TRANSFER(groupId, questionId),
+      {
+        newGroupId: newGroupId,
+      }
+    );
+
+    return questionId;
   }
 );
 

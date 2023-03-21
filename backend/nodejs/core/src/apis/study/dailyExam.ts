@@ -87,7 +87,7 @@ const getLearnings = async (guardianId: string, userId: string, subject: string)
   const priLearnings = priorities.filter((item) => groupIds.includes(item.groupId));
 
   // 優先問題は先に登録
-  if (priLearnings.length > 0) {
+  if (priLearnings.length > Environment.WORDS_LIMIT) {
     return priLearnings;
   }
 

@@ -1,7 +1,7 @@
-import { DynamoDB } from 'aws-sdk';
+import { QueryInput } from '@alphax/dynamodb';
 import { Environments } from '@utils';
 
-export const byUserDaily = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byUserDaily = (userId: string, nextTime: string): QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
   KeyConditionExpression: '#userId = :userId AND #nextTime = :nextTime',
   ExpressionAttributeNames: {
@@ -15,13 +15,9 @@ export const byUserDaily = (userId: string, nextTime: string): DynamoDB.Document
   IndexName: 'gsiIdx1',
 });
 
-export const byUserDailyTested = (
-  userId: string,
-  nextTime: string,
-  lastTime: string
-): DynamoDB.DocumentClient.QueryInput => ({
+export const byUserDailyTested = (userId: string, nextTime: string, lastTime: string): QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
-  KeyConditionExpression: '#userId = :userId AND #nextTime > :nextTime',
+  KeyConditionExpression: '#userId = :userId AND #nextTime >= :nextTime',
   FilterExpression: '#lastTime = :lastTime',
   ExpressionAttributeNames: {
     '#userId': 'userId',
@@ -36,7 +32,7 @@ export const byUserDailyTested = (
   IndexName: 'gsiIdx1',
 });
 
-export const byUserTests = (userId: string, nextTime: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byUserTests = (userId: string, nextTime: string): QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid, subject',
   KeyConditionExpression: '#userId = :userId AND #nextTime = :nextTime',
@@ -54,7 +50,7 @@ export const byUserTests = (userId: string, nextTime: string): DynamoDB.Document
   IndexName: 'gsiIdx1',
 });
 
-export const byUserId = (userId: string): DynamoDB.DocumentClient.QueryInput => ({
+export const byUserId = (userId: string): QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
   ProjectionExpression: 'qid, subject, times',
   KeyConditionExpression: '#userId = :userId',

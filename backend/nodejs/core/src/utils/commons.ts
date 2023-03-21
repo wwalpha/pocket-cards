@@ -1,16 +1,16 @@
-import { Polly } from 'aws-sdk';
-import { PutObjectCommandInput } from '@aws-sdk/client-s3';
+import { GetItemOutput } from '@alphax/dynamodb';
+import { SynthesizeSpeechCommand, SynthesizeSpeechCommandInput } from '@aws-sdk/client-polly';
+import { DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
 import * as short from 'short-uuid';
 import { Request } from 'express';
 import { decode } from 'jsonwebtoken';
-import { GetItemOutput } from '@alphax/dynamodb';
 import pLimit from 'p-limit';
 import { ClientUtils, DateUtils, Logger } from '@utils';
-import { ssm } from './clientUtils';
 import { Environment, Consts } from '@consts';
+import { QuestionService } from '@services';
 import { getImage } from './apis';
 import { Tables } from 'typings';
-import { QuestionService } from '@services';
 
 // Sleep
 export const sleep = (timeout: number) => new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
@@ -61,7 +61,7 @@ export const getUserInfo = (token: string) => {
 
 /** SSM Value */
 export const getSSMValue = async (key: string) => {
-  const client = ssm();
+  const client = ClientUtils.ssm();
 
   const result = await client.getParameter({
     Name: key,
@@ -79,7 +79,7 @@ export const getSSMValue = async (key: string) => {
 export const saveWithMP3 = async (word: string): Promise<string> => {
   const client = ClientUtils.polly();
 
-  const request: Polly.SynthesizeSpeechInput = {
+  const request: SynthesizeSpeechCommandInput = {
     Text: getOriginal(word),
     TextType: 'text',
     VoiceId: 'Joanna',
@@ -94,16 +94,18 @@ export const saveWithMP3 = async (word: string): Promise<string> => {
   const prefix: string = DateUtils.getNow();
   const key: string = `${Consts.PATH_PATTERN}/${prefix}/${filename}`;
 
-  const putRequest: PutObjectCommandInput = {
-    Bucket: Environment.BUCKET_NAME_MATERAILS,
-    Key: key,
-    Body: response.AudioStream,
-  };
-
-  const s3Client = ClientUtils.s3();
-
   // S3に保存する
-  await s3Client.putObject(putRequest);
+  const upload = new Upload({
+    client: ClientUtils.s3(),
+    params: {
+      Bucket: Environment.BUCKET_NAME_MATERAILS,
+      Key: key,
+      Body: response.AudioStream,
+      ContentType: response.ContentType,
+    },
+  });
+
+  await upload.done();
 
   return key;
 };
@@ -126,15 +128,18 @@ const generateImage = async (url: string): Promise<string> => {
   const extension: string | undefined = url.split('.').pop();
   const key: string = `${Consts.PATH_IMAGE}/${filename}.${extension}`;
 
-  const putRequest: PutObjectCommandInput = {
-    Bucket: Environment.BUCKET_NAME_MATERAILS,
-    Key: key,
-    Body: filedata,
-    ContentType: getContentType(extension),
-  };
-
   // S3に保存する
-  await ClientUtils.s3().putObject(putRequest);
+  const upload = new Upload({
+    client: ClientUtils.s3(),
+    params: {
+      Bucket: Environment.BUCKET_NAME_MATERAILS,
+      Key: key,
+      Body: filedata,
+      ContentType: getContentType(extension),
+    },
+  });
+
+  await upload.done();
 
   return key;
 };
@@ -158,15 +163,15 @@ const getContentType = (extension: string = '') => {
 const createJapaneseVoice = async (text: string, groupId: string, s3Key?: string) => {
   const client = ClientUtils.polly();
 
-  const request: Polly.SynthesizeSpeechInput = {
-    Text: text,
-    TextType: 'text',
-    VoiceId: 'Takumi',
-    OutputFormat: 'mp3',
-    LanguageCode: 'ja-JP',
-  };
-
-  const response = await client.synthesizeSpeech(request);
+  const response = await client.send(
+    new SynthesizeSpeechCommand({
+      Text: text,
+      TextType: 'text',
+      VoiceId: 'Takumi',
+      OutputFormat: 'mp3',
+      LanguageCode: 'ja-JP',
+    })
+  );
 
   const prefix = `${Consts.PATH_VOICE}/${groupId}`;
   const key = s3Key ?? `${short.generate()}.mp3`;
@@ -174,66 +179,48 @@ const createJapaneseVoice = async (text: string, groupId: string, s3Key?: string
   // ファイル名
   const bucketKey: string = `${prefix}/${key}`;
 
-  const putRequest: PutObjectCommandInput = {
-    Bucket: Environment.BUCKET_NAME_MATERAILS,
-    Key: bucketKey,
-    Body: response.AudioStream,
-  };
-
-  const s3Client = ClientUtils.s3();
-
   // S3に保存する
-  await s3Client.putObject(putRequest);
+  const upload = new Upload({
+    client: ClientUtils.s3(),
+    params: {
+      Bucket: Environment.BUCKET_NAME_MATERAILS,
+      Key: bucketKey,
+      Body: response.AudioStream,
+      ContentType: response.ContentType,
+    },
+  });
+
+  await upload.done();
 
   return key;
 };
 
-export const updateQuestion = async (q: Tables.TQuestions[]) => {
+export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolean = true) => {
   const limit = pLimit(25);
 
   const tasks = q.map((item) =>
     limit(async () => {
-      const results = await Promise.all([
-        createQuestionVoice(item),
-        createAnswerVoice(item),
-        createImage(item.title),
-        createImage(item.answer),
-      ]);
+      const tasks: Promise<string | undefined>[] = [createImage(item.title), createImage(item.answer)];
 
-      // const info = await DBHelper().get<Tables.TQuestions>(
-      //   Questions.get({
-      //     id: item.id,
-      //   })
-      // );
+      // 音声作成する場合
+      if (createVoice === true) {
+        tasks.push(createQuestionVoice(item));
+        tasks.push(createAnswerVoice(item));
+      }
 
-      // if (!info?.Item) return;
+      // 一括実行する
+      const results = await Promise.all(tasks);
 
-      // const tasks: Promise<void>[] = [
-      //   async () => {
-      //     if (info.Item?.title === item.title) return;
+      item.title = results[0] ?? item.title;
+      item.answer = results[1] ?? item.answer;
 
-      //     item.voiceTitle = await createQuestionVoice(item);
-      //   },
-      // ];
+      // 音声作成する場合
+      if (createVoice === true) {
+        item.voiceTitle = results[2];
+        item.voiceAnswer = results[3];
+      }
 
-      // if (info.Item.title !== item.title) {
-      //   tasks.push(createQuestionVoice(item));
-      // }
-
-      // if (info.Item.answer !== item.answer) {
-      //   tasks.push(createAnswerVoice(item));
-      // }
-
-      // tasks.push(createImage(item.title));
-      // tasks.push(createImage(item.answer));
-
-      // const results = await Promise.all(tasks);
-
-      item.voiceTitle = results[0];
-      item.voiceAnswer = results[1];
-      item.title = results[2];
-      item.answer = results[3];
-
+      // 問題更新する
       await QuestionService.update(item);
     })
   );
@@ -285,11 +272,11 @@ export const removeImage = async (text: string): Promise<void> => {
   const endIdx = text.indexOf(']', startIdx);
   const key = text.substring(startIdx + 1, endIdx);
 
-  // console.log('Key', Environment.BUCKET_NAME_MATERAILS, key);
-
   // S3に保存する
-  await ClientUtils.s3().deleteObject({
-    Bucket: Environment.BUCKET_NAME_MATERAILS,
-    Key: key,
-  });
+  await ClientUtils.s3().send(
+    new DeleteObjectCommand({
+      Bucket: Environment.BUCKET_NAME_MATERAILS,
+      Key: key,
+    })
+  );
 };

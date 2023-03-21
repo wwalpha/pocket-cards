@@ -1,12 +1,17 @@
 require('dotenv').config({ path: '.env.test' });
 
 import { DynamodbHelper } from '@alphax/dynamodb';
-import AWS, { S3 } from 'aws-sdk';
+import { S3 } from '@aws-sdk/client-s3';
 
-AWS.config.update({
+const helper = new DynamodbHelper({
+  options: {
+    endpoint: process.env['AWS_ENDPOINT_DYNAMODB'],
+    region: process.env['AWS_REGION'],
+  },
+});
+const s3Client = new S3({
   region: process.env['AWS_REGION'],
-  s3: { endpoint: process.env['AWS_ENDPOINT'] },
-  dynamodb: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] },
+  endpoint: process.env['AWS_ENDPOINT'],
 });
 
 const TABLE_NAME_USERS = process.env['TABLE_NAME_USERS'] as string;
@@ -24,237 +29,213 @@ const TABLE_NAME_ACCURACY = process.env['TABLE_NAME_ACCURACY'] as string;
 const setup = async () => {
   console.log('jest setup start...');
 
-  const helper = new DynamodbHelper({ options: { endpoint: process.env['AWS_ENDPOINT_DYNAMODB'] } });
-  const s3Client = new S3();
   const dbClient = helper.getClient();
 
   await Promise.all([
-    s3Client.createBucket({ Bucket: process.env['BUCKET_NAME_MATERAILS'] as string }).promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_USERS,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
-        AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_GROUPS,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
-        AttributeDefinitions: [
-          { AttributeName: 'id', AttributeType: 'S' },
-          { AttributeName: 'subject', AttributeType: 'S' },
-        ],
-        GlobalSecondaryIndexes: [
-          {
-            IndexName: 'gsiIdx1',
-            KeySchema: [
-              { AttributeName: 'subject', KeyType: 'HASH' },
-              { AttributeName: 'id', KeyType: 'RANGE' },
-            ],
-            Projection: { ProjectionType: 'ALL' },
-          },
-        ],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_WORDS,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [
-          { AttributeName: 'id', KeyType: 'HASH' },
-          { AttributeName: 'groupId', KeyType: 'RANGE' },
-        ],
-        AttributeDefinitions: [
-          { AttributeName: 'id', AttributeType: 'S' },
-          { AttributeName: 'groupId', AttributeType: 'S' },
-          { AttributeName: 'nextTime', AttributeType: 'S' },
-        ],
-        GlobalSecondaryIndexes: [
-          {
-            IndexName: 'gsiIdx1',
-            KeySchema: [
-              { AttributeName: 'groupId', KeyType: 'HASH' },
-              { AttributeName: 'nextTime', KeyType: 'RANGE' },
-            ],
-            Projection: { ProjectionType: 'ALL' },
-          },
-        ],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_WORD_MASTER,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
-        AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_WORD_IGNORE,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [
-          { AttributeName: 'id', KeyType: 'HASH' },
-          { AttributeName: 'word', KeyType: 'RANGE' },
-        ],
-        AttributeDefinitions: [
-          { AttributeName: 'id', AttributeType: 'S' },
-          { AttributeName: 'word', AttributeType: 'S' },
-        ],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_TRACES,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [
-          { AttributeName: 'qid', KeyType: 'HASH' },
-          { AttributeName: 'timestamp', KeyType: 'RANGE' },
-        ],
-        AttributeDefinitions: [
-          { AttributeName: 'qid', AttributeType: 'S' },
-          { AttributeName: 'timestamp', AttributeType: 'S' },
-        ],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_QUESTIONS,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
-        AttributeDefinitions: [
-          { AttributeName: 'id', AttributeType: 'S' },
-          { AttributeName: 'groupId', AttributeType: 'S' },
-        ],
-        GlobalSecondaryIndexes: [
-          {
-            IndexName: 'gsiIdx1',
-            KeySchema: [
-              { AttributeName: 'groupId', KeyType: 'HASH' },
-              { AttributeName: 'id', KeyType: 'RANGE' },
-            ],
-            Projection: { ProjectionType: 'ALL' },
-          },
-        ],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_LEARNING,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [
-          { AttributeName: 'qid', KeyType: 'HASH' },
-          { AttributeName: 'userId', KeyType: 'RANGE' },
-        ],
-        AttributeDefinitions: [
-          { AttributeName: 'qid', AttributeType: 'S' },
-          { AttributeName: 'userId', AttributeType: 'S' },
-          { AttributeName: 'nextTime', AttributeType: 'S' },
-          { AttributeName: 'groupId', AttributeType: 'S' },
-          { AttributeName: 'subject_weekly', AttributeType: 'S' },
-          { AttributeName: 'subject_status', AttributeType: 'S' },
-          { AttributeName: 'priority', AttributeType: 'S' },
-        ],
-        GlobalSecondaryIndexes: [
-          {
-            IndexName: 'gsiIdx1',
-            KeySchema: [
-              { AttributeName: 'userId', KeyType: 'HASH' },
-              { AttributeName: 'nextTime', KeyType: 'RANGE' },
-            ],
-            Projection: { ProjectionType: 'ALL' },
-          },
-          {
-            IndexName: 'gsiIdx2',
-            KeySchema: [
-              { AttributeName: 'groupId', KeyType: 'HASH' },
-              { AttributeName: 'nextTime', KeyType: 'RANGE' },
-            ],
-            Projection: { ProjectionType: 'ALL' },
-          },
-          {
-            IndexName: 'gsiIdx3',
-            KeySchema: [
-              { AttributeName: 'userId', KeyType: 'HASH' },
-              { AttributeName: 'subject_weekly', KeyType: 'RANGE' },
-            ],
-            Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['qid'] },
-          },
-          {
-            IndexName: 'gsiIdx4',
-            KeySchema: [
-              { AttributeName: 'userId', KeyType: 'HASH' },
-              { AttributeName: 'subject_status', KeyType: 'RANGE' },
-            ],
-            Projection: { ProjectionType: 'ALL' },
-          },
-          {
-            IndexName: 'gsiIdx5',
-            KeySchema: [
-              { AttributeName: 'userId', KeyType: 'HASH' },
-              { AttributeName: 'priority', KeyType: 'RANGE' },
-            ],
-            Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['qid', 'groupId', 'subject', 'nextTime'] },
-          },
-        ],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_CURRICULUMS,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
-        AttributeDefinitions: [
-          { AttributeName: 'id', AttributeType: 'S' },
-          { AttributeName: 'guardian', AttributeType: 'S' },
-          { AttributeName: 'groupId', AttributeType: 'S' },
-          { AttributeName: 'userId', AttributeType: 'S' },
-        ],
-        GlobalSecondaryIndexes: [
-          {
-            IndexName: 'gsiIdx1',
-            KeySchema: [
-              { AttributeName: 'guardian', KeyType: 'HASH' },
-              { AttributeName: 'groupId', KeyType: 'RANGE' },
-            ],
-            Projection: { ProjectionType: 'ALL' },
-          },
-          {
-            IndexName: 'gsiIdx2',
-            KeySchema: [
-              { AttributeName: 'groupId', KeyType: 'HASH' },
-              { AttributeName: 'userId', KeyType: 'RANGE' },
-            ],
-            Projection: { ProjectionType: 'ALL' },
-          },
-        ],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_INQUIRY,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [{ AttributeName: 'qid', KeyType: 'HASH' }],
-        AttributeDefinitions: [{ AttributeName: 'qid', AttributeType: 'S' }],
-      })
-      .promise(),
-    dbClient
-      .createTable({
-        TableName: TABLE_NAME_ACCURACY,
-        BillingMode: 'PAY_PER_REQUEST',
-        KeySchema: [
-          { AttributeName: 'qid', KeyType: 'HASH' },
-          { AttributeName: 'uid', KeyType: 'RANGE' },
-        ],
-        AttributeDefinitions: [
-          { AttributeName: 'qid', AttributeType: 'S' },
-          { AttributeName: 'uid', AttributeType: 'S' },
-        ],
-      })
-      .promise(),
+    s3Client.createBucket({ Bucket: process.env['BUCKET_NAME_MATERAILS'] as string }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_USERS,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+      AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
+    }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_GROUPS,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+      AttributeDefinitions: [
+        { AttributeName: 'id', AttributeType: 'S' },
+        { AttributeName: 'subject', AttributeType: 'S' },
+      ],
+      GlobalSecondaryIndexes: [
+        {
+          IndexName: 'gsiIdx1',
+          KeySchema: [
+            { AttributeName: 'subject', KeyType: 'HASH' },
+            { AttributeName: 'id', KeyType: 'RANGE' },
+          ],
+          Projection: { ProjectionType: 'ALL' },
+        },
+      ],
+    }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_WORDS,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [
+        { AttributeName: 'id', KeyType: 'HASH' },
+        { AttributeName: 'groupId', KeyType: 'RANGE' },
+      ],
+      AttributeDefinitions: [
+        { AttributeName: 'id', AttributeType: 'S' },
+        { AttributeName: 'groupId', AttributeType: 'S' },
+        { AttributeName: 'nextTime', AttributeType: 'S' },
+      ],
+      GlobalSecondaryIndexes: [
+        {
+          IndexName: 'gsiIdx1',
+          KeySchema: [
+            { AttributeName: 'groupId', KeyType: 'HASH' },
+            { AttributeName: 'nextTime', KeyType: 'RANGE' },
+          ],
+          Projection: { ProjectionType: 'ALL' },
+        },
+      ],
+    }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_WORD_MASTER,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+      AttributeDefinitions: [{ AttributeName: 'id', AttributeType: 'S' }],
+    }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_WORD_IGNORE,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [
+        { AttributeName: 'id', KeyType: 'HASH' },
+        { AttributeName: 'word', KeyType: 'RANGE' },
+      ],
+      AttributeDefinitions: [
+        { AttributeName: 'id', AttributeType: 'S' },
+        { AttributeName: 'word', AttributeType: 'S' },
+      ],
+    }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_TRACES,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [
+        { AttributeName: 'qid', KeyType: 'HASH' },
+        { AttributeName: 'timestamp', KeyType: 'RANGE' },
+      ],
+      AttributeDefinitions: [
+        { AttributeName: 'qid', AttributeType: 'S' },
+        { AttributeName: 'timestamp', AttributeType: 'S' },
+      ],
+    }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_QUESTIONS,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+      AttributeDefinitions: [
+        { AttributeName: 'id', AttributeType: 'S' },
+        { AttributeName: 'groupId', AttributeType: 'S' },
+      ],
+      GlobalSecondaryIndexes: [
+        {
+          IndexName: 'gsiIdx1',
+          KeySchema: [
+            { AttributeName: 'groupId', KeyType: 'HASH' },
+            { AttributeName: 'id', KeyType: 'RANGE' },
+          ],
+          Projection: { ProjectionType: 'ALL' },
+        },
+      ],
+    }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_LEARNING,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [
+        { AttributeName: 'qid', KeyType: 'HASH' },
+        { AttributeName: 'userId', KeyType: 'RANGE' },
+      ],
+      AttributeDefinitions: [
+        { AttributeName: 'qid', AttributeType: 'S' },
+        { AttributeName: 'userId', AttributeType: 'S' },
+        { AttributeName: 'nextTime', AttributeType: 'S' },
+        { AttributeName: 'groupId', AttributeType: 'S' },
+        { AttributeName: 'subject_weekly', AttributeType: 'S' },
+        { AttributeName: 'subject_status', AttributeType: 'S' },
+        { AttributeName: 'priority', AttributeType: 'S' },
+      ],
+      GlobalSecondaryIndexes: [
+        {
+          IndexName: 'gsiIdx1',
+          KeySchema: [
+            { AttributeName: 'userId', KeyType: 'HASH' },
+            { AttributeName: 'nextTime', KeyType: 'RANGE' },
+          ],
+          Projection: { ProjectionType: 'ALL' },
+        },
+        {
+          IndexName: 'gsiIdx2',
+          KeySchema: [
+            { AttributeName: 'groupId', KeyType: 'HASH' },
+            { AttributeName: 'nextTime', KeyType: 'RANGE' },
+          ],
+          Projection: { ProjectionType: 'ALL' },
+        },
+        {
+          IndexName: 'gsiIdx3',
+          KeySchema: [
+            { AttributeName: 'userId', KeyType: 'HASH' },
+            { AttributeName: 'subject_weekly', KeyType: 'RANGE' },
+          ],
+          Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['qid'] },
+        },
+        {
+          IndexName: 'gsiIdx4',
+          KeySchema: [
+            { AttributeName: 'userId', KeyType: 'HASH' },
+            { AttributeName: 'subject_status', KeyType: 'RANGE' },
+          ],
+          Projection: { ProjectionType: 'ALL' },
+        },
+        {
+          IndexName: 'gsiIdx5',
+          KeySchema: [
+            { AttributeName: 'userId', KeyType: 'HASH' },
+            { AttributeName: 'priority', KeyType: 'RANGE' },
+          ],
+          Projection: { ProjectionType: 'INCLUDE', NonKeyAttributes: ['qid', 'groupId', 'subject', 'nextTime'] },
+        },
+      ],
+    }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_CURRICULUMS,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+      AttributeDefinitions: [
+        { AttributeName: 'id', AttributeType: 'S' },
+        { AttributeName: 'guardian', AttributeType: 'S' },
+        { AttributeName: 'groupId', AttributeType: 'S' },
+        { AttributeName: 'userId', AttributeType: 'S' },
+      ],
+      GlobalSecondaryIndexes: [
+        {
+          IndexName: 'gsiIdx1',
+          KeySchema: [
+            { AttributeName: 'guardian', KeyType: 'HASH' },
+            { AttributeName: 'groupId', KeyType: 'RANGE' },
+          ],
+          Projection: { ProjectionType: 'ALL' },
+        },
+        {
+          IndexName: 'gsiIdx2',
+          KeySchema: [
+            { AttributeName: 'groupId', KeyType: 'HASH' },
+            { AttributeName: 'userId', KeyType: 'RANGE' },
+          ],
+          Projection: { ProjectionType: 'ALL' },
+        },
+      ],
+    }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_INQUIRY,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [{ AttributeName: 'qid', KeyType: 'HASH' }],
+      AttributeDefinitions: [{ AttributeName: 'qid', AttributeType: 'S' }],
+    }),
+    dbClient.createTable({
+      TableName: TABLE_NAME_ACCURACY,
+      BillingMode: 'PAY_PER_REQUEST',
+      KeySchema: [
+        { AttributeName: 'qid', KeyType: 'HASH' },
+        { AttributeName: 'uid', KeyType: 'RANGE' },
+      ],
+      AttributeDefinitions: [
+        { AttributeName: 'qid', AttributeType: 'S' },
+        { AttributeName: 'uid', AttributeType: 'S' },
+      ],
+    }),
   ]);
 
   console.log('jest setup end...');
