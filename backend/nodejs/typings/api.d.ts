@@ -664,6 +664,24 @@ export namespace APIs {
   }
 
   // ------------------------------------------------------------
+  // Curriculums - Curriculum Overall
+  // ------------------------------------------------------------
+  interface CurriculumOverallResquest {
+    curriculums: string[];
+  }
+
+  type CurriculumOverallResponseItem = {
+    // group id
+    id: string;
+    // 問題
+    progress: number[];
+  };
+
+  interface CurriculumOverallResponse {
+    items: CurriculumOverallResponseItem[];
+  }
+
+  // ------------------------------------------------------------
   // Curriculums - Curriculum Regist
   // ------------------------------------------------------------
   interface CurriculumRegistRequest {
