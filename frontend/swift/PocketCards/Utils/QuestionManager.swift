@@ -173,18 +173,60 @@ class QuestionManager {
             }
 
             // answered question
+            // debugPrint(q.id, answered, answered.contains(q.id))
             if answered.contains(q.id) {
                 continue
             }
 
+            // shuffle choices
+            let newQuestion = shuffle(q: q)
+
             // add new question
-            self.questions.append(q)
+            self.questions.append(newQuestion)
         }
 
         // check question count
         if self.questions.count == 0 {
             isSuspended = true
         }
+    }
+
+    private func shuffle(q: Question) -> Question {
+        if subject != SUBJECT.LANGUAGE || q.choices == nil {
+            debugPrint(q)
+            return q
+        }
+
+        // create new array for shuffle
+        guard let choices = q.choices else { return q }
+        // current choices
+        var array = Array(1 ... choices.count)
+
+        var newQuestion = q
+        var newChoices: [String] = []
+        var newAnswer = ""
+
+        while array.count > 0 {
+            array = array.shuffled()
+            let index = array.popLast() ?? -1
+
+            if index == -1 {
+                break
+            }
+
+            newChoices.append(choices[index - 1])
+
+            if String(index) == q.answer {
+                newAnswer = String(newChoices.count)
+            }
+        }
+
+        newQuestion.choices = newChoices
+        newQuestion.answer = newAnswer
+
+//        print("==HUB== \(newQuestion.choices) \(q.choices)", newQuestion.answer, q.answer)
+
+        return newQuestion
     }
 
     // update question answer
