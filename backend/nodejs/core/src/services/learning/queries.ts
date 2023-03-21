@@ -333,7 +333,7 @@ export const byQuestionId = (questionId: string, projection: string = 'qid, user
 export const byUserId = (userId: string, groupId?: string): QueryInput => {
   const query: QueryInput = {
     TableName: Environment.TABLE_NAME_LEARNING,
-    ProjectionExpression: 'qid, userId, groupId, subject, times, lastTime',
+    ProjectionExpression: 'qid, userId, groupId, subject, times, lastTime, subject_status',
     KeyConditionExpression: '#userId = :userId',
     ExpressionAttributeNames: {
       '#userId': 'userId',
