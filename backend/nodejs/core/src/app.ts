@@ -20,6 +20,7 @@ import {
   LearningOverall,
   OverallStatus,
   CurriculumStatus,
+  CurriculumOverall,
 } from '@src/apis/reports';
 import {
   CurriculumRegist,
@@ -97,13 +98,14 @@ app.post('/v1/groups/:groupId/questions/ignore', express.json(), (req, res) => e
 app.get('/v1/reports/progress', express.json(), (req, res) => entry(req, res, LearningProgress));
 // leaning overall
 app.get('/v1/reports/overall', express.json(), (req, res) => entry(req, res, LearningOverall));
+// カリキュラム学習進捗
+app.post('/v1/reports/overall/curriculums', express.json(), (req, res) => entry(req, res, CurriculumOverall));
 // 全体学習進捗
 app.get('/v1/reports/status/overall', express.json(), (req, res) => entry(req, res, OverallStatus));
 // 日次学習進捗
 app.get('/v1/reports/status/daily', express.json(), (req, res) => entry(req, res, DailyStatus));
 // カリキュラム別の学習状況
 app.post('/v1/reports/status/curriculums', express.json(), (req, res) => entry(req, res, CurriculumStatus));
-
 // 科目別テスト問題の一覧
 app.post('/v1/reports/questions/dailytest', express.json(), (req, res) => entry(req, res, DailyTestQuestions));
 
