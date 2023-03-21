@@ -80,3 +80,5 @@ export const INQUIRY_REMOVE = (qid: string) => `${API_VERSION}/inquiries/${qid}`
 
 // 日次テスト問題一覧
 export const REPORTS_DAILY_TEST = () => `${API_VERSION}/reports/questions/dailytest`;
+// カリキュラム進捗
+export const REPORTS_OVERALL_CURRICULUMS = () => `${API_VERSION}/reports/overall/curriculums`;

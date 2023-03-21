@@ -15,6 +15,9 @@ const slice = createSlice({
     builder.addCase(ProgressActions.PROGRESS_SEARCH.fulfilled, (state, { payload }) => {
       state.searchResults = payload;
     });
+    builder.addCase(ProgressActions.CURRICULUM_OVERALL.fulfilled, (state, { payload }) => {
+      state.searchResults = payload;
+    });
   },
 });
 
