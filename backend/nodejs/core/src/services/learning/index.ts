@@ -97,6 +97,20 @@ export const dailyTestByGroup = async (
   return results.Items;
 };
 
+/** 日次テスト */
+export const dailyNearTestByGroup = async (
+  groupId: string,
+  userId: string,
+  subject: string,
+  projection?: string
+): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(
+    Queries.testNearByGroup(groupId, userId, subject, projection)
+  );
+
+  return results.Items;
+};
+
 /** 日次練習 */
 export const dailyMaths = async (userId: string, nextTime: string): Promise<Tables.TLearning[]> => {
   const results = await DBHelper().query<Tables.TLearning>(

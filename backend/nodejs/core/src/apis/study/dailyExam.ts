@@ -91,12 +91,32 @@ const getLearnings = async (guardianId: string, userId: string, subject: string)
     return priLearnings;
   }
 
+  const grade6 = [...groupIds];
+  let results: Tables.TLearning[] = [...priLearnings];
+
+  for (; grade6.length > 0; ) {
+    // 最初の5件を取得する
+    const items = grade6.splice(0, 5);
+    // グループ毎のテスト問題を取得する
+    const tasks = items.map((item) => LearningService.dailyNearTestByGroup(item, userId, subject));
+    // 一括実行
+    const learnings = await Promise.all(tasks);
+
+    // 結果マージ
+    learnings.forEach((item) => {
+      results = [...results, ...item];
+    });
+
+    // 上限件数超えた場合、即終了
+    if (results.length >= Environment.WORDS_LIMIT) {
+      return results;
+    }
+  }
+
   // 学習順でソートする
   const dataRows = orderBy(curriculums, 'order');
-
   // next study date
   const date = DateUtils.getNow();
-  let results: Tables.TLearning[] = [];
 
   for (; dataRows.length > 0; ) {
     // 最初の5件を取得する
