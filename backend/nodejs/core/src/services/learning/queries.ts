@@ -139,7 +139,7 @@ export const testByGroup = (groupId: string, userId: string, nextTime: string, s
 /**
  * グループのテスト問題一覧を取得する
  *
- * 対象: GroupId = :groupId, NextTime <= now, Subject = :subject, times <=2
+ * 対象: GroupId = :groupId, NextTime <= now, Subject = :subject, 1 <= times <=2
  */
 export const testNearByGroup = (
   groupId: string,
@@ -150,7 +150,7 @@ export const testNearByGroup = (
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: projection,
   KeyConditionExpression: '#groupId = :groupId and #nextTime <= :nextTime',
-  FilterExpression: '#userId = :userId and #subject = :subject and #times <= :times',
+  FilterExpression: '#userId = :userId and #subject = :subject and #times BETWEEN :times1 and :times2',
   ExpressionAttributeNames: {
     '#groupId': 'groupId',
     '#nextTime': 'nextTime',
@@ -163,7 +163,8 @@ export const testNearByGroup = (
     ':nextTime': DateUtils.getNow(),
     ':userId': userId,
     ':subject': subject,
-    ':times': 2,
+    ':times1': 1,
+    ':times2': 2,
   },
   IndexName: 'gsiIdx2',
   ScanIndexForward: false,
