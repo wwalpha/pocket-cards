@@ -91,14 +91,18 @@ const getLearnings = async (guardianId: string, userId: string, subject: string)
     return priLearnings;
   }
 
-  const grade6 = [...groupIds];
   let results: Tables.TLearning[] = [...priLearnings];
+
+  // 学習順でソートする
+  const dataRows = orderBy(curriculums, 'order');
+  // 6年生のカリキュラム
+  const grade6 = dataRows.filter((item) => groupIds.includes(item.groupId));
 
   for (; grade6.length > 0; ) {
     // 最初の5件を取得する
     const items = grade6.splice(0, 5);
     // グループ毎のテスト問題を取得する
-    const tasks = items.map((item) => LearningService.dailyNearTestByGroup(item, userId, subject));
+    const tasks = items.map((item) => LearningService.dailyNearTestByGroup(item.groupId, userId, subject));
     // 一括実行
     const learnings = await Promise.all(tasks);
 
@@ -113,8 +117,6 @@ const getLearnings = async (guardianId: string, userId: string, subject: string)
     }
   }
 
-  // 学習順でソートする
-  const dataRows = orderBy(curriculums, 'order');
   // next study date
   const date = DateUtils.getNow();
 
