@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { APIs } from 'typings';
-import { GroupService, QuestionService, WordService } from '@services';
+import { GroupService, QuestionService, WordMasterService } from '@services';
 import { Consts } from '@consts';
 import { ValidationError } from '@utils';
 
@@ -25,7 +25,7 @@ export default async (
 
   // 英語の場合、原型取得する
   if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
-    const wordInfo = await WordService.describe(question.title);
+    const wordInfo = await WordMasterService.describe({ id: question.title });
 
     question.original = wordInfo.original;
   }

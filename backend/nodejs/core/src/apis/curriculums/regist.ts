@@ -1,9 +1,10 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
-import { CurriculumService, GroupService, QuestionService, WordService } from '@services';
+import { CurriculumService, GroupService, QuestionService, UserWordService, WordMasterService } from '@services';
 import { Commons, DBHelper, ValidationError } from '@utils';
 import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
+import pLimit from 'p-limit';
 
 export default async (
   req: Request<any, any, APIs.CurriculumRegistRequest, any>
@@ -31,7 +32,7 @@ export default async (
 
   // 英語の場合
   if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
-    questions = await getQuestionsForEnglish(guardian, userId, questions);
+    questions = await getQuestionsForEnglish(userId, questions);
   }
 
   const dataRows = questions.map<Tables.TLearning>((item) => ({
@@ -64,30 +65,48 @@ export default async (
 };
 
 /** 英語の単語一覧 */
-const getQuestionsForEnglish = async (guardian: string, userId: string, newQuestions: Tables.TQuestions[]) => {
-  // ユーザのカリキュラム一覧
-  const curriculums = await CurriculumService.getListByGuardian(guardian, Consts.SUBJECT.ENGLISH, userId);
-  // グループ一覧
-  const groups = curriculums.map((item) => item.groupId);
+const getQuestionsForEnglish = async (userId: string, newQuestions: Tables.TQuestions[]) => {
+  const limit = pLimit(100);
 
-  // group questions
-  const existQuestions = await Promise.all(
-    groups.map(async (item) => await QuestionService.listByGroup(item, 'title'))
-  );
-
-  const words = new Set<string>();
-  // remove duplicate
-  existQuestions.forEach((qg) => qg.forEach((q) => words.add(q.title)));
-
-  const questions = await Promise.all(
-    newQuestions.filter(async (item) => {
-      return await WordService.isIgnore({
-        id: userId,
+  // search duplicate
+  const tasks = newQuestions.map((item) =>
+    limit(async () => {
+      const word = await UserWordService.describe({
+        uid: userId,
         word: item.title,
       });
+
+      return word === undefined ? item : undefined;
     })
   );
 
-  // remvoe registed
-  return questions.filter((item) => words.has(item.title) === false);
+  const results = await Promise.all(tasks);
+
+  // remove duplicate
+  const questions = results.filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
+
+  // check ignore
+  const registQuestions = await Promise.all(
+    questions.filter((item) =>
+      limit(async () => {
+        const ignore = await WordMasterService.isIgnore({
+          id: userId,
+          word: item.title,
+        });
+
+        return !ignore;
+      })
+    )
+  );
+
+  const userWords = registQuestions.map<Tables.TUserWords>((item) => ({
+    uid: userId,
+    word: item.title,
+  }));
+
+  if (userWords.length > 0) {
+    await DBHelper().bulk(Environment.TABLE_NAME_USER_WORDS, userWords);
+  }
+
+  return registQuestions;
 };
