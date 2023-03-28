@@ -147,20 +147,14 @@ export namespace Tables {
   // ------------------------------------------------------------
   // Words
   // ------------------------------------------------------------
-  interface TWordsKey {
+  interface TUserWordsKey {
     // 単語
-    id: string;
+    uid: string;
     // グループID
-    groupId: string;
+    word: string;
   }
 
-  interface TWords extends TWordsKey {
-    // 次の学習時間
-    nextTime: string;
-    // 最後の学習時間
-    lastTime?: string;
-    // 学習回数
-    times: number;
+  interface TUserWords extends TUserWordsKey {
     // 語彙
     vocabulary?: string;
   }
