@@ -2,6 +2,7 @@ import { Request } from 'express';
 import { APIs } from 'typings';
 import { CurriculumService, GroupService, LearningService, QuestionService, TraceService } from '@services';
 import { Consts } from '@consts';
+import { Commons } from '@utils';
 
 /** 問題カード一括追加 */
 export default async (
@@ -94,7 +95,7 @@ export default async (
         subject: qInfo.subject,
         lastTime: Consts.INITIAL_DATE,
         nextTime: Consts.INITIAL_DATE,
-        times: qInfo.subject === Consts.SUBJECT.LANGUAGE ? 0 : -1,
+        times: Commons.getRegistTimes(qInfo.subject),
       })
     );
 

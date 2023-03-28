@@ -1,6 +1,6 @@
 import { DeleteItemInput, GetItemInput, PutItemInput, QueryInput, UpdateInput } from '@alphax/dynamodb';
 import { Consts, Environment } from '@consts';
-import { DateUtils } from '@utils';
+import { Commons, DateUtils } from '@utils';
 import { Tables } from 'typings';
 
 /** データ取得 */
@@ -191,7 +191,7 @@ export const practice = (userId: string, nextTime: string, subject: string): Que
   },
   ExpressionAttributeValues: {
     ':userId': userId,
-    ':times': Consts.SUBJECT.LANGUAGE === subject ? 0 : -1,
+    ':times': Commons.getRegistTimes(subject),
     ':nextTime': nextTime,
     ':subject': subject,
     ':lastTime': Consts.INITIAL_DATE,
