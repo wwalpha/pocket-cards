@@ -27,7 +27,7 @@ const TABLE_NAME_INQUIRY = process.env['TABLE_NAME_INQUIRY'] as string;
 const TABLE_NAME_ACCURACY = process.env['TABLE_NAME_ACCURACY'] as string;
 
 const setup = async () => {
-  console.log('jest setup start...');
+  console.log('\njest setup start...');
 
   const dbClient = helper.getClient();
 

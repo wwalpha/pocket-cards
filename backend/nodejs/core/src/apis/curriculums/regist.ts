@@ -69,8 +69,8 @@ export default async (
       limit(async () => {
         return UserWordService.addCurriculumn(
           {
+            id: item.title,
             uid: userId,
-            word: item.title,
           },
           response.id
         );
@@ -91,8 +91,8 @@ const getQuestionsForEnglish = async (userId: string, newQuestions: Tables.TQues
   const tasks = newQuestions.map((item) =>
     limit(async () => {
       const word = await UserWordService.describe({
+        id: item.title,
         uid: userId,
-        word: item.title,
       });
 
       return word === undefined ? item : undefined;

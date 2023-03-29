@@ -12,13 +12,13 @@ export const describe = async (key: Tables.TUserWordsKey): Promise<Tables.TUserW
 /** 問題詳細更新 */
 export const update = async (item: Tables.TUserWords): Promise<void> => {
   const userword = await describe({
+    id: item.id,
     uid: item.uid,
-    word: item.word,
   });
 
   // if exists
   if (!userword) {
-    throw new Error(`Word is not exists. ${item.uid},${item.word}`);
+    throw new Error(`Word is not exists. ${item.uid},${item.id}`);
   }
 
   await DBHelper().put(Queries.put(item));
