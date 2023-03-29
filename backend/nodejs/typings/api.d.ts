@@ -456,7 +456,6 @@ export namespace APIs {
   // ------------------------------------------------------------
   interface QuestionIgnoreParams {
     groupId: string;
-    questionId: string;
   }
 
   interface QuestionIgnoreRequest {
