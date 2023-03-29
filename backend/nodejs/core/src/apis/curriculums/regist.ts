@@ -61,6 +61,25 @@ export default async (
   // add new curriculum
   await CurriculumService.regist(response);
 
+  // 英語の場合、単語の学習一覧に登録
+  if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
+    const limit = pLimit(100);
+
+    const tasks = questions.map((item) =>
+      limit(async () => {
+        return UserWordService.addCurriculumn(
+          {
+            uid: userId,
+            word: item.title,
+          },
+          response.id
+        );
+      })
+    );
+
+    await Promise.all(tasks);
+  }
+
   return response;
 };
 
@@ -85,28 +104,17 @@ const getQuestionsForEnglish = async (userId: string, newQuestions: Tables.TQues
   // remove duplicate
   const questions = results.filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
 
-  // check ignore
-  const registQuestions = await Promise.all(
-    questions.filter((item) =>
-      limit(async () => {
-        const ignore = await WordMasterService.isIgnore({
-          id: userId,
-          word: item.title,
-        });
+  // remove ignore
+  const removeIgnoreTasks = questions.filter((item) =>
+    limit(async () => {
+      const ignore = await WordMasterService.isIgnore({
+        id: userId,
+        word: item.title,
+      });
 
-        return !ignore;
-      })
-    )
+      return !ignore;
+    })
   );
 
-  const userWords = registQuestions.map<Tables.TUserWords>((item) => ({
-    uid: userId,
-    word: item.title,
-  }));
-
-  if (userWords.length > 0) {
-    await DBHelper().bulk(Environment.TABLE_NAME_USER_WORDS, userWords);
-  }
-
-  return registQuestions;
+  return await Promise.all(removeIgnoreTasks);
 };

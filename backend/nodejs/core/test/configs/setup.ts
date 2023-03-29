@@ -15,8 +15,8 @@ const s3Client = new S3({
 });
 
 const TABLE_NAME_USERS = process.env['TABLE_NAME_USERS'] as string;
+const TABLE_NAME_USER_WORDS = process.env['TABLE_NAME_USER_WORDS'] as string;
 const TABLE_NAME_GROUPS = process.env['TABLE_NAME_GROUPS'] as string;
-const TABLE_NAME_WORDS = process.env['TABLE_NAME_WORDS'] as string;
 const TABLE_NAME_WORD_MASTER = process.env['TABLE_NAME_WORD_MASTER'] as string;
 const TABLE_NAME_WORD_IGNORE = process.env['TABLE_NAME_WORD_IGNORE'] as string;
 const TABLE_NAME_QUESTIONS = process.env['TABLE_NAME_QUESTIONS'] as string;
@@ -59,26 +59,15 @@ const setup = async () => {
       ],
     }),
     dbClient.createTable({
-      TableName: TABLE_NAME_WORDS,
+      TableName: TABLE_NAME_USER_WORDS,
       BillingMode: 'PAY_PER_REQUEST',
       KeySchema: [
-        { AttributeName: 'id', KeyType: 'HASH' },
-        { AttributeName: 'groupId', KeyType: 'RANGE' },
+        { AttributeName: 'word', KeyType: 'HASH' },
+        { AttributeName: 'uid', KeyType: 'RANGE' },
       ],
       AttributeDefinitions: [
-        { AttributeName: 'id', AttributeType: 'S' },
-        { AttributeName: 'groupId', AttributeType: 'S' },
-        { AttributeName: 'nextTime', AttributeType: 'S' },
-      ],
-      GlobalSecondaryIndexes: [
-        {
-          IndexName: 'gsiIdx1',
-          KeySchema: [
-            { AttributeName: 'groupId', KeyType: 'HASH' },
-            { AttributeName: 'nextTime', KeyType: 'RANGE' },
-          ],
-          Projection: { ProjectionType: 'ALL' },
-        },
+        { AttributeName: 'word', AttributeType: 'S' },
+        { AttributeName: 'uid', AttributeType: 'S' },
       ],
     }),
     dbClient.createTable({
