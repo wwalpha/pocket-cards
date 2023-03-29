@@ -24,6 +24,7 @@ export default async (
 
   // 普通グループ
   let questions = await QuestionService.listByGroup(groupId);
+  const curriculumId = generate();
 
   // group not exsits or no question in group
   if (questions.length === 0) {
@@ -32,80 +33,40 @@ export default async (
 
   // 英語の場合
   if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
-    questions = await getQuestionsForEnglish(userId, questions);
+    questions = await registEnglish(userId, curriculumId, questions);
+  } else {
+    await registOthers(userId, questions);
   }
 
-  const dataRows = questions.map<Tables.TLearning>((item) => ({
-    qid: item.id,
-    userId: userId,
-    groupId: item.groupId,
-    subject: groupInfo.subject,
-    lastTime: Consts.INITIAL_DATE,
-    nextTime: Consts.INITIAL_DATE,
-    times: Commons.getRegistTimes(groupInfo.subject),
-  }));
-
-  // bulk insert
-  await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
-
   const response: Tables.TCurriculums = {
-    id: generate(),
+    id: curriculumId,
     subject: groupInfo.subject,
     guardian: guardian,
     userId: userId,
     groupId: groupId,
     order: 0,
-    unlearned: dataRows.length,
+    unlearned: questions.length,
   };
 
   // add new curriculum
   await CurriculumService.regist(response);
 
-  // 英語の場合、単語の学習一覧に登録
-  if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
-    const limit = pLimit(100);
-
-    const tasks = questions.map((item) =>
-      limit(async () => {
-        return UserWordService.addCurriculumn(
-          {
-            id: item.title,
-            uid: userId,
-          },
-          response.id
-        );
-      })
-    );
-
-    await Promise.all(tasks);
-  }
-
   return response;
 };
 
-/** 英語の単語一覧 */
-const getQuestionsForEnglish = async (userId: string, newQuestions: Tables.TQuestions[]) => {
+const registOthers = async (userId: string, questions: Tables.TQuestions[]) => {
+  await registLearning(userId, questions);
+};
+
+const registEnglish = async (
+  userId: string,
+  curriculumId: string,
+  questions: Tables.TQuestions[]
+): Promise<Tables.TQuestions[]> => {
   const limit = pLimit(100);
 
-  // search duplicate
-  const tasks = newQuestions.map((item) =>
-    limit(async () => {
-      const word = await UserWordService.describe({
-        id: item.title,
-        uid: userId,
-      });
-
-      return word === undefined ? item : undefined;
-    })
-  );
-
-  const results = await Promise.all(tasks);
-
-  // remove duplicate
-  const questions = results.filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
-
-  // remove ignore
-  const removeIgnoreTasks = questions.filter((item) =>
+  // 無視の単語を除外する
+  const filterIgnores = questions.filter((item) =>
     limit(async () => {
       const ignore = await WordMasterService.isIgnore({
         id: userId,
@@ -116,5 +77,54 @@ const getQuestionsForEnglish = async (userId: string, newQuestions: Tables.TQues
     })
   );
 
-  return await Promise.all(removeIgnoreTasks);
+  const newQuestions = await Promise.all(filterIgnores);
+
+  // すでに学習中の単語は除外する
+  const learningUnregisted = newQuestions.filter((item) =>
+    limit(async () => {
+      const word = await UserWordService.describe({
+        id: item.title,
+        uid: userId,
+      });
+
+      return word === undefined;
+    })
+  );
+
+  const unregistedQuestions = await Promise.all(learningUnregisted);
+
+  // 学習単語の登録
+  registLearning(userId, unregistedQuestions);
+
+  const tasks = newQuestions.map((item) =>
+    limit(async () => {
+      await UserWordService.addCurriculumn(
+        {
+          id: item.title,
+          uid: userId,
+        },
+        curriculumId
+      );
+    })
+  );
+
+  await Promise.all(tasks);
+
+  return unregistedQuestions;
+};
+
+const registLearning = async (userId: string, questions: Tables.TQuestions[]) => {
+  // 学習問題の準備
+  const dataRows = questions.map<Tables.TLearning>((item) => ({
+    qid: item.id,
+    userId: userId,
+    groupId: item.groupId,
+    subject: item.subject,
+    lastTime: Consts.INITIAL_DATE,
+    nextTime: Consts.INITIAL_DATE,
+    times: Commons.getRegistTimes(item.subject),
+  }));
+
+  // 学習問題の一括登録
+  await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
 };
