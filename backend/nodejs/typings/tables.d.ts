@@ -149,14 +149,16 @@ export namespace Tables {
   // ------------------------------------------------------------
   interface TUserWordsKey {
     // 単語
-    uid: string;
-    // グループID
     word: string;
+    // ユーザ
+    uid: string;
   }
 
   interface TUserWords extends TUserWordsKey {
     // 語彙
     vocabulary?: string;
+    // カリキュラム
+    curriculumns?: string[];
   }
 
   // ------------------------------------------------------------

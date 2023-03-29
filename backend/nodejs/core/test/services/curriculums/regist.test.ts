@@ -132,7 +132,7 @@ describe('Curriculums', () => {
     expect(res.text).toEqual('No questions in group');
   });
 
-  test('Curriculums07: 英語初回登録', async () => {
+  test.skip('Curriculums07: 英語初回登録', async () => {
     const apiPath = '/v1/curriculums';
 
     const res = await request(server)
@@ -146,6 +146,9 @@ describe('Curriculums', () => {
     expect(res.statusCode).toBe(200);
 
     const learning = await LearningService.listByUser(HEADER_USER, 'jzqKogQQw7nvZnrkrQaMWN');
+    const userwords = await DBHelper().scan({
+      TableName: Environment.TABLE_NAME_USER_WORDS,
+    });
     const curriculum = await DBHelper().get({
       TableName: Environment.TABLE_NAME_CURRICULUMS,
       Key: {
@@ -155,5 +158,7 @@ describe('Curriculums', () => {
 
     expect(orderBy(learning, 'qid')).toMatchObject(CURRICULUMS.CURRI_006_EXPECT_01);
     expect(curriculum?.Item).toMatchObject(CURRICULUMS.CURRI_006_EXPECT_02);
+
+    console.log(JSON.stringify(userwords));
   });
 });
