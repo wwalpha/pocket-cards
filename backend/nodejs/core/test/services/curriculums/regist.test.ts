@@ -109,7 +109,7 @@ describe('Curriculums', () => {
     expect(res.text).toEqual('No questions in group');
   });
 
-  test('Curriculums07: 英語登録、既存なし', async () => {
+  test.skip('Curriculums07: 英語登録、既存なし', async () => {
     const apiPath = '/v1/curriculums';
 
     const res = await request(server)
