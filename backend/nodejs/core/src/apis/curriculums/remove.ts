@@ -46,14 +46,6 @@ const removeUserWords = async (curriculum: Tables.TCurriculums, learning: Tables
 
   // remove curriculumn
   await Promise.all(
-    words.map((item) =>
-      UserWordService.removeCurriculumn(
-        {
-          uid: curriculum.userId,
-          word: item,
-        },
-        curriculum.id
-      )
-    )
+    words.map((item) => UserWordService.removeCurriculumn({ id: item, uid: curriculum.userId }, curriculum.id))
   );
 };

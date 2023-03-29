@@ -50,7 +50,7 @@ locals {
   # ----------------------------------------------------------------------------------------------
   dynamodb_name_users       = local.remote_setup.dynamodb_name_users
   dynamodb_name_groups      = local.remote_setup.dynamodb_name_groups
-  dynamodb_name_words       = local.remote_setup.dynamodb_name_words
+  dynamodb_name_user_words  = local.remote_setup.dynamodb_name_user_words
   dynamodb_name_word_master = local.remote_setup.dynamodb_name_word_master
   dynamodb_name_word_ignore = local.remote_setup.dynamodb_name_word_ignore
   dynamodb_name_questions   = local.remote_setup.dynamodb_name_questions

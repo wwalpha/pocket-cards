@@ -14,7 +14,7 @@ const dbClient = new DynamoDB({
 
 const TABLE_NAME_USERS = process.env['TABLE_NAME_USERS'] as string;
 const TABLE_NAME_GROUPS = process.env['TABLE_NAME_GROUPS'] as string;
-const TABLE_NAME_WORDS = process.env['TABLE_NAME_WORDS'] as string;
+const TABLE_NAME_USER_WORDS = process.env['TABLE_NAME_USER_WORDS'] as string;
 const TABLE_NAME_WORD_MASTER = process.env['TABLE_NAME_WORD_MASTER'] as string;
 const TABLE_NAME_WORD_IGNORE = process.env['TABLE_NAME_WORD_IGNORE'] as string;
 const TABLE_NAME_QUESTIONS = process.env['TABLE_NAME_QUESTIONS'] as string;
@@ -41,7 +41,7 @@ const teardown = async () => {
 
   await dbClient.deleteTable({ TableName: TABLE_NAME_USERS });
   await dbClient.deleteTable({ TableName: TABLE_NAME_GROUPS });
-  await dbClient.deleteTable({ TableName: TABLE_NAME_WORDS });
+  await dbClient.deleteTable({ TableName: TABLE_NAME_USER_WORDS });
   await dbClient.deleteTable({ TableName: TABLE_NAME_WORD_MASTER });
   await dbClient.deleteTable({ TableName: TABLE_NAME_WORD_IGNORE });
   await dbClient.deleteTable({ TableName: TABLE_NAME_QUESTIONS });

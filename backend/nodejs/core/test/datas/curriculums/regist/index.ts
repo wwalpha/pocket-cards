@@ -13,3 +13,5 @@ export { default as CURRI_005_REQ } from './005/request.json';
 export { default as CURRI_006_REQ } from './006/request.json';
 export { default as CURRI_006_EXPECT_01 } from './006/expect01.json';
 export { default as CURRI_006_EXPECT_02 } from './006/expect02.json';
+
+export { default as CURRI_007_EXPECT_01 } from './007/expect01.json';

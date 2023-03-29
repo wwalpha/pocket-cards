@@ -149,7 +149,7 @@ export namespace Tables {
   // ------------------------------------------------------------
   interface TUserWordsKey {
     // 単語
-    word: string;
+    id: string;
     // ユーザ
     uid: string;
   }
