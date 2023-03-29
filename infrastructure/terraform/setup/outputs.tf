@@ -36,8 +36,8 @@ output "dynamodb_name_users" {
 output "dynamodb_name_groups" {
   value = aws_dynamodb_table.groups.name
 }
-output "dynamodb_name_words" {
-  value = aws_dynamodb_table.words.name
+output "dynamodb_name_user_words" {
+  value = aws_dynamodb_table.user_words.name
 }
 output "dynamodb_name_word_master" {
   value = aws_dynamodb_table.word_master.name

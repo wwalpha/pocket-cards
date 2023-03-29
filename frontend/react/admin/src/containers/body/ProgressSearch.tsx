@@ -148,6 +148,7 @@ export default () => {
                 <MenuItem value={Consts.SUBJECT.SCIENCE}>理 科</MenuItem>
                 <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
                 <MenuItem value={Consts.SUBJECT.JAPANESE}>国 語</MenuItem>
+                <MenuItem value={Consts.SUBJECT.ENGLISH}>英 語</MenuItem>
               </Select>
             </FormControl>
           )}

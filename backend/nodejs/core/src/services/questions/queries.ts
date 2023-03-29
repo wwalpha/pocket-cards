@@ -22,7 +22,7 @@ export const del = (key: Tables.TQuestionsKey): DeleteItemInput => ({
   } as Tables.TQuestionsKey,
 });
 
-export const byGroupId = (groupId: string, projects: string[]): QueryInput => {
+export const byGroupId = (groupId: string, projections: string[]): QueryInput => {
   const query: QueryInput = {
     TableName: Environment.TABLE_NAME_QUESTIONS,
     KeyConditionExpression: '#groupId = :groupId',
@@ -35,8 +35,8 @@ export const byGroupId = (groupId: string, projects: string[]): QueryInput => {
     IndexName: 'gsiIdx1',
   };
 
-  if (projects.length > 0) {
-    query.ProjectionExpression = projects.join(',');
+  if (projections.length > 0) {
+    query.ProjectionExpression = projections.join(',');
   }
 
   return query;

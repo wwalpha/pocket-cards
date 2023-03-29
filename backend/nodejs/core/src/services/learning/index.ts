@@ -12,8 +12,8 @@ export const describe = async (qid: string, userId: string): Promise<Tables.TLea
 
 /** レポート新規作成 */
 export const regist = async (item: Tables.TLearning): Promise<void> => {
-  // 国語の場合、復習はない
-  if (item.subject === Consts.SUBJECT.LANGUAGE && item.times === -1) {
+  // 国語／英語の場合、復習はない
+  if ((item.subject === Consts.SUBJECT.LANGUAGE || item.subject === Consts.SUBJECT.ENGLISH) && item.times === -1) {
     item.times = 0;
   }
 
@@ -30,7 +30,7 @@ export const update = async (item: Tables.TLearning): Promise<void> => {
   }
 
   // 国語の場合、復習はない
-  if (result.subject === Consts.SUBJECT.LANGUAGE && item.times === -1) {
+  if ((item.subject === Consts.SUBJECT.LANGUAGE || item.subject === Consts.SUBJECT.ENGLISH) && item.times === -1) {
     item.times = 0;
   }
 
