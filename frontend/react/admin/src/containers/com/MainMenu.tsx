@@ -186,7 +186,7 @@ export default () => {
               }}
             >
               <ListItemIcon sx={styles.itemIcon}>
-                <CastleIcon sx={{ color: Consts.COLORS.PROGRESS }} />
+                <CastleIcon sx={{ color: Consts.COLORS.OVERALL }} />
               </ListItemIcon>
               <ListItemText primary="学習完成度" />
             </ListItem>

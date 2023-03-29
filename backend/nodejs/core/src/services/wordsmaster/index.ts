@@ -3,12 +3,8 @@ import { Tables } from 'typings';
 import * as Queries from './queries';
 
 /** 単語詳細取得 */
-export const describe = async (id: string): Promise<Tables.TWordMaster> => {
-  const results = await DBHelper().get<Tables.TWordMaster>(
-    Queries.get({
-      id: id,
-    })
-  );
+export const describe = async (key: Tables.TWordMasterKey): Promise<Tables.TWordMaster> => {
+  const results = await DBHelper().get<Tables.TWordMaster>(Queries.get(key));
 
   // is exist
   if (results?.Item !== undefined) {
@@ -16,12 +12,14 @@ export const describe = async (id: string): Promise<Tables.TWordMaster> => {
   }
 
   // regist new word
-  return await registNewword(id);
+  return await registNewword(key.id);
 };
 
 /** 問題詳細更新 */
 export const update = async (item: Tables.TWordMaster): Promise<void> => {
-  const question = await describe(item.id);
+  const question = await describe({
+    id: item.id,
+  });
 
   // if exists
   if (!question) {

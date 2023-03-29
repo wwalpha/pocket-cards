@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { Consts } from '@consts';
 import { APIs } from 'typings';
-import { CurriculumService, GroupService, LearningService, QuestionService, WordService } from '@services';
+import { CurriculumService, GroupService, LearningService, QuestionService, WordMasterService } from '@services';
 import { Commons, ValidationError } from '@utils';
 
 /** 今日のテスト */
@@ -38,7 +38,7 @@ export default async (
     QuestionService.remove(question.id),
 
     // 単語無視に登録する
-    WordService.registIgnore({
+    WordMasterService.registIgnore({
       id: Consts.Authority.ADMIN,
       word: question.title,
     }),

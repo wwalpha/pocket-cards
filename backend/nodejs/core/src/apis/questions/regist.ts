@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { generate } from 'short-uuid';
 import isEmpty from 'lodash/isEmpty';
-import { CurriculumService, GroupService, QuestionService, WordService } from '@services';
+import { CurriculumService, GroupService, QuestionService, WordMasterService } from '@services';
 import { Commons, DBHelper, ValidationError } from '@utils';
 import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
@@ -52,7 +52,7 @@ export default async (
       subject: groupInfo.subject,
       lastTime: Consts.INITIAL_DATE,
       nextTime: Consts.INITIAL_DATE,
-      times: groupInfo.subject === Consts.SUBJECT.LANGUAGE ? 0 : -1,
+      times: Commons.getRegistTimes(groupInfo.subject),
     }));
 
     return DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
@@ -111,7 +111,7 @@ const registEnglish = async (groupInfo: Tables.TGroups, questions: string[]) => 
 
   // 単語の語彙を取得する
   let tasks = dataRows.map(async (item) => {
-    const ignore = await WordService.isIgnore({
+    const ignore = await WordMasterService.isIgnore({
       id: Consts.Authority.ADMIN,
       word: item,
     });
@@ -121,7 +121,9 @@ const registEnglish = async (groupInfo: Tables.TGroups, questions: string[]) => 
       return undefined;
     }
 
-    return await WordService.describe(item);
+    return await WordMasterService.describe({
+      id: item,
+    });
   });
 
   // 無視単語を１次フィルター
@@ -139,7 +141,9 @@ const registEnglish = async (groupInfo: Tables.TGroups, questions: string[]) => 
 
     if (w) return w;
 
-    return await WordService.describe(item);
+    return await WordMasterService.describe({
+      id: item,
+    });
   });
 
   // 重複単語を修正する

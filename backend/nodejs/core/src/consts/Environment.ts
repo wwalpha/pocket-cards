@@ -3,8 +3,8 @@ export const AWS_DEFAULT_REGION = process.env['AWS_DEFAULT_REGION'] as string;
 /** all environment variables */
 /** tables */
 export const TABLE_NAME_USERS = process.env['TABLE_NAME_USERS'] as string;
+export const TABLE_NAME_USER_WORDS = process.env['TABLE_NAME_USER_WORDS'] as string;
 export const TABLE_NAME_GROUPS = process.env['TABLE_NAME_GROUPS'] as string;
-export const TABLE_NAME_WORDS = process.env['TABLE_NAME_WORDS'] as string;
 export const TABLE_NAME_WORD_MASTER = process.env['TABLE_NAME_WORD_MASTER'] as string;
 export const TABLE_NAME_WORD_IGNORE = process.env['TABLE_NAME_WORD_IGNORE'] as string;
 export const TABLE_NAME_TRACES = process.env['TABLE_NAME_TRACES'] as string;

@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { Commons } from '@utils';
 import { APIs, Tables } from 'typings';
-import { QuestionService, WordService } from '@services';
+import { QuestionService, WordMasterService } from '@services';
 import { Consts } from '@consts';
 
 /** 問題カード一括追加 */
@@ -44,11 +44,13 @@ export default async (
 };
 
 const updateWordMaster = async (id: string, answer: string, description: string | undefined) => {
-  const word = await WordService.describe(id);
+  const word = await WordMasterService.describe({
+    id,
+  });
 
   word.vocChn = answer.split('|')[0];
   word.vocJpn = answer.split('|')[1];
   word.pronounce = description;
 
-  await WordService.update(word);
+  await WordMasterService.update(word);
 };

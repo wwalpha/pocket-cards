@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { Commons } from '@utils';
 import { Consts } from '@consts';
 import { APIs } from 'typings';
-import { CurriculumService, LearningService, QuestionService, WordService } from '@services';
+import { CurriculumService, LearningService, QuestionService, WordMasterService } from '@services';
 
 /** 今日のテスト */
 export default async (
@@ -29,7 +29,7 @@ export default async (
   if (!question) return;
 
   // 無視単語登録
-  await WordService.registIgnore({
+  await WordMasterService.registIgnore({
     id: userId,
     word: question.title,
   });
