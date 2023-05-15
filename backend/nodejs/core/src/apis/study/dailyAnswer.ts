@@ -42,18 +42,18 @@ export default async (
   const nextTime = isCorrect(correct) ? DateUtils.getNextTime(times, learning.subject) : DateUtils.getNextTime(-1);
 
   // 学習情報更新
-  if (isEmpty(selftest)) {
+  if (!isEmpty(selftest) && isCorrect(correct)) {
+    await LearningService.update({
+      ...learning,
+      self_confirmed: '1',
+    });
+  } else {
     await LearningService.update({
       ...learning,
       times: times,
       nextTime: nextTime,
       lastTime: DateUtils.getNow(),
       priority: undefined,
-    });
-  } else {
-    await LearningService.update({
-      ...learning,
-      self_confirmed: '1',
     });
   }
 
