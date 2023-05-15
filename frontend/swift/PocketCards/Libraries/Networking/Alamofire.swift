@@ -24,32 +24,34 @@ let API: Session = {
 
     let authInterceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
 
+//    let composite = Interceptor(interceptors: [authInterceptor, RequestInterceptor()])
+
     return Session(configuration: configuration, interceptor: authInterceptor)
 }()
 
 // Mark
 final class RequestInterceptor: Alamofire.RequestInterceptor {
-    func adapt(_ urlRequest: URLRequest, for _: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+    func adapt(_ urlRequest: URLRequest, for _: Session, completion _: @escaping (Result<URLRequest, Error>) -> Void) {
 //        guard urlRequest.url?.absoluteString.hasPrefix("https://api.authenticated.com") == true else {
 //            /// If the request does not require authentication, we can directly return it as unmodified.
 //            return completion(.success(urlRequest))
 //        }
-        var urlRequest = urlRequest
+//        var urlRequest = urlRequest
 
         // Set the Authorization header value using the access token.
-        urlRequest.setValue(TokenManager.shared.getIdToken(), forHTTPHeaderField: "Authorization")
+//        urlRequest.setValue(TokenManager.shared.getIdToken(), forHTTPHeaderField: "Authorization")
 //        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         debugPrint(urlRequest)
 
-        completion(.success(urlRequest))
+//        completion(.success(urlRequest))
     }
 
-    func retry(request: Request, for _: Session, dueTo error: Error, completion _: @escaping (RetryResult) -> Void) {
-        guard let response = request.task?.response as? HTTPURLResponse else { return }
-
-        debugPrint("retry", error)
-        debugPrint(response.statusCode)
+    func retry(request _: Request, for _: Session, dueTo _: Error, completion _: @escaping (RetryResult) -> Void) {
+//        guard let response = request.task?.response as? HTTPURLResponse else { return }
+//
+//        debugPrint("retry", error)
+//        debugPrint(response.statusCode)
 
 //        guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
 //            /// The request did not fail due to a 401 Unauthorized response.

@@ -19,12 +19,16 @@ class TokenManager {
         refreshToken = tokens.refreshToken
     }
 
-    func updateAccessToken(accessToken: String) {
-        self.accessToken = accessToken
+    func updateAccessToken(token: String) {
+        accessToken = token
     }
 
-    func updateIdToken(idToken: String) {
-        self.idToken = idToken
+    func updateIdToken(token: String) {
+        idToken = token
+    }
+
+    func updateRefreshToken(token: String) {
+        refreshToken = token
     }
 
     func clear() {
