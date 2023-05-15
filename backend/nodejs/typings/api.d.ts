@@ -358,6 +358,7 @@ export namespace APIs {
   interface DailyExamRequest {
     subject: string;
     userId?: string;
+    selftest?: string;
   }
 
   interface DailyExamResponse {
@@ -384,6 +385,7 @@ export namespace APIs {
   interface QuestionAnswerRequest {
     qid: string;
     correct: string;
+    selftest?:string;
   }
 
   type QuestionAnswerResponse = void;
