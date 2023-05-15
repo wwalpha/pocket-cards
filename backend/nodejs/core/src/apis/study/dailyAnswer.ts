@@ -54,6 +54,7 @@ export default async (
       nextTime: nextTime,
       lastTime: DateUtils.getNow(),
       priority: undefined,
+      self_confirmed: undefined,
     });
   }
 
