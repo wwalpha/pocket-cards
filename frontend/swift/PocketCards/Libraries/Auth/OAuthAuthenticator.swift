@@ -17,6 +17,21 @@ class OAuthAuthenticator: Authenticator {
                  for _: Session,
                  completion: @escaping (Result<OAuthCredential, Error>) -> Void)
     {
+        // 未初期化
+        if credential.refreshToken.isEmpty, !TokenManager.shared.getRefreshToken().isEmpty {
+            let newCredential = OAuthCredential(
+                accessToken: TokenManager.shared.getAccessToken(),
+                idToken: TokenManager.shared.getIdToken(),
+                refreshToken: TokenManager.shared.getRefreshToken(),
+                userID: "U0",
+                expiration: Date(timeIntervalSinceNow: 60 * 60)
+            )
+
+            completion(.success(newCredential))
+
+            return
+        }
+
         let params = [
             "accessToken": credential.accessToken,
             "refreshToken": credential.refreshToken,
