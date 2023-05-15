@@ -92,7 +92,7 @@ const getLearnings = async (
   // 質問一覧
   const priLearnings = priorities
     .filter((item) => groupIds.includes(item.groupId))
-    .filter((item) => isEmpty(selftest) || isEmpty(item.self_confirmed));
+    .filter((item) => (isEmpty(selftest) ? true : isEmpty(item.self_confirmed)));
 
   // 優先問題は先に登録
   if (priLearnings.length > Environment.WORDS_LIMIT) {
@@ -116,7 +116,7 @@ const getLearnings = async (
 
     // 結果マージ
     learnings.forEach((item) => {
-      results = [...results, ...item.filter((l) => isEmpty(selftest) || isEmpty(l.self_confirmed))];
+      results = [...results, ...item.filter((l) => (isEmpty(selftest) ? true : isEmpty(l.self_confirmed)))];
     });
 
     // 上限件数超えた場合、即終了
@@ -138,7 +138,7 @@ const getLearnings = async (
 
     // 結果マージ
     learnings.forEach((item) => {
-      results = [...results, ...item.filter((l) => isEmpty(selftest) || isEmpty(l.self_confirmed))];
+      results = [...results, ...item.filter((l) => (isEmpty(selftest) ? true : isEmpty(l.self_confirmed)))];
     });
 
     // 上限件数超えた場合、即終了
