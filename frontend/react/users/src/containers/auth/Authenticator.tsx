@@ -50,7 +50,8 @@ const Authenticator: React.FunctionComponent = () => {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={showSnackbar}
         autoHideDuration={6000}
-        onClose={handleClose}>
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
           {message}
         </Alert>
