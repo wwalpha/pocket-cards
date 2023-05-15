@@ -11,7 +11,7 @@ export default async (
   req: Request<any, any, APIs.QuestionAnswerRequest, any>
 ): Promise<APIs.QuestionAnswerResponse> => {
   // 入力値
-  const { qid, correct,selftest } = validate(req);
+  const { qid, correct, selftest } = validate(req);
   // ユーザID
   const userId = Commons.getUserId(req);
 
@@ -42,14 +42,20 @@ export default async (
   const nextTime = isCorrect(correct) ? DateUtils.getNextTime(times, learning.subject) : DateUtils.getNextTime(-1);
 
   // 学習情報更新
-  await LearningService.update({
-    ...learning,
-    times: times,
-    nextTime: nextTime,
-    lastTime: DateUtils.getNow(),
-    priority: undefined,
-    self_confirmed: getSelfConfirmed(correct, selftest),
-  });
+  if (isEmpty(selftest)) {
+    await LearningService.update({
+      ...learning,
+      times: times,
+      nextTime: nextTime,
+      lastTime: DateUtils.getNow(),
+      priority: undefined,
+    });
+  } else {
+    await LearningService.update({
+      ...learning,
+      self_confirmed: '1',
+    });
+  }
 
   // 初めて勉強の場合
   if (learning.lastTime === Consts.INITIAL_DATE) {
@@ -79,9 +85,7 @@ export default async (
 };
 
 // リクエスト検証
-const validate = (
-  request: Request<any, any, APIs.QuestionAnswerRequest, any>
-): APIs.QuestionAnswerRequest => {
+const validate = (request: Request<any, any, APIs.QuestionAnswerRequest, any>): APIs.QuestionAnswerRequest => {
   const { qid, correct, selftest } = request.body;
 
   // validation
@@ -89,21 +93,9 @@ const validate = (
     throw new ValidationError('Bad request.');
   }
 
-  return { qid, correct,selftest };
+  return { qid, correct, selftest };
 };
 
 const isCorrect = (value: string) => {
-  return value === '1'
-}
-
-const getSelfConfirmed = (correct: string, selftest?:string) => {
-  if (isEmpty(selftest)) {
-    return;
-  }
-
-  if (isCorrect(correct)) {
-    return "1"
-  }
-
-  return;
-}
+  return value === '1';
+};
