@@ -101,7 +101,8 @@ const SignIn = () => {
             fullWidth
             variant="contained"
             color="primary"
-            sx={styles.signin}>
+            sx={styles.signin}
+          >
             Sign In
           </LoadingButton>
           <MButton
@@ -112,7 +113,8 @@ const SignIn = () => {
             color="secondary"
             component={React.forwardRef((props: any, ref: any) => (
               <Link to={ROUTE_PATHS.SIGN_UP} {...props} />
-            ))}>
+            ))}
+          >
             Sign Up
           </MButton>
 
