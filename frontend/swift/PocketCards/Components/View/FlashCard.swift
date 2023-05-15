@@ -22,18 +22,20 @@ struct FlashCard: View {
     @State var flipped = false
 
     private var readOnly = false
+    private var hideButton = false
     private var question: Question
     private var action: (_: Bool) -> Void
 
     init(question: Question, action: @escaping (_: Bool) -> Void) {
-        self.init(flipped: false, readOnly: false, question: question, action: action)
+        self.init(flipped: false, readOnly: false, hideButton: false, question: question, action: action)
     }
 
-    init(flipped: Bool, readOnly: Bool, question: Question, action: @escaping (_: Bool) -> Void) {
+    init(flipped: Bool, readOnly: Bool, hideButton: Bool, question: Question, action: @escaping (_: Bool) -> Void) {
         self.readOnly = readOnly
         self.flipped = flipped
         self.question = question
         self.action = action
+        self.hideButton = hideButton
     }
 
     var body: some View {
@@ -49,7 +51,7 @@ struct FlashCard: View {
                         .modifier(FlipEffect(flipped: $flipped, angle: angle, axis: (x: 0, y: 1)))
                 }
 
-                if !readOnly {
+                if !hideButton {
                     buttonsView(size: geo.size)
                 }
 
@@ -284,7 +286,11 @@ struct FlashCard: View {
 
             Button(action: {
                 self.action(false)
-                self.angle = 0.0
+
+                if !readOnly {
+                    self.angle = 0.0
+                }
+
             }, label: {
                 Text("知らない")
                     .frame(maxWidth: size.width * 0.25, maxHeight: 64, alignment: .center)
@@ -298,7 +304,11 @@ struct FlashCard: View {
 
             Button(action: {
                 self.action(true)
-                self.angle = 0.0
+
+                if !readOnly {
+                    self.angle = 0.0
+                }
+
             }, label: {
                 Text("知ってる")
                     .frame(maxWidth: size.width * 0.25, maxHeight: 64, alignment: .center)

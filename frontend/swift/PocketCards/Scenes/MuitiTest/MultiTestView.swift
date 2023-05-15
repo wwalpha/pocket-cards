@@ -26,7 +26,7 @@ struct MultiTestView: View {
                         )
                     } else if viewModel.question != nil {
                         // Society or Science
-                        FlashCard(flipped: false, readOnly: true, question: viewModel.question!, action: interactor!.onAction)
+                        FlashCard(flipped: false, readOnly: true, hideButton: true, question: viewModel.question!, action: interactor!.onAction)
                     }
                 } else if viewModel.isShowAnswer {
                     if viewModel.question?.choices != nil {
@@ -38,7 +38,7 @@ struct MultiTestView: View {
                         )
                     } else if viewModel.question != nil {
                         // Society or Science
-                        FlashCard(flipped: true, readOnly: true, question: viewModel.question!, action: interactor!.onAction)
+                        FlashCard(flipped: true, readOnly: true, hideButton: true, question: viewModel.question!, action: interactor!.onAction)
                     }
 
                 } else if viewModel.isConnecting {

@@ -16,7 +16,7 @@ class WeeklyTestInteractor {
     init(loadUrl: String, subject: String) {
         manager.subject = subject
         manager.loadUrl = loadUrl
-        manager.mode = MODE.WEEKLY
+//        manager.mode = MODE.WEEKLY
     }
 }
 
