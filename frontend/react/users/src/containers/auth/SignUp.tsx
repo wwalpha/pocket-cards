@@ -103,7 +103,8 @@ const SignUp = () => {
               variant="contained"
               color="secondary"
               sx={styles.submit}
-              onClick={onBack}>
+              onClick={onBack}
+            >
               Back
             </LoadingButton>
             <LoadingButton
@@ -112,7 +113,8 @@ const SignUp = () => {
               size="large"
               variant="contained"
               color="primary"
-              sx={styles.submit}>
+              sx={styles.submit}
+            >
               Sign Up
             </LoadingButton>
           </Box>
