@@ -31,7 +31,13 @@ class QuestionManager {
 
     // get all questions
     func loadQuestions() async throws {
-        let params = ["subject": subject]
+        var params = ["subject": subject]
+
+        if mode == MODE.EXAM {
+            if subject == SUBJECT.SCIENCE || subject == SUBJECT.SOCIETY {
+                params.updateValue("1", forKey: "selftest")
+            }
+        }
 
         do {
             let res = try await API.request(loadUrl, method: .post, parameters: params).serializingDecodable(QuestionServices.LoadQuestion.Response.self).value
@@ -233,17 +239,23 @@ class QuestionManager {
     private func onUpdate(qid: String?, correct: Bool) async throws {
         guard let id = qid else { return }
 
-        let params = ["correct": Correct.convert(value: correct), "qid": id]
+        var params = ["correct": Correct.convert(value: correct), "qid": id]
+
+        if mode == MODE.EXAM {
+            if subject == SUBJECT.SCIENCE || subject == SUBJECT.SOCIETY {
+                params.updateValue("1", forKey: "selftest")
+            }
+        }
 
         if mode == MODE.PRACTICE || mode == MODE.EXAM {
             // update answer
             _ = await API.request(URLs.STUDY_DAILY_ANSWER, method: .post, parameters: params).serializingString().response
         }
 
-        if mode == MODE.WEEKLY {
-            // update answer
-            _ = await API.request(URLs.STUDY_WEEKLY_ANSWER(qid: id), method: .post, parameters: params).serializingString().response
-        }
+//        if mode == MODE.WEEKLY {
+//            // update answer
+//            _ = await API.request(URLs.STUDY_WEEKLY_ANSWER(qid: id), method: .post, parameters: params).serializingString().response
+//        }
     }
 
     // delete answered question

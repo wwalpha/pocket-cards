@@ -93,7 +93,7 @@ enum SUBJECT {
 enum MODE {
     static let PRACTICE = "1"
     static let EXAM = "2"
-    static let WEEKLY = "3"
+//    static let WEEKLY = "3"
     static let REVIEW = "4"
 }
 

@@ -13,4 +13,6 @@ class DailyPracticeViewModel: ObservableObject {
     @Published var isShowError: String = ""
 
     var question: Question?
+    var mode: String = ""
+    var subject: String = ""
 }
