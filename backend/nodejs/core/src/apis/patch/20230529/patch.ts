@@ -1,6 +1,4 @@
-import { Environment } from '@consts';
 import { LearningService } from '@services';
-import { DBHelper } from '@utils';
 
 const patch = async (): Promise<void> => {
   const userId = 'Google_109439805128280065775';
@@ -17,8 +15,10 @@ const patch = async (): Promise<void> => {
     item.times = 3;
   });
 
+  await Promise.all(learnings.map((item) => LearningService.update(item)));
+
   // clear status
-  await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, learnings);
+  // await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, learnings);
 };
 
 patch();
