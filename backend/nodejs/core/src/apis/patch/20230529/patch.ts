@@ -18,7 +18,7 @@ const patch = async (): Promise<void> => {
   });
 
   // clear status
-  // await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, learnings);
+  await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, learnings);
 };
 
 patch();
