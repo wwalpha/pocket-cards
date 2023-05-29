@@ -7,8 +7,8 @@ const patch = async (): Promise<void> => {
 
   const [learnings] = await Promise.all([
     // LearningService.listByUser(userId, 'xdCeUT337zFLUecrVLR7RV'),
-    LearningService.listByUser(userId, 'btWiokeG73MG5kzp1TT1KN'),
-    // LearningService.listByUser(userId, 'iyPV3R4qYrLAFcpYRTgYUT'),
+    // LearningService.listByUser(userId, 'btWiokeG73MG5kzp1TT1KN'),
+    LearningService.listByUser(userId, 'iyPV3R4qYrLAFcpYRTgYUT'),
   ]);
 
   learnings.forEach((item) => {
