@@ -251,8 +251,9 @@ export default () => {
                     return [
                       <img
                         src={`${Consts.DOMAIN_HOST}/${url}`}
-                        width="200"
-                        height="200"
+                        width="auto"
+                        height="auto"
+                        maxWidth="950px"
                         onClick={() => {
                           handleImageOpen(1);
                         }}
