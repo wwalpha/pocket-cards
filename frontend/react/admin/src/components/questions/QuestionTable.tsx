@@ -106,13 +106,15 @@ const table: FunctionComponent<QuestionTable> = ({
   };
 
   const handleTransfering = (form: QuestionTransferForm) => {
+    setOpen(Consts.DIALOG_STATUS.CLOSE);
+    setSelectAll(false);
+    setCheckValues(new Set());
+
     onTransfer?.(
       form.groupId,
       form.newGroupId,
       Array.from(checkValues).map((index) => datas[index].id)
     );
-
-    setOpen(Consts.DIALOG_STATUS.TRANSFER);
   };
 
   const handleOnCheck = (index: number) => {
@@ -154,7 +156,7 @@ const table: FunctionComponent<QuestionTable> = ({
 
   return (
     <React.Fragment>
-      <Paper sx={{ mx: 1 }}>
+      <Paper sx={{ mx: 2 }}>
         <Box display="flex" sx={{ m: 0.5 }}>
           <LoadingIconButton
             sx={{ p: 0.5 }}
