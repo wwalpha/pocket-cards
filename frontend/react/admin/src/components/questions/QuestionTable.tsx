@@ -11,12 +11,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
 import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ConfirmDialog from '@components/dialogs/ConfirmDialog';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { LoadingIconButton } from '@components/buttons';
 import QuestionDetails from './QuestionDetails';
 import QuestionTransfer from './QuestionTransfer';
@@ -60,9 +62,11 @@ const table: FunctionComponent<QuestionTable> = ({
   const [open, setOpen] = React.useState(Consts.DIALOG_STATUS.CLOSE);
   const [deleteFlag, setDeleteFlag] = React.useState(false);
   const [ignoreFlag, setIgnoreFlag] = React.useState(false);
+  const [isSelectAll, setSelectAll] = React.useState(false);
   const [index, setIndex] = React.useState(-1);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
+  const [checkValues, setCheckValues] = React.useState<Set<number>>(new Set());
 
   /** popup close */
   const handleClose = () => {
@@ -89,9 +93,35 @@ const table: FunctionComponent<QuestionTable> = ({
     setIgnoreFlag(true);
   };
 
-  const handleTransferClick = (index: number) => {
-    setIndex(page * rowsPerPage + index);
+  const handleSelectAll = () => {
+    setSelectAll(!isSelectAll);
+
+    if (!isSelectAll) {
+      setCheckValues(new Set());
+    }
+  };
+
+  const handleOpenTransfer = () => {
     setOpen(Consts.DIALOG_STATUS.TRANSFER);
+  };
+
+  const handleTransfering = (form: QuestionTransferForm) => {
+    onTransfer?.(
+      form.groupId,
+      form.newGroupId,
+      Array.from(checkValues).map((index) => datas[index].id)
+    );
+
+    setOpen(Consts.DIALOG_STATUS.TRANSFER);
+  };
+
+  const handleOnCheck = (index: number) => {
+    if (checkValues.has(index)) {
+      checkValues.delete(index);
+    } else {
+      checkValues.add(index);
+    }
+    setCheckValues(checkValues);
   };
 
   const handleOnDelete = () => {
@@ -104,13 +134,8 @@ const table: FunctionComponent<QuestionTable> = ({
     setIgnoreFlag(false);
   };
 
-  const handleDialogClick = (datas: QuestionForm | QuestionTransferForm) => {
-    if (open === Consts.DIALOG_STATUS.EDIT) {
-      onSubmit?.(datas as QuestionForm);
-    }
-    if (open === Consts.DIALOG_STATUS.TRANSFER) {
-      onTransfer?.(datas as QuestionTransferForm);
-    }
+  const handleDialogClick = (datas: QuestionForm) => {
+    onSubmit?.(datas as QuestionForm);
 
     setOpen(Consts.DIALOG_STATUS.CLOSE);
   };
@@ -129,7 +154,20 @@ const table: FunctionComponent<QuestionTable> = ({
 
   return (
     <React.Fragment>
-      <Paper>
+      <Paper sx={{ mx: 1 }}>
+        <Box display="flex" sx={{ m: 0.5 }}>
+          <LoadingIconButton
+            sx={{ p: 0.5 }}
+            loading={loading}
+            color={isSelectAll ? 'error' : undefined}
+            onClick={handleSelectAll}
+          >
+            <CheckBoxIcon sx={{ fontSize: 32 }} />
+          </LoadingIconButton>
+          <LoadingIconButton sx={{ p: 0.5 }} loading={loading} disabled={!isSelectAll} onClick={handleOpenTransfer}>
+            <DriveFileMoveIcon sx={{ fontSize: 32 }} />
+          </LoadingIconButton>
+        </Box>
         <TableContainer component={Paper} sx={styles.container}>
           <Table aria-label="customized table" size="small">
             <TableHead>
@@ -148,6 +186,13 @@ const table: FunctionComponent<QuestionTable> = ({
                   {onSubmit && (
                     <StyledTableCell>
                       <Box sx={styles.iconCell}>
+                        {isSelectAll && (
+                          <Checkbox
+                            onClick={() => {
+                              handleOnCheck(idx);
+                            }}
+                          />
+                        )}
                         <LoadingIconButton
                           loading={loading}
                           sx={{ p: 0.5 }}
@@ -178,15 +223,6 @@ const table: FunctionComponent<QuestionTable> = ({
                           }}
                         >
                           <EditIcon sx={{ fontSize: 32 }} />
-                        </LoadingIconButton>
-                        <LoadingIconButton
-                          sx={{ p: 0.5 }}
-                          loading={loading}
-                          onClick={() => {
-                            handleTransferClick(idx);
-                          }}
-                        >
-                          <DriveFileMoveIcon sx={{ fontSize: 32 }} />
                         </LoadingIconButton>
                       </Box>
                     </StyledTableCell>
@@ -242,7 +278,7 @@ const table: FunctionComponent<QuestionTable> = ({
         />
       )}
       <Dialog open={open !== Consts.DIALOG_STATUS.CLOSE} onClose={handleClose} maxWidth="lg">
-        <DialogTitle>問題</DialogTitle>
+        <DialogTitle>問題移動</DialogTitle>
         <DialogContent>
           {(() => {
             // editing
@@ -258,9 +294,14 @@ const table: FunctionComponent<QuestionTable> = ({
               );
             }
 
-            if (dataRow && open === Consts.DIALOG_STATUS.TRANSFER) {
+            if (open === Consts.DIALOG_STATUS.TRANSFER) {
               return (
-                <QuestionTransfer dataRow={dataRow} groups={groups} onClose={handleClose} onClick={handleDialogClick} />
+                <QuestionTransfer
+                  groupId={datas[0].groupId}
+                  groups={groups?.filter((item) => item.subject === datas[0].subject)}
+                  onClose={handleClose}
+                  onClick={handleTransfering}
+                />
               );
             }
           })()}
@@ -276,7 +317,7 @@ interface QuestionTable {
   subject?: string;
   groups?: Tables.TGroups[];
   onSubmit?: (datas: QuestionForm) => void;
-  onTransfer?: (datas: QuestionTransferForm) => void;
+  onTransfer?: (oldGid: string, newGid: string, qid: string[]) => void;
   onDelete?: (index: number) => void;
   onIgnore?: (index: number) => void;
 }
