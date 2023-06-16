@@ -66,7 +66,7 @@ const table: FunctionComponent<QuestionTable> = ({
   const [index, setIndex] = React.useState(-1);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
-  const [checkValues, setCheckValues] = React.useState(new Set());
+  const [checkValues, setCheckValues] = React.useState<Set<number>>(new Set());
 
   /** popup close */
   const handleClose = () => {
@@ -118,12 +118,15 @@ const table: FunctionComponent<QuestionTable> = ({
   };
 
   const handleOnCheck = (index: number) => {
-    if (checkValues.has(index)) {
-      checkValues.delete(index);
+    let newArray = Array.from(checkValues);
+
+    if (newArray.includes(index)) {
+      newArray = newArray.splice(newArray.indexOf(index), 1);
     } else {
-      checkValues.add(index);
+      newArray.push(index);
     }
-    setCheckValues(checkValues);
+
+    setCheckValues(new Set(newArray));
   };
 
   const handleOnDelete = () => {
