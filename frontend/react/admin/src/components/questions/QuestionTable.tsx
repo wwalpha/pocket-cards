@@ -159,20 +159,22 @@ const table: FunctionComponent<QuestionTable> = ({
 
   return (
     <React.Fragment>
-      <Paper sx={{ mx: 2 }}>
-        <Box display="flex" sx={{ m: 0.5 }}>
-          <LoadingIconButton
-            sx={{ p: 0.5 }}
-            loading={loading}
-            color={isSelectAll ? 'error' : undefined}
-            onClick={handleSelectAll}
-          >
-            <CheckBoxIcon sx={{ fontSize: 32 }} />
-          </LoadingIconButton>
-          <LoadingIconButton sx={{ p: 0.5 }} loading={loading} disabled={!isSelectAll} onClick={handleOpenTransfer}>
-            <DriveFileMoveIcon sx={{ fontSize: 32 }} />
-          </LoadingIconButton>
-        </Box>
+      <Paper sx={{ mx: 2, mt: 1 }}>
+        {onSubmit && (
+          <Box display="flex" sx={{ m: 0.5 }}>
+            <LoadingIconButton
+              sx={{ p: 0.5 }}
+              loading={loading}
+              color={isSelectAll ? 'error' : undefined}
+              onClick={handleSelectAll}
+            >
+              <CheckBoxIcon sx={{ fontSize: 32 }} />
+            </LoadingIconButton>
+            <LoadingIconButton sx={{ p: 0.5 }} loading={loading} disabled={!isSelectAll} onClick={handleOpenTransfer}>
+              <DriveFileMoveIcon sx={{ fontSize: 32 }} />
+            </LoadingIconButton>
+          </Box>
+        )}
         <TableContainer component={Paper} sx={styles.container}>
           <Table aria-label="customized table" size="small">
             <TableHead>
