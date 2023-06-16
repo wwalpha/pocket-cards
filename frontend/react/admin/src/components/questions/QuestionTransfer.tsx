@@ -14,7 +14,6 @@ import InputLabel from '@mui/material/InputLabel';
 const details: FunctionComponent<QuestionTransfer> = ({ groupId, groups, onClick, onClose }) => {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<QuestionTransferForm>({
@@ -31,7 +30,6 @@ const details: FunctionComponent<QuestionTransfer> = ({ groupId, groups, onClick
 
   return (
     <form onSubmit={onSubmit}>
-      <input {...register('newGroupId')} hidden />
       <Box margin={2} sx={{ width: '640px' }}>
         {/* <Controller
           name="id"
