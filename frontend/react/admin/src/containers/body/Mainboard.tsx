@@ -134,7 +134,6 @@ export default () => {
                             sx={{ p: 0.5 }}
                             loading={isLoading}
                             color={color}
-                            disabled={authority !== Consts.Authority.ADMIN && dataRow.count === 0}
                             onClick={() => {
                               setGroupId(dataRow.id);
                               setCurriculumId(item?.id);
