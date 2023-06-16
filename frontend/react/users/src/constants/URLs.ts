@@ -7,6 +7,7 @@ export const API_VERSION = '/v1';
 export const SIGN_IN = () => `${API_VERSION}/auth/login`;
 export const SIGN_UP = () => `${API_VERSION}/users`;
 export const REFRESH_TOKEN = () => `${API_VERSION}/auth/refresh`;
+export const INQUIRY = () => `${API_VERSION}/inquiries`;
 
 // 学習練習
 export const DAILY_PRACTICE = () => `${API_VERSION}/study/daily/practice`;
