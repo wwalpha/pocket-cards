@@ -56,3 +56,9 @@ export const logout = () => (dispatch: AppDispatch) => {
 
   dispatch(push(ROUTE_PATHS.SIGN_IN));
 };
+
+/** 通報 */
+export const inquiry = (qid: string) => async (dispatch: AppDispatch) => {
+  // 学習初期化
+  dispatch(Actions.APP_INQUIRY(qid));
+};
