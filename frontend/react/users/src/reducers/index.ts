@@ -6,6 +6,7 @@ import Study from './study';
 import User from './user';
 import * as StudyActions from './studyActions';
 import * as UserActions from './userActions';
+import * as AppActions from './appActions';
 import { Domains } from 'typings';
 
 export default (history: History<any>) =>
@@ -22,4 +23,5 @@ export const Actions = {
   ...User.actions,
   ...StudyActions,
   ...UserActions,
+  ...AppActions,
 };

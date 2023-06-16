@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Box from '@mui/material/Box';
-import { QuestionTable, MathQuestionTable } from '@components/questions';
+import { QuestionTable } from '@components/questions';
 import { GroupActions } from '@actions';
 import { Consts } from '@constants';
-import { QuestionForm, QuestionParams, QuestionTransferForm, RootState } from 'typings';
+import { QuestionForm, QuestionParams, RootState } from 'typings';
 import { useParams } from 'react-router';
 
 const groupState = (state: RootState) => state.group;
@@ -35,11 +35,13 @@ export default () => {
     }
   };
 
-  const handleTransfer = (datas: QuestionTransferForm) => {
-    actions.questionTransfer({
-      groupId: datas.groupId,
-      questionId: datas.id,
-      newGroupId: datas.newGroupId,
+  const handleTransfer = (oldGid: string, newGid: string, qid: string[]) => {
+    qid.forEach((id) => {
+      actions.questionTransfer({
+        groupId: oldGid,
+        questionId: id,
+        newGroupId: newGid,
+      });
     });
   };
 
@@ -56,8 +58,8 @@ export default () => {
   };
 
   return (
-    <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-      {subject === Consts.SUBJECT.MATHS && (
+    <Box sx={{ m: 0, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      {/* {subject === Consts.SUBJECT.MATHS && (
         <MathQuestionTable
           datas={questions}
           subject={subject}
@@ -70,7 +72,7 @@ export default () => {
             authority === Consts.Authority.ADMIN && subject === Consts.SUBJECT.ENGLISH ? handleIgnore : undefined
           }
         />
-      )}
+      )} */}
       {subject !== Consts.SUBJECT.MATHS && (
         <QuestionTable
           datas={questions}
