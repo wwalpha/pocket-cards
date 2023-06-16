@@ -27,9 +27,9 @@ export default async (
   const curriculumId = generate();
 
   // group not exsits or no question in group
-  if (questions.length === 0) {
-    throw new ValidationError('No questions in group');
-  }
+  // if (questions.length === 0) {
+  //   throw new ValidationError('No questions in group');
+  // }
 
   // 英語の場合
   if (groupInfo.subject === Consts.SUBJECT.ENGLISH) {
