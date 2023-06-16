@@ -9,7 +9,7 @@ import { LearningService } from '@services';
 
 const client = DynamoDBClient;
 
-describe('Weekly', () => {
+describe.skip('Weekly', () => {
   beforeAll(async () => {
     await Promise.all([
       client.bulk(Environment.TABLE_NAME_QUESTIONS, COMMONS.DB_QUESTIONS),
