@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Group, QuestionTransferForm, Tables } from 'typings';
+import { QuestionTransferForm, Tables } from 'typings';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,18 +11,15 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
-const details: FunctionComponent<QuestionTransfer> = ({ dataRow, groups, onClick, onClose }) => {
+const details: FunctionComponent<QuestionTransfer> = ({ groupId, groups, onClick, onClose }) => {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<QuestionTransferForm>({
     defaultValues: {
-      id: dataRow.id,
-      groupId: dataRow.groupId,
-      groupName: groups?.find((item) => item.id === dataRow.groupId)?.name || '',
-      title: dataRow.title,
+      groupId: groupId,
+      groupName: groups?.find((item) => item.id === groupId)?.name || '',
       newGroupId: '',
     },
   });
@@ -33,16 +30,15 @@ const details: FunctionComponent<QuestionTransfer> = ({ dataRow, groups, onClick
 
   return (
     <form onSubmit={onSubmit}>
-      <input {...register('groupId')} hidden />
       <Box margin={2} sx={{ width: '640px' }}>
-        <Controller
+        {/* <Controller
           name="id"
           control={control}
           render={({ field: { value } }) => (
             <TextField disabled={true} variant="outlined" margin="normal" fullWidth label="ID" value={value} />
           )}
-        />
-        <Controller
+        /> */}
+        {/* <Controller
           name="title"
           control={control}
           rules={{ required: 'required' }}
@@ -57,7 +53,7 @@ const details: FunctionComponent<QuestionTransfer> = ({ dataRow, groups, onClick
               onChange={onChange}
             />
           )}
-        />
+        /> */}
 
         <Controller
           name="groupName"
@@ -75,13 +71,11 @@ const details: FunctionComponent<QuestionTransfer> = ({ dataRow, groups, onClick
             <FormControl fullWidth sx={{ my: 1 }}>
               <InputLabel>NewGroup *</InputLabel>
               <Select label="Group *" onChange={onChange} value={value} fullWidth>
-                {groups
-                  ?.filter((item) => item.subject === dataRow.subject)
-                  .map((item) => (
-                    <MenuItem key={item.id} value={item.id} sx={{ py: 0 }}>
-                      <ListItemText primary={item.name} />
-                    </MenuItem>
-                  ))}
+                {groups?.map((item) => (
+                  <MenuItem key={item.id} value={item.id} sx={{ py: 0 }}>
+                    <ListItemText primary={item.name} />
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           )}
@@ -116,7 +110,7 @@ const details: FunctionComponent<QuestionTransfer> = ({ dataRow, groups, onClick
 };
 
 interface QuestionTransfer {
-  dataRow: Group.Question;
+  groupId: string;
   groups?: Tables.TGroups[];
   onClick?: (form: QuestionTransferForm) => void;
   onClose?: () => void;
