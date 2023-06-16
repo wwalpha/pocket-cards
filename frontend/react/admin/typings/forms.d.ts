@@ -51,8 +51,6 @@ export interface QuestionForm {
 }
 
 export interface QuestionTransferForm {
-  id: string;
-  title: string;
   groupId: string;
   groupName?: string;
   newGroupId: string;

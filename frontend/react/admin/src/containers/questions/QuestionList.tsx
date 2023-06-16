@@ -35,11 +35,13 @@ export default () => {
     }
   };
 
-  const handleTransfer = (datas: QuestionTransferForm) => {
-    actions.questionTransfer({
-      groupId: datas.groupId,
-      questionId: datas.id,
-      newGroupId: datas.newGroupId,
+  const handleTransfer = (oldGid: string, newGid: string, qid: string[]) => {
+    qid.forEach((id) => {
+      actions.questionTransfer({
+        groupId: oldGid,
+        questionId: id,
+        newGroupId: newGid,
+      });
     });
   };
 
@@ -56,8 +58,8 @@ export default () => {
   };
 
   return (
-    <Box sx={{ m: 2, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-      {subject === Consts.SUBJECT.MATHS && (
+    <Box sx={{ m: 0, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+      {/* {subject === Consts.SUBJECT.MATHS && (
         <MathQuestionTable
           datas={questions}
           subject={subject}
@@ -70,7 +72,7 @@ export default () => {
             authority === Consts.Authority.ADMIN && subject === Consts.SUBJECT.ENGLISH ? handleIgnore : undefined
           }
         />
-      )}
+      )} */}
       {subject !== Consts.SUBJECT.MATHS && (
         <QuestionTable
           datas={questions}
