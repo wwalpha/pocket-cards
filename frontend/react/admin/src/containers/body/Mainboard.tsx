@@ -38,10 +38,10 @@ export default () => {
   const [curriculumId, setCurriculumId] = useState<string | undefined>(undefined);
   const [groupId, setGroupId] = useState('');
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
   useEffect(() => {
-    setRowsPerPage(10);
+    setRowsPerPage(25);
     setPage(0);
     return;
   }, [subject]);
@@ -170,7 +170,7 @@ export default () => {
         </TableContainer>
         {displayGroups.length > 0 && (
           <TablePagination
-            rowsPerPageOptions={[10, 20, 50]}
+            rowsPerPageOptions={[10, 25, 50]}
             component="div"
             count={displayGroups.length}
             rowsPerPage={rowsPerPage}
