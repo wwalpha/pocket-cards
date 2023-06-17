@@ -156,7 +156,7 @@ resource "aws_lambda_function" "vision" {
   environment {
     variables = {
       MASTER_EMAIL_ADDRESS = "master@${local.domain_name}"
-      TARGET_EMAIL_ADDRESS = "diewumao@gmail.com"
+      TARGET_EMAIL_ADDRESS = "wwalpha@gmail.com"
       VISION_API_URL       = data.aws_ssm_parameter.vision_api_url.value
       VISION_API_KEY       = data.aws_ssm_parameter.vision_api_key.value
       TZ                   = "Asia/Tokyo"
