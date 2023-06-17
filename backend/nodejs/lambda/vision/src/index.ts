@@ -21,9 +21,9 @@ export const handler: S3Handler = async (e) => {
       Key: key,
     })
   );
-
+  const content = await object.Body.transformToString("base64");
   const res = await Axios.post(`${VISION_API_URL}/image2texts?key=${VISION_API_KEY}`, {
-    content: object.Body?.toString(),
+    content: content,
   });
 
   const datas = res.data as string[];
