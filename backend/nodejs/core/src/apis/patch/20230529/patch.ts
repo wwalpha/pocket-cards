@@ -5,7 +5,21 @@ import { DBHelper } from '@utils';
 const patch = async (): Promise<void> => {
   const userId = 'Google_109439805128280065775';
   const groupIds: string[] = [
-    'uBoRxGMEvddTB1NbMDSNTa',
+    'dCQ5K3mRsz8V3P89xTchNi',
+    'oqTkMVDD78F385MhM5opae',
+    '3spo3SvCqJPbRfL6oNNwm3',
+    'dYeUDEMgGo2eUF3Fh6wKsJ',
+    'jrbLD6auGbwqWLaJqFrHqh',
+    'jtxUTDfgTtvvsxTzsyAZSb',
+    '7BRoYDqotajKqVTHQYWKB4',
+    'tSohQYaPt9oENcDzy6nNJ4',
+    'vEdc8RcdZwn8ANwJV5saTR',
+    'duB74CQa7vRccNMr3Jf4Mg',
+    'tPRgKAjkDrd8C4J8KTPgRT',
+    '76Lb8hBuCdBq2CXWnC1KJp',
+    '2AqmCCDLrqJvp667SypckP',
+
+    // 'uBoRxGMEvddTB1NbMDSNTa',
     // 'prxVGZqu7DRxc5NbsdL4fe',
     // '9RVTL6Dnu8dGX7pCrw78Ch',
     // '8GFEsYJpUwV7LBqwam8PVG',
