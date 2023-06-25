@@ -4,22 +4,26 @@ import { DBHelper } from '@utils';
 
 const patch = async (): Promise<void> => {
   const userId = 'Google_109439805128280065775';
+  const groupIds: string[] = ['prxVGZqu7DRxc5NbsdL4fe'];
 
-  const [learnings] = await Promise.all([
-    // LearningService.listByUser(userId, 'xdCeUT337zFLUecrVLR7RV'),
-    // LearningService.listByUser(userId, 'btWiokeG73MG5kzp1TT1KN'),
-    LearningService.listByUser(userId, 'iyPV3R4qYrLAFcpYRTgYUT'),
-  ]);
+  for (;;) {
+    const groupId = groupIds.pop();
 
-  learnings.forEach((item) => {
-    item.nextTime = '20230528';
-    item.times = 3;
-  });
+    if (!groupId) {
+      break;
+    }
 
-  // await Promise.all(learnings.map((item) => LearningService.update(item)));
+    const learnings = await LearningService.listByUser(userId, groupId);
 
-  // clear status
-  await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, learnings);
+    const items = learnings
+      .filter((item) => item.times < 3)
+      .map((item) => ({
+        ...item,
+        times: 3,
+      }));
+
+    await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, items);
+  }
 };
 
 patch();
