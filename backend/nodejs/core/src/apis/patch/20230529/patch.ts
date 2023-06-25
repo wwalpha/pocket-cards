@@ -31,7 +31,7 @@ const patch = async (): Promise<void> => {
   ];
 
   for (;;) {
-    const groupId = groupIds.pop();
+    const groupId = groupIds.shift();
 
     if (!groupId) {
       break;
@@ -45,6 +45,10 @@ const patch = async (): Promise<void> => {
         ...item,
         times: 3,
       }));
+
+    if (items.length === 0) {
+      continue;
+    }
 
     await DBHelper().bulk(Environment.TABLE_NAME_LEARNING, items);
   }
