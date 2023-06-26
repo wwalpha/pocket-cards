@@ -21,8 +21,16 @@ export const handler: S3Handler = async (e) => {
       Key: key,
     })
   );
-  const content = await object.Body.transformToString("base64");
-  const res = await Axios.post(`${VISION_API_URL}/image2texts?key=${VISION_API_KEY}`, {
+
+  const content = await object.Body?.transformToString("base64");
+
+  let url = `${VISION_API_URL}/image2lines?key=${VISION_API_KEY}`;
+
+  if (key.startsWith('pdf')) {
+    url =  `${VISION_API_URL}/pdf2lines?key=${VISION_API_KEY}`;
+  }
+
+  const res = await Axios.post(url, {
     content: content,
   });
 
