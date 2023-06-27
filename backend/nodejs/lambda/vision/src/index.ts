@@ -26,7 +26,7 @@ export const handler: S3Handler = async (e) => {
 
   let url = `${VISION_API_URL}/image2lines?key=${VISION_API_KEY}`;
 
-  if (key.startsWith('pdf')) {
+  if (key.startsWith('vision/pdf/')) {
     url =  `${VISION_API_URL}/pdf2lines?key=${VISION_API_KEY}`;
   }
 
