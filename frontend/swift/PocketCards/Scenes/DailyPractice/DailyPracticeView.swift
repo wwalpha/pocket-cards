@@ -79,8 +79,13 @@ struct DailyPracticeView: View {
     func generalView() -> some View {
         if let question = viewModel.question {
             if question.choices == nil {
-                // Society or Science
-                FlashCard(flipped: false, readOnly: true, hideButton: false, question: question, action: interactor!.onAction)
+                if viewModel.mode == MODE.EXAM {
+                    // Society or Science
+                    FlashCard(flipped: false, readOnly: true, hideButton: false, question: question, action: interactor!.onAction)
+                } else {
+                    // Society or Science
+                    FlashCard(question: question, action: interactor!.onAction)
+                }
             }
 
             if question.choices != nil {

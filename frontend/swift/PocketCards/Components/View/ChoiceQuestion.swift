@@ -15,6 +15,7 @@ struct ChoiceQuestion: View {
     @State private var isPresented = false
     @State private var isEditorPresented = false
     @State private var fontSize: [CGFloat] = [24, 32, 40]
+    @State private var choiceFontSize: [CGFloat] = [18, 18, 24]
     @State private var fontIndex = 2
 
     var question: Question
@@ -26,7 +27,7 @@ struct ChoiceQuestion: View {
         let qImage = question.title.getImage()
 
         VStack {
-            ZStack {
+            ZStack(alignment: .top) {
                 GeometryReader { geo in
                     Button {
                         onPlay()
@@ -81,14 +82,22 @@ struct ChoiceQuestion: View {
                 .padding(.bottom, 8)
                 .padding(.top, 8)
             }
+            .padding(.all, 0)
+            .frame(maxWidth: .infinity, maxHeight: 300)
 
-            ForEach(0 ..< question.choices!.count, id: \.self) { idx in
-                let item = question.choices![idx]
-                let index = String(idx + 1)
-                let isError: Bool = !self.isShowError.isEmpty ? self.isShowError == index : false
+            ScrollView {
+                VStack {
+                    ForEach(0 ..< question.choices!.count, id: \.self) { idx in
+                        let item = question.choices![idx]
+                        let index = String(idx + 1)
+                        let isError: Bool = !self.isShowError.isEmpty ? self.isShowError == index : false
+                        let frameHeight = question.choices!.count > 6 ? CGFloat(40) : CGFloat(64)
+                        let fontSize = choiceFontSize[fontIndex]
 
-                ChoiceButton(text: item, index: index, isError: isError) {
-                    self.onChoice(index)
+                        ChoiceButton(text: item, index: index, isError: isError, fontSize: fontSize, frameHeight: frameHeight) {
+                            self.onChoice(index)
+                        }
+                    }
                 }
             }
         }
@@ -194,7 +203,11 @@ struct ChoiceQuestion: View {
 
 struct ChoiceQuestion_Previews: PreviewProvider {
     static var previews: some View {
-        ChoiceQuestion(question: Question(id: "", groupId: "", title: "AAAA", choices: ["AAA", "BBBBB", "CCCCC", "DDDDD"], answer: "BBBB"), qCount: 10, isShowError: "AAA", onChoice: { data in
+        ChoiceQuestion(question: Question(id: "", groupId: "", title: "AAAA", choices: [
+            "AAA", "BBBBB", "CCCCC", "DDDDD",
+//            "EEEE", "FFFF",
+//            "GGGG", "HHHH", "IIII", "JJJJJ", "KKKK",
+        ], answer: "BBBB"), qCount: 10, isShowError: "AAA", onChoice: { data in
             debugPrint(data)
         })
         .previewInterfaceOrientation(.landscapeLeft)
