@@ -4,13 +4,10 @@ provider "aws" {}
 # Terraform Settings
 # ----------------------------------------------------------------------------------------------
 terraform {
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "wwalpha"
-
-    workspaces {
-      prefix = "pocket-cards-outputs-"
-    }
+  backend "s3" {
+    bucket = "terraform-state-202106"
+    key    = "pkc/outputs.state"
+    region = "us-east-1"
   }
 }
 
@@ -18,15 +15,13 @@ terraform {
 # Remote state - Setup
 # ----------------------------------------------------------------------------------------------
 data "terraform_remote_state" "setup" {
-  backend   = "remote"
+  backend   = "s3"
   workspace = terraform.workspace
 
   config = {
-    organization = "wwalpha"
-
-    workspaces = {
-      prefix = "pocket-cards-setup-"
-    }
+    bucket = "terraform-state-202106"
+    key    = "pkc/setup.state"
+    region = "us-east-1"
   }
 }
 
