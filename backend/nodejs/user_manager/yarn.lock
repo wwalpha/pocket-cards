@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@alphax/dynamodb@^1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@alphax/dynamodb/-/dynamodb-1.2.6.tgz#856c93c13f6622734c864dde097a45376788dc52"
-  integrity sha512-3/zq14aVW9nCzFYCvZz6KX5tq+5nyIl2WFSuUhzPy7LnwbU7gllz1aVh0USeLFOeIXA/z4YbP8bki3pQsDBcLg==
+"@alphax/dynamodb@^1.2.13":
+  version "1.2.13"
+  resolved "https://registry.yarnpkg.com/@alphax/dynamodb/-/dynamodb-1.2.13.tgz#eaa8fec67bc845f0e24ad52d69894bbd8eac5739"
+  integrity sha512-rsAdva4sf3rfmJJz6ijL9D1zksQP6wOwCrBqGG/FPrrGmpaYNaHS1XSEKskIkzl7LN+GqLx+RabuJvqFkiK8VA==
   dependencies:
     "@aws-sdk/client-dynamodb" "^3.279.0"
     "@aws-sdk/lib-dynamodb" "^3.279.0"
@@ -5077,9 +5077,9 @@ winston@^3.7.2:
     winston-transport "^4.5.0"
 
 word-wrap@~1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"
-  integrity sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.4.tgz#cb4b50ec9aca570abd1f52f33cd45b6c61739a9f"
+  integrity sha512-2V81OA4ugVo5pRo46hAoD2ivUJx8jXmWXfUkY4KFNw0hEptvN0QfH3K4nHiwzGeKl5rFKedV48QVoqYavy4YpA==
 
 wrap-ansi@^7.0.0:
   version "7.0.0"
