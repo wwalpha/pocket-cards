@@ -7,13 +7,10 @@ provider "aws" {}
 # Terraform Settings
 # ----------------------------------------------------------------------------------------------
 terraform {
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "wwalpha"
-
-    workspaces {
-      prefix = "pocket-cards-setup-"
-    }
+  backend "s3" {
+    bucket = "terraform-state-202106"
+    key    = "pkc/setup.state"
+    region = "us-east-1"
   }
 
   required_providers {
