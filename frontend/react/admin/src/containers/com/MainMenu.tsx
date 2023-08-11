@@ -4,7 +4,6 @@ import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { push } from 'connected-react-router';
 import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -47,12 +46,7 @@ export default () => {
   };
 
   return (
-    <Drawer sx={styles.drawer} variant="permanent" anchor="left">
-      <Toolbar>
-        <Typography variant="h6" noWrap component="div">
-          {Consts.VERSION}
-        </Typography>
-      </Toolbar>
+    <React.Fragment>
       <Divider />
       <List sx={styles.list}>
         <ListItem
@@ -234,6 +228,6 @@ export default () => {
           </React.Fragment>
         )}
       </List>
-    </Drawer>
+    </React.Fragment>
   );
 };

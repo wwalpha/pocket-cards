@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
-import { push } from 'connected-react-router';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -13,11 +11,37 @@ import { UploadButton } from '@components/buttons';
 import { ROUTE_PATHS, Consts } from '@constants';
 import { AppActions, GroupActions } from '@actions';
 import { HeaderParams, RootState } from 'typings';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import { styled } from '@mui/material/styles';
 
 const appState = (state: RootState) => state.app;
 const groupState = (state: RootState) => state.group;
 
-export default () => {
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+const drawerWidth = 200;
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const header: FunctionComponent<HeaderProps> = ({ open, handleDrawerOpen }) => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(AppActions, dispatch);
   const grpActions = bindActionCreators(GroupActions, dispatch);
@@ -59,18 +83,17 @@ export default () => {
   // };
 
   return (
-    <AppBar
-      position="fixed"
-      sx={{
-        boxShadow: 'none',
-        height: ({ spacing }) => spacing(8),
-        bgcolor: 'primary.main',
-        userSelect: 'none',
-        width: { sm: `calc(100% - 200px)` },
-        ml: { sm: `200px` },
-      }}
-    >
+    <AppBar position="fixed" open={open}>
       <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          edge="start"
+          sx={{ mr: 2, ...(open && { display: 'none' }) }}
+        >
+          <MenuIcon />
+        </IconButton>
         <Typography variant="h6" noWrap component="div">
           Guardian Dashboard
         </Typography>
@@ -162,3 +185,10 @@ export default () => {
     </AppBar>
   );
 };
+
+interface HeaderProps {
+  open?: boolean;
+  handleDrawerOpen?: () => void;
+}
+
+export default header;

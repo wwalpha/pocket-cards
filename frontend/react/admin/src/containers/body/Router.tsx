@@ -12,19 +12,15 @@ export default () => {
     <React.Fragment>
       <Switch>
         <Route exact path={path}>
-          <Header />
           <Mainboard />
         </Route>
         <Route exact path={ROUTE_PATHS.GROUP_QUESTIONS()}>
-          <Header />
           <QuestionList />
         </Route>
         <Route exact path={ROUTE_PATHS.GROUP_EDIT()} component={GroupDetails}>
-          <Header />
           <GroupDetails />
         </Route>
         <Route exact path={ROUTE_PATHS.GROUP_UPLOAD_CONFIRM} component={QuestionConfirm}>
-          <Header />
           <QuestionConfirm />
         </Route>
       </Switch>
