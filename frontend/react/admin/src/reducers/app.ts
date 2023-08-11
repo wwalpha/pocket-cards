@@ -1,3 +1,4 @@
+import { Consts } from '@constants';
 import { Action, AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Domains } from 'typings';
 
@@ -7,6 +8,7 @@ const appState: Domains.AppState = {
   showUserRegist: false,
   isConnectionEstablished: false,
   isConnecting: false,
+  subject: Consts.SUBJECT.MATHS,
 };
 
 function isPendingAction(action: AnyAction) {
@@ -75,6 +77,9 @@ const slice = createSlice({
     APP_DISCONNECT: (state) => {
       state.isConnecting = false;
       state.isConnectionEstablished = false;
+    },
+    APP_ACTIVE_SUBJECT: (state, { payload }: PayloadAction<string>) => {
+      state.subject = payload;
     },
   },
   extraReducers: (builder) => {

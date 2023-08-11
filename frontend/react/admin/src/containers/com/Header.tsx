@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, useLocation, useParams, useHistory } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -46,17 +46,21 @@ const header: FunctionComponent<HeaderProps> = ({ open, handleDrawerOpen }) => {
   const actions = bindActionCreators(AppActions, dispatch);
   const grpActions = bindActionCreators(GroupActions, dispatch);
 
-  const { authority, isLoading, isConnectionEstablished } = useSelector(appState);
+  const { authority, isLoading, isConnectionEstablished, subject } = useSelector(appState);
   const { editable } = useSelector(groupState);
+  const { pathname } = useLocation();
 
-  const {
-    url: pathname,
-    params: { subject, groupId },
-  } = useRouteMatch<HeaderParams>();
+  // console.log(useLocation());
+  // console.log(useRouteMatch());
+  // console.log(useParams());
+  // console.log(useHistory());
 
   const handleUserReigst = () => actions.showUserRegist();
+
   const handleLogout = () => actions.logout();
+
   const handleGroupAdd = () => grpActions.transitToGroupRegist(subject);
+
   const handleGroupEdit = () => {
     if (editable === Consts.EDIT_MODE.EDIT) {
       grpActions.editable(Consts.EDIT_MODE.REGIST);

@@ -39,6 +39,8 @@ export const logout = () => (dispatch: AppDispatch) => {
 
 /** selected subject */
 export const activeSubject = (subject: string) => (dispatch: AppDispatch) => {
+  // set subject
+  dispatch(Actions.APP_ACTIVE_SUBJECT(subject));
   // move to page
   dispatch(push(ROUTE_PATHS.GROUP_ROOT(subject)));
 };

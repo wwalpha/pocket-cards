@@ -27,6 +27,8 @@ export namespace Domains {
     isConnectionEstablished: boolean;
     // websocket connecting
     isConnecting: boolean;
+    // active subject
+    subject: string;
   }
 
   interface GroupState {

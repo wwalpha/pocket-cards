@@ -162,7 +162,7 @@ export default () => {
               不正解数：{incorrectCount}
             </Box>
 
-            <Box position="fixed" display="flex" flexGrow="1" justifyContent="flex-end" right="0">
+            <Box position="fixed" display="flex" flexGrow="1" justifyContent="flex-end" right="8px">
               <LoadingButton
                 sx={{ width: '120px', mx: 1 }}
                 loading={isLoading}

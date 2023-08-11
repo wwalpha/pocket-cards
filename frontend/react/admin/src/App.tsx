@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Router } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -57,7 +57,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
 
 export default () => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
