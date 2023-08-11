@@ -232,7 +232,6 @@ jobs:
 
   # Frontend Admin
   Frontend_Admin:
-    needs: Terraform_Service
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
