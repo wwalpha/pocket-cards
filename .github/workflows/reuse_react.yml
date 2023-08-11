@@ -74,17 +74,7 @@ jobs:
           cd configs/terraform
           terraform init
           terraform output -json > outputs.json
-          ls
-          echo 111
-          jq --help
-          cat outputs.json | jq .
-          echo 222
-          cat outputs.json | jq -r .bucket_name_frontend.value
-          echo 333
-          echo "bucket_name_archive=$(cat outputs.json | jq -r '.bucket_name_archive.value')" >> $GITHUB_ENV
-          echo "bucket_name_frontend=$(cat outputs.json | jq -r '.bucket_name_frontend.value')" >> $GITHUB_ENV
-          echo "bucket_name_archive=$(cat outputs.json | jq -r '.bucket_name_archive.value')" >> $GITHUB_OUTPUT
-          echo "bucket_name_frontend=$(cat outputs.json | jq -r '.bucket_name_frontend.value')" >> $GITHUB_OUTPUT
+          echo "json=$(jq -c . < outputs.json)" >> $GITHUB_OUTPUT
           echo "source_tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       # Pre Install
@@ -96,7 +86,7 @@ jobs:
       # Install and Build
       - name: Build
         env:
-          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
+          BUCKET_NAME_ARCHIVE: ${{ fromJson(steps.terraform.outputs.json).bucket_name_archive }}
           VERSION: ${{ steps.terraform.outputs.source_tag }}
         run: |
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/react.env .
@@ -108,7 +98,7 @@ jobs:
       - name: Deploy
         if: ${{ inputs.deploy == true }}
         env:
-          BUCKET_NAME: ${{ steps.terraform.outputs.bucket_name_frontend }}
+          BUCKET_NAME: ${{ fromJson(steps.terraform.outputs.json).bucket_name_frontend }}
           BUCKET_FOLDER: ${{ inputs.module }}
         run: |
           aws s3 cp dist s3://$BUCKET_NAME/$BUCKET_FOLDER --recursive --region $AWS_DEFAULT_REGION
