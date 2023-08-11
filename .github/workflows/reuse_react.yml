@@ -73,6 +73,7 @@ jobs:
         run: |
           cd configs/terraform
           terraform init
+          terraform output
           BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
           BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
           echo "bucket_name_archive=$(terraform output -raw bucket_name_archive)" >> $GITHUB_OUTPUT
