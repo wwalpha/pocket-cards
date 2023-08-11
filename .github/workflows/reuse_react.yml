@@ -75,7 +75,9 @@ jobs:
           cd configs/terraform
           terraform init
           BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
+          BUCKET_NAME_FRONTEND=$(terraform output -raw bucket_name_frontend)
           echo "bucket_name_archive=$BUCKET_NAME_ARCHIVE" >> $GITHUB_OUTPUT
+          echo "bucket_name_frontend=$BUCKET_NAME_FRONTEND" >> $GITHUB_OUTPUT
           echo "source_tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       # Pre Install
@@ -99,7 +101,7 @@ jobs:
       - name: Deploy
         if: ${{ inputs.deploy == true }}
         env:
-          # BUCKET_NAME: ${{ fromJson(steps.terraform.outputs.json).bucket_name_frontend }}
+          BUCKET_NAME_FRONTEND: ${{ steps.terraform.outputs.bucket_name_frontend }}
           BUCKET_FOLDER: ${{ inputs.module }}
         run: |
-          aws s3 cp dist s3://$BUCKET_NAME/$BUCKET_FOLDER --recursive --region $AWS_DEFAULT_REGION
+          aws s3 cp dist s3://$BUCKET_NAME_FRONTEND/$BUCKET_FOLDER --recursive --region $AWS_DEFAULT_REGION
