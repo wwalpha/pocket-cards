@@ -75,7 +75,7 @@ jobs:
         run: |
           cd configs/terraform
           terraform init
-          echo "BUCKET_NAME_ARCHIVE=${terraform output -raw bucket_name_archive}" >> $GITHUB_ENV
+          echo "BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)" >> $GITHUB_ENV
           echo "source_tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       # Pre Install
