@@ -75,8 +75,7 @@ jobs:
           cd configs/terraform
           terraform init
           BUCKET_NAME_ARCHIVE=$(terraform output bucket_name_archive)
-          echo $BUCKET_NAME_ARCHIVE
-          echo "BUCKET_NAME_ARCHIVE=$BUCKET_NAME_ARCHIVE" >> $GITHUB_OUTPUT
+          echo "bucket_name_archive=$BUCKET_NAME_ARCHIVE" >> $GITHUB_OUTPUT
           echo "source_tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       # Pre Install
@@ -88,7 +87,7 @@ jobs:
       # Install and Build
       - name: Build
         env:
-          # BUCKET_NAME_ARCHIVE: ${{ fromJson(steps.terraform.outputs.json).bucket_name_archive }}
+          BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
           VERSION: ${{ steps.terraform.outputs.source_tag }}
         run: |
           printenv
