@@ -74,6 +74,10 @@ jobs:
           cd configs/terraform
           terraform init
           terraform output -json > outputs.json
+          cat outputs.json | jq -r '.bucket_name_archive.value'
+          cat outputs.json | jq -r '.bucket_name_frontend.value'
+          echo "bucket_name_archive=$(cat outputs.json | jq -r '.bucket_name_archive.value')" >> $GITHUB_ENV
+          echo "bucket_name_frontend=$(cat outputs.json | jq -r '.bucket_name_frontend.value')" >> $GITHUB_ENV
           echo "bucket_name_archive=$(cat outputs.json | jq -r '.bucket_name_archive.value')" >> $GITHUB_OUTPUT
           echo "bucket_name_frontend=$(cat outputs.json | jq -r '.bucket_name_frontend.value')" >> $GITHUB_OUTPUT
           echo "source_tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
