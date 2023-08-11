@@ -53,13 +53,14 @@ jobs:
       # Setup Node.js
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       # Install the latest version of Terraform CLI 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.3.4
+          terraform_version: 1.5.5
+          terraform_wrapper: false
 
       # AWS Credentials
       - name: Configure AWS credentials
@@ -75,7 +76,9 @@ jobs:
         run: |
           cd configs/terraform
           terraform init
-          echo "BUCKET_NAME_ARCHIVE=$(terraform output bucket_name_archive)" >> $GITHUB_OUTPUT
+          BUCKET_NAME_ARCHIVE=$(terraform output bucket_name_archive)
+          echo $BUCKET_NAME_ARCHIVE
+          echo "BUCKET_NAME_ARCHIVE=$BUCKET_NAME_ARCHIVE" >> $GITHUB_OUTPUT
           echo "source_tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       # Pre Install
