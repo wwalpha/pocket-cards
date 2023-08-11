@@ -162,7 +162,7 @@ export default () => {
               不正解数：{incorrectCount}
             </Box>
 
-            <Box display="flex" flexGrow="1" justifyContent="flex-end">
+            <Box position="fixed" display="flex" flexGrow="1" justifyContent="flex-end" right="0">
               <LoadingButton
                 sx={{ width: '120px', mx: 1 }}
                 loading={isLoading}
@@ -253,7 +253,7 @@ export default () => {
                         src={`${Consts.DOMAIN_HOST}/${url}`}
                         width="auto"
                         height="auto"
-                        maxWidth="950px"
+                        style={{ maxWidth: '100%' }}
                         onClick={() => {
                           handleImageOpen(1);
                         }}
