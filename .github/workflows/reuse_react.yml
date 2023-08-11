@@ -77,8 +77,7 @@ jobs:
           ls
           echo 111
           jq --help
-          cat outputs.json
-          cat outputs.json | jq -r .bucket_name_archive.value
+          cat outputs.json | jq .
           echo 222
           cat outputs.json | jq -r .bucket_name_frontend.value
           echo 333
