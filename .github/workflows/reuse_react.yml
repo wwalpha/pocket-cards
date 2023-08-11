@@ -93,7 +93,7 @@ jobs:
           # BUCKET_NAME_ARCHIVE: ${{ fromJson(steps.terraform.outputs.json).bucket_name_archive }}
           VERSION: ${{ steps.terraform.outputs.source_tag }}
         run: |
-          echo '${{ fromJson(steps.terraform.outputs.json) }}'
+          echo '${{ steps.terraform.outputs }}'
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/react.env .
           echo VERSION=$(echo $VERSION) >> react.env
           yarn install --production=false
