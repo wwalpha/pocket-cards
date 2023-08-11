@@ -74,7 +74,7 @@ jobs:
         run: |
           cd configs/terraform
           terraform init
-          BUCKET_NAME_ARCHIVE=$(terraform output bucket_name_archive)
+          BUCKET_NAME_ARCHIVE=$(terraform output -raw bucket_name_archive)
           echo "bucket_name_archive=$BUCKET_NAME_ARCHIVE" >> $GITHUB_OUTPUT
           echo "source_tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
@@ -90,8 +90,6 @@ jobs:
           BUCKET_NAME_ARCHIVE: ${{ steps.terraform.outputs.bucket_name_archive }}
           VERSION: ${{ steps.terraform.outputs.source_tag }}
         run: |
-          printenv
-          echo "${steps.terraform.outputs.BUCKET_NAME_ARCHIVE}"
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/react.env .
           echo VERSION=$(echo $VERSION) >> react.env
           yarn install --production=false
