@@ -36,8 +36,6 @@ jobs:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
       SSM_PARAMETER_NAME: ${{ format('{0}/{1}', '/pkc/frontend', inputs.module) }}
       TF_WORKSPACE: ${{ inputs.environment }}
-      BUCKET_NAME_ARCHIVE: 'pkc-archive-af2a18'
-      BUCKET_NAME: 'pkc-frontend-af2a18'
       NODE_ENV: production
     defaults:
       run:
