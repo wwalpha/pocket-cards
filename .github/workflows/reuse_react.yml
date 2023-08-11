@@ -74,7 +74,9 @@ jobs:
           cd configs/terraform
           terraform init
           terraform output -json > outputs.json
-          echo "json=$(jq -c . < outputs.json)" >> $GITHUB_OUTPUT
+          echo 'json<<EOF' >> $GITHUB_OUTPUT
+          cat ./outputs.json >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
           echo "source_tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       # Pre Install
