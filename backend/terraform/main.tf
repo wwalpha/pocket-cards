@@ -11,6 +11,7 @@ terraform {
     bucket = "terraform-state-202106"
     key    = "pkc/backend.state"
     region = "us-east-1"
+    acl    = "bucket-owner-full-control"
   }
 
   required_providers {
