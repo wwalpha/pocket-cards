@@ -36,6 +36,8 @@ jobs:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
       SSM_PARAMETER_NAME: ${{ format('{0}/{1}', '/pkc/frontend', inputs.module) }}
       TF_WORKSPACE: ${{ inputs.environment }}
+      BUCKET_NAME_ARCHIVE: 'pkc-archive-af2a18'
+      BUCKET_NAME: 'pkc-frontend-af2a18'
       NODE_ENV: production
     defaults:
       run:
@@ -88,9 +90,10 @@ jobs:
       # Install and Build
       - name: Build
         env:
-          BUCKET_NAME_ARCHIVE: ${{ fromJson(steps.terraform.outputs.json).bucket_name_archive }}
+          # BUCKET_NAME_ARCHIVE: ${{ fromJson(steps.terraform.outputs.json).bucket_name_archive }}
           VERSION: ${{ steps.terraform.outputs.source_tag }}
         run: |
+          echo '${{ fromJson(steps.terraform.outputs.json) }}'
           aws s3 cp s3://$BUCKET_NAME_ARCHIVE/envs/react.env .
           echo VERSION=$(echo $VERSION) >> react.env
           yarn install --production=false
@@ -100,7 +103,7 @@ jobs:
       - name: Deploy
         if: ${{ inputs.deploy == true }}
         env:
-          BUCKET_NAME: ${{ fromJson(steps.terraform.outputs.json).bucket_name_frontend }}
+          # BUCKET_NAME: ${{ fromJson(steps.terraform.outputs.json).bucket_name_frontend }}
           BUCKET_FOLDER: ${{ inputs.module }}
         run: |
           aws s3 cp dist s3://$BUCKET_NAME/$BUCKET_FOLDER --recursive --region $AWS_DEFAULT_REGION
