@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "run-p build:*",
     "build:cognito": "cd cognito && yarn install && yarn build",
     "build:start": "cd start && yarn install && yarn build",
     "build:stop": "cd stop && yarn install && yarn build",
@@ -15,5 +16,8 @@
     "build:wss_disconnect": "cd wss_disconnect && yarn install && yarn build",
     "build:wss_commands": "cd wss_commands && yarn install && yarn build",
     "build:wss_relay": "cd wss_relay && yarn install && yarn build"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
   }
 }
