@@ -71,20 +71,10 @@ const header: FunctionComponent<HeaderProps> = ({ open, handleDrawerOpen }) => {
 
   const handleWssDisconnect = () => actions.disconnect();
 
-  // const handleAdminBack = () => {
-  //   if (pathname === ROUTE_PATHS.QUESTION_LIST) {
-  //     // go to top
-  //     dispatch(push(ROUTE_PATHS.ROOT));
-  //     // clear questions
-  //     grpActions.clearQuestions();
-  //   }
-  //   if (pathname === ROUTE_PATHS.QUESTION_CONFIRM) {
-  //     // go to top
-  //     dispatch(push(ROUTE_PATHS.QUESTION_LIST));
-  //     // clear questions
-  //     grpActions.clearQuestions();
-  //   }
-  // };
+  let groupId = '';
+  if (pathname.match(/\/*\/groups\/[0-9a-zA-Z]{22}\/$/)) {
+    groupId = pathname.split(/\/*\/groups\/([0-9a-zA-Z]{22})\/*/)[1];
+  }
 
   return (
     <AppBar position="fixed" open={open}>
