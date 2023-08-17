@@ -385,7 +385,7 @@ export namespace APIs {
   interface QuestionAnswerRequest {
     qid: string;
     correct: string;
-    selftest?:string;
+    selftest?: string;
   }
 
   type QuestionAnswerResponse = void;
@@ -756,6 +756,17 @@ export namespace APIs {
   }
 
   interface HandwritingResponse {
+    results: string[];
+  }
+
+  // ------------------------------------------------------------
+  // Vision - Image2Text
+  // ------------------------------------------------------------
+  interface Image2TextRequest {
+    key: string;
+  }
+
+  interface Image2TextResponse {
     results: string[];
   }
 

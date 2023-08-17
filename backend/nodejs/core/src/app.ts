@@ -32,7 +32,7 @@ import {
 } from '@src/apis/curriculums';
 import { WeeklyRegist, WeeklyList, WeeklyAnswer } from '@src/apis/weekly';
 import { InquiryList, InquiryRegist, InquiryRemove } from '@src/apis/inquiry';
-import { Handwriting } from '@src/apis/vision';
+import { Handwriting, Image2Text } from '@src/apis/vision';
 import { LearningDescribe } from './apis/learning';
 import { Patchs } from '@src/apis/patch';
 import { DailyAnswer, DailyPractice, DailyExam, DailyReview } from '@src/apis/study';
@@ -151,6 +151,8 @@ app.patch('/v1/patch', express.json(), (req, res) => entry(req, res, Patchs));
 
 // handwriting
 app.post('/v1/vision/handwriting', express.json(), (req, res) => entry(req, res, Handwriting));
+
+app.post('/v1/vision/image', express.json(), (req, res) => entry(req, res, Image2Text));
 
 export default app;
 
