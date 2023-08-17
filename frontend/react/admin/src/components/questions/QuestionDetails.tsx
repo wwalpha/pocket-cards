@@ -6,10 +6,14 @@ import { Group, QuestionForm } from 'typings';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 import LoadingButton from '@mui/lab/LoadingButton';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import PhotoIcon from '@mui/icons-material/Photo';
-import { Consts } from '@constants';
+import ArticleIcon from '@mui/icons-material/Article';
+import { Consts, URLs } from '@constants';
+import { API } from '@utils';
+import { APIs } from 'typings';
 
 const titleRef = createRef<HTMLAudioElement>();
 const answerRef = createRef<HTMLAudioElement>();
@@ -49,8 +53,13 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
 
   const size = subject === Consts.SUBJECT.MATHS ? 'small' : 'medium';
   const [imageOpen, setImageOpen] = React.useState(false);
+  const [textsOpen, setTextsOpen] = React.useState(false);
+  const [texts, setTexts] = React.useState<string[]>();
+
   const handleImageOpen = () => setImageOpen(true);
   const handleImageClose = () => setImageOpen(false);
+  const handleTextsOpen = () => setTextsOpen(true);
+  const handleTextsClose = () => setTextsOpen(false);
 
   // 編集
   const onSubmit = handleSubmit((datas) => onClick?.(datas));
@@ -65,6 +74,16 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
     if (!window.location.hostname.startsWith('localhost')) {
       answerRef.current?.play();
     }
+  };
+
+  const handleImage2Text = async (key: string) => {
+    // 質問更新
+    const res = await API.post<APIs.Image2TextResponse, APIs.Image2TextRequest>(URLs.IMAGE_TO_TEXT(), {
+      key: key,
+    });
+
+    setTexts(res.results);
+    handleTextsOpen();
   };
 
   return (
@@ -105,7 +124,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
             )}
           />
           {dataRow.voiceAnswer && [
-            <IconButton key="questionPlayBtn" sx={{ mx: 1 }} color="secondary" onClick={handlePlayQuestion}>
+            <IconButton key="questionPlayBtn" sx={{ mx: 0 }} color="secondary" onClick={handlePlayQuestion}>
               <VolumeUpIcon />
             </IconButton>,
             <audio
@@ -115,8 +134,23 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
             />,
           ]}
           {dataRow.title.match(/\[.*\]/g) && [
-            <IconButton key="imageBtn" sx={{ mx: 1 }} color="secondary" onClick={handleImageOpen}>
+            <IconButton key="imageBtn" sx={{ mx: 0 }} color="secondary" onClick={handleImageOpen}>
               <PhotoIcon />
+            </IconButton>,
+            <IconButton
+              key="imageBtn"
+              sx={{ mx: 0 }}
+              color="secondary"
+              onClick={() => {
+                const title = dataRow.title;
+                const startIdx = title.indexOf('[');
+                const endIdx = title.indexOf(']', startIdx);
+                const url = title.substring(startIdx + 1, endIdx);
+
+                handleImage2Text(url);
+              }}
+            >
+              <ArticleIcon />
             </IconButton>,
             <Modal open={imageOpen} onClose={handleImageClose}>
               <Box sx={style}>
@@ -297,6 +331,47 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
               src={`/${Consts.PATH_VOICE}/${dataRow.groupId}/${dataRow.voiceAnswer}`}
             />,
           ]}
+          {dataRow.answer.match(/\[.*\]/g) && [
+            <IconButton key="imageBtn" sx={{ mx: 0 }} color="secondary" onClick={handleImageOpen}>
+              <PhotoIcon />
+            </IconButton>,
+            <IconButton
+              key="imageBtn"
+              sx={{ mx: 0 }}
+              color="secondary"
+              onClick={() => {
+                const texts = dataRow.answer;
+                const startIdx = texts.indexOf('[');
+                const endIdx = texts.indexOf(']', startIdx);
+                const url = texts.substring(startIdx + 1, endIdx);
+
+                handleImage2Text(url);
+              }}
+            >
+              <ArticleIcon />
+            </IconButton>,
+            <Modal open={imageOpen} onClose={handleImageClose}>
+              <Box sx={style}>
+                {(() => {
+                  const texts = dataRow.answer;
+                  const startIdx = texts.indexOf('[');
+                  const endIdx = texts.indexOf(']', startIdx);
+                  const url = texts.substring(startIdx + 1, endIdx);
+
+                  return [
+                    <img
+                      src={`${Consts.DOMAIN_HOST}/${url}`}
+                      width="auto"
+                      height="auto"
+                      onClick={() => {
+                        handleImageClose();
+                      }}
+                    />,
+                  ];
+                })()}
+              </Box>
+            </Modal>,
+          ]}
         </Box>
       </Box>
       <Box mt={4} display="flex" justifyContent="flex-end">
@@ -324,6 +399,11 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
           </LoadingButton>
         )}
       </Box>
+      <Modal open={textsOpen} onClose={handleTextsClose}>
+        <Box sx={style}>
+          <TextareaAutosize style={{ width: '600px' }} value={texts?.join('\n')} />
+        </Box>
+      </Modal>
     </form>
   );
 };

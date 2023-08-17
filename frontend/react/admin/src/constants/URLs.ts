@@ -82,3 +82,5 @@ export const INQUIRY_REMOVE = (qid: string) => `${API_VERSION}/inquiries/${qid}`
 export const REPORTS_DAILY_TEST = () => `${API_VERSION}/reports/questions/dailytest`;
 // カリキュラム進捗
 export const REPORTS_OVERALL_CURRICULUMS = () => `${API_VERSION}/reports/overall/curriculums`;
+// 画像→テキスト変換
+export const IMAGE_TO_TEXT = () => `${API_VERSION}/vision/image2text`;
