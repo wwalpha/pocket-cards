@@ -72,7 +72,11 @@ const header: FunctionComponent<HeaderProps> = ({ open, handleDrawerOpen }) => {
   const handleWssDisconnect = () => actions.disconnect();
 
   let groupId = '';
-  if (pathname.match(/\/*\/groups\/[0-9a-zA-Z]{22}\/$/)) {
+  // console.log(pathname);
+  // console.log(pathname.match(/\/*\/groups\/([0-9a-zA-Z]{22})\/*/));
+  // console.log(pathname.split(/\/*\/groups\/([0-9a-zA-Z]{22})\/*/)[1]);
+
+  if (pathname.match(/\/*\/groups\/([0-9a-zA-Z]{22})\/*/)) {
     groupId = pathname.split(/\/*\/groups\/([0-9a-zA-Z]{22})\/*/)[1];
   }
 
