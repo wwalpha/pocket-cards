@@ -152,7 +152,7 @@ app.patch('/v1/patch', express.json(), (req, res) => entry(req, res, Patchs));
 // handwriting
 app.post('/v1/vision/handwriting', express.json(), (req, res) => entry(req, res, Handwriting));
 
-app.post('/v1/vision/image', express.json(), (req, res) => entry(req, res, Image2Text));
+app.post('/v1/vision/image2text', express.json(), (req, res) => entry(req, res, Image2Text));
 
 export default app;
 
