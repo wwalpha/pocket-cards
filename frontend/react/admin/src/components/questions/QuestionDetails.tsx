@@ -4,13 +4,26 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Group, QuestionForm } from 'typings';
 import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import { IconButton } from '@mui/material';
+import PhotoIcon from '@mui/icons-material/Photo';
 import { Consts } from '@constants';
 
 const titleRef = createRef<HTMLAudioElement>();
 const answerRef = createRef<HTMLAudioElement>();
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading, onClick, onClose }) => {
   const {
@@ -35,6 +48,9 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
   });
 
   const size = subject === Consts.SUBJECT.MATHS ? 'small' : 'medium';
+  const [imageOpen, setImageOpen] = React.useState(false);
+  const handleImageOpen = () => setImageOpen(true);
+  const handleImageClose = () => setImageOpen(false);
 
   // 編集
   const onSubmit = handleSubmit((datas) => onClick?.(datas));
@@ -97,6 +113,32 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
               ref={titleRef}
               src={`/${Consts.PATH_VOICE}/${dataRow.groupId}/${dataRow.voiceTitle}`}
             />,
+          ]}
+          {dataRow.title.match(/\[.*\]/g) && [
+            <IconButton key="imageBtn" sx={{ mx: 1 }} color="secondary" onClick={handleImageOpen}>
+              <PhotoIcon />
+            </IconButton>,
+            <Modal open={imageOpen} onClose={handleImageClose}>
+              <Box sx={style}>
+                {(() => {
+                  const title = dataRow.title;
+                  const startIdx = title.indexOf('[');
+                  const endIdx = title.indexOf(']', startIdx);
+                  const url = title.substring(startIdx + 1, endIdx);
+
+                  return [
+                    <img
+                      src={`${Consts.DOMAIN_HOST}/${url}`}
+                      width="auto"
+                      height="auto"
+                      onClick={() => {
+                        handleImageClose();
+                      }}
+                    />,
+                  ];
+                })()}
+              </Box>
+            </Modal>,
           ]}
         </Box>
         {dataRow.original && (
