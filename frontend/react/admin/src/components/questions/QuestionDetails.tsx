@@ -165,6 +165,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
                       src={`${Consts.DOMAIN_HOST}/${url}`}
                       width="auto"
                       height="auto"
+                      style={{ maxWidth: '960px' }}
                       onClick={() => {
                         handleImageClose();
                       }}
@@ -363,6 +364,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
                       src={`${Consts.DOMAIN_HOST}/${url}`}
                       width="auto"
                       height="auto"
+                      style={{ maxWidth: '960px' }}
                       onClick={() => {
                         handleImageClose();
                       }}
