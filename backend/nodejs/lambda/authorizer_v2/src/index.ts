@@ -129,6 +129,7 @@ const buildAuthPolicy = (
       policy.allowMethod(AuthPolicy.HttpVerb.POST, '/groups');
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/groups/*');
       policy.allowMethod(AuthPolicy.HttpVerb.ALL, '/inquiries/*');
+      policy.allowMethod(AuthPolicy.HttpVerb.POST, '/vision/*');
 
       break;
     case 'PARENT':
