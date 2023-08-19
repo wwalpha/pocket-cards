@@ -119,11 +119,12 @@ const table: FunctionComponent<QuestionTable> = ({
 
   const handleOnCheck = (index: number) => {
     let newArray = Array.from(checkValues);
+    const newIndex = page * rowsPerPage + index;
 
-    if (newArray.includes(index)) {
-      newArray = newArray.splice(newArray.indexOf(index), 1);
+    if (newArray.includes(newIndex)) {
+      newArray = newArray.splice(newArray.indexOf(newIndex), 1);
     } else {
-      newArray.push(index);
+      newArray.push(newIndex);
     }
 
     setCheckValues(new Set(newArray));
