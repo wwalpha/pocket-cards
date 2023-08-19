@@ -196,6 +196,7 @@ const table: FunctionComponent<QuestionTable> = ({
                       <Box sx={styles.iconCell}>
                         {isSelectAll && (
                           <Checkbox
+                            checked={checkValues.has(page * rowsPerPage + idx)}
                             onClick={() => {
                               handleOnCheck(idx);
                             }}
