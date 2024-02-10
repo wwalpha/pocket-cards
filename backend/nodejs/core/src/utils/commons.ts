@@ -192,7 +192,7 @@ const createJapaneseVoice = async (text: string, s3Key?: string) => {
 
   await upload.done();
 
-  return key;
+  return bucketKey;
 };
 
 export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolean = true) => {
