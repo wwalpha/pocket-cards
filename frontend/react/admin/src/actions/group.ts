@@ -132,3 +132,8 @@ export const registWeekly = (request: APIs.WeeklyRegistRequest) => async (dispat
   // regist questions
   await dispatch(Actions.GROUP_WEEKLY_REGIST(request)).unwrap();
 };
+
+export const downloadQuestions = (groupId: string) => async (dispatch: AppDispatch) => {
+  // download questions
+  await dispatch(Actions.GROUP_QUESTION_DOWNLOAD(groupId)).unwrap();
+};

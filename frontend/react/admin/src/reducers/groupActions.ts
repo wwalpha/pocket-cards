@@ -130,3 +130,41 @@ export const GROUP_WEEKLY_REGIST = createAsyncThunk<void, APIs.WeeklyRegistReque
     await API.post<APIs.WeeklyRegistResponse, APIs.WeeklyRegistRequest>(URLs.STUDY_WEEKLY_REGIST(), request);
   }
 );
+
+/** Question Download */
+export const GROUP_QUESTION_DOWNLOAD = createAsyncThunk<void, string>(
+  'group/GROUP_QUESTION_DOWNLOAD',
+  async (groupId, { getState }) => {
+    // request parameter
+    const { questions, groups } = (getState() as RootState).group;
+
+    const targets = questions.filter((item) => item.groupId === groupId);
+    const group = groups.find((item) => item.id === groupId);
+    const datas = targets
+      .map((item) => {
+        if (item.subject === Consts.SUBJECT.JAPANESE) {
+          return [item.title, item.choices, item.answer].join(',');
+        }
+
+        return [item.title, item.answer].join(',');
+      })
+      .join('\n');
+
+    //BOMを付与する（Excelでの文字化け対策）
+    const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
+    const blob = new Blob([bom, datas], { type: 'text/csv' });
+
+    //BlobからオブジェクトURLを作成する
+    const url = (window.URL || window.webkitURL).createObjectURL(blob);
+    //ダウンロード用にリンクを作成する
+    const download = document.createElement('a');
+    //リンク先に上記で生成したURLを指定する
+    download.href = url;
+    //download属性にファイル名を指定する
+    download.download = group?.name + '.csv';
+    //作成したリンクをクリックしてダウンロードを実行する
+    download.click();
+    //createObjectURLで作成したオブジェクトURLを開放する
+    (window.URL || window.webkitURL).revokeObjectURL(url);
+  }
+);

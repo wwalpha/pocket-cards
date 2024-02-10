@@ -80,6 +80,10 @@ const header: FunctionComponent<HeaderProps> = ({ open, handleDrawerOpen }) => {
     groupId = pathname.split(/\/*\/groups\/([0-9a-zA-Z]{22})\/*/)[1];
   }
 
+  const handleDownload = () => {
+    grpActions.downloadQuestions(groupId);
+  };
+
   return (
     <AppBar position="fixed" open={open}>
       <Toolbar>
@@ -114,17 +118,27 @@ const header: FunctionComponent<HeaderProps> = ({ open, handleDrawerOpen }) => {
 
             if (pathname.match(/\/*\/groups\/[0-9a-zA-Z]{22}\/questions$/)) {
               return (
-                <UploadButton
-                  loading={isLoading}
-                  variant="outlined"
-                  color="inherit"
-                  sx={{ mx: 1, borderRadius: 0, width: 96 }}
-                  readAsText={(texts: string) => {
-                    grpActions.uploadConfirm(subject, groupId, texts);
-                  }}
-                >
-                  Upload
-                </UploadButton>
+                <React.Fragment>
+                  <UploadButton
+                    loading={isLoading}
+                    variant="outlined"
+                    color="inherit"
+                    sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                    readAsText={(texts: string) => {
+                      grpActions.uploadConfirm(subject, groupId, texts);
+                    }}
+                  >
+                    Upload
+                  </UploadButton>
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    sx={{ mx: 1, borderRadius: 0, width: 96 }}
+                    onClick={handleDownload}
+                  >
+                    DOWNLOAD
+                  </Button>
+                </React.Fragment>
               );
             }
 
