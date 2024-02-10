@@ -160,7 +160,7 @@ const getContentType = (extension: string = '') => {
   }
 };
 
-const createJapaneseVoice = async (text: string, groupId: string, s3Key?: string) => {
+const createJapaneseVoice = async (text: string, s3Key?: string) => {
   const client = ClientUtils.polly();
 
   const response = await client.send(
@@ -173,7 +173,7 @@ const createJapaneseVoice = async (text: string, groupId: string, s3Key?: string
     })
   );
 
-  const prefix = `${Consts.PATH_VOICE}/${groupId}`;
+  const prefix = `${Consts.PATH_VOICE}/${DateUtils.getNow()}`;
   const key = s3Key ?? `${short.generate()}.mp3`;
 
   // ファイル名
@@ -234,7 +234,7 @@ const createQuestionVoice = async (question: Tables.TQuestions) => {
 
   if (newTitle.length === 0) return undefined;
 
-  return await createJapaneseVoice(newTitle, question.groupId, question.voiceTitle);
+  return await createJapaneseVoice(newTitle, question.voiceTitle);
 };
 
 const createAnswerVoice = async (question: Tables.TQuestions) => {
@@ -246,7 +246,7 @@ const createAnswerVoice = async (question: Tables.TQuestions) => {
 
   if (newAnswer.length === 0) return undefined;
 
-  return await createJapaneseVoice(newAnswer, question.groupId, question.voiceAnswer);
+  return await createJapaneseVoice(newAnswer, question.voiceAnswer);
 };
 
 const createImage = async (text: string): Promise<string> => {
