@@ -143,7 +143,7 @@ export const GROUP_QUESTION_DOWNLOAD = createAsyncThunk<void, string>(
     const datas = targets
       .map((item) => {
         if (item.subject === Consts.SUBJECT.JAPANESE) {
-          return [item.title, item.choices, item.answer].join(',');
+          return [item.title, item.choices?.join('|'), item.answer].join(',');
         }
 
         return [item.title, item.answer].join(',');
