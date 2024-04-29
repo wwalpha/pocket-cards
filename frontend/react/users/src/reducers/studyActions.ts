@@ -51,7 +51,9 @@ export const STUDY_PRACTICE = createAsyncThunk<WordItem[], void>('study/STUDY_PR
 
 // テスト
 export const STUDY_EXAM = createAsyncThunk<WordItem[], void>('study/STUDY_EXAM', async () => {
-  const res = await API.get<APIs.DailyExamResponse>(URLs.DAILY_EXAM());
+  const res = await API.post<APIs.DailyExamResponse, APIs.DailyExamRequest>(URLs.DAILY_EXAM(), {
+    subject: Consts.SUBJECT.ENGLISH,
+  });
 
   return res.questions.map((item) => ({
     id: item.id,
