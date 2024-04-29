@@ -2,7 +2,9 @@ name: RELEASE_B) Production Build
 
 on:
   release:
-    types: [prereleased]
+    types:
+      - prereleased
+      - edited
   workflow_dispatch:
 
 env:
