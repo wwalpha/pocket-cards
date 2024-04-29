@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@alphax/dynamodb@^1.2.13":
+"@alphax/dynamodb@^1.2.15":
   version "1.2.15"
   resolved "https://registry.yarnpkg.com/@alphax/dynamodb/-/dynamodb-1.2.15.tgz#c34cdc9db815dce322bc4df8fb58cc4b9c5f2578"
   integrity sha512-KRgVO6cUz/kR2wpRMTwYLefCv8TmTOaxjzVjadPTZZy2MedetSzZ/4+PFGZi/VfTjxghSDnM5U6YmI6STD4uGg==
