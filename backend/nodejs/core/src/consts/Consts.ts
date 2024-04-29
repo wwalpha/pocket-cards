@@ -15,9 +15,8 @@ export const GRADE = {
   GRADE_6: '6',
 };
 
-export const PATH_PATTERN = 'audios';
+export const PATH_AUDIOS = 'audios';
 export const PATH_IMAGE = 'images';
-export const PATH_VOICE = 'voices';
 export const PATH_PUBLIC = 'public';
 
 export const REPORT_TYPE = {

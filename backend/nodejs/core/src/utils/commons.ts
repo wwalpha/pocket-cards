@@ -92,7 +92,7 @@ export const saveWithMP3 = async (word: string): Promise<string> => {
   // ファイル名
   const filename: string = `${short.generate()}.mp3`;
   const prefix: string = DateUtils.getNow();
-  const key: string = `${Consts.PATH_PATTERN}/${prefix}/${filename}`;
+  const key: string = `${Consts.PATH_AUDIOS}/${prefix}/${filename}`;
 
   // S3に保存する
   const upload = new Upload({
@@ -173,7 +173,7 @@ const createJapaneseVoice = async (text: string, s3Key?: string) => {
     })
   );
 
-  const prefix = `${Consts.PATH_VOICE}/${DateUtils.getNow()}`;
+  const prefix = `${Consts.PATH_AUDIOS}/${DateUtils.getNow()}`;
   const key = s3Key ?? `${short.generate()}.mp3`;
 
   // ファイル名
