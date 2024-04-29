@@ -1,5 +1,5 @@
 # Release Stage
-FROM node:14-alpine
+FROM node:20-alpine
 WORKDIR /app
 
 COPY dist .
