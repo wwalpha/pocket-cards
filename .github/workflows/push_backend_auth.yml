@@ -9,7 +9,7 @@ on:
       - .github/workflows/reuse_build_ci.yml
     branches-ignore:
       - releases/**
-      - master
+      # - master
 
 jobs:
   AuthManager:

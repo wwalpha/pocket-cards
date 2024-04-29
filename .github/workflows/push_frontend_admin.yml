@@ -8,7 +8,7 @@ on:
       - .github/workflows/reuse_react.yml
     branches-ignore:
       - releases/**
-      - master
+      # - master
   workflow_dispatch:
 
 jobs:
