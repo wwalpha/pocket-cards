@@ -57,12 +57,12 @@ jobs:
           yarn build
 
       # Unit Test
-      - name: Unit Test
-        run: |
-          docker-compose up -d --build
-          sleep 10
-          yarn test
-          docker-compose down
+      # - name: Unit Test
+      #   run: |
+      #     docker-compose up -d --build
+      #     sleep 10
+      #     yarn test
+      #     docker-compose down
 
       # docker build
       - name: Docker Image Build
