@@ -85,24 +85,6 @@ resource "aws_cloudfront_distribution" "this" {
     compress               = true
   }
 
-  ordered_cache_behavior {
-    path_pattern     = "/voices/*"
-    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-    cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = local.origin_id_materials
-
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
-
-    viewer_protocol_policy = "redirect-to-https"
-    compress               = true
-  }
-
   viewer_certificate {
     cloudfront_default_certificate = false
     acm_certificate_arn            = aws_acm_certificate_validation.global.certificate_arn
@@ -203,25 +185,6 @@ resource "aws_cloudfront_distribution" "admin" {
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
   }
-
-  ordered_cache_behavior {
-    path_pattern     = "/voices/*"
-    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-    cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = local.origin_id_materials
-
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
-
-    viewer_protocol_policy = "redirect-to-https"
-    compress               = true
-  }
-
 
   viewer_certificate {
     cloudfront_default_certificate = false
