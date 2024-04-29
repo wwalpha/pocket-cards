@@ -11,7 +11,7 @@
     "test:local": "jest test/services/curriculums/regist.test.ts",
     "debug": "ts-node -r tsconfig-paths/register -r dotenv/config src/services/traces/index.ts",
     "coverage": "ts-node test/coverage.ts",
-    "patch": "ts-node -r tsconfig-paths/register -r dotenv/config src/apis/patch/20230529/patch.ts"
+    "patch": "ts-node -r tsconfig-paths/register -r dotenv/config src/apis/patch/20240429/patch.ts"
   },
   "devDependencies": {
     "@aws-sdk/types": "^3.272.0",

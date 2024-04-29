@@ -1,12 +1,19 @@
 import { Environment } from '@consts';
-import { WordMasterService } from '@services';
-import { Commons, DBHelper } from '@utils';
+import { QuestionService, WordMasterService } from '@services';
+import { DBHelper } from '@utils';
 import { Tables } from 'typings';
 
 const patch = async (): Promise<void> => {
 
-  const results = await DBHelper().scan<Tables.TWordMaster>({
-    TableName: Environment.TABLE_NAME_WORD_MASTER,
+  const results = await DBHelper().scan<Tables.TQuestions>({
+    TableName: Environment.TABLE_NAME_QUESTIONS,
+    FilterExpression: '#subject = :subject',
+    ExpressionAttributeNames: {
+      '#subject': 'subject',
+    },
+    ExpressionAttributeValues: {
+      ':subject': '0'
+    }
   })
 
   const items = results.Items;
@@ -18,11 +25,13 @@ const patch = async (): Promise<void> => {
     // not found
     if (item === undefined) break;
 
-    const key = await Commons.saveWithMP3(item.id);
+    const master = await WordMasterService.describe({
+      id: item.title
+    });
 
-    await WordMasterService.update({
+    await QuestionService.update({
       ...item,
-      mp3: key,
+      voiceTitle: master.mp3
     })
 
     console.log(`Count: ${items.length}/${total}`);
