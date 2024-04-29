@@ -51,7 +51,6 @@ export const COLORS = {
 };
 
 export const PATH_IMAGE = 'images';
-export const PATH_VOICE = 'voices';
 
 export const Commands = {
   SHOW_NEXT: 'SHOW_NEXT',
