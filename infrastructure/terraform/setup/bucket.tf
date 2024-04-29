@@ -5,16 +5,6 @@ resource "aws_s3_bucket" "archive" {
   bucket = local.bucket_name_archive
 }
 
-# ----------------------------------------------------------------------------------------------
-# deprecated
-# ----------------------------------------------------------------------------------------------
-resource "aws_s3_bucket_versioning" "materials" {
-  bucket = aws_s3_bucket.materials.id
-  versioning_configuration {
-    status = "Enabled"
-  }
-}
-
 resource "aws_s3_bucket_versioning" "archive" {
   bucket = aws_s3_bucket.archive.id
   versioning_configuration {
@@ -105,7 +95,25 @@ resource "aws_s3_bucket_acl" "materials" {
   acl    = "private"
 }
 
+resource "aws_s3_bucket_versioning" "materials" {
+  bucket = aws_s3_bucket.materials.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
 
+resource "aws_s3_bucket_lifecycle_configuration" "materials" {
+  bucket = aws_s3_bucket.materials.id
+
+  rule {
+    id     = "expiration"
+    status = "Enabled"
+
+    noncurrent_version_expiration {
+      noncurrent_days = 7
+    }
+  }
+}
 
 # ----------------------------------------------------------------------------------------------
 # S3 Object - Lambda wss relay module
