@@ -16,27 +16,20 @@ export default async (
   const language = results.filter((item) => item.subject === Consts.SUBJECT.LANGUAGE);
   const science = results.filter((item) => item.subject === Consts.SUBJECT.SCIENCE);
   const society = results.filter((item) => item.subject === Consts.SUBJECT.SOCIETY);
-  const maths = results.filter((item) => item.subject === Consts.SUBJECT.MATHS);
+  const english = results.filter((item) => item.subject === Consts.SUBJECT.ENGLISH);
 
   return {
     language: countBy(language, (item) => {
-      if (item.lastTime === Consts.INITIAL_DATE) {
-        return -2;
-      }
-      if (item.times === 0) {
-        return -1;
-      }
-
-      return item.times;
+      return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
     }),
     science: countBy(science, (item) => {
-      return item.lastTime === Consts.INITIAL_DATE ? -2 : item.times;
+      return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
     }),
     society: countBy(society, (item) => {
-      return item.lastTime === Consts.INITIAL_DATE ? -2 : item.times;
+      return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
     }),
-    maths: countBy(maths, (item) => {
-      return item.lastTime === Consts.INITIAL_DATE ? -2 : item.times;
+    english: countBy(english, (item) => {
+      return item.lastTime === Consts.INITIAL_DATE ? -1 : item.times;
     }),
   };
 };
