@@ -41,6 +41,9 @@ struct RootView: View {
 
                 // 理科
                 getHStack(subject: SUBJECT.SCIENCE)
+
+                // 英語
+                getHStack(subject: SUBJECT.ENGLISH)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.primaryColor, for: .navigationBar)
@@ -69,24 +72,28 @@ struct RootView: View {
             }
             .navigationDestination(for: String.self) { text in
                 switch text {
+                case "00":
+                    router?.makeEnglishStudyView()
+                case "01":
+                    router?.makeEnglishTestView()
                 case "10":
                     router?.makeLanguageStudyiew()
                 case "11":
                     router?.makeLanguageTestView()
-                case "12":
-                    router?.makeLanguageReviewView()
+//                case "12":
+//                    router?.makeLanguageReviewView()
                 case "20":
                     router?.makeScienceStudyiew()
                 case "21":
                     router?.makeScienceTestView()
-                case "22":
-                    router?.makeScienceReviewView()
+//                case "22":
+//                    router?.makeScienceReviewView()
                 case "30":
-                    router?.makeSocietyStudyiew()
+                    router?.makeSocietyStudyView()
                 case "31":
                     router?.makeSocietyTestView()
-                case "32":
-                    router?.makeSocietyReviewView()
+//                case "32":
+//                    router?.makeSocietyReviewView()
                 default:
                     Text("")
                 }
@@ -97,7 +104,7 @@ struct RootView: View {
     func getHStack(subject: String) -> some View {
         HStack(alignment: .center, content: {
             Text(SUBJECT_TITLE[subject]!)
-                .frame(height: 120, alignment: .topLeading)
+                .frame(height: 100, alignment: .topLeading)
                 .font(.system(size: 32))
                 .padding(.trailing, 64)
                 .padding(.leading, 48)
@@ -144,6 +151,10 @@ struct RootView: View {
         }
 
         if subject == SUBJECT.SOCIETY {
+            colors = [Color(hex: 0xBCEAC7), Color(hex: 0xDAF4E0)]
+        }
+
+        if subject == SUBJECT.ENGLISH {
             colors = [Color(hex: 0xBCEAC7), Color(hex: 0xDAF4E0)]
         }
 

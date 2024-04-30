@@ -13,9 +13,9 @@ extension Color {
     static let languageMiddle = Color("LanguageMiddle")
     static let society = Color("Society")
     static let science = Color("Science")
-    static let maths = Color("Maths")
+    static let english = Color("English")
 
-    static let maths_ui = UIColor(red: 27 / 255, green: 90 / 255, blue: 170 / 255, alpha: 1)
+    static let english_ui = UIColor(red: 27 / 255, green: 90 / 255, blue: 170 / 255, alpha: 1)
     static let language_ui = UIColor(red: 190 / 255, green: 32 / 255, blue: 47 / 255, alpha: 1)
     static let society_ui = UIColor(red: 44 / 255, green: 143 / 255, blue: 67 / 255, alpha: 1)
     static let science_ui = UIColor(red: 224 / 255, green: 108 / 255, blue: 39 / 255, alpha: 1)

@@ -32,7 +32,7 @@ class RootRouter {
         DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_REVIEW, subject: SUBJECT.SCIENCE, mode: MODE.REVIEW)
     }
 
-    func makeSocietyStudyiew() -> some View {
+    func makeSocietyStudyView() -> some View {
         DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_PRACTICE, subject: SUBJECT.SOCIETY, mode: MODE.PRACTICE)
     }
 
@@ -50,5 +50,13 @@ class RootRouter {
 
     func makeSocietyWeeklyTestView() -> some View {
         WeeklyTestView().configureView(subject: SUBJECT.SOCIETY)
+    }
+
+    func makeEnglishStudyView() -> some View {
+        DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_PRACTICE, subject: SUBJECT.ENGLISH, mode: MODE.PRACTICE)
+    }
+
+    func makeEnglishTestView() -> some View {
+        DailyPracticeView().configureView(loadUrl: URLs.STUDY_DAILY_EXAM, subject: SUBJECT.ENGLISH, mode: MODE.EXAM)
     }
 }

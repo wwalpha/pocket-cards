@@ -16,15 +16,13 @@ struct OverallChart: UIViewRepresentable {
     func makeUIView(context _: Context) -> BarChartView {
         let dataset = BarChartDataSet(entries: yVals, label: "")
         dataset.drawIconsEnabled = false
-//        dataset.colors = [Color.maths_ui, Color.language_ui, Color.society_ui, Color.science_ui]
-        dataset.colors = [Color.language_ui, Color.society_ui, Color.science_ui]
+        dataset.colors = [Color.language_ui, Color.society_ui, Color.science_ui, Color.english_ui]
 
         dataset.stackLabels = xLabels
 
         let data = BarChartData(dataSet: dataset)
         data.setValueFont(.systemFont(ofSize: 16, weight: .medium))
         data.setValueTextColor(.black)
-//        data.setDrawValues(false)
 
         let chartView = BarChartView()
         chartView.fitBars = true

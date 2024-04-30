@@ -17,8 +17,7 @@ struct OverallTimesView: View {
     var body: some View {
         if viewModel.isLoaded {
             VStack {
-//                OverallChart(yVals: getBarChartData(), xLabels: ["算数", "国語", "社会", "理科"])
-                OverallChart(yVals: getBarChartData(), xLabels: ["国語", "社会", "理科"])
+                OverallChart(yVals: getBarChartData(), xLabels: ["国語", "社会", "理科", "英語"])
             }.padding(32)
                 .onDisappear {
                     viewModel.isLoaded = false
@@ -37,20 +36,19 @@ extension OverallTimesView: OverallTimesDisplayLogic {
         viewModel.science = res.science
         viewModel.society = res.society
         viewModel.language = res.language
-//        viewModel.maths = res.maths
+        viewModel.english = res.english
 
         viewModel.isLoaded = true
     }
 
     func getBarChartData() -> [BarChartDataEntry] {
         let entries = (1 ..< 13).map { i -> BarChartDataEntry in
-//            let val1 = self.viewModel.maths[String(i - 2)] ?? 0
             let val2 = self.viewModel.language[String(i - 2)] ?? 0
             let val3 = self.viewModel.society[String(i - 2)] ?? 0
             let val4 = self.viewModel.science[String(i - 2)] ?? 0
+            let val5 = self.viewModel.english[String(i - 2)] ?? 0
 
-//            return BarChartDataEntry(x: Double(i), yValues: [Double(val1), Double(val2), Double(val3), Double(val4)])
-            return BarChartDataEntry(x: Double(i), yValues: [Double(val2), Double(val3), Double(val4)])
+            return BarChartDataEntry(x: Double(i), yValues: [Double(val2), Double(val3), Double(val4), Double(val5)])
         }
 
         return entries

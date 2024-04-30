@@ -324,8 +324,8 @@ struct FlashCard: View {
     }
 
     func onPlay(front: Bool) {
-        let titleUrl = "voices/\(question.groupId)/\(question.voiceTitle ?? "")"
-        let answerUrl = "voices/\(question.groupId)/\(question.voiceAnswer ?? "")"
+        let titleUrl = question.voiceTitle ?? ""
+        let answerUrl = question.voiceAnswer ?? ""
         let url = front ? titleUrl : answerUrl
 
         debugPrint(url)

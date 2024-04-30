@@ -43,13 +43,13 @@ enum ReportServices {
             var language: [String: Int]
             var science: [String: Int]
             var society: [String: Int]
-            var maths: [String: Int]
+            var english: [String: Int]
 
             private enum CodingKeys: String, CodingKey {
                 case language
                 case science
                 case society
-                case maths
+                case english
             }
         }
     }

@@ -24,14 +24,14 @@ let API: Session = {
 
     let authInterceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
 
-//    let composite = Interceptor(interceptors: [authInterceptor, RequestInterceptor()])
+    let composite = Interceptor(interceptors: [authInterceptor, RequestInterceptor()])
 
-    return Session(configuration: configuration, interceptor: authInterceptor)
+    return Session(configuration: configuration, interceptor: composite)
 }()
 
 // Mark
 final class RequestInterceptor: Alamofire.RequestInterceptor {
-    func adapt(_ urlRequest: URLRequest, for _: Session, completion _: @escaping (Result<URLRequest, Error>) -> Void) {
+    func adapt(_ urlRequest: URLRequest, for _: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
 //        guard urlRequest.url?.absoluteString.hasPrefix("https://api.authenticated.com") == true else {
 //            /// If the request does not require authentication, we can directly return it as unmodified.
 //            return completion(.success(urlRequest))
@@ -44,7 +44,7 @@ final class RequestInterceptor: Alamofire.RequestInterceptor {
 
         debugPrint(urlRequest)
 
-//        completion(.success(urlRequest))
+        completion(.success(urlRequest))
     }
 
     func retry(request _: Request, for _: Session, dueTo _: Error, completion _: @escaping (RetryResult) -> Void) {
