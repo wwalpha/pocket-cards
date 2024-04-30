@@ -2,7 +2,7 @@ import { Environment } from '@consts';
 import { LearningService } from '@services';
 import { DateUtils, DBHelper } from '@utils';
 
-const patch = async (): Promise<void> => {
+export const patch = async (): Promise<void> => {
   const userId = 'Google_109439805128280065775';
 
   const learnings = await LearningService.listByUser(userId);
@@ -36,4 +36,4 @@ const patch = async (): Promise<void> => {
   }
 };
 
-patch();
+// patch();

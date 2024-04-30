@@ -2,7 +2,7 @@ import { Environment } from '@consts';
 import { LearningService } from '@services';
 import { DBHelper } from '@utils';
 
-const patch = async (): Promise<void> => {
+export const patch = async (): Promise<void> => {
   const userId = 'Google_109439805128280065775';
   const groupIds: string[] = [
     'dCQ5K3mRsz8V3P89xTchNi',
@@ -69,4 +69,4 @@ const patch = async (): Promise<void> => {
   }
 };
 
-patch();
+// patch();

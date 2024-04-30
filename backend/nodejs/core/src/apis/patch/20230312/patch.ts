@@ -1,7 +1,7 @@
 import { LearningService } from '@services';
 import pLimit from 'p-limit';
 
-const patch = async (): Promise<void> => {
+export const patch = async (): Promise<void> => {
   const userId = 'Google_109439805128280065775';
 
   const learnings = await LearningService.listByUser(userId);
@@ -24,4 +24,4 @@ const patch = async (): Promise<void> => {
   await Promise.all(tasks);
 };
 
-patch();
+// patch();

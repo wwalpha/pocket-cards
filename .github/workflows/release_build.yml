@@ -5,6 +5,11 @@ on:
     types:
       - prereleased
       - edited
+  push:
+    paths:
+      - '**'
+    branches-ignore:
+      - releases/**
   workflow_dispatch:
 
 env:

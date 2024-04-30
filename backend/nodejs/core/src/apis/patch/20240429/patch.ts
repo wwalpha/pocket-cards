@@ -40,4 +40,4 @@ const patch = async (): Promise<void> => {
 
 export default patch;
 
-patch();
+// patch();
