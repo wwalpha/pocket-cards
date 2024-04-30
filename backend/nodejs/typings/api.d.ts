@@ -447,7 +447,6 @@ export namespace APIs {
     description?: string;
     category: string;
     tags?: string[];
-    qNo?: string;
     difficulty?: string;
   }
 
@@ -620,7 +619,7 @@ export namespace APIs {
     language: _.Dictionary<number>;
     science: _.Dictionary<number>;
     society: _.Dictionary<number>;
-    maths: _.Dictionary<number>;
+    english: _.Dictionary<number>;
   }
 
   // ------------------------------------------------------------

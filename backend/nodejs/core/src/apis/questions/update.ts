@@ -8,7 +8,7 @@ import { Consts } from '@consts';
 export default async (
   req: Request<APIs.QuestionUpdateParams, any, APIs.QuestionUpdateRequest, any>
 ): Promise<APIs.QuestionUpdateResponse> => {
-  const { title, answer, choices, description, category, difficulty, qNo, tags } = req.body;
+  const { title, answer, choices, description, category, difficulty, tags } = req.body;
   const { questionId } = req.params;
 
   // ユーザのグループID 一覧
@@ -27,7 +27,6 @@ export default async (
     description,
     category,
     difficulty,
-    qNo,
     tags,
   };
 

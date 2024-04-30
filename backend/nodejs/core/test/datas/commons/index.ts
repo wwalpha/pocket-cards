@@ -89,7 +89,7 @@ export const DB_LEARNING = (() => {
     nextTime: item['nextTime'] ?? '',
     lastTime: item['lastTime'],
     userId: item['userId'] ?? '',
-    subject: item['subject'],
+    subject: item['subject'] ?? '',
     times: item['times'] ? Number(item['times']) : 0,
     subject_status: item['subject_status'] !== '' ? item['subject_status'] : undefined,
     subject_weekly: item['subject_weekly'] !== '' ? item['subject_weekly'] : undefined,
