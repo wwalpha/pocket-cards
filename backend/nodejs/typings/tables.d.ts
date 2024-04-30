@@ -118,7 +118,7 @@ export namespace Tables {
     // 学習回数
     times: number;
     // 科目
-    subject?: string;
+    subject: string;
     // 週テスト対策
     subject_weekly?: string;
     // 科目別学習ステータス

@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { isEmpty } from 'lodash';
 import { APIs } from 'typings';
 import { CurriculumService, LearningService } from '@services';
-import { ValidationError } from '@utils';
+import { Commons, ValidationError } from '@utils';
 import { Consts } from '@consts';
 
 export default async (
@@ -28,8 +28,8 @@ export default async (
     return {
       id: c,
       progress: [
-        learnings.filter((item) => item.times === -1 && item.lastTime === Consts.INITIAL_DATE).length,
-        learnings.filter((item) => item.times === -1 && item.lastTime !== Consts.INITIAL_DATE).length,
+        learnings.filter((item) => item.times === Commons.getRegistTimes(item.subject) && item.lastTime === Consts.INITIAL_DATE).length,
+        learnings.filter((item) => item.times === Commons.getRegistTimes(item.subject) && item.lastTime !== Consts.INITIAL_DATE).length,
         learnings.filter((item) => item.times === 0).length,
         learnings.filter((item) => item.times === 1).length,
         learnings.filter((item) => item.times === 2).length,
