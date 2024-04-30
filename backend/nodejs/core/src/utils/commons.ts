@@ -196,7 +196,7 @@ const createJapaneseVoice = async (text: string, s3Key?: string) => {
 };
 
 export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolean = true) => {
-  const limit = pLimit(25);
+  const limit = pLimit(10);
 
   const tasks = q.map((item) =>
     limit(async () => {
@@ -220,6 +220,7 @@ export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolea
         item.voiceAnswer = results[3];
       }
 
+      console.log(item.id);
       // 問題更新する
       await QuestionService.update(item);
     })
@@ -230,23 +231,47 @@ export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolea
 };
 
 const createQuestionVoice = async (question: Tables.TQuestions) => {
-  const newTitle = question.title.replace(/\[http(s?):\/\/.*\]$/, '');
+  // 国語の問題は音声不要
+  if (question.subject === Consts.SUBJECT.LANGUAGE) return undefined;
 
+  // URL を取り除く
+  let newTitle = question.title.replace(/\[http(s?):\/\/.*\]$/, '');
   if (newTitle.length === 0) return undefined;
 
-  return await createJapaneseVoice(newTitle, question.voiceTitle);
+  const startIdx = newTitle.indexOf('[images');
+  if (startIdx !== -1) {
+    const endIdx = newTitle.indexOf('[images', startIdx + 1);
+    if (endIdx !== -1) {
+      newTitle = newTitle.substring(0, startIdx) + newTitle.substring(endIdx);
+    }
+  }
+  if (newTitle.length === 0) return undefined;
+
+  return await createJapaneseVoice(newTitle);
 };
 
 const createAnswerVoice = async (question: Tables.TQuestions) => {
+  // 国語の問題は音声不要
+  if (question.subject === Consts.SUBJECT.LANGUAGE) return undefined;
+
   // 選択問題の回答音声不要
   if (question.choices) return undefined;
 
   // URL を取り除く
-  const newAnswer = question.answer.replace(/\[http(s?):\/\/.*\]$/, '');
+  let newAnswer = question.answer.replace(/\[http(s?):\/\/.*\]$/, '');
+  if (newAnswer.length === 0) return undefined;
+
+  const startIdx = newAnswer.indexOf('[images');
+  if (startIdx !== -1) {
+    const endIdx = newAnswer.indexOf('[images', startIdx + 1);
+    if (endIdx !== -1) {
+      newAnswer = newAnswer.substring(0, startIdx) + newAnswer.substring(endIdx);
+    }
+  }
 
   if (newAnswer.length === 0) return undefined;
 
-  return await createJapaneseVoice(newAnswer, question.voiceAnswer);
+  return await createJapaneseVoice(newAnswer);
 };
 
 const createImage = async (text: string): Promise<string> => {
