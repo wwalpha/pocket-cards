@@ -11,7 +11,7 @@ target 'PocketCards' do
   pod 'AmplifyPlugins/AWSS3StoragePlugin'
   pod 'Alamofire'
   pod 'Charts', '= 4.1.0'
-  pod 'Kingfisher'
+  pod 'Kingfisher', '~> 7.0'
   pod 'SwiftFormat/CLI'
 end
 
@@ -25,6 +25,6 @@ target 'PocketCards2' do
   pod 'AmplifyPlugins/AWSS3StoragePlugin'
   pod 'Alamofire'
   pod 'Charts', '= 4.1.0'
-  pod 'Kingfisher'
+  pod 'Kingfisher', '~> 7.0'
   pod 'SwiftFormat/CLI'
 end

@@ -81,7 +81,7 @@ struct FlashCard: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        self.fontIndex = self.fontIndex == 5 ? 5 : self.fontIndex + 1
+                        fontIndex = fontIndex == 5 ? 5 : fontIndex + 1
                     } label: {
                         Text("+")
                             .frame(width: 64, height: 36, alignment: .center)
@@ -93,7 +93,7 @@ struct FlashCard: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        self.fontIndex = self.fontIndex == 0 ? 0 : self.fontIndex - 1
+                        fontIndex = fontIndex == 0 ? 0 : fontIndex - 1
                     } label: {
                         Text("-")
                             .frame(width: 64, height: 36, alignment: .center)
@@ -105,7 +105,7 @@ struct FlashCard: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        self.showingAlert = true
+                        showingAlert = true
                     } label: {
                         Text("通報")
                             .frame(width: 96, height: 36, alignment: .center)
@@ -154,18 +154,18 @@ struct FlashCard: View {
                 withAnimation(Animation.spring()) {
                     if value.translation.width < 0 {
                         // swiped to left
-                        self.angle -= 180
+                        angle -= 180
                     } else if value.translation.width > 0 {
                         // swiped to right
-                        self.angle += 180
+                        angle += 180
                     }
                 }
                 withAnimation(nil) {
-                    if self.angle < 0 {
-                        self.angle = 360 - self.angle
+                    if angle < 0 {
+                        angle = 360 - angle
                     }
-                    if self.angle >= 360 {
-                        self.angle = self.angle.truncatingRemainder(dividingBy: 360)
+                    if angle >= 360 {
+                        angle = angle.truncatingRemainder(dividingBy: 360)
                     }
                 }
             }
@@ -173,14 +173,14 @@ struct FlashCard: View {
         .onTapGesture {
             withAnimation(Animation.spring()) {
                 if readOnly {
-                    self.angle = 0
+                    angle = 0
                 } else {
-                    self.angle += 180
+                    angle += 180
                 }
             }
             withAnimation(nil) {
-                if self.angle >= 360 {
-                    self.angle = self.angle.truncatingRemainder(dividingBy: 360)
+                if angle >= 360 {
+                    angle = angle.truncatingRemainder(dividingBy: 360)
                 }
             }
         }
@@ -285,10 +285,10 @@ struct FlashCard: View {
             Spacer()
 
             Button(action: {
-                self.action(false)
+                action(false)
 
                 if !readOnly {
-                    self.angle = 0.0
+                    angle = 0.0
                 }
 
             }, label: {
@@ -303,10 +303,10 @@ struct FlashCard: View {
             Spacer()
 
             Button(action: {
-                self.action(true)
+                action(true)
 
                 if !readOnly {
-                    self.angle = 0.0
+                    angle = 0.0
                 }
 
             }, label: {
@@ -365,7 +365,7 @@ struct FlipEffect: GeometryEffect {
 
     func effectValue(size: CGSize) -> ProjectionTransform {
         DispatchQueue.main.async {
-            self.flipped = self.angle >= 90 && self.angle < 270
+            flipped = angle >= 90 && angle < 270
         }
 
         let tweakedAngle = flipped ? -180 + angle : angle

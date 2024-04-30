@@ -1,5 +1,5 @@
 //
-//  ChoiceButtonView.swift
+//  ChoiceButton.swift
 //  PocketCards
 //
 //  Created by macmini on 2022/03/07.
@@ -33,12 +33,12 @@ struct ChoiceButton: View {
         HStack {
             Button(action: onDetail) {
                 HStack {
-                    Text(self.index)
+                    Text(index)
                         .frame(width: 64, height: frameHeight, alignment: .center)
                         .font(.system(size: fontSize, design: .default))
                         .background(Color.purple)
                         .foregroundColor(Color.white)
-                    Text(self.text)
+                    Text(text)
                         .frame(maxWidth: .infinity, maxHeight: 32, alignment: .leading)
                         .padding(.leading, 16)
                         .font(.system(size: fontSize, design: .default))

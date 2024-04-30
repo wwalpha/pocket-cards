@@ -28,7 +28,7 @@ struct CanvasEditor: View {
                                 .frame(height: 48, alignment: .center)
                         }
 
-                        CanvasView(canvasView: self.$canvasView, toolPickerIsActive: $toolPickerIsActive)
+                        CanvasView(canvasView: $canvasView, toolPickerIsActive: $toolPickerIsActive)
                             .padding(24.0)
                             .background(Color.gray)
                             .onAppear {

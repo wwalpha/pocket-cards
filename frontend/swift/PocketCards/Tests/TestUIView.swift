@@ -13,7 +13,7 @@ struct TestUIView: View {
     @State private var toolPickerIsActive = false
 
     var body: some View {
-        CanvasView(canvasView: self.$canvasView, toolPickerIsActive: $toolPickerIsActive)
+        CanvasView(canvasView: $canvasView, toolPickerIsActive: $toolPickerIsActive)
             .padding(10.0)
             .background(Color.gray)
     }

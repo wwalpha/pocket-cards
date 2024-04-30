@@ -14,9 +14,9 @@ struct ActionButton: View {
 
     var body: some View {
         Button {
-            self.onClick()
+            onClick()
         } label: {
-            Text(self.text)
+            Text(text)
                 .padding()
                 .frame(height: 48, alignment: .center)
                 .background(backgroudColor)

@@ -108,7 +108,7 @@ struct RootView: View {
             getButton(action: "\(subject)0", text: Consts.PRACTICE_TITLE, background: gradient1)
 
             // 復習
-            getButton(action: "\(subject)2", text: Consts.REVIEW_TITLE, background: gradient3)
+            // getButton(action: "\(subject)2", text: Consts.REVIEW_TITLE, background: gradient3)
 
             Spacer()
         })

@@ -1,5 +1,5 @@
 //
-//  PresentationLogic.swift
+//  StudyContract.swift
 //  PocketCards
 //
 //  Created by macmini on 2022/05/09.

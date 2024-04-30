@@ -14,9 +14,9 @@ struct CardButton: View {
 
     var body: some View {
         Button {
-            self.onClick()
+            onClick()
         } label: {
-            Text(self.text)
+            Text(text)
                 .frame(height: 64, alignment: .center)
                 .background(backgroudColor)
                 .foregroundColor(foregroundColor)

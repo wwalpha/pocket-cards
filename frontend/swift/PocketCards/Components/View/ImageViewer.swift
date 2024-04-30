@@ -1,5 +1,5 @@
 //
-//  ImageView.swift
+//  ImageViewer.swift
 //  PocketCards
 //
 //  Created by macmini on 2022/05/05.

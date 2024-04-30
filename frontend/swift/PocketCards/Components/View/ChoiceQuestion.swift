@@ -90,12 +90,12 @@ struct ChoiceQuestion: View {
                     ForEach(0 ..< question.choices!.count, id: \.self) { idx in
                         let item = question.choices![idx]
                         let index = String(idx + 1)
-                        let isError: Bool = !self.isShowError.isEmpty ? self.isShowError == index : false
+                        let isError: Bool = !isShowError.isEmpty ? isShowError == index : false
                         let frameHeight = question.choices!.count > 6 ? CGFloat(40) : CGFloat(64)
                         let fontSize = choiceFontSize[fontIndex]
 
                         ChoiceButton(text: item, index: index, isError: isError, fontSize: fontSize, frameHeight: frameHeight) {
-                            self.onChoice(index)
+                            onChoice(index)
                         }
                     }
                 }
@@ -131,7 +131,7 @@ struct ChoiceQuestion: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    self.fontIndex = self.fontIndex == 2 ? 2 : self.fontIndex + 1
+                    fontIndex = fontIndex == 2 ? 2 : fontIndex + 1
                 } label: {
                     Text("+")
                         .frame(width: 64, height: 36, alignment: .center)
@@ -143,7 +143,7 @@ struct ChoiceQuestion: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    self.fontIndex = self.fontIndex == 0 ? 0 : self.fontIndex - 1
+                    fontIndex = fontIndex == 0 ? 0 : fontIndex - 1
                 } label: {
                     Text("-")
                         .frame(width: 64, height: 36, alignment: .center)
@@ -155,7 +155,7 @@ struct ChoiceQuestion: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    self.showingAlert = true
+                    showingAlert = true
                 } label: {
                     Text("通報")
                         .frame(width: 96, height: 36, alignment: .center)

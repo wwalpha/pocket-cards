@@ -1,5 +1,5 @@
 //
-//  Commands.swift
+//  Command.swift
 //  PocketCards
 //
 //  Created by macmini on 2022/09/20.

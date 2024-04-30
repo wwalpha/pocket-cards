@@ -168,8 +168,8 @@ extension HandwritingInteractor: HandwritingBusinessLogic {
         debugPrint(res.results)
 
         // check answer
-        res.results.forEach { item in
-            if self.manager.checkAnswer(answer: item) {
+        for item in res.results {
+            if manager.checkAnswer(answer: item) {
                 correct = true
             }
         }

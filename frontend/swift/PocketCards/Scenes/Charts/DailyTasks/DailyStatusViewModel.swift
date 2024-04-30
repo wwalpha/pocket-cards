@@ -1,5 +1,5 @@
 //
-//  ChartsViewModel.swift
+//  DailyStatusViewModel.swift
 //  PocketCards
 //
 //  Created by macmini on 2022/03/23.

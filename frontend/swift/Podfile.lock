@@ -1,44 +1,44 @@
 PODS:
-  - Alamofire (5.6.2)
-  - Amplify (1.28.1):
-    - Amplify/Default (= 1.28.1)
-  - Amplify/Default (1.28.1)
-  - AmplifyPlugins/AWSCognitoAuthPlugin (1.28.1):
-    - AWSAuthCore (~> 2.28.0)
-    - AWSCognitoIdentityProvider (~> 2.28.0)
-    - AWSCognitoIdentityProviderASF (~> 2.28.0)
-    - AWSCore (~> 2.28.0)
-    - AWSMobileClient (~> 2.28.0)
-    - AWSPluginsCore (= 1.28.1)
-  - AmplifyPlugins/AWSS3StoragePlugin (1.28.1):
-    - AWSCore (~> 2.28.0)
-    - AWSPluginsCore (= 1.28.1)
-    - AWSS3 (~> 2.28.0)
-  - AWSAuthCore (2.28.0):
-    - AWSCore (= 2.28.0)
-  - AWSCognitoIdentityProvider (2.28.0):
-    - AWSCognitoIdentityProviderASF (= 2.28.0)
-    - AWSCore (= 2.28.0)
-  - AWSCognitoIdentityProviderASF (2.28.0):
-    - AWSCore (= 2.28.0)
-  - AWSCore (2.28.0)
-  - AWSMobileClient (2.28.0):
-    - AWSAuthCore (= 2.28.0)
-    - AWSCognitoIdentityProvider (= 2.28.0)
-    - AWSCognitoIdentityProviderASF (= 2.28.0)
-    - AWSCore (= 2.28.0)
-  - AWSPluginsCore (1.28.1):
-    - Amplify (= 1.28.1)
-    - AWSCore (~> 2.28.0)
-  - AWSS3 (2.28.0):
-    - AWSCore (= 2.28.0)
+  - Alamofire (5.9.1)
+  - Amplify (1.30.9):
+    - Amplify/Default (= 1.30.9)
+  - Amplify/Default (1.30.9)
+  - AmplifyPlugins/AWSCognitoAuthPlugin (1.30.9):
+    - AWSAuthCore (~> 2.35.0)
+    - AWSCognitoIdentityProvider (~> 2.35.0)
+    - AWSCognitoIdentityProviderASF (~> 2.35.0)
+    - AWSCore (~> 2.35.0)
+    - AWSMobileClient (~> 2.35.0)
+    - AWSPluginsCore (= 1.30.9)
+  - AmplifyPlugins/AWSS3StoragePlugin (1.30.9):
+    - AWSCore (~> 2.35.0)
+    - AWSPluginsCore (= 1.30.9)
+    - AWSS3 (~> 2.35.0)
+  - AWSAuthCore (2.35.0):
+    - AWSCore (= 2.35.0)
+  - AWSCognitoIdentityProvider (2.35.0):
+    - AWSCognitoIdentityProviderASF (= 2.35.0)
+    - AWSCore (= 2.35.0)
+  - AWSCognitoIdentityProviderASF (2.35.0):
+    - AWSCore (= 2.35.0)
+  - AWSCore (2.35.0)
+  - AWSMobileClient (2.35.0):
+    - AWSAuthCore (= 2.35.0)
+    - AWSCognitoIdentityProvider (= 2.35.0)
+    - AWSCognitoIdentityProviderASF (= 2.35.0)
+    - AWSCore (= 2.35.0)
+  - AWSPluginsCore (1.30.9):
+    - Amplify (= 1.30.9)
+    - AWSCore (~> 2.35.0)
+  - AWSS3 (2.35.0):
+    - AWSCore (= 2.35.0)
   - Charts (4.1.0):
     - Charts/Core (= 4.1.0)
   - Charts/Core (4.1.0):
     - SwiftAlgorithms (~> 1.0)
-  - Kingfisher (7.3.2)
+  - Kingfisher (7.11.0)
   - SwiftAlgorithms (1.0.0)
-  - SwiftFormat/CLI (0.49.18)
+  - SwiftFormat/CLI (0.53.8)
 
 DEPENDENCIES:
   - Alamofire
@@ -46,7 +46,7 @@ DEPENDENCIES:
   - AmplifyPlugins/AWSCognitoAuthPlugin
   - AmplifyPlugins/AWSS3StoragePlugin
   - Charts (= 4.1.0)
-  - Kingfisher
+  - Kingfisher (~> 7.0)
   - SwiftFormat/CLI
 
 SPEC REPOS:
@@ -67,21 +67,21 @@ SPEC REPOS:
     - SwiftFormat
 
 SPEC CHECKSUMS:
-  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
-  Amplify: 050d2daf2c5754eab171606fa3e35619c4babf6e
-  AmplifyPlugins: 55b7fe0fe9a4788b0602b9e65601a832b814a96a
-  AWSAuthCore: 658c331fe5cbc58608ced499aa0d8d46c57e9c96
-  AWSCognitoIdentityProvider: 9778edc430206a1bf67ff5f0c7a7b130fa4a5380
-  AWSCognitoIdentityProviderASF: a82f81ad75fce6d8c826ed394fa3cf7c51306897
-  AWSCore: 0ebe9ba8a459893cdf268ce0bae61875efd0182b
-  AWSMobileClient: 8d466f135e8d851a76e57cbfe65bb67eb522b64c
-  AWSPluginsCore: a12e315533b041485d722bdb394bf150ad9cc78e
-  AWSS3: 40a2bed039c432e580f1d4b4f740ca80f0610a9e
-  Charts: 354f86803d11d9c35de280587fef50d1af063978
-  Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  Amplify: 3fb7e406c959563dcc37722497ba577dac958245
+  AmplifyPlugins: 538a89ab8b7365ba1ea39dd3dd48389b9c24bb2d
+  AWSAuthCore: aa5090b8d86389f958c5b916f14dc218b0c20f8e
+  AWSCognitoIdentityProvider: b4c4d7d78782d62636cb3edfed71472dffe5e6d6
+  AWSCognitoIdentityProviderASF: 295cac5c59c71c1494a3bac437f4c6284b9a73d3
+  AWSCore: f644b48f9508301ba5d2692b5a0c418ca47e1673
+  AWSMobileClient: 6c00da79fef9fcb63311b9b2e2abb7cf45fc7ccd
+  AWSPluginsCore: 8c4c25e9ae2eb8a86e281eb0ec899c347a33c1fd
+  AWSS3: 062c34dd2765593fe105d1a571d567b62bf26854
+  Charts: ce0768268078eee0336f122c3c4ca248e4e204c5
+  Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
-  SwiftFormat: 2402d29b26746f169cce5454d5af88314cbb2e35
+  SwiftFormat: b977651004c647b898b059e8261db7790db8143b
 
-PODFILE CHECKSUM: 231b60ff1ed01a79708456a7f506b60d9bd27d10
+PODFILE CHECKSUM: 41383bb820be6d555d3ddf2c83740306205a5a9b
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.15.2

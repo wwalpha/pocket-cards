@@ -41,11 +41,11 @@ struct FlippingView: View {
             .modifier(FlipEffect1(flipped: $flipped, angle: angle, axis: (x: 0, y: 1)))
             .onTapGesture {
                 withAnimation(Animation.spring()) {
-                    self.angle += 180
+                    angle += 180
                 }
                 withAnimation(nil) {
-                    if self.angle >= 360 {
-                        self.angle = self.angle.truncatingRemainder(dividingBy: 360)
+                    if angle >= 360 {
+                        angle = angle.truncatingRemainder(dividingBy: 360)
                     }
                 }
             }
@@ -66,7 +66,7 @@ struct FlipEffect1: GeometryEffect {
 
     func effectValue(size: CGSize) -> ProjectionTransform {
         DispatchQueue.main.async {
-            self.flipped = self.angle >= 90 && self.angle < 270
+            flipped = angle >= 90 && angle < 270
         }
 
         let tweakedAngle = flipped ? -180 + angle : angle
