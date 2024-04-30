@@ -1,4 +1,4 @@
-import { CreateReports, CalcAccuracy, Scheduler, LearningStatus } from './func';
+import { CreateReports, CalcAccuracy, LearningStatus } from './func';
 
 export const batch = async () => {
   // count
@@ -11,7 +11,7 @@ export const batch = async () => {
   await CalcAccuracy();
 
   // 週間予定
-  await Scheduler();
+  // await Scheduler();
 };
 
 // batch();
