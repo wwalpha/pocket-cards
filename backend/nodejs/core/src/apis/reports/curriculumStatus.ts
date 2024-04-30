@@ -47,16 +47,8 @@ export default async (
         limit(async () => {
           const [question] = await Promise.all([
             QuestionService.describe(item.qid),
-            // AccuracyService.describe({
-            //   qid: item.qid,
-            //   uid: cInfo.userId,
-            // }),
           ]);
 
-          // return {
-          //   ...question,
-          //   accuracy: rate?.accuracy,
-          // };
           return question;
         })
       )
@@ -69,7 +61,6 @@ export default async (
         ...item,
         question: question?.title,
         gid: cInfo.groupId,
-        // accuracy: question?.accuracy,
       };
     });
   });
