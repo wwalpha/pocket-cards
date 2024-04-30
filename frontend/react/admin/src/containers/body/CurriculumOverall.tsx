@@ -88,13 +88,13 @@ export default () => {
 
   const datas = [
     overalls.map((o) => o.progress[0]),
-    overalls.map((o) => o.progress[1] + o.progress[2]),
+    overalls.map((o) => o.progress[1]),
+    overalls.map((o) => o.progress[2]),
     overalls.map((o) => o.progress[3]),
     overalls.map((o) => o.progress[4]),
-    overalls.map((o) => o.progress[5]),
-    overalls.map((o) => o.progress[6] + o.progress[7]),
-    overalls.map((o) => o.progress[8] + o.progress[9]),
-    overalls.map((o) => o.progress[10]),
+    overalls.map((o) => o.progress[5] + o.progress[6]),
+    overalls.map((o) => o.progress[7] + o.progress[8]),
+    overalls.map((o) => o.progress[9]),
   ];
 
   const data: ChartData<'bar'> = {

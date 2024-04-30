@@ -4,14 +4,14 @@ import moment from 'moment';
 export const getNow = () => `${moment().format('YYYYMMDD')}`;
 
 // 算数以外の科目の日数
-const days = [1, 2, 5, 10, 20, 60, 60, 60];
+const days = [1, 2, 5, 10, 20, 60, 90, 120];
 // 算数の日数
 const daysM = [1, 3, 7, 15, 60];
 
 /** 次回学習時間を計算する */
 export const getNextTime = (times: number, subject?: string) => {
   if (times < 1) return getNow();
-  // 算数以外の場合、10 回学習後表示しないようにする
+  // 算数以外の場合、8 回学習後表示しないようにする
   if (times > 8 && subject !== Consts.SUBJECT.MATHS) return '99991231';
   // 7 回学習後表示しないようにする
   if (times > 5 && subject === Consts.SUBJECT.MATHS) return '99991231';

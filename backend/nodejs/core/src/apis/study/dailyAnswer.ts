@@ -5,7 +5,7 @@ import { Commons, DateUtils, ValidationError } from '@utils';
 import { LearningService, CurriculumService, TraceService } from '@services';
 import { APIs, Tables } from 'typings';
 
-const SUBJECTS = [Consts.SUBJECT.LANGUAGE, Consts.SUBJECT.ENGLISH];
+// const SUBJECTS = [Consts.SUBJECT.LANGUAGE, Consts.SUBJECT.ENGLISH];
 
 export default async (
   req: Request<any, any, APIs.QuestionAnswerRequest, any>
@@ -29,15 +29,15 @@ export default async (
   }
 
   // 正解の場合
-  let times = 0;
-  const subject = learning.subject ?? '';
+  let times = isCorrect(correct) ? defaultTo(learning.times, 0) + 1 : 0;
+  // const subject = learning.subject ?? '';
 
   // 国語の場合、復習が必要ない
-  if (SUBJECTS.includes(subject)) {
-    times = isCorrect(correct) ? defaultTo(learning.times, 0) + 1 : 0;
-  } else {
-    times = isCorrect(correct) ? defaultTo(learning.times, 0) + 1 : -1;
-  }
+  // if (SUBJECTS.includes(subject)) {
+  //   times = isCorrect(correct) ? defaultTo(learning.times, 0) + 1 : 0;
+  // } else {
+  //   times = isCorrect(correct) ? defaultTo(learning.times, 0) + 1 : -1;
+  // }
 
   const nextTime = isCorrect(correct) ? DateUtils.getNextTime(times, learning.subject) : DateUtils.getNextTime(-1);
 

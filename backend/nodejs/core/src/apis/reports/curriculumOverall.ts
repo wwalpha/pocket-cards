@@ -30,7 +30,6 @@ export default async (
       progress: [
         learnings.filter((item) => item.times === Commons.getRegistTimes(item.subject) && item.lastTime === Consts.INITIAL_DATE).length,
         learnings.filter((item) => item.times === Commons.getRegistTimes(item.subject) && item.lastTime !== Consts.INITIAL_DATE).length,
-        learnings.filter((item) => item.times === 0).length,
         learnings.filter((item) => item.times === 1).length,
         learnings.filter((item) => item.times === 2).length,
         learnings.filter((item) => item.times === 3).length,

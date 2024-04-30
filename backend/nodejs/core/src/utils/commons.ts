@@ -282,7 +282,15 @@ export const removeImage = async (text: string): Promise<void> => {
 };
 
 export const getRegistTimes = (subject: string) => {
-  if (Consts.SUBJECT.LANGUAGE === subject) return 0;
-  if (Consts.SUBJECT.ENGLISH === subject) return 0;
-  return -1;
+  // if (Consts.SUBJECT.LANGUAGE === subject) return 0;
+  // if (Consts.SUBJECT.ENGLISH === subject) return 0;
+  // return -1;
+  return 0;
+};
+
+export const getTestTimes = (subject: string) => {
+  // if (Consts.SUBJECT.LANGUAGE === subject) return 1;
+  // if (Consts.SUBJECT.ENGLISH === subject) return 1;
+  // return 0;
+  return 1;
 };

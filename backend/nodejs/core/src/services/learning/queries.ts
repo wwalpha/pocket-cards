@@ -101,7 +101,7 @@ export const test = (userId: string, nextTime: string, subject: string): QueryIn
   ExpressionAttributeValues: {
     ':userId': userId,
     ':nextTime': nextTime,
-    ':times': 0,
+    ':times': Commons.getTestTimes(subject),
     ':subject': subject,
   },
   IndexName: 'gsiIdx1',
@@ -130,7 +130,7 @@ export const testByGroup = (groupId: string, userId: string, nextTime: string, s
     ':nextTime': nextTime,
     ':userId': userId,
     ':subject': subject,
-    ':times': 0,
+    ':times': Commons.getTestTimes(subject),
   },
   IndexName: 'gsiIdx2',
   ScanIndexForward: false,
