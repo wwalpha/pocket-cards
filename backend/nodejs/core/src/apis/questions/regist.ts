@@ -186,7 +186,6 @@ const registMaths = async (groupInfo: Tables.TGroups, questions: string[]) => {
       category: items[2],
       tags: items[3]?.split(','),
       difficulty: items[4],
-      qNo: items[5],
       title: items[6] as string,
       answer: items[7] as string,
     };

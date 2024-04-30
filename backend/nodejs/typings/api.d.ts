@@ -447,7 +447,6 @@ export namespace APIs {
     description?: string;
     category: string;
     tags?: string[];
-    qNo?: string;
     difficulty?: string;
   }
 

@@ -83,8 +83,6 @@ export namespace Tables {
     difficulty?: string;
     // 問題の出所
     source?: string;
-    // 問題の番号
-    qNo?: string;
     /**  */
     original?: string;
   }
@@ -131,7 +129,7 @@ export namespace Tables {
       correct: string;
     }[];
     // 自己確認済み
-    self_confirmed?:string;
+    self_confirmed?: string;
   }
 
   interface TLearningGSI1Key {
