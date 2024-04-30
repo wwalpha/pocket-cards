@@ -283,6 +283,5 @@ export const removeImage = async (text: string): Promise<void> => {
 
 export const getRegistTimes = (subject: string) => {
   if (Consts.SUBJECT.LANGUAGE === subject) return 0;
-  if (Consts.SUBJECT.ENGLISH === subject) return 0;
   return -1;
 };
