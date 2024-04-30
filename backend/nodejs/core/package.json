@@ -28,6 +28,7 @@
     "dotenv": "^9.0.2",
     "jest": "^28.0.3",
     "jest-extended": "^2.0.0",
+    "prettier": "^3.2.5",
     "supertest": "^6.2.2",
     "ts-jest": "^28.0.1",
     "ts-node": "^10.4.0",
