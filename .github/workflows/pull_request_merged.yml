@@ -6,6 +6,11 @@ on:
       - closed
     branches:
       - master
+  push:
+    paths:
+      - '**'
+    branches-ignore:
+      - releases/**
   workflow_dispatch:
 
 jobs:
