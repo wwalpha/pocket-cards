@@ -129,7 +129,7 @@ export default () => {
               </FormControl>
             )}
           />
-          <Controller
+          {/* <Controller
             name="review"
             control={control}
             render={({ field: { onChange, value } }) => (
@@ -137,7 +137,7 @@ export default () => {
                 <FormControlLabel control={<Checkbox checked={value} onChange={onChange} />} label="復習" />
               </FormGroup>
             )}
-          />
+          /> */}
           <LoadingButton
             type="submit"
             sx={{ width: '120px', mx: 2 }}
