@@ -282,6 +282,7 @@ export const removeImage = async (text: string): Promise<void> => {
 };
 
 export const getRegistTimes = (subject: string) => {
+  console.log(subject);
   // if (Consts.SUBJECT.LANGUAGE === subject) return 0;
   // if (Consts.SUBJECT.ENGLISH === subject) return 0;
   // return -1;
@@ -289,6 +290,7 @@ export const getRegistTimes = (subject: string) => {
 };
 
 export const getTestTimes = (subject: string) => {
+  console.log(subject);
   // if (Consts.SUBJECT.LANGUAGE === subject) return 1;
   // if (Consts.SUBJECT.ENGLISH === subject) return 1;
   // return 0;
