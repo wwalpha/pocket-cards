@@ -159,7 +159,6 @@ const registEnglish = async (groupInfo: Tables.TGroups, questions: string[]) => 
       title: item.original,
       answer: `${item.vocChn}|${item.vocJpn}`,
       description: item.pronounce,
-      voiceTitle: item.mp3,
     }));
 
   // regist all questions

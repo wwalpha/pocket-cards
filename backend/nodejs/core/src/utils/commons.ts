@@ -321,3 +321,13 @@ export const getTestTimes = (subject: string) => {
   // return 0;
   return 1;
 };
+
+export const removeObject = async (key: string): Promise<void> => {
+  // S3に保存する
+  await ClientUtils.s3().send(
+    new DeleteObjectCommand({
+      Bucket: Environment.BUCKET_NAME_MATERAILS,
+      Key: key,
+    })
+  );
+};

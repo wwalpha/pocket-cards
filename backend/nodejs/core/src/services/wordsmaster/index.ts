@@ -43,7 +43,6 @@ const registNewword = async (id: string): Promise<Tables.TWordMaster> => {
     id: id,
     original: newword,
     pronounce: results[0].pronounce,
-    mp3: results[1],
     vocChn: results[2],
     vocJpn: results[3],
   };

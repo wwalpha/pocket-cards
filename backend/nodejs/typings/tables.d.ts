@@ -178,8 +178,6 @@ export namespace Tables {
     vocChn?: string;
     // 語彙（日本語）
     vocJpn?: string;
-    // 音声ファイル
-    mp3?: string;
   }
 
   // ------------------------------------------------------------

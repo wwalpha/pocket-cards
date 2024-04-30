@@ -20,7 +20,9 @@ export default async (
   const qInfo = await QuestionService.describe(questionId);
 
   // if image exist, delete file from s3 async
-  checkImageExist(qInfo);
+  await checkImageExist(qInfo);
+  // if audio exist, delete file from s3 async
+  await checkAudioExist(qInfo);
 
   // delete question
   await QuestionService.remove(questionId);
@@ -35,5 +37,15 @@ const checkImageExist = async (question: Tables.TQuestions | undefined) => {
 
   if (question?.answer) {
     await Commons.removeImage(question.answer);
+  }
+};
+
+const checkAudioExist = async (question: Tables.TQuestions | undefined) => {
+  if (question?.voiceTitle) {
+    await Commons.removeObject(question.voiceTitle);
+  }
+
+  if (question?.voiceAnswer) {
+    await Commons.removeObject(question.voiceAnswer);
   }
 };

@@ -1,10 +1,9 @@
 import { Environment } from '@consts';
-import { QuestionService, WordMasterService } from '@services';
+import { QuestionService } from '@services';
 import { DBHelper } from '@utils';
 import { Tables } from 'typings';
 
 const patch = async (): Promise<void> => {
-
   const results = await DBHelper().scan<Tables.TQuestions>({
     TableName: Environment.TABLE_NAME_QUESTIONS,
     FilterExpression: '#subject = :subject',
@@ -12,27 +11,20 @@ const patch = async (): Promise<void> => {
       '#subject': 'subject',
     },
     ExpressionAttributeValues: {
-      ':subject': '0'
-    }
-  })
+      ':subject': '0',
+    },
+  });
 
   const items = results.Items;
   const total = items.length;
 
-  for(;;) {
+  for (;;) {
     const item = items.pop();
 
     // not found
     if (item === undefined) break;
 
-    const master = await WordMasterService.describe({
-      id: item.title
-    });
-
-    await QuestionService.update({
-      ...item,
-      voiceTitle: master.mp3
-    })
+    await QuestionService.update(item);
 
     console.log(`Count: ${items.length}/${total}`);
   }
