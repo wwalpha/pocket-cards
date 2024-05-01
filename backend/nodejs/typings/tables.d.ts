@@ -75,16 +75,6 @@ export namespace Tables {
     voiceTitle?: string;
     // 回答音声
     voiceAnswer?: string;
-    // 大分類
-    category?: string;
-    // タグ
-    tags?: string[];
-    // 難易度
-    difficulty?: string;
-    // 問題の出所
-    source?: string;
-    /**  */
-    original?: string;
   }
 
   interface TQuestionsGSI1Key {
