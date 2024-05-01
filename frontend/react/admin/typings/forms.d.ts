@@ -44,10 +44,6 @@ export interface QuestionForm {
   original?: string;
   description?: string;
   groupId: string;
-  category: string;
-  tags?: string;
-  qNo?: string;
-  difficulty?: string;
 }
 
 export interface QuestionTransferForm {

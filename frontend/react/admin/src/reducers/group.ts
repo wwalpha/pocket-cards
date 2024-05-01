@@ -52,20 +52,20 @@ const slice = createSlice({
         .filter((item) => item !== '')
         .map((item) => {
           // 算数の場合
-          if (subject === Consts.SUBJECT.MATHS) {
-            const columns = item.split('|');
+          // if (subject === Consts.SUBJECT.MATHS) {
+          //   const columns = item.split('|');
 
-            return {
-              title: columns[7],
-              description: columns[0],
-              source: columns[1],
-              category: columns[2],
-              tags: columns[3]?.split(','),
-              difficulty: columns[4],
-              qNo: columns[5],
-              answer: columns[6],
-            };
-          }
+          //   return {
+          //     title: columns[7],
+          //     description: columns[0],
+          //     source: columns[1],
+          //     category: columns[2],
+          //     tags: columns[3]?.split(','),
+          //     difficulty: columns[4],
+          //     qNo: columns[5],
+          //     answer: columns[6],
+          //   };
+          // }
 
           // 算数以外の場合
           let items = item.split(',');

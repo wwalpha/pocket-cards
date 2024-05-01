@@ -60,10 +60,13 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => {
     let middle = getDefaultMiddleware();
 
+    // @ts-ignore
     middle = middle.concat(routerMiddleware(history));
+    // @ts-ignore
     middle = middle.concat(WebSocket);
 
     if (process.env.NODE_ENV !== 'production') {
+      // @ts-ignore
       middle = middle.concat(logger);
     }
 

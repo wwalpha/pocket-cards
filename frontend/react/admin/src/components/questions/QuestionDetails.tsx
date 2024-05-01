@@ -44,10 +44,6 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
       description: dataRow.description ?? '',
       original: dataRow.original,
       groupId: dataRow.groupId,
-      category: dataRow.category ?? '',
-      tags: dataRow.tags ? dataRow.tags[0] : '',
-      difficulty: dataRow.difficulty ?? '',
-      qNo: dataRow.qNo ?? '',
     },
   });
 
@@ -127,11 +123,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
             <IconButton key="questionPlayBtn" sx={{ mx: 0 }} color="secondary" onClick={handlePlayQuestion}>
               <VolumeUpIcon />
             </IconButton>,
-            <audio
-              key="questionAudio"
-              ref={titleRef}
-              src={`/${Consts.PATH_VOICE}/${dataRow.groupId}/${dataRow.voiceTitle}`}
-            />,
+            <audio key="questionAudio" ref={titleRef} src={`/${dataRow.voiceTitle}`} />,
           ]}
           {dataRow.title.match(/\[.*\]/g) && [
             <IconButton key="imageBtn" sx={{ mx: 0 }} color="secondary" onClick={handleImageOpen}>
@@ -210,7 +202,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
           )}
         />
 
-        {subject === Consts.SUBJECT.MATHS && (
+        {/* {subject === Consts.SUBJECT.MATHS && (
           <Controller
             name="category"
             control={control}
@@ -227,9 +219,9 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
               />
             )}
           />
-        )}
+        )} */}
 
-        {subject === Consts.SUBJECT.MATHS && (
+        {/* {subject === Consts.SUBJECT.MATHS && (
           <Controller
             name="tags"
             control={control}
@@ -284,7 +276,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
               />
             )}
           />
-        )}
+        )} */}
 
         {dataRow.choices && (
           <Controller
@@ -326,11 +318,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
             <IconButton key="answerPlayBtn" sx={{ mx: 1 }} color="secondary" onClick={handlePlayAnswer}>
               <VolumeUpIcon />
             </IconButton>,
-            <audio
-              key="answerAudio"
-              ref={answerRef}
-              src={`/${Consts.PATH_VOICE}/${dataRow.groupId}/${dataRow.voiceAnswer}`}
-            />,
+            <audio key="answerAudio" ref={answerRef} src={`/${dataRow.voiceAnswer}`} />,
           ]}
           {dataRow.answer.match(/\[.*\]/g) && [
             <IconButton key="imageBtn" sx={{ mx: 0 }} color="secondary" onClick={handleImageOpen}>
