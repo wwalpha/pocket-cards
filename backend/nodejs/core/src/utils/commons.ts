@@ -204,8 +204,14 @@ export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolea
 
       // 音声作成する場合
       if (createVoice === true) {
-        tasks.push(createQuestionVoice(item));
-        tasks.push(createAnswerVoice(item));
+        if (item.subject === Consts.SUBJECT.ENGLISH) {
+          // 英語の場合
+          tasks.push(saveWithMP3(item.title));
+        } else {
+          // 英語以外の場合
+          tasks.push(createQuestionVoice(item));
+          tasks.push(createAnswerVoice(item));
+        }
       }
 
       // 一括実行する
@@ -216,8 +222,15 @@ export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolea
 
       // 音声作成する場合
       if (createVoice === true) {
-        item.voiceTitle = results[2];
-        item.voiceAnswer = results[3];
+        if (item.subject === Consts.SUBJECT.ENGLISH) {
+          // 英語の場合
+          item.voiceTitle = results[2];
+          item.voiceAnswer = undefined;
+        } else {
+          // 英語以外の場合
+          item.voiceTitle = results[2];
+          item.voiceAnswer = results[3];
+        }
       }
 
       console.log(item.id);
