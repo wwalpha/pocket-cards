@@ -42,12 +42,11 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
       answer: dataRow.answer ?? '',
       choices: dataRow.choices?.join('|'),
       description: dataRow.description ?? '',
-      original: dataRow.original,
       groupId: dataRow.groupId,
     },
   });
 
-  const size = subject === Consts.SUBJECT.MATHS ? 'small' : 'medium';
+  const size = 'medium';
   const [imageOpen, setImageOpen] = React.useState(false);
   const [textsOpen, setTextsOpen] = React.useState(false);
   const [texts, setTexts] = React.useState<string[]>();
@@ -168,7 +167,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
             </Modal>,
           ]}
         </Box>
-        {dataRow.original && (
+        {/* {dataRow.original && (
           <Controller
             name="original"
             control={control}
@@ -184,7 +183,7 @@ const details: FunctionComponent<QuestionDetails> = ({ dataRow, subject, loading
               />
             )}
           />
-        )}
+        )} */}
 
         <Controller
           name="description"

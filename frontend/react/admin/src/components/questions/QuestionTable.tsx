@@ -65,7 +65,7 @@ const table: FunctionComponent<QuestionTable> = ({
   const [isSelectAll, setSelectAll] = React.useState(false);
   const [index, setIndex] = React.useState(-1);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(50);
+  const [rowsPerPage, setRowsPerPage] = React.useState(100);
   const [checkValues, setCheckValues] = React.useState<Set<number>>(new Set());
 
   /** popup close */

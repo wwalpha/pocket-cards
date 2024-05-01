@@ -201,22 +201,22 @@ const table: FunctionComponent<QuestionMath> = ({
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.source}
+                      {/* {item.source} */}
                     </Box>
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.category}
+                      {/* {item.category} */}
                     </Box>
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.tags?.join(' ')}
+                      {/* {item.tags?.join(' ')} */}
                     </Box>
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.difficulty}
+                      {/* {item.difficulty} */}
                     </Box>
                   </TableCell>
                   <TableCell>
