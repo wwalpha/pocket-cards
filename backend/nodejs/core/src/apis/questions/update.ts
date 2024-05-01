@@ -10,7 +10,7 @@ const AUDIO_SUBJECT = [Consts.SUBJECT.ENGLISH, Consts.SUBJECT.SCIENCE, Consts.SU
 export default async (
   req: Request<APIs.QuestionUpdateParams, any, APIs.QuestionUpdateRequest, any>
 ): Promise<APIs.QuestionUpdateResponse> => {
-  const { title, answer, choices, description, category, difficulty, tags } = req.body;
+  const { title, answer, choices, description } = req.body;
   const { questionId } = req.params;
 
   // ユーザのグループID 一覧
@@ -27,9 +27,6 @@ export default async (
     answer,
     choices: choices?.split('|'),
     description,
-    category,
-    difficulty,
-    tags,
   };
 
   // 音声、画像情報を更新する
