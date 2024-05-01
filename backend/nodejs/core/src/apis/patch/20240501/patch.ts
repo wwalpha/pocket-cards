@@ -13,7 +13,7 @@ const patch = async (): Promise<void> => {
 
 const removeUnused = async (questions: Tables.TQuestions[]) => {
   // @ts-ignore
-  const items = questions.filter((item) => item['tags'] === undefined);
+  const items = questions.filter((item) => item['tags'] !== undefined);
   const total = items.length;
 
   for (;;) {
@@ -32,7 +32,7 @@ const removeUnused = async (questions: Tables.TQuestions[]) => {
       original: undefined,
     });
 
-    console.log(`English Count: ${items.length}/${total}`);
+    console.log(`Count: ${items.length}/${total}`);
   }
 };
 
