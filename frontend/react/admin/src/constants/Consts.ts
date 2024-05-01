@@ -14,7 +14,7 @@ export const SUBJECT = {
   JAPANESE: '1',
   SCIENCE: '2',
   SOCIETY: '3',
-  MATHS: '4',
+  // MATHS: '4',
   HANDWRITING: '5',
 };
 
@@ -42,7 +42,7 @@ export const COLORS = {
   SCIENCE: '#f19116',
   SOCIETY: '#288f46',
   ENGLISH: '#b71927',
-  MATHS: '#1B5AAA',
+  // MATHS: '#1B5AAA',
   MULTI_TEST: '#6F38C5',
   INQUIRY: '#233163',
   HANDWRITING: '#242424',

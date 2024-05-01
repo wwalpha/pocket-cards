@@ -114,7 +114,6 @@ export default () => {
             <MenuItem value={Consts.SUBJECT.SOCIETY}>社 会</MenuItem>
             <MenuItem value={Consts.SUBJECT.JAPANESE}>国 語</MenuItem>
             <MenuItem value={Consts.SUBJECT.ENGLISH}>英 語</MenuItem>
-            <MenuItem value={Consts.SUBJECT.MATHS}>算 数</MenuItem>
             <MenuItem value={Consts.SUBJECT.HANDWRITING}>漢 字</MenuItem>
           </Select>
         </FormControl>
