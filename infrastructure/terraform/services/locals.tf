@@ -38,7 +38,7 @@ locals {
     "https://www.${local.remote_setup.route53_zone_name}",
     "https://admin.${local.remote_setup.route53_zone_name}"
   ]
-  api_allow_origins_dev = concat(local.api_allow_origins, ["http://localhost:3000"])
+  api_allow_origins_dev = concat(local.api_allow_origins, ["http://localhost:3000", "http://localhost:3001"])
 
   # -----------------------------------------------
   # CloudFront
