@@ -66,6 +66,7 @@ resource "aws_iam_role_policy" "ecs_task" {
           "polly:SynthesizeSpeech",
           "s3:PutObject",
           "s3:GetObject",
+          "s3:DeleteObject",
           "cognito-idp:AdminInitiateAuth",
           "timestream:*",
         ]
