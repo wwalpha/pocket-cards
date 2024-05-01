@@ -1,22 +1,22 @@
+import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DeleteCommand, DynamoDBDocumentClient, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
 } from 'aws-lambda';
-import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
 import { Tables } from 'typings';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
 const AWS_REGION = process.env.AWS_REGION as string;
 
 // sdk v3
-// const client = DynamoDBDocument.from(
-//   new DynamoDB({
-//     region: AWS_REGION,
-//   })
-// );
-const client = new DynamoDB.DocumentClient({
-  region: AWS_REGION,
-});
+const client = DynamoDBDocumentClient.from(
+  new DynamoDBClient({
+    region: process.env.AWS_DEFAULT_REGION,
+  })
+);
+
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
@@ -25,51 +25,36 @@ export const handler = async (
   const { principalId, guardian } = event.requestContext.authorizer;
 
   // sdk v3
-  // const apigateway = new ApiGatewayManagementApiClient({
-  //   region: AWS_REGION,
-  //   endpoint: `https://${domainName}/${stage}/`,
-  // });
-
-  const apigateway = new ApiGatewayManagementApi({
+  const apigateway = new ApiGatewayManagementApiClient({
     region: AWS_REGION,
-    endpoint: domainName,
+    endpoint: `https://${domainName}/${stage}/`,
   });
 
   let statusCode = 200;
   const connections = await getConnections(guardian, connectionId);
 
   try {
-    await client
-      .delete({
-        TableName: TABLE_NAME_CONNECTIONS,
-        Key: {
-          guardian: guardian,
-          userId: principalId,
-        } as Tables.TWSSConnectionsKey,
-      })
-      .promise();
+    await client.send(new DeleteCommand({
+      TableName: TABLE_NAME_CONNECTIONS,
+      Key: {
+        guardian: guardian,
+        userId: principalId,
+      } as Tables.TWSSConnectionsKey,
+    }));
 
     await Promise.all(
       connections.map((item) =>
         // sdk v3
-        // apigateway.send(
-        //   new PostToConnectionCommand({
-        //     ConnectionId: item.connId,
-        //     Data: Buffer.from(
-        //       JSON.stringify({
-        //         OFF_LINE: principalId,
-        //       })
-        //     ),
-        //   })
-        // )
-        apigateway
-          .postToConnection({
+        apigateway.send(
+          new PostToConnectionCommand({
             ConnectionId: item.connId,
-            Data: JSON.stringify({
-              OFF_LINE: principalId,
-            }),
+            Data: Buffer.from(
+              JSON.stringify({
+                OFF_LINE: principalId,
+              })
+            ),
           })
-          .promise()
+        )
       )
     );
   } catch (err) {
@@ -82,18 +67,16 @@ export const handler = async (
 };
 
 const getConnections = async (userId: string, connectionId: string): Promise<Tables.TWSSConnections[]> => {
-  const results = await client
-    .query({
-      TableName: TABLE_NAME_CONNECTIONS,
-      KeyConditionExpression: '#guardian = :guardian',
-      ExpressionAttributeNames: {
-        '#guardian': 'guardian',
-      },
-      ExpressionAttributeValues: {
-        ':guardian': userId,
-      },
-    })
-    .promise();
+  const results = await client.send(new QueryCommand({
+    TableName: TABLE_NAME_CONNECTIONS,
+    KeyConditionExpression: '#guardian = :guardian',
+    ExpressionAttributeNames: {
+      '#guardian': 'guardian',
+    },
+    ExpressionAttributeValues: {
+      ':guardian': userId,
+    },
+  }))
 
   if (!results.Items) {
     return [];

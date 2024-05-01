@@ -3,8 +3,8 @@ import {
   APIGatewayProxyWebsocketEventV2WithRequestContext,
 } from 'aws-lambda';
 import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
-import { DynamoDBClient, QueryCommand } from '@aws-sdk/client-dynamodb';
-import { DeleteCommand, DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DeleteCommand, DynamoDBDocumentClient, PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import { InvokeCommand, LambdaClient } from '@aws-sdk/client-lambda';
 import { Tables, WSSConnectionEvent } from 'typings';
 
@@ -108,9 +108,7 @@ const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]>
       '#guardian': 'guardian',
     },
     ExpressionAttributeValues: {
-      ':guardian': {
-        S: userId,
-      },
+      ':guardian':userId
     },
   }));
 
@@ -118,7 +116,7 @@ const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]>
     return [];
   }
 
-  const items = results.Items as unknown as Tables.TWSSConnections[];
+  const items = results.Items as Tables.TWSSConnections[];
 
   // return client connections
   return items;
