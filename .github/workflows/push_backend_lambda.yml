@@ -9,7 +9,15 @@ on:
     branches-ignore:
       - releases/**
       - master
+  workflow_run:
+    workflows:
+      - PR_MERGED) Build CI/CD
+    branches:
+      - master
+    types:
+      - completed
   workflow_dispatch:
+
 
 jobs:
   Cognito:
