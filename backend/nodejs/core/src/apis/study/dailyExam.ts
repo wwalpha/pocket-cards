@@ -4,13 +4,12 @@ import { Consts, Environment } from '@consts';
 import { APIs, Tables } from 'typings';
 import { CurriculumService, GroupService, LearningService } from '@services';
 import orderBy from 'lodash/orderBy';
-import isEmpty from 'lodash/isEmpty';
 
 /** 自己試験問題取得 */
 export default async (req: Request<any, any, APIs.DailyExamRequest, any>): Promise<APIs.DailyExamResponse> => {
   let userId = Commons.getUserId(req);
   const guardianId = Commons.getGuardian(req);
-  const { subject, userId: username, selftest } = req.body;
+  const { subject, userId: username } = req.body;
 
   // 科目選択されていない
   if (!subject) {
@@ -37,7 +36,7 @@ export default async (req: Request<any, any, APIs.DailyExamRequest, any>): Promi
     results = await LearningService.dailyPastsWithoutToday(userId, date, subject);
   } else {
     // 漢字以外の場合
-    results = await getLearnings(guardianId, userId, subject, selftest);
+    results = await getLearnings(guardianId, userId, subject);
   }
 
   // 検索結果０件の場合
@@ -72,12 +71,7 @@ const EmptyResponse = (): APIs.DailyExamResponse => ({
  * @param subject
  * @returns
  */
-const getLearnings = async (
-  guardianId: string,
-  userId: string,
-  subject: string,
-  selftest?: string
-): Promise<Tables.TLearning[]> => {
+const getLearnings = async (guardianId: string, userId: string, subject: string): Promise<Tables.TLearning[]> => {
   const [curriculums, priorities, groups] = await Promise.all([
     // ユーザのカリキュラム一覧を取得する
     CurriculumService.getListByGuardian(guardianId, subject, userId),
@@ -90,9 +84,7 @@ const getLearnings = async (
   // グループID一覧
   const groupIds = groups.map((item) => item.id);
   // 質問一覧
-  const priLearnings = priorities
-    .filter((item) => groupIds.includes(item.groupId))
-    .filter((item) => (isEmpty(selftest) ? true : isEmpty(item.self_confirmed)));
+  const priLearnings = priorities.filter((item) => groupIds.includes(item.groupId));
 
   // 優先問題は先に登録
   if (priLearnings.length > Environment.WORDS_LIMIT) {
@@ -116,7 +108,7 @@ const getLearnings = async (
 
     // 結果マージ
     learnings.forEach((item) => {
-      results = [...results, ...item.filter((l) => (isEmpty(selftest) ? true : isEmpty(l.self_confirmed)))];
+      results = [...results, ...item];
     });
 
     // 上限件数超えた場合、即終了
@@ -138,7 +130,7 @@ const getLearnings = async (
 
     // 結果マージ
     learnings.forEach((item) => {
-      results = [...results, ...item.filter((l) => (isEmpty(selftest) ? true : isEmpty(l.self_confirmed)))];
+      results = [...results, ...item];
     });
 
     // 上限件数超えた場合、即終了

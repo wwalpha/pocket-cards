@@ -115,9 +115,9 @@ export const test = (userId: string, nextTime: string, subject: string): QueryIn
  */
 export const testByGroup = (groupId: string, userId: string, nextTime: string, subject: string): QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid, self_confirmed',
+  ProjectionExpression: 'qid',
   KeyConditionExpression: '#groupId = :groupId and #nextTime <= :nextTime',
-  FilterExpression: '#userId = :userId and #subject = :subject and #times > :times',
+  FilterExpression: '#userId = :userId and #subject = :subject and #times >= :times',
   ExpressionAttributeNames: {
     '#groupId': 'groupId',
     '#nextTime': 'nextTime',
@@ -145,7 +145,7 @@ export const testNearByGroup = (
   groupId: string,
   userId: string,
   subject: string,
-  projection: string = 'qid, self_confirmed'
+  projection: string = 'qid'
 ): QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
   ProjectionExpression: projection,
@@ -428,7 +428,7 @@ export const byWeekly = (userId: string, subject: string): QueryInput => ({
 
 export const priority = (userId: string, subject: string, nextTime: String): QueryInput => ({
   TableName: Environment.TABLE_NAME_LEARNING,
-  ProjectionExpression: 'qid, groupId, self_confirmed',
+  ProjectionExpression: 'qid, groupId',
   KeyConditionExpression: '#userId = :userId AND begins_with(#subject_status, :subject_status)',
   FilterExpression: '#priority = :priority AND #nextTime <= :nextTime',
   ExpressionAttributeNames: {

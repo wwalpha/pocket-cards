@@ -118,8 +118,6 @@ export namespace Tables {
       date: string;
       correct: string;
     }[];
-    // 自己確認済み
-    self_confirmed?: string;
   }
 
   interface TLearningGSI1Key {
