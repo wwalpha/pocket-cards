@@ -4,6 +4,8 @@ import { APIs, Tables } from 'typings';
 import { QuestionService, WordMasterService } from '@services';
 import { Consts } from '@consts';
 
+const AUDIO_SUBJECT = [Consts.SUBJECT.ENGLISH, Consts.SUBJECT.SCIENCE, Consts.SUBJECT.SOCIETY];
+
 /** 問題カード一括追加 */
 export default async (
   req: Request<APIs.QuestionUpdateParams, any, APIs.QuestionUpdateRequest, any>
@@ -31,7 +33,7 @@ export default async (
   };
 
   // 音声、画像情報を更新する
-  await Commons.updateQuestion([item], question.subject !== Consts.SUBJECT.MATHS);
+  await Commons.updateQuestion([item], AUDIO_SUBJECT.includes(item.subject));
 
   // 英語の場合、Masterも更新する
   if (question.subject === Consts.SUBJECT.ENGLISH) {

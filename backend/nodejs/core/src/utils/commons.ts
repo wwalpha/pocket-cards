@@ -222,6 +222,15 @@ export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolea
 
       // 音声作成する場合
       if (createVoice === true) {
+        // 古い音声ファイルは削除する
+        if (item.voiceTitle !== undefined) {
+          await removeObject(item.voiceTitle);
+        }
+        // 古い音声ファイルは削除する
+        if (item.voiceAnswer !== undefined) {
+          await removeObject(item.voiceAnswer);
+        }
+
         if (item.subject === Consts.SUBJECT.ENGLISH) {
           // 英語の場合
           item.voiceTitle = results[2];
