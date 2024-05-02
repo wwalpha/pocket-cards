@@ -65,19 +65,24 @@ export const handler = async (
       teachers.forEach((teacher) => {
         students.forEach((student) => {
           tasks.push(
-            apigateway.send(
-              new PostToConnectionCommand({
-                ConnectionId: teacher.connId,
-                Data: Buffer.from(
+            lambdaClient.send(
+              new InvokeCommand({
+                FunctionName: FUNCTION_NAME,
+                InvocationType: 'Event',
+                Payload: Buffer.from(
                   JSON.stringify({
-                    ON_LINE: student.userId,
-                  })
+                    connectionId: teacher.connId,
+                    domainName: domainName,
+                    principalId: student.userId,
+                  } as WSSConnectionEvent)
                 ),
               })
             )
           );
         });
       });
+
+      await Promise.all(tasks);
     }
 
     // 生徒の場合
