@@ -36,9 +36,6 @@ export const handler = async (
   let connections: Tables.TWSSConnections[] = [];
 
   try {
-    // get all connections
-    connections = await getConnections(guardian);
-
     // update self connection id
     await docClient.send(
       new PutCommand({
@@ -51,41 +48,73 @@ export const handler = async (
       })
     );
 
-    // 生徒がすでに入室された場合
+    // get all connections
+    connections = await getConnections(guardian);
+
+    connections = connections.filter((conn) => {
+      // 生徒の場合、先生のみに通知する
+      if (principalId !== guardian) {
+        return conn.guardian === conn.userId;
+      }
+
+      // 先生の場合、生徒のみに通知する
+      return conn.guardian !== conn.userId;
+    });
+
+    // notify all connections
     await Promise.all(
-      connections
-        .filter((conn) => conn.guardian !== conn.userId)
-        .map((conn) =>
-          apigateway.send(
-            new PostToConnectionCommand({
-              ConnectionId: conn.connId,
-              Data: Buffer.from(
-                JSON.stringify({
-                  ON_LINE: principalId,
-                })
-              ),
-            })
-          )
+      connections.map((conn) =>
+        apigateway.send(
+          new PostToConnectionCommand({
+            ConnectionId: conn.connId,
+            Data: Buffer.from(
+              JSON.stringify({
+                ON_LINE: principalId,
+              })
+            ),
+          })
         )
+      )
     );
 
-    // 保護者且つ、対象者すでにログインの場合
-    if (principalId === guardian && connections.length > 0) {
-      // sdk v3
-      const cmd = new InvokeCommand({
-        FunctionName: FUNCTION_NAME,
-        InvocationType: 'Event',
-        Payload: Buffer.from(
-          JSON.stringify({
-            connectionId: connectionId,
-            domainName: domainName,
-            principalId: connections[0].userId,
-            stage: stage,
-          } as WSSConnectionEvent)
-        ),
-      });
-      await lambdaClient.send(cmd);
-    }
+    // // 生徒の場合、先生のみに通知する
+    // if (principalId !== guardian) {
+    //   // 先生のみに通知する
+    //   connections = connections.filter((conn) => conn.guardian === conn.userId);
+
+    //   await Promise.all(
+    //     connections.map((conn) =>
+    //       apigateway.send(
+    //         new PostToConnectionCommand({
+    //           ConnectionId: conn.connId,
+    //           Data: Buffer.from(
+    //             JSON.stringify({
+    //               ON_LINE: principalId,
+    //             })
+    //           ),
+    //         })
+    //       )
+    //     )
+    //   );
+    // } else {
+    //   // 先生の場合、生徒のみに通知する
+    //   connections = connections.filter((conn) => conn.guardian !== conn.userId);
+
+    //   await Promise.all(
+    //     connections.map((conn) =>
+    //       apigateway.send(
+    //         new PostToConnectionCommand({
+    //           ConnectionId: conn.connId,
+    //           Data: Buffer.from(
+    //             JSON.stringify({
+    //               ON_LINE: principalId,
+    //             })
+    //           ),
+    //         })
+    //       )
+    //     )
+    //   );
+    // }
   } catch (err) {
     console.log(err);
     const error = err as unknown;
@@ -114,6 +143,7 @@ const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]>
       ExpressionAttributeValues: {
         ':guardian': userId,
       },
+      ConsistentRead: true,
     })
   );
 
@@ -124,7 +154,7 @@ const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]>
   const items = results.Items as Tables.TWSSConnections[];
 
   // remove self
-  return items.filter((item) => item.userId !== userId);
+  return items;
 };
 
 const clearConnections = async (connections: Tables.TWSSConnections[]): Promise<void> => {
@@ -143,7 +173,6 @@ const clearConnections = async (connections: Tables.TWSSConnections[]): Promise<
 
   await Promise.all(tasks);
 };
-
 interface TAuthorizer {
   principalId: string;
   guardian: string;

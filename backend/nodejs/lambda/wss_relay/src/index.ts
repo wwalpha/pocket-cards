@@ -2,7 +2,7 @@ import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk
 import { WSSConnectionEvent } from 'typings';
 
 export const handler = async (event: WSSConnectionEvent) => {
-  const { domainName, connectionId, principalId, stage } = event;
+  const { domainName, connectionId, principalId } = event;
 
   // sdk v3
   const apigateway = new ApiGatewayManagementApiClient({ endpoint: `https://${domainName}` });
