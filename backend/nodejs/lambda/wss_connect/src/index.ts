@@ -33,7 +33,6 @@ export const handler = async (
   });
 
   let statusCode = 200;
-
   let connections: Tables.TWSSConnections[] = [];
 
   try {
@@ -41,28 +40,33 @@ export const handler = async (
     connections = await getConnections(guardian);
 
     // update self connection id
-    await docClient.send(new PutCommand({
-      TableName: TABLE_NAME_CONNECTIONS,
-      Item: {
-        guardian: guardian,
-        userId: principalId,
-        connId: connectionId,
-      } as Tables.TWSSConnections,
-    }));
-
-    // 一括実行
-    await Promise.all(
-      connections.map((item) => {
-        // sdk v3
-        return apigateway.send(new PostToConnectionCommand({
-          ConnectionId: item.connId,
-          Data: Buffer.from(
-            JSON.stringify({
-              ON_LINE: principalId,
-            })
-          ),
-        }));
+    await docClient.send(
+      new PutCommand({
+        TableName: TABLE_NAME_CONNECTIONS,
+        Item: {
+          guardian: guardian,
+          userId: principalId,
+          connId: connectionId,
+        } as Tables.TWSSConnections,
       })
+    );
+
+    // 生徒がすでに入室された場合
+    await Promise.all(
+      connections
+        .filter((conn) => conn.guardian !== conn.userId)
+        .map(() =>
+          apigateway.send(
+            new PostToConnectionCommand({
+              ConnectionId: connectionId,
+              Data: Buffer.from(
+                JSON.stringify({
+                  ON_LINE: principalId,
+                })
+              ),
+            })
+          )
+        )
     );
 
     // 保護者且つ、対象者すでにログインの場合
@@ -82,7 +86,6 @@ export const handler = async (
       });
       await lambdaClient.send(cmd);
     }
-
   } catch (err) {
     console.log(err);
     const error = err as unknown;
@@ -101,16 +104,18 @@ export const handler = async (
 };
 
 const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]> => {
-  const results =  await docClient.send(new QueryCommand({
-    TableName: TABLE_NAME_CONNECTIONS,
-    KeyConditionExpression: '#guardian = :guardian',
-    ExpressionAttributeNames: {
-      '#guardian': 'guardian',
-    },
-    ExpressionAttributeValues: {
-      ':guardian':userId
-    },
-  }));
+  const results = await docClient.send(
+    new QueryCommand({
+      TableName: TABLE_NAME_CONNECTIONS,
+      KeyConditionExpression: '#guardian = :guardian',
+      ExpressionAttributeNames: {
+        '#guardian': 'guardian',
+      },
+      ExpressionAttributeValues: {
+        ':guardian': userId,
+      },
+    })
+  );
 
   if (!results.Items) {
     return [];
@@ -125,13 +130,15 @@ const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]>
 const clearConnections = async (connections: Tables.TWSSConnections[]): Promise<void> => {
   // remove all records
   const tasks = connections.map((item) =>
-    docClient.send(new DeleteCommand({
-      TableName: TABLE_NAME_CONNECTIONS,
-      Key: {
-        guardian: item.guardian,
-        userId: item.userId,
-      },
-    }))
+    docClient.send(
+      new DeleteCommand({
+        TableName: TABLE_NAME_CONNECTIONS,
+        Key: {
+          guardian: item.guardian,
+          userId: item.userId,
+        },
+      })
+    )
   );
 
   await Promise.all(tasks);

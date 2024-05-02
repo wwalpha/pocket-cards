@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.103",
     "@types/node": "^20.12.8",
+    "prettier": "^3.2.5",
     "ts-node": "^10.1.0",
     "typescript": "^5.4.5"
   }
