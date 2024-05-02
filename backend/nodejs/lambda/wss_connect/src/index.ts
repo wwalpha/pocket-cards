@@ -52,22 +52,22 @@ export const handler = async (
     );
 
     // 生徒がすでに入室された場合
-    // await Promise.all(
-    //   connections
-    //     .filter((conn) => conn.guardian !== conn.userId)
-    //     .map((conn) =>
-    //       apigateway.send(
-    //         new PostToConnectionCommand({
-    //           ConnectionId: connectionId,
-    //           Data: Buffer.from(
-    //             JSON.stringify({
-    //               ON_LINE: principalId,
-    //             })
-    //           ),
-    //         })
-    //       )
-    //     )
-    // );
+    await Promise.all(
+      connections
+        .filter((conn) => conn.guardian !== conn.userId)
+        .map((conn) =>
+          apigateway.send(
+            new PostToConnectionCommand({
+              ConnectionId: conn.connId,
+              Data: Buffer.from(
+                JSON.stringify({
+                  ON_LINE: principalId,
+                })
+              ),
+            })
+          )
+        )
+    );
 
     // 保護者且つ、対象者すでにログインの場合
     if (principalId === guardian && connections.length > 0) {
@@ -123,8 +123,8 @@ const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]>
 
   const items = results.Items as Tables.TWSSConnections[];
 
-  // return client connections
-  return items;
+  // remove self
+  return items.filter((item) => item.userId !== userId);
 };
 
 const clearConnections = async (connections: Tables.TWSSConnections[]): Promise<void> => {
