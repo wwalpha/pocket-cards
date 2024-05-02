@@ -2,7 +2,11 @@ import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
 } from 'aws-lambda';
-import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
+import {
+  ApiGatewayManagementApiClient,
+  PostToConnectionCommand,
+  PostToConnectionCommandOutput,
+} from '@aws-sdk/client-apigatewaymanagementapi';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DeleteCommand, DynamoDBDocumentClient, PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import { InvokeCommand, LambdaClient } from '@aws-sdk/client-lambda';
@@ -23,7 +27,7 @@ const lambdaClient = new LambdaClient({
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
 ): Promise<any> => {
-  const { connectionId, domainName, stage } = event.requestContext;
+  const { connectionId, domainName } = event.requestContext;
   const { principalId, guardian } = event.requestContext.authorizer;
 
   // sdk v3
@@ -51,33 +55,32 @@ export const handler = async (
     // get all connections
     connections = await getConnections(guardian);
 
-    connections = connections.filter((conn) => {
-      // 生徒の場合、先生のみに通知する
-      if (principalId !== guardian) {
-        return conn.guardian === conn.userId;
-      }
+    const students = connections.filter((conn) => conn.userId !== conn.guardian);
+    const teachers = connections.filter((conn) => conn.userId === conn.guardian);
 
-      // 先生の場合、生徒のみに通知する
-      return conn.guardian !== conn.userId;
-    });
+    // 生徒がログインした場合
+    if (students.length !== 0) {
+      const tasks: Promise<PostToConnectionCommandOutput>[] = [];
 
-    // notify all connections
-    await Promise.all(
-      connections.map((conn) =>
-        apigateway.send(
-          new PostToConnectionCommand({
-            ConnectionId: conn.connId,
-            Data: Buffer.from(
-              JSON.stringify({
-                ON_LINE: principalId,
+      teachers.forEach((teacher) => {
+        students.forEach((student) => {
+          tasks.push(
+            apigateway.send(
+              new PostToConnectionCommand({
+                ConnectionId: teacher.connId,
+                Data: Buffer.from(
+                  JSON.stringify({
+                    ON_LINE: student.userId,
+                  })
+                ),
               })
-            ),
-          })
-        )
-      )
-    );
+            )
+          );
+        });
+      });
+    }
 
-    // // 生徒の場合、先生のみに通知する
+    // 生徒の場合
     // if (principalId !== guardian) {
     //   // 先生のみに通知する
     //   connections = connections.filter((conn) => conn.guardian === conn.userId);
@@ -96,12 +99,15 @@ export const handler = async (
     //       )
     //     )
     //   );
-    // } else {
-    //   // 先生の場合、生徒のみに通知する
-    //   connections = connections.filter((conn) => conn.guardian !== conn.userId);
+    // }
 
-    //   await Promise.all(
-    //     connections.map((conn) =>
+    // connections = connections.filter((conn) => conn.userId !== conn.guardian);
+
+    // notify all connections
+    // await Promise.all(
+    //   connections
+    //     .filter((conn) => conn.userId !== conn.guardian)
+    //     .map((conn) =>
     //       apigateway.send(
     //         new PostToConnectionCommand({
     //           ConnectionId: conn.connId,
@@ -113,8 +119,7 @@ export const handler = async (
     //         })
     //       )
     //     )
-    //   );
-    // }
+    // );
   } catch (err) {
     console.log(err);
     const error = err as unknown;
