@@ -11,10 +11,11 @@ import { Tables } from 'typings';
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
 const AWS_REGION = process.env.AWS_REGION as string;
 
-const client = new DynamoDBClient({
-  region: process.env.AWS_DEFAULT_REGION,
-});
-const docClient = DynamoDBDocumentClient.from(client);
+const client = DynamoDBDocumentClient.from(
+  new DynamoDBClient({
+    region: process.env.AWS_DEFAULT_REGION,
+  })
+);
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
@@ -24,13 +25,13 @@ export const handler = async (
     return { statusCode: 400 };
   }
 
-  const { connectionId, domainName, authorizer, stage } = event.requestContext;
+  const { connectionId, domainName, authorizer } = event.requestContext;
   const request = JSON.parse(event.body) as RequestBody;
 
   // send message to all clients
   const apigateway = new ApiGatewayManagementApiClient({
     region: AWS_REGION,
-    endpoint: `wss://${domainName}/${stage}`,
+    endpoint: `https://${domainName}`,
   });
 
   const connections = await getConnections(authorizer.principalId, connectionId);
@@ -52,7 +53,7 @@ export const handler = async (
 };
 
 const getConnections = async (userId: string, connectionId: string) => {
-  const results = await docClient.send(
+  const results = await client.send(
     new QueryCommand({
       TableName: TABLE_NAME_CONNECTIONS,
       KeyConditionExpression: '#guardian = :guardian',

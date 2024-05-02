@@ -29,7 +29,7 @@ export const handler = async (
   // sdk v3
   const apigateway = new ApiGatewayManagementApiClient({
     region: AWS_REGION,
-    endpoint: `https://${domainName}/${stage}`,
+    endpoint: `https://${domainName}`,
   });
 
   let statusCode = 200;
@@ -52,22 +52,22 @@ export const handler = async (
     );
 
     // 生徒がすでに入室された場合
-    await Promise.all(
-      connections
-        .filter((conn) => conn.guardian !== conn.userId)
-        .map(() =>
-          apigateway.send(
-            new PostToConnectionCommand({
-              ConnectionId: connectionId,
-              Data: Buffer.from(
-                JSON.stringify({
-                  ON_LINE: principalId,
-                })
-              ),
-            })
-          )
-        )
-    );
+    // await Promise.all(
+    //   connections
+    //     .filter((conn) => conn.guardian !== conn.userId)
+    //     .map((conn) =>
+    //       apigateway.send(
+    //         new PostToConnectionCommand({
+    //           ConnectionId: connectionId,
+    //           Data: Buffer.from(
+    //             JSON.stringify({
+    //               ON_LINE: principalId,
+    //             })
+    //           ),
+    //         })
+    //       )
+    //     )
+    // );
 
     // 保護者且つ、対象者すでにログインの場合
     if (principalId === guardian && connections.length > 0) {
