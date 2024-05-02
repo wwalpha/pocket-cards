@@ -2,14 +2,9 @@ import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
 } from 'aws-lambda';
-import {
-  ApiGatewayManagementApiClient,
-  PostToConnectionCommand,
-  PostToConnectionCommandOutput,
-} from '@aws-sdk/client-apigatewaymanagementapi';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DeleteCommand, DynamoDBDocumentClient, PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
-import { InvokeCommand, LambdaClient } from '@aws-sdk/client-lambda';
+import { DynamoDBDocumentClient, PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
+import { InvokeCommand, InvokeCommandOutput, LambdaClient } from '@aws-sdk/client-lambda';
 import { Tables, WSSConnectionEvent } from 'typings';
 
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
@@ -29,12 +24,6 @@ export const handler = async (
 ): Promise<any> => {
   const { connectionId, domainName } = event.requestContext;
   const { principalId, guardian } = event.requestContext.authorizer;
-
-  // sdk v3
-  const apigateway = new ApiGatewayManagementApiClient({
-    region: AWS_REGION,
-    endpoint: `https://${domainName}`,
-  });
 
   let statusCode = 200;
   let connections: Tables.TWSSConnections[] = [];
@@ -60,8 +49,9 @@ export const handler = async (
 
     // 生徒がログインした場合
     if (students.length !== 0) {
-      const tasks: Promise<PostToConnectionCommandOutput>[] = [];
+      const tasks: Promise<InvokeCommandOutput>[] = [];
 
+      // 先生に通知
       teachers.forEach((teacher) => {
         students.forEach((student) => {
           tasks.push(
@@ -84,55 +74,8 @@ export const handler = async (
 
       await Promise.all(tasks);
     }
-
-    // 生徒の場合
-    // if (principalId !== guardian) {
-    //   // 先生のみに通知する
-    //   connections = connections.filter((conn) => conn.guardian === conn.userId);
-
-    //   await Promise.all(
-    //     connections.map((conn) =>
-    //       apigateway.send(
-    //         new PostToConnectionCommand({
-    //           ConnectionId: conn.connId,
-    //           Data: Buffer.from(
-    //             JSON.stringify({
-    //               ON_LINE: principalId,
-    //             })
-    //           ),
-    //         })
-    //       )
-    //     )
-    //   );
-    // }
-
-    // connections = connections.filter((conn) => conn.userId !== conn.guardian);
-
-    // notify all connections
-    // await Promise.all(
-    //   connections
-    //     .filter((conn) => conn.userId !== conn.guardian)
-    //     .map((conn) =>
-    //       apigateway.send(
-    //         new PostToConnectionCommand({
-    //           ConnectionId: conn.connId,
-    //           Data: Buffer.from(
-    //             JSON.stringify({
-    //               ON_LINE: principalId,
-    //             })
-    //           ),
-    //         })
-    //       )
-    //     )
-    // );
   } catch (err) {
     console.log(err);
-    const error = err as unknown;
-
-    // @ts-ignore
-    if (error.code === 'GoneException') {
-      await clearConnections(connections);
-    }
 
     statusCode = 500;
   }
@@ -167,22 +110,6 @@ const getConnections = async (userId: string): Promise<Tables.TWSSConnections[]>
   return items;
 };
 
-const clearConnections = async (connections: Tables.TWSSConnections[]): Promise<void> => {
-  // remove all records
-  const tasks = connections.map((item) =>
-    docClient.send(
-      new DeleteCommand({
-        TableName: TABLE_NAME_CONNECTIONS,
-        Key: {
-          guardian: item.guardian,
-          userId: item.userId,
-        },
-      })
-    )
-  );
-
-  await Promise.all(tasks);
-};
 interface TAuthorizer {
   principalId: string;
   guardian: string;
