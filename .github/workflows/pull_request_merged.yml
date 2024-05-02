@@ -7,8 +7,6 @@ on:
     branches:
       - master
   push:
-    paths:
-      - '**'
     paths-ignore: 
       - backend/nodejs/lambda/**
       - .github/workflows/push_backend_lambda.yml
