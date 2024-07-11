@@ -34,7 +34,6 @@ const registNewword = async (id: string): Promise<Tables.TWordMaster> => {
 
   const results = await Promise.all([
     API.getPronounce(newword),
-    Commons.saveWithMP3(newword),
     API.getTranslate(newword, 'zh'),
     API.getTranslate(newword, 'ja'),
   ]);
@@ -43,8 +42,8 @@ const registNewword = async (id: string): Promise<Tables.TWordMaster> => {
     id: id,
     original: newword,
     pronounce: results[0].pronounce,
-    vocChn: results[2],
-    vocJpn: results[3],
+    vocChn: results[1],
+    vocJpn: results[2],
   };
 
   // regist dictionary

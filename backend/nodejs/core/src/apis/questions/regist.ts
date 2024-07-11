@@ -52,7 +52,7 @@ export default async (
       subject: groupInfo.subject,
       lastTime: Consts.INITIAL_DATE,
       nextTime: Consts.INITIAL_DATE,
-      times: Commons.getRegistTimes(groupInfo.subject),
+      times: Commons.getRegistTimes(),
     }));
 
     return DBHelper().bulk(Environment.TABLE_NAME_LEARNING, dataRows);
@@ -166,6 +166,9 @@ const registEnglish = async (groupInfo: Tables.TGroups, questions: string[]) => 
     qItems.map(async (item) => QuestionService.regist(item)),
     GroupService.plusCount(groupInfo.id, qItems.length),
   ]);
+
+  // 質問の情報を更新する(非同期)
+  await Commons.updateQuestion(qItems);
 
   return qItems;
 };
