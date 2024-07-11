@@ -122,7 +122,7 @@ const registLearning = async (userId: string, questions: Tables.TQuestions[]) =>
     subject: item.subject,
     lastTime: Consts.INITIAL_DATE,
     nextTime: Consts.INITIAL_DATE,
-    times: Commons.getRegistTimes(item.subject),
+    times: Commons.getRegistTimes(),
   }));
 
   // 学習問題の一括登録

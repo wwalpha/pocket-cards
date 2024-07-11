@@ -101,7 +101,7 @@ export const test = (userId: string, nextTime: string, subject: string): QueryIn
   ExpressionAttributeValues: {
     ':userId': userId,
     ':nextTime': nextTime,
-    ':times': Commons.getTestTimes(subject),
+    ':times': Commons.getTestTimes(),
     ':subject': subject,
   },
   IndexName: 'gsiIdx1',
@@ -130,7 +130,7 @@ export const testByGroup = (groupId: string, userId: string, nextTime: string, s
     ':nextTime': nextTime,
     ':userId': userId,
     ':subject': subject,
-    ':times': Commons.getTestTimes(subject),
+    ':times': Commons.getTestTimes(),
   },
   IndexName: 'gsiIdx2',
   ScanIndexForward: false,
@@ -191,7 +191,7 @@ export const practice = (userId: string, nextTime: string, subject: string): Que
   },
   ExpressionAttributeValues: {
     ':userId': userId,
-    ':times': Commons.getRegistTimes(subject),
+    ':times': Commons.getRegistTimes(),
     ':nextTime': nextTime,
     ':subject': subject,
     ':lastTime': Consts.INITIAL_DATE,
