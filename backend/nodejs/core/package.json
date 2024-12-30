@@ -50,7 +50,7 @@
     "@aws-sdk/lib-storage": "^3.279.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.2",
-    "express": "^4.17.3",
+    "express": "^4.21.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",

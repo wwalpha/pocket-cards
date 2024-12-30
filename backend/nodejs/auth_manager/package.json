@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@aws-sdk/types": "^3.272.0",
-    "@types/express": "^4.17.11",
+    "@types/express": "^5.0.0",
     "@types/jest": "^27.4.1",
     "@types/jsonwebtoken": "^8.5.2",
     "@types/lodash": "^4.14.170",
@@ -36,7 +36,7 @@
     "amazon-cognito-identity-js": "^5.2.8",
     "axios": "^0.26.1",
     "body-parser": "^1.19.0",
-    "express": "^4.17.3",
+    "express": "^4.21.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
