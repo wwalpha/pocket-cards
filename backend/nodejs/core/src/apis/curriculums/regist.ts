@@ -68,12 +68,17 @@ const registEnglish = async (
   // 無視の単語を除外する
   const filterIgnores = questions.filter((item) =>
     limit(async () => {
-      const ignore = await WordMasterService.isIgnore({
+      const ignoreUser = await WordMasterService.isIgnore({
         id: userId,
         word: item.title,
       });
 
-      return !ignore;
+      const ignoreAdmin = await WordMasterService.isIgnore({
+        id: Consts.Authority.ADMIN,
+        word: item.title,
+      });
+
+      return ignoreUser === true || ignoreAdmin === true;
     })
   );
 
