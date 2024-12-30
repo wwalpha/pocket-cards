@@ -6,10 +6,11 @@ import {
   GroupService,
   LearningService,
   QuestionService,
+  UserService,
   UserWordService,
   WordMasterService,
 } from '@services';
-import { ValidationError } from '@utils';
+import { Commons, ValidationError } from '@utils';
 
 /** 今日のテスト */
 export default async (
@@ -17,6 +18,8 @@ export default async (
 ): Promise<APIs.QuestionIgnoreResponse> => {
   const { groupId } = req.params;
   const { qid } = req.body;
+  const userId = Commons.getUserId(req);
+  const userInfo = await UserService.getUserInfo(userId, req.headers);
 
   // get all informations
   const results = await Promise.all([
@@ -45,7 +48,7 @@ export default async (
     QuestionService.remove(question.id),
     // 単語無視に登録する
     WordMasterService.registIgnore({
-      id: Consts.Authority.ADMIN,
+      id: Consts.Authority.ADMIN === userInfo.authority ? Consts.Authority.ADMIN : userInfo.id,
       word: question.title,
     }),
   ];
