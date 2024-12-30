@@ -80,9 +80,9 @@ export const login = async (
     const accessToken = session.getAccessToken().getJwtToken();
     const refreshToken = session.getRefreshToken().getToken();
 
-    res.cookie(`pkc.${request.username}.idToken`, idToken, { httpOnly: true });
-    res.cookie(`pkc.${request.username}.accessToken`, accessToken, { httpOnly: true });
-    res.cookie(`pkc.${request.username}.refreshToken`, refreshToken, { httpOnly: true });
+    res.cookie(`pkc.${request.username.replace('@','')}.idToken`, idToken, { httpOnly: true });
+    res.cookie(`pkc.${request.username.replace('@','')}.accessToken`, accessToken, { httpOnly: true });
+    res.cookie(`pkc.${request.username.replace('@','')}.refreshToken`, refreshToken, { httpOnly: true });
 
     return {
       success: 'true',
