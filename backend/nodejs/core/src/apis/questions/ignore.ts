@@ -6,7 +6,6 @@ import {
   GroupService,
   LearningService,
   QuestionService,
-  UserService,
   UserWordService,
   WordMasterService,
 } from '@services';
@@ -19,7 +18,6 @@ export default async (
   const { groupId } = req.params;
   const { qid } = req.body;
   const userId = Commons.getUserId(req);
-  const userInfo = await UserService.getUserInfo(userId, req.headers);
 
   // get all informations
   const results = await Promise.all([
@@ -48,7 +46,7 @@ export default async (
     QuestionService.remove(question.id),
     // 単語無視に登録する
     WordMasterService.registIgnore({
-      id: Consts.Authority.ADMIN === userInfo.authority ? Consts.Authority.ADMIN : userInfo.id,
+      id: userId === 'wwalpha@gmail.com' ? Consts.Authority.ADMIN : userId,
       word: question.title,
     }),
   ];
