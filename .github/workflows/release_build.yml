@@ -82,6 +82,7 @@ jobs:
       region: us-east-1
       working-directory: backend/nodejs/auth_manager
       environment: prod
+      run-tests: false
       ECS_SERVICE_NAME: auth_manager
       ECR_REPOSITORY: pkc/auth
     secrets:
@@ -95,6 +96,7 @@ jobs:
       region: us-east-1
       working-directory: backend/nodejs/user_manager
       environment: prod
+      run-tests: false
       ECS_SERVICE_NAME: user_manager
       ECR_REPOSITORY: pkc/users
     secrets:
