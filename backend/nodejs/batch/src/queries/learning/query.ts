@@ -1,5 +1,5 @@
 import { QueryInput } from '@alphax/dynamodb';
-import { Environments } from '@utils';
+import { Consts, Environments } from '@utils';
 
 export const byUserDaily = (userId: string, nextTime: string): QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
@@ -15,19 +15,18 @@ export const byUserDaily = (userId: string, nextTime: string): QueryInput => ({
   IndexName: 'gsiIdx1',
 });
 
-export const byUserDailyTested = (userId: string, nextTime: string, lastTime: string): QueryInput => ({
+export const byUserNeedTest = (userId: string): QueryInput => ({
   TableName: Environments.TABLE_NAME_LEARNING,
-  KeyConditionExpression: '#userId = :userId AND #nextTime >= :nextTime',
-  FilterExpression: '#lastTime = :lastTime',
+  KeyConditionExpression: '#userId = :userId AND #nextTime > :nextTime',
+  FilterExpression: 'attribute_exists(#subject_status)',
   ExpressionAttributeNames: {
     '#userId': 'userId',
     '#nextTime': 'nextTime',
-    '#lastTime': 'lastTime',
+    '#subject_status': 'subject_status',
   },
   ExpressionAttributeValues: {
     ':userId': userId,
-    ':nextTime': nextTime,
-    ':lastTime': lastTime,
+    ':nextTime': Consts.INITIAL_DATE,
   },
   IndexName: 'gsiIdx1',
 });

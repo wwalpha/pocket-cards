@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { Learning } from '@queries';
 import { Consts, DateUtils, DBHelper, Environments } from '@utils';
 import { Tables } from 'typings';
@@ -6,14 +5,13 @@ import { Tables } from 'typings';
 export default async () => {
   // now
   const current = DateUtils.getNow();
-  const yesterday = moment().add(-1, 'days').format('YYYYMMDD');
 
   // only student
   const students = await getStudents();
 
   const tasks = students.map(async (stu) => {
     // 当日学習／テスト分のみ取得
-    let dailyTested = await getUserTested(stu, yesterday, yesterday);
+    let dailyTested = await getUserNeedTest(stu);
 
     // テストステータス全て削除する
     dailyTested = dailyTested.map((item) => {
@@ -54,10 +52,8 @@ export default async () => {
   await Promise.all(tasks);
 };
 
-const getUserTested = async (item: Tables.TUsers, nextTime: string, lastTime: string): Promise<Tables.TLearning[]> => {
-  const results = await DBHelper().query<Tables.TLearning>(
-    Learning.query.byUserDailyTested(item.id, nextTime, lastTime)
-  );
+const getUserNeedTest = async (item: Tables.TUsers): Promise<Tables.TLearning[]> => {
+  const results = await DBHelper().query<Tables.TLearning>(Learning.query.byUserNeedTest(item.id));
 
   return results.Items;
 };
