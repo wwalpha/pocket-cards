@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChoiceButton: View {
+    @State private var isButtonDisabled = false
+
     var text: String
     var index: String
     var isError: Bool = false
@@ -31,7 +33,18 @@ struct ChoiceButton: View {
 
     var body: some View {
         HStack {
-            Button(action: onDetail) {
+            Button(action: {
+                if isError {
+                    isButtonDisabled = true
+
+                    // 2秒後にボタンを有効にする
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        isButtonDisabled = false
+                    }
+                }
+
+                onDetail()
+            }, label: {
                 HStack {
                     Text(index)
                         .frame(width: 64, height: frameHeight, alignment: .center)
@@ -45,7 +58,25 @@ struct ChoiceButton: View {
                         .foregroundColor(isError ? Color.white : Color.black)
                         .contentShape(Rectangle())
                 }.border(Color.purple, width: 2)
-            }.background(isError ? Color.language : Color.white)
+            })
+            .background(isError ? Color.language : Color.white)
+            .disabled(isButtonDisabled)
+
+//            Button(action: onDetail) {
+//                HStack {
+//                    Text(index)
+//                        .frame(width: 64, height: frameHeight, alignment: .center)
+//                        .font(.system(size: fontSize, design: .default))
+//                        .background(Color.purple)
+//                        .foregroundColor(Color.white)
+//                    Text(text)
+//                        .frame(maxWidth: .infinity, maxHeight: frameHeight, alignment: .leading)
+//                        .padding(.leading, 16)
+//                        .font(.system(size: fontSize, design: .default))
+//                        .foregroundColor(isError ? Color.white : Color.black)
+//                        .contentShape(Rectangle())
+//                }.border(Color.purple, width: 2)
+//            }.background(isError ? Color.language : Color.white)
         }
     }
 }
