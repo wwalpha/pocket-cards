@@ -106,10 +106,10 @@ extension MultiTestView: MultiTestDisplayLogic {
         status(model: model)
 
         #if ReleaseDog
-        guard let question = viewModel.question else { return }
+            guard let question = viewModel.question else { return }
 
-        let uri = question.voiceAnswer ?? ""
-        play(uri: uri)
+            let uri = question.voiceAnswer ?? ""
+            play(uri: uri)
         #endif
     }
 
