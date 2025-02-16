@@ -39,14 +39,13 @@ struct ChoiceButton: View {
                         .background(Color.purple)
                         .foregroundColor(Color.white)
                     Text(text)
-                        .frame(maxWidth: .infinity, maxHeight: 32, alignment: .leading)
+                        .frame(maxWidth: .infinity, maxHeight: frameHeight, alignment: .leading)
                         .padding(.leading, 16)
                         .font(.system(size: fontSize, design: .default))
-                        .foregroundColor(Color.black)
-//                        .foregroundColor(Color.gray.opacity(0.8))
+                        .foregroundColor(isError ? Color.white : Color.black)
                         .contentShape(Rectangle())
-                }.border(isError ? Color.error : Color.purple, width: 2)
-            }
+                }.border(Color.purple, width: 2)
+            }.background(isError ? Color.language : Color.white)
         }
     }
 }
