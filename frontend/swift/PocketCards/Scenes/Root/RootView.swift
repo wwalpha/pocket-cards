@@ -43,7 +43,7 @@ struct RootView: View {
                 getHStack(subject: SUBJECT.SCIENCE)
 
                 // 英語
-                getHStack(subject: SUBJECT.ENGLISH)
+//                getHStack(subject: SUBJECT.ENGLISH)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.primaryColor, for: .navigationBar)
@@ -109,7 +109,9 @@ struct RootView: View {
                 .padding(.trailing, 64)
                 .padding(.leading, 48)
             // テスト
-            getButton(action: "\(subject)1", text: Consts.TEST_TITLE, background: gradient2)
+            if subject == SUBJECT.LANGUAGE {
+                getButton(action: "\(subject)1", text: Consts.TEST_TITLE, background: gradient2)
+            }
 
             // 学習
             getButton(action: "\(subject)0", text: Consts.PRACTICE_TITLE, background: gradient1)
