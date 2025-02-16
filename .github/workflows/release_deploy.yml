@@ -95,7 +95,7 @@ jobs:
           image: ${{ steps.ecs.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.render-web-container.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE_NAME_BACKEND }}
@@ -138,7 +138,7 @@ jobs:
           image: ${{ steps.ecs.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.render-web-container.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE_NAME_AUTH }}
@@ -181,7 +181,7 @@ jobs:
           image: ${{ steps.ecs.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.render-web-container.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE_NAME_USER }}

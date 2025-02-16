@@ -9,7 +9,7 @@ resource "aws_lambda_function" "cognito_post_signup" {
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.cognito_post_signup.arn
-  runtime           = local.lambda_runtime_nodejs_18
+  runtime           = local.lambda_runtime_nodejs_20
   timeout           = 10
 
   environment {
@@ -49,7 +49,7 @@ resource "aws_lambda_function" "authorizer_v2" {
   s3_key            = aws_s3_object.lambda_authorizer_v2.key
   s3_object_version = aws_s3_object.lambda_authorizer_v2.version_id
   handler           = local.lambda_handler
-  runtime           = local.lambda_runtime_nodejs_18
+  runtime           = local.lambda_runtime_nodejs_20
   memory_size       = 1024
   role              = aws_iam_role.authorizer.arn
   timeout           = 3
@@ -80,7 +80,7 @@ resource "aws_lambda_function" "authorizer_v1" {
   s3_key            = aws_s3_object.lambda_authorizer_v1.key
   s3_object_version = aws_s3_object.lambda_authorizer_v1.version_id
   handler           = local.lambda_handler
-  runtime           = local.lambda_runtime_nodejs_18
+  runtime           = local.lambda_runtime_nodejs_20
   memory_size       = 256
   role              = aws_iam_role.authorizer.arn
   timeout           = 3
@@ -111,7 +111,7 @@ resource "aws_lambda_function" "webhook" {
   s3_key            = aws_s3_object.lambda_webhook.key
   s3_object_version = aws_s3_object.lambda_webhook.version_id
   handler           = local.lambda_handler
-  runtime           = local.lambda_runtime_nodejs_18
+  runtime           = local.lambda_runtime_nodejs_20
   memory_size       = 128
   role              = aws_iam_role.authorizer.arn
   timeout           = 3

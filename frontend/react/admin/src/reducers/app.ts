@@ -8,7 +8,7 @@ const appState: Domains.AppState = {
   showUserRegist: false,
   isConnectionEstablished: false,
   isConnecting: false,
-  subject: Consts.SUBJECT.MATHS,
+  subject: Consts.SUBJECT.JAPANESE,
 };
 
 function isPendingAction(action: AnyAction) {

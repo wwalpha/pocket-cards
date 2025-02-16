@@ -9,7 +9,7 @@ resource "aws_lambda_function" "wss_connect" {
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.wss.arn
-  runtime           = local.lambda_runtime_nodejs_16
+  runtime           = local.lambda_runtime_nodejs_20
   timeout           = 5
 
   environment {
@@ -43,7 +43,7 @@ resource "aws_lambda_function" "wss_disconnect" {
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.wss.arn
-  runtime           = local.lambda_runtime_nodejs_16
+  runtime           = local.lambda_runtime_nodejs_20
   timeout           = 5
 
   environment {
@@ -76,7 +76,7 @@ resource "aws_lambda_function" "wss_commands" {
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.wss_commands.arn
-  runtime           = local.lambda_runtime_nodejs_16
+  runtime           = local.lambda_runtime_nodejs_20
   timeout           = 10
   environment {
     variables = {
@@ -108,7 +108,7 @@ resource "aws_lambda_function" "wss_relay" {
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.wss_relay.arn
-  runtime           = local.lambda_runtime_nodejs_16
+  runtime           = local.lambda_runtime_nodejs_20
   timeout           = 10
   environment {
     variables = {

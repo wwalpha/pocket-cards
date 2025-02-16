@@ -69,7 +69,7 @@ jobs:
       # Setup Node.js
       - uses: actions/setup-node@v4
         with:
-          node-version: 14.x
+          node-version: 20
 
       # Install and Build
       - name: Build
@@ -89,10 +89,10 @@ jobs:
       - name: Unit Test
         if: ${{ inputs.run-tests == true }}
         run: |
-          docker-compose up -d --build
+          docker compose up -d --build
           sleep 10
           yarn test
-          docker-compose down
+          docker compose down
 
       # Save Coverage Report
       - name: Save Coverage Report
@@ -141,7 +141,7 @@ jobs:
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.render-web-container.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE_NAME }}

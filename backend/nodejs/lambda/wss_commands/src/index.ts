@@ -1,4 +1,6 @@
-import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
+import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocumentClient, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import {
   APIGatewayEventWebsocketRequestContextV2,
   APIGatewayProxyWebsocketEventV2WithRequestContext,
@@ -9,9 +11,11 @@ import { Tables } from 'typings';
 const TABLE_NAME_CONNECTIONS = process.env.TABLE_NAME_CONNECTIONS as string;
 const AWS_REGION = process.env.AWS_REGION as string;
 
-const client = new DynamoDB.DocumentClient({
-  region: process.env.AWS_DEFAULT_REGION,
-});
+const client = DynamoDBDocumentClient.from(
+  new DynamoDBClient({
+    region: process.env.AWS_DEFAULT_REGION,
+  })
+);
 
 export const handler = async (
   event: APIGatewayProxyWebsocketEventV2WithRequestContext<ContextV2WithAuthorizer>
@@ -21,42 +25,25 @@ export const handler = async (
     return { statusCode: 400 };
   }
 
-  const { connectionId, domainName, authorizer, stage } = event.requestContext;
+  const { connectionId, domainName, authorizer } = event.requestContext;
   const request = JSON.parse(event.body) as RequestBody;
 
-  // sdk v3
-  // const apigateway = new ApiGatewayManagementApiClient({
-  //   region: AWS_REGION,
-  //   endpoint: `wss://${domainName}/${stage}`,
-  // });
-
-  const apigateway = new ApiGatewayManagementApi({
+  // send message to all clients
+  const apigateway = new ApiGatewayManagementApiClient({
     region: AWS_REGION,
-    endpoint: domainName,
+    endpoint: `https://${domainName}`,
   });
 
   const connections = await getConnections(authorizer.principalId, connectionId);
 
-  // sdk v3
-  // await Promise.all(
-  //   connections.map((item) => {
-  //     const cmd = new {
-  //       ConnectionId: item.connId,
-  //       Data: Buffer.from(JSON.stringify(request)),
-  //     }();
-
-  //     return apigateway.send(cmd);
-  //   })
-  // );
-
   await Promise.all(
     connections.map((item) =>
-      apigateway
-        .postToConnection({
+      apigateway.send(
+        new PostToConnectionCommand({
           ConnectionId: item.connId,
           Data: JSON.stringify(request),
         })
-        .promise()
+      )
     )
   );
 
@@ -66,8 +53,8 @@ export const handler = async (
 };
 
 const getConnections = async (userId: string, connectionId: string) => {
-  const results = await client
-    .query({
+  const results = await client.send(
+    new QueryCommand({
       TableName: TABLE_NAME_CONNECTIONS,
       KeyConditionExpression: '#guardian = :guardian',
       ExpressionAttributeNames: {
@@ -77,7 +64,7 @@ const getConnections = async (userId: string, connectionId: string) => {
         ':guardian': userId,
       },
     })
-    .promise();
+  );
 
   if (!results.Items) {
     return [];

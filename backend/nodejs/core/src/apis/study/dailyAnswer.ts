@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { defaultTo, isEmpty } from 'lodash';
+import { defaultTo } from 'lodash';
 import { Consts } from '@consts';
 import { Commons, DateUtils, ValidationError } from '@utils';
 import { LearningService, CurriculumService, TraceService } from '@services';
@@ -11,7 +11,7 @@ export default async (
   req: Request<any, any, APIs.QuestionAnswerRequest, any>
 ): Promise<APIs.QuestionAnswerResponse> => {
   // 入力値
-  const { qid, correct, selftest } = validate(req);
+  const { qid, correct } = validate(req);
   // ユーザID
   const userId = Commons.getUserId(req);
 
@@ -30,33 +30,16 @@ export default async (
 
   // 正解の場合
   let times = isCorrect(correct) ? defaultTo(learning.times, 0) + 1 : 0;
-  // const subject = learning.subject ?? '';
-
-  // 国語の場合、復習が必要ない
-  // if (SUBJECTS.includes(subject)) {
-  //   times = isCorrect(correct) ? defaultTo(learning.times, 0) + 1 : 0;
-  // } else {
-  //   times = isCorrect(correct) ? defaultTo(learning.times, 0) + 1 : -1;
-  // }
-
+  // 次回学習時間
   const nextTime = isCorrect(correct) ? DateUtils.getNextTime(times, learning.subject) : DateUtils.getNextTime(-1);
 
   // 学習情報更新
-  if (!isEmpty(selftest) && isCorrect(correct)) {
-    await LearningService.update({
-      ...learning,
-      self_confirmed: '1',
-    });
-  } else {
-    await LearningService.update({
-      ...learning,
-      times: times,
-      nextTime: nextTime,
-      lastTime: DateUtils.getNow(),
-      priority: undefined,
-      self_confirmed: undefined,
-    });
-  }
+  await LearningService.update({
+    ...learning,
+    times: times,
+    nextTime: nextTime,
+    lastTime: DateUtils.getNow(),
+  });
 
   // 初めて勉強の場合
   if (learning.lastTime === Consts.INITIAL_DATE) {
@@ -87,14 +70,14 @@ export default async (
 
 // リクエスト検証
 const validate = (request: Request<any, any, APIs.QuestionAnswerRequest, any>): APIs.QuestionAnswerRequest => {
-  const { qid, correct, selftest } = request.body;
+  const { qid, correct } = request.body;
 
   // validation
   if (!qid || !correct) {
     throw new ValidationError('Bad request.');
   }
 
-  return { qid, correct, selftest };
+  return { qid, correct };
 };
 
 const isCorrect = (value: string) => {

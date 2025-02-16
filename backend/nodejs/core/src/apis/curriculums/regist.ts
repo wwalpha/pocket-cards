@@ -66,45 +66,58 @@ const registEnglish = async (
   const limit = pLimit(100);
 
   // 無視の単語を除外する
-  const filterIgnores = questions.filter((item) =>
-    limit(async () => {
-      const ignore = await WordMasterService.isIgnore({
-        id: userId,
-        word: item.title,
-      });
+  const filteredIgnores = await Promise.all(
+    questions.map((item) =>
+      limit(async () => {
+        const ignoreUser = await WordMasterService.isIgnore({
+          id: userId,
+          word: item.title,
+        });
 
-      return !ignore;
-    })
+        const ignoreAdmin = await WordMasterService.isIgnore({
+          id: Consts.Authority.ADMIN,
+          word: item.title,
+        });
+
+        return {
+          question: item,
+          ignore: ignoreUser === true || ignoreAdmin === true,
+        };
+      })
+    )
   );
 
-  const newQuestions = await Promise.all(filterIgnores);
+  const newQuestions = filteredIgnores.filter((item) => !item.ignore).map((item) => ({ ...item.question }));
 
   // すでに学習中の単語は除外する
-  const learningUnregisted = newQuestions.filter((item) =>
-    limit(async () => {
-      const word = await UserWordService.describe({
-        id: item.title,
-        uid: userId,
-      });
+  const learningStatus = await Promise.all(
+    newQuestions.map((item) =>
+      limit(async () => {
+        const word = await UserWordService.describe({
+          id: item.title,
+          uid: userId,
+        });
 
-      return word === undefined;
-    })
+        return {
+          question: item,
+          exist: word !== undefined,
+        };
+      })
+    )
   );
 
-  const unregistedQuestions = await Promise.all(learningUnregisted);
+  const unregistedQuestions = learningStatus.filter((item) => !item.exist).map((item) => ({ ...item.question }));
 
   // 学習単語の登録
   registLearning(userId, unregistedQuestions);
 
-  const tasks = newQuestions.map((item) =>
+  const tasks = unregistedQuestions.map((item) =>
     limit(async () => {
-      await UserWordService.addCurriculumn(
-        {
-          id: item.title,
-          uid: userId,
-        },
-        curriculumId
-      );
+      await UserWordService.regist({
+        id: item.title,
+        uid: userId,
+        curriculumns: [curriculumId],
+      });
     })
   );
 
@@ -122,7 +135,7 @@ const registLearning = async (userId: string, questions: Tables.TQuestions[]) =>
     subject: item.subject,
     lastTime: Consts.INITIAL_DATE,
     nextTime: Consts.INITIAL_DATE,
-    times: Commons.getRegistTimes(item.subject),
+    times: Commons.getRegistTimes(),
   }));
 
   // 学習問題の一括登録

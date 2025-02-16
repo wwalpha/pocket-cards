@@ -204,8 +204,14 @@ export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolea
 
       // 音声作成する場合
       if (createVoice === true) {
-        tasks.push(createQuestionVoice(item));
-        tasks.push(createAnswerVoice(item));
+        if (item.subject === Consts.SUBJECT.ENGLISH) {
+          // 英語の場合
+          tasks.push(saveWithMP3(item.title));
+        } else {
+          // 英語以外の場合
+          tasks.push(createQuestionVoice(item));
+          tasks.push(createAnswerVoice(item));
+        }
       }
 
       // 一括実行する
@@ -216,11 +222,26 @@ export const updateQuestion = async (q: Tables.TQuestions[], createVoice: boolea
 
       // 音声作成する場合
       if (createVoice === true) {
-        item.voiceTitle = results[2];
-        item.voiceAnswer = results[3];
+        // 古い音声ファイルは削除する
+        if (item.voiceTitle !== undefined) {
+          await removeObject(item.voiceTitle);
+        }
+        // 古い音声ファイルは削除する
+        if (item.voiceAnswer !== undefined) {
+          await removeObject(item.voiceAnswer);
+        }
+
+        if (item.subject === Consts.SUBJECT.ENGLISH) {
+          // 英語の場合
+          item.voiceTitle = results[2];
+          item.voiceAnswer = undefined;
+        } else {
+          // 英語以外の場合
+          item.voiceTitle = results[2];
+          item.voiceAnswer = results[3];
+        }
       }
 
-      console.log(item.id);
       // 問題更新する
       await QuestionService.update(item);
     })
@@ -306,18 +327,20 @@ export const removeImage = async (text: string): Promise<void> => {
   );
 };
 
-export const getRegistTimes = (subject: string) => {
-  console.log(subject);
-  // if (Consts.SUBJECT.LANGUAGE === subject) return 0;
-  // if (Consts.SUBJECT.ENGLISH === subject) return 0;
-  // return -1;
+export const getRegistTimes = () => {
   return 0;
 };
 
-export const getTestTimes = (subject: string) => {
-  console.log(subject);
-  // if (Consts.SUBJECT.LANGUAGE === subject) return 1;
-  // if (Consts.SUBJECT.ENGLISH === subject) return 1;
-  // return 0;
+export const getTestTimes = () => {
   return 1;
+};
+
+export const removeObject = async (key: string): Promise<void> => {
+  // S3に保存する
+  await ClientUtils.s3().send(
+    new DeleteObjectCommand({
+      Bucket: Environment.BUCKET_NAME_MATERAILS,
+      Key: key,
+    })
+  );
 };

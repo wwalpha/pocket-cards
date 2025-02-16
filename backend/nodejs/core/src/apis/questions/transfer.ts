@@ -95,7 +95,7 @@ export default async (
         subject: qInfo.subject,
         lastTime: Consts.INITIAL_DATE,
         nextTime: Consts.INITIAL_DATE,
-        times: Commons.getRegistTimes(qInfo.subject),
+        times: Commons.getRegistTimes(),
       })
     );
 

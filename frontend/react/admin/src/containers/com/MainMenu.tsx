@@ -49,7 +49,7 @@ export default () => {
     <React.Fragment>
       <Divider />
       <List sx={styles.list}>
-        <ListItem
+        {/* <ListItem
           button
           key="maths"
           onClick={() => {
@@ -61,7 +61,7 @@ export default () => {
           </ListItemIcon>
           <ListItemText primary="算 数" />
         </ListItem>
-        <Divider />
+        <Divider /> */}
         <ListItem
           button
           key="Japanese"

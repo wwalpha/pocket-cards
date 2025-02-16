@@ -9,7 +9,7 @@ resource "aws_lambda_function" "ecs_task_start" {
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.ecs_task_start.arn
-  runtime           = local.lambda_runtime_nodejs_18
+  runtime           = local.lambda_runtime_nodejs_20
   timeout           = 10
   environment {
     variables = {
@@ -42,7 +42,7 @@ resource "aws_lambda_function" "ecs_task_stop" {
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.ecs_task_stop.arn
-  runtime           = local.lambda_runtime_nodejs_18
+  runtime           = local.lambda_runtime_nodejs_20
   timeout           = 10
   environment {
     variables = {
@@ -75,7 +75,7 @@ resource "aws_lambda_function" "ecs_task_status" {
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.ecs_task_status.arn
-  runtime           = local.lambda_runtime_nodejs_18
+  runtime           = local.lambda_runtime_nodejs_20
   timeout           = 10
   environment {
     variables = {
@@ -150,7 +150,7 @@ resource "aws_lambda_function" "vision" {
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.vision.arn
-  runtime           = local.lambda_runtime_nodejs_18
+  runtime           = local.lambda_runtime_nodejs_20
   timeout           = 10
 
   environment {
@@ -176,7 +176,7 @@ resource "aws_lambda_function" "sns_notify" {
   handler           = local.lambda_handler
   memory_size       = 128
   role              = aws_iam_role.notify.arn
-  runtime           = local.lambda_runtime_nodejs_18
+  runtime           = local.lambda_runtime_nodejs_20
   timeout           = 5
 
   environment {

@@ -27,10 +27,6 @@ export default () => {
         choices: datas.choices,
         answer: datas.answer,
         description: datas.description,
-        category: datas.category,
-        tags: datas.tags ? [datas.tags] : [],
-        difficulty: datas.difficulty,
-        qNo: datas.qNo,
       });
     }
   };
@@ -73,19 +69,15 @@ export default () => {
           }
         />
       )} */}
-      {subject !== Consts.SUBJECT.MATHS && (
-        <QuestionTable
-          datas={questions}
-          groups={groups}
-          loading={isLoading}
-          onSubmit={authority === Consts.Authority.ADMIN ? handleSubmit : undefined}
-          onTransfer={authority === Consts.Authority.ADMIN ? handleTransfer : undefined}
-          onDelete={authority === Consts.Authority.ADMIN ? handleDelete : undefined}
-          onIgnore={
-            authority === Consts.Authority.ADMIN && subject === Consts.SUBJECT.ENGLISH ? handleIgnore : undefined
-          }
-        />
-      )}
+      <QuestionTable
+        datas={questions}
+        groups={groups}
+        loading={isLoading}
+        onSubmit={authority === Consts.Authority.ADMIN ? handleSubmit : undefined}
+        onTransfer={authority === Consts.Authority.ADMIN ? handleTransfer : undefined}
+        onDelete={authority === Consts.Authority.ADMIN ? handleDelete : undefined}
+        onIgnore={authority === Consts.Authority.ADMIN && subject === Consts.SUBJECT.ENGLISH ? handleIgnore : undefined}
+      />
     </Box>
   );
 };

@@ -9,7 +9,7 @@ import {
   UserWordService,
   WordMasterService,
 } from '@services';
-import { ValidationError } from '@utils';
+import { Commons, ValidationError } from '@utils';
 
 /** 今日のテスト */
 export default async (
@@ -17,6 +17,7 @@ export default async (
 ): Promise<APIs.QuestionIgnoreResponse> => {
   const { groupId } = req.params;
   const { qid } = req.body;
+  const userId = Commons.getUserId(req);
 
   // get all informations
   const results = await Promise.all([
@@ -45,7 +46,7 @@ export default async (
     QuestionService.remove(question.id),
     // 単語無視に登録する
     WordMasterService.registIgnore({
-      id: Consts.Authority.ADMIN,
+      id: userId === 'wwalpha@gmail.com' ? Consts.Authority.ADMIN : userId,
       word: question.title,
     }),
   ];

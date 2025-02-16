@@ -8,5 +8,8 @@
   "scripts": {
     "actions": "act push --secret-file .secrets --platform ubuntu-18.04=wwalpha/act-ubuntu:18.04 -W ./.github/test/",
     "actions:prod": "act push --secret-file .secrets_prod --platform ubuntu-18.04=wwalpha/act-ubuntu:18.04 -W ./.github/test/"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
   }
 }

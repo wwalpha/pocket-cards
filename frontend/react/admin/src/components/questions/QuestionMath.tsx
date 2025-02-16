@@ -201,27 +201,27 @@ const table: FunctionComponent<QuestionMath> = ({
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.source}
+                      {/* {item.source} */}
                     </Box>
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.category}
+                      {/* {item.category} */}
                     </Box>
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.tags?.join(' ')}
+                      {/* {item.tags?.join(' ')} */}
                     </Box>
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.difficulty}
+                      {/* {item.difficulty} */}
                     </Box>
                   </TableCell>
                   <TableCell>
                     <Box component="span" sx={styles.tableCell}>
-                      {item.qNo}
+                      {/* {item.qNo} */}
                     </Box>
                   </TableCell>
                   <TableCell>
@@ -285,9 +285,9 @@ const table: FunctionComponent<QuestionMath> = ({
             }
 
             if (dataRow && open === Consts.DIALOG_STATUS.TRANSFER) {
-              return (
-                <QuestionTransfer dataRow={dataRow} groups={groups} onClose={handleClose} onClick={handleDialogClick} />
-              );
+              // return (
+              //   <QuestionTransfer dataRow={dataRow} groups={groups} onClose={handleClose} onClick={handleDialogClick} />
+              // );
             }
           })()}
         </DialogContent>

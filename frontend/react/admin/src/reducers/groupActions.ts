@@ -62,19 +62,25 @@ export const GROUP_QUESTION_REGIST = createAsyncThunk<void, string>(
 
     let questions: string[] = [];
 
-    // 算数の場合
-    if (subject === Consts.SUBJECT.MATHS) {
-      questions = uploads.map(
-        ({ title, answer, description, source, category, tags, difficulty, qNo }) =>
-          `${description}|${source}|${category}|${tags}|${difficulty}|${qNo}|${title}|${answer}`
-      );
-    } else {
-      // 算数以外の場合
-      questions = uploads.map(
-        ({ title, answer, description, choices }) =>
-          `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`
-      );
-    }
+    // // 算数の場合
+    // if (subject === Consts.SUBJECT.MATHS) {
+    //   questions = uploads.map(
+    //     ({ title, answer, description, source, category, tags, difficulty, qNo }) =>
+    //       `${description}|${source}|${category}|${tags}|${difficulty}|${qNo}|${title}|${answer}`
+    //   );
+    // } else {
+    //   // 算数以外の場合
+    //   questions = uploads.map(
+    //     ({ title, answer, description, choices }) =>
+    //       `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`
+    //   );
+    // }
+
+    // 算数以外の場合
+    questions = uploads.map(
+      ({ title, answer, description, choices }) =>
+        `${title},${description ?? ''},${choices?.join('|') ?? ''},${answer ?? ''}`
+    );
 
     for (; questions.length > 0; ) {
       const datas = questions.splice(0, 1);

@@ -38,7 +38,7 @@ locals {
     "https://www.${local.remote_setup.route53_zone_name}",
     "https://admin.${local.remote_setup.route53_zone_name}"
   ]
-  api_allow_origins_dev = concat(local.api_allow_origins, ["http://localhost:3000"])
+  api_allow_origins_dev = concat(local.api_allow_origins, ["http://localhost:3000", "http://localhost:3001"])
 
   # -----------------------------------------------
   # CloudFront
@@ -58,7 +58,7 @@ locals {
   # Lambda
   # ----------------------------------------------------------------------------------------------
   lambda_handler           = "index.handler"
-  lambda_runtime_nodejs_18 = "nodejs18.x"
+  lambda_runtime_nodejs_20 = "nodejs20.x"
   lambda_basic_policy_arn  = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 
   # ----------------------------------------------------------------------------------------------

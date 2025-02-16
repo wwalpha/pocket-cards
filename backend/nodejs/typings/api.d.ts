@@ -358,7 +358,6 @@ export namespace APIs {
   interface DailyExamRequest {
     subject: string;
     userId?: string;
-    selftest?: string;
   }
 
   interface DailyExamResponse {
@@ -385,7 +384,6 @@ export namespace APIs {
   interface QuestionAnswerRequest {
     qid: string;
     correct: string;
-    selftest?: string;
   }
 
   type QuestionAnswerResponse = void;
@@ -445,9 +443,6 @@ export namespace APIs {
     choices?: string;
     answer: string;
     description?: string;
-    category: string;
-    tags?: string[];
-    difficulty?: string;
   }
 
   type QuestionUpdateResponse = Tables.TQuestions;

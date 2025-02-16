@@ -40,7 +40,7 @@ jobs:
       # Setup Node.js
       - uses: actions/setup-node@v4
         with:
-          node-version: 14.x
+          node-version: 20
 
       # AWS Credentials
       - name: Configure AWS credentials
@@ -59,10 +59,10 @@ jobs:
       # Unit Test
       # - name: Unit Test
       #   run: |
-      #     docker-compose up -d --build
+      #     docker compose up -d --build
       #     sleep 10
       #     yarn test
-      #     docker-compose down
+      #     docker compose down
 
       # docker build
       - name: Docker Image Build

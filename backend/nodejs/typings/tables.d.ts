@@ -75,16 +75,6 @@ export namespace Tables {
     voiceTitle?: string;
     // 回答音声
     voiceAnswer?: string;
-    // 大分類
-    category?: string;
-    // タグ
-    tags?: string[];
-    // 難易度
-    difficulty?: string;
-    // 問題の出所
-    source?: string;
-    /**  */
-    original?: string;
   }
 
   interface TQuestionsGSI1Key {
@@ -128,8 +118,6 @@ export namespace Tables {
       date: string;
       correct: string;
     }[];
-    // 自己確認済み
-    self_confirmed?: string;
   }
 
   interface TLearningGSI1Key {
@@ -178,8 +166,6 @@ export namespace Tables {
     vocChn?: string;
     // 語彙（日本語）
     vocJpn?: string;
-    // 音声ファイル
-    mp3?: string;
   }
 
   // ------------------------------------------------------------

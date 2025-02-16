@@ -6,16 +6,14 @@ import { Tables } from 'typings';
 const patch = async (): Promise<void> => {
   const results = await DBHelper().scan<Tables.TQuestions>({
     TableName: Environment.TABLE_NAME_QUESTIONS,
-    FilterExpression: '#subject = :subject',
-    ExpressionAttributeNames: {
-      '#subject': 'subject',
-    },
-    ExpressionAttributeValues: {
-      ':subject': '0',
-    },
   });
 
-  const items = results.Items;
+  await removeUnused(results.Items);
+};
+
+const removeUnused = async (questions: Tables.TQuestions[]) => {
+  // @ts-ignore
+  const items = questions.filter((item) => item['qNo'] !== undefined);
   const total = items.length;
 
   for (;;) {
@@ -24,7 +22,11 @@ const patch = async (): Promise<void> => {
     // not found
     if (item === undefined) break;
 
-    await QuestionService.update(item);
+    await QuestionService.update({
+      ...item,
+      // @ts-ignore
+      qNo: undefined,
+    });
 
     console.log(`Count: ${items.length}/${total}`);
   }
