@@ -205,9 +205,9 @@ struct ChoiceQuestion_Previews: PreviewProvider {
     static var previews: some View {
         ChoiceQuestion(question: Question(id: "", groupId: "", title: "AAAA", choices: [
             "AAA", "BBBBB", "CCCCC", "DDDDD",
-//            "EEEE", "FFFF",
+            "EEEE", "FFFF",
 //            "GGGG", "HHHH", "IIII", "JJJJJ", "KKKK",
-        ], answer: "BBBB"), qCount: 10, isShowError: "AAA", onChoice: { data in
+        ], answer: "BBBBB"), qCount: 10, isShowError: "1", onChoice: { data in
             debugPrint(data)
         })
         .previewInterfaceOrientation(.landscapeLeft)
