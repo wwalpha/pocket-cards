@@ -529,15 +529,21 @@ export namespace APIs {
 
   interface DailyTasksResponse {
     language: {
-      archive: number;
+      test: number;
+      unlearned: number;
+      relearning: number;
       target: number;
     };
     society: {
-      archive: number;
+      test: number;
+      unlearned: number;
+      relearning: number;
       target: number;
     };
     science: {
-      archive: number;
+      test: number;
+      unlearned: number;
+      relearning: number;
       target: number;
     };
   }

@@ -107,3 +107,10 @@ export const listByQuestion = async (qid: string): Promise<Tables.TTraces[]> => 
 
   return results.Items;
 };
+
+/** 学習ステータス一覧 */
+export const listDailyStatus = async (userId: string, date: string): Promise<Tables.TTraces[]> => {
+  const results = await DBHelper().query<Tables.TTraces>(Queries.listDailyStatus(userId, date));
+
+  return results.Items;
+};

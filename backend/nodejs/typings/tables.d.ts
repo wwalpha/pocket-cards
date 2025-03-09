@@ -198,11 +198,11 @@ export namespace Tables {
     // 最後の学習時間
     lastTime?: string;
     // 学習回数(解答前)
-    timesBefore?: number;
+    timesBefore: number;
     // 学習回数(解答後)
-    timesAfter?: number;
+    timesAfter: number;
     // 科目
-    subject?: string;
+    subject: string;
   }
 
   // ------------------------------------------------------------
