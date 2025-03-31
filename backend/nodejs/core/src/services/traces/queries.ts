@@ -24,3 +24,18 @@ export const byQuestionId = (questionId: string): QueryInput => ({
     ':qid': questionId,
   },
 });
+
+export const listDailyStatus = (userId: string, date: string): QueryInput => ({
+  TableName: Environment.TABLE_NAME_TRACES,
+  ProjectionExpression: 'qid, lastTime, subject, timesBefore, timesAfter',
+  KeyConditionExpression: '#userId = :userId AND begins_with(#timestamp, :date)',
+  ExpressionAttributeNames: {
+    '#userId': 'userId',
+    '#timestamp': 'timestamp',
+  },
+  ExpressionAttributeValues: {
+    ':userId': userId,
+    ':date': date,
+  },
+  IndexName: 'gsiIdx1',
+});

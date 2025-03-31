@@ -3,21 +3,25 @@ import moment from 'moment';
 
 export const getNow = () => `${moment().format('YYYYMMDD')}`;
 
-// 算数以外の科目の日数
-const days = [1, 2, 5, 10, 20, 60, 90, 120];
-// 算数の日数
-const daysM = [1, 3, 7, 15, 60];
+// 国語以外の場合の日数
+const daysCommon = [1, 3, 7, 15, 30, 60, 120];
+// 国語の場合の日数
+const daysLanguage = [2, 5, 20, 60, 120, 120];
 
 /** 次回学習時間を計算する */
 export const getNextTime = (times: number, subject?: string) => {
+  // 不正解の場合、次回学習日を今日にする
   if (times < 1) return getNow();
-  // 算数以外の場合、8 回学習後表示しないようにする
-  if (times > 8 && subject !== Consts.SUBJECT.MATHS) return '99991231';
-  // 7 回学習後表示しないようにする
-  if (times > 5 && subject === Consts.SUBJECT.MATHS) return '99991231';
+
+  // 算数の場合、次回学習日を 99991231 にする
+  if (subject === Consts.SUBJECT.MATHS) return '99991231';
+  // 国語の場合、６回学習後表示しないようにする
+  if (times > 6 && subject === Consts.SUBJECT.LANGUAGE) return '99991231';
+  // 国語以外の場合、７回学習後表示しないようにする
+  if (times > 7 && subject !== Consts.SUBJECT.LANGUAGE) return '99991231';
 
   // 日数の組みの選択
-  const nextDays = Consts.SUBJECT.MATHS === subject ? daysM : days;
+  const nextDays = Consts.SUBJECT.LANGUAGE === subject ? daysLanguage : daysCommon;
   // 間隔の日数
   const addValue = nextDays[times - 1];
   // 次の日付

@@ -41,8 +41,8 @@ export default () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
   useEffect(() => {
-    setRowsPerPage(25);
-    setPage(0);
+    setRowsPerPage(50);
+    // setPage(0);
     return;
   }, [subject]);
 
@@ -169,7 +169,7 @@ export default () => {
         </TableContainer>
         {displayGroups.length > 0 && (
           <TablePagination
-            rowsPerPageOptions={[10, 25, 50]}
+            rowsPerPageOptions={[25, 50, 100]}
             component="div"
             count={displayGroups.length}
             rowsPerPage={rowsPerPage}

@@ -37,11 +37,11 @@ resource "aws_apigatewayv2_route" "ecs_task_stop_options" {
 # API Gateway Route (Lambda) - ECS Task Start
 # ---------------------------------------------------------------------------------------------
 resource "aws_apigatewayv2_route" "ecs_task_start" {
-  api_id             = local.apigw_id_admin
-  route_key          = "POST /start"
-  target             = "integrations/${aws_apigatewayv2_integration.ecs_task_start.id}"
-  authorizer_id      = local.apigw_authorizer_id_admin
-  authorization_type = "JWT"
+  api_id    = local.apigw_id_admin
+  route_key = "POST /start"
+  target    = "integrations/${aws_apigatewayv2_integration.ecs_task_start.id}"
+  # authorizer_id      = local.apigw_authorizer_id_admin
+  # authorization_type = "JWT"
 }
 
 resource "aws_apigatewayv2_route" "ecs_task_start_options" {
