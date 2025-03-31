@@ -13,6 +13,7 @@ class MultiTestInteractor {
     var session = URLSession(configuration: .default)
     var decoder = JSONDecoder()
     var q: Question?
+    var isConnected = false
 }
 
 extension MultiTestInteractor: MultiTestBusinessLogic, WebSocketConnectionDelegate {
@@ -41,10 +42,15 @@ extension MultiTestInteractor: MultiTestBusinessLogic, WebSocketConnectionDelega
 
     func onConnected(connection _: WebSocketConnection) {
         presenter?.onConnected()
+        isConnected = true
     }
 
     func onDisconnected(connection _: WebSocketConnection, error _: Error?) {
         presenter?.onDisconnected()
+
+        if isConnected {
+            connect()
+        }
     }
 
     func onError(connection: WebSocketConnection, error: Error) {
@@ -90,10 +96,14 @@ extension MultiTestInteractor: MultiTestBusinessLogic, WebSocketConnectionDelega
     }
 
     func disconnect() {
+        debugPrint("disconnect")
+
         // disconnect
         task?.disconnect()
 
         presenter?.onDisconnected()
+
+        isConnected = false
     }
 
     func getQuestion(text: String) {

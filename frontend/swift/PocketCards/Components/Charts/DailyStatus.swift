@@ -10,16 +10,22 @@ import SwiftUI
 
 struct DailyStatus: UIViewRepresentable {
     private var target: Double
-    private var completed: Double
+    private var test: Double
+    private var unlearn: Double
+    private var relearning: Double
 
-    init(target: Double, completed: Double) {
+    init(target: Double, test: Double, unlearn: Double, relearning: Double) {
         self.target = target
-        self.completed = completed
+        self.test = test
+        self.unlearn = unlearn
+        self.relearning = relearning
     }
 
     func makeUIView(context _: Context) -> HorizontalBarChartView {
-        let yVals1: [BarChartDataEntry] = [BarChartDataEntry(x: 2, y: target)]
-        let yVals2: [BarChartDataEntry] = [BarChartDataEntry(x: 1, y: completed)]
+        let yVals1: [BarChartDataEntry] = [BarChartDataEntry(x: 4, y: target)]
+        let yVals2: [BarChartDataEntry] = [BarChartDataEntry(x: 3, y: test)]
+        let yVals3: [BarChartDataEntry] = [BarChartDataEntry(x: 2, y: relearning)]
+        let yVals4: [BarChartDataEntry] = [BarChartDataEntry(x: 1, y: unlearn)]
 
         let chartView = HorizontalBarChartView()
         let set1 = BarChartDataSet(entries: yVals1, label: "今日の目標")
@@ -27,12 +33,22 @@ struct DailyStatus: UIViewRepresentable {
         set1.valueFont = .systemFont(ofSize: 16)
         set1.valueFormatter = DefaultValueFormatter(decimals: 0)
 
-        let set2 = BarChartDataSet(entries: yVals2, label: "今日の実績")
+        let set2 = BarChartDataSet(entries: yVals2, label: "今日のテスト")
         set2.setColor(UIColor(red: 101 / 255, green: 193 / 255, blue: 140 / 255, alpha: 1))
         set2.valueFont = .systemFont(ofSize: 16)
         set2.valueFormatter = DefaultValueFormatter(decimals: 0)
 
-        let data = BarChartData(dataSets: [set1, set2])
+        let set3 = BarChartDataSet(entries: yVals3, label: "今日の再学習")
+        set3.setColor(UIColor(red: 0 / 255, green: 48 / 255, blue: 146 / 255, alpha: 1))
+        set3.valueFont = .systemFont(ofSize: 16)
+        set3.valueFormatter = DefaultValueFormatter(decimals: 0)
+
+        let set4 = BarChartDataSet(entries: yVals4, label: "今日の未学習")
+        set4.setColor(UIColor(red: 255 / 255, green: 171 / 255, blue: 91 / 255, alpha: 1))
+        set4.valueFont = .systemFont(ofSize: 16)
+        set4.valueFormatter = DefaultValueFormatter(decimals: 0)
+
+        let data = BarChartData(dataSets: [set1, set2, set3, set4])
         data.barWidth = Double(0.8)
 
         chartView.data = data

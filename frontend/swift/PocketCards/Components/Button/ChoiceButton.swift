@@ -33,18 +33,14 @@ struct ChoiceButton: View {
 
     var body: some View {
         HStack {
-            Button(action: {
-                if isError {
-                    isButtonDisabled = true
-
-                    // 2秒後にボタンを有効にする
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        isButtonDisabled = false
-                    }
-                }
+            Button {
+                // エラーの場合、初回表示より5秒経過していない場合は、反応しない
+//                if Date.now.timeIntervalSince(initDate) < 2, isError == true {
+//                    return
+//                }
 
                 onDetail()
-            }, label: {
+            } label: {
                 HStack {
                     Text(index)
                         .frame(width: 64, height: frameHeight, alignment: .center)
@@ -58,9 +54,8 @@ struct ChoiceButton: View {
                         .foregroundColor(isError ? Color.white : Color.black)
                         .contentShape(Rectangle())
                 }.border(Color.purple, width: 2)
-            })
+            }
             .background(isError ? Color.language : Color.white)
-            .disabled(isButtonDisabled)
 
 //            Button(action: onDetail) {
 //                HStack {

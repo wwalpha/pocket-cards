@@ -12,6 +12,7 @@ struct MultiTestView: View {
     var interactor: MultiTestBusinessLogic?
 
     @ObservedObject var viewModel = MultiTestViewModel()
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         NavigationStack {
@@ -61,6 +62,16 @@ struct MultiTestView: View {
                 }
             }.onDisappear {
                 interactor?.disconnect()
+            }.onChange(of: scenePhase) { newPhase in
+                switch newPhase {
+                case .active:
+                    // アクティブ状態（アプリがフォアグラウンドに戻った場合）
+                    interactor?.connect()
+                case .background:
+                    interactor?.disconnect()
+                default:
+                    break
+                }
             }
         }
     }

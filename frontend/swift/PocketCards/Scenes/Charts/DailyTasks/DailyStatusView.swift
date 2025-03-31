@@ -19,17 +19,6 @@ struct DailyStatusView: View {
                 VStack(spacing: 20) {
                     Spacer()
 
-//                    Text("算数")
-//                        .padding()
-//                        .padding(.leading, 32)
-//                        .font(.system(size: 28))
-//                        .frame(width: geo.size.width, height: 48, alignment: .leading)
-//                        .background(Color.maths)
-//                        .foregroundColor(Color.white)
-//
-//                    Dailytasks(target: viewModel.mathsTarget, completed: viewModel.mathsArchive)
-//                        .padding(.leading, 32)
-
                     Text("理科")
                         .padding()
                         .padding(.leading, 32)
@@ -38,7 +27,7 @@ struct DailyStatusView: View {
                         .background(Color.science)
                         .foregroundColor(Color.white)
 
-                    DailyStatus(target: viewModel.sciTarget, completed: viewModel.sciArchive)
+                    DailyStatus(target: viewModel.sciTarget, test: viewModel.sciTest, unlearn: viewModel.sciUnlearned, relearning: viewModel.sciRelearning)
                         .padding(.leading, 32)
 
                     Text("社会")
@@ -49,7 +38,7 @@ struct DailyStatusView: View {
                         .background(Color.society)
                         .foregroundColor(Color.white)
 
-                    DailyStatus(target: viewModel.socTarget, completed: viewModel.socArchive)
+                    DailyStatus(target: viewModel.socTarget, test: viewModel.socTest, unlearn: viewModel.socUnlearned, relearning: viewModel.socRelearning)
                         .padding(.leading, 32)
 
                     Text("国語")
@@ -60,7 +49,7 @@ struct DailyStatusView: View {
                         .background(Color.language)
                         .foregroundColor(Color.white)
 
-                    DailyStatus(target: viewModel.lanTarget, completed: viewModel.lanArchive)
+                    DailyStatus(target: viewModel.lanTarget, test: viewModel.lanTest, unlearn: viewModel.lanUnlearned, relearning: viewModel.lanRelearning)
                         .padding(.leading, 32)
 
                     Spacer()
@@ -81,11 +70,20 @@ struct DailyStatusView: View {
 extension DailyStatusView: DailyStatusDisplayLogic {
     func showTasks(model: DailyStatusViewModel) {
         viewModel.lanTarget = model.lanTarget
-        viewModel.lanArchive = model.lanArchive
+        viewModel.lanTest = model.lanTest
+        viewModel.lanUnlearned = model.lanUnlearned
+        viewModel.lanRelearning = model.lanRelearning
+
         viewModel.sciTarget = model.sciTarget
-        viewModel.sciArchive = model.sciArchive
+        viewModel.sciTest = model.sciTest
+        viewModel.sciUnlearned = model.sciUnlearned
+        viewModel.sciRelearning = model.sciRelearning
+
         viewModel.socTarget = model.socTarget
-        viewModel.socArchive = model.socArchive
+        viewModel.socTest = model.socTest
+        viewModel.socUnlearned = model.socUnlearned
+        viewModel.socRelearning = model.socRelearning
+
         viewModel.isLoaded = true
     }
 }

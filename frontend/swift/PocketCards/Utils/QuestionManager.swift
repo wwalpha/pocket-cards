@@ -77,33 +77,95 @@ class QuestionManager {
         // play sound
         playSound(correct: result)
 
-        // 学習モードの場合、かつ不正解の場合
-        if mode == MODE.PRACTICE, result == false {
-            // set flag
-            current?.isAnswered = true
+        // 学習モードの場合
+        if mode == MODE.PRACTICE {
+            // 不正解の場合
+            if result == false {
+                // 回答済のフラグ = true
+                current?.isAnswered = true
 
-            return
-        }
+                return
+            }
 
-        // 学習モードの場合、かつ正解の場合
-        if mode == MODE.PRACTICE, result == true {
-            // 訂正の場合
+            // 正解の場合
+            // 回答済の問題に対して、訂正の場合
             if current?.isAnswered == true {
-                // set flag
+                // 再回答できるようにする
                 current?.isAnswered = false
 
                 return
             }
+
+            // 学習モードの初回正解の場合
+            // ローカルプールから問題を削除する
+            removeQuestion(id: current!.id)
+
+            Task {
+                // バックエンドの問題ステータス更新
+                try await onUpdate(qid: current?.id, correct: result)
+            }
+        } else if mode == MODE.EXAM {
+            // 試験モードの場合
+
+            // 不正解の場合
+            if result == false {
+                // 回答済のフラグ = true
+                current?.isAnswered = true
+
+                Task {
+                    // バックエンドの問題ステータス更新
+                    try await onUpdate(qid: current?.id, correct: result)
+                }
+
+                return
+            }
+
+            // 正解の場合
+            // 回答済の問題に対して、ローカルの問題削除を行う
+            if current?.isAnswered == true {
+                // ローカルプールから問題を削除する
+                removeQuestion(id: current!.id)
+
+                return
+            }
+
+            // 初回直接正解の場合
+            // ローカルプールから問題を削除する
+            removeQuestion(id: current!.id)
+
+            Task {
+                // バックエンドの問題ステータス更新
+                try await onUpdate(qid: current?.id, correct: result)
+            }
         }
 
-        // 学習モード以外の場合
-        // delete answered question
-        removeQuestion(id: current!.id)
-
-        Task {
-            // update question state
-            try await onUpdate(qid: current?.id, correct: result)
-        }
+//        // 学習モードの場合、かつ不正解の場合
+//        if mode == MODE.PRACTICE, result == false {
+//            // 回答済のフラグ = true
+//            current?.isAnswered = true
+//
+//            return
+//        }
+//
+//        // 学習モードの場合、かつ正解の場合
+//        if mode == MODE.PRACTICE, result == true {
+//            // 訂正の場合(回答済の問題)
+//            if current?.isAnswered == true {
+//                // 再回答できるようにする
+//                current?.isAnswered = false
+//
+//                return
+//            }
+//        }
+//
+//        // 学習モードの初回正解の場合
+//        // delete answered question
+//        removeQuestion(id: current!.id)
+//
+//        Task {
+//            // update question state
+//            try await onUpdate(qid: current?.id, correct: result)
+//        }
     }
 
     private func playSound(correct: Bool) {

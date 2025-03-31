@@ -128,18 +128,20 @@ struct FlashCard: View {
     @ViewBuilder
     func bodyView(size: CGSize) -> some View {
         ZStack {
-            Button {
-                onPlay(front: !flipped)
-            } label: {
-                HStack {
-                    Image(systemName: "speaker.wave.3")
+            if !hideButton {
+                Button {
+                    onPlay(front: !flipped)
+                } label: {
+                    HStack {
+                        Image(systemName: "speaker.wave.3")
+                    }
+                    .padding()
+                    .border(Color.blue, width: 2)
                 }
-                .padding()
-                .border(Color.blue, width: 2)
+                .frame(width: 120, height: 48, alignment: .center)
+                .position(x: size.width - 92, y: 56)
+                .zIndex(100)
             }
-            .frame(width: 120, height: 48, alignment: .center)
-            .position(x: size.width - 92, y: 56)
-            .zIndex(100)
 
             // question page
             questionView(size: size)
@@ -191,6 +193,8 @@ struct FlashCard: View {
     func questionView(size: CGSize) -> some View {
         let qImage = question.title.getImage()
         let qText = question.title.removeImage().trimmingCharacters(in: .whitespacesAndNewlines)
+        let widthRatio: CGFloat = hideButton ? 0.8 : 0.9
+        let heightRatio: CGFloat = hideButton ? 0.9 : 0.7
 
         VStack {
             if !qText.isEmpty {
@@ -225,8 +229,8 @@ struct FlashCard: View {
                 }
             }
         }
-        .frame(width: size.width * 0.9, height: size.height * 0.7, alignment: .center)
-        .font(.system(size: fontSize[fontIndex], design: .default))
+        .frame(width: size.width * widthRatio, height: size.height * heightRatio, alignment: .center)
+        .font(.system(size: getFontIndex(), design: .default))
         .padding()
         .border(Color.purple, width: 5)
         .background(Color.grey100)
@@ -321,6 +325,16 @@ struct FlashCard: View {
             Spacer()
         }
         .padding(.top)
+    }
+
+    func getFontIndex() -> CGFloat {
+        let qImage = question.title.getImage()
+
+        if !qImage.isEmpty {
+            return fontSize[2]
+        }
+
+        return fontSize[fontIndex]
     }
 
     func onPlay(front: Bool) {

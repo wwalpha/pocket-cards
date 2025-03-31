@@ -17,11 +17,17 @@ extension DailyStatusPresenter: DailyStatusPresentationLogic {
         let model = DailyStatusViewModel()
 
         model.lanTarget = Double(res.language.target)
-        model.lanArchive = Double(res.language.archive)
+        model.lanTest = Double(res.language.test)
+        model.lanUnlearned = Double(res.language.unlearned)
+        model.lanRelearning = Double(res.language.relearning)
         model.sciTarget = Double(res.science.target)
-        model.sciArchive = Double(res.science.archive)
+        model.sciTest = Double(res.science.test)
+        model.sciUnlearned = Double(res.science.unlearned)
+        model.sciRelearning = Double(res.science.relearning)
         model.socTarget = Double(res.society.target)
-        model.socArchive = Double(res.society.archive)
+        model.socTest = Double(res.society.test)
+        model.socUnlearned = Double(res.society.unlearned)
+        model.socRelearning = Double(res.society.relearning)
 
         view?.showTasks(model: model)
     }

@@ -29,16 +29,23 @@ extension DailyPracticeInteractor: DailyPracticeBusinessLogic {
         manager.onChoice(choice: choice)
 
         Task {
-            if manager.mode == MODE.PRACTICE {
-                // 正解の場合
-                if manager.checkAnswer(answer: choice) {
-                    await next()
-                } else {
-                    // 不正解の場合、回答を表示する
-                    presenter?.showError(index: manager.getAnswer()!)
-                }
-            } else {
+//            if manager.mode == MODE.PRACTICE {
+//                // 正解の場合
+//                if manager.checkAnswer(answer: choice) {
+//                    await next()
+//                } else {
+//                    // 不正解の場合、回答を表示する
+//                    presenter?.showError(index: manager.getAnswer()!)
+//                }
+//            } else {
+//                await next()
+//            }
+            if manager.checkAnswer(answer: choice) {
+                // 正解の場合、次の問題
                 await next()
+            } else {
+                // 不正解の場合、回答を表示する
+                presenter?.showError(index: manager.getAnswer()!)
             }
         }
     }

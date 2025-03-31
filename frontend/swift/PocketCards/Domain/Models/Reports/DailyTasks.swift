@@ -9,10 +9,14 @@ import Foundation
 
 struct DailyTask: Codable {
     var target: Int
-    var archive: Int
+    var test: Int
+    var unlearned: Int
+    var relearning: Int
 
     private enum CodingKeys: String, CodingKey {
         case target
-        case archive
+        case test
+        case unlearned
+        case relearning
     }
 }
