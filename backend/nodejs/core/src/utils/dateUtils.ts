@@ -4,7 +4,7 @@ import moment from 'moment';
 export const getNow = () => `${moment().format('YYYYMMDD')}`;
 
 // 国語以外の場合の日数
-const daysCommon = [1, 3, 7, 15, 30, 60, 120];
+const daysCommon = [1, 3, 7, 15, 30, 60, 120, 180];
 // 国語の場合の日数
 const daysLanguage = [2, 5, 20, 60, 120, 120];
 
