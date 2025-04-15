@@ -2,14 +2,14 @@ name: PUSH_F) Admin React Build
 
 on:
   push:
-    paths:
-      - frontend/react/**
-      - .github/workflows/push_frontend_admin.yml
-      - .github/workflows/reuse_react.yml
-    branches-ignore:
-      - releases/**
-      - master
-  workflow_dispatch:
+  #   paths:
+  #     - frontend/react/**
+  #     - .github/workflows/push_frontend_admin.yml
+  #     - .github/workflows/reuse_react.yml
+  #   branches-ignore:
+  #     - releases/**
+  #     - master
+  # workflow_dispatch:
 
 jobs:
   Admin:

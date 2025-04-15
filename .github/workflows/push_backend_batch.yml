@@ -2,13 +2,13 @@ name: PUSH_B) Batch Build
 
 on:
   push:
-    paths:
-      - backend/nodejs/batch/**
-      - backend/nodejs/typings/**
-      - .github/workflows/push_backend_batch.yml
-    branches-ignore:
-      - releases/**
-      - master
+    # paths:
+    #   - backend/nodejs/batch/**
+    #   - backend/nodejs/typings/**
+    #   - .github/workflows/push_backend_batch.yml
+    # branches-ignore:
+    #   - releases/**
+    #   - master
 
 jobs:
   Build:

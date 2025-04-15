@@ -2,14 +2,14 @@ name: PUSH_B) Core Build
 
 on:
   push:
-    paths:
-      - backend/nodejs/core/**
-      - backend/nodejs/typings/**
-      - .github/workflows/push_backend_core.yml
-      - .github/workflows/reuse_build_ci.yml
-    branches-ignore:
-      - releases/**
-      - master
+    # paths:
+    #   - backend/nodejs/core/**
+    #   - backend/nodejs/typings/**
+    #   - .github/workflows/push_backend_core.yml
+    #   - .github/workflows/reuse_build_ci.yml
+    # branches-ignore:
+    #   - releases/**
+    #   - master
 
 jobs:
   Backend:

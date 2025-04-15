@@ -2,20 +2,20 @@ name: PUSH_B) Lambda Build
 
 on:
   push:
-    paths:
-      - backend/nodejs/lambda/**
-      - .github/workflows/push_backend_lambda.yml
-      - .github/workflows/reuse_lambda.yml
-    branches-ignore:
-      - releases/**
-  workflow_run:
-    workflows:
-      - PR_MERGED) Build CI/CD
-    branches:
-      - master
-    types:
-      - completed
-  workflow_dispatch:
+  #   paths:
+  #     - backend/nodejs/lambda/**
+  #     - .github/workflows/push_backend_lambda.yml
+  #     - .github/workflows/reuse_lambda.yml
+  #   branches-ignore:
+  #     - releases/**
+  # workflow_run:
+  #   workflows:
+  #     - PR_MERGED) Build CI/CD
+  #   branches:
+  #     - master
+  #   types:
+  #     - completed
+  # workflow_dispatch:
 
 jobs:
   Cognito:
