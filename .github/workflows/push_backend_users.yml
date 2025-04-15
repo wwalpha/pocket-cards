@@ -2,14 +2,14 @@ name: PUSH_B) Users Manager Build
 
 on:
   push:
-    # paths:
-    #   - backend/nodejs/user_manager/**
-    #   - backend/nodejs/typings/**
-    #   - .github/workflows/push_backend_users.yml
-    #   - .github/workflows/reuse_build_ci.yml
-    # branches-ignore:
-    #   - releases/**
-    #   - master
+    paths:
+      - backend/nodejs/user_manager/**
+      - backend/nodejs/typings/**
+      - .github/workflows/push_backend_users.yml
+      - .github/workflows/reuse_build_ci.yml
+    branches-ignore:
+      - releases/**
+      - master
 
 jobs:
   UserManager:

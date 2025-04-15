@@ -2,23 +2,23 @@ name: PUSH_T) Terraform Build
 
 on:
   push:
-  #   paths:
-  #     - infrastructure/terraform/setup/**
-  #     - infrastructure/terraform/services/**
-  #     - backend/terraform/**
-  #     - .github/workflows/push_terraform.yml
-  #     - .github/workflows/reuse_terraform.yml
-  #   branches-ignore:
-  #     - releases/**
-  #     - master
-  # workflow_run:
-  #   workflows:
-  #     - PUSH_B) Lambda Build
-  #     - PUSH_B) Batch Build
-  #   branches:
-  #     - master
-  #   types:
-  #     - completed
+    paths:
+      - infrastructure/terraform/setup/**
+      - infrastructure/terraform/services/**
+      - backend/terraform/**
+      - .github/workflows/push_terraform.yml
+      - .github/workflows/reuse_terraform.yml
+    branches-ignore:
+      - releases/**
+      - master
+  workflow_run:
+    workflows:
+      - PUSH_B) Lambda Build
+      - PUSH_B) Batch Build
+    branches:
+      - master
+    types:
+      - completed
 
 jobs:
   Setup:

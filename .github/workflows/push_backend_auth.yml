@@ -2,14 +2,14 @@ name: PUSH_B) Auth Manager Build
 
 on:
   push:
-    # paths:
-    #   - backend/nodejs/auth_manager/**
-    #   - backend/nodejs/typings/**
-    #   - .github/workflows/push_backend_auth.yml
-    #   - .github/workflows/reuse_build_ci.yml
-    # branches-ignore:
-    #   - releases/**
-    #   - master
+    paths:
+      - backend/nodejs/auth_manager/**
+      - backend/nodejs/typings/**
+      - .github/workflows/push_backend_auth.yml
+      - .github/workflows/reuse_build_ci.yml
+    branches-ignore:
+      - releases/**
+      - master
 
 jobs:
   AuthManager:
