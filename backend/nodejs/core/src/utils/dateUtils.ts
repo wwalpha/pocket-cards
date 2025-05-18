@@ -16,9 +16,9 @@ export const getNextTime = (times: number, subject?: string) => {
   // 算数の場合、次回学習日を 99991231 にする
   if (subject === Consts.SUBJECT.MATHS) return '99991231';
   // 国語の場合、６回学習後表示しないようにする
-  if (times > 6 && subject === Consts.SUBJECT.LANGUAGE) return '99991231';
+  if (times > 7 && subject === Consts.SUBJECT.LANGUAGE) return '99991231';
   // 国語以外の場合、７回学習後表示しないようにする
-  if (times > 7 && subject !== Consts.SUBJECT.LANGUAGE) return '99991231';
+  if (times > 8 && subject !== Consts.SUBJECT.LANGUAGE) return '99991231';
 
   // 日数の組みの選択
   const nextDays = Consts.SUBJECT.LANGUAGE === subject ? daysLanguage : daysCommon;
