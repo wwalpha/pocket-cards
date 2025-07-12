@@ -5,8 +5,6 @@ import { Commons, DateUtils, ValidationError } from '@utils';
 import { LearningService, CurriculumService, TraceService } from '@services';
 import { APIs, Tables } from 'typings';
 
-// const SUBJECTS = [Consts.SUBJECT.LANGUAGE, Consts.SUBJECT.ENGLISH];
-
 export default async (
   req: Request<any, any, APIs.QuestionAnswerRequest, any>
 ): Promise<APIs.QuestionAnswerResponse> => {
@@ -28,10 +26,7 @@ export default async (
     return;
   }
 
-  // 正解の場合
-  let times = isCorrect(correct) ? defaultTo(learning.times, 0) + 1 : 0;
-  // 次回学習時間
-  const nextTime = isCorrect(correct) ? DateUtils.getNextTime(times, learning.subject) : DateUtils.getNextTime(-1);
+  const { times, nextTime } = getNextTime(learning, correct);
 
   // 学習情報更新
   await LearningService.update({
@@ -82,4 +77,39 @@ const validate = (request: Request<any, any, APIs.QuestionAnswerRequest, any>): 
 
 const isCorrect = (value: string) => {
   return value === '1';
+};
+
+const getNextTime = (
+  current: Tables.TLearning,
+  correct: string
+): {
+  times: number;
+  nextTime: string;
+} => {
+  const { subject, times } = current;
+  const { LANGUAGE } = Consts.SUBJECT;
+
+  // 正解の場合、次回学習時間を計算する
+  if (isCorrect(correct) === true) {
+    const nextTimes = defaultTo(current.times, 0) + 1;
+
+    return {
+      times: nextTimes,
+      nextTime: DateUtils.getNextTime(nextTimes, subject),
+    };
+  }
+
+  // 不正解の場合 且つ国語の場合、次回学習時間を今日にする
+  // 国語以外かつ正解回数が6以下の場合、次回学習時間を今日にする
+  if (subject === LANGUAGE || (subject !== LANGUAGE && times <= 6)) {
+    return {
+      times: 0,
+      nextTime: DateUtils.getNextTime(0),
+    };
+  }
+
+  return {
+    times,
+    nextTime: DateUtils.getNextTime(times, subject),
+  };
 };
