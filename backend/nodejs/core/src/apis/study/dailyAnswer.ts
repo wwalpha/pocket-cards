@@ -108,6 +108,7 @@ const getNextTime = (
     };
   }
 
+  // 不正解の場合 且つ国語以外かつ正解回数が7以上の場合、次回学習時間を計算する
   return {
     times,
     nextTime: DateUtils.getNextTime(times, subject),
