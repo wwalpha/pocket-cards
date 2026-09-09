@@ -7,14 +7,14 @@ import { Lambda, LambdaClientConfig } from '@aws-sdk/client-lambda';
 import { TimestreamWrite, TimestreamWriteClientConfig } from '@aws-sdk/client-timestream-write';
 import { SES, SESClientConfig } from '@aws-sdk/client-ses';
 
-let dynamoDBClient: DynamoDB;
-let pollyClient: Polly;
-let s3Client: S3;
-let translateClient: Translate;
-let ssmClient: SSM;
-let lambdaClient: Lambda;
-let writeClient: TimestreamWrite;
-let sesClient: SES;
+let dynamoDBClient: DynamoDB | undefined;
+let pollyClient: Polly | undefined;
+let s3Client: S3 | undefined;
+let translateClient: Translate | undefined;
+let ssmClient: SSM | undefined;
+let lambdaClient: Lambda | undefined;
+let writeClient: TimestreamWrite | undefined;
+let sesClient: SES | undefined;
 
 /** Dynamodb Client初期化 */
 export const dynamoDB = (options?: DynamoDBClientConfig): DynamoDB => {

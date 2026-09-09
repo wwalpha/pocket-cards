@@ -1,7 +1,7 @@
-import { Config } from '@jest/types';
-
-const config: Config.InitialOptions = {
-  preset: 'ts-jest',
+module.exports = {
+  transform: {
+    '^.+\\.(t|j)sx?$': ['@swc/jest', { jsc: { parser: { syntax: 'typescript', tsx: true }, target: 'es2018' } }],
+  },
   testEnvironment: 'node',
   moduleNameMapper: {
     '@src/(.*)': '<rootDir>/src/$1',
@@ -13,5 +13,3 @@ const config: Config.InitialOptions = {
   coverageDirectory: 'coverage',
   setupFiles: ['./test/configs/setupMock.ts'],
 };
-
-export default config;

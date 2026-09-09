@@ -1,7 +1,7 @@
-import { Config } from '@jest/types';
-
-const config: Config.InitialOptions = {
-  preset: 'ts-jest',
+module.exports = {
+  transform: {
+    '^.+\\.(t|j)sx?$': ['@swc/jest', { jsc: { parser: { syntax: 'typescript', tsx: true }, target: 'es2018' } }],
+  },
   testEnvironment: 'node',
   setupFiles: ['dotenv/config'],
   forceExit: true,
@@ -9,5 +9,3 @@ const config: Config.InitialOptions = {
   globalSetup: './test/configs/setup.ts',
   globalTeardown: './test/configs/teardown.ts',
 };
-
-export default config;
