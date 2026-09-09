@@ -7,20 +7,18 @@ on:
       - edited
   workflow_dispatch:
 
-env:
-  AWS_DEFAULT_REGION: us-east-1
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   # Terraform
   Terraform_Setup:
     uses: ./.github/workflows/reuse_terraform.yml
     with:
-      region: us-east-1
       working-directory: infrastructure/terraform/setup
       environment: prod
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
   Terraform_Service:
@@ -37,12 +35,9 @@ jobs:
       - Lambda_WSS_Relay
     uses: ./.github/workflows/reuse_terraform.yml
     with:
-      region: us-east-1
       working-directory: infrastructure/terraform/services
       environment: prod
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
@@ -50,173 +45,112 @@ jobs:
   Backend:
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/core
       environment: prod
       run-tests: false
       ECS_SERVICE_NAME: backend
       ECR_REPOSITORY: pkc/backend
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Batch
   Batch:
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/batch
       environment: prod
       run-tests: false
       ECS_SERVICE_NAME: batch
       ECR_REPOSITORY: pkc/batch
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Auth Manager
   Auth_Manager:
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/auth_manager
       environment: prod
       ECS_SERVICE_NAME: auth_manager
       ECR_REPOSITORY: pkc/auth
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Users Manager
   Users_Manager:
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/user_manager
       environment: prod
       ECS_SERVICE_NAME: user_manager
       ECR_REPOSITORY: pkc/users
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Lambda
   Lambda_AuthorizerV1:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/lambda/authorizer_v1
       environment: prod
-      outputs-bucket: pkc-archive-af2a18
       function-name: authorizer_v1
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Lambda_AuthorizerV2:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/lambda/authorizer_v2
       environment: prod
-      outputs-bucket: pkc-archive-af2a18
       function-name: authorizer_v2
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Lambda_Status:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/lambda/status
       environment: prod
-      outputs-bucket: pkc-archive-af2a18
       function-name: status
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Lambda_Start:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_lambda.yml
     with:
       environment: prod
-      region: us-east-1
       working-directory: backend/nodejs/lambda/start
-      outputs-bucket: pkc-archive-af2a18
       function-name: start
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Lambda_Stop:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/lambda/stop
       environment: prod
-      outputs-bucket: pkc-archive-af2a18
       function-name: stop
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Lambda_WSS_Connect:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/lambda/wss_connect
       environment: prod
-      outputs-bucket: pkc-archive-af2a18
       function-name: wss_connect
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Lambda_WSS_Disconnect:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/lambda/wss_disconnect
       environment: prod
-      outputs-bucket: pkc-archive-af2a18
       function-name: wss_disconnect
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Lambda_WSS_Commands:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/lambda/wss_commands
       environment: prod
-      outputs-bucket: pkc-archive-af2a18
       function-name: wss_commands
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   Lambda_WSS_Relay:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_lambda.yml
     with:
-      region: us-east-1
       working-directory: backend/nodejs/lambda/wss_relay
       environment: prod
-      outputs-bucket: pkc-archive-af2a18
       function-name: wss_relay
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   # Frontend Admin
   Frontend_Admin:
@@ -224,13 +158,10 @@ jobs:
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
-      region: us-east-1
       working-directory: frontend/react
       module: admin
       deploy: false
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
 
   # Frontend Users
@@ -239,11 +170,8 @@ jobs:
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
-      region: us-east-1
       working-directory: frontend/react
       module: users
       deploy: false
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}

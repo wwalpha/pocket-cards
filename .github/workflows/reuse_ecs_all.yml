@@ -7,9 +7,6 @@ on:
       environment:
         required: true
         type: string
-      region:
-        required: true
-        type: string
       working-directory:
         required: true
         type: string
@@ -36,19 +33,17 @@ on:
       ECS_WAIT_FOR_STABILITY:
         type: boolean
         default: false
-    # secrets
-    secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   BUILD:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
-      AWS_DEFAULT_REGION: ${{ inputs.region }}
+      AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
       WORKING_DIR: ${{ inputs.working-directory }}
       ECR_REPOSITORY: ${{ inputs.ECR_REPOSITORY }}
       ECS_CLUSTER_NAME: ${{ inputs.ECS_CLUSTER_NAME }}
@@ -56,6 +51,7 @@ jobs:
       ECS_TAKS_DEFINITION: ${{ inputs.ECS_TASK_DEF }}
       ECS_TAKS_DEFINITION_FILE: task_definition.json
       ECS_WAIT_FOR_STABILITY: ${{ inputs.ECS_WAIT_FOR_STABILITY }}
+      COVERAGE_BUCKET: ${{ vars.COVERAGE_BUCKET }}
       SSM_PARAMETER_NAME: /pkc/repository_url
     defaults:
       run:
@@ -81,9 +77,15 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          allowed-account-ids: ${{ vars.AWS_ACCOUNT_ID }}
+
+      # v4 does not support allowed-account-ids; enforce the account before AWS writes.
+      - name: Verify AWS account
+        env:
+          EXPECTED_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+        run: test "$(aws sts get-caller-identity --query Account --output text)" = "$EXPECTED_ACCOUNT_ID"
 
       # Unit Test
       - name: Unit Test
@@ -98,7 +100,7 @@ jobs:
       - name: Save Coverage Report
         if: ${{ inputs.save-coverage == true }}
         run: |
-          aws s3 cp ./coverage/lcov-report/ s3://pkc-frontend-376965/coverage/ --recursive --no-progress --only-show-errors
+          aws s3 cp ./coverage/lcov-report/ s3://$COVERAGE_BUCKET/coverage/ --recursive --no-progress --only-show-errors
 
       # ECR Login
       - name: Login to Amazon ECR

@@ -6,9 +6,6 @@ on:
       environment:
         required: true
         type: string
-      region:
-        required: true
-        type: string
       working-directory:
         required: true
         type: string
@@ -20,23 +17,25 @@ on:
         type: string
 
     secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
       TF_API_TOKEN:
         required: false
       TF_VARS:
-        required: true
+        required: false
+      TERRAFORM_VARS:
+        required: false
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   Apply:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
-      AWS_DEFAULT_REGION: ${{ inputs.region }}
+      AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
       TF_WORKSPACE: ${{ inputs.environment }}
-      TF_VARS: ${{ secrets.TF_VARS }}
+      TF_VARS: ${{ secrets.TERRAFORM_VARS || secrets.TF_VARS }}
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
@@ -50,9 +49,15 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          allowed-account-ids: ${{ vars.AWS_ACCOUNT_ID }}
+
+      # v4 does not support allowed-account-ids; enforce the account before AWS writes.
+      - name: Verify AWS account
+        env:
+          EXPECTED_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+        run: test "$(aws sts get-caller-identity --query Account --output text)" = "$EXPECTED_ACCOUNT_ID"
 
       # Install the latest version of Terraform CLI 
       - name: Setup Terraform

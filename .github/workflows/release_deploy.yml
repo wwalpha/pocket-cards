@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_DEFAULT_REGION: us-east-1
   WORKING_DIR_TERRAFORM: infrastructure/terraform
   WORKING_DIR_BACKEND: backend
   TF_WORKSPACE: prod
@@ -21,17 +20,18 @@ env:
   SSM_PARAMETER_NAME_ECR: /pkc/repository_url
   SSM_PARAMETER_NAME_FRONTEND: /pkc/frontend
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   # Terraform
   Terraform_Setup:
     uses: ./.github/workflows/reuse_terraform.yml
     with:
-      region: us-east-1
       working-directory: infrastructure/terraform/setup
       environment: prod
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
@@ -39,12 +39,9 @@ jobs:
     needs: Terraform_Setup
     uses: ./.github/workflows/reuse_terraform.yml
     with:
-      region: us-east-1
       working-directory: infrastructure/terraform/services
       environment: prod
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
@@ -52,12 +49,9 @@ jobs:
     needs: Terraform_Service
     uses: ./.github/workflows/reuse_terraform.yml
     with:
-      region: us-east-1
       working-directory: backend/terraform
       environment: prod
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
 
@@ -72,9 +66,15 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          allowed-account-ids: ${{ vars.AWS_ACCOUNT_ID }}
+
+      # v4 does not support allowed-account-ids; enforce the account before AWS writes.
+      - name: Verify AWS account
+        env:
+          EXPECTED_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+        run: test "$(aws sts get-caller-identity --query Account --output text)" = "$EXPECTED_ACCOUNT_ID"
 
       # Get ECS informations
       - name: Get ECS informations
@@ -115,9 +115,15 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          allowed-account-ids: ${{ vars.AWS_ACCOUNT_ID }}
+
+      # v4 does not support allowed-account-ids; enforce the account before AWS writes.
+      - name: Verify AWS account
+        env:
+          EXPECTED_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+        run: test "$(aws sts get-caller-identity --query Account --output text)" = "$EXPECTED_ACCOUNT_ID"
 
       # Get ECS informations
       - name: Get ECS informations
@@ -158,9 +164,15 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          allowed-account-ids: ${{ vars.AWS_ACCOUNT_ID }}
+
+      # v4 does not support allowed-account-ids; enforce the account before AWS writes.
+      - name: Verify AWS account
+        env:
+          EXPECTED_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+        run: test "$(aws sts get-caller-identity --query Account --output text)" = "$EXPECTED_ACCOUNT_ID"
 
       # Get ECS informations
       - name: Get ECS informations
@@ -195,13 +207,10 @@ jobs:
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
-      region: us-east-1
       working-directory: frontend/react
       module: admin
       deploy: true
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
 
   # Frontend Users
@@ -210,11 +219,8 @@ jobs:
     uses: ./.github/workflows/reuse_react.yml
     with:
       environment: prod
-      region: us-east-1
       working-directory: frontend/react
       module: users
       deploy: true
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
