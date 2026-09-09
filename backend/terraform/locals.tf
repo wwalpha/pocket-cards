@@ -106,7 +106,6 @@ locals {
   bucket_key_lambda_stop           = local.remote_services.bucket_key_lambda_stop
   bucket_key_lambda_status         = local.remote_services.bucket_key_lambda_status
   bucket_key_lambda_vision         = local.remote_services.bucket_key_lambda_vision
-  bucket_key_lambda_cognito        = local.remote_services.bucket_key_lambda_cognito
 
   # ----------------------------------------------------------------------------------------------
   # SSM

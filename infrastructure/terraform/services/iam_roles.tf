@@ -234,26 +234,6 @@ resource "aws_iam_role_policy_attachment" "authorizer_dynamodb" {
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS Lambda Role - Cognito
-# ----------------------------------------------------------------------------------------------
-resource "aws_iam_role" "cognito_post_signup" {
-  name               = "${local.project_name_uc}_Lambda_CognitoPostSignupRole"
-  assume_role_policy = data.aws_iam_policy_document.lambda.json
-
-  lifecycle {
-    create_before_destroy = false
-  }
-}
-
-# ----------------------------------------------------------------------------------------------
-# AWS Lambda Execution Policy - CloudWatch Full Access
-# ----------------------------------------------------------------------------------------------
-resource "aws_iam_role_policy_attachment" "cognito_post_signup_cloudwatch_logs" {
-  role       = aws_iam_role.cognito_post_signup.name
-  policy_arn = aws_iam_policy.cloudwatch_logs_basic.arn
-}
-
-# ----------------------------------------------------------------------------------------------
 # AWS ECS Task Role
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role" "ecs_task_users" {

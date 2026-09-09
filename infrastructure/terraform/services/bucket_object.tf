@@ -183,18 +183,3 @@ resource "aws_s3_object" "lambda_authorizer_v1" {
     ]
   }
 }
-
-# ----------------------------------------------------------------------------------------------
-# S3 Object - Lambda cognito module
-# ----------------------------------------------------------------------------------------------
-resource "aws_s3_object" "lambda_cognito" {
-  bucket = local.bucket_name_archive
-  key    = local.bucket_key_lambda_cognito
-  source = data.archive_file.lambda_default.output_path
-
-  lifecycle {
-    ignore_changes = [
-      etag
-    ]
-  }
-}

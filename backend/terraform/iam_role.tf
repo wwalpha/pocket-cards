@@ -1,16 +1,4 @@
 # ----------------------------------------------------------------------------------------------
-# AWS Lambda Role - Cognito
-# ----------------------------------------------------------------------------------------------
-resource "aws_iam_role" "cognito" {
-  name               = "${local.project_name_uc}_Lambda_CognitoRole"
-  assume_role_policy = data.aws_iam_policy_document.lambda.json
-
-  lifecycle {
-    create_before_destroy = false
-  }
-}
-
-# ----------------------------------------------------------------------------------------------
 # AWS Lambda Role - ECS Task Start
 # ----------------------------------------------------------------------------------------------
 resource "aws_iam_role" "ecs_task_start" {
@@ -273,7 +261,6 @@ resource "aws_iam_role_policy" "wss_relay_apigw" {
 
   policy = data.aws_iam_policy_document.wss_apigw.json
 }
-
 
 # ----------------------------------------------------------------------------------------------
 # AWS Lambda Role - Notify

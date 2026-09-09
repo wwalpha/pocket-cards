@@ -78,15 +78,10 @@ resource "aws_cognito_user_pool" "this" {
   # }
 
   # lambda_config {
-  #   post_confirmation = aws_lambda_function.cognito_post_signup.arn
-  # }
-
-  # lambda_config {
   #   create_auth_challenge          = var.create_auth_challenge
   #   custom_message                 = var.custom_message
   #   define_auth_challenge          = var.define_auth_challenge
   #   post_authentication            = var.post_authentication
-  #   post_confirmation              = var.post_confirmation
   #   pre_authentication             = var.pre_authentication
   #   pre_sign_up                    = var.pre_sign_up
   #   pre_token_generation           = var.pre_token_generation
@@ -324,10 +319,6 @@ resource "aws_cognito_user_pool" "admin" {
     require_uppercase                = true
     temporary_password_validity_days = 7
   }
-
-  # lambda_config {
-  #   post_confirmation = aws_lambda_function.cognito_post_signup.arn
-  # }
 
   lifecycle {
     ignore_changes = [

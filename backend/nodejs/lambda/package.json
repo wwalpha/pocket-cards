@@ -5,7 +5,6 @@
   "license": "MIT",
   "scripts": {
     "build": "run-p build:*",
-    "build:cognito": "cd cognito && yarn install && yarn build",
     "build:start": "cd start && yarn install && yarn build",
     "build:stop": "cd stop && yarn install && yarn build",
     "build:status": "cd status && yarn install && yarn build",
