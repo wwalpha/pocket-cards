@@ -2,8 +2,11 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "ES2018" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
-    "moduleResolution": "node",
-    "module": "CommonJS" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
+    "moduleResolution": "Bundler",
+    "types": ["node", "webpack-env"],
+    "rootDir": "../",
+    "resolvePackageJsonExports": false,
+    "module": "Preserve" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
     "importHelpers": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"] /* Specify library files to be included in the compilation. */,
     "allowJs": true /* Allow javascript files to be compiled. */,
@@ -36,8 +39,8 @@
     // "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
     /* Module Resolution Options */
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
-    "baseUrl": "./" /* Base directory to resolve non-absolute module names. */,
     "paths": {
+      "typings": ["./typings/index.d.ts"],
       "@domains": ["./src/domains/index"],
       "@actions": ["./src/actions/index"],
       "@actions/*": ["./src/actions/*"],
@@ -65,11 +68,6 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
-    "plugins": [
-      {
-        "transform": "typescript-transform-paths"
-      }
-    ],
     "useUnknownInCatchVariables": false
   },
   "include": ["src/**/*", "../utils"],

@@ -8,28 +8,29 @@
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "build:image": "docker build -t pkc/user_manager .",
     "start": "node index.js",
-    "test": "jest"
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@aws-sdk/types": "^3.272.0",
     "@types/express": "^4.17.13",
-    "@types/jest": "^27.4.1",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/lodash": "^4.14.169",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^15.3.0",
+    "@types/node": "^24.13.0",
     "@types/supertest": "^2.0.12",
     "aws-sdk-client-mock": "^2.0.1",
     "dotenv": "^16.0.0",
-    "jest": "^27.5.1",
+    "jest": "^29.7.0",
     "nodemon": "^2.0.7",
     "superagent": "^7.1.2",
     "supertest": "^6.2.2",
-    "ts-jest": "^27.1.4",
-    "ts-node": "^10.7.0",
-    "tsc-alias": "^1.6.6",
-    "tsconfig-paths": "^3.14.1",
-    "typescript": "^4.6.3"
+    "tsc-alias": "^1.9.4",
+    "typescript": "7.0.2",
+    "tsx": "^4.23.13",
+    "@swc/core": "^1.16.2",
+    "@swc/jest": "^0.2.39"
   },
   "dependencies": {
     "@alphax/dynamodb": "^1.2.13",
@@ -53,10 +54,13 @@
       "node_modules/*"
     ],
     "execMap": {
-      "ts": "ts-node -r dotenv/config -r tsconfig-paths/register"
+      "ts": "tsx --tsconfig ./tsconfig.json -r dotenv/config"
     },
     "events": {
       "crash": "sh -c 'lsof -i :${PORT:-8080} -t | xargs kill'"
     }
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

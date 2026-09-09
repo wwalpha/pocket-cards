@@ -3,7 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import * as path from 'path';
 import Dotenv from 'dotenv-webpack';
-import merge from 'webpack-merge';
+import { merge } from 'webpack-merge';
 import baseConfig from './webpack.base';
 
 const dev: Configuration = {

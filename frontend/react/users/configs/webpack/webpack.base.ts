@@ -1,7 +1,6 @@
 import * as path from 'path';
 import { Configuration, LoaderOptionsPlugin } from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 // const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin');
@@ -20,8 +19,10 @@ const configs: Configuration = {
   resolve: {
     mainFields: ['browser', 'main', 'module'],
     extensions: ['.ts', '.tsx', '.js'],
-    plugins: [new TsconfigPathsPlugin() as any],
+    tsconfig: path.resolve(__dirname, '../../tsconfig.json'),
     alias: {
+      // Shared ../utils/API.ts resolves constants from the consuming app.
+      '@constants': path.resolve(__dirname, '../../src/constants'),
       '@mui/base': '@mui/base/modern',
       '@mui/lab': '@mui/lab/modern',
       '@mui/material': '@mui/material/modern',
@@ -52,9 +53,10 @@ const configs: Configuration = {
             },
           },
           {
-            loader: 'ts-loader',
+            loader: 'esbuild-loader',
             options: {
-              transpileOnly: true,
+              target: 'es2018',
+              tsconfig: path.resolve(__dirname, '../../tsconfig.json'),
             },
           },
         ],

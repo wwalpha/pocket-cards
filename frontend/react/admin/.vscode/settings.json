@@ -19,6 +19,5 @@
     "titleBar.inactiveForeground": "#e7e7e799",
     "commandCenter.border": "#e7e7e799"
   },
-  "peacock.remoteColor": "#00b3e6",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "peacock.remoteColor": "#00b3e6"
 }

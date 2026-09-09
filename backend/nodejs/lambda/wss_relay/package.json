@@ -6,7 +6,8 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "tsc",
-    "postbuild": "cd dist && yarn install --production && zip -rq ../dist.zip ."
+    "postbuild": "cd dist && yarn install --production && zip -rq ../dist.zip .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@aws-sdk/client-apigatewaymanagementapi": "^3.567.0",
@@ -15,8 +16,10 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.103",
-    "@types/node": "^20.12.8",
-    "ts-node": "^10.1.0",
-    "typescript": "^5.4.5"
+    "@types/node": "^24.13.0",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }
