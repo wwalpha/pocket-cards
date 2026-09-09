@@ -1,5 +1,5 @@
 # Build Stage
-FROM node:20-alpine as build
+FROM node:24-alpine as build
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ RUN yarn install
 RUN yarn build
 
 # Release Stage
-FROM node:20-alpine
+FROM node:24-alpine
 WORKDIR /app
 
 COPY --from=build /app/build .
