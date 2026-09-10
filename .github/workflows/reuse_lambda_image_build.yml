@@ -1,0 +1,92 @@
+name: COM) Lambda Container Image Build
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      BASE_ECR_REPOSITORY:
+        required: true
+        type: string
+      LAMBDA_ECR_REPOSITORY:
+        required: true
+        type: string
+      LAMBDA_SERVICE_NAME:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  LAMBDA_IMAGE_BUILD:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
+      BASE_ECR_REPOSITORY: ${{ inputs.BASE_ECR_REPOSITORY }}
+      LAMBDA_ECR_REPOSITORY: ${{ inputs.LAMBDA_ECR_REPOSITORY }}
+      LAMBDA_SERVICE_NAME: ${{ inputs.LAMBDA_SERVICE_NAME }}
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          allowed-account-ids: ${{ vars.AWS_ACCOUNT_ID }}
+
+      # v4 does not support allowed-account-ids; enforce the account before AWS writes.
+      - name: Verify AWS account
+        env:
+          EXPECTED_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+        run: test "$(aws sts get-caller-identity --query Account --output text)" = "$EXPECTED_ACCOUNT_ID"
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Lambda image, then record its digest
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          set -euo pipefail
+          case "$LAMBDA_SERVICE_NAME" in
+            backend|auth|users) ;;
+            *) echo "Unsupported Lambda service: $LAMBDA_SERVICE_NAME" >&2; exit 1 ;;
+          esac
+
+          BASE_IMAGE="$ECR_REGISTRY/$BASE_ECR_REPOSITORY:$GITHUB_SHA"
+          IMAGE_URI="$ECR_REGISTRY/$LAMBDA_ECR_REPOSITORY"
+
+          # Inherit the ECS image's yarn start command; only add the Web Adapter.
+          # A single architecture and no provenance index are required by Lambda.
+          docker build --pull --platform linux/amd64 --provenance=false \
+            --build-arg "BASE_IMAGE=$BASE_IMAGE" \
+            --tag "$IMAGE_URI:$GITHUB_SHA" \
+            --tag "$IMAGE_URI:latest" \
+            - < backend/nodejs/Dockerfile.lambda
+          docker push "$IMAGE_URI:$GITHUB_SHA"
+          docker push "$IMAGE_URI:latest"
+
+          DIGEST=$(aws ecr describe-images \
+            --repository-name "$LAMBDA_ECR_REPOSITORY" \
+            --image-ids "imageTag=$GITHUB_SHA" \
+            --query 'imageDetails[0].imageDigest' \
+            --output text)
+          if [[ ! "$DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+            echo "ECR did not return a valid image digest" >&2
+            exit 1
+          fi
+
+          aws ssm put-parameter \
+            --name "/pkc/repository_url/lambda/$LAMBDA_SERVICE_NAME" \
+            --type String --value "$IMAGE_URI@$DIGEST" --overwrite

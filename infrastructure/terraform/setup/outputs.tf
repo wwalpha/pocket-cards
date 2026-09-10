@@ -222,3 +222,28 @@ output "timestream_database_name" {
 output "timestream_table_traces" {
   value = aws_timestreamwrite_table.traces.table_name
 }
+
+# Lambda-only repositories and image parameters.
+output "repo_url_backend_lambda" {
+  value = aws_ecr_repository.lambda["backend"].repository_url
+}
+
+output "repo_url_auth_lambda" {
+  value = aws_ecr_repository.lambda["auth"].repository_url
+}
+
+output "repo_url_users_lambda" {
+  value = aws_ecr_repository.lambda["users"].repository_url
+}
+
+output "ssm_repo_url_backend_lambda" {
+  value = aws_ssm_parameter.repo_url_lambda["backend"].name
+}
+
+output "ssm_repo_url_auth_lambda" {
+  value = aws_ssm_parameter.repo_url_lambda["auth"].name
+}
+
+output "ssm_repo_url_users_lambda" {
+  value = aws_ssm_parameter.repo_url_lambda["users"].name
+}

@@ -118,6 +118,10 @@ locals {
   ssm_vision_api_key      = local.remote_setup.ssm_vision_api_key
   ssm_repo_url_batch      = local.remote_setup.ssm_repo_url_batch
 
+  ssm_repo_url_backend_lambda = local.remote_setup.ssm_repo_url_backend_lambda
+  ssm_repo_url_auth_lambda    = local.remote_setup.ssm_repo_url_auth_lambda
+  ssm_repo_url_users_lambda   = local.remote_setup.ssm_repo_url_users_lambda
+
   # ----------------------------------------------------------------------------------------------
   # Cognito
   # ----------------------------------------------------------------------------------------------
@@ -249,4 +253,16 @@ data "aws_ssm_parameter" "vision_api_key" {
 # ----------------------------------------------------------------------------------------------
 data "aws_ssm_parameter" "repo_url_batch" {
   name = local.ssm_repo_url_batch
+}
+
+data "aws_ssm_parameter" "repo_url_backend_lambda" {
+  name = local.ssm_repo_url_backend_lambda
+}
+
+data "aws_ssm_parameter" "repo_url_auth_lambda" {
+  name = local.ssm_repo_url_auth_lambda
+}
+
+data "aws_ssm_parameter" "repo_url_users_lambda" {
+  name = local.ssm_repo_url_users_lambda
 }

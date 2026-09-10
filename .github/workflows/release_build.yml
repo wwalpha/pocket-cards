@@ -79,6 +79,40 @@ jobs:
       ECS_SERVICE_NAME: user_manager
       ECR_REPOSITORY: pkc/users
 
+  # Lambda Container Images (the base image is the same commit's ECS image)
+  Lambda_Backend_Image:
+    needs:
+      - Terraform_Setup
+      - Backend
+    uses: ./.github/workflows/reuse_lambda_image_build.yml
+    with:
+      environment: prod
+      BASE_ECR_REPOSITORY: pkc/backend
+      LAMBDA_ECR_REPOSITORY: pkc/backend-lambda
+      LAMBDA_SERVICE_NAME: backend
+
+  Lambda_Auth_Image:
+    needs:
+      - Terraform_Setup
+      - Auth_Manager
+    uses: ./.github/workflows/reuse_lambda_image_build.yml
+    with:
+      environment: prod
+      BASE_ECR_REPOSITORY: pkc/auth
+      LAMBDA_ECR_REPOSITORY: pkc/auth-lambda
+      LAMBDA_SERVICE_NAME: auth
+
+  Lambda_Users_Image:
+    needs:
+      - Terraform_Setup
+      - Users_Manager
+    uses: ./.github/workflows/reuse_lambda_image_build.yml
+    with:
+      environment: prod
+      BASE_ECR_REPOSITORY: pkc/users
+      LAMBDA_ECR_REPOSITORY: pkc/users-lambda
+      LAMBDA_SERVICE_NAME: users
+
   # Lambda
   Lambda_AuthorizerV1:
     needs: Terraform_Setup

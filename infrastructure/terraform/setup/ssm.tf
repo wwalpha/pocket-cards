@@ -121,3 +121,16 @@ resource "aws_ssm_parameter" "repo_url_auth" {
     ]
   }
 }
+
+# GitHub Actions replaces the initial tag with the pushed Lambda image digest.
+resource "aws_ssm_parameter" "repo_url_lambda" {
+  for_each = aws_ecr_repository.lambda
+
+  name  = "/${var.project_name}/repository_url/lambda/${each.key}"
+  type  = "String"
+  value = "${each.value.repository_url}:latest"
+
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
