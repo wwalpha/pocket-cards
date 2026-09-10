@@ -81,6 +81,7 @@ jobs:
         uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: 1.5.5
+          terraform_wrapper: false
 
       # Terraform execution
       - name: Initialize Terraform
@@ -98,3 +99,10 @@ jobs:
       - name: Apply Terraform
         if: inputs.apply
         run: terraform apply "terraform"
+
+      - name: Upload default Lambda images
+        if: inputs.apply && inputs.working-directory == 'infrastructure/terraform/setup'
+        env:
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+        run: bash scripts/bootstrap_lambda_images.sh

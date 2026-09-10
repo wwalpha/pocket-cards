@@ -43,6 +43,7 @@ jobs:
 
   # Backend
   Backend:
+    needs: Terraform_Setup
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
       working-directory: backend/nodejs/core
@@ -53,6 +54,7 @@ jobs:
 
   # Batch
   Batch:
+    needs: Terraform_Setup
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
       working-directory: backend/nodejs/batch
@@ -63,6 +65,7 @@ jobs:
 
   # Auth Manager
   Auth_Manager:
+    needs: Terraform_Setup
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
       working-directory: backend/nodejs/auth_manager
@@ -72,6 +75,7 @@ jobs:
 
   # Users Manager
   Users_Manager:
+    needs: Terraform_Setup
     uses: ./.github/workflows/reuse_ecs_build.yml
     with:
       working-directory: backend/nodejs/user_manager

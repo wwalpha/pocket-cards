@@ -78,9 +78,10 @@ resource "aws_ssm_parameter" "repo_url_backend" {
 # SSM Parameter Store - Repository URL (Batch)
 # ----------------------------------------------------------------------------------------------
 resource "aws_ssm_parameter" "repo_url_batch" {
+  # Setup uploads a Lambda-compatible image; m_ecr's latest is the ECS demo.
   name      = "/${var.project_name}/repository_url/batch"
   type      = "String"
-  value     = "${module.ecr_repo_batch.repository_url}:latest"
+  value     = "${module.ecr_repo_batch.repository_url}:bootstrap"
   overwrite = true
 
   lifecycle {
