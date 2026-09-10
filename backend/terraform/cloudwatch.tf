@@ -6,7 +6,7 @@ resource "aws_cloudwatch_event_rule" "this" {
   description = "Scheduled batch"
 
   schedule_expression = "cron(0 16 * * ? *)"
-  is_enabled          = local.is_dev ? false : true
+  state               = local.is_dev ? "DISABLED" : "ENABLED"
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ resource "aws_lambda_permission" "this" {
 resource "aws_cloudwatch_event_rule" "startat_2000" {
   name                = "${local.project_name}-ecs-start-at-2100"
   schedule_expression = "cron(0 12 * * ? *)"
-  is_enabled          = local.is_dev ? false : true
+  state               = local.is_dev ? "DISABLED" : "ENABLED"
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ resource "aws_lambda_permission" "startat_2000" {
 resource "aws_cloudwatch_event_rule" "stopat_2400" {
   name                = "${local.project_name}-ecs-stop-at-2400"
   schedule_expression = "cron(0 15 * * ? *)"
-  is_enabled          = local.is_dev ? false : true
+  state               = local.is_dev ? "DISABLED" : "ENABLED"
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -98,8 +98,8 @@ resource "aws_lambda_permission" "stopat_2400" {
 # AWS CloudWatch Event Rule - ECS Task Start Failure
 # ----------------------------------------------------------------------------------------------
 resource "aws_cloudwatch_event_rule" "ecs_task_start_failure" {
-  name       = "${local.project_name}-ecs-task-failure"
-  is_enabled = local.is_dev ? false : true
+  name  = "${local.project_name}-ecs-task-failure"
+  state = local.is_dev ? "DISABLED" : "ENABLED"
 
   event_pattern = <<EOF
 {
