@@ -12,6 +12,10 @@ on:
       working-directory:
         required: true
         type: string
+      upload:
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -41,6 +45,7 @@ jobs:
 
       # AWS Credentials
       - name: Configure AWS credentials
+        if: inputs.upload
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
@@ -49,6 +54,7 @@ jobs:
 
       # v4 does not support allowed-account-ids; enforce the account before AWS writes.
       - name: Verify AWS account
+        if: inputs.upload
         env:
           EXPECTED_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
         run: test "$(aws sts get-caller-identity --query Account --output text)" = "$EXPECTED_ACCOUNT_ID"
@@ -58,4 +64,7 @@ jobs:
         run: |
           yarn install
           yarn build
-          aws s3 cp dist.zip s3://$S3_BUCKET/lambda_modules/$FUNCTION_NAME.zip
+
+      - name: Upload Lambda package
+        if: inputs.upload
+        run: aws s3 cp dist.zip s3://$S3_BUCKET/lambda_modules/$FUNCTION_NAME.zip

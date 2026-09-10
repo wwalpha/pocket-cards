@@ -1,0 +1,23 @@
+name: PUSH_B) batch CI
+
+on:
+  push:
+    branches-ignore:
+      - releases/**
+    paths:
+      - 'backend/nodejs/batch/**'
+      - 'backend/nodejs/*'
+      - 'backend/nodejs/typings/**'
+      - 'package.json'
+      - 'yarn.lock'
+      - '.nvmrc'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+
+jobs:
+  Batch:
+    uses: ./.github/workflows/reuse_build_ci.yml
+    with:
+      working-directory: backend/nodejs/batch

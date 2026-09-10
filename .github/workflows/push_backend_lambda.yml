@@ -1,0 +1,42 @@
+name: PUSH_B) Lambda CI
+
+on:
+  push:
+    branches-ignore:
+      - releases/**
+    paths:
+      - 'backend/nodejs/lambda/**'
+      - 'backend/nodejs/*'
+      - 'backend/nodejs/typings/**'
+      - 'package.json'
+      - 'yarn.lock'
+      - '.nvmrc'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  Build:
+    strategy:
+      fail-fast: false
+      matrix:
+        function:
+          - authorizer_v1
+          - authorizer_v2
+          - notify
+          - start
+          - status
+          - stop
+          - vision
+          - wss_commands
+          - wss_connect
+          - wss_disconnect
+          - wss_relay
+    uses: ./.github/workflows/reuse_lambda.yml
+    with:
+      environment: dev
+      working-directory: backend/nodejs/lambda/${{ matrix.function }}
+      function-name: ${{ matrix.function }}
+      upload: false

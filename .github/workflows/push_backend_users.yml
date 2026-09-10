@@ -1,0 +1,23 @@
+name: PUSH_B) user_manager CI
+
+on:
+  push:
+    branches-ignore:
+      - releases/**
+    paths:
+      - 'backend/nodejs/user_manager/**'
+      - 'backend/nodejs/*'
+      - 'backend/nodejs/typings/**'
+      - 'package.json'
+      - 'yarn.lock'
+      - '.nvmrc'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+
+jobs:
+  UserManager:
+    uses: ./.github/workflows/reuse_build_ci.yml
+    with:
+      working-directory: backend/nodejs/user_manager

@@ -1,0 +1,32 @@
+name: PUSH_T) Terraform Plan
+
+on:
+  push:
+    branches-ignore:
+      - releases/**
+    paths:
+      - 'infrastructure/terraform/**'
+      - 'backend/terraform/**'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  Plan:
+    strategy:
+      fail-fast: false
+      matrix:
+        directory:
+          - infrastructure/terraform/setup
+          - infrastructure/terraform/services
+          - backend/terraform
+    uses: ./.github/workflows/reuse_terraform.yml
+    with:
+      environment: dev
+      working-directory: ${{ matrix.directory }}
+      apply: false
+    secrets:
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_VARS: ${{ secrets.TERRAFORM_VARS }}

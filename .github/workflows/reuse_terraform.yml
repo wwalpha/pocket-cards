@@ -15,6 +15,10 @@ on:
       vpc_subnets:
         required: false
         type: string
+      apply:
+        required: false
+        type: boolean
+        default: true
 
     secrets:
       TF_API_TOKEN:
@@ -66,9 +70,18 @@ jobs:
           terraform_version: 1.5.5
 
       # Terraform execution
-      - name: Apply Terraform 
+      - name: Initialize Terraform
         run: |
           echo $TF_VARS > local.auto.tfvars.json
           terraform init
-          terraform plan -out=terraform -compact-warnings
-          terraform apply "terraform"
+
+      - name: Validate Terraform
+        if: ${{ !inputs.apply }}
+        run: terraform validate
+
+      - name: Plan Terraform
+        run: terraform plan -out=terraform -compact-warnings
+
+      - name: Apply Terraform
+        if: inputs.apply
+        run: terraform apply "terraform"

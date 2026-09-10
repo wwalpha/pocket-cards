@@ -1,0 +1,28 @@
+name: PUSH_F) users CI
+
+on:
+  push:
+    branches-ignore:
+      - releases/**
+    paths:
+      - 'frontend/react/**'
+      - '!frontend/react/admin/**'
+      - 'package.json'
+      - 'yarn.lock'
+      - '.nvmrc'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  Build:
+    uses: ./.github/workflows/reuse_react.yml
+    with:
+      environment: dev
+      working-directory: frontend/react
+      module: users
+      deploy: false
+    secrets:
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
