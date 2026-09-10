@@ -57,14 +57,27 @@ jobs:
           yarn build
 
       # AWS Credentials
+      - name: Validate AWS environment variables
+        shell: bash
+        env:
+          AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+        run: |
+          for variable in AWS_ROLE_ARN AWS_REGION AWS_ACCOUNT_ID; do
+            if [ -z "${!variable}" ]; then
+              echo "::error::GitHub Environment variable $variable is not configured"
+              exit 1
+            fi
+          done
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
-          allowed-account-ids: ${{ vars.AWS_ACCOUNT_ID }}
 
-      # v4 does not support allowed-account-ids; enforce the account before AWS writes.
+      # Enforce the account before AWS writes.
       - name: Verify AWS account
         env:
           EXPECTED_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
