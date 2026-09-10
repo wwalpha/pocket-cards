@@ -14,19 +14,34 @@ permissions:
   id-token: write
 
 jobs:
-  Plan:
-    strategy:
-      fail-fast: false
-      matrix:
-        directory:
-          - infrastructure/terraform/setup
-          - infrastructure/terraform/services
-          - backend/terraform
+  Terraform_Setup:
     uses: ./.github/workflows/reuse_terraform.yml
     with:
       environment: dev
-      working-directory: ${{ matrix.directory }}
-      apply: false
+      working-directory: infrastructure/terraform/setup
+      apply: true
+    secrets:
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_VARS: ${{ secrets.TERRAFORM_VARS }}
+
+  Terraform_Service:
+    needs: Terraform_Setup
+    uses: ./.github/workflows/reuse_terraform.yml
+    with:
+      environment: dev
+      working-directory: infrastructure/terraform/services
+      apply: true
+    secrets:
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_VARS: ${{ secrets.TERRAFORM_VARS }}
+
+  Terraform_Backend:
+    needs: Terraform_Service
+    uses: ./.github/workflows/reuse_terraform.yml
+    with:
+      environment: dev
+      working-directory: backend/terraform
+      apply: true
     secrets:
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
       TF_VARS: ${{ secrets.TERRAFORM_VARS }}
